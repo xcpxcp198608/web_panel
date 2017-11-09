@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.AuthAdminDao">
+    <resultMap type="com.wiatec.panel.oxm.pojo.AuthAdminInfo" id="authAdminInfo">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="permission" property="permission"/>
+    </resultMap>
+
+    <sql id="select">SELECT id, username, password, permission FROM auth_admin</sql>
+
+    <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthAdminInfo">
+        SELECT COUNT(*) FROM auth_admin WHERE username=#{username} AND password=#{password}
+    </select>
+
+    <select id="selectOne" resultMap="authAdminInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthAdminInfo">
+        <include refid="select"/>
+        WHERE username=#{username}
+    </select>
+
+</mapper>

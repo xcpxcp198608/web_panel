@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.CommissionCategoryDao">
+    <resultMap type="com.wiatec.panel.oxm.pojo.CommissionCategoryInfo" id="commissionCategoryInfo">
+        <id column="id" property="id"/>
+        <result column="category" property="category"/>
+        <result column="deposit" property="deposit"/>
+        <result column="ldCommission" property="ldCommission"/>
+        <result column="dealerCommission" property="dealerCommission"/>
+        <result column="salesCommission" property="salesCommission"/>
+    </resultMap>
+
+    <sql id="select">SELECT id, category, deposit, ldCommission, dealerCommission,
+                         salesCommission FROM commission_category</sql>
+
+    <select id="selectAll" resultMap="commissionCategoryInfo">
+        <include refid="select"/>
+    </select>
+
+</mapper>
