@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData">
+    <serverData>
+      <paths name="wiatec-216.244.85.34">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/panel/web" local="$PROJECT_DIR$/build/libs/exploded/panel-1.0-SNAPSHOT.war" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

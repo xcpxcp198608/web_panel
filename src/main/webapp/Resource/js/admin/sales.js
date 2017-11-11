@@ -317,6 +317,7 @@ $(function () {
                     pwdInput.setAttribute('type', 'text');
                     pwdInput.setAttribute('value', authSalesInfo.password);
                     pwdInput.setAttribute('title', 'pwd');
+                    pwdInput.setAttribute('size', '12');
                     tdObj.append(pwdInput);
                     break;
                 case 4:

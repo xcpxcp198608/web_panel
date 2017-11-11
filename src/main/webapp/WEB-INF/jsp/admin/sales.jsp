@@ -71,7 +71,7 @@
     <div style="clear: both; margin-top: 5px; box-shadow: 0 0 5px #000;">
         <table class="table table-bordered table-hover table-striped table-condensed"
                id="tbSales">
-            <thead style="background-color: #566778; color: #bbb">
+            <thead style="background-color: #566778;">
             <tr id="trSales">
                 <th></th>
                 <th>#</th>
@@ -93,7 +93,7 @@
                     <td><input type="radio" name="update" value="${authSalesInfo.id}" currentRow="${status.index}"></td>
                     <td>${status.index+1}</td>
                     <td>${authSalesInfo.username}</td>
-                    <td><input type="text" value="${authSalesInfo.password}" title="pwd"/></td>
+                    <td><input type="text" value="${authSalesInfo.password}" title="pwd" size="12"/></td>
                     <td>${authSalesInfo.firstName}</td>
                     <td>${authSalesInfo.lastName}</td>
                     <td>
