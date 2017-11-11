@@ -9,8 +9,10 @@ public class AuthSalesInfo {
     private String password;
     private String firstName;
     private String lastName;
+    private int ssn;
     private String email;
     private String phone;
+    private String createTime;
 
     private List<AuthRentUserInfo> authRentUserInfoList;
 
@@ -62,6 +64,14 @@ public class AuthSalesInfo {
         this.lastName = lastName;
     }
 
+    public int getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(int ssn) {
+        this.ssn = ssn;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -76,6 +86,14 @@ public class AuthSalesInfo {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public List<AuthRentUserInfo> getAuthRentUserInfoList() {
@@ -94,8 +112,10 @@ public class AuthSalesInfo {
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", ssn=" + ssn +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", createTime='" + createTime + '\'' +
                 ", authRentUserInfoList=" + authRentUserInfoList +
                 '}';
     }

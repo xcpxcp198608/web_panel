@@ -1,10 +1,16 @@
 $(function () {
 
+    var tbOrders = $('#tbOrders').get(0).tBodies[0];
+    var trTotal = $('#trTotal').get(0);
+    var rowsLength = tbOrders.rows.length;
+
     var now = new Date();
     var currentYear = now.getFullYear();
     var currentMonth = now.getMonth() + 1;
 
     setYearAndMonth();
+    showCurrentTotalInfoOfTableOrders();
+
     function setYearAndMonth() {
         $('#aYear').html(currentYear);
         if(currentMonth < 10){
@@ -106,7 +112,7 @@ $(function () {
     var yearIncomeData = [];
     var yearIncomeChartOption = {
         title: {
-            text: 'Year',
+            text: 'Year income',
             textStyle:{
                 color: '#7c9f97'
             }
@@ -286,7 +292,7 @@ $(function () {
 
     var monthIncomeChartOption = {
         title: {
-            text: 'Month',
+            text: 'Month details',
             textStyle:{
                 color: '#7c9f97'
             }
@@ -383,16 +389,16 @@ $(function () {
      */
     getOrdersByMonth(currentYear, currentMonth);
     function getOrdersByMonth(year, month) {
-        var url = baseUrl + "/admin/commission/" + year + "/" + month;
+        var url = baseUrl + "/admin/orders/" + year + "/" + month;
         $('#btPreviousMonth').attr('disabled', 'disabled');
         $('#btNextMonth').attr('disabled', 'disabled');
         $.post(url,{ },function(response, status){
             if(status !== 'success'){
-                showErrorNotice('communication error');
+                showNotice('communication error');
                 return;
             }
             if(response.code !== 200){
-                showErrorNotice('response.message');
+                showNotice('response.message');
                 return;
             }
             var orderLists = response.dataList;
@@ -439,7 +445,7 @@ $(function () {
                             totalMonthSalesCommission += n;
                             break;
                     }
-                    tdObj2.innerHTML = n;
+                    tdObj2.innerHTML = n.toFixed(2);
                     tdObj2.setAttribute('class', 'tdRows12');
                     tbIncome.rows[j].append(tdObj2);
                 }
@@ -514,6 +520,112 @@ $(function () {
                 tbIncome.rows[k].removeChild(tbIncome.rows[k].lastChild);
             }
         }
+    }
+
+    /**
+     * search of table orders & search input key up event listener
+     */
+    $('#ipSearch').keyup(function () {
+        var key = $(this).val().toLowerCase();
+        if(key.length <= 0){
+            showAllRowsOfOrdersTable();
+            return;
+        }
+        for(var i = 0; i < rowsLength; i ++){
+            for(var j = 1; j < 4; j ++){
+                var content = tbOrders.rows[i].cells[j].innerHTML.toLowerCase();
+                if(content.search(key) >= 0){
+                    tbOrders.rows[i].style.display = '';
+                    break;
+                }else{
+                    tbOrders.rows[i].style.display = 'none';
+                }
+            }
+        }
+        showCurrentTotalInfoOfTableOrders();
+    });
+
+    /**
+     * date picker change event
+     */
+    $('#ipDate').change(function () {
+        var key = $(this).val().length >0 ? $(this).val().substring(0, 7) : '';
+        selectChangeListener(key, 9);
+    });
+
+    /**
+     * select of plan change event
+     */
+    $('#sePlan').change(function () {
+        selectChangeListener($(this).val(), 10);
+    });
+
+    /**
+     * select of type change event
+     */
+    $('#seType').change(function () {
+        selectChangeListener($(this).val(), 11);
+    });
+
+    /**
+     * select change event listener
+     * @param key
+     * @param cellIndex
+     */
+    function selectChangeListener(key, cellIndex) {
+        if(key.length >0){
+            for(var i =0 ; i < rowsLength; i ++){
+                var currentStatus = tbOrders.rows[i].style.display;
+                if(currentStatus !== 'none') {
+                    if (tbOrders.rows[i].cells[cellIndex].innerHTML.search(key) >= 0) {
+                        tbOrders.rows[i].style.display = "";
+                    } else {
+                        tbOrders.rows[i].style.display = "none";
+                    }
+                }
+            }
+        }else{
+            showAllRowsOfOrdersTable();
+        }
+        showCurrentTotalInfoOfTableOrders();
+    }
+
+    /**
+     * show all rows of table orders
+     */
+    function showAllRowsOfOrdersTable(){
+        for(var i =0 ; i < rowsLength; i ++){
+            tbOrders.rows[i].style.display = "";
+        }
+    }
+
+    /**
+     * show current visible count of table orders
+     */
+    function showCurrentTotalInfoOfTableOrders() {
+        var count = 0;
+        var totalPrice = 0;
+        var totalDeposit = 0;
+        var totalLdCommission = 0;
+        var totalDealerCommission = 0;
+        var totalSalesCommission = 0;
+        for(var i =0 ; i < rowsLength; i ++){
+            var status = tbOrders.rows[i].style.display;
+            if(status !== 'none'){
+                count ++;
+                totalPrice += parseFloat(tbOrders.rows[i].cells[4].innerHTML);
+                totalDeposit += parseFloat(tbOrders.rows[i].cells[5].innerHTML);
+                totalLdCommission += parseFloat(tbOrders.rows[i].cells[6].innerHTML);
+                totalDealerCommission += parseFloat(tbOrders.rows[i].cells[7].innerHTML);
+                totalSalesCommission += parseFloat(tbOrders.rows[i].cells[8].innerHTML);
+            }
+        }
+        trTotal.cells[0].innerHTML = count;
+        trTotal.cells[1].innerHTML = totalPrice.toFixed(2);
+        trTotal.cells[2].innerHTML = totalDeposit.toFixed(2);
+        trTotal.cells[3].innerHTML = totalLdCommission.toFixed(2);
+        trTotal.cells[4].innerHTML = totalDealerCommission.toFixed(2);
+        trTotal.cells[5].innerHTML = totalSalesCommission.toFixed(2);
     }
 
 });

@@ -60,3 +60,6 @@ body, div, ul, li ,p ,a ,span, form{
 .tdRows8 { font-size: 8px}
 .tdRows10 { font-size: 10px}
 .tdRows12 { font-size: 12px}
+.tdRows14 { font-size: 14px}
+
+.redFont {color: red}

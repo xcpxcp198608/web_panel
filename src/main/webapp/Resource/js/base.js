@@ -21,13 +21,29 @@ $(function () {
 
 });
 
-function showErrorNotice(message) {
+function showLoading() {
+    loading.css('display', 'block')
+}
+
+function hideLoading() {
+    loading.css('display', 'none')
+}
+
+function showDetail() {
+    dDetails.css('display', 'block')
+}
+
+function hideDetail() {
+    dDetails.css('display', 'none');
+}
+
+function showNotice(message) {
     noticeMessage.html(message);
     dNotice.css('display', 'block');
     setTimeout(function(){
         noticeMessage.html("");
         dNotice.css('display', 'none');
-    },2000);
+    }, 1500);
 }
 
 function getDaysOfCurrentMonth() {
@@ -41,4 +57,9 @@ function getDaysOfCurrentMonth() {
 function getDaysOfYearAndMonth(year, month) {
     var d = new Date(year, month, 0);
     return d.getDate();
+}
+
+function validateEmail(email) {
+    var regExp = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-_.])+[A-Za-z\d]{2,5}$/gi;
+    return regExp.test(email);
 }

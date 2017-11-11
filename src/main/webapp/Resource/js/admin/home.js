@@ -162,7 +162,7 @@ $(function () {
     getMonthOrders(currentYear, currentMonth);
     function getMonthOrders(year, month) {
         var days = getDaysOfYearAndMonth(year, month);
-        var url = baseUrl + "/admin/commission/" + year + "/" + month;
+        var url = baseUrl + "/admin/orders/" + year + "/" + month;
         $('#btPreviousMonth').attr('disabled', 'disabled');
         $('#btNextMonth').attr('disabled', 'disabled');
         $('#homeLoading').css('display', 'block');
@@ -263,7 +263,6 @@ $(function () {
         monthData['b1Data'] = b1Data;
         monthData['p1Data'] = p1Data;
         monthData['p2Data'] = p2Data;
-        console.log(monthData);
         return monthData;
     }
 

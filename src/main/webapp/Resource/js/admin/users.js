@@ -5,15 +5,18 @@ $(function () {
     var rowsLength = tBody.rows.length;
 
     showTotalCount();
-
     for(var i = 0; i < rowsLength; i ++){
         tBody.rows[i].cells[9].onclick = function(){
             var key = this.parentNode.cells[1].innerHTML;
-            getUserInfoByKey(key)
+            getUserDetailInfoByKey(key)
         }
     }
 
-    function getUserInfoByKey(key) {
+    /**
+     * show user details
+     * @param key
+     */
+    function getUserDetailInfoByKey(key) {
         var url = baseUrl + "/admin/user/" + key;
         loading.css('display', 'block');
         $.post(url,{}, function (response, status) {
@@ -35,7 +38,7 @@ $(function () {
                 tDetailsBody.rows[13].cells[1].innerHTML = response['lastOnLineTime'];
                 dDetails.css('display', 'block')
             }else{
-                showErrorNotice('communication error')
+                showNotice('communication error')
             }
         })
     }
@@ -79,30 +82,17 @@ $(function () {
 
 
     $('#seCategory').change(function () {
-        var key = $(this).val();
-        if(key.length >0){
-            for(var i =0 ; i < rowsLength; i ++){
-                if(tBody.rows[i].cells[7].innerHTML === key){
-                    tBody.rows[i].style.display = "";
-                }else{
-                    tBody.rows[i].style.display = "none";
-                }
-            }
-        }else{
-            showAllRows();
-        }
-        showTotalCount()
+        selectChangeListener($(this).val(), 7);
     });
 
     $('#seStatus').change(function () {
-        sortBySelection($(this), 8)
+        selectChangeListener($(this).val(), 8);
     });
 
-    function sortBySelection(obj, index) {
-        var key = obj.val();
+    function selectChangeListener(key, cellIndex) {
         if(key.length >0){
             for(var i =0 ; i < rowsLength; i ++){
-                if(tBody.rows[i].cells[index].innerHTML === key){
+                if(tBody.rows[i].cells[cellIndex].innerHTML === key){
                     tBody.rows[i].style.display = "";
                 }else{
                     tBody.rows[i].style.display = "none";
@@ -113,5 +103,6 @@ $(function () {
         }
         showTotalCount()
     }
+
 
 });

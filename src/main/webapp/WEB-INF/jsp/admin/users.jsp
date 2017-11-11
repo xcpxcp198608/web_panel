@@ -45,7 +45,7 @@
         </div>
         <div style="width: 10%; display: block; float: right; font-size: 18px; font-weight: 500;
             text-align: right; align-content: center">
-            <span style="color: #008500; height: 100%; line-height: 100%">1</span>
+            <span style="color: #008500; height: 100%; line-height: 100%">0</span>
             /
             <span id="spTotalCount" style="height: 100%; line-height: 100%">2</span>
         </div>

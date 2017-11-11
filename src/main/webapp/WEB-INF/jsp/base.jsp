@@ -69,10 +69,10 @@
         </div>
     </div>
 
-    <div id="details" style="width: 100%; height: 100%; z-index: 1002; position: absolute; left: 0;
+    <div id="details" style="width: 100%; height: 100%; z-index: 999; position: absolute; left: 0;
         top: 0; background-color: rgba(0,0,0,0.3); display: none; ">
         <div style="width: 50%; height: 460px; margin: 150px auto; background-color: #2c343c;
-            box-shadow: 0 0 5px #0a148f">
+            box-shadow: 0 0 5px #000">
             <span class="glyphicon glyphicon-remove" aria-hidden="true" id="closeDetails"
                   style="float: right; color: whitesmoke; margin: 10px; font-size: 20px; cursor: pointer"></span>
             <div style="margin: 30px; height: 400px; overflow: scroll; clear: both">

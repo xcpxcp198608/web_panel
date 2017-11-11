@@ -32,7 +32,7 @@
     #div_sign_in {margin: 200px auto auto;  width: 400px; height: 300px; background-color: #2c343c;
       box-shadow: 0 0 8px #1d2bfc;}
     #div_sign_in_1 {width: 300px; height: 250px; margin: 25px auto auto}
-    h3 {width: 100%; text-align: center; align-content: center; color: whitesmoke}
+    h3 {width: 100%; text-align: center; color: whitesmoke}
     #error_message {color: red; font-size: 16px}
     #bt_submit {width: 100%}
   </style>

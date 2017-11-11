@@ -26,8 +26,10 @@
             <result column="password" property="password"/>
             <result column="firstName" property="firstName"/>
             <result column="lastName" property="lastName"/>
+            <result column="ssn" property="ssn"/>
             <result column="email" property="email"/>
             <result column="phone" property="phone"/>
+            <result column="createTime" property="createTime"/>
         </association>
     </resultMap>
 
@@ -49,7 +51,7 @@
             auth_rent_user.activateTime, auth_rent_user.status, auth_rent_user.country, auth_rent_user.region, auth_rent_user.city,
             auth_rent_user.timeZone, auth_rent_user.lastOnLineTime,
             auth_sales.id saleId, auth_sales.username, auth_sales.firstName, auth_sales.lastName,
-            auth_sales.email, auth_sales.phone
+            auth_sales.ssn, auth_sales.email, auth_sales.phone, auth_sales.createTime
         FROM auth_rent_user, auth_sales
         WHERE auth_rent_user.clientKey=#{_parameter}
         AND auth_rent_user.salesId = auth_sales.ID
@@ -63,7 +65,7 @@
         auth_rent_user.status, auth_rent_user.country, auth_rent_user.region, auth_rent_user.city,auth_rent_user.timeZone,
         auth_rent_user.lastOnLineTime,
         auth_sales.id saleId, auth_sales.username, auth_sales.firstName, auth_sales.lastName,
-        auth_sales.email, auth_sales.phone
+        auth_sales.ssn, auth_sales.email, auth_sales.phone, auth_sales.createTime
         FROM auth_rent_user, auth_sales
         WHERE auth_rent_user.salesId=#{_parameter}
         AND auth_rent_user.salesId = auth_sales.ID
@@ -76,7 +78,7 @@
         auth_rent_user.status, auth_rent_user.country, auth_rent_user.region, auth_rent_user.city, auth_rent_user.timeZone,
         auth_rent_user.lastOnLineTime,
         auth_sales.id saleId, auth_sales.username, auth_sales.firstName, auth_sales.lastName,
-        auth_sales.email, auth_sales.phone
+        auth_sales.ssn, auth_sales.email, auth_sales.phone, auth_sales.createTime
         FROM auth_rent_user, auth_sales
         WHERE auth_rent_user.id > 0
         AND auth_rent_user.salesId = auth_sales.ID

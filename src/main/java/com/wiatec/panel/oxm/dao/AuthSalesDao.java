@@ -7,8 +7,16 @@ import java.util.List;
 
 public interface AuthSalesDao {
 
-    int countOne(AuthSalesInfo authSalesInfo);
-    void selectOne(AuthSalesInfo authSalesInfo);
-    List<AuthSalesInfo> selectAll();
+
+    int countUsername(AuthSalesInfo authSalesInfo);
+    int countSSN(AuthSalesInfo authSalesInfo);
+    int countEmail(AuthSalesInfo authSalesInfo);
     void insertOne(AuthSalesInfo authSalesInfo);
+    void updatePassword(AuthSalesInfo authSalesInfo);
+
+    int countOne(AuthSalesInfo authSalesInfo);
+    AuthSalesInfo selectOne(AuthSalesInfo authSalesInfo);
+    List<AuthSalesInfo> selectAll();
+    List<AuthSalesInfo> selectAllWithUsers();
+
 }

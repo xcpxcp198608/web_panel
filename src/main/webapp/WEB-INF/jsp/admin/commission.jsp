@@ -39,7 +39,7 @@
     <div style="width: 100%; height: 180px">
         <div style="width: 31%; height: 100%; display: block; float: left;">
             <a style="width:100%; height: 30px; line-height: 30px; font-size: 20px">Category</a>
-            <table class="table table-bordered table-hover table-striped" id="tbCategory" style=" box-shadow: 0 0 5px #0a148f">
+            <table class="table table-bordered table-hover table-striped" id="tbCategory" style=" box-shadow: 0 0 5px #000">
                 <thead style="background-color: #566778;">
                     <tr><td>#</td><td>Price</td><td>Deposit</td><td>LD</td><td>Dealer</td><td>Sales</td></tr>
                 </thead>
@@ -103,16 +103,16 @@
             </div>
         </div>
 
-        <div style="width: 100%; height: 166px; box-shadow: 0 0 5px #0a148f;">
+        <div style="width: 100%; height: 166px; box-shadow: 0 0 5px #000;">
             <div style="width: 20%; display: block; float: left">
                 <table class="table table-bordered table-condensed" id="tbYearIncome"
                     style="background-color: #2c343c; color: whitesmoke">
                     <tbody>
-                        <tr><td>Income</td><td>0</td></tr>
-                        <tr><td>Deposit</td><td>0</td></tr>
-                        <tr><td>LD</td><td>0</td></tr>
-                        <tr><td>Dealer</td><td>0</td></tr>
-                        <tr><td>Sales</td><td>0</td></tr>
+                        <tr><td>Income</td><td style="font-style: italic; color: orange">0</td></tr>
+                        <tr><td>Deposit</td><td style="font-style: italic; color: orange">0</td></tr>
+                        <tr><td>LD</td><td style="font-style: italic; color: orange">0</td></tr>
+                        <tr><td>Dealer</td><td style="font-style: italic; color: orange">0</td></tr>
+                        <tr><td>Sales</td><td style="font-style: italic; color: orange">0</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -122,11 +122,11 @@
         </div>
         <div style="width: 100%; height: 5px"></div>
 
-        <div style="width: 100%; height: 300px; background-color: #2c343c; box-shadow: 0 0 5px #0a148f;">
+        <div style="width: 100%; height: 300px; background-color: #2c343c; box-shadow: 0 0 5px #000;">
             <div id="monthIncomeChart" style="width: 100%; height: 300px;"></div>
         </div>
 
-        <div style="width: 100%; box-shadow: 0 0 5px #0a148f; overflow: scroll">
+        <div style="width: 100%; box-shadow: 0 0 5px #000; overflow: scroll">
             <table  class="table table-bordered table-hover table-striped" id="tbMonthIncome">
                 <thead style="background-color: #566778;" >
                     <tr id="trIncome">
@@ -134,11 +134,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>Income</td><td class="tdRows12">0</td></tr>
-                    <tr><td>Deposit</td><td class="tdRows12">0</td></tr>
-                    <tr><td>LD</td><td class="tdRows12">0</td></tr>
-                    <tr><td>Dealer</td><td class="tdRows12">0</td></tr>
-                    <tr><td>Sales</td><td class="tdRows12">0</td></tr>
+                    <tr><td>Income</td><td class="tdRows14 redFont">0</td></tr>
+                    <tr><td>Deposit</td><td class="tdRows14 redFont">0</td></tr>
+                    <tr><td>LD</td><td class="tdRows14 redFont">0</td></tr>
+                    <tr><td>Dealer</td><td class="tdRows14 redFont">0</td></tr>
+                    <tr><td>Sales</td><td class="tdRows14 redFont">0</td></tr>
                 </tbody>
             </table>
         </div>
@@ -146,7 +146,40 @@
 
     <hr/>
 
-    <div style="width: 100%; box-shadow: 0 0 5px #0a148f;">
+    <div style="width: 100%; clear: both">
+        <table id="tbTotal" class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Count</td>
+                    <td>Price</td>
+                    <td>Deposit</td>
+                    <td>LD</td>
+                    <td>Dealer</td>
+                    <td>Sales</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="trTotal">
+                    <td class="tdTotal">0</td>
+                    <td class="tdTotal">0</td>
+                    <td class="tdTotal">0</td>
+                    <td class="tdTotal">0</td>
+                    <td class="tdTotal">0</td>
+                    <td class="tdTotal">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="width: 100%;">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Search</span>
+            <input type="text" class="form-control" placeholder="type in keyword (client key, sales, payment id)"
+                   aria-describedby="basic-addon1" id="ipSearch">
+        </div>
+    </div>
+
+    <div style="width: 100%; box-shadow: 0 0 5px #000; margin-top: 8px">
         <table class="table table-bordered table-hover table-striped" id="tbOrders">
             <thead style="background-color: #566778;">
                 <tr>
@@ -159,10 +192,27 @@
                     <td>LD</td>
                     <td>Dealer</td>
                     <td>Sales</td>
-                    <td>TradingTime</td>
-                    <td>Category</td>
-                    <td>Status</td>
-                    <td>Description</td>
+                    <td>
+                        <input type="date" id="ipDate" placeholder="TradingTime" style="width: 100%; height: 100%;
+                            background-color: rgba(0,0,0,0); border: none; text-align: center">
+                    </td>
+                    <td>
+                        <select id="sePlan" style="width: 100%; height: 100%;
+                            background-color: rgba(0,0,0,0); border: none; text-align: center">
+                            <option value="">Plan</option>
+                            <option value="B1">B1</option>
+                            <option value="P1">P1</option>
+                            <option value="P2">P2</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="seType" style="width: 100%; height: 100%;
+                            background-color: rgba(0,0,0,0); border: none; text-align: center">
+                            <option value="">Type</option>
+                            <option value="rent">rent</option>
+                            <option value="renew">renew</option>
+                        </select>
+                    </td>
                 </tr>
             </thead>
             <tbody>
@@ -171,7 +221,7 @@
                         <td>${status.index + 1}</td>
                         <td>${authOrderInfo.payClientKey}</td>
                         <td>${authOrderInfo.authSalesInfo.username}</td>
-                        <td>${authOrderInfo.paymentId}</td>
+                        <td style="font-size: 12px">${authOrderInfo.paymentId}</td>
                         <td>${authOrderInfo.price}</td>
                         <td>${authOrderInfo.deposit}</td>
                         <td>${authOrderInfo.ldCommission}</td>
@@ -179,15 +229,12 @@
                         <td>${authOrderInfo.salesCommission}</td>
                         <td style="font-size: 12px">${fn:substring(authOrderInfo.tradingTime, 0, 19)}</td>
                         <td>${authOrderInfo.category}</td>
-                        <td>${authOrderInfo.status}</td>
                         <td>${authOrderInfo.description}</td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
     </div>
-
-
 
 </rapid:override>
 <%@ include file="../base.jsp"%>

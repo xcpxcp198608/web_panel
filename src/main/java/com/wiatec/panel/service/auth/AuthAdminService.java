@@ -10,7 +10,8 @@ import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
-import com.wiatec.panel.oxm.pojo.chart.DaysInfo;
+import com.wiatec.panel.oxm.pojo.chart.TopAmountInfo;
+import com.wiatec.panel.oxm.pojo.chart.TopVolumeInfo;
 import com.wiatec.panel.xutils.LoggerUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,6 @@ import org.springframework.ui.Model;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,88 +35,74 @@ public class AuthAdminService {
     private CommissionCategoryDao commissionCategoryDao;
 
     /////////////////////////////////////////////////// home //////////////////////////////////////////////////////////
-    @Transactional
     public String home(HttpServletRequest request, Model model){
-
         return "admin/home";
-    }
-
-    @Transactional(readOnly = true)
-    public ResultInfo<DaysInfo> getAllOrders(HttpServletRequest request, int year, int month, int days){
-        ResultInfo<DaysInfo> resultInfo = new ResultInfo<>();
-        List<DaysInfo> daysInfoList = new ArrayList<>();
-        try {
-            for(int i = 1 ; i <= days ; i ++){
-                StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append(year);
-                stringBuilder.append("-");
-                if(month < 10){
-                    stringBuilder.append("0");
-                }
-                stringBuilder.append(month);
-                stringBuilder.append("-");
-                if(i < 10){
-                    stringBuilder.append("0");
-                }
-                stringBuilder.append(i);
-                List<AuthOrderInfo> authOrderInfoList = authOrderDao.selectByTradingTime(stringBuilder.toString());
-                DaysInfo daysInfo = transformOrderInfoToDaysInfo(authOrderInfoList);
-                daysInfoList.add(daysInfo);
-            }
-            resultInfo.setCode(ResultInfo.CODE_OK);
-            resultInfo.setStatus(ResultInfo.STATUS_OK);
-            resultInfo.setMessage("successfully");
-            resultInfo.setDataList(daysInfoList);
-            return resultInfo;
-        }catch (Exception e){
-            e.printStackTrace();
-            resultInfo.setCode(ResultInfo.CODE_SERVER_ERROR);
-            resultInfo.setStatus(ResultInfo.STATUS_SERVER_ERROR);
-            resultInfo.setMessage("server error");
-            return resultInfo;
-        }
-    }
-
-    private DaysInfo transformOrderInfoToDaysInfo(List<AuthOrderInfo> authOrderInfoList){
-        DaysInfo daysInfo = new DaysInfo();
-        if(authOrderInfoList == null || authOrderInfoList.size() <= 0){
-            return daysInfo;
-        }
-        float amount = 0f;
-        int B1 =0;
-        int P1 =0;
-        int P2 =0;
-        for(AuthOrderInfo authOrderInfo: authOrderInfoList){
-            amount += authOrderInfo.getPrice();
-            if("B1".equals(authOrderInfo.getCategory())){
-                B1 ++;
-            }
-            if("P1".equals(authOrderInfo.getCategory())){
-                P1 ++;
-            }
-            if("P2".equals(authOrderInfo.getCategory())){
-                P2 ++;
-            }
-        }
-        daysInfo.setVolume(authOrderInfoList.size());
-        daysInfo.setAmount(amount);
-        daysInfo.setB1(B1);
-        daysInfo.setP1(P1);
-        daysInfo.setP2(P2);
-        return daysInfo;
     }
 
 
     /////////////////////////////////////////////////// sales //////////////////////////////////////////////////////////
-    @Transactional
+    @Transactional(readOnly = true)
     public String sales(HttpServletRequest request, Model model){
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectAll();
         model.addAttribute("authSalesInfoList", authSalesInfoList);
         return "admin/sales";
     }
 
-    /////////////////////////////////////////////////// users //////////////////////////////////////////////////////////
     @Transactional
+    public ResultInfo<AuthSalesInfo> createSales(HttpServletRequest request, AuthSalesInfo authSalesInfo){
+        ResultInfo<AuthSalesInfo> resultInfo = new ResultInfo<>();
+        if(authSalesDao.countUsername(authSalesInfo) == 1){
+            resultInfo.setCode(ResultInfo.CODE_INVALID);
+            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
+            resultInfo.setMessage("username exists");
+            return resultInfo;
+        }
+        if(authSalesDao.countSSN(authSalesInfo) == 1){
+            resultInfo.setCode(ResultInfo.CODE_INVALID);
+            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
+            resultInfo.setMessage("SSN exists");
+            return resultInfo;
+        }
+        if(authSalesDao.countEmail(authSalesInfo) == 1){
+            resultInfo.setCode(ResultInfo.CODE_INVALID);
+            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
+            resultInfo.setMessage("email exists");
+            return resultInfo;
+        }
+        try {
+            authSalesDao.insertOne(authSalesInfo);
+            resultInfo.setCode(ResultInfo.CODE_OK);
+            resultInfo.setStatus(ResultInfo.STATUS_OK);
+            resultInfo.setMessage("create successfully");
+            resultInfo.setData(authSalesDao.selectOne(authSalesInfo));
+            return resultInfo;
+        }catch (Exception e){
+            resultInfo.setCode(ResultInfo.CODE_INVALID);
+            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
+            resultInfo.setMessage("server error, try again later");
+            return resultInfo;
+        }
+    }
+
+    @Transactional
+    public ResultInfo updateSalesPassword(HttpServletRequest request, AuthSalesInfo authSalesInfo){
+        ResultInfo resultInfo = new ResultInfo<>();
+        try {
+            authSalesDao.updatePassword(authSalesInfo);
+            resultInfo.setCode(ResultInfo.CODE_OK);
+            resultInfo.setStatus(ResultInfo.STATUS_OK);
+            resultInfo.setMessage("update successfully");
+            return resultInfo;
+        }catch (Exception e){
+            resultInfo.setCode(ResultInfo.CODE_INVALID);
+            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
+            resultInfo.setMessage("server error, try again later ");
+            return resultInfo;
+        }
+    }
+
+    /////////////////////////////////////////////////// users //////////////////////////////////////////////////////////
+    @Transactional(readOnly = true)
     public String users(HttpServletRequest request, Model model, int salesId){
         List<AuthRentUserInfo> authRentUserInfoList = null;
         if(salesId > 0){
@@ -129,7 +115,7 @@ public class AuthAdminService {
         return "admin/users";
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public AuthRentUserInfo getUserByKey(HttpServletRequest request, String key){
         return authRentUserDao.selectOneByClientKey(key);
     }
@@ -148,7 +134,7 @@ public class AuthAdminService {
     }
 
     @Transactional(readOnly = true)
-    public ResultInfo<AuthOrderInfo> getCommissionOrders(HttpServletRequest request, int year, int month){
+    public ResultInfo<AuthOrderInfo> getOrdersByMonth(HttpServletRequest request, int year, int month){
         ResultInfo<AuthOrderInfo> resultInfo = new ResultInfo<>();
         try {
             StringBuilder stringBuilder = new StringBuilder();
@@ -173,7 +159,7 @@ public class AuthAdminService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ResultInfo<AuthOrderInfo> getOrdersByYear(HttpServletRequest request, String year){
         ResultInfo<AuthOrderInfo> resultInfo = new ResultInfo<>();
         try {
@@ -190,6 +176,16 @@ public class AuthAdminService {
             resultInfo.setMessage("server error!");
             return resultInfo;
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<TopVolumeInfo> getTopVolume(HttpServletRequest request, int top){
+        return authOrderDao.selectTopVolume(top);
+    }
+
+    @Transactional(readOnly = true)
+    public List<TopAmountInfo> getTopAmount(HttpServletRequest request, int top){
+        return authOrderDao.selectTopAmount(top);
     }
 
 

@@ -21,8 +21,10 @@
             <result column="username" property="username"/>
             <result column="firstName" property="firstName"/>
             <result column="lastName" property="lastName"/>
+            <result column="ssn" property="ssn"/>
             <result column="email" property="email"/>
             <result column="phone" property="phone"/>
+            <result column="createTime" property="createTime"/>
         </association>
         <association property="authRentUserInfo" javaType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
             <id column="userId" property="id"/>
@@ -44,12 +46,24 @@
         </association>
     </resultMap>
 
+    <resultMap id="topVolumeInfo" type="com.wiatec.panel.oxm.pojo.chart.TopVolumeInfo">
+        <id column="salesId" property="salesId"/>
+        <result column="salesName" property="salesName"/>
+        <result column="volume" property="volume"/>
+    </resultMap>
+
+    <resultMap id="topAmountInfo" type="com.wiatec.panel.oxm.pojo.chart.TopAmountInfo">
+        <id column="salesId" property="salesId"/>
+        <result column="salesName" property="salesName"/>
+        <result column="amount" property="amount"/>
+    </resultMap>
+
     <sql id="select">SELECT auth_order.id orderId, auth_order.salesId, auth_order.payClientKey,
         auth_order.category, auth_order.paymentId, auth_order.price, auth_order.deposit,
         auth_order.ldCommission, auth_order.dealerCommission, auth_order.salesCommission,
         auth_order.status,auth_order.description, auth_order.tradingTime,
         auth_sales.id saleId, auth_sales.username, auth_sales.firstName, auth_sales.lastName,
-        auth_sales.email, auth_sales.phone,
+        auth_sales.ssn, auth_sales.email, auth_sales.phone, auth_sales.createTime,
         auth_rent_user.id userId, auth_rent_user.salesId userSalesId, auth_rent_user.clientKey, auth_rent_user.category,
         auth_rent_user.mac, auth_rent_user.firstName, auth_rent_user.lastName, auth_rent_user.email,
         auth_rent_user.phone, auth_rent_user.activateTime, auth_rent_user.status, auth_rent_user.country,
@@ -59,7 +73,6 @@
         WHERE auth_order.salesId = auth_sales.id
         AND auth_order.payClientKey = auth_rent_user.clientKey
     </sql>
-
 
 
     <select id="selectOne" resultMap="authOrderInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthOrderInfo">
@@ -74,6 +87,24 @@
     <select id="selectByTradingTime" resultMap="authOrderInfo" parameterType="String">
         <include refid="select"/>
         AND tradingTime like concat('%',#{_parameter},'%')
+    </select>
+
+    <select id="selectTopVolume" resultMap="topVolumeInfo" parameterType="int">
+        SELECT s.salesId , COUNT(*) volume, auth_sales.username salesName
+        FROM auth_order AS s, auth_sales
+        WHERE s.salesId = auth_sales.id
+        GROUP BY s.salesId
+        ORDER BY volume DESC
+        LIMIT #{_parameter};
+    </select>
+
+    <select id="selectTopAmount" resultMap="topAmountInfo" parameterType="int">
+        SELECT salesId, sum(price) amount, auth_sales.username salesName
+        FROM auth_order, auth_sales
+        WHERE auth_order.salesId = auth_sales.id
+        GROUP BY salesId
+        ORDER BY amount DESC
+        LIMIT #{_parameter};
     </select>
 
 </mapper>

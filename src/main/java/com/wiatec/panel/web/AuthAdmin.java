@@ -3,17 +3,17 @@ package com.wiatec.panel.web;
 import com.wiatec.panel.entity.ResultInfo;
 import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
-import com.wiatec.panel.oxm.pojo.chart.DaysInfo;
+import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
+import com.wiatec.panel.oxm.pojo.chart.TopAmountInfo;
+import com.wiatec.panel.oxm.pojo.chart.TopVolumeInfo;
 import com.wiatec.panel.service.auth.AuthAdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -30,18 +30,7 @@ public class AuthAdmin {
      */
     @RequestMapping(value = "/")
     public String home(HttpServletRequest request, Model model){
-
-
         return authAdminService.home(request, model);
-    }
-
-    @PostMapping(value = "/orders/{year}/{month}/{days}")
-    @ResponseBody
-    public ResultInfo<DaysInfo> getAllOrdersByDays(HttpServletRequest request,
-                                                   @PathVariable(value = "year") int year,
-                                                   @PathVariable(value = "month") int month,
-                                                   @PathVariable(value = "days") int days){
-        return authAdminService.getAllOrders(request, year, month, days);
     }
 
     /**
@@ -55,6 +44,17 @@ public class AuthAdmin {
         return authAdminService.sales(request, model);
     }
 
+    @PutMapping(value = "/sale/create")
+    @ResponseBody
+    public ResultInfo<AuthSalesInfo> getSales(HttpServletRequest request, @RequestBody AuthSalesInfo authSalesInfo){
+        return authAdminService.createSales(request, authSalesInfo);
+    }
+
+    @PutMapping(value = "/sale/update")
+    @ResponseBody
+    public ResultInfo updateSales(HttpServletRequest request, @RequestBody AuthSalesInfo authSalesInfo){
+        return authAdminService.updateSalesPassword(request, authSalesInfo);
+    }
 
 
     /**
@@ -99,25 +99,44 @@ public class AuthAdmin {
     }
 
     /**
-     * chart data on commission page
+     * order data by month
      * @param request
      * @param year
      * @param month
      * @return
      */
-    @RequestMapping(value = "/commission/{year}/{month}")
+    @RequestMapping(value = "/orders/{year}/{month}")
     @ResponseBody
-    public ResultInfo<AuthOrderInfo> getCommissionOrders(HttpServletRequest request, @PathVariable(value = "year") int year,
+    public ResultInfo<AuthOrderInfo> getOrdersByMonth(HttpServletRequest request, @PathVariable(value = "year") int year,
                                                          @PathVariable(value = "month") int month){
-        return authAdminService.getCommissionOrders(request, year, month);
+        return authAdminService.getOrdersByMonth(request, year, month);
     }
 
+    /**
+     * order data by year
+     * @param request
+     * @param year
+     * @return
+     */
     @PostMapping(value = "/orders/{year}")
     @ResponseBody
     public ResultInfo<AuthOrderInfo> getOrdersByYear(HttpServletRequest request,
                                                      @PathVariable(value = "year") String year){
         return authAdminService.getOrdersByYear(request, year);
     }
+
+    @PostMapping(value = "/orders/volume/{top}")
+    @ResponseBody
+    public List<TopVolumeInfo> getTopVolume(HttpServletRequest request, @PathVariable(value = "top") int top){
+        return authAdminService.getTopVolume(request, top);
+    }
+
+    @PostMapping(value = "/orders/amount/{top}")
+    @ResponseBody
+    public List<TopAmountInfo> getTopAmount(HttpServletRequest request, @PathVariable(value = "top") int top){
+        return authAdminService.getTopAmount(request, top);
+    }
+
 
     /**
      * sign out
