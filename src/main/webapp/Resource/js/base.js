@@ -18,6 +18,15 @@ $(function () {
         dDetails.css('display', 'none');
     });
 
+    $('#navigation').find('> ul >li > a').each(function (index, value) {
+        $(this).mouseover(function () {
+            $(this).prev().css('color', '#2377b9')
+        })
+        $(this).mouseout(function () {
+            $(this).prev().css('color', '#000')
+        })
+    })
+
 
 });
 

@@ -16,7 +16,7 @@
             <a href="/panel/admin/">Home</a>
         </li>
         <li>
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-th-list " aria-hidden="true"></span>
             <a href="/panel/admin/sales">Sales</a>
         </li>
         <li>
