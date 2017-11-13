@@ -33,6 +33,13 @@ public class AuthAdmin {
         return authAdminService.home(request, model);
     }
 
+
+    @PostMapping(value = "/chart/volume/{year}/{month}")
+    public void getSaleVolumeEveryMonth(HttpServletRequest request, @PathVariable(value = "year") int year,
+                                     @PathVariable(value = "month") int month){
+        authAdminService.selectSaleVolumeEveryMonth(request, year, month);
+    }
+
     /**
      * sales page
      * @param request
@@ -44,12 +51,24 @@ public class AuthAdmin {
         return authAdminService.sales(request, model);
     }
 
+    /**
+     * create user
+     * @param request
+     * @param authSalesInfo
+     * @return
+     */
     @PutMapping(value = "/sale/create")
     @ResponseBody
     public ResultInfo<AuthSalesInfo> getSales(HttpServletRequest request, @RequestBody AuthSalesInfo authSalesInfo){
         return authAdminService.createSales(request, authSalesInfo);
     }
 
+    /**
+     * update user password
+     * @param request
+     * @param authSalesInfo
+     * @return
+     */
     @PutMapping(value = "/sale/update")
     @ResponseBody
     public ResultInfo updateSales(HttpServletRequest request, @RequestBody AuthSalesInfo authSalesInfo){
@@ -81,6 +100,12 @@ public class AuthAdmin {
         return authAdminService.users(request, model, salesId);
     }
 
+    /**
+     * user details
+     * @param request
+     * @param key
+     * @return
+     */
     @PostMapping(value = "/user/{key}")
     @ResponseBody
     public AuthRentUserInfo getUserByKey(HttpServletRequest request, @PathVariable(value="key")String key){
@@ -125,28 +150,28 @@ public class AuthAdmin {
         return authAdminService.getOrdersByYear(request, year);
     }
 
+    /**
+     * the top {?} volume
+     * @param request
+     * @param top
+     * @return
+     */
     @PostMapping(value = "/orders/volume/{top}")
     @ResponseBody
     public List<TopVolumeInfo> getTopVolume(HttpServletRequest request, @PathVariable(value = "top") int top){
         return authAdminService.getTopVolume(request, top);
     }
 
+    /**
+     * the top {?} amount
+     * @param request
+     * @param top
+     * @return
+     */
     @PostMapping(value = "/orders/amount/{top}")
     @ResponseBody
     public List<TopAmountInfo> getTopAmount(HttpServletRequest request, @PathVariable(value = "top") int top){
         return authAdminService.getTopAmount(request, top);
-    }
-
-
-    /**
-     * sign out
-     * @param request
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/signout")
-    public String signOut(HttpServletRequest request, Model model){
-        return authAdminService.signOut(request);
     }
 
 }

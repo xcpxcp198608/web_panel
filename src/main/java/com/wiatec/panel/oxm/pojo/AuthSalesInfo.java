@@ -19,6 +19,10 @@ public class AuthSalesInfo {
     public AuthSalesInfo() {
     }
 
+    public AuthSalesInfo(String username) {
+        this.username = username;
+    }
+
     public AuthSalesInfo(String username, String password) {
         this.username = username;
         this.password = password;

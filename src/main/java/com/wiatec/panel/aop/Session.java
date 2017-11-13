@@ -1,11 +1,9 @@
 package com.wiatec.panel.aop;
 
 import com.wiatec.panel.listener.SessionListener;
-import com.wiatec.panel.xutils.LoggerUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
@@ -43,5 +41,15 @@ public class Session {
             model.addAttribute("username", username);
         }
         return joinPoint.proceed();
+    }
+
+    public static String getUserName(HttpServletRequest request){
+        String sessionId = request.getCookies()[0].getValue();
+        HttpSession session = SessionListener.idSessionMap.get(sessionId);
+        if(session == null){
+            throw new RuntimeException("sign in expires");
+        }
+        String username = (String) session.getAttribute("username");
+        return username;
     }
 }

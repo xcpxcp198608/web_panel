@@ -38,11 +38,15 @@
                      FROM auth_rent_user</sql>
 
     <select id="countOneByMac" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
-        SELECT COUNT(*) FROM auth_sales WHERE mac=#{mac}
+        SELECT COUNT(*) FROM auth_rent_user WHERE mac=#{mac}
     </select>
 
     <select id="countOneByEmail" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
-        SELECT COUNT(*) FROM auth_sales WHERE email=#{email}
+        SELECT COUNT(*) FROM auth_rent_user WHERE email=#{email}
+    </select>
+
+    <select id="selectStatusByMac" resultType="String" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
+        SELECT status FROM auth_rent_user WHERE mac=#{mac}
     </select>
 
     <select id="selectOneByClientKey" resultMap="authUserInfo" parameterType="String">
@@ -58,7 +62,7 @@
     </select>
 
 
-    <select id="selectOneBySalesId" resultMap="authUserInfo" parameterType="int">
+    <select id="selectBySalesId" resultMap="authUserInfo" parameterType="int">
         SELECT auth_rent_user.id userId, auth_rent_user.salesId, auth_rent_user.clientKey, auth_rent_user.category,
         auth_rent_user.mac, auth_rent_user.firstName, auth_rent_user.lastName, auth_rent_user.email, auth_rent_user.phone,
         auth_rent_user.activateTime,

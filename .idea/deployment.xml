@@ -5,7 +5,7 @@
       <paths name="wiatec-216.244.85.34">
         <serverdata>
           <mappings>
-            <mapping deploy="/panel/web" local="$PROJECT_DIR$/build/libs/exploded/panel-1.0-SNAPSHOT.war" web="/" />
+            <mapping deploy="/panel/temp" local="$PROJECT_DIR$/build/libs/exploded/panel-1.0-SNAPSHOT.war" web="/" />
           </mappings>
         </serverdata>
       </paths>

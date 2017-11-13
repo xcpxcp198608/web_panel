@@ -7,6 +7,8 @@ public class  CommissionCategoryInfo {
     private int id;
     private String category;
     private float deposit;
+    private float monthPay;
+    private int expires;
     private float ldCommission;
     private float dealerCommission;
     private float salesCommission;
@@ -34,6 +36,22 @@ public class  CommissionCategoryInfo {
 
     public void setDeposit(float deposit) {
         this.deposit = deposit;
+    }
+
+    public float getMonthPay() {
+        return monthPay;
+    }
+
+    public void setMonthPay(float monthPay) {
+        this.monthPay = monthPay;
+    }
+
+    public int getExpires() {
+        return expires;
+    }
+
+    public void setExpires(int expires) {
+        this.expires = expires;
     }
 
     public float getLdCommission() {
@@ -65,14 +83,7 @@ public class  CommissionCategoryInfo {
     }
 
     public void setPrice() {
-        BigDecimal b;
-        if("P2".equals(this.category)){
-            b = new BigDecimal(this.deposit + (this.ldCommission +
-                    this.dealerCommission + this.salesCommission) *24);
-        }else{
-            b = new BigDecimal(this.deposit + (this.ldCommission +
-                    this.dealerCommission + this.salesCommission) *12);
-        }
+        BigDecimal b = new BigDecimal(this.monthPay * this.expires + this.deposit);
         this.price = b.setScale(2,  BigDecimal.ROUND_HALF_UP).floatValue();
     }
 

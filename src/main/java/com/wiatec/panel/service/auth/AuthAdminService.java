@@ -1,7 +1,6 @@
 package com.wiatec.panel.service.auth;
 
 import com.wiatec.panel.entity.ResultInfo;
-import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthOrderDao;
 import com.wiatec.panel.oxm.dao.AuthSalesDao;
 import com.wiatec.panel.oxm.dao.AuthRentUserDao;
@@ -19,8 +18,9 @@ import org.springframework.ui.Model;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AuthAdminService {
@@ -37,6 +37,20 @@ public class AuthAdminService {
     /////////////////////////////////////////////////// home //////////////////////////////////////////////////////////
     public String home(HttpServletRequest request, Model model){
         return "admin/home";
+    }
+
+    public void selectSaleVolumeEveryMonth(HttpServletRequest request, int year, int month){
+        Map<String, String> dateMap = new HashMap<>();
+        String start = year + "-" + month;
+        String end = "";
+        if(month == 12){
+            end = year+1 + "-" + 1;
+        }else{
+            end = year + "-" + month + 1;
+        }
+        dateMap.put("start", start);
+        dateMap.put("end", end);
+        authOrderDao.selectSaleVolumeEveryMonth(dateMap);
     }
 
 
@@ -106,7 +120,7 @@ public class AuthAdminService {
     public String users(HttpServletRequest request, Model model, int salesId){
         List<AuthRentUserInfo> authRentUserInfoList = null;
         if(salesId > 0){
-            authRentUserInfoList = authRentUserDao.selectOneBySalesId(salesId);
+            authRentUserInfoList = authRentUserDao.selectBySalesId(salesId);
         }else {
             authRentUserInfoList = authRentUserDao.selectAll();
         }
@@ -188,16 +202,4 @@ public class AuthAdminService {
         return authOrderDao.selectTopAmount(top);
     }
 
-
-    ////////////////////////////////////////////////// sign out ////////////////////////////////////////////////////////
-    @Transactional
-    public String signOut(HttpServletRequest request){
-        String sessionId = request.getCookies()[0].getValue();
-        HttpSession session = SessionListener.idSessionMap.get(sessionId);
-        String username = (String) session.getAttribute("username");
-        SessionListener.idSessionMap.remove(sessionId);
-        SessionListener.userSessionMap.remove(username);
-        session.invalidate();
-        return "redirect:/";
-    }
 }

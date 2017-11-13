@@ -29,7 +29,7 @@
         </li>
         <li>
             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            <a href="/panel/admin/signout">SignOut</a>
+            <a href="/panel/signout">SignOut</a>
         </li>
     </ul>
 </rapid:override>
@@ -73,8 +73,7 @@
                id="tbSales">
             <thead style="background-color: #566778;">
             <tr id="trSales">
-                <th></th>
-                <th>#</th>
+                <th colspan="2">#</th>
                 <th>Username</th>
                 <th>Password</th>
                 <th>FirstName</th>

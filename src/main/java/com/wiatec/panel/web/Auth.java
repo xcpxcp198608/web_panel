@@ -2,6 +2,7 @@ package com.wiatec.panel.web;
 
 import com.wiatec.panel.service.auth.AuthService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
@@ -25,6 +26,16 @@ public class Auth {
     @PostMapping(value = "/signin")
     public String signIn(HttpServletRequest request, HttpServletResponse response, String username, String password){
         return authService.signIn(request, response, username, password);
+    }
+
+    /**
+     * sign out
+     * @param request
+     * @return
+     */
+    @GetMapping(value = "/signout")
+    public String signOut(HttpServletRequest request){
+        return authService.signOut(request);
     }
 
 }

@@ -10,4 +10,5 @@ import java.util.List;
 public interface CommissionCategoryDao {
 
     List<CommissionCategoryInfo> selectAll();
+    CommissionCategoryInfo selectOne(String category);
 }

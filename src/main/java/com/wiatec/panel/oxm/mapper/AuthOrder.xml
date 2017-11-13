@@ -58,6 +58,16 @@
         <result column="amount" property="amount"/>
     </resultMap>
 
+    <resultMap id="salesDaysCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.SalesDaysCommissionInfo">
+        <result column="salesName" property="commission"/>
+        <result column="amount" property="day"/>
+    </resultMap>
+
+    <resultMap id="salesMonthCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.SalesMonthCommissionInfo">
+        <result column="salesName" property="commission"/>
+        <result column="month" property="month"/>
+    </resultMap>
+
     <sql id="select">SELECT auth_order.id orderId, auth_order.salesId, auth_order.payClientKey,
         auth_order.category, auth_order.paymentId, auth_order.price, auth_order.deposit,
         auth_order.ldCommission, auth_order.dealerCommission, auth_order.salesCommission,
@@ -84,9 +94,21 @@
         <include refid="select"/> ORDER BY tradingTime DESC
     </select>
 
+    <select id="selectSaleVolumeEveryMonth" parameterType="Map" >
+        SELECT auth_order.category, count(*) volume, count(category)
+        FROM auth_order
+        WHERE tradingTime BETWEEN '2017-11' AND '2017-12'
+        GROUP BY auth_order.category
+    </select>
+
     <select id="selectByTradingTime" resultMap="authOrderInfo" parameterType="String">
         <include refid="select"/>
         AND tradingTime like concat('%',#{_parameter},'%')
+    </select>
+
+    <select id="selectBySalesId" resultMap="authOrderInfo" parameterType="Integer">
+        <include refid="select"/>
+        AND salesId=#{_parameter}
     </select>
 
     <select id="selectTopVolume" resultMap="topVolumeInfo" parameterType="int">
@@ -105,6 +127,36 @@
         GROUP BY salesId
         ORDER BY amount DESC
         LIMIT #{_parameter};
+    </select>
+
+    <select id="getCommissionByMonth" parameterType="Map" resultMap="salesDaysCommissionInfo">
+        SELECT sum(salesCommission) commission, DAYOFMONTH(tradingTime) day
+        FROM auth_order
+        <where>
+            <if test="start != null and end != null">
+                tradingTime BETWEEN #{start} AND #{end}
+            </if>
+            <if test="salesId != null">
+                AND salesId=#{salesId}
+            </if>
+        </where>
+        GROUP BY day
+        ORDER BY day
+    </select>
+
+    <select id="getCommissionByYear" parameterType="Map" resultMap="salesMonthCommissionInfo">
+        SELECT sum(salesCommission) commission, MONTH(tradingTime) month
+        FROM auth_order
+        <where>
+            <if test="start != null and end != null">
+                tradingTime BETWEEN #{start} AND #{end}
+            </if>
+            <if test="salesId != null">
+                AND salesId=#{salesId}
+            </if>
+        </where>
+        GROUP BY month
+        ORDER BY month
     </select>
 
 </mapper>

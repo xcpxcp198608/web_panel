@@ -11,11 +11,16 @@
         <result column="salesCommission" property="salesCommission"/>
     </resultMap>
 
-    <sql id="select">SELECT id, category, deposit, ldCommission, dealerCommission,
+    <sql id="select">SELECT id, category, deposit, monthPay, expires, ldCommission, dealerCommission,
                          salesCommission FROM commission_category</sql>
 
     <select id="selectAll" resultMap="commissionCategoryInfo">
         <include refid="select"/>
+    </select>
+
+    <select id="selectOne" resultMap="commissionCategoryInfo" parameterType="String">
+        <include refid="select"/>
+        WHERE category=#{_parameter}
     </select>
 
 </mapper>

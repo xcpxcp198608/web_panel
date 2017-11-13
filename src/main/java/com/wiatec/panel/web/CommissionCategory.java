@@ -3,9 +3,7 @@ package com.wiatec.panel.web;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 import com.wiatec.panel.service.CommissionCategoryService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,6 +19,12 @@ public class CommissionCategory {
     @ResponseBody
     public List<CommissionCategoryInfo> get(){
         return commissionCategoryService.selectAll();
+    }
+
+    @PostMapping(value = "/{category}")
+    @ResponseBody
+    public CommissionCategoryInfo getOne(@PathVariable(value = "category") String category){
+        return commissionCategoryService.selectOne(category);
     }
 
 }

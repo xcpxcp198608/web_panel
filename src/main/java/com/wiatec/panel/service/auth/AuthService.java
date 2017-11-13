@@ -1,6 +1,7 @@
 package com.wiatec.panel.service.auth;
 
 import com.wiatec.panel.entity.ResultInfo;
+import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthAdminDao;
 import com.wiatec.panel.oxm.dao.AuthSalesDao;
 import com.wiatec.panel.oxm.pojo.AuthAdminInfo;
@@ -48,5 +49,15 @@ public class AuthService {
         httpSession.setAttribute("username", username);
         LoggerUtil.d(httpSession.getId());
         response.addCookie(new Cookie("JSESSIONID", httpSession.getId()));
+    }
+
+    public String signOut(HttpServletRequest request){
+        String sessionId = request.getCookies()[0].getValue();
+        HttpSession session = SessionListener.idSessionMap.get(sessionId);
+        String username = (String) session.getAttribute("username");
+        SessionListener.idSessionMap.remove(sessionId);
+        SessionListener.userSessionMap.remove(username);
+        session.invalidate();
+        return "redirect:/";
     }
 }

@@ -6,26 +6,18 @@
     Users
 </rapid:override>
 <rapid:override name="css_js">
-    <script type="application/javascript" src="Resource/js/admin/users.js"></script>
+    <script type="application/javascript" src="Resource/js/sales/users.js"></script>
 </rapid:override>
 
 <rapid:override name="navigation">
     <ul>
         <li>
             <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            <a href="/panel/admin/">Home</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            <a href="/panel/admin/sales">Sales</a>
+            <a href="/panel/sales/">My</a>
         </li>
         <li>
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <a href="/panel/admin/users">Users</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
-            <a href="/panel/admin/commission">Commission</a>
+            <a href="/panel/sales/users">Users</a>
         </li>
         <li>
             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
@@ -37,13 +29,19 @@
 <rapid:override name="content">
 
     <div>
-        <div style="width: 90%; display: block; float: left">
+        <div style="width: 8%; display: block; float: left;">
+            <button type="button" class="btn btn-default" id="btCreate">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create
+            </button>
+        </div>
+        <div style="width: 84%; display: block; float: left">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Search</span>
-                <input type="text" class="form-control" placeholder="search" aria-describedby="basic-addon1" id="ipSearch">
+                <input type="text" class="form-control" aria-describedby="basic-addon1" id="ipSearch"
+                       placeholder="type in keyword (key, mac, name, time)" >
             </div>
         </div>
-        <div style="width: 10%; display: block; float: right; font-size: 18px; font-weight: 500;
+        <div style="width: 8%; display: block; float: right; font-size: 18px; font-weight: 500;
             text-align: right; align-content: center">
             <span style="color: #008500; height: 100%; line-height: 100%">0</span>
             /
@@ -58,7 +56,6 @@
                 <tr>
                     <th>#</th>
                     <th>ClientKey</th>
-                    <th>Sales</th>
                     <th>Mac</th>
                     <th>FirstName</th>
                     <th>LastName</th>
@@ -90,7 +87,6 @@
                 <tr>
                     <td>${status.index+1}</td>
                     <td>${authRentUserInfo.clientKey}</td>
-                    <td>${authRentUserInfo.authSalesInfo.username}</td>
                     <td>${authRentUserInfo.mac}</td>
                     <td>${authRentUserInfo.firstName}</td>
                     <td>${authRentUserInfo.lastName}</td>
