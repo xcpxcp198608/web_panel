@@ -20,7 +20,7 @@
         </li>
         <li>
             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            <a href="/panel/signout">SignOut</a>
+            <a href="/panel/sales/pay">SignOut</a>
         </li>
     </ul>
 </rapid:override>

@@ -108,7 +108,7 @@
 
     <select id="selectBySalesId" resultMap="authOrderInfo" parameterType="Integer">
         <include refid="select"/>
-        AND salesId=#{_parameter}
+        AND auth_order.salesId=#{_parameter}
     </select>
 
     <select id="selectTopVolume" resultMap="topVolumeInfo" parameterType="int">

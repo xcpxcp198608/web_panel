@@ -4,6 +4,7 @@ import com.wiatec.panel.entity.ResultInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.SalesDaysCommissionInfo;
 import com.wiatec.panel.oxm.pojo.chart.SalesMonthCommissionInfo;
+import com.wiatec.panel.paypal.PayInfo;
 import com.wiatec.panel.service.auth.AuthSalesService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,14 +33,16 @@ public class AuthSales {
 
     @PostMapping(value = "/commission/{year}/{month}")
     @ResponseBody
-    public ResultInfo<SalesDaysCommissionInfo> getCommissionByMonth(HttpServletRequest request, @PathVariable(value = "year") int year,
+    public ResultInfo<SalesDaysCommissionInfo> getCommissionByMonth(HttpServletRequest request,
+                                                                    @PathVariable(value = "year") int year,
                                                                     @PathVariable(value = "month") int month){
         return authSalesService.getCommissionByMonth(request, year, month);
     }
 
     @PostMapping(value = "/commission/{year}")
     @ResponseBody
-    public ResultInfo<SalesMonthCommissionInfo> getCommissionByYear(HttpServletRequest request, @PathVariable(value = "year") int year){
+    public ResultInfo<SalesMonthCommissionInfo> getCommissionByYear(HttpServletRequest request,
+                                                                    @PathVariable(value = "year") int year){
         return authSalesService.getCommissionByYear(request, year);
     }
 
@@ -56,14 +59,13 @@ public class AuthSales {
 
     @PutMapping(value = "/create")
     @ResponseBody
-    public ResultInfo<AuthRentUserInfo> create(HttpServletRequest request, @RequestBody AuthRentUserInfo authRentUserInfo){
+    public ResultInfo<PayInfo> create(HttpServletRequest request, @RequestBody AuthRentUserInfo authRentUserInfo){
         return authSalesService.createUser(request, authRentUserInfo);
     }
 
     @RequestMapping(value = "/pay")
-    public String pay(){
+    public String pay(PayInfo payInfo, Model model){
         return "sales/payment";
     }
-
 
 }

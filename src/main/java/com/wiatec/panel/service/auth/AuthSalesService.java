@@ -2,14 +2,12 @@ package com.wiatec.panel.service.auth;
 
 import com.wiatec.panel.aop.Session;
 import com.wiatec.panel.entity.ResultInfo;
-import com.wiatec.panel.oxm.dao.AuthOrderDao;
-import com.wiatec.panel.oxm.dao.AuthRentUserDao;
-import com.wiatec.panel.oxm.dao.AuthSalesDao;
-import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
-import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
-import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
+import com.wiatec.panel.oxm.dao.*;
+import com.wiatec.panel.oxm.pojo.*;
 import com.wiatec.panel.oxm.pojo.chart.SalesDaysCommissionInfo;
 import com.wiatec.panel.oxm.pojo.chart.SalesMonthCommissionInfo;
+import com.wiatec.panel.paypal.PayInfo;
+import com.wiatec.panel.paypal.PayOrderInfo;
 import com.wiatec.panel.xutils.TextUtil;
 import com.wiatec.panel.xutils.TokenUtil;
 import org.springframework.stereotype.Service;
@@ -25,12 +23,17 @@ import java.util.Map;
 @Service
 public class AuthSalesService {
 
+
     @Resource
     private AuthSalesDao authSalesDao;
     @Resource
     private AuthRentUserDao authRentUserDao;
     @Resource
     private AuthOrderDao authOrderDao;
+    @Resource
+    private CommissionCategoryDao commissionCategoryDao;
+    @Resource
+    private PayOrderDao payOrderDao;
 
     /////////////////////////////////////////////////// sales //////////////////////////////////////////////////////////
     public String home(HttpServletRequest request, Model model){
@@ -106,8 +109,8 @@ public class AuthSalesService {
     }
 
     @Transactional
-    public ResultInfo<AuthRentUserInfo> createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
-        ResultInfo<AuthRentUserInfo> resultInfo = new ResultInfo<>();
+    public ResultInfo<PayInfo> createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
+        ResultInfo<PayInfo> resultInfo = new ResultInfo<>();
         try {
             if(authRentUserDao.countOneByEmail(authRentUserInfo) == 1){
                 resultInfo.setCode(ResultInfo.CODE_INVALID);
@@ -126,10 +129,30 @@ public class AuthSalesService {
             authRentUserInfo.setSalesId(getSalesId(request));
             authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
             authRentUserDao.insertOne(authRentUserInfo);
+            PayInfo payInfo = new PayInfo();
+            CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
+            commissionCategoryInfo.setPrice();
+            payInfo.setInvoice("s"+System.currentTimeMillis());
+            payInfo.setCurrency("USD");
+            payInfo.setItemName(authRentUserInfo.getCategory());
+            payInfo.setItemNumber(authRentUserInfo.getCategory());
+            payInfo.setAmount(commissionCategoryInfo.getPrice());
+            payInfo.setTax(0f);
+
+            PayOrderInfo payOrderInfo = new PayOrderInfo();
+            payOrderInfo.setInvoice(payInfo.getInvoice());
+            payOrderInfo.setCategory(authRentUserInfo.getCategory());
+            payOrderInfo.setPrice(commissionCategoryInfo.getPrice());
+            payOrderInfo.setCurrency("USD");
+            payOrderInfo.setSalesId(authRentUserInfo.getSalesId());
+            payOrderInfo.setClientKey(authRentUserInfo.getClientKey());
+            payOrderInfo.setDescription("rent");//TODO
+            payOrderDao.insertOne(payOrderInfo);
+
             resultInfo.setCode(ResultInfo.CODE_OK);
             resultInfo.setStatus(ResultInfo.STATUS_OK);
             resultInfo.setMessage("create successfully");
-            resultInfo.setData(authRentUserInfo);
+            resultInfo.setData(payInfo);
             return resultInfo;
         }catch (Exception e){
             resultInfo.setCode(ResultInfo.CODE_INVALID);
@@ -138,7 +161,6 @@ public class AuthSalesService {
             return resultInfo;
         }
     }
-
 
     private int getSalesId(HttpServletRequest request){
         String username = Session.getUserName(request);

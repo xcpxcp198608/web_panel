@@ -9,7 +9,7 @@
 <head>
   <base href="<%=basePath%>">
 
-  <title>SignIn--BTV RENTAL SYSTEM</title>
+  <title>SignIn--Preferred customer program</title>
 
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="cache-control" content="no-cache">
@@ -42,7 +42,7 @@
 <div id="div_sign_in">
   <div id="div_sign_in_1">
     <br/>
-    <h3>BTV RENTAL SYSTEM</h3>
+    <h3>PREFERRED CUSTOMER PROGRAM</h3>
     <br/>
     <form action="/panel/signin" method="post">
       <div class="input-group">

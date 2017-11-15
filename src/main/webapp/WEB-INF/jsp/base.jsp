@@ -10,7 +10,7 @@
 <head>
     <base href="<%=basePath%>">
 
-    <title><rapid:block name="title"/>--BTV RENTAL SYSTEM</title>
+    <title><rapid:block name="title"/>--Preferred customer program</title>
 
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
@@ -38,7 +38,7 @@
 <body>
 
     <div id="header">
-        <a id="header_title">BTV RENTAL SYSTEM</a>
+        <a id="header_title">PREFERRED CUSTOMER PROGRAM</a>
         <a id="username" style="font-size: 16px">${username}</a>
     </div>
 

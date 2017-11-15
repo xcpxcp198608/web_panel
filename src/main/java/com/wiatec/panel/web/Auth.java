@@ -1,6 +1,6 @@
 package com.wiatec.panel.web;
 
-import com.wiatec.panel.service.auth.AuthService;
+import com.wiatec.panel.service.AuthService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

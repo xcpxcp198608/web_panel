@@ -1,6 +1,7 @@
 package com.wiatec.panel.aop;
 
 import com.wiatec.panel.listener.SessionListener;
+import com.wiatec.panel.xutils.TextUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -32,12 +33,10 @@ public class Session {
             if(ref == null || !ref.contains("/panel")){
                 throw new RuntimeException("signin error");
             }
-            String sessionId = request.getCookies()[0].getValue();
-            HttpSession session = SessionListener.idSessionMap.get(sessionId);
-            if(session == null){
-                throw new RuntimeException("sign in expires");
+            String username = getUserName(request);
+            if(TextUtil.isEmpty(username)){
+                throw new RuntimeException("signin error, sign in again");
             }
-            String username = (String) session.getAttribute("username");
             model.addAttribute("username", username);
         }
         return joinPoint.proceed();
@@ -49,7 +48,6 @@ public class Session {
         if(session == null){
             throw new RuntimeException("sign in expires");
         }
-        String username = (String) session.getAttribute("username");
-        return username;
+        return (String) session.getAttribute("username");
     }
 }

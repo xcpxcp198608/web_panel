@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
-public class Log {
+public class AuthLog {
 
     /**
      * 前置通知方法

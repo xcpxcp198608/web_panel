@@ -1,4 +1,4 @@
-package com.wiatec.panel.service.auth;
+package com.wiatec.panel.service;
 
 import com.wiatec.panel.entity.ResultInfo;
 import com.wiatec.panel.listener.SessionListener;

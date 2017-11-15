@@ -33,31 +33,47 @@
         </div>
         <br/>
         <div style="margin: auto; width: 200px">
-            <%--<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">--%>
-                <%--<input type="hidden" name="cmd" value="_xclick">--%>
-                <%--<input type="hidden" name="business" value="patrickxu@wiatec.com">--%>
-                <%--<input type="hidden" name="lc" value="C2">--%>
-                <%--<input type="hidden" name="item_name" value="pay now">--%>
-                <%--<input type="hidden" name="amount" value="100.00">--%>
-                <%--<input type="hidden" name="currency_code" value="USD">--%>
-                <%--<input type="hidden" name="button_subtype" value="services">--%>
-                <%--<input type="hidden" name="no_note" value="0">--%>
-                <%--<input type="hidden" name="bn" value="PP-BuyNowBF:btn_paynowCC_LG.gif:NonHostedGuest">--%>
-                <%--<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">--%>
-                <%--<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">--%>
+
+            <%--<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_blank">--%>
+                <%--<input type='hidden' name='cmd' value='_xclick'>--%>
+                <%--<input type='hidden' name='business' value='jw_seller@wiatec.com'>--%>
+                <%--<input type='hidden' name='invoice' value='s20171114140009'>--%>
+                <%--<input type='hidden' name='item_name' value='B1'>--%>
+                <%--<input type='hidden' name='item_number' value='b1'>--%>
+                <%--<input type='hidden' name='amount' value='0.01'>--%>
+                <%--<input type='hidden' name='tax' value='0'>--%>
+                <%--<input type='hidden' name='currency_code' value='USD'>--%>
+                <%--<input type='hidden' name='return' value='http://localhost:8080/panel/pay/return'>--%>
+                <%--<input type='hidden' name='cancel_return' value='http://localhost:8080/panel/pay/cancel'>--%>
+                <%--<input type='hidden' name='notify_url' value='http://localhost:8080/panel/pay/notify'>--%>
+                <%--<input type='hidden' name='charset' value='utf-8'>--%>
+                <%--<input type='hidden' name='no_shipping' value='1'>--%>
+                <%--<input type='hidden' name='no_note' value='0'>--%>
+                <%--<input type='hidden' name='rm' value='2'>--%>
+                <%--<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"--%>
+                       <%--border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">--%>
+                <%--<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">--%>
             <%--</form>--%>
 
-            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="EG3GVC2XHCPYJ">
-                <input type="hidden" name="lc" value="C2">
-                <input type="hidden" name="amount" value="100.00">
-                <input type="hidden" name="currency_code" value="USD">
-                <input type="hidden" name="button_subtype" value="services">
-                <input type="hidden" name="no_note" value="0">
-                <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                <input type='hidden' name='cmd' value='_xclick'>
+                <input type='hidden' name='business' value='paotwo@gmail.com'>
+                <input type='hidden' name='invoice' value='s20171114140009'>
+                <input type='hidden' name='item_name' value='B1'>
+                <input type='hidden' name='item_number' value='b1'>
+                <input type='hidden' name='amount' value='0.01'>
+                <input type='hidden' name='tax' value='0'>
+                <input type='hidden' name='currency_code' value='USD'>
+                <input type='hidden' name='return' value='http://panel.protv.company:8080/panel/pay/return'>
+                <input type='hidden' name='cancel_return' value='http://panel.protv.company:8080/panel/pay/cancel'>
+                <input type='hidden' name='notify_url' value='http://panel.protv.company:8080/panel/pay/notify'>
+                <input type='hidden' name='charset' value='utf-8'>
+                <input type='hidden' name='no_shipping' value='1'>
+                <input type='hidden' name='no_note' value='0'>
+                <input type='hidden' name='rm' value='2'>
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif"
                        border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif"
+                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif"
                      width="1" height="1">
             </form>
 
