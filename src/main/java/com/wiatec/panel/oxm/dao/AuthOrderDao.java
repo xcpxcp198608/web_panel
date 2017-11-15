@@ -9,6 +9,10 @@ import java.util.Map;
 
 public interface AuthOrderDao {
 
+    int countOneByPaymentId(AuthOrderInfo authOrderInfo);
+    void insertOne(AuthOrderInfo authOrderInfo);
+    void updateOneByPaymentId(AuthOrderInfo authOrderInfo);
+
     AuthOrderInfo selectOne(AuthOrderInfo authOrderInfo);
     List<AuthOrderInfo> selectAll();
 

@@ -550,21 +550,21 @@ $(function () {
      */
     $('#ipDate').change(function () {
         var key = $(this).val().length >0 ? $(this).val().substring(0, 7) : '';
-        selectChangeListener(key, 9);
+        selectChangeListener(key, 10);
     });
 
     /**
      * select of plan change event
      */
     $('#sePlan').change(function () {
-        selectChangeListener($(this).val(), 10);
+        selectChangeListener($(this).val(), 11);
     });
 
     /**
      * select of type change event
      */
     $('#seType').change(function () {
-        selectChangeListener($(this).val(), 11);
+        selectChangeListener($(this).val(), 12);
     });
 
     /**
@@ -576,12 +576,10 @@ $(function () {
         if(key.length >0){
             for(var i =0 ; i < rowsLength; i ++){
                 var currentStatus = tbOrders.rows[i].style.display;
-                if(currentStatus !== 'none') {
-                    if (tbOrders.rows[i].cells[cellIndex].innerHTML.search(key) >= 0) {
-                        tbOrders.rows[i].style.display = "";
-                    } else {
-                        tbOrders.rows[i].style.display = "none";
-                    }
+                if (tbOrders.rows[i].cells[cellIndex].innerHTML.search(key) >= 0) {
+                    tbOrders.rows[i].style.display = "";
+                } else {
+                    tbOrders.rows[i].style.display = "none";
                 }
             }
         }else{
@@ -614,10 +612,10 @@ $(function () {
             if(status !== 'none'){
                 count ++;
                 totalPrice += parseFloat(tbOrders.rows[i].cells[4].innerHTML);
-                totalDeposit += parseFloat(tbOrders.rows[i].cells[5].innerHTML);
-                totalLdCommission += parseFloat(tbOrders.rows[i].cells[6].innerHTML);
-                totalDealerCommission += parseFloat(tbOrders.rows[i].cells[7].innerHTML);
-                totalSalesCommission += parseFloat(tbOrders.rows[i].cells[8].innerHTML);
+                totalDeposit += parseFloat(tbOrders.rows[i].cells[6].innerHTML);
+                totalLdCommission += parseFloat(tbOrders.rows[i].cells[7].innerHTML);
+                totalDealerCommission += parseFloat(tbOrders.rows[i].cells[8].innerHTML);
+                totalSalesCommission += parseFloat(tbOrders.rows[i].cells[9].innerHTML);
             }
         }
         trTotal.cells[0].innerHTML = count;

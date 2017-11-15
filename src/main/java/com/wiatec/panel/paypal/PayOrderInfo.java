@@ -6,17 +6,20 @@ public class PayOrderInfo {
     private String invoice;
     private String category;
     private float price;
+    private float txFee;
     private String currency;
     private String paymentStatus;
     private int salesId;
     private String clientKey;
     private String description;
 
+    private String transactionId;
     private String payerId;
     private String payerEmail;
     private String receiverId;
     private String verifySign;
     private String paymentDate;
+    private String comment;
 
     public int getId() {
         return id;
@@ -48,6 +51,14 @@ public class PayOrderInfo {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public float getTxFee() {
+        return txFee;
+    }
+
+    public void setTxFee(float txFee) {
+        this.txFee = txFee;
     }
 
     public String getCurrency() {
@@ -90,6 +101,14 @@ public class PayOrderInfo {
         this.description = description;
     }
 
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
     public String getPayerId() {
         return payerId;
     }
@@ -130,6 +149,14 @@ public class PayOrderInfo {
         this.paymentDate = paymentDate;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     @Override
     public String toString() {
         return "PayOrderInfo{" +
@@ -137,16 +164,19 @@ public class PayOrderInfo {
                 ", invoice='" + invoice + '\'' +
                 ", category='" + category + '\'' +
                 ", price=" + price +
+                ", txFee=" + txFee +
                 ", currency='" + currency + '\'' +
                 ", paymentStatus='" + paymentStatus + '\'' +
                 ", salesId=" + salesId +
                 ", clientKey='" + clientKey + '\'' +
                 ", description='" + description + '\'' +
+                ", transactionId='" + transactionId + '\'' +
                 ", payerId='" + payerId + '\'' +
                 ", payerEmail='" + payerEmail + '\'' +
                 ", receiverId='" + receiverId + '\'' +
                 ", verifySign='" + verifySign + '\'' +
                 ", paymentDate='" + paymentDate + '\'' +
+                ", comment='" + comment + '\'' +
                 '}';
     }
 }

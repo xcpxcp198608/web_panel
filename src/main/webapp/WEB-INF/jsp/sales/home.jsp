@@ -1,10 +1,12 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <rapid:override name="title">
     Panel
 </rapid:override>
 <rapid:override name="css_js">
+    <link rel="stylesheet" href="Resource/css/sales/home.css"/>
     <script src="Resource/js/sales/home.js"></script>
 </rapid:override>
 
@@ -20,7 +22,7 @@
         </li>
         <li>
             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            <a href="/panel/sales/pay">SignOut</a>
+            <a href="/panel/signout">SignOut</a>
         </li>
     </ul>
 </rapid:override>
@@ -90,6 +92,91 @@
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <div style="margin-top: 10px">
+        <div style="width: 100%; clear: both">
+            <table id="tbTotal" class="table table-striped">
+                <thead>
+                <tr>
+                    <td>Count</td>
+                    <td>Price</td>
+                    <td>Deposit</td>
+                    <td>Commission</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr id="trTotal">
+                    <td class="tdTotal">0</td>
+                    <td class="tdTotal">0</td>
+                    <td class="tdTotal">0</td>
+                    <td class="tdTotal">0</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="width: 100%;">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Search</span>
+                <input type="text" class="form-control" placeholder="type in keyword (client key, sales, payment id)"
+                       aria-describedby="basic-addon1" id="ipSearch">
+            </div>
+        </div>
+
+        <div style="width: 100%; box-shadow: 0 0 5px #000; margin-top: 8px">
+            <table class="table table-bordered table-hover table-striped" id="tbOrders">
+                <thead style="background-color: #566778;">
+                <tr>
+                    <td>#</td>
+                    <td>ClientKey</td>
+                    <td>Sales</td>
+                    <td>PaymentId</td>
+                    <td>Price</td>
+                    <td>Deposit</td>
+                    <td>Commission</td>
+                    <td>
+                        <input type="date" id="ipDate" placeholder="TradingTime" style="width: 100%; height: 100%;
+                            background-color: rgba(0,0,0,0); border: none; text-align: center">
+                    </td>
+                    <td>
+                        <select id="sePlan" style="width: 100%; height: 100%;
+                            background-color: rgba(0,0,0,0); border: none; text-align: center">
+                            <option value="">Plan</option>
+                            <option value="B1">B1</option>
+                            <option value="P1">P1</option>
+                            <option value="P2">P2</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="seType" style="width: 100%; height: 100%;
+                            background-color: rgba(0,0,0,0); border: none; text-align: center">
+                            <option value="">Type</option>
+                            <option value="rent">rent</option>
+                            <option value="renew">renew</option>
+                        </select>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${authOrderInfoList}" var="authOrderInfo" varStatus="status">
+                    <tr style="font-size: 14px">
+                        <td>${status.index + 1}</td>
+                        <td>${authOrderInfo.payClientKey}</td>
+                        <td>${authOrderInfo.authSalesInfo.username}</td>
+                        <td style="font-size: 12px">${authOrderInfo.paymentId}</td>
+                        <td>${authOrderInfo.price}</td>
+                        <td>${authOrderInfo.deposit}</td>
+                        <td>${authOrderInfo.salesCommission}</td>
+                        <td style="font-size: 12px">${fn:substring(authOrderInfo.tradingTime, 0, 19)}</td>
+                        <td>${authOrderInfo.category}</td>
+                        <td>${authOrderInfo.description}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
 

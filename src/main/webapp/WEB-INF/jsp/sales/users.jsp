@@ -6,6 +6,7 @@
     Users
 </rapid:override>
 <rapid:override name="css_js">
+    <link rel="stylesheet" href="Resource/css/sales/users.css"/>
     <script type="application/javascript" src="Resource/js/sales/users.js"></script>
 </rapid:override>
 
@@ -59,7 +60,7 @@
                     <th>Mac</th>
                     <th>FirstName</th>
                     <th>LastName</th>
-                    <th>CreateTime</th>
+                    <th>ActiveTime</th>
                     <th>
                         <select id="seCategory" style="width: 100%; height: 100%;
                             background-color: rgba(0,0,0,0); border: none; text-align: center">
@@ -94,16 +95,18 @@
                     <td>${authRentUserInfo.category}</td>
                     <td>
                         <c:if test="${authRentUserInfo.status == 'activate'}">
-                            <span style="color: #0f0;">${authRentUserInfo.status}</span>
+                            <a style="color: #0f0;">${authRentUserInfo.status}</a>
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'deactivate'}">
-                            <span style="color: #f00;">${authRentUserInfo.status}</span>
+                            <a style="color: #f00;" href="/panel/sales/activate/${authRentUserInfo.clientKey}">
+                                    ${authRentUserInfo.status}
+                            </a>
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'limited'}">
-                            <span style="color: #f00;">${authRentUserInfo.status}</span>
+                            <a style="color: #f00;">${authRentUserInfo.status}</a>
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'canceled'}">
-                            <span style="color: #777;">${authRentUserInfo.status}</span>
+                            <a style="color: #777;">${authRentUserInfo.status}</a>
                         </c:if>
                     </td>
                     <td>
@@ -134,7 +137,8 @@
             <tr><td>LastName</td><td></td></tr>
             <tr><td>Email</td><td></td></tr>
             <tr><td>Phone</td><td></td></tr>
-            <tr><td>Time</td><td></td></tr>
+            <tr><td>CreateTime</td><td></td></tr>
+            <tr><td>ActivateTime</td><td></td></tr>
             <tr><td>Status</td><td></td></tr>
             <tr><td>Country</td><td></td></tr>
             <tr><td>Region</td><td></td></tr>

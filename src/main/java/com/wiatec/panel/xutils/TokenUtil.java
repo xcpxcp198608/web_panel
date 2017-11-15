@@ -15,7 +15,7 @@ public class TokenUtil {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.update((s1 + s2 + time).getBytes());
             BigInteger bigInteger = new BigInteger(1,messageDigest.digest());
-            return bigInteger.toString(16).substring(8,25);
+            return bigInteger.toString(16).substring(8,24);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return "";

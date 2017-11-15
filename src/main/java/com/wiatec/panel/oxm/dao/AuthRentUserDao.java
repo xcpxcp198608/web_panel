@@ -19,4 +19,9 @@ public interface AuthRentUserDao {
 
     List<AuthRentUserInfo> selectBySalesId(int salesId);
     List<AuthRentUserInfo> selectAll();
+
+
+    void updateStatusToActivate(String clientKey);
+
+
 }

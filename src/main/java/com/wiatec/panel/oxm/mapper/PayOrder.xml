@@ -7,16 +7,19 @@
         <result column="invoice" property="invoice"/>
         <result column="category" property="category"/>
         <result column="price" property="price"/>
+        <result column="txFee" property="txFee"/>
         <result column="currency" property="currency"/>
         <result column="paymentStatus" property="paymentStatus"/>
         <result column="salesId" property="salesId"/>
         <result column="clientKey" property="clientKey"/>
         <result column="description" property="description"/>
+        <result column="transactionId" property="transactionId"/>
         <result column="payerId" property="payerId"/>
         <result column="payerEmail" property="payerEmail"/>
         <result column="receiverId" property="receiverId"/>
         <result column="verifySign" property="verifySign"/>
         <result column="paymentDate" property="paymentDate"/>
+        <result column="comment" property="comment"/>
     </resultMap>
 
 
@@ -27,13 +30,17 @@
 
     <update id="updateByInvoice" parameterType="com.wiatec.panel.paypal.PayOrderInfo">
         UPDATE pay_order
-        SET paymentStatus=#{paymentStatus}, payerId=#{payerId}, payerEmail=#{payerEmail},
-            receiverId=#{receiverId}, verifySign=#{verifySign}, paymentDate=#{paymentDate}
+        SET paymentStatus=#{paymentStatus}, transactionId=#{transactionId}, payerId=#{payerId}, payerEmail=#{payerEmail},
+            receiverId=#{receiverId}, verifySign=#{verifySign}, paymentDate=#{paymentDate}, txFee=#{txFee}
         WHERE invoice=#{invoice}
     </update>
 
     <select id="selectOneByInvoice" parameterType="String" resultMap="payOrderInfo">
         SELECT * FROM pay_order WHERE invoice=#{_parameter}
+    </select>
+
+    <select id="selectOneByClientKey" parameterType="String" resultMap="payOrderInfo">
+        SELECT * FROM pay_order WHERE clientKey=#{_parameter}
     </select>
 
 </mapper>

@@ -9,6 +9,7 @@
         <result column="category" property="category"/>
         <result column="paymentId" property="paymentId"/>
         <result column="price" property="price"/>
+        <result column="txFee" property="txFee"/>
         <result column="deposit" property="deposit"/>
         <result column="ldCommission" property="ldCommission"/>
         <result column="dealerCommission" property="dealerCommission"/>
@@ -71,7 +72,7 @@
     <sql id="select">SELECT auth_order.id orderId, auth_order.salesId, auth_order.payClientKey,
         auth_order.category, auth_order.paymentId, auth_order.price, auth_order.deposit,
         auth_order.ldCommission, auth_order.dealerCommission, auth_order.salesCommission,
-        auth_order.status,auth_order.description, auth_order.tradingTime,
+        auth_order.status,auth_order.description, auth_order.tradingTime, auth_order.txFee,
         auth_sales.id saleId, auth_sales.username, auth_sales.firstName, auth_sales.lastName,
         auth_sales.ssn, auth_sales.email, auth_sales.phone, auth_sales.createTime,
         auth_rent_user.id userId, auth_rent_user.salesId userSalesId, auth_rent_user.clientKey, auth_rent_user.category,
@@ -84,6 +85,24 @@
         AND auth_order.payClientKey = auth_rent_user.clientKey
     </sql>
 
+    <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthOrderInfo">
+        INSERT INTO auth_order (salesId, payClientKey, category, paymentId, price, txFee, deposit, ldCommission,
+                                dealerCommission, salesCommission, status, description)
+        VALUES (#{salesId}, #{payClientKey}, #{category}, #{paymentId},  #{price}, #{txFee}, #{deposit}, #{ldCommission},
+                #{dealerCommission}, #{salesCommission}, #{status}, #{description})
+    </insert>
+
+    <select id="countOneByPaymentId" parameterType="com.wiatec.panel.oxm.pojo.AuthOrderInfo" resultType="int">
+        SELECT COUNT(*) FROM auth_order WHERE paymentId=#{paymentId}
+    </select>
+
+    <update id="updateOneByPaymentId" parameterType="com.wiatec.panel.oxm.pojo.AuthOrderInfo">
+        UPDATE auth_order
+        SET salesId=#{salesId}, payClientKey=#{payClientKey}, category=#{category}, paymentId= #{paymentId},
+            price=#{price}, deposit=#{deposit}, ldCommission=#{ldCommission}, dealerCommission=#{dealerCommission},
+            salesCommission=#{salesCommission}, status=#{status}, description=#{description}, txFee=#{txFee}
+        WHERE paymentId=#{paymentId}
+    </update>
 
     <select id="selectOne" resultMap="authOrderInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthOrderInfo">
         <include refid="select"/>

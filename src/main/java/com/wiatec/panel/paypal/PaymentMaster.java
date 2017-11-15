@@ -17,7 +17,7 @@ public class PaymentMaster {
     public Payment create(){
         Amount amount = new Amount();
         amount.setCurrency("USD");
-        amount.setTotal("100.00");
+        amount.setTotal("10.00");
 
         Transaction transaction = new Transaction();
         transaction.setDescription("B1");

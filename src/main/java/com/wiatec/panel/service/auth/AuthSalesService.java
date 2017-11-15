@@ -109,8 +109,8 @@ public class AuthSalesService {
     }
 
     @Transactional
-    public ResultInfo<PayInfo> createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
-        ResultInfo<PayInfo> resultInfo = new ResultInfo<>();
+    public ResultInfo<String> createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
+        ResultInfo<String> resultInfo = new ResultInfo<>();
         try {
             if(authRentUserDao.countOneByEmail(authRentUserInfo) == 1){
                 resultInfo.setCode(ResultInfo.CODE_INVALID);
@@ -129,37 +129,44 @@ public class AuthSalesService {
             authRentUserInfo.setSalesId(getSalesId(request));
             authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
             authRentUserDao.insertOne(authRentUserInfo);
-            PayInfo payInfo = new PayInfo();
             CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
             commissionCategoryInfo.setPrice();
-            payInfo.setInvoice("s"+System.currentTimeMillis());
-            payInfo.setCurrency("USD");
-            payInfo.setItemName(authRentUserInfo.getCategory());
-            payInfo.setItemNumber(authRentUserInfo.getCategory());
-            payInfo.setAmount(commissionCategoryInfo.getPrice());
-            payInfo.setTax(0f);
-
+            //create pay order info in table pay_order
             PayOrderInfo payOrderInfo = new PayOrderInfo();
-            payOrderInfo.setInvoice(payInfo.getInvoice());
+            payOrderInfo.setInvoice("s"+System.currentTimeMillis());
             payOrderInfo.setCategory(authRentUserInfo.getCategory());
             payOrderInfo.setPrice(commissionCategoryInfo.getPrice());
             payOrderInfo.setCurrency("USD");
             payOrderInfo.setSalesId(authRentUserInfo.getSalesId());
             payOrderInfo.setClientKey(authRentUserInfo.getClientKey());
-            payOrderInfo.setDescription("rent");//TODO
+            payOrderInfo.setDescription("rent");
             payOrderDao.insertOne(payOrderInfo);
-
             resultInfo.setCode(ResultInfo.CODE_OK);
             resultInfo.setStatus(ResultInfo.STATUS_OK);
             resultInfo.setMessage("create successfully");
-            resultInfo.setData(payInfo);
+            resultInfo.setData(authRentUserInfo.getClientKey());
             return resultInfo;
         }catch (Exception e){
+            e.printStackTrace();
             resultInfo.setCode(ResultInfo.CODE_INVALID);
             resultInfo.setStatus(ResultInfo.STATUS_INVALID);
             resultInfo.setMessage("server error, try again later ");
             return resultInfo;
         }
+    }
+
+    @Transactional
+    public String activate(HttpServletRequest request, Model model, String clientKey){
+        PayOrderInfo payOrderInfo = payOrderDao.selectOneByClientKey(clientKey);
+        PayInfo payInfo = new PayInfo();
+        payInfo.setInvoice(payOrderInfo.getInvoice());
+        payInfo.setItemName(payOrderInfo.getCategory());
+        payInfo.setItemNumber(payOrderInfo.getCategory());
+        payInfo.setAmount(payOrderInfo.getPrice());
+        payInfo.setTax(0f);
+        payInfo.setCurrency(payOrderInfo.getCurrency());
+        model.addAttribute("payInfo", payInfo);
+        return "sales/payment";
     }
 
     private int getSalesId(HttpServletRequest request){

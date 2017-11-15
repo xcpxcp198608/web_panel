@@ -8,4 +8,5 @@ public interface PayOrderDao {
     void insertOne(PayOrderInfo payOrderInfo);
     void updateByInvoice(PayOrderInfo payOrderInfo);
     PayOrderInfo selectOneByInvoice(String invoice);
+    PayOrderInfo selectOneByClientKey(String clientKey);
 }

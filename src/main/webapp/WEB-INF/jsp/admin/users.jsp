@@ -62,7 +62,7 @@
                     <th>Mac</th>
                     <th>FirstName</th>
                     <th>LastName</th>
-                    <th>CreateTime</th>
+                    <th>ActivateTime</th>
                     <th>
                         <select id="seCategory" style="width: 100%; height: 100%;
                             background-color: rgba(0,0,0,0); border: none; text-align: center">
@@ -138,7 +138,8 @@
             <tr><td>LastName</td><td></td></tr>
             <tr><td>Email</td><td></td></tr>
             <tr><td>Phone</td><td></td></tr>
-            <tr><td>Time</td><td></td></tr>
+            <tr><td>CreateTime</td><td></td></tr>
+            <tr><td>ActivateTime</td><td></td></tr>
             <tr><td>Status</td><td></td></tr>
             <tr><td>Country</td><td></td></tr>
             <tr><td>Region</td><td></td></tr>

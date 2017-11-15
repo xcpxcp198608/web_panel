@@ -1,4 +1,4 @@
-package com.wiatec.panel.service;
+package com.wiatec.panel.service.auth;
 
 import com.wiatec.panel.oxm.dao.CommissionCategoryDao;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;

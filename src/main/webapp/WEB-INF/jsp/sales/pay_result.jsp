@@ -6,7 +6,6 @@
     Users
 </rapid:override>
 <rapid:override name="css_js">
-    <script type="application/javascript" src="Resource/js/sales/users.js"></script>
 </rapid:override>
 
 <rapid:override name="navigation">

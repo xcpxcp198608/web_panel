@@ -8,6 +8,10 @@ var loading;
 
 $(function () {
 
+    document.oncontextmenu = function () {
+        return false
+    }
+
     dNotice = $('#notice');
     noticeMessage = $('#notice_message');
     dDetails = $('#details');

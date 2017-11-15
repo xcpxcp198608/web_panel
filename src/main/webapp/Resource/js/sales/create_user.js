@@ -72,7 +72,8 @@ $(function () {
                hideLoading();
                console.log(response);
                if(response.code === 200) {
-                   window.open(baseUrl + "/sales/pay", "_self")
+                   showNotice(response.message);
+                   window.open(baseUrl + "/sales/activate/" + response['data'], "_self")
                }else{
                    $('#errorMessage').html(response.message);
                }
@@ -82,5 +83,6 @@ $(function () {
            }
        });
    });
+
 
 });

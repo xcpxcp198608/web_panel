@@ -1,7 +1,7 @@
 package com.wiatec.panel.web;
 
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
-import com.wiatec.panel.service.CommissionCategoryService;
+import com.wiatec.panel.service.auth.CommissionCategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

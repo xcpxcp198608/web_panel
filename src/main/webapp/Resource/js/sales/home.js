@@ -248,4 +248,109 @@ $(function () {
         })
     }
 
+
+
+
+    var tbOrders = $('#tbOrders').get(0).tBodies[0];
+    var orderRowsLength = tbOrders.rows.length;
+    var trTotal = $('#trTotal').get(0);
+    /**
+     * search of table orders & search input key up event listener
+     */
+    $('#ipSearch').keyup(function () {
+        var key = $(this).val().toLowerCase();
+        if(key.length <= 0){
+            showAllRowsOfOrdersTable();
+            return;
+        }
+        for(var i = 0; i < orderRowsLength; i ++){
+            for(var j = 1; j < 4; j ++){
+                var content = tbOrders.rows[i].cells[j].innerHTML.toLowerCase();
+                if(content.search(key) >= 0){
+                    tbOrders.rows[i].style.display = '';
+                    break;
+                }else{
+                    tbOrders.rows[i].style.display = 'none';
+                }
+            }
+        }
+        showCurrentTotalInfoOfTableOrders();
+    });
+
+    /**
+     * date picker change event
+     */
+    $('#ipDate').change(function () {
+        var key = $(this).val().length >0 ? $(this).val().substring(0, 7) : '';
+        selectChangeListener(key, 7);
+    });
+
+    /**
+     * select of plan change event
+     */
+    $('#sePlan').change(function () {
+        selectChangeListener($(this).val(), 8);
+    });
+
+    /**
+     * select of type change event
+     */
+    $('#seType').change(function () {
+        selectChangeListener($(this).val(), 9);
+    });
+
+    /**
+     * select change event listener
+     * @param key
+     * @param cellIndex
+     */
+    function selectChangeListener(key, cellIndex) {
+        if(key.length >0){
+            for(var i =0 ; i < orderRowsLength; i ++){
+                var currentStatus = tbOrders.rows[i].style.display;
+                if (tbOrders.rows[i].cells[cellIndex].innerHTML.search(key) >= 0) {
+                    tbOrders.rows[i].style.display = "";
+                } else {
+                    tbOrders.rows[i].style.display = "none";
+                }
+            }
+        }else{
+            showAllRowsOfOrdersTable();
+        }
+        showCurrentTotalInfoOfTableOrders();
+    }
+
+    /**
+     * show all rows of table orders
+     */
+    function showAllRowsOfOrdersTable(){
+        for(var i =0 ; i < orderRowsLength; i ++){
+            tbOrders.rows[i].style.display = "";
+        }
+    }
+
+    /**
+     * show current visible count of table orders
+     */
+    showCurrentTotalInfoOfTableOrders();
+    function showCurrentTotalInfoOfTableOrders() {
+        var count = 0;
+        var totalPrice = 0;
+        var totalDeposit = 0;
+        var totalSalesCommission = 0;
+        for(var i =0 ; i < orderRowsLength; i ++){
+            var status = tbOrders.rows[i].style.display;
+            if(status !== 'none'){
+                count ++;
+                totalPrice += parseFloat(tbOrders.rows[i].cells[4].innerHTML);
+                totalDeposit += parseFloat(tbOrders.rows[i].cells[5].innerHTML);
+                totalSalesCommission += parseFloat(tbOrders.rows[i].cells[6].innerHTML);
+            }
+        }
+        trTotal.cells[0].innerHTML = count;
+        trTotal.cells[1].innerHTML = totalPrice.toFixed(2);
+        trTotal.cells[2].innerHTML = totalDeposit.toFixed(2);
+        trTotal.cells[3].innerHTML = totalSalesCommission.toFixed(2);
+    }
+
 });

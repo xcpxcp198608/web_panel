@@ -10,6 +10,7 @@ public class AuthRentUserInfo {
     private String lastName;
     private String email;
     private String phone;
+    private String createTime;
     private String activateTime;
     private String status;
     private String country;
@@ -95,6 +96,14 @@ public class AuthRentUserInfo {
         this.phone = phone;
     }
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
     public String getActivateTime() {
         return activateTime;
     }
@@ -171,6 +180,7 @@ public class AuthRentUserInfo {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", createTime='" + createTime + '\'' +
                 ", activateTime='" + activateTime + '\'' +
                 ", status='" + status + '\'' +
                 ", country='" + country + '\'' +

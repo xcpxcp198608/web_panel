@@ -8,6 +8,7 @@ public class AuthOrderInfo {
     private String category;
     private String paymentId;
     private float price;
+    private float txFee;
     private float deposit;
     private float ldCommission;
     private float dealerCommission;
@@ -65,6 +66,14 @@ public class AuthOrderInfo {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public float getTxFee() {
+        return txFee;
+    }
+
+    public void setTxFee(float txFee) {
+        this.txFee = txFee;
     }
 
     public float getDeposit() {
@@ -148,6 +157,7 @@ public class AuthOrderInfo {
                 ", category='" + category + '\'' +
                 ", paymentId='" + paymentId + '\'' +
                 ", price=" + price +
+                ", txFee=" + txFee +
                 ", deposit=" + deposit +
                 ", ldCommission=" + ldCommission +
                 ", dealerCommission=" + dealerCommission +

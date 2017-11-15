@@ -188,6 +188,7 @@
                     <td>Sales</td>
                     <td>PaymentId</td>
                     <td>Price</td>
+                    <td>TxFee</td>
                     <td>Deposit</td>
                     <td>LD</td>
                     <td>Dealer</td>
@@ -223,6 +224,7 @@
                         <td>${authOrderInfo.authSalesInfo.username}</td>
                         <td style="font-size: 12px">${authOrderInfo.paymentId}</td>
                         <td>${authOrderInfo.price}</td>
+                        <td>${authOrderInfo.txFee}</td>
                         <td>${authOrderInfo.deposit}</td>
                         <td>${authOrderInfo.ldCommission}</td>
                         <td>${authOrderInfo.dealerCommission}</td>
