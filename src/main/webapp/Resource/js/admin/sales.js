@@ -1,5 +1,8 @@
 $(function () {
 
+    var now = new Date();
+    var currentYear = now.getFullYear();
+    var currentMonth = now.getMonth() + 1;
     var tbSales = $('#tbSales').get(0).tBodies[0];
     var errorMessage = $('#errorMessage');
     var topLimit = 5;
@@ -91,7 +94,7 @@ $(function () {
         },
         yAxis: {},
         series: [{
-            name: 'sales volume',
+            name: 'sales amount',
             type: 'bar',
             barWidth: 30,
             data: amountData
@@ -145,6 +148,59 @@ $(function () {
         })
     }
 
+    /**
+     * get all sales commission by month
+     */
+    var tbCommissionByMonth = $('#tbCommissionByMonth').get(0).tBodies[0];
+    getAllSalesCommissionByMonth(currentYear, currentMonth);
+    function getAllSalesCommissionByMonth(year, month) {
+        $('#btPreviousMonth').attr('disabled', 'disabled');
+        $('#btNextMonth').attr('disabled', 'disabled');
+        clearTableCommissionByMonth();
+        var url = baseUrl + '/admin/commission/' + year + "/" + month;
+        $.post(url,{}, function (allSalesCommissionInfoList, status) {
+            var length = allSalesCommissionInfoList.length;
+            for(var i = 0; i < length; i ++){
+                var commissionInfo = allSalesCommissionInfoList[i];
+                var tdObj = document.createElement('td');
+                tdObj.innerHTML = commissionInfo['salesUsername'];
+                tbCommissionByMonth.rows[0].append(tdObj);
+                var tdObj1 = document.createElement('td');
+                tdObj1.innerHTML = commissionInfo['commission'];
+                tbCommissionByMonth.rows[1].append(tdObj1);
+            }
+            $('#btPreviousMonth').removeAttr('disabled');
+            $('#btNextMonth').removeAttr('disabled');
+        })
+    }
+    
+    function clearTableCommissionByMonth() {
+        var length = tbCommissionByMonth.rows[0].cells.length - 2;
+        for(var i = 0; i < length; i ++){
+            tbCommissionByMonth.rows[0].removeChild(tbCommissionByMonth.rows[0].lastChild);
+            tbCommissionByMonth.rows[1].removeChild(tbCommissionByMonth.rows[1].lastChild);
+        }
+    }
+
+    /**
+     * set button event
+     */
+    $('#btPreviousMonth').click(function () {
+        currentMonth --;
+        if(currentMonth < 1){
+            currentYear --;
+            currentMonth = 12;
+        }
+        getAllSalesCommissionByMonth(currentYear, currentMonth);
+    });
+    $('#btNextMonth').click(function () {
+        currentMonth ++;
+        if(currentMonth > 12){
+            currentYear ++;
+            currentMonth = 1;
+        }
+        getAllSalesCommissionByMonth(currentYear, currentMonth);
+    });
 
     /**
      * button create click event

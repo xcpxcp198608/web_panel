@@ -47,7 +47,32 @@
         </div>
     </div>
     <br/>
-    <div style="height: 20px; clear: both">&nbsp;</div>
+
+    <div style="width:100%; overflow: scroll">
+        <h4>Month sales commission:</h4>
+        <table class="table table-bordered table-striped table-condensed"
+            id="tbCommissionByMonth" style="box-shadow: 0 0 5px #000;">
+            <tbody>
+                <tr><td width="5%">
+                        <button type="button" class="btn btn-default" id="btPreviousMonth">
+                            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                    <td>Sales</td>
+                </tr>
+                <tr>
+                    <td width="5%">
+                        <button type="button" class="btn btn-default" id="btNextMonth">
+                            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                    <td>Commission</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr/>
 
     <div style="width: 100%; height: 40px">
         <div style="width: 20%; display: block; float: left;">

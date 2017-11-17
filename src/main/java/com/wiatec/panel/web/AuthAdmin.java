@@ -4,6 +4,8 @@ import com.wiatec.panel.entity.ResultInfo;
 import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
+import com.wiatec.panel.oxm.pojo.chart.AllSalesMonthCommissionInfo;
+import com.wiatec.panel.oxm.pojo.chart.SalesVolumeOfMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.TopAmountInfo;
 import com.wiatec.panel.oxm.pojo.chart.TopVolumeInfo;
 import com.wiatec.panel.service.auth.AuthAdminService;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.POST;
 import java.util.List;
 
 @Controller
@@ -35,9 +38,10 @@ public class AuthAdmin {
 
 
     @PostMapping(value = "/chart/volume/{year}/{month}")
-    public void getSaleVolumeEveryMonth(HttpServletRequest request, @PathVariable(value = "year") int year,
-                                     @PathVariable(value = "month") int month){
-        authAdminService.selectSaleVolumeEveryMonth(request, year, month);
+    @ResponseBody
+    public List<SalesVolumeOfMonthInfo> getSaleVolumeEveryMonth(HttpServletRequest request, @PathVariable(value = "year") int year,
+                                                                @PathVariable(value = "month") int month){
+        return authAdminService.selectSaleVolumeEveryMonth(request, year, month);
     }
 
     /**
@@ -49,6 +53,19 @@ public class AuthAdmin {
     @RequestMapping(value = "/sales")
     public String getSales(HttpServletRequest request, Model model){
         return authAdminService.sales(request, model);
+    }
+
+    /**
+     * get all sales commission by month
+     * @param request
+     * @param year
+     * @param month
+     * @return
+     */
+    @PostMapping(value = "/commission/{year}/{month}")
+    @ResponseBody
+    public List<AllSalesMonthCommissionInfo> getSales(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
+        return authAdminService.getAllSalesCommissionByMonth(request, year, month);
     }
 
     /**

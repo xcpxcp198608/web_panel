@@ -559,7 +559,7 @@
     </column>
     <column id="132" parent="19" name="paymentDate">
       <Position>16</Position>
-      <DataType>timestamp|0</DataType>
+      <DataType>text|0</DataType>
     </column>
     <column id="133" parent="19" name="comment">
       <Position>17</Position>

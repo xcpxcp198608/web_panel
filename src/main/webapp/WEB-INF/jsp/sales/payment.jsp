@@ -5,7 +5,15 @@
 <rapid:override name="title">
     Users
 </rapid:override>
+
 <rapid:override name="css_js">
+    <script>
+        $(function () {
+           $('#pay').click(function () {
+               setTimeout(showLoading, 20000);
+           }); 
+        });
+    </script>
 </rapid:override>
 
 <rapid:override name="navigation">
@@ -51,7 +59,7 @@
                 <input type='hidden' name='no_note' value='0'>
                 <input type='hidden' name='rm' value='2'>
                 <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"
-                       border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                       border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" id="pay">
                 <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
             </form>
 

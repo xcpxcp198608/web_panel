@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class Auth {
@@ -24,8 +25,8 @@ public class Auth {
      * @return
      */
     @PostMapping(value = "/signin")
-    public String signIn(HttpServletRequest request, HttpServletResponse response, String username, String password){
-        return authService.signIn(request, response, username, password);
+    public String signIn(HttpSession session, HttpServletRequest request, HttpServletResponse response, String username, String password){
+        return authService.signIn(session, request, response, username, password);
     }
 
     /**

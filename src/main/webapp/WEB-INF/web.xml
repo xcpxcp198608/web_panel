@@ -9,6 +9,8 @@
         <param-value>classpath*:applicationContext.xml</param-value>
     </context-param>
 
+
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -16,10 +18,12 @@
         <listener-class>com.wiatec.panel.listener.SessionListener</listener-class>
     </listener>
 
+
+
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
+        <load-on-startup>2</load-on-startup>
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath*:dispatcher-servlet.xml</param-value>
@@ -29,6 +33,8 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+
 
     <servlet>
         <servlet-name>DruidStatView</servlet-name>
@@ -50,6 +56,9 @@
         <servlet-name>DruidStatView</servlet-name>
         <url-pattern>/druid/*</url-pattern>
     </servlet-mapping>
+
+
+
 
     <error-page>
         <error-code>400</error-code>

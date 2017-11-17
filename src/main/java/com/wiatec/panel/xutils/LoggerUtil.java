@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
  */
 public class LoggerUtil {
 
-    private static Logger logger = Logger.getLogger(LoggerUtil.class.getName());
+    private static Logger logger;
 
     static {
         logger = Logger.getLogger("");

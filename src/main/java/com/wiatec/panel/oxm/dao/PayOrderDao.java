@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 public interface PayOrderDao {
     void insertOne(PayOrderInfo payOrderInfo);
     void updateByInvoice(PayOrderInfo payOrderInfo);
+    String selectStatusByInvoice(String invoice);
     PayOrderInfo selectOneByInvoice(String invoice);
     PayOrderInfo selectOneByClientKey(String clientKey);
 }

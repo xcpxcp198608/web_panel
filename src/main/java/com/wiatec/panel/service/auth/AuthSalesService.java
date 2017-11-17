@@ -1,11 +1,11 @@
 package com.wiatec.panel.service.auth;
 
-import com.wiatec.panel.aop.Session;
+//import com.wiatec.panel.aop.Session;
 import com.wiatec.panel.entity.ResultInfo;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
-import com.wiatec.panel.oxm.pojo.chart.SalesDaysCommissionInfo;
-import com.wiatec.panel.oxm.pojo.chart.SalesMonthCommissionInfo;
+import com.wiatec.panel.oxm.pojo.chart.SalesCommissionOfDaysInfo;
+import com.wiatec.panel.oxm.pojo.chart.SalesCommissionOfMonthInfo;
 import com.wiatec.panel.paypal.PayInfo;
 import com.wiatec.panel.paypal.PayOrderInfo;
 import com.wiatec.panel.xutils.TextUtil;
@@ -43,8 +43,8 @@ public class AuthSalesService {
     }
 
     @Transactional
-    public ResultInfo<SalesDaysCommissionInfo> getCommissionByMonth(HttpServletRequest request, int year, int month){
-        ResultInfo<SalesDaysCommissionInfo> resultInfo = new ResultInfo<>();
+    public ResultInfo<SalesCommissionOfDaysInfo> getCommissionByMonth(HttpServletRequest request, int year, int month){
+        ResultInfo<SalesCommissionOfDaysInfo> resultInfo = new ResultInfo<>();
         String start = year + "-" + month + "-1";
         String end = "";
         if(month == 12){
@@ -58,11 +58,11 @@ public class AuthSalesService {
         map.put("start", start);
         map.put("end", end);
         try {
-            List<SalesDaysCommissionInfo> salesDaysCommissionInfoList = authOrderDao.getCommissionByMonth(map);
+            List<SalesCommissionOfDaysInfo> salesCommissionOfDaysInfoList = authOrderDao.getCommissionOfDayBySales(map);
             resultInfo.setCode(ResultInfo.CODE_OK);
             resultInfo.setStatus(ResultInfo.STATUS_OK);
             resultInfo.setMessage("create successfully");
-            resultInfo.setDataList(salesDaysCommissionInfoList);
+            resultInfo.setDataList(salesCommissionOfDaysInfoList);
             return resultInfo;
         }catch (Exception e){
             resultInfo.setCode(ResultInfo.CODE_INVALID);
@@ -73,8 +73,8 @@ public class AuthSalesService {
     }
 
     @Transactional
-    public ResultInfo<SalesMonthCommissionInfo> getCommissionByYear(HttpServletRequest request, int year){
-        ResultInfo<SalesMonthCommissionInfo> resultInfo = new ResultInfo<>();
+    public ResultInfo<SalesCommissionOfMonthInfo> getCommissionByYear(HttpServletRequest request, int year){
+        ResultInfo<SalesCommissionOfMonthInfo> resultInfo = new ResultInfo<>();
         String start = year + "-01-01";
         year ++;
         String end =  year + "-01-01";
@@ -83,11 +83,11 @@ public class AuthSalesService {
         map.put("start", start);
         map.put("end", end);
         try {
-            List<SalesMonthCommissionInfo> salesMonthCommissionInfoList = authOrderDao.getCommissionByYear(map);
+            List<SalesCommissionOfMonthInfo> salesCommissionOfMonthInfoList = authOrderDao.getCommissionOfMonthBySales(map);
             resultInfo.setCode(ResultInfo.CODE_OK);
             resultInfo.setStatus(ResultInfo.STATUS_OK);
             resultInfo.setMessage("create successfully");
-            resultInfo.setDataList(salesMonthCommissionInfoList);
+            resultInfo.setDataList(salesCommissionOfMonthInfoList);
             return resultInfo;
         }catch (Exception e){
             resultInfo.setCode(ResultInfo.CODE_INVALID);
@@ -170,7 +170,7 @@ public class AuthSalesService {
     }
 
     private int getSalesId(HttpServletRequest request){
-        String username = Session.getUserName(request);
+        String username = (String) request.getSession().getAttribute("username");
         if(TextUtil.isEmpty(username)){
             throw new RuntimeException("sign info error");
         }

@@ -1,6 +1,6 @@
 package com.wiatec.panel.oxm.pojo.chart;
 
-public class SalesMonthCommissionInfo {
+public class SalesCommissionOfMonthInfo {
 
     private int month;
     private float Commission;
@@ -23,7 +23,7 @@ public class SalesMonthCommissionInfo {
 
     @Override
     public String toString() {
-        return "SalesMonthCommissionInfo{" +
+        return "SalesCommissionOfMonthInfo{" +
                 "month=" + month +
                 ", Commission=" + Commission +
                 '}';

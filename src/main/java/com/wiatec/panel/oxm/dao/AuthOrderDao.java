@@ -1,6 +1,5 @@
 package com.wiatec.panel.oxm.dao;
 
-import com.wiatec.panel.oxm.pojo.AuthAdminInfo;
 import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
 import com.wiatec.panel.oxm.pojo.chart.*;
 
@@ -22,8 +21,12 @@ public interface AuthOrderDao {
     List<TopVolumeInfo> selectTopVolume(int top);
     List<TopAmountInfo> selectTopAmount(int top);
 
+
     List<AuthOrderInfo> selectBySalesId(int salesId);
 
-    List<SalesDaysCommissionInfo> getCommissionByMonth(Map<String, String> map);
-    List<SalesMonthCommissionInfo> getCommissionByYear(Map<String, String> map);
+    List<SalesCommissionOfDaysInfo> getCommissionOfDayBySales(Map<String, String> map);
+    List<SalesCommissionOfMonthInfo> getCommissionOfMonthBySales(Map<String, String> map);
+    List<AllSalesMonthCommissionInfo> selectAllSalesCommissionByMonth(Map<String, String> map);
+
+
 }

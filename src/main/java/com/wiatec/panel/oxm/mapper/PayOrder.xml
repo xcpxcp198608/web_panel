@@ -35,6 +35,10 @@
         WHERE invoice=#{invoice}
     </update>
 
+    <select id="selectStatusByInvoice" parameterType="String" resultMap="payOrderInfo">
+        SELECT paymentStatus FROM pay_order WHERE invoice=#{_parameter}
+    </select>
+
     <select id="selectOneByInvoice" parameterType="String" resultMap="payOrderInfo">
         SELECT * FROM pay_order WHERE invoice=#{_parameter}
     </select>

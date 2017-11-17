@@ -9,6 +9,8 @@ import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
+import com.wiatec.panel.oxm.pojo.chart.AllSalesMonthCommissionInfo;
+import com.wiatec.panel.oxm.pojo.chart.SalesVolumeOfMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.TopAmountInfo;
 import com.wiatec.panel.oxm.pojo.chart.TopVolumeInfo;
 import com.wiatec.panel.xutils.LoggerUtil;
@@ -39,7 +41,8 @@ public class AuthAdminService {
         return "admin/home";
     }
 
-    public void selectSaleVolumeEveryMonth(HttpServletRequest request, int year, int month){
+    @Transactional
+    public List<SalesVolumeOfMonthInfo> selectSaleVolumeEveryMonth(HttpServletRequest request, int year, int month){
         Map<String, String> dateMap = new HashMap<>();
         String start = year + "-" + month;
         String end = "";
@@ -50,7 +53,7 @@ public class AuthAdminService {
         }
         dateMap.put("start", start);
         dateMap.put("end", end);
-        authOrderDao.selectSaleVolumeEveryMonth(dateMap);
+        return authOrderDao.selectSaleVolumeEveryMonth(dateMap);
     }
 
 
@@ -60,6 +63,21 @@ public class AuthAdminService {
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectAll();
         model.addAttribute("authSalesInfoList", authSalesInfoList);
         return "admin/sales";
+    }
+
+    @Transactional(readOnly = true)
+    public List<AllSalesMonthCommissionInfo> getAllSalesCommissionByMonth(HttpServletRequest request, int year, int month){
+        Map<String, String> dateMap = new HashMap<>();
+        String start = year + "-" + month + "-1";
+        String end;
+        if(month == 12){
+            end = year+1 + "-" + 1;
+        }else{
+            end = year + "-" + (month + 1) + "-1";
+        }
+        dateMap.put("start", start);
+        dateMap.put("end", end);
+        return authOrderDao.selectAllSalesCommissionByMonth(dateMap);
     }
 
     @Transactional

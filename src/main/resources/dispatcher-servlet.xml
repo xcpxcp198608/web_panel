@@ -19,12 +19,13 @@
 
     <mvc:annotation-driven/>
     
-    <!--<mvc:interceptors>-->
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/sales/**"/>-->
-            <!--<bean class="com.wiatec.panel.inteceptor.AuthInterceptor"/>-->
-        <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/sales/**"/>
+            <mvc:mapping path="/admin/**"/>
+            <bean class="com.wiatec.panel.inteceptor.AuthInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <mvc:resources mapping="/Resource/**" location="/Resource/"/>
 
