@@ -106,4 +106,15 @@
         SET  status='activate', activateTime=now()
         WHERE clientKey=#{_parameter}
     </update>
+
+    <select id="countOneByKeyAndMac" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
+        SELECT COUNT(*) FROM auth_rent_user
+        WHERE clientKey=#{clientKey}
+        AND mac=#{mac}
+    </select>
+
+    <select id="selectByClientKey" resultMap="authUserInfo" parameterType="String">
+        SELECT * FROM auth_rent_user
+        WHERE clientKey=#{_parameter}
+    </select>
 </mapper>

@@ -10,9 +10,6 @@ public interface AuthRentUserDao {
     int countOneByEmail(AuthRentUserInfo authRentUserInfo);
     String selectStatusByMac(AuthRentUserInfo authRentUserInfo);
 
-
-
-
     void insertOne(AuthRentUserInfo authRentUserInfo);
     AuthRentUserInfo selectOneByMac(AuthRentUserInfo authRentUserInfo);
     AuthRentUserInfo selectOneByClientKey(String key);
@@ -20,8 +17,10 @@ public interface AuthRentUserDao {
     List<AuthRentUserInfo> selectBySalesId(int salesId);
     List<AuthRentUserInfo> selectAll();
 
-
     void updateStatusToActivate(String clientKey);
 
+    //api
+    int countOneByKeyAndMac(AuthRentUserInfo authRentUserInfo);
+    AuthRentUserInfo selectByClientKey(String key);
 
 }

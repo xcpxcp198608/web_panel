@@ -1,5 +1,7 @@
 package com.wiatec.panel.api;
 
+import com.wiatec.panel.entity.ResultInfo;
+import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.service.AuthRentUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +21,9 @@ public class AuthRentUser {
 
     @PostMapping(value = "/login/{clientKey}/{mac}")
     @ResponseBody
-    public void login(HttpServletRequest request, @PathVariable(value = "clientKey") String clientKey,
-                      @PathVariable(value = "mac") String mac){
-        authRentUserService.login(request, clientKey, mac);
+    public ResultInfo<AuthRentUserInfo> login(HttpServletRequest request, @PathVariable(value = "clientKey") String clientKey,
+                                              @PathVariable(value = "mac") String mac){
+        return authRentUserService.login(request, clientKey, mac);
     }
 
     @PostMapping(value = "/validate/{clientKey}/{mac}")

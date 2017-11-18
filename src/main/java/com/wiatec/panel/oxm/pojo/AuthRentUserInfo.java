@@ -24,6 +24,11 @@ public class AuthRentUserInfo {
     public AuthRentUserInfo() {
     }
 
+    public AuthRentUserInfo(String clientKey, String mac) {
+        this.clientKey = clientKey;
+        this.mac = mac;
+    }
+
     public int getId() {
         return id;
     }

@@ -30,12 +30,6 @@ $(function () {
                 color: 'rgba(255, 255, 255, 0.8)'
             }
         },
-        legend: {
-            data:['sales amount'],
-            textStyle:{
-                color: 'rgba(255, 255, 255, 0.8)'
-            }
-        },
         backgroundColor: '#2c343c',
         textStyle: {
             color: 'rgba(255, 255, 255, 0.8)'
@@ -78,9 +72,6 @@ $(function () {
             textStyle:{
                 color: 'rgba(255, 255, 255, 0.8)'
             }
-        },
-        legend: {
-            data:['sales amount']
         },
         backgroundColor: '#2c343c',
         textStyle: {
