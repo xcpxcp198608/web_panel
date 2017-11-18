@@ -7,6 +7,16 @@ $(function () {
     var errorMessage = $('#errorMessage');
     var topLimit = 5;
 
+    setYearAndMonth();
+    function setYearAndMonth() {
+        $('#aYear').html(currentYear);
+        if(currentMonth < 10){
+            $('#aMonth').html("0" + currentMonth);
+        }else {
+            $('#aMonth').html(currentMonth);
+        }
+    }
+
     /**
      * init top5 volume chart
      */
@@ -148,6 +158,7 @@ $(function () {
         })
     }
 
+
     /**
      * get all sales commission by month
      */
@@ -191,6 +202,7 @@ $(function () {
             currentYear --;
             currentMonth = 12;
         }
+        setYearAndMonth();
         getAllSalesCommissionByMonth(currentYear, currentMonth);
     });
     $('#btNextMonth').click(function () {
@@ -199,6 +211,7 @@ $(function () {
             currentYear ++;
             currentMonth = 1;
         }
+        setYearAndMonth();
         getAllSalesCommissionByMonth(currentYear, currentMonth);
     });
 

@@ -35,12 +35,16 @@ public class PayService {
     @Resource
     private PayOrderDao payOrderDao;
     @Resource
-    private AuthSalesDao authSalesDao;
-    @Resource
     private CommissionCategoryDao commissionCategoryDao;
 
     @Transactional
     public String verifyPayment(HttpServletRequest request, Model model){
+        Enumeration en = request.getParameterNames();
+        while (en.hasMoreElements()) {
+            String paramName = (String) en.nextElement();
+            String paramValue = request.getParameter(paramName);
+            Logger.getLogger("").debug(paramName + ": "+ paramValue);
+        }
         String result;
         String invoice = request.getParameter("invoice");
         String paymentStatus = request.getParameter("payment_status");

@@ -47,9 +47,26 @@
         </div>
     </div>
     <br/>
-
+    <div style="width: 100%; height: 20px;clear: both">&nbsp;</div>
     <div style="width:100%; overflow: scroll">
-        <h4>Month sales commission:</h4>
+        <div style="width: 100%; height: 34px; ">
+            <div style="width: 10%; display: block; float: left;">
+                <div style="margin: auto; height: 34px">
+                    <a style="display: block; float: left; height: 34px; line-height: 34px;
+                    font-size: 20px" id="aYear">0000</a>
+                    <a style="display: block; float: left; height: 34px; line-height: 34px;
+                    font-size: 20px">-</a>
+                    <a style="display: block; float: left; height: 34px; line-height: 34px;
+                    font-size: 20px" id="aMonth">00</a>
+                </div>
+            </div>
+
+            <div style="width: 80%; display: block; float: left">
+                <a style="width:100%; height: 34px; line-height: 34px; font-size: 20px; text-align: center; display: block">
+                    Month commission
+                </a>
+            </div>
+        </div>
         <table class="table table-bordered table-striped table-condensed"
             id="tbCommissionByMonth" style="box-shadow: 0 0 5px #000;">
             <tbody>
@@ -72,7 +89,7 @@
         </table>
     </div>
 
-    <hr/>
+
 
     <div style="width: 100%; height: 40px">
         <div style="width: 20%; display: block; float: left;">
