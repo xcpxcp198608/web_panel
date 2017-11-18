@@ -28,9 +28,10 @@ public class AuthRentUser {
 
     @PostMapping(value = "/validate/{clientKey}/{mac}")
     @ResponseBody
-    public void validate(HttpServletRequest request, @PathVariable(value = "clientKey") String clientKey,
-                         @PathVariable(value = "mac") String mac){
-        authRentUserService.validate(request, clientKey, mac);
+    public ResultInfo<AuthRentUserInfo> validate(HttpServletRequest request, @PathVariable(value = "clientKey") String clientKey,
+                                                 @PathVariable(value = "mac") String mac,
+                                                 String country, String region, String city, String timeZone){
+        return authRentUserService.validate(request, clientKey, mac,country, region, city, timeZone);
     }
 
 }

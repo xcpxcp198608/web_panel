@@ -65,7 +65,7 @@
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.1" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.1" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.paypal.sdk:rest-api-sdk:1.13.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.paypal.sdk:rest-api-sdk:1.14.0" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.cassandra:cassandra-all:3.10" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Gradle: com.sun.mail:javax.mail:1.5.0" level="project" />

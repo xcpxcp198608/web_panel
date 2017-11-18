@@ -22,5 +22,6 @@ public interface AuthRentUserDao {
     //api
     int countOneByKeyAndMac(AuthRentUserInfo authRentUserInfo);
     AuthRentUserInfo selectByClientKey(String key);
+    void updateLocation(AuthRentUserInfo authRentUserInfo);
 
 }

@@ -114,7 +114,13 @@
     </select>
 
     <select id="selectByClientKey" resultMap="authUserInfo" parameterType="String">
-        SELECT * FROM auth_rent_user
+        SELECT id, salesId, clientKey, category, mac, firstName ,lastName, email, phone, createTime, activateTime, status FROM auth_rent_user
         WHERE clientKey=#{_parameter}
     </select>
+
+    <update id="updateLocation" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
+        UPDATE auth_rent_user
+        SET country=#{country}, region=#{region}, city=#{city}, timeZone=#{timeZone}, lastOnLineTime=now()
+        WHERE clientKey=#{clientKey}
+    </update>
 </mapper>

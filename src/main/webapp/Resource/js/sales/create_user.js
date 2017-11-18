@@ -20,6 +20,29 @@ $(function () {
            tbCategory.rows[1].cells[4].innerHTML = response['expires'];
        });
    });
+
+   $('#ipMac').keyup(function () {
+       var mac = $(this).val();
+       if(mac.length === 2){
+           $(this).val(mac + ':');
+           return;
+       }
+       if(mac.length === 5){
+           $(this).val(mac + ':');
+           return;
+       }
+       if(mac.length === 8){
+           $(this).val(mac + ':');
+           return;
+       }
+       if(mac.length === 11){
+           $(this).val(mac + ':');
+           return;
+       }
+       if(mac.length === 14){
+           $(this).val(mac + ':');
+       }
+   });
    
    $('#btSubmitCreate').click(function () {
        $('#errorMessage').html('');

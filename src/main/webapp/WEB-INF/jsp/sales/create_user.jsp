@@ -63,7 +63,8 @@
                     <span class="input-group-addon" id="basic-addon3">
                       <span class="glyphicon glyphicon-barcode" aria-hidden="true"></span>
                     </span>
-                <input id="ipMac" type="text" class="form-control" placeholder="Mac" aria-describedby="basic-addon3" name="mac">
+                <input id="ipMac" type="text" class="form-control" placeholder="mac"
+                       aria-describedby="basic-addon3" name="mac" maxlength="17">
             </div>
             <br/>
             <div class="input-group">

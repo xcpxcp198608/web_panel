@@ -6,6 +6,7 @@
     Sales
 </rapid:override>
 <rapid:override name="css_js">
+    <link rel="stylesheet" href="Resource/css/admin/sales.css"/>
     <script type="text/javascript" src="Resource/js/admin/sales.js"></script>
 </rapid:override>
 

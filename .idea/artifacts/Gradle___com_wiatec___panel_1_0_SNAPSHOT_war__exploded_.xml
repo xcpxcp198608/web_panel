@@ -58,7 +58,6 @@
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.1" />
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.1" />
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.1" />
-          <element id="library" level="project" name="Gradle: com.paypal.sdk:rest-api-sdk:1.13.1" />
           <element id="library" level="project" name="Gradle: org.apache.cassandra:cassandra-all:3.10" />
           <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.25" />
           <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.5.0" />
@@ -146,6 +145,7 @@
           <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.2.5" />
           <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpcore:4.2.4" />
           <element id="library" level="project" name="Gradle: net.java.dev.jna:jna:4.1.0" />
+          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.paypal.sdk/rest-api-sdk/1.14.0/9f226d6034f4b30f7f05e1d44093729ee0a08767/rest-api-sdk-1.14.0.jar" />
         </element>
       </element>
     </root>
