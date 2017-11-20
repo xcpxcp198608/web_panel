@@ -30,12 +30,12 @@ public class SessionListener implements HttpSessionListener,HttpSessionAttribute
     @Override
     public void attributeAdded(HttpSessionBindingEvent httpSessionBindingEvent) {
         if(KEY.equals(httpSessionBindingEvent.getName())){
-            String username = (String) httpSessionBindingEvent.getValue();
-            HttpSession httpSession = sessionMap.remove(username);
+            String key = (String) httpSessionBindingEvent.getValue();
+            HttpSession httpSession = sessionMap.remove(key);
             if(httpSession != null){
                 httpSession.removeAttribute(KEY);
             }
-            sessionMap.put(username, httpSessionBindingEvent.getSession());
+            sessionMap.put(key, httpSessionBindingEvent.getSession());
         }
         if(KEY_USER_NAME.equals(httpSessionBindingEvent.getName())){
             String username = (String) httpSessionBindingEvent.getValue();
@@ -51,8 +51,8 @@ public class SessionListener implements HttpSessionListener,HttpSessionAttribute
     public void attributeRemoved(HttpSessionBindingEvent httpSessionBindingEvent) {
         if(KEY.equals(httpSessionBindingEvent.getName())){
             try {
-                String username = (String) httpSessionBindingEvent.getValue();
-                sessionMap.remove(username);
+                String key = (String) httpSessionBindingEvent.getValue();
+                sessionMap.remove(key);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -70,9 +70,9 @@ public class SessionListener implements HttpSessionListener,HttpSessionAttribute
     @Override
     public void attributeReplaced(HttpSessionBindingEvent httpSessionBindingEvent) {
         if(KEY.equals(httpSessionBindingEvent.getName())){
-            String username = (String) httpSessionBindingEvent.getValue();
-            sessionMap.remove(username);
-            sessionMap.put(username, httpSessionBindingEvent.getSession());
+            String key = (String) httpSessionBindingEvent.getValue();
+            sessionMap.remove(key);
+            sessionMap.put(key, httpSessionBindingEvent.getSession());
         }
         if(KEY_USER_NAME.equals(httpSessionBindingEvent.getName())){
             String username = (String) httpSessionBindingEvent.getValue();
@@ -81,8 +81,8 @@ public class SessionListener implements HttpSessionListener,HttpSessionAttribute
         }
     }
 
-    public static HttpSession getSession (String userName){
-        return sessionMap.get(userName);
+    public static HttpSession getSession (String key){
+        return sessionMap.get(key);
     }
 
     public static HttpSession getUserSession (String userName){

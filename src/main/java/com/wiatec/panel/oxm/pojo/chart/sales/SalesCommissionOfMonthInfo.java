@@ -1,16 +1,16 @@
-package com.wiatec.panel.oxm.pojo.chart;
+package com.wiatec.panel.oxm.pojo.chart.sales;
 
-public class SalesCommissionOfDaysInfo {
+public class SalesCommissionOfMonthInfo {
 
-    private int day;
+    private int month;
     private float Commission;
 
-    public int getDay() {
-        return day;
+    public int getMonth() {
+        return month;
     }
 
-    public void setDay(int day) {
-        this.day = day;
+    public void setMonth(int month) {
+        this.month = month;
     }
 
     public float getCommission() {
@@ -23,8 +23,8 @@ public class SalesCommissionOfDaysInfo {
 
     @Override
     public String toString() {
-        return "SalesCommissionOfDaysInfo{" +
-                "day=" + day +
+        return "SalesCommissionOfMonthInfo{" +
+                "month=" + month +
                 ", Commission=" + Commission +
                 '}';
     }

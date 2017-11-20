@@ -1,13 +1,11 @@
 package com.wiatec.panel.web;
 
 import com.wiatec.panel.entity.ResultInfo;
+import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
-import com.wiatec.panel.oxm.pojo.chart.AllSalesMonthCommissionInfo;
-import com.wiatec.panel.oxm.pojo.chart.SalesVolumeOfMonthInfo;
-import com.wiatec.panel.oxm.pojo.chart.TopAmountInfo;
-import com.wiatec.panel.oxm.pojo.chart.TopVolumeInfo;
+import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.service.auth.AuthAdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.POST;
 import java.util.List;
 
 @Controller
@@ -37,13 +34,6 @@ public class AuthAdmin {
     }
 
 
-    @PostMapping(value = "/chart/volume/{year}/{month}")
-    @ResponseBody
-    public List<SalesVolumeOfMonthInfo> getSaleVolumeEveryMonth(HttpServletRequest request, @PathVariable(value = "year") int year,
-                                                                @PathVariable(value = "month") int month){
-        return authAdminService.selectSaleVolumeEveryMonth(request, year, month);
-    }
-
     /**
      * sales page
      * @param request
@@ -55,18 +45,7 @@ public class AuthAdmin {
         return authAdminService.sales(request, model);
     }
 
-    /**
-     * get all sales commission by month
-     * @param request
-     * @param year
-     * @param month
-     * @return
-     */
-    @PostMapping(value = "/commission/{year}/{month}")
-    @ResponseBody
-    public List<AllSalesMonthCommissionInfo> getSales(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
-        return authAdminService.getAllSalesCommissionByMonth(request, year, month);
-    }
+
 
     /**
      * create user
@@ -81,7 +60,7 @@ public class AuthAdmin {
     }
 
     /**
-     * update user password
+     * update sales password
      * @param request
      * @param authSalesInfo
      * @return
@@ -105,7 +84,7 @@ public class AuthAdmin {
     }
 
     /**
-     * get users under sales by sales id
+     * get users under specify sales by sales id
      * @param request
      * @param model
      * @param salesId
@@ -141,54 +120,83 @@ public class AuthAdmin {
     }
 
     /**
-     * order data by month
-     * @param request
-     * @param year
-     * @param month
-     * @return
+     * get real time online number
+     * @return  current online number
      */
-    @RequestMapping(value = "/orders/{year}/{month}")
+    @GetMapping(value = "/chart/online")
     @ResponseBody
-    public ResultInfo<AuthOrderInfo> getOrdersByMonth(HttpServletRequest request, @PathVariable(value = "year") int year,
-                                                         @PathVariable(value = "month") int month){
-        return authAdminService.getOrdersByMonth(request, year, month);
+    public int getCurrentOnline(){
+        return SessionListener.sessionMap.size();
     }
 
     /**
-     * order data by year
-     * @param request
-     * @param year
-     * @return
+     * get every day sales volume in specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        SalesDayVolumeInMonthInfo list
      */
-    @PostMapping(value = "/orders/{year}")
+    @PostMapping(value = "/chart/volume/{year}/{month}")
     @ResponseBody
-    public ResultInfo<AuthOrderInfo> getOrdersByYear(HttpServletRequest request,
-                                                     @PathVariable(value = "year") String year){
-        return authAdminService.getOrdersByYear(request, year);
+    public List<SalesDayVolumeInMonthInfo> getSaleVolumeEveryDayInMonth(@PathVariable int year, @PathVariable int month){
+        return authAdminService.countSaleVolumeEveryDayInMonth(year, month);
     }
 
     /**
      * the top {?} volume
-     * @param request
-     * @param top
-     * @return
+     * @param top   specify number
+     * @return      TopVolumeInfo list
      */
-    @PostMapping(value = "/orders/volume/{top}")
+    @PostMapping(value = "/chart/sales/volume/{top}")
     @ResponseBody
-    public List<TopVolumeInfo> getTopVolume(HttpServletRequest request, @PathVariable(value = "top") int top){
-        return authAdminService.getTopVolume(request, top);
+    public List<TopVolumeInfo> getTopVolume(@PathVariable int top){
+        return authAdminService.getTopVolume(top);
     }
 
     /**
      * the top {?} amount
-     * @param request
-     * @param top
-     * @return
+     * @param top  specify number
+     * @return     TopVolumeInfo list
      */
-    @PostMapping(value = "/orders/amount/{top}")
+    @PostMapping(value = "/chart/sales/amount/{top}")
     @ResponseBody
-    public List<TopAmountInfo> getTopAmount(HttpServletRequest request, @PathVariable(value = "top") int top){
-        return authAdminService.getTopAmount(request, top);
+    public List<TopAmountInfo> getTopAmount(@PathVariable int top){
+        return authAdminService.getTopAmount(top);
     }
+
+    /**
+     * get all sales commission by specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        AllSalesMonthCommissionInfo list
+     */
+    @PostMapping(value = "/chart/sales/commission/{year}/{month}")
+    @ResponseBody
+    public List<AllSalesMonthCommissionInfo> getSales(@PathVariable int year, @PathVariable int month){
+        return authAdminService.getAllSalesCommissionByMonth(year, month);
+    }
+
+    /**
+     * get every month sales amount in specify year
+     * @param year   specify year
+     * @return       SalesAmountInfo list
+     */
+    @PostMapping(value = "/chart/amount/{year}")
+    @ResponseBody
+    public List<SalesAmountInfo> getSalesAmountEveryMonthInYear(@PathVariable int year){
+        return authAdminService.selectSaleAmountEveryMonthInYear(year);
+    }
+
+    /**
+     * get every days sales amount in specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        SalesAmountInfo list
+     */
+    @PostMapping(value = "/chart/amount/{year}/{month}")
+    @ResponseBody
+    public List<SalesAmountInfo> getSalesAmountEveryDayInMonth(@PathVariable int year, @PathVariable int month){
+        return authAdminService.selectSaleAmountEveryDayInMonth(year, month);
+    }
+
 
 }

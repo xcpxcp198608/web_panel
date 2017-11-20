@@ -37,11 +37,11 @@
 
 <rapid:override name="content">
     <div style="width: 100%; height: 180px">
-        <div style="width: 31%; height: 100%; display: block; float: left;">
+        <div style="width: 37%; height: 100%; display: block; float: left;">
             <a style="width:100%; height: 30px; line-height: 30px; font-size: 20px">Category</a>
             <table class="table table-bordered table-hover table-striped" id="tbCategory" style=" box-shadow: 0 0 5px #000">
                 <thead style="background-color: #566778;">
-                    <tr><td>#</td><td>Price</td><td>Deposit</td><td>LD</td><td>Dealer</td><td>Sales</td></tr>
+                    <tr><td>#</td><td>Price</td><td>Deposit</td><td>Expires</td><td>LD</td><td>Dealer</td><td>Sales</td></tr>
                 </thead>
                 <tbody>
                     <c:forEach items="${commissionCategoryInfoList}" var="commissionCategoryInfo">
@@ -49,6 +49,7 @@
                             <td>${commissionCategoryInfo.category}</td>
                             <td>${commissionCategoryInfo.price}</td>
                             <td>${commissionCategoryInfo.deposit}</td>
+                            <td>${commissionCategoryInfo.expires}</td>
                             <td>${commissionCategoryInfo.ldCommission}</td>
                             <td>${commissionCategoryInfo.dealerCommission}</td>
                             <td>${commissionCategoryInfo.salesCommission}</td>
@@ -57,13 +58,13 @@
                 </tbody>
             </table>
         </div>
-        <div style="width: 23%; height: 100%; display: block; float: left">
+        <div style="width: 21%; height: 100%; display: block; float: left">
             <div id="B1Chart" style="width: 100%; height: 180px"></div>
         </div>
-        <div style="width: 23%; height: 100%; display: block; float: left">
+        <div style="width: 21%; height: 100%; display: block; float: left">
             <div id="P1Chart" style="width: 100%; height: 180px"></div>
         </div>
-        <div style="width: 23%; height: 100%; display: block; float: left">
+        <div style="width: 21%; height: 100%; display: block; float: left">
             <div id="P2Chart" style="width: 100%; height: 180px"></div>
         </div>
     </div>
@@ -103,12 +104,13 @@
             </div>
         </div>
 
-        <div style="width: 100%; height: 166px; box-shadow: 0 0 5px #000;">
+        <div style="width: 100%; height: 198px; box-shadow: 0 0 5px #000;">
             <div style="width: 20%; display: block; float: left">
                 <table class="table table-bordered table-condensed" id="tbYearIncome"
                     style="background-color: #2c343c; color: whitesmoke">
                     <tbody>
                         <tr><td>Income</td><td style="font-style: italic; color: orange">0</td></tr>
+                        <tr><td>TxFee</td><td style="font-style: italic; color: orange">0</td></tr>
                         <tr><td>Deposit</td><td style="font-style: italic; color: orange">0</td></tr>
                         <tr><td>LD</td><td style="font-style: italic; color: orange">0</td></tr>
                         <tr><td>Dealer</td><td style="font-style: italic; color: orange">0</td></tr>
@@ -116,7 +118,7 @@
                     </tbody>
                 </table>
             </div>
-            <div id="yearIncomeChart" style="width: 80%; height:166px; display: block; float: right; background-color: #2c343c">
+            <div id="yearIncomeChart" style="width: 80%; height:198px; display: block; float: right; background-color: #2c343c">
 
             </div>
         </div>
@@ -152,6 +154,7 @@
                 <tr>
                     <td>Count</td>
                     <td>Price</td>
+                    <td>TxFee</td>
                     <td>Deposit</td>
                     <td>LD</td>
                     <td>Dealer</td>
@@ -160,6 +163,7 @@
             </thead>
             <tbody>
                 <tr id="trTotal">
+                    <td class="tdTotal">0</td>
                     <td class="tdTotal">0</td>
                     <td class="tdTotal">0</td>
                     <td class="tdTotal">0</td>

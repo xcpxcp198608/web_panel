@@ -1,12 +1,10 @@
-package com.wiatec.panel.oxm.pojo.chart;
+package com.wiatec.panel.oxm.pojo.chart.admin;
 
-import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
-
-public class TopVolumeInfo {
+public class TopAmountInfo {
 
     private int salesId;
     private String salesName;
-    private int volume;
+    private float amount;
 
 
     public int getSalesId() {
@@ -25,20 +23,20 @@ public class TopVolumeInfo {
         this.salesName = salesName;
     }
 
-    public int getVolume() {
-        return volume;
+    public float getAmount() {
+        return amount;
     }
 
-    public void setVolume(int volume) {
-        this.volume = volume;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     @Override
     public String toString() {
-        return "TopVolumeInfo{" +
+        return "TopAmountInfo{" +
                 "salesId=" + salesId +
                 ", salesName='" + salesName + '\'' +
-                ", volume=" + volume +
+                ", amount=" + amount +
                 '}';
     }
 }

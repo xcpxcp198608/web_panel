@@ -1,4 +1,4 @@
-package com.wiatec.panel.oxm.pojo.chart;
+package com.wiatec.panel.oxm.pojo.chart.admin;
 
 public class AllSalesMonthCommissionInfo {
 

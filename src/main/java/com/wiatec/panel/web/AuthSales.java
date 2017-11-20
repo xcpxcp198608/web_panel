@@ -2,8 +2,8 @@ package com.wiatec.panel.web;
 
 import com.wiatec.panel.entity.ResultInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
-import com.wiatec.panel.oxm.pojo.chart.SalesCommissionOfDaysInfo;
-import com.wiatec.panel.oxm.pojo.chart.SalesCommissionOfMonthInfo;
+import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
+import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo;
 import com.wiatec.panel.service.auth.AuthSalesService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

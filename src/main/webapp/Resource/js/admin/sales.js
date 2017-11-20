@@ -108,7 +108,7 @@ $(function () {
      */
     getTopVolume(topLimit);
     function getTopVolume(limit) {
-        var url = baseUrl + '/admin/orders/volume/' + limit;
+        var url = baseUrl + '/admin/chart/sales/volume/' + limit;
         $.post(url,{}, function (topVolumeList, status) {
             volumeXData.length = 0;
             volumeData.length = 0;
@@ -131,7 +131,7 @@ $(function () {
      */
     getTopAmount(topLimit);
     function getTopAmount(limit) {
-        var url = baseUrl + '/admin/orders/amount/' + limit;
+        var url = baseUrl + '/admin/chart/sales/amount/' + limit;
         $.post(url,{}, function (topAmountList, status) {
             amountXData.length = 0;
             amountData.length = 0;
@@ -159,7 +159,7 @@ $(function () {
         $('#btPreviousMonth').attr('disabled', 'disabled');
         $('#btNextMonth').attr('disabled', 'disabled');
         clearTableCommissionByMonth();
-        var url = baseUrl + '/admin/commission/' + year + "/" + month;
+        var url = baseUrl + '/admin/chart/sales/commission/' + year + "/" + month;
         $.post(url,{}, function (allSalesCommissionInfoList, status) {
             var length = allSalesCommissionInfoList.length;
             for(var i = 0; i < length; i ++){

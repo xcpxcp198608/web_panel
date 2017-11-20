@@ -47,29 +47,29 @@
         </association>
     </resultMap>
 
-    <resultMap id="topVolumeInfo" type="com.wiatec.panel.oxm.pojo.chart.TopVolumeInfo">
+    <resultMap id="topVolumeInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.TopVolumeInfo">
         <id column="salesId" property="salesId"/>
         <result column="salesName" property="salesName"/>
         <result column="volume" property="volume"/>
     </resultMap>
 
-    <resultMap id="topAmountInfo" type="com.wiatec.panel.oxm.pojo.chart.TopAmountInfo">
+    <resultMap id="topAmountInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.TopAmountInfo">
         <id column="salesId" property="salesId"/>
         <result column="salesName" property="salesName"/>
         <result column="amount" property="amount"/>
     </resultMap>
 
-    <resultMap id="salesDaysCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.SalesCommissionOfDaysInfo">
+    <resultMap id="salesDaysCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo">
         <result column="commission" property="commission"/>
-        <result column="amount" property="day"/>
+        <result column="day" property="day"/>
     </resultMap>
 
-    <resultMap id="salesMonthCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.SalesCommissionOfMonthInfo">
+    <resultMap id="salesMonthCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo">
         <result column="commission" property="commission"/>
         <result column="month" property="month"/>
     </resultMap>
 
-    <resultMap id="allSalesMonthCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.AllSalesMonthCommissionInfo">
+    <resultMap id="allSalesMonthCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.AllSalesMonthCommissionInfo">
         <result column="salesUsername" property="salesUsername"/>
         <result column="commission" property="commission"/>
     </resultMap>
@@ -118,12 +118,11 @@
         <include refid="select"/> ORDER BY tradingTime DESC
     </select>
 
-    <select id="selectSaleVolumeEveryMonth" parameterType="Map" >
-        SELECT auth_order.category, count(*) volume, count(category)
-        FROM auth_order
-        WHERE tradingTime BETWEEN '2017-11' AND '2017-12'
-        GROUP BY auth_order.category
-    </select>
+    <resultMap id="salesVolumeEveryDayInMonth" type="com.wiatec.panel.oxm.pojo.chart.admin.SalesDayVolumeInMonthInfo">
+        <result column="category" property="category"/>
+        <result column="count" property="count"/>
+        <result column="day" property="day"/>
+    </resultMap>
 
     <select id="selectByTradingTime" resultMap="authOrderInfo" parameterType="String">
         <include refid="select"/>
@@ -183,18 +182,48 @@
         ORDER BY month
     </select>
 
-    <select id="selectAllSalesCommissionByMonth" parameterType="Map" resultMap="allSalesMonthCommissionInfo">
+    <select id="countSaleVolumeEveryDayInMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo" resultMap="salesVolumeEveryDayInMonth">
+        SELECT category, count(category) AS count, DAYOFMONTH(tradingTime) day
+        FROM auth_order
+        WHERE tradingTime between #{start} and #{end}
+        GROUP BY category, day;
+    </select>
+
+    <select id="selectAllSalesCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo" resultMap="allSalesMonthCommissionInfo">
         SELECT sum(salesCommission) commission, auth_sales.username salesUsername
         FROM auth_order
             JOIN auth_sales
                 ON auth_order.salesId=auth_sales.id
-        <where>
-            <if test="start != null and end != null">
-                tradingTime BETWEEN #{start} AND #{end}
-            </if>
-        </where>
+        WHERE tradingTime between #{start} and #{end}
         GROUP BY salesUsername
         ORDER BY salesUsername;
+    </select>
+
+    <resultMap id="salesAmountInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.SalesAmountInfo">
+        <result column="price" property="price"/>
+        <result column="txFee" property="txFee"/>
+        <result column="deposit" property="deposit"/>
+        <result column="ldCommission" property="ldCommission"/>
+        <result column="dealerCommission" property="dealerCommission"/>
+        <result column="salesCommission" property="salesCommission"/>
+        <result column="date" property="date"/>
+    </resultMap>
+    <select id="selectSaleAmountEveryMonthInYear" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo" resultMap="salesAmountInfo">
+        SELECT sum(price) price, sum(txFee) txFee, sum(deposit) deposit,
+              sum(ldCommission) ldCommission, sum(dealerCommission) dealerCommission,
+              sum(salesCommission) salesCommission, MONTH(tradingTime) date
+        FROM auth_order
+        WHERE tradingTime between #{start} and #{end}
+        GROUP BY date;
+    </select>
+
+    <select id="selectSaleAmountEveryDayInMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo" resultMap="salesAmountInfo">
+        SELECT sum(price) price, sum(txFee) txFee, sum(deposit) deposit,
+               sum(ldCommission) ldCommission, sum(dealerCommission) dealerCommission,
+               sum(salesCommission) salesCommission, DAYOFMONTH(tradingTime) date
+        FROM auth_order
+        WHERE tradingTime between #{start} and #{end}
+        GROUP BY date;
     </select>
 
 </mapper>

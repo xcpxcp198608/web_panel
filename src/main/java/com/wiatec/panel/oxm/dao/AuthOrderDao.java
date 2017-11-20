@@ -1,7 +1,10 @@
 package com.wiatec.panel.oxm.dao;
 
 import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
-import com.wiatec.panel.oxm.pojo.chart.*;
+import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
+import com.wiatec.panel.oxm.pojo.chart.admin.*;
+import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
+import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -14,19 +17,23 @@ public interface AuthOrderDao {
 
     AuthOrderInfo selectOne(AuthOrderInfo authOrderInfo);
     List<AuthOrderInfo> selectAll();
-
-    List<SalesVolumeOfMonthInfo> selectSaleVolumeEveryMonth(Map<String, String> dateMap);
+    List<AuthOrderInfo> selectBySalesId(int salesId);
 
     List<AuthOrderInfo> selectByTradingTime(String day);
+
+
+
+
+    List<SalesDayVolumeInMonthInfo> countSaleVolumeEveryDayInMonth(YearOrMonthInfo yearOrMonthInfo);
     List<TopVolumeInfo> selectTopVolume(int top);
     List<TopAmountInfo> selectTopAmount(int top);
+    List<AllSalesMonthCommissionInfo> selectAllSalesCommissionByMonth(YearOrMonthInfo yearOrMonthInfo);
+    List<SalesAmountInfo> selectSaleAmountEveryMonthInYear(YearOrMonthInfo yearOrMonthInfo);
+    List<SalesAmountInfo> selectSaleAmountEveryDayInMonth(YearOrMonthInfo yearOrMonthInfo);
 
 
-    List<AuthOrderInfo> selectBySalesId(int salesId);
 
     List<SalesCommissionOfDaysInfo> getCommissionOfDayBySales(Map<String, String> map);
     List<SalesCommissionOfMonthInfo> getCommissionOfMonthBySales(Map<String, String> map);
-    List<AllSalesMonthCommissionInfo> selectAllSalesCommissionByMonth(Map<String, String> map);
-
 
 }

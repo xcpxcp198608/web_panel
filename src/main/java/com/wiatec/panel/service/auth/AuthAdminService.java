@@ -9,10 +9,8 @@ import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
-import com.wiatec.panel.oxm.pojo.chart.AllSalesMonthCommissionInfo;
-import com.wiatec.panel.oxm.pojo.chart.SalesVolumeOfMonthInfo;
-import com.wiatec.panel.oxm.pojo.chart.TopAmountInfo;
-import com.wiatec.panel.oxm.pojo.chart.TopVolumeInfo;
+import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
+import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.xutils.LoggerUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,48 +34,16 @@ public class AuthAdminService {
     @Resource
     private CommissionCategoryDao commissionCategoryDao;
 
-    /////////////////////////////////////////////////// home //////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////// home ///////////////////////////////////////////////////////////
     public String home(HttpServletRequest request, Model model){
         return "admin/home";
     }
 
-    @Transactional
-    public List<SalesVolumeOfMonthInfo> selectSaleVolumeEveryMonth(HttpServletRequest request, int year, int month){
-        Map<String, String> dateMap = new HashMap<>();
-        String start = year + "-" + month;
-        String end = "";
-        if(month == 12){
-            end = year+1 + "-" + 1;
-        }else{
-            end = year + "-" + month + 1;
-        }
-        dateMap.put("start", start);
-        dateMap.put("end", end);
-        return authOrderDao.selectSaleVolumeEveryMonth(dateMap);
-    }
-
-
     /////////////////////////////////////////////////// sales //////////////////////////////////////////////////////////
-    @Transactional(readOnly = true)
     public String sales(HttpServletRequest request, Model model){
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectAll();
         model.addAttribute("authSalesInfoList", authSalesInfoList);
         return "admin/sales";
-    }
-
-    @Transactional(readOnly = true)
-    public List<AllSalesMonthCommissionInfo> getAllSalesCommissionByMonth(HttpServletRequest request, int year, int month){
-        Map<String, String> dateMap = new HashMap<>();
-        String start = year + "-" + month + "-1";
-        String end;
-        if(month == 12){
-            end = year+1 + "-" + 1;
-        }else{
-            end = year + "-" + (month + 1) + "-1";
-        }
-        dateMap.put("start", start);
-        dateMap.put("end", end);
-        return authOrderDao.selectAllSalesCommissionByMonth(dateMap);
     }
 
     @Transactional
@@ -134,7 +100,6 @@ public class AuthAdminService {
     }
 
     /////////////////////////////////////////////////// users //////////////////////////////////////////////////////////
-    @Transactional(readOnly = true)
     public String users(HttpServletRequest request, Model model, int salesId){
         List<AuthRentUserInfo> authRentUserInfoList = null;
         if(salesId > 0){
@@ -147,13 +112,11 @@ public class AuthAdminService {
         return "admin/users";
     }
 
-    @Transactional(readOnly = true)
     public AuthRentUserInfo getUserByKey(HttpServletRequest request, String key){
         return authRentUserDao.selectOneByClientKey(key);
     }
 
     ///////////////////////////////////////////////// commission ///////////////////////////////////////////////////////
-    @Transactional(readOnly = true)
     public String commission(HttpServletRequest request, Model model){
         List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
         for(CommissionCategoryInfo commissionCategoryInfo: commissionCategoryInfoList){
@@ -165,59 +128,33 @@ public class AuthAdminService {
         return "admin/commission";
     }
 
-    @Transactional(readOnly = true)
-    public ResultInfo<AuthOrderInfo> getOrdersByMonth(HttpServletRequest request, int year, int month){
-        ResultInfo<AuthOrderInfo> resultInfo = new ResultInfo<>();
-        try {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(year);
-            stringBuilder.append("-");
-            if(month < 10){
-                stringBuilder.append("0");
-            }
-            stringBuilder.append(month);
-            List<AuthOrderInfo> authOrderInfoList = authOrderDao.selectByTradingTime(stringBuilder.toString());
-            resultInfo.setCode(ResultInfo.CODE_OK);
-            resultInfo.setStatus(ResultInfo.STATUS_OK);
-            resultInfo.setMessage("successfully");
-            resultInfo.setDataList(authOrderInfoList);
-            return resultInfo;
-        }catch (Exception e){
-            e.printStackTrace();
-            resultInfo.setCode(ResultInfo.CODE_SERVER_ERROR);
-            resultInfo.setStatus(ResultInfo.STATUS_SERVER_ERROR);
-            resultInfo.setMessage("server error ");
-            return resultInfo;
-        }
+    /////////////////////////////////////////////////// chart ///////////////////////////////////////////////////////////
+    public List<SalesDayVolumeInMonthInfo> countSaleVolumeEveryDayInMonth(int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        return authOrderDao.countSaleVolumeEveryDayInMonth(yearOrMonthInfo);
     }
 
-    @Transactional(readOnly = true)
-    public ResultInfo<AuthOrderInfo> getOrdersByYear(HttpServletRequest request, String year){
-        ResultInfo<AuthOrderInfo> resultInfo = new ResultInfo<>();
-        try {
-            List<AuthOrderInfo> authOrderInfoList = authOrderDao.selectByTradingTime(year);
-            resultInfo.setCode(ResultInfo.CODE_OK);
-            resultInfo.setStatus(ResultInfo.STATUS_OK);
-            resultInfo.setMessage("successfully");
-            resultInfo.setDataList(authOrderInfoList);
-            return resultInfo;
-        }catch (Exception e){
-            e.printStackTrace();
-            resultInfo.setCode(ResultInfo.CODE_SERVER_ERROR);
-            resultInfo.setStatus(ResultInfo.STATUS_SERVER_ERROR);
-            resultInfo.setMessage("server error!");
-            return resultInfo;
-        }
-    }
-
-    @Transactional(readOnly = true)
-    public List<TopVolumeInfo> getTopVolume(HttpServletRequest request, int top){
+    public List<TopVolumeInfo> getTopVolume(int top){
         return authOrderDao.selectTopVolume(top);
     }
 
-    @Transactional(readOnly = true)
-    public List<TopAmountInfo> getTopAmount(HttpServletRequest request, int top){
+    public List<TopAmountInfo> getTopAmount(int top){
         return authOrderDao.selectTopAmount(top);
+    }
+
+    public List<AllSalesMonthCommissionInfo> getAllSalesCommissionByMonth(int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        return authOrderDao.selectAllSalesCommissionByMonth(yearOrMonthInfo);
+    }
+
+    public List<SalesAmountInfo> selectSaleAmountEveryMonthInYear(int year){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
+        return authOrderDao.selectSaleAmountEveryMonthInYear(yearOrMonthInfo);
+    }
+
+    public List<SalesAmountInfo> selectSaleAmountEveryDayInMonth(int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        return authOrderDao.selectSaleAmountEveryDayInMonth(yearOrMonthInfo);
     }
 
 }

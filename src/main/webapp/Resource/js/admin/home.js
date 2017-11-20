@@ -18,16 +18,20 @@ $(function () {
      */
     var chartOnline = echarts.init(document.getElementById('chart_online'));
     var date = [];
-    var data = [Math.random() * 150];
+    var data = [0];
     function addData() {
-        var now = new Date();
-        var now1 = [now.getHours(), now.getMinutes(), now.getSeconds()+1].join(':');
-        date.push(now1);
-        data.push((Math.random() - 0.4) * 10 + data[data.length - 1]);
-        if (date.length > 720) {
-            date.shift();
-            data.shift();
-        }
+        var url = baseUrl + "/admin/chart/online";
+        $.get(url,function (number, status) {
+            var now = new Date();
+            var now1 = [now.getHours(), now.getMinutes(), now.getSeconds()+1].join(':');
+            date.push(now1);
+            data.push(number);
+            if (date.length > 720) {
+                date.shift();
+                data.shift();
+            }
+        });
+
     }
 
     var onlineOption = {
@@ -108,7 +112,7 @@ $(function () {
             currentMonth = 12;
         }
         setYearAndMont();
-        getMonthOrders(currentYear, currentMonth);
+        getSaleVolumeEveryDayInMonth(currentYear, currentMonth);
     });
 
     $('#btNextMonth').click(function () {
@@ -118,7 +122,7 @@ $(function () {
             currentMonth = 1;
         }
         setYearAndMont();
-        getMonthOrders(currentYear, currentMonth);
+        getSaleVolumeEveryDayInMonth(currentYear, currentMonth);
     });
 
     /**
@@ -157,58 +161,69 @@ $(function () {
     
 
     /**
-     * get month orders
+     * get month sales volume
      */
-    getMonthOrders(currentYear, currentMonth);
-    function getMonthOrders(year, month) {
+    getSaleVolumeEveryDayInMonth(currentYear, currentMonth);
+    function getSaleVolumeEveryDayInMonth(year, month) {
         var days = getDaysOfYearAndMonth(year, month);
-        var url = baseUrl + "/admin/orders/" + year + "/" + month;
+        var url = baseUrl + "/admin/chart/volume/" + year + "/" + month;
         $('#btPreviousMonth').attr('disabled', 'disabled');
         $('#btNextMonth').attr('disabled', 'disabled');
         $('#homeLoading').css('display', 'block');
-        $.post(url,{ },function(response, status){
-            var monthOrderList = response.dataList;
-            var monthData = transformMonthOrders(monthOrderList);
-            var volumeData = monthData['volumeData'];
-            var b1Data = monthData['b1Data'];
-            var p1Data = monthData['p1Data'];
-            var p2Data = monthData['p2Data'];
-            cleanMonthTable();
+        $.post(url,{ },function(dayVolumeList, status){
+            var length = dayVolumeList.length;
+            var rowsLength = tbMonth.rows.length;
             var totalVolume = 0;
             var totalB1 = 0;
             var totalP1 = 0;
             var totalP2 = 0;
-            var length = volumeData.length;
-            for(var i = 0 ; i < length ; i ++){
+            cleanMonthTable();
+            for(var i = 0; i < days; i ++){
                 var tdObj = document.createElement("td");
                 tdObj.innerHTML = i+1;
                 thMonth.append(tdObj);
-                var ll = tbMonth.rows.length;
-                for(var j = 0; j < ll; j ++){
+                var b1 = 0;
+                var p1 = 0;
+                var p2 = 0;
+                for(var j = 0; j < length; j ++){
+                    var item = dayVolumeList[j];
+                    if(item['day'] === i+1){
+                        if(item['category'] === 'B1'){
+                            b1 = item['count']
+                        }
+                        if(item['category'] === 'P1'){
+                            p1 = item['count']
+                        }
+                        if(item['category'] === 'P2'){
+                            p2 = item['count']
+                        }
+                    }
+                }
+                for(var k = 0; k < rowsLength; k ++){
                     var tdObj2 = document.createElement("td");
                     var n = 0;
-                    switch (j){
+                    switch (k){
                         case 0:
-                            n = volumeData[i];
-                            totalVolume += n;
+                            n = b1 + p1 + p2;
                             break;
                         case 1:
-                            n = b1Data[i];
-                            totalB1 += n;
+                            n = b1;
                             break;
                         case 2:
-                            n = p1Data[i];
-                            totalP1 += n;
+                            n = p1;
                             break;
                         case 3:
-                            n = p2Data[i];
-                            totalP2 += n;
+                            n = p2;
                             break;
                     }
                     tdObj2.innerHTML = n;
                     tdObj2.setAttribute('class', 'tdRows12');
-                    tbMonth.rows[j].append(tdObj2);
+                    tbMonth.rows[k].append(tdObj2);
                 }
+                totalB1 += b1;
+                totalP1 += p1;
+                totalP2 += p2;
+                totalVolume += b1+p1+p2;
             }
             tbMonth.rows[0].cells[1].innerHTML = totalVolume;
             tbMonth.rows[1].cells[1].innerHTML = totalB1;
@@ -220,50 +235,6 @@ $(function () {
             $('#btPreviousMonth').removeAttr('disabled');
             $('#btNextMonth').removeAttr('disabled');
         })
-    }
-
-    /**
-     * transform month orders
-     * @param monthOrderList
-     * @returns {{}}
-     */
-    function transformMonthOrders(monthOrderList) {
-        var monthData = {};
-        var volumeData = [];
-        var b1Data = [];
-        var p1Data = [];
-        var p2Data = [];
-        var days = getDaysOfYearAndMonth(currentYear, currentMonth) + 1;
-        for(var i = 1; i < days; i ++){
-            var b1 = 0 ;
-            var p1 = 0 ;
-            var p2 = 0 ;
-            var length = monthOrderList.length;
-            var month = currentMonth < 10 ? '0' + currentMonth : currentMonth;
-            var day = i < 10 ? '0' + i : i;
-            var key = currentYear + '-' + month + "-" + day;
-            for(var j = 0; j < length; j ++){
-                var order = monthOrderList[j];
-                if(order['tradingTime'].search(key) >= 0) {
-                    if ('B1' === order['category']) {
-                        b1++;
-                    } else if ('P1' === order['category']) {
-                        p1++;
-                    } else if ('P2' === order['category']) {
-                        p2++;
-                    }
-                }
-            }
-            volumeData.push(b1 + p1 + p2);
-            b1Data.push(b1);
-            p1Data.push(p1);
-            p2Data.push(p2);
-        }
-        monthData['volumeData'] = volumeData;
-        monthData['b1Data'] = b1Data;
-        monthData['p1Data'] = p1Data;
-        monthData['p2Data'] = p2Data;
-        return monthData;
     }
 
     /**
