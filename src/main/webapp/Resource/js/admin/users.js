@@ -4,9 +4,9 @@ $(function () {
     var tDetailsBody = $('#tbUserDetails').get(0).tBodies[0];
     var rowsLength = tBody.rows.length;
 
-    showTotalCount();
+    showOnlineAndTotalCount();
     for(var i = 0; i < rowsLength; i ++){
-        tBody.rows[i].cells[9].onclick = function(){
+        tBody.rows[i].cells[10].onclick = function(){
             var key = this.parentNode.cells[1].innerHTML;
             getUserDetailInfoByKey(key)
         }
@@ -19,7 +19,7 @@ $(function () {
     function getUserDetailInfoByKey(key) {
         var url = baseUrl + "/admin/user/" + key;
         loading.css('display', 'block');
-        $.post(url,{}, function (response, status) {
+        $.get(url,{}, function (response, status) {
             loading.css('display', 'none');
             if(status === "success") {
                 tDetailsBody.rows[0].cells[1].innerHTML = response['clientKey'];
@@ -44,15 +44,21 @@ $(function () {
         })
     }
 
-    function showTotalCount() {
+    function showOnlineAndTotalCount() {
         var count = 0;
-        for(var x =0 ; x < tBody.rows.length; x ++){
+        var onlineCount = 0;
+        for(var x =0 ; x < rowsLength; x ++){
             var status = tBody.rows[x].style.display;
+            var online = tBody.rows[x].cells[9].childNodes[1].getAttribute("online");
             if(status !== 'none'){
                 count ++;
+                if(online === "true"){
+                    onlineCount ++;
+                }
             }
         }
         $('#spTotalCount').html(''+count);
+        $('#spOnlineCount').html(''+onlineCount);
     }
 
     function showAllRows() {
@@ -78,7 +84,7 @@ $(function () {
                 }
             }
         }
-        showTotalCount()
+        showOnlineAndTotalCount();
     });
 
 
@@ -102,7 +108,7 @@ $(function () {
         }else{
             showAllRows();
         }
-        showTotalCount()
+        showOnlineAndTotalCount();
     }
 
 

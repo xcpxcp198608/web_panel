@@ -12,7 +12,7 @@ $(function () {
            return;
        }
        var url = baseUrl + "/category/" + value;
-       $.post(url,{},function (response, status) {
+       $.get(url,function (response, status) {
            tbCategory.rows[1].cells[0].innerHTML = response['price'];
            tbCategory.rows[1].cells[1].innerHTML = response['deposit'];
            tbCategory.rows[1].cells[2].innerHTML = response['monthPay'] * response['expires'];
@@ -82,7 +82,7 @@ $(function () {
        }
        var url = baseUrl + '/sales/create';
        $.ajax({
-           type: 'PUT',
+           type: 'POST',
            url: url,
            contentType: "application/json; charset=utf-8",
            data: JSON.stringify({'category':category, 'mac':mac, 'firstName': firstName,

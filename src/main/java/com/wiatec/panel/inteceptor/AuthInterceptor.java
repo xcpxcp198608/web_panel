@@ -13,15 +13,15 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        String ref = request.getHeader("Referer");
-//        if(ref == null || !ref.contains("/panel")){
-//            throw new RuntimeException("signin error");
-//        }
-//        String username = (String) request.getSession().getAttribute("username");
-//        Logger.getLogger("").debug("before interceptor " + username);
-//        if(username == null){
-//            throw new RuntimeException("signin error");
-//        }
+        String ref = request.getHeader("Referer");
+        if(ref == null || !ref.contains("/panel")){
+            throw new RuntimeException("signin error");
+        }
+        String username = (String) request.getSession().getAttribute("username");
+        Logger.getLogger("").debug("before interceptor " + username);
+        if(username == null){
+            throw new RuntimeException("signin error");
+        }
         return true;
     }
 

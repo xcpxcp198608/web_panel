@@ -44,9 +44,9 @@
         </div>
         <div style="width: 8%; display: block; float: right; font-size: 18px; font-weight: 500;
             text-align: right; align-content: center">
-            <span style="color: #008500; height: 100%; line-height: 100%">0</span>
+            <span id="spOnlineCount" style="color: #008500; height: 100%; line-height: 100%"></span>
             /
-            <span id="spTotalCount" style="height: 100%; line-height: 100%">2</span>
+            <span id="spTotalCount" style="height: 100%; line-height: 100%"></span>
         </div>
     </div>
     <hr/>
@@ -80,6 +80,7 @@
                             <option value="canceled">canceled</option>
                         </select>
                     </th>
+                    <th>Online</th>
                     <th>More</th>
                 </tr>
             </thead>
@@ -107,6 +108,16 @@
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'canceled'}">
                             <a style="color: #777;">${authRentUserInfo.status}</a>
+                        </c:if>
+                    </td>
+                    <td>
+                        <c:if test="${authRentUserInfo.online == 'true'}">
+                            <span class="glyphicon glyphicon-link" aria-hidden="true" style="color: #00b300"
+                                  online="${authRentUserInfo.online}"></span>
+                        </c:if>
+                        <c:if test="${authRentUserInfo.online == 'false'}">
+                            <span class="glyphicon glyphicon-link" aria-hidden="true" style="color: #9f9f9f"
+                                  online="${authRentUserInfo.online}"></span>
                         </c:if>
                     </td>
                     <td>

@@ -40,6 +40,12 @@ public class AuthRentUserService {
             return resultInfo;
         }
         AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectByClientKey(clientKey);
+        if(!"activate".equals(authRentUserInfo1.getStatus())){
+            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
+            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
+            resultInfo.setMessage("key no activate");
+            return resultInfo;
+        }
         int expires = commissionCategoryDao.selectOne(authRentUserInfo1.getCategory()).getExpires();
         if(isOutExpires(authRentUserInfo1.getActivateTime(), expires)){
             resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
@@ -71,6 +77,12 @@ public class AuthRentUserService {
             return resultInfo;
         }
         AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectByClientKey(clientKey);
+        if(!"activate".equals(authRentUserInfo1.getStatus())){
+            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
+            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
+            resultInfo.setMessage("key not activate");
+            return resultInfo;
+        }
         int expires = commissionCategoryDao.selectOne(authRentUserInfo1.getCategory()).getExpires();
         if(isOutExpires(authRentUserInfo1.getActivateTime(), expires)){
             resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);

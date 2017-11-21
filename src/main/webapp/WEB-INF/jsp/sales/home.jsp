@@ -130,7 +130,6 @@
                 <tr>
                     <td>#</td>
                     <td>ClientKey</td>
-                    <td>Sales</td>
                     <td>PaymentId</td>
                     <td>Price</td>
                     <td>Deposit</td>
@@ -163,7 +162,6 @@
                     <tr style="font-size: 14px">
                         <td>${status.index + 1}</td>
                         <td>${authOrderInfo.payClientKey}</td>
-                        <td>${authOrderInfo.authSalesInfo.username}</td>
                         <td style="font-size: 12px">${authOrderInfo.paymentId}</td>
                         <td>${authOrderInfo.price}</td>
                         <td>${authOrderInfo.deposit}</td>

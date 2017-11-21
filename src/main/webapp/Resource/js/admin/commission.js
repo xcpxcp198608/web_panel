@@ -157,7 +157,7 @@ $(function () {
     getSalesAmountEveryMonthInYear(currentYear);
     function getSalesAmountEveryMonthInYear(year){
         var url = baseUrl + "/admin/chart/amount/"+ year;
-        $.post(url, {}, function (dataList, status) {
+        $.get(url, {}, function (dataList, status) {
             yearIncomeData.length = 0;
             var yearTotalIncome = 0;
             var yearTotalTxFee = 0;
@@ -361,7 +361,7 @@ $(function () {
         var url = baseUrl + "/admin/chart/amount/" + year + "/" + month;
         $('#btPreviousMonth').attr('disabled', 'disabled');
         $('#btNextMonth').attr('disabled', 'disabled');
-        $.post(url,{ },function(dataList, status){
+        $.get(url,{ },function(dataList, status){
             cleanMonthIncomeTable();
             var length = dataList.length;
             var rowLength = tbIncome.rows.length;

@@ -1,6 +1,7 @@
 package com.wiatec.panel.service.auth;
 
 import com.wiatec.panel.entity.ResultInfo;
+import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthOrderDao;
 import com.wiatec.panel.oxm.dao.AuthSalesDao;
 import com.wiatec.panel.oxm.dao.AuthRentUserDao;
@@ -12,12 +13,14 @@ import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.xutils.LoggerUtil;
+import org.apache.tools.ant.taskdefs.PathConvert;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -107,7 +110,12 @@ public class AuthAdminService {
         }else {
             authRentUserInfoList = authRentUserDao.selectAll();
         }
-        LoggerUtil.d(authRentUserInfoList);
+        Map<String, HttpSession> sessionMap = SessionListener.sessionMap;
+        for(AuthRentUserInfo authRentUserInfo: authRentUserInfoList){
+            if(sessionMap.containsKey(authRentUserInfo.getClientKey())){
+                authRentUserInfo.setOnline(true);
+            }
+        }
         model.addAttribute("authRentUserInfoList", authRentUserInfoList);
         return "admin/users";
     }

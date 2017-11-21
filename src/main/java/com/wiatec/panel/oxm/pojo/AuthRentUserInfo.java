@@ -3,6 +3,7 @@ package com.wiatec.panel.oxm.pojo;
 public class AuthRentUserInfo {
     private int id;
     private int salesId;
+    private String salesName;
     private String clientKey;
     private String category;
     private String mac;
@@ -19,7 +20,7 @@ public class AuthRentUserInfo {
     private String timeZone;
     private String lastOnLineTime;
 
-    private AuthSalesInfo authSalesInfo;
+    private boolean online;
 
     public AuthRentUserInfo() {
     }
@@ -43,6 +44,14 @@ public class AuthRentUserInfo {
 
     public void setSalesId(int salesId) {
         this.salesId = salesId;
+    }
+
+    public String getSalesName() {
+        return salesName;
+    }
+
+    public void setSalesName(String salesName) {
+        this.salesName = salesName;
     }
 
     public String getClientKey() {
@@ -165,12 +174,12 @@ public class AuthRentUserInfo {
         this.lastOnLineTime = lastOnLineTime;
     }
 
-    public AuthSalesInfo getAuthSalesInfo() {
-        return authSalesInfo;
+    public boolean isOnline() {
+        return online;
     }
 
-    public void setAuthSalesInfo(AuthSalesInfo authSalesInfo) {
-        this.authSalesInfo = authSalesInfo;
+    public void setOnline(boolean online) {
+        this.online = online;
     }
 
     @Override
@@ -178,6 +187,7 @@ public class AuthRentUserInfo {
         return "AuthRentUserInfo{" +
                 "id=" + id +
                 ", salesId=" + salesId +
+                ", salesName='" + salesName + '\'' +
                 ", clientKey='" + clientKey + '\'' +
                 ", category='" + category + '\'' +
                 ", mac='" + mac + '\'' +
@@ -193,7 +203,7 @@ public class AuthRentUserInfo {
                 ", city='" + city + '\'' +
                 ", timeZone='" + timeZone + '\'' +
                 ", lastOnLineTime='" + lastOnLineTime + '\'' +
-                ", authSalesInfo=" + authSalesInfo +
+                ", online=" + online +
                 '}';
     }
 }

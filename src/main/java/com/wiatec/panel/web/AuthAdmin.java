@@ -28,7 +28,7 @@ public class AuthAdmin {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/")
+    @GetMapping(value = "/")
     public String home(HttpServletRequest request, Model model){
         return authAdminService.home(request, model);
     }
@@ -40,7 +40,7 @@ public class AuthAdmin {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/sales")
+    @GetMapping(value = "/sales")
     public String getSales(HttpServletRequest request, Model model){
         return authAdminService.sales(request, model);
     }
@@ -53,7 +53,7 @@ public class AuthAdmin {
      * @param authSalesInfo
      * @return
      */
-    @PutMapping(value = "/sale/create")
+    @PostMapping(value = "/sale/create")
     @ResponseBody
     public ResultInfo<AuthSalesInfo> getSales(HttpServletRequest request, @RequestBody AuthSalesInfo authSalesInfo){
         return authAdminService.createSales(request, authSalesInfo);
@@ -71,14 +71,13 @@ public class AuthAdmin {
         return authAdminService.updateSalesPassword(request, authSalesInfo);
     }
 
-
     /**
      * users page
      * @param request
      * @param model
      * @return
      */
-    @RequestMapping(value = "/users")
+    @GetMapping(value = "/users")
     public String getUsers(HttpServletRequest request, Model model){
         return authAdminService.users(request, model, 0);
     }
@@ -90,7 +89,7 @@ public class AuthAdmin {
      * @param salesId
      * @return
      */
-    @RequestMapping(value = "/users/{salesId}")
+    @GetMapping(value = "/users/{salesId}")
     public String getUsersBySale(HttpServletRequest request, Model model,
                         @PathVariable(value="salesId")int salesId){
         return authAdminService.users(request, model, salesId);
@@ -102,7 +101,7 @@ public class AuthAdmin {
      * @param key
      * @return
      */
-    @PostMapping(value = "/user/{key}")
+    @GetMapping(value = "/user/{key}")
     @ResponseBody
     public AuthRentUserInfo getUserByKey(HttpServletRequest request, @PathVariable(value="key")String key){
         return authAdminService.getUserByKey(request, key);
@@ -114,7 +113,7 @@ public class AuthAdmin {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/commission")
+    @GetMapping(value = "/commission")
     public String getCommission(HttpServletRequest request, Model model){
         return authAdminService.commission(request, model);
     }
@@ -135,7 +134,7 @@ public class AuthAdmin {
      * @param month   specify month
      * @return        SalesDayVolumeInMonthInfo list
      */
-    @PostMapping(value = "/chart/volume/{year}/{month}")
+    @GetMapping(value = "/chart/volume/{year}/{month}")
     @ResponseBody
     public List<SalesDayVolumeInMonthInfo> getSaleVolumeEveryDayInMonth(@PathVariable int year, @PathVariable int month){
         return authAdminService.countSaleVolumeEveryDayInMonth(year, month);
@@ -146,7 +145,7 @@ public class AuthAdmin {
      * @param top   specify number
      * @return      TopVolumeInfo list
      */
-    @PostMapping(value = "/chart/sales/volume/{top}")
+    @GetMapping(value = "/chart/sales/volume/{top}")
     @ResponseBody
     public List<TopVolumeInfo> getTopVolume(@PathVariable int top){
         return authAdminService.getTopVolume(top);
@@ -157,7 +156,7 @@ public class AuthAdmin {
      * @param top  specify number
      * @return     TopVolumeInfo list
      */
-    @PostMapping(value = "/chart/sales/amount/{top}")
+    @GetMapping(value = "/chart/sales/amount/{top}")
     @ResponseBody
     public List<TopAmountInfo> getTopAmount(@PathVariable int top){
         return authAdminService.getTopAmount(top);
@@ -169,7 +168,7 @@ public class AuthAdmin {
      * @param month   specify month
      * @return        AllSalesMonthCommissionInfo list
      */
-    @PostMapping(value = "/chart/sales/commission/{year}/{month}")
+    @GetMapping(value = "/chart/sales/commission/{year}/{month}")
     @ResponseBody
     public List<AllSalesMonthCommissionInfo> getSales(@PathVariable int year, @PathVariable int month){
         return authAdminService.getAllSalesCommissionByMonth(year, month);
@@ -180,7 +179,7 @@ public class AuthAdmin {
      * @param year   specify year
      * @return       SalesAmountInfo list
      */
-    @PostMapping(value = "/chart/amount/{year}")
+    @GetMapping(value = "/chart/amount/{year}")
     @ResponseBody
     public List<SalesAmountInfo> getSalesAmountEveryMonthInYear(@PathVariable int year){
         return authAdminService.selectSaleAmountEveryMonthInYear(year);

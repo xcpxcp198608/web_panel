@@ -4,6 +4,7 @@ public class AuthOrderInfo {
 
     private int id;
     private int salesId;
+    private String salesName;
     private String payClientKey;
     private String category;
     private String paymentId;
@@ -16,9 +17,6 @@ public class AuthOrderInfo {
     private String status;
     private String description;
     private String tradingTime;
-
-    private AuthSalesInfo authSalesInfo;
-    private AuthRentUserInfo authRentUserInfo;
 
     public int getId() {
         return id;
@@ -34,6 +32,14 @@ public class AuthOrderInfo {
 
     public void setSalesId(int salesId) {
         this.salesId = salesId;
+    }
+
+    public String getSalesName() {
+        return salesName;
+    }
+
+    public void setSalesName(String salesName) {
+        this.salesName = salesName;
     }
 
     public String getPayClientKey() {
@@ -132,27 +138,12 @@ public class AuthOrderInfo {
         this.tradingTime = tradingTime;
     }
 
-    public AuthSalesInfo getAuthSalesInfo() {
-        return authSalesInfo;
-    }
-
-    public void setAuthSalesInfo(AuthSalesInfo authSalesInfo) {
-        this.authSalesInfo = authSalesInfo;
-    }
-
-    public AuthRentUserInfo getAuthRentUserInfo() {
-        return authRentUserInfo;
-    }
-
-    public void setAuthRentUserInfo(AuthRentUserInfo authRentUserInfo) {
-        this.authRentUserInfo = authRentUserInfo;
-    }
-
     @Override
     public String toString() {
         return "AuthOrderInfo{" +
                 "id=" + id +
                 ", salesId=" + salesId +
+                ", salesName='" + salesName + '\'' +
                 ", payClientKey='" + payClientKey + '\'' +
                 ", category='" + category + '\'' +
                 ", paymentId='" + paymentId + '\'' +
@@ -165,8 +156,6 @@ public class AuthOrderInfo {
                 ", status='" + status + '\'' +
                 ", description='" + description + '\'' +
                 ", tradingTime='" + tradingTime + '\'' +
-                ", authSalesInfo=" + authSalesInfo +
-                ", authRentUserInfo=" + authRentUserInfo +
                 '}';
     }
 }

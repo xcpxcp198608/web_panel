@@ -18,10 +18,7 @@ public interface AuthOrderDao {
     AuthOrderInfo selectOne(AuthOrderInfo authOrderInfo);
     List<AuthOrderInfo> selectAll();
     List<AuthOrderInfo> selectBySalesId(int salesId);
-
     List<AuthOrderInfo> selectByTradingTime(String day);
-
-
 
 
     List<SalesDayVolumeInMonthInfo> countSaleVolumeEveryDayInMonth(YearOrMonthInfo yearOrMonthInfo);
@@ -32,8 +29,7 @@ public interface AuthOrderDao {
     List<SalesAmountInfo> selectSaleAmountEveryDayInMonth(YearOrMonthInfo yearOrMonthInfo);
 
 
-
-    List<SalesCommissionOfDaysInfo> getCommissionOfDayBySales(Map<String, String> map);
-    List<SalesCommissionOfMonthInfo> getCommissionOfMonthBySales(Map<String, String> map);
+    List<SalesCommissionOfDaysInfo> getCommissionOfDayBySales(YearOrMonthInfo yearOrMonthInfo);
+    List<SalesCommissionOfMonthInfo> getCommissionOfMonthBySales(YearOrMonthInfo yearOrMonthInfo);
 
 }

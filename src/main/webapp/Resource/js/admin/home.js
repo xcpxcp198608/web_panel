@@ -17,7 +17,8 @@ $(function () {
      * init online chart
      */
     var chartOnline = echarts.init(document.getElementById('chart_online'));
-    var date = [];
+    var now1 = [now.getHours(), now.getMinutes(), now.getSeconds()+1].join(':');
+    var date = [now1];
     var data = [0];
     function addData() {
         var url = baseUrl + "/admin/chart/online";
@@ -170,7 +171,7 @@ $(function () {
         $('#btPreviousMonth').attr('disabled', 'disabled');
         $('#btNextMonth').attr('disabled', 'disabled');
         $('#homeLoading').css('display', 'block');
-        $.post(url,{ },function(dayVolumeList, status){
+        $.get(url,{ },function(dayVolumeList, status){
             var length = dayVolumeList.length;
             var rowsLength = tbMonth.rows.length;
             var totalVolume = 0;

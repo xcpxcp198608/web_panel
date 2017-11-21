@@ -225,7 +225,7 @@
                     <tr style="font-size: 14px">
                         <td>${status.index + 1}</td>
                         <td>${authOrderInfo.payClientKey}</td>
-                        <td>${authOrderInfo.authSalesInfo.username}</td>
+                        <td>${authOrderInfo.salesName}</td>
                         <td style="font-size: 12px">${authOrderInfo.paymentId}</td>
                         <td>${authOrderInfo.price}</td>
                         <td>${authOrderInfo.txFee}</td>

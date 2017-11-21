@@ -17,6 +17,5 @@ public interface AuthSalesDao {
     int countOne(AuthSalesInfo authSalesInfo);
     AuthSalesInfo selectOne(AuthSalesInfo authSalesInfo);
     List<AuthSalesInfo> selectAll();
-    List<AuthSalesInfo> selectAllWithUsers();
 
 }

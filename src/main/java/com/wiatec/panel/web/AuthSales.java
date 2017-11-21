@@ -28,37 +28,9 @@ public class AuthSales {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/")
+    @GetMapping(value = "/")
     public String home(HttpServletRequest request, Model model){
         return authSalesService.home(request, model);
-    }
-
-    /**
-     * response month commission chart
-     * @param request
-     * @param year   target year from ajax
-     * @param month  target month from ajax
-     * @return
-     */
-    @PostMapping(value = "/commission/{year}/{month}")
-    @ResponseBody
-    public ResultInfo<SalesCommissionOfDaysInfo> getCommissionByMonth(HttpServletRequest request,
-                                                                      @PathVariable(value = "year") int year,
-                                                                      @PathVariable(value = "month") int month){
-        return authSalesService.getCommissionByMonth(request, year, month);
-    }
-
-    /**
-     * response year commission chart
-     * @param request
-     * @param year target year from ajax
-     * @return
-     */
-    @PostMapping(value = "/commission/{year}")
-    @ResponseBody
-    public ResultInfo<SalesCommissionOfMonthInfo> getCommissionByYear(HttpServletRequest request,
-                                                                      @PathVariable(value = "year") int year){
-        return authSalesService.getCommissionByYear(request, year);
     }
 
     /**
@@ -67,7 +39,7 @@ public class AuthSales {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/users")
+    @GetMapping(value = "/users")
     public String users(HttpServletRequest request, Model model){
         return authSalesService.users(request, model);
     }
@@ -76,7 +48,7 @@ public class AuthSales {
      * go to create_user page to fill in information
      * @return
      */
-    @RequestMapping(value = "/go")
+    @GetMapping(value = "/go")
     public String goCreate(){
         return "sales/create_user";
     }
@@ -87,7 +59,7 @@ public class AuthSales {
      * @param authRentUserInfo user information from form submit
      * @return
      */
-    @PutMapping(value = "/create")
+    @PostMapping(value = "/create")
     @ResponseBody
     public ResultInfo<String> create(HttpServletRequest request, @RequestBody AuthRentUserInfo authRentUserInfo){
         return authSalesService.createUser(request, authRentUserInfo);
@@ -103,7 +75,34 @@ public class AuthSales {
     @GetMapping(value = "/activate/{clientKey}")
     public String activate(HttpServletRequest request, Model model,
                            @PathVariable(value = "clientKey") String clientKey){
-        return authSalesService.activate(request, model, clientKey);
+        return authSalesService.activate(model, clientKey);
     }
+
+
+    /**
+     * response year commission chart
+     * @param year target year from ajax
+     * @return
+     */
+    @GetMapping(value = "/commission/{year}")
+    @ResponseBody
+    public ResultInfo<SalesCommissionOfMonthInfo> getCommissionByYear(HttpServletRequest request, @PathVariable int year){
+        return authSalesService.getCommissionByYear(request, year);
+    }
+
+    /**
+     * response month commission chart
+     * @param year   target year from ajax
+     * @param month  target month from ajax
+     * @return
+     */
+    @GetMapping(value = "/commission/{year}/{month}")
+    @ResponseBody
+    public ResultInfo<SalesCommissionOfDaysInfo> getCommissionByMonth(HttpServletRequest request,
+                                                                      @PathVariable int year, @PathVariable int month){
+        return authSalesService.getCommissionByMonth(request, year, month);
+    }
+
+
 
 }

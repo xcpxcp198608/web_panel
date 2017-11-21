@@ -14,8 +14,6 @@ public class AuthSalesInfo {
     private String phone;
     private String createTime;
 
-    private List<AuthRentUserInfo> authRentUserInfoList;
-
     public AuthSalesInfo() {
     }
 
@@ -100,14 +98,6 @@ public class AuthSalesInfo {
         this.createTime = createTime;
     }
 
-    public List<AuthRentUserInfo> getAuthRentUserInfoList() {
-        return authRentUserInfoList;
-    }
-
-    public void setAuthRentUserInfoList(List<AuthRentUserInfo> authRentUserInfoList) {
-        this.authRentUserInfoList = authRentUserInfoList;
-    }
-
     @Override
     public String toString() {
         return "AuthSalesInfo{" +
@@ -120,7 +110,6 @@ public class AuthSalesInfo {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", createTime='" + createTime + '\'' +
-                ", authRentUserInfoList=" + authRentUserInfoList +
                 '}';
     }
 }

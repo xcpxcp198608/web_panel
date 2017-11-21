@@ -82,7 +82,7 @@ $(function () {
         var url = baseUrl + "/sales/commission/" + year + "/" + month;
         $('#btPreviousMonth').attr('disabled', 'disabled');
         $('#btNextMonth').attr('disabled', 'disabled');
-        $.post(url,{ },function(response, status){
+        $.get(url,function(response, status){
             $('#btPreviousMonth').removeAttr('disabled');
             $('#btNextMonth').removeAttr('disabled');
             var monthCommissionList = response.dataList;
@@ -222,7 +222,7 @@ $(function () {
 
     function getYearCommission(year) {
         var url = baseUrl + "/sales/commission/" + year;
-        $.post(url,{ },function(response, status){
+        $.get(url,function(response, status){
             var commissionList = response.dataList;
             var totalCommission = 0;
             yearCommissionData.length = 0;
@@ -264,7 +264,7 @@ $(function () {
             return;
         }
         for(var i = 0; i < orderRowsLength; i ++){
-            for(var j = 1; j < 4; j ++){
+            for(var j = 1; j < 3; j ++){
                 var content = tbOrders.rows[i].cells[j].innerHTML.toLowerCase();
                 if(content.search(key) >= 0){
                     tbOrders.rows[i].style.display = '';
@@ -282,21 +282,21 @@ $(function () {
      */
     $('#ipDate').change(function () {
         var key = $(this).val().length >0 ? $(this).val().substring(0, 7) : '';
-        selectChangeListener(key, 7);
+        selectChangeListener(key, 6);
     });
 
     /**
      * select of plan change event
      */
     $('#sePlan').change(function () {
-        selectChangeListener($(this).val(), 8);
+        selectChangeListener($(this).val(), 7);
     });
 
     /**
      * select of type change event
      */
     $('#seType').change(function () {
-        selectChangeListener($(this).val(), 9);
+        selectChangeListener($(this).val(), 8);
     });
 
     /**
@@ -342,9 +342,9 @@ $(function () {
             var status = tbOrders.rows[i].style.display;
             if(status !== 'none'){
                 count ++;
-                totalPrice += parseFloat(tbOrders.rows[i].cells[4].innerHTML);
-                totalDeposit += parseFloat(tbOrders.rows[i].cells[5].innerHTML);
-                totalSalesCommission += parseFloat(tbOrders.rows[i].cells[6].innerHTML);
+                totalPrice += parseFloat(tbOrders.rows[i].cells[3].innerHTML);
+                totalDeposit += parseFloat(tbOrders.rows[i].cells[4].innerHTML);
+                totalSalesCommission += parseFloat(tbOrders.rows[i].cells[5].innerHTML);
             }
         }
         trTotal.cells[0].innerHTML = count;

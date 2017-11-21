@@ -109,7 +109,7 @@ $(function () {
     getTopVolume(topLimit);
     function getTopVolume(limit) {
         var url = baseUrl + '/admin/chart/sales/volume/' + limit;
-        $.post(url,{}, function (topVolumeList, status) {
+        $.get(url, function (topVolumeList, status) {
             volumeXData.length = 0;
             volumeData.length = 0;
             var length = topVolumeList.length;
@@ -132,7 +132,7 @@ $(function () {
     getTopAmount(topLimit);
     function getTopAmount(limit) {
         var url = baseUrl + '/admin/chart/sales/amount/' + limit;
-        $.post(url,{}, function (topAmountList, status) {
+        $.get(url, function (topAmountList, status) {
             amountXData.length = 0;
             amountData.length = 0;
             var length = topAmountList.length;
@@ -160,7 +160,7 @@ $(function () {
         $('#btNextMonth').attr('disabled', 'disabled');
         clearTableCommissionByMonth();
         var url = baseUrl + '/admin/chart/sales/commission/' + year + "/" + month;
-        $.post(url,{}, function (allSalesCommissionInfoList, status) {
+        $.get(url, function (allSalesCommissionInfoList, status) {
             var length = allSalesCommissionInfoList.length;
             for(var i = 0; i < length; i ++){
                 var commissionInfo = allSalesCommissionInfoList[i];
@@ -317,7 +317,7 @@ $(function () {
         }
         errorMessage.html('');
         $.ajax({
-            type: "PUT",
+            type: "POST",
             url: baseUrl + "/admin/sale/create",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({"username": username, "password": password, "firstName": firstName,
