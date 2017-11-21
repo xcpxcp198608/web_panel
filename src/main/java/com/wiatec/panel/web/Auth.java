@@ -18,15 +18,13 @@ public class Auth {
 
     /**
      * sign in
-     * @param request
-     * @param response
      * @param username
      * @param password
      * @return
      */
     @PostMapping(value = "/signin")
-    public String signIn(HttpSession session, HttpServletRequest request, HttpServletResponse response, String username, String password){
-        return authService.signIn(session, request, response, username, password);
+    public String signIn(HttpSession session, String username, String password){
+        return authService.signIn(session, username, password);
     }
 
     /**

@@ -7,6 +7,7 @@ public class AuthSalesInfo {
     private int id;
     private String username;
     private String password;
+    private String permission;
     private String firstName;
     private String lastName;
     private int ssn;
@@ -48,6 +49,14 @@ public class AuthSalesInfo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 
     public String getFirstName() {
@@ -104,6 +113,7 @@ public class AuthSalesInfo {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", permission='" + permission + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", ssn=" + ssn +

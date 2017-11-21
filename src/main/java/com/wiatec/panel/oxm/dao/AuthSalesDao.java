@@ -1,6 +1,5 @@
 package com.wiatec.panel.oxm.dao;
 
-import com.wiatec.panel.oxm.pojo.AuthAdminInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 
 import java.util.List;
@@ -15,6 +14,7 @@ public interface AuthSalesDao {
     void updatePassword(AuthSalesInfo authSalesInfo);
 
     int countOne(AuthSalesInfo authSalesInfo);
+    String selectPermission(AuthSalesInfo authSalesInfo);
     AuthSalesInfo selectOne(AuthSalesInfo authSalesInfo);
     List<AuthSalesInfo> selectAll();
 

@@ -6,6 +6,7 @@
         <id column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
+        <result column="permission" property="permission"/>
         <result column="firstName" property="firstName"/>
         <result column="lastName" property="lastName"/>
         <result column="ssn" property="ssn"/>
@@ -21,6 +22,13 @@
 
     <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         SELECT COUNT(*) FROM auth_sales
+        WHERE username=#{username}
+              AND password=#{password}
+    </select>
+
+    <select id="selectPermission" resultType="String" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
+        SELECT permission
+        FROM auth_sales
         WHERE username=#{username}
               AND password=#{password}
     </select>
