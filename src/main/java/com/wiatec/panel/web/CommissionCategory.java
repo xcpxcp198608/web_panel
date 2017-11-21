@@ -21,9 +21,9 @@ public class CommissionCategory {
         return commissionCategoryService.selectAll();
     }
 
-    @PostMapping(value = "/{category}")
+    @GetMapping(value = "/{category}")
     @ResponseBody
-    public CommissionCategoryInfo getOne(@PathVariable(value = "category") String category){
+    public CommissionCategoryInfo getOne(@PathVariable String category){
         return commissionCategoryService.selectOne(category);
     }
 

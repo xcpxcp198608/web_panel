@@ -61,7 +61,7 @@ public class AuthSales {
      */
     @PostMapping(value = "/create")
     @ResponseBody
-    public ResultInfo<String> create(HttpServletRequest request, @RequestBody AuthRentUserInfo authRentUserInfo){
+    public ResultInfo<String> create(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
         return authSalesService.createUser(request, authRentUserInfo);
     }
 

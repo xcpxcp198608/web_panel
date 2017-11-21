@@ -90,8 +90,7 @@ public class AuthAdmin {
      * @return
      */
     @GetMapping(value = "/users/{salesId}")
-    public String getUsersBySale(HttpServletRequest request, Model model,
-                        @PathVariable(value="salesId")int salesId){
+    public String getUsersBySale(HttpServletRequest request, Model model, @PathVariable int salesId){
         return authAdminService.users(request, model, salesId);
     }
 
@@ -191,7 +190,7 @@ public class AuthAdmin {
      * @param month   specify month
      * @return        SalesAmountInfo list
      */
-    @PostMapping(value = "/chart/amount/{year}/{month}")
+    @GetMapping(value = "/chart/amount/{year}/{month}")
     @ResponseBody
     public List<SalesAmountInfo> getSalesAmountEveryDayInMonth(@PathVariable int year, @PathVariable int month){
         return authAdminService.selectSaleAmountEveryDayInMonth(year, month);

@@ -84,16 +84,14 @@ $(function () {
        $.ajax({
            type: 'POST',
            url: url,
-           contentType: "application/json; charset=utf-8",
-           data: JSON.stringify({'category':category, 'mac':mac, 'firstName': firstName,
-               'lastName': lastName, 'email': email, 'phone': phone}),
+           data: {'category':category, 'mac':mac, 'firstName': firstName, 'lastName': lastName,
+               'email': email, 'phone': phone},
            dataType: 'json',
            beforeSend:function(){
                 showLoading()
            },
            success:function(response){
                hideLoading();
-               console.log(response);
                if(response.code === 200) {
                    showNotice(response.message);
                    window.open(baseUrl + "/sales/activate/" + response['data'], "_self")

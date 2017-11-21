@@ -18,6 +18,7 @@
     <sql id="select">
         SELECT id, username, password, firstName, lastName, ssn, email, phone, createTime
         FROM auth_sales
+        WHERE permission='sales'
     </sql>
 
     <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
@@ -64,7 +65,7 @@
 
     <select id="selectOne" resultMap="authSalesInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         <include refid="select"/>
-        WHERE username=#{username}
+        AND username=#{username}
     </select>
 
     <select id="selectAll" resultMap="authSalesInfo">
