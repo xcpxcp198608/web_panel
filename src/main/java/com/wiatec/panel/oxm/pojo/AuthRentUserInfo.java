@@ -11,6 +11,9 @@ public class AuthRentUserInfo {
     private String lastName;
     private String email;
     private String phone;
+    private String cardNumber;
+    private int expirationDate;
+    private int securityKey;
     private String createTime;
     private String activateTime;
     private String status;
@@ -110,6 +113,30 @@ public class AuthRentUserInfo {
         this.phone = phone;
     }
 
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public int getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(int expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public int getSecurityKey() {
+        return securityKey;
+    }
+
+    public void setSecurityKey(int securityKey) {
+        this.securityKey = securityKey;
+    }
+
     public String getCreateTime() {
         return createTime;
     }
@@ -195,6 +222,9 @@ public class AuthRentUserInfo {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", expirationDate=" + expirationDate +
+                ", securityKey=" + securityKey +
                 ", createTime='" + createTime + '\'' +
                 ", activateTime='" + activateTime + '\'' +
                 ", status='" + status + '\'' +

@@ -119,7 +119,7 @@ public class AuthSalesService {
         payInfo.setTax(0f);
         payInfo.setCurrency(payOrderInfo.getCurrency());
         model.addAttribute("payInfo", payInfo);
-        return "sales/payment";
+        return "paypal/payment";
     }
 
 

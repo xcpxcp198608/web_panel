@@ -52,6 +52,9 @@ $(function () {
        var lastName = $('#ipLastName').val();
        var email = $('#ipEmail').val();
        var phone = $('#ipPhone').val();
+       var cardNumber = $('#ipCardNumber').val();
+       var expirationDate = $('#ipExpirationDate').val();
+       var securitykey = $('#ipSecurityKey').val();
        if(category.length <= 0){
            $('#errorMessage').html('have no choose plan');
            return;
@@ -78,6 +81,18 @@ $(function () {
        }
        if(phone.length <= 0){
            $('#errorMessage').html('phone input error');
+           return;
+       }
+       if(cardNumber.length !== 16){
+           $('#errorMessage').html('card number input error');
+           return;
+       }
+       if(expirationDate.length !== 4){
+           $('#errorMessage').html('expiration date input error');
+           return;
+       }
+       if(securitykey.length !== 3){
+           $('#errorMessage').html('security key input error');
            return;
        }
        var url = baseUrl + '/sales/create';

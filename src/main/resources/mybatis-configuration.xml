@@ -53,9 +53,4 @@
 
     </settings>
 
-    <typeAliases>
-        <typeAlias type="com.wiatec.panel.oxm.pojo.UpgradeInfo" alias="upgradeInfo"/>
-    </typeAliases>
-
-
 </configuration>

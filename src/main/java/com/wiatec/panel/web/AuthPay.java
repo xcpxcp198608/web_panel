@@ -35,7 +35,7 @@ public class AuthPay {
     @RequestMapping(value = "/cancel")
     public String cancel(Model model){
         model.addAttribute("result", "pay cancel");
-        return "sales/pay_result";
+        return "paypal/pay_result";
     }
 
     /**

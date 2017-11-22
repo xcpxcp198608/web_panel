@@ -39,7 +39,7 @@
                 </select>
             </div>
             <div style="margin-top: 3px">
-                <table class="table table-bordered" id="tbCategory">
+                <table class="table table-bordered table-condensed" id="tbCategory">
                     <tbody>
                         <tr style="background-color: #566778">
                             <td>Total</td>
@@ -71,21 +71,24 @@
                     <span class="input-group-addon" id="basic-addon4">
                       <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
                     </span>
-                <input id="ipFirstName" type="text" class="form-control" placeholder="First Name" aria-describedby="basic-addon4" name="firstName">
+                <input id="ipFirstName" type="text" class="form-control" placeholder="First Name"
+                       aria-describedby="basic-addon4" name="firstName">
             </div>
             <br/>
             <div class="input-group">
                     <span class="input-group-addon" id="basic-addon5">
                       <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
                     </span>
-                <input id="ipLastName" type="text" class="form-control" placeholder="Last Name" aria-describedby="basic-addon5" name="lastName">
+                <input id="ipLastName" type="text" class="form-control" placeholder="Last Name"
+                       aria-describedby="basic-addon5" name="lastName">
             </div>
             <br/>
             <div class="input-group">
                     <span class="input-group-addon" id="basic-addon6">
                       <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                     </span>
-                <input id="ipEmail" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon6" name="email">
+                <input id="ipEmail" type="email" class="form-control" placeholder="Email"
+                       aria-describedby="basic-addon6" name="email">
             </div>
             <br/>
 
@@ -93,11 +96,46 @@
                     <span class="input-group-addon" id="basic-addon7">
                       <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
                     </span>
-                <input id="ipPhone" type="number" class="form-control" placeholder="Phone" aria-describedby="basic-addon7" name="phone">
+                <input id="ipPhone" type="number" class="form-control" placeholder="Phone"
+                       aria-describedby="basic-addon7" name="phone">
             </div>
             <br/>
 
-            <button id="btSubmitCreate" type="submit" class="btn btn-primary" style="width: 100%; margin: auto">
+            <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon8">
+                      <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>
+                    </span>
+                <input id="ipCardNumber" type="number" class="form-control" placeholder="CardNumber"
+                       aria-describedby="basic-addon8" name="cardNumber" maxlength="16" minlength="16">
+            </div>
+            <br/>
+
+            <div>
+                <div style="width: 48%; display: block; float: left;">
+                    <div class="input-group" >
+                    <span class="input-group-addon" id="basic-addon9">
+                      <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    </span>
+                        <input id="ipExpirationDate" type="number" class="form-control" placeholder="ExpirationDate"
+                               aria-describedby="basic-addon9" name="expirationDate" maxlength="4" minlength="4">
+                    </div>
+                </div>
+
+                <div style="width: 48%; display: block; float: right;">
+                    <div class="input-group" >
+                        <span class="input-group-addon" id="basic-addon10">
+                          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                        </span>
+                        <input id="ipSecurityKey" type="number" class="form-control" placeholder="SecurtyKey"
+                               aria-describedby="basic-addon10" name="securityKey" maxlength="3" minlength="3">
+                    </div>
+                </div>
+            </div>
+
+            <br style="clear: both"/>
+            <br/>
+
+            <button id="btSubmitCreate" type="submit" class="btn btn-primary" style="width: 100%; margin: auto; clear: both">
                 Create
             </button>
             <h4 id="errorMessage" style="color: red; width: 100%; text-align: center"></h4>
