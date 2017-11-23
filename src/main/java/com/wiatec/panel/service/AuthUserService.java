@@ -2,12 +2,12 @@ package com.wiatec.panel.service;
 
 import com.wiatec.panel.oxm.dao.AuthUserDao;
 import com.wiatec.panel.oxm.pojo.AuthUserInfo;
-import com.wiatec.panel.xutils.EmailMaster;
-import com.wiatec.panel.xutils.TokenUtil;
-import com.wiatec.panel.xutils.result.EnumResult;
-import com.wiatec.panel.xutils.result.ResultInfo;
-import com.wiatec.panel.xutils.result.ResultMaster;
-import com.wiatec.panel.xutils.result.XException;
+import com.wiatec.panel.common.utils.EmailMaster;
+import com.wiatec.panel.common.utils.TokenUtil;
+import com.wiatec.panel.common.result.EnumResult;
+import com.wiatec.panel.common.result.ResultInfo;
+import com.wiatec.panel.common.result.ResultMaster;
+import com.wiatec.panel.common.result.XException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

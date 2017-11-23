@@ -2,7 +2,7 @@ package com.wiatec.panel.api;
 
 import com.wiatec.panel.oxm.pojo.AuthUserInfo;
 import com.wiatec.panel.service.AuthUserService;
-import com.wiatec.panel.xutils.result.ResultInfo;
+import com.wiatec.panel.common.result.ResultInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

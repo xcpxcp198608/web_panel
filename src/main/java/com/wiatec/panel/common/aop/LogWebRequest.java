@@ -1,4 +1,4 @@
-package com.wiatec.panel.aop;
+package com.wiatec.panel.common.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -12,21 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 
 @Aspect
 @Component
-public class LogHttpRequest {
+public class LogWebRequest {
 
-    private Logger logger = LoggerFactory.getLogger(LogHttpRequest.class);
+    private Logger logger = LoggerFactory.getLogger(LogWebRequest.class);
 
     @Pointcut("execution(public * com.wiatec.panel.web.*.*(..))")
     public void httpRequestPointCut(){}
 
     @Before("httpRequestPointCut()")
     public void before(JoinPoint joinPoint){
-        logger.debug("======================================= http request start ====================================");
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder
                 .getRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
         logger.debug("======================================= http request start ====================================");
         logger.debug("=");
+        logger.debug("= from= {}", request.getSession().getAttribute("username"));
         logger.debug("= url= {}", request.getRequestURL());
         logger.debug("= method= {}", request.getMethod());
         logger.debug("= ip= {}", request.getRemoteAddr());

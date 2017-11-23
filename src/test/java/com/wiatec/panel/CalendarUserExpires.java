@@ -1,6 +1,6 @@
 package com.wiatec.panel;
 
-import com.wiatec.panel.xutils.TimeUtil;
+import com.wiatec.panel.common.utils.TimeUtil;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 

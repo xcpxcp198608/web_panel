@@ -92,6 +92,7 @@ dependencies {
     compile group: 'org.apache.cassandra', name: 'cassandra-all', version: '3.10'
     compile group: 'log4j', name: 'log4j', version: '1.2.16'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+
     //authorize
     compile group: 'net.authorize', name: 'anet-java-sdk', version: '1.9.4'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.3'
@@ -101,7 +102,7 @@ dependencies {
     testCompile group: 'org.jmock', name: 'jmock', version: '2.6.0'
     //paypal
     compile 'com.paypal.sdk:rest-api-sdk:+'
-    compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.4.1.Final'
+//    compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.4.1.Final'
 
 
 

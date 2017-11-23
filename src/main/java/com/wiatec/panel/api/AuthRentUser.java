@@ -1,7 +1,7 @@
 package com.wiatec.panel.api;
 
 import com.wiatec.panel.service.AuthRentUserService;
-import com.wiatec.panel.xutils.result.ResultInfo;
+import com.wiatec.panel.common.result.ResultInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

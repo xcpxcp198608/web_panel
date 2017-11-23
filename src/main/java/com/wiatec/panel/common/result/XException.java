@@ -1,4 +1,4 @@
-package com.wiatec.panel.xutils.result;
+package com.wiatec.panel.common.result;
 
 public class XException extends RuntimeException {
 

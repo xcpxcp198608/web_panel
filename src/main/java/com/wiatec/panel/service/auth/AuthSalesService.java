@@ -8,12 +8,12 @@ import com.wiatec.panel.oxm.pojo.*;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo;
-import com.wiatec.panel.xutils.TextUtil;
-import com.wiatec.panel.xutils.TokenUtil;
-import com.wiatec.panel.xutils.result.EnumResult;
-import com.wiatec.panel.xutils.result.ResultInfo;
-import com.wiatec.panel.xutils.result.ResultMaster;
-import com.wiatec.panel.xutils.result.XException;
+import com.wiatec.panel.common.utils.TextUtil;
+import com.wiatec.panel.common.utils.TokenUtil;
+import com.wiatec.panel.common.result.EnumResult;
+import com.wiatec.panel.common.result.ResultInfo;
+import com.wiatec.panel.common.result.ResultMaster;
+import com.wiatec.panel.common.result.XException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -103,7 +103,7 @@ public class AuthSalesService {
 
 
     ////////////////////////////////////////////////////////// chart ///////////////////////////////////////////////////
-    public com.wiatec.panel.xutils.result.ResultInfo getCommissionByYear(HttpServletRequest request, int year){
+    public ResultInfo getCommissionByYear(HttpServletRequest request, int year){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
         yearOrMonthInfo.setSalesId(getSalesId(request)+"");
         try {
@@ -115,7 +115,7 @@ public class AuthSalesService {
         }
     }
 
-    public com.wiatec.panel.xutils.result.ResultInfo getCommissionByMonth(HttpServletRequest request, int year, int month){
+    public ResultInfo getCommissionByMonth(HttpServletRequest request, int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         yearOrMonthInfo.setSalesId(getSalesId(request)+"");
         try {

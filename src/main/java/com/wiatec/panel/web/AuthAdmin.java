@@ -5,15 +5,14 @@ import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.service.auth.AuthAdminService;
-import com.wiatec.panel.xutils.result.ResultInfo;
-import com.wiatec.panel.xutils.result.XException;
+import com.wiatec.panel.common.result.ResultInfo;
+import com.wiatec.panel.common.result.XException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -26,38 +25,36 @@ public class AuthAdmin {
 
     /**
      * home page
-     * @param request HttpServletRequest
-     * @param model   Model
+     * @param model   mvc Model
      * @return        home page
      */
     @GetMapping(value = "/")
-    public String home(HttpServletRequest request, Model model){
-        return authAdminService.home(request, model);
+    public String home(Model model){
+        return authAdminService.home(model);
     }
 
 
     /**
      * sales page
-     * @param request
-     * @param model
-     * @return
+     * @param model   mvc Model
+     * @return        sales page
      */
     @GetMapping(value = "/sales")
-    public String getSales(HttpServletRequest request, Model model){
-        return authAdminService.sales(request, model);
+    public String getSales(Model model){
+        return authAdminService.sales(model);
     }
 
 
 
     /**
      * create user
-     * @param authSalesInfo
-     * @return
+     * @param authSalesInfo  {@link AuthSalesInfo}
+     * @return               {@link ResultInfo}
      */
     @PostMapping(value = "/sale/create")
     @ResponseBody
-    public com.wiatec.panel.xutils.result.ResultInfo createSales(@Valid AuthSalesInfo authSalesInfo,
-                                                                 BindingResult bindingResult) throws Exception {
+    public ResultInfo createSales(@Valid AuthSalesInfo authSalesInfo,
+                                  BindingResult bindingResult) throws Exception {
         if(bindingResult.hasErrors()){
             throw new XException(3001, bindingResult.getFieldError().getDefaultMessage());
         }
@@ -66,66 +63,61 @@ public class AuthAdmin {
 
     /**
      * update sales password
-     * @param request
-     * @param authSalesInfo
-     * @return
+     * @param authSalesInfo   {@link AuthSalesInfo}
+     * @return                {@link ResultInfo}
      */
     @PutMapping(value = "/sale/update")
     @ResponseBody
-    public ResultInfo updateSales(HttpServletRequest request, @RequestBody AuthSalesInfo authSalesInfo){
-        return authAdminService.updateSalesPassword(request, authSalesInfo);
+    public ResultInfo updateSales(@RequestBody AuthSalesInfo authSalesInfo){
+        return authAdminService.updateSalesPassword(authSalesInfo);
     }
 
     /**
      * users page
-     * @param request
-     * @param model
-     * @return
+     * @param model   mvc model
+     * @return        users page
      */
     @GetMapping(value = "/users")
-    public String getUsers(HttpServletRequest request, Model model){
-        return authAdminService.users(request, model, 0);
+    public String getUsers(Model model){
+        return authAdminService.users( model, 0);
     }
 
     /**
      * get users under specify sales by sales id
-     * @param request
-     * @param model
-     * @param salesId
-     * @return
+     * @param model      mvc model
+     * @param salesId    sales id
+     * @return           users page
      */
     @GetMapping(value = "/users/{salesId}")
-    public String getUsersBySale(HttpServletRequest request, Model model, @PathVariable int salesId){
-        return authAdminService.users(request, model, salesId);
+    public String getUsersBySale(Model model, @PathVariable int salesId){
+        return authAdminService.users(model, salesId);
     }
 
     /**
      * user details
-     * @param request
-     * @param key
-     * @return
+     * @param key    client key
+     * @return       {@link AuthRentUserInfo}
      */
     @GetMapping(value = "/user/{key}")
     @ResponseBody
-    public AuthRentUserInfo getUserByKey(HttpServletRequest request, @PathVariable String key){
-        return authAdminService.getUserByKey(request, key);
+    public AuthRentUserInfo getUserByKey(@PathVariable String key){
+        return authAdminService.getUserByKey(key);
     }
 
     @PutMapping(value = "/activate/{key}")
     @ResponseBody
-    public ResultInfo activateUser(HttpServletRequest request, @PathVariable String key){
-        return authAdminService.activateUser(request, key);
+    public ResultInfo activateUser(@PathVariable String key){
+        return authAdminService.activateUser(key);
     }
 
     /**
      * commission page
-     * @param request
-     * @param model
-     * @return
+     * @param model    mvc model
+     * @return         commission page
      */
     @GetMapping(value = "/commission")
-    public String getCommission(HttpServletRequest request, Model model){
-        return authAdminService.commission(request, model);
+    public String getCommission(Model model){
+        return authAdminService.commission(model);
     }
 
     /**

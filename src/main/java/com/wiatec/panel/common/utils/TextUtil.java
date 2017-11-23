@@ -1,4 +1,4 @@
-package com.wiatec.panel.xutils;
+package com.wiatec.panel.common.utils;
 
 /**
  * Created by xuchengpeng on 07/06/2017.

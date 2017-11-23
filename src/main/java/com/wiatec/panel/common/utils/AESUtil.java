@@ -1,4 +1,4 @@
-package com.wiatec.panel.xutils;
+package com.wiatec.panel.common.utils;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;

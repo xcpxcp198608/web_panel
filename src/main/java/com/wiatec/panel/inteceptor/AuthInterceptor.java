@@ -1,7 +1,7 @@
 package com.wiatec.panel.inteceptor;
 
-import com.wiatec.panel.xutils.result.EnumResult;
-import com.wiatec.panel.xutils.result.XException;
+import com.wiatec.panel.common.result.EnumResult;
+import com.wiatec.panel.common.result.XException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 

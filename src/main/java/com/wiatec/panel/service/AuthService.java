@@ -3,9 +3,9 @@ package com.wiatec.panel.service;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthSalesDao;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
-import com.wiatec.panel.xutils.TextUtil;
-import com.wiatec.panel.xutils.result.EnumResult;
-import com.wiatec.panel.xutils.result.XException;
+import com.wiatec.panel.common.utils.TextUtil;
+import com.wiatec.panel.common.result.EnumResult;
+import com.wiatec.panel.common.result.XException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

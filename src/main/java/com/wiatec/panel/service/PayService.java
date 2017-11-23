@@ -2,10 +2,8 @@ package com.wiatec.panel.service;
 
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
-import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 import com.wiatec.panel.paypal.PayOrderInfo;
-import com.wiatec.panel.xutils.TextUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

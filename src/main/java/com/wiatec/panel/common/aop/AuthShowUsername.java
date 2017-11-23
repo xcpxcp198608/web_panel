@@ -1,8 +1,8 @@
-package com.wiatec.panel.aop;
+package com.wiatec.panel.common.aop;
 
-import com.wiatec.panel.xutils.TextUtil;
-import com.wiatec.panel.xutils.result.EnumResult;
-import com.wiatec.panel.xutils.result.XException;
+import com.wiatec.panel.common.result.EnumResult;
+import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.common.utils.TextUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

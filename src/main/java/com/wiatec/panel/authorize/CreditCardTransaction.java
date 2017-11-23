@@ -1,7 +1,7 @@
 package com.wiatec.panel.authorize;
 
-import com.wiatec.panel.xutils.result.ResultMaster;
-import com.wiatec.panel.xutils.result.XException;
+import com.wiatec.panel.common.result.ResultMaster;
+import com.wiatec.panel.common.result.XException;
 import net.authorize.api.contract.v1.*;
 import net.authorize.api.controller.CreateTransactionController;
 import org.slf4j.Logger;

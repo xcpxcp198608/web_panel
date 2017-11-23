@@ -11,10 +11,10 @@ import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
-import com.wiatec.panel.xutils.result.EnumResult;
-import com.wiatec.panel.xutils.result.ResultInfo;
-import com.wiatec.panel.xutils.result.ResultMaster;
-import com.wiatec.panel.xutils.result.XException;
+import com.wiatec.panel.common.result.EnumResult;
+import com.wiatec.panel.common.result.ResultInfo;
+import com.wiatec.panel.common.result.ResultMaster;
+import com.wiatec.panel.common.result.XException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -41,18 +40,18 @@ public class AuthAdminService {
     @Resource
     private CommissionCategoryDao commissionCategoryDao;
 
-    public String home(HttpServletRequest request, Model model){
+    public String home(Model model){
         return "admin/home";
     }
 
-    public String sales(HttpServletRequest request, Model model){
+    public String sales(Model model){
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectAll();
         model.addAttribute("authSalesInfoList", authSalesInfoList);
         return "admin/sales";
     }
 
     @Transactional
-    public com.wiatec.panel.xutils.result.ResultInfo createSales(AuthSalesInfo authSalesInfo) throws Exception{
+    public ResultInfo createSales(AuthSalesInfo authSalesInfo) throws Exception{
         if(authSalesDao.countUsername(authSalesInfo) == 1){
             throw new XException(EnumResult.ERROR_USERNAME_EXISTS);
         }
@@ -72,8 +71,7 @@ public class AuthAdminService {
     }
 
     @Transactional
-    public com.wiatec.panel.xutils.result.ResultInfo updateSalesPassword(HttpServletRequest request,
-                                                                         AuthSalesInfo authSalesInfo){
+    public ResultInfo updateSalesPassword(AuthSalesInfo authSalesInfo){
         try {
             authSalesDao.updatePassword(authSalesInfo);
             return ResultMaster.success();
@@ -83,8 +81,8 @@ public class AuthAdminService {
         }
     }
 
-    public String users(HttpServletRequest request, Model model, int salesId){
-        List<AuthRentUserInfo> authRentUserInfoList = null;
+    public String users(Model model, int salesId){
+        List<AuthRentUserInfo> authRentUserInfoList;
         if(salesId > 0){
             authRentUserInfoList = authRentUserDao.selectBySalesId(salesId);
         }else {
@@ -100,17 +98,17 @@ public class AuthAdminService {
         return "admin/users";
     }
 
-    public AuthRentUserInfo getUserByKey(HttpServletRequest request, String key){
+    public AuthRentUserInfo getUserByKey(String key){
         return authRentUserDao.selectOneByClientKey(key);
     }
 
     @Transactional
-    public ResultInfo activateUser(HttpServletRequest request, String key){
+    public ResultInfo activateUser(String key){
         authRentUserDao.updateStatusToActivate(key);
         return ResultMaster.success();
     }
 
-    public String commission(HttpServletRequest request, Model model){
+    public String commission(Model model){
         List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
         for(CommissionCategoryInfo commissionCategoryInfo: commissionCategoryInfoList){
             commissionCategoryInfo.setPrice();

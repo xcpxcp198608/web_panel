@@ -14,7 +14,7 @@
             http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd">
 
     <!-- 配置spring 全局applicationContext -->
-    <bean name="applicationContext" class="com.wiatec.panel.xutils.ApplicationContextHelper"/>
+    <bean name="applicationContext" class="com.wiatec.panel.common.utils.ApplicationContextHelper"/>
 
     <!-- 启用注解支持 -->
     <context:annotation-config/>

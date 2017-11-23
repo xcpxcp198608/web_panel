@@ -1,4 +1,4 @@
-package com.wiatec.panel.xutils;
+package com.wiatec.panel.common.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
