@@ -1,5 +1,8 @@
 package com.wiatec.panel.listener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +12,8 @@ import java.util.Map;
  */
 public class SessionListener implements HttpSessionListener,HttpSessionAttributeListener {
 
+    private Logger logger = LoggerFactory.getLogger(SessionListener.class);
+
     public static Map<String ,HttpSession> sessionMap = new HashMap<>();
     public static Map<String ,HttpSession> userSessionMap = new HashMap<>();
     public static Map<String, HttpSession> idSessionMap = new HashMap<>();
@@ -17,13 +22,13 @@ public class SessionListener implements HttpSessionListener,HttpSessionAttribute
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-        System.out.println(httpSessionEvent.getSession().getId()+" created");
+        logger.debug(httpSessionEvent.getSession().getId()+" created");
         idSessionMap.put(httpSessionEvent.getSession().getId(), httpSessionEvent.getSession());
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
-        System.out.println(httpSessionEvent.getSession().getId()+" destroyed");
+        logger.debug(httpSessionEvent.getSession().getId()+" destroyed");
         idSessionMap.remove(httpSessionEvent.getSession().getId());
     }
 
