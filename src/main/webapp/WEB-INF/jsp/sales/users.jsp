@@ -99,9 +99,7 @@
                             <a style="color: #0f0;">${authRentUserInfo.status}</a>
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'deactivate'}">
-                            <a style="color: #f00;" href="/panel/sales/activate/${authRentUserInfo.clientKey}">
-                                    ${authRentUserInfo.status}
-                            </a>
+                            <a style="color: #f00;">${authRentUserInfo.status}</a>
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'limited'}">
                             <a style="color: #f00;">${authRentUserInfo.status}</a>

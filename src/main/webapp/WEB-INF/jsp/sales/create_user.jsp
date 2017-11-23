@@ -42,15 +42,15 @@
                 <table class="table table-bordered table-condensed" id="tbCategory">
                     <tbody>
                         <tr style="background-color: #566778">
-                            <td>Total</td>
-                            <td>Deposit</td>
-                            <td>Pay</td>
+                            <td>FirstPay</td>
                             <td>MonthPay</td>
+                            <td>Deposit</td>
                             <td>Expires</td>
+                            <td>Total</td>
                         </tr>
                         <tr>
-                            <td>0</td>
-                            <td>0</td>
+                            <td style="color: red">0</td>
+                            <td style="color: darkblue;">0</td>
                             <td>0</td>
                             <td>0</td>
                             <td>0</td>

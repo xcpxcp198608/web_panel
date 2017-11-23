@@ -69,9 +69,9 @@
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         INSERT INTO auth_rent_user (salesId, clientKey, category, mac, firstName, lastName, email,
-                                    phone, cardNumber, expirationDate, securityKey)
+                                    phone, cardNumber, expirationDate, securityKey, status, activateTime)
                 VALUES (#{salesId}, #{clientKey}, #{category}, #{mac}, #{firstName}, #{lastName},
-                #{email}, #{phone}, #{cardNumber}, #{expirationDate}, #{securityKey})
+                #{email}, #{phone}, #{cardNumber}, #{expirationDate}, #{securityKey}, 'activate', now())
     </insert>
 
     <select id="selectOneByMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">

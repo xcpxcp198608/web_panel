@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -18,9 +17,9 @@ public class Auth {
 
     /**
      * sign in
-     * @param username
-     * @param password
-     * @return
+     * @param username  username
+     * @param password  password
+     * @return          home page
      */
     @PostMapping(value = "/signin")
     public String signIn(HttpSession session, String username, String password){
@@ -29,8 +28,8 @@ public class Auth {
 
     /**
      * sign out
-     * @param request
-     * @return
+     * @param request  HttpServletRequest
+     * @return         sign in page
      */
     @GetMapping(value = "/signout")
     public String signOut(HttpServletRequest request){

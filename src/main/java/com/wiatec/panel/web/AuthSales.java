@@ -1,10 +1,8 @@
 package com.wiatec.panel.web;
 
-import com.wiatec.panel.entity.ResultInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
-import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
-import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo;
 import com.wiatec.panel.service.auth.AuthSalesService;
+import com.wiatec.panel.xutils.result.ResultInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +59,7 @@ public class AuthSales {
      */
     @PostMapping(value = "/create")
     @ResponseBody
-    public ResultInfo<String> create(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
+    public ResultInfo create(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
         return authSalesService.createUser(request, authRentUserInfo);
     }
 
@@ -86,7 +84,7 @@ public class AuthSales {
      */
     @GetMapping(value = "/commission/{year}")
     @ResponseBody
-    public ResultInfo<SalesCommissionOfMonthInfo> getCommissionByYear(HttpServletRequest request, @PathVariable int year){
+    public ResultInfo getCommissionByYear(HttpServletRequest request, @PathVariable int year){
         return authSalesService.getCommissionByYear(request, year);
     }
 
@@ -98,7 +96,7 @@ public class AuthSales {
      */
     @GetMapping(value = "/commission/{year}/{month}")
     @ResponseBody
-    public ResultInfo<SalesCommissionOfDaysInfo> getCommissionByMonth(HttpServletRequest request,
+    public ResultInfo getCommissionByMonth(HttpServletRequest request,
                                                                       @PathVariable int year, @PathVariable int month){
         return authSalesService.getCommissionByMonth(request, year, month);
     }

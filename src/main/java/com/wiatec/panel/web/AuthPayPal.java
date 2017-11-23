@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping(value = "/pay")
-public class AuthPay {
+public class AuthPayPal {
 
     @Resource
     private PayService payService;

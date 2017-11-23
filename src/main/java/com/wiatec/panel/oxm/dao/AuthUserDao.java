@@ -2,9 +2,11 @@ package com.wiatec.panel.oxm.dao;
 
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthUserInfo;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface AuthUserDao {
 
     int countByUsername(AuthUserInfo authUserInfo);

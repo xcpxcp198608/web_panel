@@ -1,9 +1,11 @@
 package com.wiatec.panel.oxm.dao;
 
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface AuthRentUserDao {
 
     int countOneByMac(AuthRentUserInfo authRentUserInfo);

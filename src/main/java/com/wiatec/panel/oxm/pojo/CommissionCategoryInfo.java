@@ -7,12 +7,40 @@ public class  CommissionCategoryInfo {
     private int id;
     private String category;
     private float deposit;
-    private float monthPay;
     private int expires;
     private float ldCommission;
     private float dealerCommission;
     private float salesCommission;
+
     private float price;
+    private float firstPay;
+    private float monthPay;
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice() {
+        BigDecimal b = new BigDecimal(this.monthPay * this.expires + this.deposit);
+        this.price = b.setScale(2,  BigDecimal.ROUND_HALF_UP).floatValue();
+    }
+
+    public float getFirstPay() {
+        return firstPay;
+    }
+
+    public void setFirstPay() {
+        BigDecimal b = new BigDecimal(this.monthPay + this.deposit);
+        this.firstPay = b.setScale(2,  BigDecimal.ROUND_HALF_UP).floatValue();
+    }
+
+    public float getMonthPay() {
+        return monthPay;
+    }
+
+    public void setMonthPay(float monthPay) {
+        this.monthPay = monthPay;
+    }
 
     public int getId() {
         return id;
@@ -36,14 +64,6 @@ public class  CommissionCategoryInfo {
 
     public void setDeposit(float deposit) {
         this.deposit = deposit;
-    }
-
-    public float getMonthPay() {
-        return monthPay;
-    }
-
-    public void setMonthPay(float monthPay) {
-        this.monthPay = monthPay;
     }
 
     public int getExpires() {
@@ -78,25 +98,19 @@ public class  CommissionCategoryInfo {
         this.salesCommission = salesCommission;
     }
 
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice() {
-        BigDecimal b = new BigDecimal(this.monthPay * this.expires + this.deposit);
-        this.price = b.setScale(2,  BigDecimal.ROUND_HALF_UP).floatValue();
-    }
-
     @Override
     public String toString() {
         return "CommissionCategoryInfo{" +
                 "id=" + id +
                 ", category='" + category + '\'' +
+                ", price=" + price +
+                ", firstPay=" + firstPay +
+                ", monthPay=" + monthPay +
                 ", deposit=" + deposit +
+                ", expires=" + expires +
                 ", ldCommission=" + ldCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +
-                ", price=" + price +
                 '}';
     }
 }

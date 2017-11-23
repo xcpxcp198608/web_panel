@@ -1,11 +1,8 @@
 package com.wiatec.panel.api;
 
-import com.wiatec.panel.entity.ResultInfo;
-import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthUserInfo;
-import com.wiatec.panel.service.AuthRentUserService;
 import com.wiatec.panel.service.AuthUserService;
-import org.apache.log4j.Logger;
+import com.wiatec.panel.xutils.result.ResultInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +19,7 @@ public class AuthUser {
 
     @PostMapping(value = "/register")
     @ResponseBody
-    public ResultInfo<AuthUserInfo> register(HttpServletRequest request, AuthUserInfo authUserInfo){
+    public ResultInfo register(HttpServletRequest request, AuthUserInfo authUserInfo){
         return authUserService.register(request, authUserInfo);
     }
 
@@ -35,13 +32,13 @@ public class AuthUser {
 
     @PostMapping(value = "/login")
     @ResponseBody
-    public ResultInfo<AuthUserInfo> login(HttpServletRequest request, AuthUserInfo authUserInfo){
+    public ResultInfo login(HttpServletRequest request, AuthUserInfo authUserInfo){
         return authUserService.login(request, authUserInfo);
     }
 
     @PostMapping(value = "/validate")
     @ResponseBody
-    public ResultInfo<AuthUserInfo> validate(HttpServletRequest request,  AuthUserInfo authUserInfo){
+    public ResultInfo validate(HttpServletRequest request,  AuthUserInfo authUserInfo){
         return authUserService.validate(request, authUserInfo);
     }
 

@@ -1,24 +1,18 @@
 package com.wiatec.panel.service;
 
-import com.wiatec.panel.entity.ResultInfo;
-import com.wiatec.panel.listener.SessionListener;
-import com.wiatec.panel.oxm.dao.AuthRentUserDao;
 import com.wiatec.panel.oxm.dao.AuthUserDao;
-import com.wiatec.panel.oxm.dao.CommissionCategoryDao;
-import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthUserInfo;
 import com.wiatec.panel.xutils.EmailMaster;
-import com.wiatec.panel.xutils.TimeUtil;
 import com.wiatec.panel.xutils.TokenUtil;
-import org.apache.log4j.Logger;
+import com.wiatec.panel.xutils.result.EnumResult;
+import com.wiatec.panel.xutils.result.ResultInfo;
+import com.wiatec.panel.xutils.result.ResultMaster;
+import com.wiatec.panel.xutils.result.XException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Calendar;
-import java.util.Date;
 
 @Service
 public class AuthUserService {
@@ -27,25 +21,15 @@ public class AuthUserService {
     private AuthUserDao authUserDao;
 
     @Transactional
-    public ResultInfo<AuthUserInfo> register(HttpServletRequest request, AuthUserInfo authUserInfo){
-        ResultInfo<AuthUserInfo> resultInfo = new ResultInfo<>();
+    public ResultInfo register(HttpServletRequest request, AuthUserInfo authUserInfo){
         if(authUserDao.countByMac(authUserInfo) == 1){
-            resultInfo.setCode(ResultInfo.CODE_INVALID);
-            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-            resultInfo.setMessage("this device has been register");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
         }
         if(authUserDao.countByUsername(authUserInfo) == 1){
-            resultInfo.setCode(ResultInfo.CODE_INVALID);
-            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-            resultInfo.setMessage("username is exists");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_USERNAME_EXISTS);
         }
         if(authUserDao.countByEmail(authUserInfo) == 1){
-            resultInfo.setCode(ResultInfo.CODE_INVALID);
-            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-            resultInfo.setMessage("email is exists");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
         }
         String token = TokenUtil.create32(authUserInfo.getUsername(), authUserInfo.getEmail());
         authUserInfo.setToken(token);
@@ -55,10 +39,7 @@ public class AuthUserService {
         String path = url.substring(0, url.lastIndexOf("/"));
         emailMaster.setEmailContent(path, authUserInfo.getUsername(), token);
         emailMaster.send(authUserInfo.getEmail());
-        resultInfo.setCode(ResultInfo.CODE_OK);
-        resultInfo.setStatus(ResultInfo.STATUS_OK);
-        resultInfo.setMessage("register successfully");
-        return resultInfo;
+        return ResultMaster.success();
     }
 
     @Transactional
@@ -69,46 +50,26 @@ public class AuthUserService {
             return "token not exists";
         }
         authUserDao.updateEmailStatus(authUserInfo);
-        return "activate successfully";
+        return "activation successfully";
     }
 
-    public ResultInfo<AuthUserInfo> login(HttpServletRequest request, AuthUserInfo authUserInfo){
-        ResultInfo<AuthUserInfo> resultInfo = new ResultInfo<>();
+    public ResultInfo login(HttpServletRequest request, AuthUserInfo authUserInfo){
         if(authUserDao.countByUsername(authUserInfo) != 1){
-            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
-            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
-            resultInfo.setMessage("username is not exists");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
         }
         if(authUserDao.countByMac(authUserInfo) != 1){
-            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
-            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
-            resultInfo.setMessage("the device have no register");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_DEVICE_NO_REGISTER);
         }
         if(authUserDao.countByUsernameAndPassword(authUserInfo) != 1){
-            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
-            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
-            resultInfo.setMessage("username and password not match");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
         }
-
-
-
-
-        return resultInfo;
+        return ResultMaster.success();
     }
 
     @Transactional
-    public ResultInfo<AuthUserInfo> validate(HttpServletRequest request, AuthUserInfo authUserInfo){
-        ResultInfo<AuthUserInfo> resultInfo = new ResultInfo<>();
+    public ResultInfo validate(HttpServletRequest request, AuthUserInfo authUserInfo){
 
-
-
-        resultInfo.setCode(ResultInfo.CODE_OK);
-        resultInfo.setStatus(ResultInfo.STATUS_OK);
-        resultInfo.setMessage("validate success");
-        return resultInfo;
+        return ResultMaster.success();
     }
 
 }

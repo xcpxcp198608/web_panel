@@ -1,6 +1,5 @@
 package com.wiatec.panel.service.auth;
 
-import com.wiatec.panel.entity.ResultInfo;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthOrderDao;
 import com.wiatec.panel.oxm.dao.AuthSalesDao;
@@ -12,6 +11,12 @@ import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
+import com.wiatec.panel.xutils.result.EnumResult;
+import com.wiatec.panel.xutils.result.ResultInfo;
+import com.wiatec.panel.xutils.result.ResultMaster;
+import com.wiatec.panel.xutils.result.XException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -25,6 +30,8 @@ import java.util.Map;
 @Service
 public class AuthAdminService {
 
+    private Logger logger = LoggerFactory.getLogger(AuthAdminService.class);
+
     @Resource
     private AuthSalesDao authSalesDao;
     @Resource
@@ -34,12 +41,10 @@ public class AuthAdminService {
     @Resource
     private CommissionCategoryDao commissionCategoryDao;
 
-    /////////////////////////////////////////////////// home ///////////////////////////////////////////////////////////
     public String home(HttpServletRequest request, Model model){
         return "admin/home";
     }
 
-    /////////////////////////////////////////////////// sales //////////////////////////////////////////////////////////
     public String sales(HttpServletRequest request, Model model){
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectAll();
         model.addAttribute("authSalesInfoList", authSalesInfoList);
@@ -47,59 +52,37 @@ public class AuthAdminService {
     }
 
     @Transactional
-    public ResultInfo<AuthSalesInfo> createSales(HttpServletRequest request, AuthSalesInfo authSalesInfo){
-        ResultInfo<AuthSalesInfo> resultInfo = new ResultInfo<>();
+    public com.wiatec.panel.xutils.result.ResultInfo createSales(AuthSalesInfo authSalesInfo) throws Exception{
         if(authSalesDao.countUsername(authSalesInfo) == 1){
-            resultInfo.setCode(ResultInfo.CODE_INVALID);
-            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-            resultInfo.setMessage("username exists");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_USERNAME_EXISTS);
         }
         if(authSalesDao.countSSN(authSalesInfo) == 1){
-            resultInfo.setCode(ResultInfo.CODE_INVALID);
-            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-            resultInfo.setMessage("SSN exists");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_SSN_EXISTS);
         }
         if(authSalesDao.countEmail(authSalesInfo) == 1){
-            resultInfo.setCode(ResultInfo.CODE_INVALID);
-            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-            resultInfo.setMessage("email exists");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
         }
         try {
             authSalesDao.insertOne(authSalesInfo);
-            resultInfo.setCode(ResultInfo.CODE_OK);
-            resultInfo.setStatus(ResultInfo.STATUS_OK);
-            resultInfo.setMessage("create successfully");
-            resultInfo.setData(authSalesDao.selectOne(authSalesInfo));
-            return resultInfo;
+            return ResultMaster.success(authSalesInfo);
         }catch (Exception e){
-            resultInfo.setCode(ResultInfo.CODE_INVALID);
-            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-            resultInfo.setMessage("server error, try again later");
-            return resultInfo;
+            logger.error(e.getMessage());
+            throw new XException(EnumResult.ERROR_SERVER_SQL);
         }
     }
 
     @Transactional
-    public ResultInfo updateSalesPassword(HttpServletRequest request, AuthSalesInfo authSalesInfo){
-        ResultInfo resultInfo = new ResultInfo<>();
+    public com.wiatec.panel.xutils.result.ResultInfo updateSalesPassword(HttpServletRequest request,
+                                                                         AuthSalesInfo authSalesInfo){
         try {
             authSalesDao.updatePassword(authSalesInfo);
-            resultInfo.setCode(ResultInfo.CODE_OK);
-            resultInfo.setStatus(ResultInfo.STATUS_OK);
-            resultInfo.setMessage("update successfully");
-            return resultInfo;
+            return ResultMaster.success();
         }catch (Exception e){
-            resultInfo.setCode(ResultInfo.CODE_INVALID);
-            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-            resultInfo.setMessage("server error, try again later ");
-            return resultInfo;
+            logger.error(e.getMessage());
+            throw new XException(EnumResult.ERROR_SERVER_SQL);
         }
     }
 
-    /////////////////////////////////////////////////// users //////////////////////////////////////////////////////////
     public String users(HttpServletRequest request, Model model, int salesId){
         List<AuthRentUserInfo> authRentUserInfoList = null;
         if(salesId > 0){
@@ -121,7 +104,12 @@ public class AuthAdminService {
         return authRentUserDao.selectOneByClientKey(key);
     }
 
-    ///////////////////////////////////////////////// commission ///////////////////////////////////////////////////////
+    @Transactional
+    public ResultInfo activateUser(HttpServletRequest request, String key){
+        authRentUserDao.updateStatusToActivate(key);
+        return ResultMaster.success();
+    }
+
     public String commission(HttpServletRequest request, Model model){
         List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
         for(CommissionCategoryInfo commissionCategoryInfo: commissionCategoryInfoList){
@@ -133,7 +121,7 @@ public class AuthAdminService {
         return "admin/commission";
     }
 
-    /////////////////////////////////////////////////// chart ///////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////// chart //////////////////////////////////////////////////////////
     public List<SalesDayVolumeInMonthInfo> countSaleVolumeEveryDayInMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         return authOrderDao.countSaleVolumeEveryDayInMonth(yearOrMonthInfo);

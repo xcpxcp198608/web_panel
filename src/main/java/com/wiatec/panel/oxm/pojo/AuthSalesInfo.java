@@ -1,17 +1,24 @@
 package com.wiatec.panel.oxm.pojo;
 
-import java.util.List;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class AuthSalesInfo {
 
     private int id;
+    @Size(min = 6, max = 20, message = "username input format incorrect")
     private String username;
+    @Size(min = 6, max = 20, message = "password input format incorrect")
     private String password;
     private String permission;
     private String firstName;
     private String lastName;
-    private int ssn;
+    @Size(min = 9, max = 9, message = "ssn input format incorrect")
+    private String ssn;
+    @Pattern(regexp = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",
+            message = "email input format incorrent")
     private String email;
+    @Size(min = 10, max = 12, message = "phone number input format incorrect")
     private String phone;
     private String createTime;
 
@@ -75,11 +82,11 @@ public class AuthSalesInfo {
         this.lastName = lastName;
     }
 
-    public int getSsn() {
+    public String getSsn() {
         return ssn;
     }
 
-    public void setSsn(int ssn) {
+    public void setSsn(String ssn) {
         this.ssn = ssn;
     }
 
@@ -116,7 +123,7 @@ public class AuthSalesInfo {
                 ", permission='" + permission + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", ssn=" + ssn +
+                ", ssn='" + ssn + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", createTime='" + createTime + '\'' +

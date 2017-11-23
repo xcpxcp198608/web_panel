@@ -7,8 +7,11 @@ import static org.junit.Assert.*;
 public class CreditCardTransactionTest {
     @Test
     public void pay() throws Exception {
-        CreditCardTransaction creditCardTransaction = new CreditCardTransaction();
-        creditCardTransaction.pay(99.00f);
+        AuthorizePayInfo authorizePayInfo = new AuthorizePayInfo();
+        authorizePayInfo.setCardNumber("4111111111111111");
+        authorizePayInfo.setExpirationDate(1220);
+        authorizePayInfo.setAmount(99.00f);
+        CreditCardTransaction.pay(authorizePayInfo);
     }
 
 }

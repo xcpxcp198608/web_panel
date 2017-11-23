@@ -27,6 +27,7 @@ public class CommissionCategoryService {
     public CommissionCategoryInfo selectOne(String category){
         CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(category);
         commissionCategoryInfo.setPrice();
+        commissionCategoryInfo.setFirstPay();
         return commissionCategoryInfo;
     }
 }

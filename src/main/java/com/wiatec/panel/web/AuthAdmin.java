@@ -1,18 +1,20 @@
 package com.wiatec.panel.web;
 
-import com.wiatec.panel.entity.ResultInfo;
 import com.wiatec.panel.listener.SessionListener;
-import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.service.auth.AuthAdminService;
+import com.wiatec.panel.xutils.result.ResultInfo;
+import com.wiatec.panel.xutils.result.XException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -24,9 +26,9 @@ public class AuthAdmin {
 
     /**
      * home page
-     * @param request
-     * @param model
-     * @return
+     * @param request HttpServletRequest
+     * @param model   Model
+     * @return        home page
      */
     @GetMapping(value = "/")
     public String home(HttpServletRequest request, Model model){
@@ -49,14 +51,17 @@ public class AuthAdmin {
 
     /**
      * create user
-     * @param request
      * @param authSalesInfo
      * @return
      */
     @PostMapping(value = "/sale/create")
     @ResponseBody
-    public ResultInfo<AuthSalesInfo> getSales(HttpServletRequest request, @RequestBody AuthSalesInfo authSalesInfo){
-        return authAdminService.createSales(request, authSalesInfo);
+    public com.wiatec.panel.xutils.result.ResultInfo createSales(@Valid AuthSalesInfo authSalesInfo,
+                                                                 BindingResult bindingResult) throws Exception {
+        if(bindingResult.hasErrors()){
+            throw new XException(3001, bindingResult.getFieldError().getDefaultMessage());
+        }
+        return authAdminService.createSales(authSalesInfo);
     }
 
     /**
@@ -102,8 +107,14 @@ public class AuthAdmin {
      */
     @GetMapping(value = "/user/{key}")
     @ResponseBody
-    public AuthRentUserInfo getUserByKey(HttpServletRequest request, @PathVariable(value="key")String key){
+    public AuthRentUserInfo getUserByKey(HttpServletRequest request, @PathVariable String key){
         return authAdminService.getUserByKey(request, key);
+    }
+
+    @PutMapping(value = "/activate/{key}")
+    @ResponseBody
+    public ResultInfo activateUser(HttpServletRequest request, @PathVariable String key){
+        return authAdminService.activateUser(request, key);
     }
 
     /**

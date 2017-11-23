@@ -6,6 +6,7 @@
     Users
 </rapid:override>
 <rapid:override name="css_js">
+    <link rel="stylesheet" href="Resource/css/admin/users.css"/>
     <script type="application/javascript" src="Resource/js/admin/users.js"></script>
 </rapid:override>
 
@@ -99,16 +100,18 @@
                     <td>${authRentUserInfo.category}</td>
                     <td>
                         <c:if test="${authRentUserInfo.status == 'activate'}">
-                            <span style="color: #00b300;">${authRentUserInfo.status}</span>
+                            <a style="color: #00b300;">${authRentUserInfo.status}</a>
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'deactivate'}">
-                            <span style="color: #f00;">${authRentUserInfo.status}</span>
+                            <a style="color: #f00;" href="/panel/admin/activate/${authRentUserInfo.clientKey}">
+                                    ${authRentUserInfo.status}
+                            </a>
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'limited'}">
-                            <span style="color: #f00;">${authRentUserInfo.status}</span>
+                            <a style="color: #f00;">${authRentUserInfo.status}</a>
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'canceled'}">
-                            <span style="color: #777;">${authRentUserInfo.status}</span>
+                            <a style="color: #777;">${authRentUserInfo.status}</a>
                         </c:if>
                     </td>
                     <td>

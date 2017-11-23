@@ -1,7 +1,7 @@
 package com.wiatec.panel.inteceptor;
 
-import com.wiatec.panel.xutils.LoggerUtil;
-import org.apache.log4j.Logger;
+import com.wiatec.panel.xutils.result.EnumResult;
+import com.wiatec.panel.xutils.result.XException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,12 +15,11 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String ref = request.getHeader("Referer");
         if(ref == null || !ref.contains("/panel")){
-            throw new RuntimeException("signin error");
+            throw new XException(EnumResult.ERROR_AUTHORIZATION_DEFINED);
         }
         String username = (String) request.getSession().getAttribute("username");
-        Logger.getLogger("").debug("before interceptor " + username);
         if(username == null){
-            throw new RuntimeException("signin error");
+            throw new XException(EnumResult.ERROR_AUTHORIZATION_DEFINED);
         }
         return true;
     }

@@ -13,11 +13,11 @@ $(function () {
        }
        var url = baseUrl + "/category/" + value;
        $.get(url,function (response, status) {
-           tbCategory.rows[1].cells[0].innerHTML = response['price'];
-           tbCategory.rows[1].cells[1].innerHTML = response['deposit'];
-           tbCategory.rows[1].cells[2].innerHTML = response['monthPay'] * response['expires'];
-           tbCategory.rows[1].cells[3].innerHTML = response['monthPay'];
-           tbCategory.rows[1].cells[4].innerHTML = response['expires'];
+           tbCategory.rows[1].cells[0].innerHTML = response['firstPay'];
+           tbCategory.rows[1].cells[1].innerHTML = response['monthPay'];
+           tbCategory.rows[1].cells[2].innerHTML = response['deposit'];
+           tbCategory.rows[1].cells[3].innerHTML = response['expires'];
+           tbCategory.rows[1].cells[4].innerHTML = response['price'];
        });
    });
 
@@ -54,7 +54,7 @@ $(function () {
        var phone = $('#ipPhone').val();
        var cardNumber = $('#ipCardNumber').val();
        var expirationDate = $('#ipExpirationDate').val();
-       var securitykey = $('#ipSecurityKey').val();
+       var securityKey = $('#ipSecurityKey').val();
        if(category.length <= 0){
            $('#errorMessage').html('have no choose plan');
            return;
@@ -91,7 +91,7 @@ $(function () {
            $('#errorMessage').html('expiration date input error');
            return;
        }
-       if(securitykey.length !== 3){
+       if(securityKey.length !== 3){
            $('#errorMessage').html('security key input error');
            return;
        }
@@ -100,7 +100,8 @@ $(function () {
            type: 'POST',
            url: url,
            data: {'category':category, 'mac':mac, 'firstName': firstName, 'lastName': lastName,
-               'email': email, 'phone': phone},
+               'email': email, 'phone': phone, 'cardNumber': cardNumber,
+               'expirationDate': expirationDate, 'securityKey': securityKey},
            dataType: 'json',
            beforeSend:function(){
                 showLoading()
@@ -109,7 +110,7 @@ $(function () {
                hideLoading();
                if(response.code === 200) {
                    showNotice(response.message);
-                   window.open(baseUrl + "/sales/activate/" + response['data'], "_self")
+                   window.open(baseUrl + "/sales/users/", "_self")
                }else{
                    $('#errorMessage').html(response.message);
                }

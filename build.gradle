@@ -101,6 +101,8 @@ dependencies {
     testCompile group: 'org.jmock', name: 'jmock', version: '2.6.0'
     //paypal
     compile 'com.paypal.sdk:rest-api-sdk:+'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.4.1.Final'
+
 
 
 

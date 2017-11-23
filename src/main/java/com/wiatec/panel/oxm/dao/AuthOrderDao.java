@@ -5,10 +5,12 @@ import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public interface AuthOrderDao {
 
     int countOneByPaymentId(AuthOrderInfo authOrderInfo);

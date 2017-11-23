@@ -1,17 +1,21 @@
 package com.wiatec.panel.service.auth;
 
-//import com.wiatec.panel.aop.Session;
-import com.wiatec.panel.entity.ResultInfo;
+import com.wiatec.panel.authorize.AuthorizePayInfo;
+import com.wiatec.panel.authorize.CreditCardTransaction;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo;
-import com.wiatec.panel.paypal.PayInfo;
-import com.wiatec.panel.paypal.PayOrderInfo;
 import com.wiatec.panel.xutils.TextUtil;
 import com.wiatec.panel.xutils.TokenUtil;
+import com.wiatec.panel.xutils.result.EnumResult;
+import com.wiatec.panel.xutils.result.ResultInfo;
+import com.wiatec.panel.xutils.result.ResultMaster;
+import com.wiatec.panel.xutils.result.XException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -19,13 +23,13 @@ import org.springframework.ui.Model;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class AuthSalesService {
 
+    private Logger logger = LoggerFactory.getLogger(AuthSalesService.class);
 
     @Resource
     private AuthSalesDao authSalesDao;
@@ -36,19 +40,13 @@ public class AuthSalesService {
     @Resource
     private CommissionCategoryDao commissionCategoryDao;
     @Resource
-    private PayOrderDao payOrderDao;
+    private AuthorizeTransactionDao authorizeTransactionDao;
 
-    /////////////////////////////////////////////////// sales //////////////////////////////////////////////////////////
     public String home(HttpServletRequest request, Model model){
-        List<AuthOrderInfo> authOrderInfoList = authOrderDao.selectBySalesId(getSalesId(request));
-        model.addAttribute("authOrderInfoList", authOrderInfoList);
+        model.addAttribute("authOrderInfoList", authOrderDao.selectBySalesId(getSalesId(request)));
         return "sales/home";
     }
 
-
-
-    /////////////////////////////////////////////////// users //////////////////////////////////////////////////////////
-    @Transactional
     public String users(HttpServletRequest request, Model model){
         List<AuthRentUserInfo> authRentUserInfoList = authRentUserDao.selectBySalesId(getSalesId(request));
         Map<String, HttpSession> sessionMap = SessionListener.sessionMap;
@@ -62,21 +60,14 @@ public class AuthSalesService {
     }
 
     @Transactional
-    public ResultInfo<String> createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
-        ResultInfo<String> resultInfo = new ResultInfo<>();
+    public ResultInfo createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
         try {
             if(authRentUserDao.countOneByEmail(authRentUserInfo) == 1){
-                resultInfo.setCode(ResultInfo.CODE_INVALID);
-                resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-                resultInfo.setMessage("email is exists");
-                return resultInfo;
+                throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
             }
             if(authRentUserDao.countOneByMac(authRentUserInfo) == 1){
                 if(!"canceled".equals(authRentUserDao.selectStatusByMac(authRentUserInfo))){
-                    resultInfo.setCode(ResultInfo.CODE_INVALID);
-                    resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-                    resultInfo.setMessage("device has been use");
-                    return resultInfo;
+                    throw new XException(EnumResult.ERROR_MAC_USING);
                 }
             }
             authRentUserInfo.setSalesId(getSalesId(request));
@@ -84,81 +75,55 @@ public class AuthSalesService {
             authRentUserDao.insertOne(authRentUserInfo);
             CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
             commissionCategoryInfo.setPrice();
-            //create pay order info in table pay_order
-            PayOrderInfo payOrderInfo = new PayOrderInfo();
-            payOrderInfo.setInvoice("s"+System.currentTimeMillis());
-            payOrderInfo.setCategory(authRentUserInfo.getCategory());
-            payOrderInfo.setPrice(commissionCategoryInfo.getPrice());
-            payOrderInfo.setCurrency("USD");
-            payOrderInfo.setSalesId(authRentUserInfo.getSalesId());
-            payOrderInfo.setClientKey(authRentUserInfo.getClientKey());
-            payOrderInfo.setDescription("rent");
-            payOrderDao.insertOne(payOrderInfo);
-            resultInfo.setCode(ResultInfo.CODE_OK);
-            resultInfo.setStatus(ResultInfo.STATUS_OK);
-            resultInfo.setMessage("create successfully");
-            resultInfo.setData(authRentUserInfo.getClientKey());
-            return resultInfo;
+            commissionCategoryInfo.setFirstPay();
+            AuthorizePayInfo authorizePayInfo = new AuthorizePayInfo();
+            authorizePayInfo.setAmount(commissionCategoryInfo.getFirstPay());
+            authorizePayInfo.setClientKey(authRentUserInfo.getClientKey());
+            authorizePayInfo.setSalesId(authRentUserInfo.getSalesId());
+            authorizePayInfo.setCategory(authRentUserInfo.getCategory());
+            authorizePayInfo.setCardNumber(authRentUserInfo.getCardNumber());
+            authorizePayInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
+            authorizePayInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+            AuthorizePayInfo payInfo = CreditCardTransaction.pay(authorizePayInfo);
+            if(payInfo == null){
+                throw new XException(EnumResult.ERROR_AUTHORIZE);
+            }
+            authorizeTransactionDao.insertOne(payInfo);
+            return ResultMaster.success(authRentUserInfo.getClientKey());
         }catch (Exception e){
-            e.printStackTrace();
-            resultInfo.setCode(ResultInfo.CODE_INVALID);
-            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-            resultInfo.setMessage("server error, try again later ");
-            return resultInfo;
+            logger.error(e.getMessage());
+            throw new XException(ResultMaster.error(5000, e.getMessage()));
         }
     }
 
     @Transactional
     public String activate(Model model, String clientKey){
-        PayOrderInfo payOrderInfo = payOrderDao.selectOneByClientKey(clientKey);
-        PayInfo payInfo = new PayInfo();
-        payInfo.setInvoice(payOrderInfo.getInvoice());
-        payInfo.setItemName(payOrderInfo.getCategory());
-        payInfo.setItemNumber(payOrderInfo.getCategory());
-        payInfo.setAmount(payOrderInfo.getPrice());
-        payInfo.setTax(0f);
-        payInfo.setCurrency(payOrderInfo.getCurrency());
-        model.addAttribute("payInfo", payInfo);
         return "paypal/payment";
     }
 
 
     ////////////////////////////////////////////////////////// chart ///////////////////////////////////////////////////
-    public ResultInfo<SalesCommissionOfMonthInfo> getCommissionByYear(HttpServletRequest request, int year){
-        ResultInfo<SalesCommissionOfMonthInfo> resultInfo = new ResultInfo<>();
+    public com.wiatec.panel.xutils.result.ResultInfo getCommissionByYear(HttpServletRequest request, int year){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
         yearOrMonthInfo.setSalesId(getSalesId(request)+"");
         try {
             List<SalesCommissionOfMonthInfo> salesCommissionOfMonthInfoList = authOrderDao.getCommissionOfMonthBySales(yearOrMonthInfo);
-            resultInfo.setCode(ResultInfo.CODE_OK);
-            resultInfo.setStatus(ResultInfo.STATUS_OK);
-            resultInfo.setMessage("create successfully");
-            resultInfo.setDataList(salesCommissionOfMonthInfoList);
-            return resultInfo;
+            return ResultMaster.success(salesCommissionOfMonthInfoList);
         }catch (Exception e){
-            resultInfo.setCode(ResultInfo.CODE_INVALID);
-            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-            resultInfo.setMessage("server error, try again later ");
-            return resultInfo;
+            logger.error(e.getMessage());
+            throw new XException(ResultMaster.error(5000, e.getMessage()));
         }
     }
 
-    public ResultInfo<SalesCommissionOfDaysInfo> getCommissionByMonth(HttpServletRequest request, int year, int month){
-        ResultInfo<SalesCommissionOfDaysInfo> resultInfo = new ResultInfo<>();
+    public com.wiatec.panel.xutils.result.ResultInfo getCommissionByMonth(HttpServletRequest request, int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         yearOrMonthInfo.setSalesId(getSalesId(request)+"");
         try {
             List<SalesCommissionOfDaysInfo> salesCommissionOfDaysInfoList = authOrderDao.getCommissionOfDayBySales(yearOrMonthInfo);
-            resultInfo.setCode(ResultInfo.CODE_OK);
-            resultInfo.setStatus(ResultInfo.STATUS_OK);
-            resultInfo.setMessage("create successfully");
-            resultInfo.setDataList(salesCommissionOfDaysInfoList);
-            return resultInfo;
+            return ResultMaster.success(salesCommissionOfDaysInfoList);
         }catch (Exception e){
-            resultInfo.setCode(ResultInfo.CODE_INVALID);
-            resultInfo.setStatus(ResultInfo.STATUS_INVALID);
-            resultInfo.setMessage("server error, try again later ");
-            return resultInfo;
+            logger.error(e.getMessage());
+            throw new XException(ResultMaster.error(5000, e.getMessage()));
         }
     }
 

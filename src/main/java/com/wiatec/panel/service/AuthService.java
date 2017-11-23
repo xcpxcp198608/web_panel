@@ -4,6 +4,8 @@ import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthSalesDao;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.xutils.TextUtil;
+import com.wiatec.panel.xutils.result.EnumResult;
+import com.wiatec.panel.xutils.result.XException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +24,7 @@ public class AuthService {
         session.setAttribute("username", username);
         String permission = authSalesDao.selectPermission(new AuthSalesInfo(username, password));
         if(TextUtil.isEmpty(permission)){
-            throw new RuntimeException("username and password not match");
+            throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
         }
         if("admin".equals(permission)){
             return "redirect:/admin/";

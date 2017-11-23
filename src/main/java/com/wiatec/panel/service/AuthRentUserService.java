@@ -1,13 +1,15 @@
 package com.wiatec.panel.service;
 
-import com.wiatec.panel.entity.ResultInfo;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthRentUserDao;
 import com.wiatec.panel.oxm.dao.CommissionCategoryDao;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.xutils.TimeUtil;
+import com.wiatec.panel.xutils.result.EnumResult;
+import com.wiatec.panel.xutils.result.ResultInfo;
+import com.wiatec.panel.xutils.result.ResultMaster;
+import com.wiatec.panel.xutils.result.XException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -23,72 +25,43 @@ public class AuthRentUserService {
     @Resource
     private CommissionCategoryDao commissionCategoryDao;
 
-    @Transactional(readOnly = true)
-    public ResultInfo<AuthRentUserInfo> login(HttpServletRequest request, String clientKey, String mac){
-        ResultInfo<AuthRentUserInfo> resultInfo = new ResultInfo<>();
+    public ResultInfo login(HttpServletRequest request, String clientKey, String mac){
         AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo(clientKey, mac);
         if(authRentUserDao.countOneByMac(authRentUserInfo) != 1){
-            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
-            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
-            resultInfo.setMessage("this device have no register");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_DEVICE_NO_REGISTER);
         }
         if(authRentUserDao.countOneByKeyAndMac(authRentUserInfo) != 1){
-            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
-            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
-            resultInfo.setMessage("key not match with this device");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_KEY_INCORRECT);
         }
         AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectByClientKey(clientKey);
         if(!"activate".equals(authRentUserInfo1.getStatus())){
-            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
-            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
-            resultInfo.setMessage("key no activate");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_KEY_DEACTIVATE);
         }
         int expires = commissionCategoryDao.selectOne(authRentUserInfo1.getCategory()).getExpires();
         if(isOutExpires(authRentUserInfo1.getActivateTime(), expires)){
-            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
-            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
-            resultInfo.setMessage("out expires");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_OUT_EXPIRATION);
         }
         HttpSession session = SessionListener.getSession(clientKey);
         if(session == null) {
             session = request.getSession();
         }
         session.setAttribute(SessionListener.KEY ,clientKey);
-        resultInfo.setCode(ResultInfo.CODE_OK);
-        resultInfo.setStatus(ResultInfo.STATUS_OK);
-        resultInfo.setMessage("login success");
-        resultInfo.setData(authRentUserInfo1);
-        return resultInfo;
+        return ResultMaster.success(authRentUserInfo1);
     }
 
-    @Transactional
-    public ResultInfo<AuthRentUserInfo> validate(HttpServletRequest request, String clientKey, String mac,
-                                                 String country, String region, String city, String timeZone){
-        ResultInfo<AuthRentUserInfo> resultInfo = new ResultInfo<>();
+    public ResultInfo validate(HttpServletRequest request, String clientKey, String mac,
+                               String country, String region, String city, String timeZone){
         AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo(clientKey, mac);
         if(authRentUserDao.countOneByKeyAndMac(authRentUserInfo) != 1){
-            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
-            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
-            resultInfo.setMessage("key not match with device");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_KEY_INCORRECT);
         }
         AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectByClientKey(clientKey);
         if(!"activate".equals(authRentUserInfo1.getStatus())){
-            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
-            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
-            resultInfo.setMessage("key not activate");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_KEY_DEACTIVATE);
         }
         int expires = commissionCategoryDao.selectOne(authRentUserInfo1.getCategory()).getExpires();
         if(isOutExpires(authRentUserInfo1.getActivateTime(), expires)){
-            resultInfo.setCode(ResultInfo.CODE_UNAUTHORIZED);
-            resultInfo.setStatus(ResultInfo.STATUS_UNAUTHORIZED);
-            resultInfo.setMessage("out expires ");
-            return resultInfo;
+            throw new XException(EnumResult.ERROR_OUT_EXPIRATION);
         }
         authRentUserInfo1.setCountry(country);
         authRentUserInfo1.setRegion(region);
@@ -100,11 +73,7 @@ public class AuthRentUserService {
             session = request.getSession();
             session.setAttribute(SessionListener.KEY ,clientKey);
         }
-        resultInfo.setCode(ResultInfo.CODE_OK);
-        resultInfo.setStatus(ResultInfo.STATUS_OK);
-        resultInfo.setMessage("validate success");
-        resultInfo.setData(authRentUserInfo1);
-        return resultInfo;
+        return  ResultMaster.success(authRentUserInfo1);
     }
 
     private boolean isOutExpires(String activateTime, int expires){
