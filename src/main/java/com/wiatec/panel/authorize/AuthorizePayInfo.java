@@ -2,18 +2,32 @@ package com.wiatec.panel.authorize;
 
 public class AuthorizePayInfo {
 
+    public static final String TYPE_LEASE = "lease";
+    public static final String TYPE_RENT = "rent";
+    public static final String TYPE_RENEW = "renew";
+
+
     private int id;
-    private String clientKey;
-    private String category;
     private int salesId;
-    private float amount;
+    private String salesName;
+    private String category;
+    private String clientKey;
     private String cardNumber;
     private int expirationDate;
     private int securityKey;
 
+    private float amount;
+    private float deposit;
+    private float ldCommission;
+    private float dealerCommission;
+    private float salesCommission;
+    private float txFee;
+
     private String transactionId;
     private String status;
     private String authCode;
+    private String type;
+    private String createTime;
 
     public int getId() {
         return id;
@@ -21,22 +35,6 @@ public class AuthorizePayInfo {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getClientKey() {
-        return clientKey;
-    }
-
-    public void setClientKey(String clientKey) {
-        this.clientKey = clientKey;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public int getSalesId() {
@@ -47,20 +45,28 @@ public class AuthorizePayInfo {
         this.salesId = salesId;
     }
 
-    public String getTransactionId() {
-        return transactionId;
+    public String getSalesName() {
+        return salesName;
     }
 
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+    public void setSalesName(String salesName) {
+        this.salesName = salesName;
     }
 
-    public float getAmount() {
-        return amount;
+    public String getCategory() {
+        return category;
     }
 
-    public void setAmount(float amount) {
-        this.amount = amount;
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getClientKey() {
+        return clientKey;
+    }
+
+    public void setClientKey(String clientKey) {
+        this.clientKey = clientKey;
     }
 
     public String getCardNumber() {
@@ -87,6 +93,62 @@ public class AuthorizePayInfo {
         this.securityKey = securityKey;
     }
 
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
+
+    public float getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(float deposit) {
+        this.deposit = deposit;
+    }
+
+    public float getLdCommission() {
+        return ldCommission;
+    }
+
+    public void setLdCommission(float ldCommission) {
+        this.ldCommission = ldCommission;
+    }
+
+    public float getDealerCommission() {
+        return dealerCommission;
+    }
+
+    public void setDealerCommission(float dealerCommission) {
+        this.dealerCommission = dealerCommission;
+    }
+
+    public float getSalesCommission() {
+        return salesCommission;
+    }
+
+    public void setSalesCommission(float salesCommission) {
+        this.salesCommission = salesCommission;
+    }
+
+    public float getTxFee() {
+        return txFee;
+    }
+
+    public void setTxFee(float txFee) {
+        this.txFee = txFee;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -103,20 +165,44 @@ public class AuthorizePayInfo {
         this.authCode = authCode;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString() {
         return "AuthorizePayInfo{" +
                 "id=" + id +
-                ", clientKey='" + clientKey + '\'' +
-                ", category='" + category + '\'' +
                 ", salesId=" + salesId +
-                ", transactionId='" + transactionId + '\'' +
-                ", amount=" + amount +
+                ", salesName='" + salesName + '\'' +
+                ", category='" + category + '\'' +
+                ", clientKey='" + clientKey + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", expirationDate=" + expirationDate +
                 ", securityKey=" + securityKey +
+                ", amount=" + amount +
+                ", deposit=" + deposit +
+                ", ldCommission=" + ldCommission +
+                ", dealerCommission=" + dealerCommission +
+                ", salesCommission=" + salesCommission +
+                ", txFee=" + txFee +
+                ", transactionId='" + transactionId + '\'' +
                 ", status='" + status + '\'' +
                 ", authCode='" + authCode + '\'' +
+                ", type='" + type + '\'' +
+                ", createTime='" + createTime + '\'' +
                 '}';
     }
 }

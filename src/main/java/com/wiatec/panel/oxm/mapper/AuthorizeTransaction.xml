@@ -7,21 +7,151 @@
         <id column="client_key" property="clientKey"/>
         <id column="category" property="category"/>
         <result column="sales_id" property="salesId"/>
+        <result column="sales_name" property="salesName"/>
         <result column="amount" property="amount"/>
+        <result column="deposit" property="deposit"/>
+        <result column="ld_commission" property="ldCommission"/>
+        <result column="dealer_commission" property="dealerCommission"/>
+        <result column="sales_commission" property="salesCommission"/>
+        <result column="tx_fee" property="txFee"/>
         <result column="card_number" property="cardNumber"/>
         <result column="expiration_date" property="expirationDate"/>
         <result column="security_key" property="securityKey"/>
         <result column="transaction_id" property="transactionId"/>
         <result column="status" property="status"/>
         <result column="auth_code" property="authCode"/>
+        <result column="type" property="type"/>
+        <result column="create_time" property="createTime"/>
     </resultMap>
 
+    <sql id="select">
+        SELECT authorize_transaction.id, authorize_transaction.client_key, authorize_transaction.category,
+            authorize_transaction.sales_id, authorize_transaction.amount, authorize_transaction.deposit,
+            authorize_transaction.ld_commission, authorize_transaction.dealer_commission,
+            authorize_transaction.sales_commission, authorize_transaction.tx_fee,
+            authorize_transaction.card_number, authorize_transaction.expiration_date,
+            authorize_transaction.security_key, authorize_transaction.transaction_id,
+            authorize_transaction.status, authorize_transaction.auth_code,
+            authorize_transaction.type, authorize_transaction.create_time,
+            auth_sales.username sales_name
+        FROM authorize_transaction JOIN auth_sales ON authorize_transaction.sales_id = auth_sales.id
+    </sql>
+
     <insert id="insertOne" parameterType="com.wiatec.panel.authorize.AuthorizePayInfo">
-      INSERT INTO authorize_transaction (client_key, category, sales_id, amount, card_number,
-                                         expiration_date, security_key, transaction_id, status,
-                                         auth_code)
-      VALUES (#{clientKey}, #{category}, #{salesId}, #{amount}, #{cardNumber}, #{expirationDate},
-              #{securityKey}, #{transactionId}, #{status}, #{authCode})
+      INSERT INTO authorize_transaction (sales_id, category, client_key, card_number,expiration_date,
+             security_key, amount, deposit, ld_commission, dealer_commission, sales_commission,
+             tx_fee, transaction_id, status, auth_code, type)
+      VALUES (#{salesId}, #{category}, #{clientKey}, #{cardNumber}, #{expirationDate},
+              #{securityKey}, #{amount}, #{deposit}, #{ldCommission}, #{dealerCommission},
+              #{salesCommission}, #{txFee}, #{transactionId}, #{status}, #{authCode}, #{type})
     </insert>
+
+    <select id="countByKeyAndDate" parameterType="com.wiatec.panel.authorize.AuthorizePayInfo">
+        SELECT COUNT(*)
+        FROM authorize_transaction
+        WHERE client_key=#{clientKey} AND create_time LIKE #{createTime}
+    </select>
+
+    <select id="selectAll" resultMap="authorizePayInfo">
+        <include refid="select"/>
+    </select>
+
+    <select id="selectBySalesId" resultMap="authorizePayInfo" parameterType="Integer">
+        <include refid="select"/>
+        AND authorize_transaction.sales_id=#{_parameter}
+    </select>
+
+
+
+
+
+    <!-- chart of top {top} amount-->
+    <resultMap id="topAmountInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.TopAmountInfo">
+        <id column="salesId" property="salesId"/>
+        <result column="salesName" property="salesName"/>
+        <result column="amount" property="amount"/>
+    </resultMap>
+    <select id="selectTopAmount" resultMap="topAmountInfo" parameterType="int">
+        SELECT sales_id, sum(amount) amount, auth_sales.username salesName
+        FROM authorize_transaction, auth_sales
+        WHERE authorize_transaction.sales_id = auth_sales.id
+        GROUP BY sales_id
+        ORDER BY amount DESC
+        LIMIT #{_parameter};
+    </select>
+
+    <!-- table of all sales commission in month-->
+    <resultMap id="allSalesMonthCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.AllSalesMonthCommissionInfo">
+        <result column="salesUsername" property="salesUsername"/>
+        <result column="commission" property="commission"/>
+    </resultMap>
+    <select id="selectAllSalesCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultMap="allSalesMonthCommissionInfo">
+        SELECT sum(sales_commission) commission, auth_sales.username salesUsername
+        FROM authorize_transaction
+        JOIN auth_sales
+        ON authorize_transaction.sales_id=auth_sales.id
+        WHERE create_time BETWEEN #{start} AND #{end}
+        GROUP BY salesUsername
+        ORDER BY salesUsername;
+    </select>
+
+    <!-- chart of commission in year or month-->
+    <resultMap id="salesAmountInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.SalesAmountInfo">
+        <result column="amount" property="amount"/>
+        <result column="txFee" property="txFee"/>
+        <result column="deposit" property="deposit"/>
+        <result column="ldCommission" property="ldCommission"/>
+        <result column="dealerCommission" property="dealerCommission"/>
+        <result column="salesCommission" property="salesCommission"/>
+        <result column="date" property="date"/>
+    </resultMap>
+    <select id="selectSaleAmountEveryMonthInYear" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo" resultMap="salesAmountInfo">
+        SELECT sum(amount) amount, sum(tx_fee) txFee, sum(deposit) deposit,
+        sum(ld_commission) ldCommission, sum(dealer_commission) dealerCommission,
+        sum(sales_commission) salesCommission, MONTH(create_time) date
+        FROM authorize_transaction
+        WHERE create_time BETWEEN #{start} AND #{end}
+        GROUP BY date;
+    </select>
+
+    <select id="selectSaleAmountEveryDayInMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo" resultMap="salesAmountInfo">
+        SELECT sum(amount) amount, sum(tx_fee) txFee, sum(deposit) deposit,
+        sum(ld_commission) ldCommission, sum(dealer_commission) dealerCommission,
+        sum(sales_commission) salesCommission, DAYOFMONTH(create_time) date
+        FROM authorize_transaction
+        WHERE create_time BETWEEN #{start} AND #{end}
+        GROUP BY date;
+    </select>
+
+    <!-- chart commission of every day in month-->
+    <resultMap id="salesDaysCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo">
+        <result column="commission" property="commission"/>
+        <result column="day" property="day"/>
+    </resultMap>
+    <select id="getCommissionOfDayBySales" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultMap="salesDaysCommissionInfo">
+        SELECT sum(sales_commission) commission, DAYOFMONTH(create_time) day
+        FROM authorize_transaction
+        WHERE create_time between #{start} and #{end}
+        AND sales_id=#{salesId}
+        GROUP BY day
+        ORDER BY day
+    </select>
+
+    <!-- chart commission of every month in year-->
+    <resultMap id="salesMonthCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo">
+        <result column="commission" property="commission"/>
+        <result column="month" property="month"/>
+    </resultMap>
+    <select id="getCommissionOfMonthBySales" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultMap="salesMonthCommissionInfo">
+        SELECT sum(sales_commission) commission, MONTH(create_time) month
+        FROM authorize_transaction
+        WHERE create_time between #{start} and #{end}
+        AND sales_id=#{salesId}
+        GROUP BY month
+        ORDER BY month
+    </select>
 
 </mapper>

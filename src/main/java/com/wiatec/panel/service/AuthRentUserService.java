@@ -38,7 +38,7 @@ public class AuthRentUserService {
             throw new XException(EnumResult.ERROR_KEY_DEACTIVATE);
         }
         int expires = commissionCategoryDao.selectOne(authRentUserInfo1.getCategory()).getExpires();
-        if(isOutExpires(authRentUserInfo1.getActivateTime(), expires)){
+        if(TimeUtil.isOutExpires(authRentUserInfo1.getActivateTime(), expires)){
             throw new XException(EnumResult.ERROR_OUT_EXPIRATION);
         }
         HttpSession session = SessionListener.getSession(clientKey);
@@ -60,7 +60,7 @@ public class AuthRentUserService {
             throw new XException(EnumResult.ERROR_KEY_DEACTIVATE);
         }
         int expires = commissionCategoryDao.selectOne(authRentUserInfo1.getCategory()).getExpires();
-        if(isOutExpires(authRentUserInfo1.getActivateTime(), expires)){
+        if(TimeUtil.isOutExpires(authRentUserInfo1.getActivateTime(), expires)){
             throw new XException(EnumResult.ERROR_OUT_EXPIRATION);
         }
         authRentUserInfo1.setCountry(country);
@@ -76,13 +76,4 @@ public class AuthRentUserService {
         return  ResultMaster.success(authRentUserInfo1);
     }
 
-    private boolean isOutExpires(String activateTime, int expires){
-        long acTime = TimeUtil.getUnixFromStr(activateTime);
-        Date date = new Date(acTime);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.MONTH, expires);
-        date = calendar.getTime();
-        return System.currentTimeMillis() > date.getTime();
-    }
 }

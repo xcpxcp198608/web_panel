@@ -134,11 +134,11 @@ public class AuthAdmin {
      * get every day sales volume in specify year and month
      * @param year    specify year
      * @param month   specify month
-     * @return        SalesDayVolumeInMonthInfo list
+     * @return        SalesVolumeInDayOfMonthInfo list
      */
     @GetMapping(value = "/chart/volume/{year}/{month}")
     @ResponseBody
-    public List<SalesDayVolumeInMonthInfo> getSaleVolumeEveryDayInMonth(@PathVariable int year, @PathVariable int month){
+    public List<SalesVolumeInDayOfMonthInfo> getSaleVolumeEveryDayInMonth(@PathVariable int year, @PathVariable int month){
         return authAdminService.countSaleVolumeEveryDayInMonth(year, month);
     }
 

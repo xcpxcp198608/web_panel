@@ -176,7 +176,7 @@ $(function () {
                 for(var j = 0; j < length; j ++){
                     var data = dataList[j];
                     if(data['date'] === i+1){
-                        monthAmount = data['price'];
+                        monthAmount = data['amount'];
                         monthTxFee = data['txFee'];
                         monthDeposit = data['deposit'];
                         monthLdCommission = data['ldCommission'];
@@ -383,7 +383,7 @@ $(function () {
                 for(var j = 0; j < length; j ++){
                     var data = dataList[j];
                     if(data['date'] === i + 1){
-                        income = data['price'];
+                        income = data['amount'];
                         deposit = data['deposit'];
                         ldCommission = data['ldCommission'];
                         dealerCommission = data['dealerCommission'];

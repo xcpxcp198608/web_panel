@@ -15,6 +15,7 @@
 
     <!-- 配置spring 全局applicationContext -->
     <bean name="applicationContext" class="com.wiatec.panel.common.utils.ApplicationContextHelper"/>
+    <bean name="applicationLoadedContext" class="com.wiatec.panel.common.utils.ApplicationContextAfterLoading"/>
 
     <!-- 启用注解支持 -->
     <context:annotation-config/>
@@ -62,6 +63,10 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-configuration.xml"/>
         <property name="mapperLocations" value="classpath*:com/wiatec/panel/oxm/mapper/*.xml"/>
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
     </bean>
 
     <!-- 配置mybatis xml 映射文件自动加载-->

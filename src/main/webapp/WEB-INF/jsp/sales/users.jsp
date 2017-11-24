@@ -132,7 +132,7 @@
 </rapid:override>
 
 <rapid:override name="details">
-    <table class="table table-striped table-condensed" id="tbUserDetails" style="color: #0ab980">
+    <table class="table table-condensed" id="tbUserDetails" style="color: #0ab980">
         <thead>
             <tr>
                 <td>#</td><td>value</td>
@@ -141,13 +141,18 @@
         <tbody>
             <tr><td>ClientKey</td><td></td></tr>
             <tr><td>Mac</td><td></td></tr>
-            <tr><td>Category</td><td></td></tr>
+            <tr><td>Plan</td><td></td></tr>
             <tr><td>FirstName</td><td></td></tr>
             <tr><td>LastName</td><td></td></tr>
             <tr><td>Email</td><td></td></tr>
             <tr><td>Phone</td><td></td></tr>
+            <tr><td>CardNumber</td><td></td></tr>
+            <tr><td>Deposit</td><td></td></tr>
+            <tr><td>FirstPay</td><td></td></tr>
+            <tr><td>MonthPay</td><td></td></tr>
             <tr><td>CreateTime</td><td></td></tr>
             <tr><td>ActivateTime</td><td></td></tr>
+            <tr><td>ExpiresTime</td><td></td></tr>
             <tr><td>Status</td><td></td></tr>
             <tr><td>Country</td><td></td></tr>
             <tr><td>Region</td><td></td></tr>

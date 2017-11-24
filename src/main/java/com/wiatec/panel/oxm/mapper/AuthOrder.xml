@@ -86,7 +86,7 @@
         ORDER BY tradingTime DESC
     </select>
 
-    <resultMap id="salesVolumeEveryDayInMonth" type="com.wiatec.panel.oxm.pojo.chart.admin.SalesDayVolumeInMonthInfo">
+    <resultMap id="salesVolumeEveryDayInMonth" type="com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo">
         <result column="category" property="category"/>
         <result column="count" property="count"/>
         <result column="day" property="day"/>

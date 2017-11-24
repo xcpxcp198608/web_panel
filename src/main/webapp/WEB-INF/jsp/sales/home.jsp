@@ -100,7 +100,7 @@
                 <thead>
                 <tr>
                     <td>Count</td>
-                    <td>Price</td>
+                    <td>Amount</td>
                     <td>Deposit</td>
                     <td>Commission</td>
                 </tr>
@@ -130,8 +130,8 @@
                 <tr>
                     <td>#</td>
                     <td>ClientKey</td>
-                    <td>PaymentId</td>
-                    <td>Price</td>
+                    <td>TransactionId</td>
+                    <td>Amount</td>
                     <td>Deposit</td>
                     <td>Commission</td>
                     <td>
@@ -151,6 +151,7 @@
                         <select id="seType" style="width: 100%; height: 100%;
                             background-color: rgba(0,0,0,0); border: none; text-align: center">
                             <option value="">Type</option>
+                            <option value="lease">lease</option>
                             <option value="rent">rent</option>
                             <option value="renew">renew</option>
                         </select>
@@ -158,17 +159,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${authOrderInfoList}" var="authOrderInfo" varStatus="status">
+                <c:forEach items="${authorizePayInfoList}" var="authorizePayInfo" varStatus="status">
                     <tr style="font-size: 14px">
                         <td>${status.index + 1}</td>
-                        <td>${authOrderInfo.payClientKey}</td>
-                        <td style="font-size: 12px">${authOrderInfo.paymentId}</td>
-                        <td>${authOrderInfo.price}</td>
-                        <td>${authOrderInfo.deposit}</td>
-                        <td>${authOrderInfo.salesCommission}</td>
-                        <td style="font-size: 12px">${fn:substring(authOrderInfo.tradingTime, 0, 19)}</td>
-                        <td>${authOrderInfo.category}</td>
-                        <td>${authOrderInfo.description}</td>
+                        <td>${authorizePayInfo.clientKey}</td>
+                        <td style="font-size: 12px">${authorizePayInfo.transactionId}</td>
+                        <td>${authorizePayInfo.amount}</td>
+                        <td>${authorizePayInfo.deposit}</td>
+                        <td>${authorizePayInfo.salesCommission}</td>
+                        <td style="font-size: 12px">${fn:substring(authorizePayInfo.createTime, 0, 19)}</td>
+                        <td>${authorizePayInfo.category}</td>
+                        <td>${authorizePayInfo.type}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

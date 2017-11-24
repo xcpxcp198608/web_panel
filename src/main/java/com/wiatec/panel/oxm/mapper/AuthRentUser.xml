@@ -16,8 +16,15 @@
         <result column="cardNumber" property="cardNumber"/>
         <result column="expirationDate" property="expirationDate"/>
         <result column="securityKey" property="securityKey"/>
+        <result column="deposit" property="deposit"/>
+        <result column="first_pay" property="firstPay"/>
+        <result column="month_pay" property="monthPay"/>
+        <result column="ld_commission" property="ldCommission"/>
+        <result column="dealer_commission" property="dealerCommission"/>
+        <result column="sales_commission" property="salesCommission"/>
         <result column="createTime" property="createTime"/>
         <result column="activateTime" property="activateTime"/>
+        <result column="expiresTime" property="expiresTime"/>
         <result column="status" property="status"/>
         <result column="country" property="country"/>
         <result column="region" property="region"/>
@@ -32,9 +39,11 @@
             auth_rent_user.category, auth_rent_user.mac, auth_rent_user.firstName,
             auth_rent_user.lastName, auth_rent_user.email, auth_rent_user.phone,
             auth_rent_user.cardNumber, auth_rent_user.expirationDate, auth_rent_user.securityKey,
-            auth_rent_user.createTime, auth_rent_user.activateTime, auth_rent_user.status,
-            auth_rent_user.country, auth_rent_user.region, auth_rent_user.city,
-            auth_rent_user.timeZone, auth_rent_user.lastOnLineTime,
+            auth_rent_user.deposit, auth_rent_user.first_pay, auth_rent_user.month_pay,
+            auth_rent_user.ld_commission, auth_rent_user.dealer_commission, auth_rent_user.sales_commission,
+            auth_rent_user.createTime, auth_rent_user.activateTime, auth_rent_user.expiresTime,
+            auth_rent_user.status, auth_rent_user.country, auth_rent_user.region,
+            auth_rent_user.city, auth_rent_user.timeZone, auth_rent_user.lastOnLineTime,
             auth_sales.username salesName
         FROM auth_rent_user JOIN auth_sales ON auth_rent_user.salesId = auth_sales.id
     </sql>
@@ -69,9 +78,12 @@
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         INSERT INTO auth_rent_user (salesId, clientKey, category, mac, firstName, lastName, email,
-                                    phone, cardNumber, expirationDate, securityKey, status, activateTime)
-                VALUES (#{salesId}, #{clientKey}, #{category}, #{mac}, #{firstName}, #{lastName},
-                #{email}, #{phone}, #{cardNumber}, #{expirationDate}, #{securityKey}, 'activate', now())
+                    phone, cardNumber, expirationDate, securityKey, deposit, first_pay, month_pay,
+                    ld_commission, dealer_commission, sales_commission ,activateTime, expiresTime)
+        VALUES (#{salesId}, #{clientKey}, #{category}, #{mac}, #{firstName}, #{lastName},
+                #{email}, #{phone}, #{cardNumber}, #{expirationDate}, #{securityKey},
+                #{deposit}, #{firstPay}, #{monthPay}, #{ldCommission}, #{dealerCommission},
+                #{salesCommission}, #{activateTime}, #{expiresTime})
     </insert>
 
     <select id="selectOneByMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
@@ -79,10 +91,27 @@
         WHERE mac=#{mac}
     </select>
 
-
     <update id="updateStatusToActivate" parameterType="String">
         UPDATE auth_rent_user
-        SET  status='activate', activateTime=now()
+        SET  status='activate'
+        WHERE clientKey=#{_parameter}
+    </update>
+
+    <update id="updateStatusToDeactivate" parameterType="String">
+        UPDATE auth_rent_user
+        SET  status='deactivate'
+        WHERE clientKey=#{_parameter}
+    </update>
+
+    <update id="updateStatusToLimited" parameterType="String">
+        UPDATE auth_rent_user
+        SET  status='limited'
+        WHERE clientKey=#{_parameter}
+    </update>
+
+    <update id="updateStatusToCanceled" parameterType="String">
+        UPDATE auth_rent_user
+        SET  status='canceled'
         WHERE clientKey=#{_parameter}
     </update>
 
@@ -93,8 +122,8 @@
     </select>
 
     <select id="selectByClientKey" resultMap="authRentUserInfo" parameterType="String">
-        SELECT id, salesId, clientKey, category, mac, firstName ,lastName, email, phone, createTime, activateTime, status FROM auth_rent_user
-        WHERE clientKey=#{_parameter}
+        <include refid="select"/>
+        WHERE auth_rent_user.clientKey=#{_parameter}
     </select>
 
     <update id="updateLocation" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
@@ -102,4 +131,34 @@
         SET country=#{country}, region=#{region}, city=#{city}, timeZone=#{timeZone}, lastOnLineTime=now()
         WHERE clientKey=#{clientKey}
     </update>
+
+
+    <resultMap id="salesVolumeInDayOfMonthInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo">
+        <result column="category" property="category"/>
+        <result column="count" property="count"/>
+        <result column="day" property="day"/>
+    </resultMap>
+    <select id="countSalesVolumeByDayOfMonth"  resultMap="salesVolumeInDayOfMonthInfo"
+            parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo">
+        SELECT category, COUNT(category) AS count, DAYOFMONTH(activateTime) day
+        FROM auth_rent_user
+        WHERE activateTime BETWEEN #{start} AND #{end}
+        AND status!='canceled'
+        GROUP BY  category, day;
+    </select>
+
+    <resultMap id="topVolumeInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.TopVolumeInfo">
+        <id column="salesId" property="salesId"/>
+        <result column="salesName" property="salesName"/>
+        <result column="volume" property="volume"/>
+    </resultMap>
+    <select id="selectTopVolume" resultMap="topVolumeInfo" parameterType="int">
+        SELECT s.salesId , COUNT(*) volume, auth_sales.username salesName
+        FROM auth_rent_user AS s, auth_sales
+        WHERE s.salesId = auth_sales.id
+        AND status!='canceled'
+        GROUP BY s.salesId
+        ORDER BY volume DESC
+        LIMIT #{_parameter};
+    </select>
 </mapper>

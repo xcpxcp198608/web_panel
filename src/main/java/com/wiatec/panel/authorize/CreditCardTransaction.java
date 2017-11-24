@@ -45,15 +45,22 @@ public class CreditCardTransaction {
                     logger.debug("Auth Code: " + result.getAuthCode());
                     AuthorizePayInfo authorizePayInfo1 = new AuthorizePayInfo();
                     authorizePayInfo1.setAmount(authorizePayInfo.getAmount());
+                    authorizePayInfo1.setDeposit(authorizePayInfo.getDeposit());
+                    authorizePayInfo1.setLdCommission(authorizePayInfo.getLdCommission());
+                    authorizePayInfo1.setDealerCommission(authorizePayInfo.getDealerCommission());
+                    authorizePayInfo1.setSalesCommission(authorizePayInfo.getSalesCommission());
                     authorizePayInfo1.setExpirationDate(authorizePayInfo.getExpirationDate());
                     authorizePayInfo1.setCardNumber(authorizePayInfo.getCardNumber());
                     authorizePayInfo1.setSecurityKey(authorizePayInfo.getSecurityKey());
                     authorizePayInfo1.setCategory(authorizePayInfo.getCategory());
                     authorizePayInfo1.setSalesId(authorizePayInfo.getSalesId());
                     authorizePayInfo1.setClientKey(authorizePayInfo.getClientKey());
+                    authorizePayInfo1.setType(authorizePayInfo.getType());
+
                     authorizePayInfo1.setTransactionId(result.getTransId());
                     authorizePayInfo1.setAuthCode(result.getAuthCode());
                     authorizePayInfo1.setStatus("approved");
+                    authorizePayInfo1.setTxFee(0.00f);
                     return authorizePayInfo1;
                 }
                 else {

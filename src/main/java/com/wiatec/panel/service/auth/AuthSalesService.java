@@ -2,6 +2,7 @@ package com.wiatec.panel.service.auth;
 
 import com.wiatec.panel.authorize.AuthorizePayInfo;
 import com.wiatec.panel.authorize.CreditCardTransaction;
+import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
@@ -43,7 +44,7 @@ public class AuthSalesService {
     private AuthorizeTransactionDao authorizeTransactionDao;
 
     public String home(HttpServletRequest request, Model model){
-        model.addAttribute("authOrderInfoList", authOrderDao.selectBySalesId(getSalesId(request)));
+        model.addAttribute("authorizePayInfoList", authorizeTransactionDao.selectBySalesId(getSalesId(request)));
         return "sales/home";
     }
 
@@ -70,20 +71,35 @@ public class AuthSalesService {
                     throw new XException(EnumResult.ERROR_MAC_USING);
                 }
             }
-            authRentUserInfo.setSalesId(getSalesId(request));
-            authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
-            authRentUserDao.insertOne(authRentUserInfo);
             CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
             commissionCategoryInfo.setPrice();
             commissionCategoryInfo.setFirstPay();
+            authRentUserInfo.setSalesId(getSalesId(request));
+            authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
+            String activateTime = TimeUtil.getStrTime();
+            authRentUserInfo.setActivateTime(activateTime);
+            authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime, commissionCategoryInfo.getExpires()));
+            authRentUserInfo.setDeposit(commissionCategoryInfo.getDeposit());
+            authRentUserInfo.setFirstPay(commissionCategoryInfo.getFirstPay());
+            authRentUserInfo.setMonthPay(commissionCategoryInfo.getMonthPay());
+            authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
+            authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
+            authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
+            authRentUserDao.insertOne(authRentUserInfo);
+
             AuthorizePayInfo authorizePayInfo = new AuthorizePayInfo();
             authorizePayInfo.setAmount(commissionCategoryInfo.getFirstPay());
+            authorizePayInfo.setDeposit(commissionCategoryInfo.getDeposit());
+            authorizePayInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
+            authorizePayInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
+            authorizePayInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
             authorizePayInfo.setClientKey(authRentUserInfo.getClientKey());
             authorizePayInfo.setSalesId(authRentUserInfo.getSalesId());
             authorizePayInfo.setCategory(authRentUserInfo.getCategory());
             authorizePayInfo.setCardNumber(authRentUserInfo.getCardNumber());
             authorizePayInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
             authorizePayInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+            authorizePayInfo.setType(AuthorizePayInfo.TYPE_LEASE);
             AuthorizePayInfo payInfo = CreditCardTransaction.pay(authorizePayInfo);
             if(payInfo == null){
                 throw new XException(EnumResult.ERROR_AUTHORIZE);
@@ -96,18 +112,12 @@ public class AuthSalesService {
         }
     }
 
-    @Transactional
-    public String activate(Model model, String clientKey){
-        return "paypal/payment";
-    }
-
-
     ////////////////////////////////////////////////////////// chart ///////////////////////////////////////////////////
     public ResultInfo getCommissionByYear(HttpServletRequest request, int year){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
         yearOrMonthInfo.setSalesId(getSalesId(request)+"");
         try {
-            List<SalesCommissionOfMonthInfo> salesCommissionOfMonthInfoList = authOrderDao.getCommissionOfMonthBySales(yearOrMonthInfo);
+            List<SalesCommissionOfMonthInfo> salesCommissionOfMonthInfoList = authorizeTransactionDao.getCommissionOfMonthBySales(yearOrMonthInfo);
             return ResultMaster.success(salesCommissionOfMonthInfoList);
         }catch (Exception e){
             logger.error(e.getMessage());
@@ -119,7 +129,7 @@ public class AuthSalesService {
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         yearOrMonthInfo.setSalesId(getSalesId(request)+"");
         try {
-            List<SalesCommissionOfDaysInfo> salesCommissionOfDaysInfoList = authOrderDao.getCommissionOfDayBySales(yearOrMonthInfo);
+            List<SalesCommissionOfDaysInfo> salesCommissionOfDaysInfoList = authorizeTransactionDao.getCommissionOfDayBySales(yearOrMonthInfo);
             return ResultMaster.success(salesCommissionOfDaysInfoList);
         }catch (Exception e){
             logger.error(e.getMessage());

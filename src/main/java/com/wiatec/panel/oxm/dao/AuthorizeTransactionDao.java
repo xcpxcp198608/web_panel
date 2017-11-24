@@ -14,4 +14,18 @@ import java.util.List;
 public interface AuthorizeTransactionDao {
 
     void insertOne(AuthorizePayInfo authorizePayInfo);
+    List<AuthorizePayInfo> selectAll();
+
+
+    List<AuthorizePayInfo> selectBySalesId(int salesId);
+
+    //chart of admin
+    List<TopAmountInfo> selectTopAmount(int top);
+    List<AllSalesMonthCommissionInfo> selectAllSalesCommissionByMonth(YearOrMonthInfo yearOrMonthInfo);
+    List<SalesAmountInfo> selectSaleAmountEveryMonthInYear(YearOrMonthInfo yearOrMonthInfo);
+    List<SalesAmountInfo> selectSaleAmountEveryDayInMonth(YearOrMonthInfo yearOrMonthInfo);
+
+    //chart of sales
+    List<SalesCommissionOfDaysInfo> getCommissionOfDayBySales(YearOrMonthInfo yearOrMonthInfo);
+    List<SalesCommissionOfMonthInfo> getCommissionOfMonthBySales(YearOrMonthInfo yearOrMonthInfo);
 }

@@ -64,20 +64,6 @@ public class AuthSales {
     }
 
     /**
-     * go to payment page, activate user after pay
-     * @param request
-     * @param model
-     * @param clientKey user client key
-     * @return
-     */
-    @GetMapping(value = "/activate/{clientKey}")
-    public String activate(HttpServletRequest request, Model model,
-                           @PathVariable(value = "clientKey") String clientKey){
-        return authSalesService.activate(model, clientKey);
-    }
-
-
-    /**
      * response year commission chart
      * @param year target year from ajax
      * @return

@@ -8,7 +8,6 @@ import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface AuthOrderDao {
@@ -23,7 +22,7 @@ public interface AuthOrderDao {
     List<AuthOrderInfo> selectByTradingTime(String day);
 
 
-    List<SalesDayVolumeInMonthInfo> countSaleVolumeEveryDayInMonth(YearOrMonthInfo yearOrMonthInfo);
+    List<SalesVolumeInDayOfMonthInfo> countSaleVolumeEveryDayInMonth(YearOrMonthInfo yearOrMonthInfo);
     List<TopVolumeInfo> selectTopVolume(int top);
     List<TopAmountInfo> selectTopAmount(int top);
     List<AllSalesMonthCommissionInfo> selectAllSalesCommissionByMonth(YearOrMonthInfo yearOrMonthInfo);

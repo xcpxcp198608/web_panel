@@ -2,7 +2,7 @@ package com.wiatec.panel.oxm.pojo.chart.admin;
 
 public class SalesAmountInfo {
 
-    private float price;
+    private float amount;
     private float txFee;
     private float deposit;
     private float ldCommission;
@@ -10,12 +10,12 @@ public class SalesAmountInfo {
     private float salesCommission;
     private int date;
 
-    public float getPrice() {
-        return price;
+    public float getAmount() {
+        return amount;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     public float getTxFee() {
@@ -69,7 +69,7 @@ public class SalesAmountInfo {
     @Override
     public String toString() {
         return "SalesAmountInfo{" +
-                "price=" + price +
+                "amount=" + amount +
                 ", txFee=" + txFee +
                 ", deposit=" + deposit +
                 ", ldCommission=" + ldCommission +

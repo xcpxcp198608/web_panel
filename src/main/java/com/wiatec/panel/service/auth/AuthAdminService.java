@@ -1,11 +1,8 @@
 package com.wiatec.panel.service.auth;
 
+import com.wiatec.panel.authorize.AuthorizePayInfo;
 import com.wiatec.panel.listener.SessionListener;
-import com.wiatec.panel.oxm.dao.AuthOrderDao;
-import com.wiatec.panel.oxm.dao.AuthSalesDao;
-import com.wiatec.panel.oxm.dao.AuthRentUserDao;
-import com.wiatec.panel.oxm.dao.CommissionCategoryDao;
-import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
+import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
@@ -39,6 +36,8 @@ public class AuthAdminService {
     private AuthOrderDao authOrderDao;
     @Resource
     private CommissionCategoryDao commissionCategoryDao;
+    @Resource
+    private AuthorizeTransactionDao authorizeTransactionDao;
 
     public String home(Model model){
         return "admin/home";
@@ -114,38 +113,38 @@ public class AuthAdminService {
             commissionCategoryInfo.setPrice();
         }
         model.addAttribute("commissionCategoryInfoList", commissionCategoryInfoList);
-        List<AuthOrderInfo> authOrderInfoList = authOrderDao.selectAll();
-        model.addAttribute("authOrderInfoList", authOrderInfoList);
+        List<AuthorizePayInfo> authorizePayInfoList = authorizeTransactionDao.selectAll();
+        model.addAttribute("authorizePayInfoList", authorizePayInfoList);
         return "admin/commission";
     }
 
     /////////////////////////////////////////////////// chart //////////////////////////////////////////////////////////
-    public List<SalesDayVolumeInMonthInfo> countSaleVolumeEveryDayInMonth(int year, int month){
+    public List<SalesVolumeInDayOfMonthInfo> countSaleVolumeEveryDayInMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
-        return authOrderDao.countSaleVolumeEveryDayInMonth(yearOrMonthInfo);
+        return authRentUserDao.countSalesVolumeByDayOfMonth(yearOrMonthInfo);
     }
 
     public List<TopVolumeInfo> getTopVolume(int top){
-        return authOrderDao.selectTopVolume(top);
+        return authRentUserDao.selectTopVolume(top);
     }
 
     public List<TopAmountInfo> getTopAmount(int top){
-        return authOrderDao.selectTopAmount(top);
+        return authorizeTransactionDao.selectTopAmount(top);
     }
 
     public List<AllSalesMonthCommissionInfo> getAllSalesCommissionByMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
-        return authOrderDao.selectAllSalesCommissionByMonth(yearOrMonthInfo);
+        return authorizeTransactionDao.selectAllSalesCommissionByMonth(yearOrMonthInfo);
     }
 
     public List<SalesAmountInfo> selectSaleAmountEveryMonthInYear(int year){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
-        return authOrderDao.selectSaleAmountEveryMonthInYear(yearOrMonthInfo);
+        return authorizeTransactionDao.selectSaleAmountEveryMonthInYear(yearOrMonthInfo);
     }
 
     public List<SalesAmountInfo> selectSaleAmountEveryDayInMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
-        return authOrderDao.selectSaleAmountEveryDayInMonth(yearOrMonthInfo);
+        return authorizeTransactionDao.selectSaleAmountEveryDayInMonth(yearOrMonthInfo);
     }
 
 }

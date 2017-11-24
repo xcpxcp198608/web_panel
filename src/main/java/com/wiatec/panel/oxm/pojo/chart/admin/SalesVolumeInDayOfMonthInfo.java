@@ -1,6 +1,6 @@
 package com.wiatec.panel.oxm.pojo.chart.admin;
 
-public class SalesDayVolumeInMonthInfo {
+public class SalesVolumeInDayOfMonthInfo {
 
     private String category;
     private int count;
@@ -32,7 +32,7 @@ public class SalesDayVolumeInMonthInfo {
 
     @Override
     public String toString() {
-        return "SalesDayVolumeInMonthInfo{" +
+        return "SalesVolumeInDayOfMonthInfo{" +
                 "category='" + category + '\'' +
                 ", count=" + count +
                 ", day=" + day +

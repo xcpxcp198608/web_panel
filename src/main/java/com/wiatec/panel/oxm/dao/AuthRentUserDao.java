@@ -1,6 +1,9 @@
 package com.wiatec.panel.oxm.dao;
 
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
+import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
+import com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo;
+import com.wiatec.panel.oxm.pojo.chart.admin.TopVolumeInfo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,6 +23,11 @@ public interface AuthRentUserDao {
     List<AuthRentUserInfo> selectAll();
 
     void updateStatusToActivate(String clientKey);
+    void updateStatusToDeactivate(String clientKey);
+
+    //chart
+    List<SalesVolumeInDayOfMonthInfo> countSalesVolumeByDayOfMonth(YearOrMonthInfo yearOrMonthInfo);
+    List<TopVolumeInfo> selectTopVolume(int top);
 
     //api
     int countOneByKeyAndMac(AuthRentUserInfo authRentUserInfo);

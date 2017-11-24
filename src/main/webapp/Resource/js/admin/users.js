@@ -29,14 +29,19 @@ $(function () {
                 tDetailsBody.rows[4].cells[1].innerHTML = response['lastName'];
                 tDetailsBody.rows[5].cells[1].innerHTML = response['email'];
                 tDetailsBody.rows[6].cells[1].innerHTML = response['phone'];
-                tDetailsBody.rows[7].cells[1].innerHTML = response['createTime'];
-                tDetailsBody.rows[8].cells[1].innerHTML = response['activateTime'];
-                tDetailsBody.rows[9].cells[1].innerHTML = response['status'];
-                tDetailsBody.rows[10].cells[1].innerHTML = response['country'];
-                tDetailsBody.rows[11].cells[1].innerHTML = response['region'];
-                tDetailsBody.rows[12].cells[1].innerHTML = response['city'];
-                tDetailsBody.rows[13].cells[1].innerHTML = response['timeZone'];
-                tDetailsBody.rows[14].cells[1].innerHTML = response['lastOnLineTime'];
+                tDetailsBody.rows[7].cells[1].innerHTML = response['cardNumber'];
+                tDetailsBody.rows[8].cells[1].innerHTML = response['deposit'];
+                tDetailsBody.rows[9].cells[1].innerHTML = response['firstPay'];
+                tDetailsBody.rows[10].cells[1].innerHTML = response['monthPay'];
+                tDetailsBody.rows[11].cells[1].innerHTML = response['createTime'];
+                tDetailsBody.rows[12].cells[1].innerHTML = response['activateTime'];
+                tDetailsBody.rows[13].cells[1].innerHTML = response['expiresTime'];
+                tDetailsBody.rows[14].cells[1].innerHTML = response['status'];
+                tDetailsBody.rows[15].cells[1].innerHTML = response['country'];
+                tDetailsBody.rows[16].cells[1].innerHTML = response['region'];
+                tDetailsBody.rows[17].cells[1].innerHTML = response['city'];
+                tDetailsBody.rows[18].cells[1].innerHTML = response['timeZone'];
+                tDetailsBody.rows[19].cells[1].innerHTML = response['lastOnLineTime'];
                 dDetails.css('display', 'block')
             }else{
                 showNotice('communication error')

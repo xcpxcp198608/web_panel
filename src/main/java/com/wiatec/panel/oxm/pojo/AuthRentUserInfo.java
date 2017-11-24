@@ -14,8 +14,15 @@ public class AuthRentUserInfo {
     private String cardNumber;
     private int expirationDate;
     private int securityKey;
+    private float deposit;
+    private float firstPay;
+    private float monthPay;
+    private float ldCommission;
+    private float dealerCommission;
+    private float salesCommission;
     private String createTime;
     private String activateTime;
+    private String expiresTime;
     private String status;
     private String country;
     private String region;
@@ -137,6 +144,54 @@ public class AuthRentUserInfo {
         this.securityKey = securityKey;
     }
 
+    public float getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(float deposit) {
+        this.deposit = deposit;
+    }
+
+    public float getFirstPay() {
+        return firstPay;
+    }
+
+    public void setFirstPay(float firstPay) {
+        this.firstPay = firstPay;
+    }
+
+    public float getMonthPay() {
+        return monthPay;
+    }
+
+    public void setMonthPay(float monthPay) {
+        this.monthPay = monthPay;
+    }
+
+    public float getLdCommission() {
+        return ldCommission;
+    }
+
+    public void setLdCommission(float ldCommission) {
+        this.ldCommission = ldCommission;
+    }
+
+    public float getDealerCommission() {
+        return dealerCommission;
+    }
+
+    public void setDealerCommission(float dealerCommission) {
+        this.dealerCommission = dealerCommission;
+    }
+
+    public float getSalesCommission() {
+        return salesCommission;
+    }
+
+    public void setSalesCommission(float salesCommission) {
+        this.salesCommission = salesCommission;
+    }
+
     public String getCreateTime() {
         return createTime;
     }
@@ -151,6 +206,14 @@ public class AuthRentUserInfo {
 
     public void setActivateTime(String activateTime) {
         this.activateTime = activateTime;
+    }
+
+    public String getExpiresTime() {
+        return expiresTime;
+    }
+
+    public void setExpiresTime(String expiresTime) {
+        this.expiresTime = expiresTime;
     }
 
     public String getStatus() {
@@ -225,8 +288,15 @@ public class AuthRentUserInfo {
                 ", cardNumber='" + cardNumber + '\'' +
                 ", expirationDate=" + expirationDate +
                 ", securityKey=" + securityKey +
+                ", deposit=" + deposit +
+                ", firstPay=" + firstPay +
+                ", monthPay=" + monthPay +
+                ", ldCommission=" + ldCommission +
+                ", dealerCommission=" + dealerCommission +
+                ", salesCommission=" + salesCommission +
                 ", createTime='" + createTime + '\'' +
                 ", activateTime='" + activateTime + '\'' +
+                ", expiresTime='" + expiresTime + '\'' +
                 ", status='" + status + '\'' +
                 ", country='" + country + '\'' +
                 ", region='" + region + '\'' +

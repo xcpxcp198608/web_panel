@@ -56,4 +56,8 @@
 
     </settings>
 
+    <typeAliases>
+        <typeAlias type="com.wiatec.panel.oxm.pojo.AuthRentUserInfo" alias="authRentUserInfo"/>
+    </typeAliases>
+
 </configuration>
