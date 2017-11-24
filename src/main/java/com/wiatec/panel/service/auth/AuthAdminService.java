@@ -62,7 +62,7 @@ public class AuthAdminService {
         }
         try {
             authSalesDao.insertOne(authSalesInfo);
-            return ResultMaster.success(authSalesInfo);
+            return ResultMaster.success(authSalesDao.selectOne(authSalesInfo));
         }catch (Exception e){
             logger.error(e.getMessage());
             throw new XException(EnumResult.ERROR_SERVER_SQL);

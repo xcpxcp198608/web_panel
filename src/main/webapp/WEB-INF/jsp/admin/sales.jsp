@@ -116,7 +116,8 @@
                id="tbSales">
             <thead style="background-color: #566778;">
             <tr id="trSales">
-                <th colspan="2">#</th>
+                <th></th>
+                <th>#</th>
                 <th>Username</th>
                 <th>Password</th>
                 <th>FirstName</th>

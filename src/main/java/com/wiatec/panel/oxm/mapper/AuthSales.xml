@@ -21,12 +21,6 @@
         WHERE permission='sales'
     </sql>
 
-    <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
-        SELECT COUNT(*) FROM auth_sales
-        WHERE username=#{username}
-              AND password=#{password}
-    </select>
-
     <select id="selectPermission" resultType="String" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         SELECT permission
         FROM auth_sales

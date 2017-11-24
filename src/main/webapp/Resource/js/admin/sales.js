@@ -319,9 +319,8 @@ $(function () {
         $.ajax({
             type: "POST",
             url: baseUrl + "/admin/sale/create",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({"username": username, "password": password, "firstName": firstName,
-                'lastName': lastName, 'ssn': ssn, 'email': email, 'phone': phone}),
+            data: {"username": username, "password": password, "firstName": firstName,
+                'lastName': lastName, 'ssn': ssn, 'email': email, 'phone': phone},
             dataType: "json",
             beforeSend: function () {
                 showLoading()
@@ -349,6 +348,7 @@ $(function () {
      */
     var trSales = $('#trSales').get(0);
     function insertNewSalesInTable(authSalesInfo) {
+        console.log(authSalesInfo);
         var trObj = document.createElement('tr');
         var length = trSales.cells.length;
         for(var i = 0; i < length; i ++){

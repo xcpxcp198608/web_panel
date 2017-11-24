@@ -14,7 +14,6 @@ public interface AuthSalesDao {
     void insertOne(AuthSalesInfo authSalesInfo);
     void updatePassword(AuthSalesInfo authSalesInfo);
 
-    int countOne(AuthSalesInfo authSalesInfo);
     String selectPermission(AuthSalesInfo authSalesInfo);
     AuthSalesInfo selectOne(AuthSalesInfo authSalesInfo);
     List<AuthSalesInfo> selectAll();

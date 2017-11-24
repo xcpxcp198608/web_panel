@@ -23,7 +23,7 @@ public enum  EnumResult {
     ERROR_OUT_EXPIRATION(40010, "out expiration date"),
     ERROR_MAC_USING(40011, "the device is using"),
 
-    ERROR_SERVER_SQL(5003, "server sql execute exception"),
+    ERROR_SERVER_SQL(5003, "server sql exception"),
 
     ERROR_AUTHORIZE(9001, "authorize communication exception"),
     ;
