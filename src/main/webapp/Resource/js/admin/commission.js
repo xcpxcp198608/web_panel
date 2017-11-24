@@ -192,12 +192,12 @@ $(function () {
                 yearTotalDealerCommission += monthDealerCommission;
                 yearTotalSalesCommission += monthSalesCommission;
             }
-            tbYearIncome.rows[0].cells[1].innerHTML = yearTotalIncome;
-            tbYearIncome.rows[1].cells[1].innerHTML = yearTotalTxFee;
-            tbYearIncome.rows[2].cells[1].innerHTML = yearTotalDeposit;
-            tbYearIncome.rows[3].cells[1].innerHTML = yearTotalLdCommission;
-            tbYearIncome.rows[4].cells[1].innerHTML = yearTotalDealerCommission;
-            tbYearIncome.rows[5].cells[1].innerHTML = yearTotalSalesCommission;
+            tbYearIncome.rows[0].cells[1].innerHTML = yearTotalIncome.toFixed(2);
+            tbYearIncome.rows[1].cells[1].innerHTML = yearTotalTxFee.toFixed(2);
+            tbYearIncome.rows[2].cells[1].innerHTML = yearTotalDeposit.toFixed(2);
+            tbYearIncome.rows[3].cells[1].innerHTML = yearTotalLdCommission.toFixed(2);
+            tbYearIncome.rows[4].cells[1].innerHTML = yearTotalDealerCommission.toFixed(2);
+            tbYearIncome.rows[5].cells[1].innerHTML = yearTotalSalesCommission.toFixed(2);
             yearIncomeChart.setOption(yearIncomeChartOption);
         })
     }

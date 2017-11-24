@@ -39,6 +39,7 @@ public class AutoPayTask extends TimerTask {
         init();
         commissionCategoryDao = sqlSession.getMapper(CommissionCategoryDao.class);
         authRentUserDao = sqlSession.getMapper(AuthRentUserDao.class);
+        authorizeTransactionDao = sqlSession.getMapper(AuthorizeTransactionDao.class);
         CommissionCategoryInfo b1 = commissionCategoryDao.selectOne("B1");
         CommissionCategoryInfo p1 = commissionCategoryDao.selectOne("P1");
         CommissionCategoryInfo p2 = commissionCategoryDao.selectOne("P2");
@@ -74,11 +75,12 @@ public class AutoPayTask extends TimerTask {
 
     public void checkOutByMonth(CommissionCategoryInfo commissionCategoryInfo, AuthRentUserInfo authRentUserInfo){
         String today = TimeUtil.getStrDate();
-        logger.debug("= {}", today);
+        logger.debug("= today= {}", today);
         for(int i = 1; i <= commissionCategoryInfo.getExpires(); i ++){
             String date = TimeUtil.getExpiresDate(authRentUserInfo.getActivateTime(), i);
             if(today.equals(date)){
-                logger.debug("= execute check out month");
+                logger.debug("= {} need check out on this month", date);
+                logger.debug("= checking check out on this month");
                 AuthorizePayInfo authorizePayInfo = new AuthorizePayInfo();
                 authorizePayInfo.setSalesId(authRentUserInfo.getSalesId());
                 authorizePayInfo.setClientKey(authRentUserInfo.getClientKey());
@@ -92,9 +94,18 @@ public class AutoPayTask extends TimerTask {
                 authorizePayInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
                 authorizePayInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
                 authorizePayInfo.setType(AuthorizePayInfo.TYPE_RENT);
+                authorizePayInfo.setCreateTime(today.substring(0, 7));
+                //check is already check out on this month
+                if(authorizeTransactionDao.countByKeyAndDate(authorizePayInfo) == 1){
+                    logger.debug("= {} already check out on this month", authRentUserInfo.getClientKey());
+                    logger.debug("====================================================================");
+                    return;
+                }
+                logger.debug("= execute check out on this month");
                 AuthorizePayInfo authorizePayInfo1 = CreditCardTransaction.pay(authorizePayInfo);
                 if(authorizePayInfo1 != null && "approved".equals(authorizePayInfo1.getStatus())){
                     logger.debug("= {} check out month successfully", authRentUserInfo.getClientKey());
+                    authorizeTransactionDao.insertOne(authorizePayInfo1);
                 }else{
                     logger.debug("= check out month failure, deactivate = {}", authRentUserInfo.getClientKey());
                     authRentUserDao.updateStatusToDeactivate(authRentUserInfo.getClientKey());

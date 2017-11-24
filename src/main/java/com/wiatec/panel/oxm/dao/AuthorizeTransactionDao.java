@@ -16,7 +16,6 @@ public interface AuthorizeTransactionDao {
     void insertOne(AuthorizePayInfo authorizePayInfo);
     List<AuthorizePayInfo> selectAll();
 
-
     List<AuthorizePayInfo> selectBySalesId(int salesId);
 
     //chart of admin
@@ -28,4 +27,7 @@ public interface AuthorizeTransactionDao {
     //chart of sales
     List<SalesCommissionOfDaysInfo> getCommissionOfDayBySales(YearOrMonthInfo yearOrMonthInfo);
     List<SalesCommissionOfMonthInfo> getCommissionOfMonthBySales(YearOrMonthInfo yearOrMonthInfo);
+
+    //check is already check out on this month
+    int countByKeyAndDate(AuthorizePayInfo authorizePayInfo);
 }

@@ -46,10 +46,10 @@
               #{salesCommission}, #{txFee}, #{transactionId}, #{status}, #{authCode}, #{type})
     </insert>
 
-    <select id="countByKeyAndDate" parameterType="com.wiatec.panel.authorize.AuthorizePayInfo">
+    <select id="countByKeyAndDate" parameterType="com.wiatec.panel.authorize.AuthorizePayInfo" resultType="int">
         SELECT COUNT(*)
         FROM authorize_transaction
-        WHERE client_key=#{clientKey} AND create_time LIKE #{createTime}
+        WHERE client_key=#{clientKey} AND create_time LIKE concat(#{createTime},'%')
     </select>
 
     <select id="selectAll" resultMap="authorizePayInfo">

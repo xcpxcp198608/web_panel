@@ -178,7 +178,7 @@ $(function () {
      */
     var tbYearCommission = $('#tbYearCommission').get(0).tBodies[0];
     var yearChart = echarts.init(document.getElementById('chartYearCommission'));
-    var yearCommissionData = [];
+    var yearCommissionData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     var yearOption = {
         title: {
             text: 'Year',
@@ -224,25 +224,25 @@ $(function () {
         var url = baseUrl + "/sales/commission/" + year;
         $.get(url,function(response, status){
             var commissionList = response.dataList;
+            console.log(commissionList);
             var totalCommission = 0;
             yearCommissionData.length = 0;
+            var ll = commissionList.length;
             for(var i = 0; i < 12; i ++){
-                var ll = commissionList.length;
-                if(ll <= 0){
-                    yearCommissionData.push(0);
-                }else {
+                var currentMonthCommission = 0;
+                if(ll > 0){
                     for (var j = 0; j < ll; j++) {
                         var commissionInfo = commissionList[j];
                         if (commissionInfo['month'] === i + 1) {
-                            yearCommissionData.push(commissionInfo['commission']);
-                            totalCommission += commissionInfo['commission'];
+                            currentMonthCommission = commissionInfo['commission'];
+                            totalCommission += currentMonthCommission;
                             break;
-                        } else {
-                            yearCommissionData.push(0);
                         }
                     }
                 }
+                yearCommissionData.push(currentMonthCommission);
             }
+            console.log(yearCommissionData);
             tbYearCommission.rows[0].cells[1].innerHTML = totalCommission;
             yearChart.setOption(yearOption);
         })

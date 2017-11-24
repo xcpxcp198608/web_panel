@@ -106,7 +106,7 @@
                       <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>
                     </span>
                 <input id="ipCardNumber" type="number" class="form-control" placeholder="CardNumber"
-                       aria-describedby="basic-addon8" name="cardNumber" maxlength="16" minlength="16">
+                       aria-describedby="basic-addon8" name="cardNumber(16)" maxlength="16" minlength="16">
             </div>
             <br/>
 
@@ -117,7 +117,7 @@
                       <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                     </span>
                         <input id="ipExpirationDate" type="number" class="form-control" placeholder="ExpirationDate"
-                               aria-describedby="basic-addon9" name="expirationDate" maxlength="4" minlength="4">
+                               aria-describedby="basic-addon9" name="expirationDate(mmyy)" maxlength="4" minlength="4">
                     </div>
                 </div>
 
@@ -127,7 +127,7 @@
                           <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                         </span>
                         <input id="ipSecurityKey" type="number" class="form-control" placeholder="SecurtyKey"
-                               aria-describedby="basic-addon10" name="securityKey" maxlength="3" minlength="3">
+                               aria-describedby="basic-addon10" name="securityKey(3)" maxlength="3" minlength="3">
                     </div>
                 </div>
             </div>
