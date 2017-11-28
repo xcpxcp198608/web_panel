@@ -76,6 +76,7 @@ public class AutoPayTask extends TimerTask {
     public void checkOutByMonth(CommissionCategoryInfo commissionCategoryInfo, AuthRentUserInfo authRentUserInfo){
         String today = TimeUtil.getStrDate();
         logger.debug("= today= {}", today);
+        logger.debug("= active= {}", authRentUserInfo.getActivateTime());
         for(int i = 1; i <= commissionCategoryInfo.getExpires(); i ++){
             String date = TimeUtil.getExpiresDate(authRentUserInfo.getActivateTime(), i);
             if(today.equals(date)){
@@ -89,7 +90,7 @@ public class AutoPayTask extends TimerTask {
                 authorizePayInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
                 authorizePayInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
                 authorizePayInfo.setAmount(authRentUserInfo.getMonthPay());
-                authorizePayInfo.setDeposit(authRentUserInfo.getDeposit());
+                authorizePayInfo.setDeposit(0);
                 authorizePayInfo.setLdCommission(authRentUserInfo.getLdCommission());
                 authorizePayInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
                 authorizePayInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
@@ -105,6 +106,7 @@ public class AutoPayTask extends TimerTask {
                 AuthorizePayInfo authorizePayInfo1 = CreditCardTransaction.pay(authorizePayInfo);
                 if(authorizePayInfo1 != null && "approved".equals(authorizePayInfo1.getStatus())){
                     logger.debug("= {} check out month successfully", authRentUserInfo.getClientKey());
+                    logger.debug("====================================================================");
                     authorizeTransactionDao.insertOne(authorizePayInfo1);
                 }else{
                     logger.debug("= check out month failure, deactivate = {}", authRentUserInfo.getClientKey());

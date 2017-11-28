@@ -18,6 +18,7 @@ public interface AuthRentUserDao {
     void insertOne(AuthRentUserInfo authRentUserInfo);
     AuthRentUserInfo selectOneByMac(AuthRentUserInfo authRentUserInfo);
     AuthRentUserInfo selectOneByClientKey(String key);
+    void updateUserStatus(AuthRentUserInfo authRentUserInfo);
 
     List<AuthRentUserInfo> selectBySalesId(int salesId);
     List<AuthRentUserInfo> selectAll();

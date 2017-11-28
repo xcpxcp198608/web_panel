@@ -6,12 +6,15 @@
         <id column="id" property="id"/>
         <result column="category" property="category"/>
         <result column="deposit" property="deposit"/>
+        <result column="monthPay" property="monthPay"/>
+        <result column="expires" property="expires"/>
+        <result column="bonus" property="bonus"/>
         <result column="ldCommission" property="ldCommission"/>
         <result column="dealerCommission" property="dealerCommission"/>
         <result column="salesCommission" property="salesCommission"/>
     </resultMap>
 
-    <sql id="select">SELECT id, category, deposit, monthPay, expires, ldCommission, dealerCommission,
+    <sql id="select">SELECT id, category, deposit, monthPay, expires, bonus, ldCommission, dealerCommission,
                          salesCommission FROM commission_category</sql>
 
     <select id="selectAll" resultMap="commissionCategoryInfo">

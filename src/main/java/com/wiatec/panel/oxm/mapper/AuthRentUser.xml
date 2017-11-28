@@ -126,6 +126,12 @@
         WHERE auth_rent_user.clientKey=#{_parameter}
     </select>
 
+    <update id="updateUserStatus"  parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
+        UPDATE auth_rent_user
+                SET auth_rent_user.status=#{status}
+        WHERE auth_rent_user.clientKey=#{clientKey}
+    </update>
+
     <update id="updateLocation" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         UPDATE auth_rent_user
         SET country=#{country}, region=#{region}, city=#{city}, timeZone=#{timeZone}, lastOnLineTime=now()

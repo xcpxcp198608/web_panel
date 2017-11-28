@@ -78,7 +78,8 @@ public class AuthSalesService {
             authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
             String activateTime = TimeUtil.getStrTime();
             authRentUserInfo.setActivateTime(activateTime);
-            authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime, commissionCategoryInfo.getExpires()));
+            authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime,
+                    commissionCategoryInfo.getExpires() + commissionCategoryInfo.getBonus()));
             authRentUserInfo.setDeposit(commissionCategoryInfo.getDeposit());
             authRentUserInfo.setFirstPay(commissionCategoryInfo.getFirstPay());
             authRentUserInfo.setMonthPay(commissionCategoryInfo.getMonthPay());

@@ -102,6 +102,20 @@ public class AuthAdminService {
     }
 
     @Transactional
+    public ResultInfo updateUserStatus(String status, String key){
+        try {
+            AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo();
+            authRentUserInfo.setStatus(status);
+            authRentUserInfo.setClientKey(key);
+            authRentUserDao.updateUserStatus(authRentUserInfo);
+            return ResultMaster.success();
+        }catch (Exception e){
+            return ResultMaster.error(EnumResult.ERROR_SERVER_SQL);
+        }
+
+    }
+
+    @Transactional
     public ResultInfo activateUser(String key){
         authRentUserDao.updateStatusToActivate(key);
         return ResultMaster.success();

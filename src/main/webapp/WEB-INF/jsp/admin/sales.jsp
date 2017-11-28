@@ -94,11 +94,11 @@
 
     <div style="width: 100%; height: 40px">
         <div style="width: 20%; display: block; float: left;">
-            <button type="button" class="btn btn-default" id="btCreate">
+            <button type="button" class="btn btn-default" id="btCreate" title="create a sales">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create
             </button>
 
-            <button type="button" class="btn btn-default" id="btUpdate">
+            <button type="button" class="btn btn-default" id="btUpdate" title="update password which choose">
                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Update
             </button>
         </div>
@@ -146,7 +146,7 @@
                     <td>${authSalesInfo.phone}</td>
                     <td class="tdRows12">${fn:substring(authSalesInfo.createTime, 0, 19)}</td>
                     <td>
-                        <a href="/panel/admin/users/${authSalesInfo.id}">
+                        <a href="/panel/admin/users/${authSalesInfo.id}" title="show all users under this sales">
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                         </a>
                     </td>

@@ -37,9 +37,9 @@ $(function () {
                 type: 'pie',
                 radius: '60%',
                 data:[
-                    {value:tbCategory.rows[0].cells[4].innerHTML, name:'LD'},
-                    {value:tbCategory.rows[0].cells[5].innerHTML, name:'Dealer'},
-                    {value:tbCategory.rows[0].cells[6].innerHTML, name:'Sales'}
+                    {value:tbCategory.rows[0].cells[5].innerHTML, name:'LD'},
+                    {value:tbCategory.rows[0].cells[6].innerHTML, name:'Dealer'},
+                    {value:tbCategory.rows[0].cells[7].innerHTML, name:'Sales'}
                 ]
             }
         ]
@@ -54,9 +54,9 @@ $(function () {
                 type: 'pie',
                 radius: '60%',
                 data:[
-                    {value:tbCategory.rows[1].cells[4].innerHTML, name:'LD'},
-                    {value:tbCategory.rows[1].cells[5].innerHTML, name:'Dealer'},
-                    {value:tbCategory.rows[1].cells[6].innerHTML, name:'Sales'}
+                    {value:tbCategory.rows[1].cells[5].innerHTML, name:'LD'},
+                    {value:tbCategory.rows[1].cells[6].innerHTML, name:'Dealer'},
+                    {value:tbCategory.rows[1].cells[7].innerHTML, name:'Sales'}
                 ]
             }
         ]
@@ -71,9 +71,9 @@ $(function () {
                 type: 'pie',
                 radius: '60%',
                 data:[
-                    {value:tbCategory.rows[2].cells[4].innerHTML, name:'LD'},
-                    {value:tbCategory.rows[2].cells[5].innerHTML, name:'Dealer'},
-                    {value:tbCategory.rows[2].cells[6].innerHTML, name:'Sales'}
+                    {value:tbCategory.rows[2].cells[5].innerHTML, name:'LD'},
+                    {value:tbCategory.rows[2].cells[6].innerHTML, name:'Dealer'},
+                    {value:tbCategory.rows[2].cells[7].innerHTML, name:'Sales'}
                 ]
             }
         ]

@@ -51,10 +51,11 @@
             <div style="width: 10%; display: block; float: left">
                 <div style="display: block; float: right; align-content: center; margin-top: 3px">
                     <button type="button" class="btn btn-default" aria-label="Left Align" id="btPreviousMonth"
-                            disabled="disabled">
+                            disabled="disabled" title="previous month">
                         <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-default" aria-label="Left Align" id="btNextMonth" disabled="disabled">
+                    <button type="button" class="btn btn-default" aria-label="Left Align" id="btNextMonth"
+                            disabled="disabled" title="next month">
                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -119,7 +120,7 @@
         <div style="width: 100%;">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Search</span>
-                <input type="text" class="form-control" placeholder="type in keyword (client key, sales, payment id)"
+                <input type="text" class="form-control" placeholder="type in keyword (client key, transaction id)"
                        aria-describedby="basic-addon1" id="ipSearch">
             </div>
         </div>
@@ -166,7 +167,7 @@
                         <td style="font-size: 12px">${authorizePayInfo.transactionId}</td>
                         <td>${authorizePayInfo.amount}</td>
                         <td>${authorizePayInfo.deposit}</td>
-                        <td>${authorizePayInfo.salesCommission}</td>
+                        <td style="color: orange">${authorizePayInfo.salesCommission}</td>
                         <td style="font-size: 12px">${fn:substring(authorizePayInfo.createTime, 0, 19)}</td>
                         <td>${authorizePayInfo.category}</td>
                         <td>${authorizePayInfo.type}</td>

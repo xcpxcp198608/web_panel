@@ -38,13 +38,28 @@
 <rapid:override name="content">
 
     <div>
-        <div style="width: 90%; display: block; float: left">
+        <div style="width: 15%; display: block; float: left;">
+            <button type="button" class="btn btn-default" id="btActivate" title="activate">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> A
+            </button>
+
+            <button type="button" class="btn btn-default" id="btLimited" title="limited">
+                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> L
+            </button>
+
+            <button type="button" class="btn btn-default" id="btCanceled" title="canceled">
+                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> C
+            </button>
+        </div>
+
+        <div style="width: 80%; display: block; float: left">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Search</span>
-                <input type="text" class="form-control" placeholder="search" aria-describedby="basic-addon1" id="ipSearch">
+                <input type="text" class="form-control" placeholder="type in keyword (key, sales, mac, first name, last name, activate date)"
+                       aria-describedby="basic-addon1" id="ipSearch">
             </div>
         </div>
-        <div style="width: 10%; display: block; float: right; font-size: 18px; font-weight: 500;
+        <div style="width: 5%; display: block; float: right; font-size: 18px; font-weight: 500;
             text-align: right; align-content: center">
             <span id="spOnlineCount" style="color: #008500; height: 100%; line-height: 100%"></span>
             /
@@ -57,6 +72,7 @@
                id="tbUsers">
             <thead style="background-color: #566778;">
                 <tr>
+                    <th></th>
                     <th>#</th>
                     <th>ClientKey</th>
                     <th>Sales</th>
@@ -90,6 +106,8 @@
             <tbody style="font-size: 14px">
                 <c:forEach items="${authRentUserInfoList}" var="authRentUserInfo" varStatus="status">
                 <tr>
+                    <td><input type="radio" name="rdUser" value="${authRentUserInfo.clientKey}"
+                               currentRow="${status.index}" currentStatus="${authRentUserInfo.status}"></td>
                     <td>${status.index+1}</td>
                     <td>${authRentUserInfo.clientKey}</td>
                     <td>${authRentUserInfo.salesName}</td>
@@ -125,7 +143,7 @@
                         </c:if>
                     </td>
                     <td>
-                        <a style="cursor: pointer">
+                        <a style="cursor: pointer" title="show user's details">
                             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
                         </a>
                     </td>

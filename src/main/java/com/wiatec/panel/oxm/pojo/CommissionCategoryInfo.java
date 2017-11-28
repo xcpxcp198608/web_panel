@@ -8,6 +8,7 @@ public class  CommissionCategoryInfo {
     private String category;
     private float deposit;
     private int expires;
+    private int bonus;
     private float ldCommission;
     private float dealerCommission;
     private float salesCommission;
@@ -74,6 +75,14 @@ public class  CommissionCategoryInfo {
         this.expires = expires;
     }
 
+    public int getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
+    }
+
     public float getLdCommission() {
         return ldCommission;
     }
@@ -108,6 +117,7 @@ public class  CommissionCategoryInfo {
                 ", monthPay=" + monthPay +
                 ", deposit=" + deposit +
                 ", expires=" + expires +
+                ", bonus=" + bonus +
                 ", ldCommission=" + ldCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +

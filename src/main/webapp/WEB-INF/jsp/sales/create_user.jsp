@@ -46,11 +46,13 @@
                             <td>MonthPay</td>
                             <td>Deposit</td>
                             <td>Expires</td>
+                            <td>Bonus</td>
                             <td>Total</td>
                         </tr>
                         <tr>
                             <td style="color: red">0</td>
                             <td style="color: darkblue;">0</td>
+                            <td>0</td>
                             <td>0</td>
                             <td>0</td>
                             <td>0</td>

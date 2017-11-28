@@ -37,11 +37,11 @@
 
 <rapid:override name="content">
     <div style="width: 100%; height: 180px">
-        <div style="width: 37%; height: 100%; display: block; float: left;">
+        <div style="width: 40%; height: 100%; display: block; float: left;">
             <a style="width:100%; height: 30px; line-height: 30px; font-size: 20px">Category</a>
-            <table class="table table-bordered table-hover table-striped" id="tbCategory" style=" box-shadow: 0 0 5px #000">
+            <table class="table table-bordered table-hover table-striped" id="tbCategory" style=" box-shadow: 0 0 5px #000; font-size: 14px;">
                 <thead style="background-color: #566778;">
-                    <tr><td>#</td><td>Price</td><td>Deposit</td><td>Expires</td><td>LD</td><td>Dealer</td><td>Sales</td></tr>
+                    <tr><td>#</td><td>Price</td><td>Deposit</td><td>Expires</td><td>Bonus</td><td>LD</td><td>Dealer</td><td>Sales</td></tr>
                 </thead>
                 <tbody>
                     <c:forEach items="${commissionCategoryInfoList}" var="commissionCategoryInfo">
@@ -50,6 +50,7 @@
                             <td>${commissionCategoryInfo.price}</td>
                             <td>${commissionCategoryInfo.deposit}</td>
                             <td>${commissionCategoryInfo.expires}</td>
+                            <td>${commissionCategoryInfo.bonus}</td>
                             <td>${commissionCategoryInfo.ldCommission}</td>
                             <td>${commissionCategoryInfo.dealerCommission}</td>
                             <td>${commissionCategoryInfo.salesCommission}</td>
@@ -58,13 +59,13 @@
                 </tbody>
             </table>
         </div>
-        <div style="width: 21%; height: 100%; display: block; float: left">
+        <div style="width: 20%; height: 100%; display: block; float: left">
             <div id="B1Chart" style="width: 100%; height: 180px"></div>
         </div>
-        <div style="width: 21%; height: 100%; display: block; float: left">
+        <div style="width: 20%; height: 100%; display: block; float: left">
             <div id="P1Chart" style="width: 100%; height: 180px"></div>
         </div>
-        <div style="width: 21%; height: 100%; display: block; float: left">
+        <div style="width: 20%; height: 100%; display: block; float: left">
             <div id="P2Chart" style="width: 100%; height: 180px"></div>
         </div>
     </div>
@@ -94,10 +95,11 @@
             <div style="width: 10%; display: block; float: left">
                 <div style="display: block; float: right; align-content: center; margin-top: 3px">
                     <button type="button" class="btn btn-default" aria-label="Left Align" id="btPreviousMonth"
-                            disabled="disabled">
+                            disabled="disabled" title="previous month">
                         <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-default" aria-label="Left Align" id="btNextMonth" disabled="disabled">
+                    <button type="button" class="btn btn-default" aria-label="Left Align" id="btNextMonth"
+                            disabled="disabled" title="next month">
                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -178,7 +180,7 @@
     <div style="width: 100%;">
         <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">Search</span>
-            <input type="text" class="form-control" placeholder="type in keyword (client key, sales, payment id)"
+            <input type="text" class="form-control" placeholder="type in keyword (client key, sales, transaction id)"
                    aria-describedby="basic-addon1" id="ipSearch">
         </div>
     </div>

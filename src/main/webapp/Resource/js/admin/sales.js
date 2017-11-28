@@ -260,7 +260,6 @@ $(function () {
                 errorMessage.html('communication fail, try again later');
             }
         });
-
     });
 
     /**

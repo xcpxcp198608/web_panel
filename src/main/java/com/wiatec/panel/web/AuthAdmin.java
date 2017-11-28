@@ -104,6 +104,18 @@ public class AuthAdmin {
         return authAdminService.getUserByKey(key);
     }
 
+    /**
+     * update rental user status [active, limited, canceled]
+     * @param status   target status
+     * @param key      client key
+     * @return         {@link AuthRentUserInfo}
+     */
+    @PutMapping(value = "/user/{status}/{key}")
+    @ResponseBody
+    public ResultInfo updateUserStatus(@PathVariable String status, @PathVariable String key){
+        return authAdminService.updateUserStatus(status, key);
+    }
+
     @PutMapping(value = "/activate/{key}")
     @ResponseBody
     public ResultInfo activateUser(@PathVariable String key){

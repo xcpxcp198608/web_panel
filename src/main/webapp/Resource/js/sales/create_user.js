@@ -17,7 +17,8 @@ $(function () {
            tbCategory.rows[1].cells[1].innerHTML = response['monthPay'];
            tbCategory.rows[1].cells[2].innerHTML = response['deposit'];
            tbCategory.rows[1].cells[3].innerHTML = response['expires'];
-           tbCategory.rows[1].cells[4].innerHTML = response['price'];
+           tbCategory.rows[1].cells[4].innerHTML = response['bonus'];
+           tbCategory.rows[1].cells[5].innerHTML = response['price'];
        });
    });
 

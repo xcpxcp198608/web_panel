@@ -60,10 +60,11 @@
             <div style="width: 10%; display: block; float: left">
                 <div style="display: block; float: right; align-content: center; margin-top: 3px;">
                     <button type="button" class="btn btn-default" aria-label="Left Align" id="btPreviousMonth"
-                        disabled="disabled">
+                        disabled="disabled" title="previous month">
                         <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-default" aria-label="Left Align" id="btNextMonth" disabled="disabled">
+                    <button type="button" class="btn btn-default" aria-label="Left Align" id="btNextMonth"
+                            disabled="disabled" title="next month">
                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                     </button>
                 </div>
