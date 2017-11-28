@@ -24,7 +24,7 @@ public class LogWebRequest {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder
                 .getRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
-        logger.debug("======================================= http request start ====================================");
+        logger.debug("======================================= http request  =========================================");
         logger.debug("=");
         logger.debug("= from= {}", request.getSession().getAttribute("username"));
         logger.debug("= url= {}", request.getRequestURL());
@@ -40,7 +40,7 @@ public class LogWebRequest {
 
     @AfterReturning(returning = "object", pointcut = "httpRequestPointCut()")
     public void afterReturning(Object object){
-        logger.debug("======================================== http request end =====================================");
+        logger.debug("======================================== http response ========================================");
         logger.debug("=");
         logger.debug("= response= {}", object);
         logger.debug("=");

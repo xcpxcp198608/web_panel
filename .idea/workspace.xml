@@ -6,28 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fcbb8162-7201-4f40-a409-92e2db470717" name="Default" comment="201711241620">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/f1cdb9e7-3e3f-48a1-a753-b82bdaf6363a.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/f1cdb9e7-3e3f-48a1-a753-b82bdaf6363a.xml" />
+    <list default="true" id="fcbb8162-7201-4f40-a409-92e2db470717" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/AuthShowUsername.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AutoPayTask.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AutoPayTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRentUserDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRentUserDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/CommissionCategory.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/CommissionCategory.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/CommissionCategoryInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/CommissionCategoryInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthAdmin.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthAdmin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/commission.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/commission.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/users.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/users.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/sales/create_user.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/sales/create_user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/commission.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/commission.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/home.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/home.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/users.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/users.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/create_user.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/create_user.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/home.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/home.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/LogWebRequest.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/LogWebRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/EnumResult.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/EnumResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/inteceptor/AuthInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/inteceptor/AuthInterceptor.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -72,7 +56,18 @@
     </projectState>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="AuthInterceptor.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/inteceptor/AuthInterceptor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -392,14 +387,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/xutils/result/EnumResult.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/api/AuthUser.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthUserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/aop/LogHttpRequest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/LogHttpRequest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/dispatcher-servlet.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/LogHttpRequest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/LogWebRequest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/listener/SessionListener.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
@@ -422,7 +414,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthorizeTransactionDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransaction.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/sales/home.js" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/EnumResult.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRentUserService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/home.jsp" />
@@ -443,6 +434,10 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/home.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/commission.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/users.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/EnumResult.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/LogWebRequest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/inteceptor/AuthInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/AuthShowUsername.java" />
       </list>
     </option>
   </component>
@@ -516,6 +511,34 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="panel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="panel" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="panel" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="aop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="panel" type="462c0819:PsiDirectoryNode" />
+              <item name="inteceptor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="panel" type="b2602c69:ProjectViewProjectNode" />
@@ -1150,7 +1173,7 @@
       <workItem from="1511576639069" duration="3980000" />
       <workItem from="1511775238255" duration="1814000" />
       <workItem from="1511834730231" duration="173000" />
-      <workItem from="1511834941302" duration="2916000" />
+      <workItem from="1511834941302" duration="5052000" />
     </task>
     <task id="LOCAL-00001" summary="201711111120">
       <created>1510370376796</created>
@@ -1306,7 +1329,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511511789514</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="201711281055">
+      <created>1511837904592</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1511837904592</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1342,7 +1372,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="398454000" />
+    <option name="totallyTimeSpent" value="400590000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1365,7 +1395,7 @@
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16066283" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Tail" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1592219" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1592219" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.3299712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1377,11 +1407,12 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985657" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36766624" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="0" y="0" width="1440" height="900" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29335073" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36766624" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="0" y="0" width="1440" height="900" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985657" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987013" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19164266" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21397695" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1392,7 +1423,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29335073" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30247718" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32464147" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1426,7 +1456,8 @@
     <MESSAGE value="201711241335" />
     <MESSAGE value="201711241525" />
     <MESSAGE value="201711241620" />
-    <option name="LAST_COMMIT_MESSAGE" value="201711241620" />
+    <MESSAGE value="201711281055" />
+    <option name="LAST_COMMIT_MESSAGE" value="201711281055" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1439,42 +1470,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/applicationContext.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="84" column="27" lean-forward="false" selection-start-line="84" selection-start-column="21" selection-end-line="84" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/api/AuthRentUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="32" column="40" lean-forward="false" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/chart/YearOrMonthInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/chart/admin/SalesAmountInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="69" column="18" lean-forward="false" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthOrderInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/f1cdb9e7-3e3f-48a1-a753-b82bdaf6363a/console.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1550,13 +1545,6 @@
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/EnumResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="20" column="40" lean-forward="true" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -1783,10 +1771,10 @@
         <state relative-caret-position="196">
           <caret line="122" column="109" lean-forward="false" selection-start-line="122" selection-start-column="109" selection-end-line="122" selection-end-column="109" />
           <folding>
-            <element signature="e#2942#3031#0#HTML" expanded="true" />
-            <element signature="e#3146#3198#0#HTML" expanded="true" />
-            <element signature="e#3275#3316#0#HTML" expanded="true" />
-            <element signature="e#7783#7804#0#HTML" expanded="true" />
+            <element signature="e#2942#3031#0#HTML" expanded="false" />
+            <element signature="e#3146#3198#0#HTML" expanded="false" />
+            <element signature="e#3275#3316#0#HTML" expanded="false" />
+            <element signature="e#7783#7804#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1796,7 +1784,7 @@
         <state relative-caret-position="194">
           <caret line="63" column="100" lean-forward="true" selection-start-line="63" selection-start-column="100" selection-end-line="63" selection-end-column="100" />
           <folding>
-            <element signature="e#6136#6156#0#HTML" expanded="true" />
+            <element signature="e#6136#6156#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1806,11 +1794,11 @@
         <state relative-caret-position="274">
           <caret line="182" column="112" lean-forward="false" selection-start-line="182" selection-start-column="112" selection-end-line="182" selection-end-column="112" />
           <folding>
-            <element signature="e#1501#1563#0#HTML" expanded="true" />
-            <element signature="e#1752#1803#0#HTML" expanded="true" />
-            <element signature="e#2905#2966#0#HTML" expanded="true" />
-            <element signature="e#3068#3129#0#HTML" expanded="true" />
-            <element signature="e#3231#3292#0#HTML" expanded="true" />
+            <element signature="e#1501#1563#0#HTML" expanded="false" />
+            <element signature="e#1752#1803#0#HTML" expanded="false" />
+            <element signature="e#2905#2966#0#HTML" expanded="false" />
+            <element signature="e#3068#3129#0#HTML" expanded="false" />
+            <element signature="e#3231#3292#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1843,6 +1831,54 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="81" column="20" lean-forward="false" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/EnumResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/LogAuthService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.3.9.RELEASE/d40a14cdad9b34e6bc1a547345fb16d8fe3092c0/spring-webmvc-4.3.9.RELEASE-sources.jar!/org/springframework/web/servlet/ModelAndView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="45" column="13" lean-forward="false" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/LogWebRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/AuthShowUsername.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/inteceptor/AuthInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding />
         </state>
       </provider>

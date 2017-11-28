@@ -8,7 +8,7 @@ public enum  EnumResult {
 
     ERROR_PARAM(3001, "request param format error"),
 
-    ERROR_AUTHORIZATION_DEFINED(4000, "authorization access undefined, sign in again"),
+    ERROR_AUTHORIZATION_UNDEFINED(4000, "authorization undefined, sign in again"),
     ERROR_USERNAME_PASSWORD_NO_MATCH(4100, "username and password not match"),
 
     ERROR_USERNAME_EXISTS(4001, "username is exists"),
