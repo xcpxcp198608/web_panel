@@ -4,6 +4,7 @@ import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.TopVolumeInfo;
+import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public interface AuthRentUserDao {
     void updateStatusToDeactivate(String clientKey);
 
     //chart
+    List<VolumeDistributionInfo> getDistributionData();
     List<SalesVolumeInDayOfMonthInfo> countSalesVolumeByDayOfMonth(YearOrMonthInfo yearOrMonthInfo);
     List<TopVolumeInfo> selectTopVolume(int top);
 

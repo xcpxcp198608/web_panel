@@ -132,6 +132,12 @@ public class AuthAdmin {
         return authAdminService.commission(model);
     }
 
+    @GetMapping(value = "/chart/distribution")
+    @ResponseBody
+    public List<VolumeDistributionInfo> getDistributionData(){
+        return authAdminService.getDistributionData();
+    }
+
     /**
      * get real time online number
      * @return  current online number

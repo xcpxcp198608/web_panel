@@ -58,16 +58,16 @@
           <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.2.3" />
           <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.2.3" />
           <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.7.25" />
+          <element id="library" level="project" name="Gradle: org.apache.logging.log4j:log4j-core:2.9.1" />
           <element id="library" level="project" name="Gradle: net.authorize:anet-java-sdk:1.9.4" />
-          <element id="library" level="project" name="Gradle: com.paypal.sdk:rest-api-sdk:1.14.0" />
           <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.5.0" />
           <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.13.0" />
           <element id="library" level="project" name="Gradle: javax.activation:activation:1.1.1" />
           <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-frontend-jaxws:2.3.1" />
           <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-transports-http:2.3.1" />
           <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-ws-security:2.3.1" />
+          <element id="library" level="project" name="Gradle: org.apache.logging.log4j:log4j-api:2.9.1" />
           <element id="library" level="project" name="Gradle: log4j:log4j:1.2.16" />
-          <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.2.2" />
           <element id="library" level="project" name="Gradle: xml-resolver:xml-resolver:1.2" />
           <element id="library" level="project" name="Gradle: asm:asm:3.3" />
           <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-api:2.3.1" />

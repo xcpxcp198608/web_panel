@@ -17,7 +17,7 @@
         </li>
         <li>
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <a href="/panel/sales/users">Users</a>
+            <a href="/panel/sales/users">Customers</a>
         </li>
         <li>
             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>

@@ -6,6 +6,8 @@
 </rapid:override>
 <rapid:override name="css_js">
     <link rel="stylesheet" href="Resource/css/admin/home.css" />
+    <script type="application/javascript" src="Resource/js/world.js"></script>
+    <script type="application/javascript" src="Resource/js/admin/distribution.js"></script>
     <script type="application/javascript" src="Resource/js/admin/home.js"></script>
 </rapid:override>
 
@@ -21,7 +23,7 @@
         </li>
         <li>
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <a href="/panel/admin/users">Users</a>
+            <a href="/panel/admin/users">Customers</a>
         </li>
         <li>
             <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
@@ -35,10 +37,14 @@
 </rapid:override>
 
 <rapid:override name="content">
+
     <div>
-        <div id="chart_online" style="width: 100%; height: 250px; background-color: #2c343c; box-shadow: 0 0 5px #0a148f"></div>
+        <div id="chart_distribution" style="width: 100%; height: 500px; background-color: #2c343c; box-shadow: 0 0 5px #000"></div>
     </div>
 
+    <div style="margin-top: 5px">
+        <div id="chart_online" style="width: 100%; height: 250px; background-color: #2c343c; box-shadow: 0 0 5px #000"></div>
+    </div>
 
     <div style="position: relative; margin-top: 5px">
         <div style="width: 100%; height: 34px;">

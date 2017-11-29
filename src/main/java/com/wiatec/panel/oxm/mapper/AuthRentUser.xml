@@ -167,4 +167,15 @@
         ORDER BY volume DESC
         LIMIT #{_parameter};
     </select>
+
+    <resultMap id="volumeDistributionInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo">
+        <result column="name" property="name"/>
+        <result column="value" property="value"/>
+    </resultMap>
+    <select id="getDistributionData" resultMap="volumeDistributionInfo">
+        SELECT country AS name, COUNT(clientKey) AS value
+        FROM auth_rent_user
+        GROUP BY  name;
+    </select>
+
 </mapper>

@@ -19,7 +19,7 @@ body, div, ul, li ,p ,a ,span, form{
 
 
 
-#navigation{width: 14%; display: block;float: left; padding: 20px 10px 10px; font-size: 18px}
+#navigation{width: 14%; display: block;float: left; padding: 10px 10px 10px; font-size: 18px}
 
 #navigation ul li{padding: 10px; border-bottom: dotted 1px #566778;}
 
@@ -31,7 +31,7 @@ body, div, ul, li ,p ,a ,span, form{
 
 
 
-#content {width: 86%; display: block; float: right; padding: 30px 20px 20px; height: 750px;
+#content {width: 86%; display: block; float: right; padding: 20px 20px 20px; height: 750px;
     overflow: scroll; position: relative}
 
 #content .table th, .table td {text-align: center; vertical-align: middle!important;}

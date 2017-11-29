@@ -133,6 +133,11 @@ public class AuthAdminService {
     }
 
     /////////////////////////////////////////////////// chart //////////////////////////////////////////////////////////
+    public List<VolumeDistributionInfo> getDistributionData(){
+        return authRentUserDao.getDistributionData();
+    }
+
+
     public List<SalesVolumeInDayOfMonthInfo> countSaleVolumeEveryDayInMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         return authRentUserDao.countSalesVolumeByDayOfMonth(yearOrMonthInfo);

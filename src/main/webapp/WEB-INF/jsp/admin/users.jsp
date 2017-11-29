@@ -22,7 +22,7 @@
         </li>
         <li>
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <a href="/panel/admin/users">Users</a>
+            <a href="/panel/admin/users">Customers</a>
         </li>
         <li>
             <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
