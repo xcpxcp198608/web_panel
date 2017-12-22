@@ -1,9 +1,17 @@
 package com.wiatec.panel.oxm.pojo;
 
 public class AuthRentUserInfo {
+
+    public static final String STATUS_ACTIVATE = "activate";
+    public static final String STATUS_DEACTIVATE = "deactivate";
+    public static final String STATUS_LIMITED = "limited";
+    public static final String STATUS_CANCELED = "canceled";
+
     private int id;
     private int salesId;
     private String salesName;
+    private int dealerId;
+    private String dealerName;
     private String clientKey;
     private String category;
     private String mac;
@@ -62,6 +70,22 @@ public class AuthRentUserInfo {
 
     public void setSalesName(String salesName) {
         this.salesName = salesName;
+    }
+
+    public int getDealerId() {
+        return dealerId;
+    }
+
+    public void setDealerId(int dealerId) {
+        this.dealerId = dealerId;
+    }
+
+    public String getDealerName() {
+        return dealerName;
+    }
+
+    public void setDealerName(String dealerName) {
+        this.dealerName = dealerName;
     }
 
     public String getClientKey() {
@@ -278,6 +302,8 @@ public class AuthRentUserInfo {
                 "id=" + id +
                 ", salesId=" + salesId +
                 ", salesName='" + salesName + '\'' +
+                ", dealerId=" + dealerId +
+                ", dealerName='" + dealerName + '\'' +
                 ", clientKey='" + clientKey + '\'' +
                 ", category='" + category + '\'' +
                 ", mac='" + mac + '\'' +

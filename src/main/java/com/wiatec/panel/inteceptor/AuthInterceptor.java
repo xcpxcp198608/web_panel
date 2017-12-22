@@ -16,11 +16,11 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String ref = request.getHeader("Referer");
         if(ref == null || !ref.contains("/panel")){
-            throw new XException(EnumResult.ERROR_AUTHORIZATION_UNDEFINED);
+            throw new XException(EnumResult.ERROR_AUTHORIZE);
         }
         String username = (String) request.getSession().getAttribute("username");
         if(username == null){
-            throw new XException(EnumResult.ERROR_AUTHORIZATION_UNDEFINED);
+            throw new XException(EnumResult.ERROR_AUTHORIZE);
         }
         return true;
     }
@@ -29,7 +29,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         String username = (String) request.getSession().getAttribute("username");
         if(TextUtil.isEmpty(username)){
-            throw new XException(EnumResult.ERROR_AUTHORIZATION_UNDEFINED);
+            throw new XException(EnumResult.ERROR_AUTHORIZE);
         }
         if(modelAndView != null) modelAndView.getModel().put("username", username);
     }

@@ -22,8 +22,8 @@ public class Auth {
      * @return          home page
      */
     @PostMapping(value = "/signin")
-    public String signIn(HttpSession session, String username, String password){
-        return authService.signIn(session, username, password);
+    public String signIn(HttpSession session, String username, String password, int type){
+        return authService.signIn(session, username, password, type);
     }
 
     /**

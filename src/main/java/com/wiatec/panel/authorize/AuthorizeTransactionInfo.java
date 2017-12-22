@@ -1,9 +1,9 @@
 package com.wiatec.panel.authorize;
 
-public class AuthorizePayInfo {
+public class AuthorizeTransactionInfo {
 
-    public static final String TYPE_LEASE = "lease";
-    public static final String TYPE_RENT = "rent";
+    public static final String TYPE_CONTRACTED = "contracted";
+    public static final String TYPE_MONTHLY = "monthly";
     public static final String TYPE_RENEW = "renew";
 
 
@@ -183,7 +183,7 @@ public class AuthorizePayInfo {
 
     @Override
     public String toString() {
-        return "AuthorizePayInfo{" +
+        return "AuthorizeTransactionInfo{" +
                 "id=" + id +
                 ", salesId=" + salesId +
                 ", salesName='" + salesName + '\'' +

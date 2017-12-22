@@ -22,10 +22,8 @@ public interface AuthRentUserDao {
     void updateUserStatus(AuthRentUserInfo authRentUserInfo);
 
     List<AuthRentUserInfo> selectBySalesId(int salesId);
+    List<AuthRentUserInfo> selectByDealerId(int dealerId);
     List<AuthRentUserInfo> selectAll();
-
-    void updateStatusToActivate(String clientKey);
-    void updateStatusToDeactivate(String clientKey);
 
     //chart
     List<VolumeDistributionInfo> getDistributionData();

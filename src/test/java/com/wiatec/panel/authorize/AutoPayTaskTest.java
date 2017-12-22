@@ -17,7 +17,6 @@ public class AutoPayTaskTest {
     @Test
     public void checkOutByMonth() throws Exception {
         AutoPayTask autoPayTask = new AutoPayTask();
-        autoPayTask.checkOutByMonth(12, "2017-11-08 10:10:10");
     }
 
 }

@@ -2,7 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wiatec.panel.oxm.dao.AuthorizeTransactionDao">
-    <resultMap type="com.wiatec.panel.authorize.AuthorizePayInfo" id="authorizePayInfo">
+    <resultMap type="com.wiatec.panel.authorize.AuthorizeTransactionInfo" id="authorizeTransactionInfo">
         <id column="id" property="id"/>
         <id column="client_key" property="clientKey"/>
         <id column="category" property="category"/>
@@ -37,7 +37,7 @@
         FROM authorize_transaction JOIN auth_sales ON authorize_transaction.sales_id = auth_sales.id
     </sql>
 
-    <insert id="insertOne" parameterType="com.wiatec.panel.authorize.AuthorizePayInfo">
+    <insert id="insertOne" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionInfo">
       INSERT INTO authorize_transaction (sales_id, category, client_key, card_number,expiration_date,
              security_key, amount, deposit, ld_commission, dealer_commission, sales_commission,
              tx_fee, transaction_id, status, auth_code, type)
@@ -46,17 +46,17 @@
               #{salesCommission}, #{txFee}, #{transactionId}, #{status}, #{authCode}, #{type})
     </insert>
 
-    <select id="countByKeyAndDate" parameterType="com.wiatec.panel.authorize.AuthorizePayInfo" resultType="int">
+    <select id="countByKeyAndDate" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionInfo" resultType="int">
         SELECT COUNT(*)
         FROM authorize_transaction
         WHERE client_key=#{clientKey} AND create_time LIKE concat(#{createTime},'%')
     </select>
 
-    <select id="selectAll" resultMap="authorizePayInfo">
+    <select id="selectAll" resultMap="authorizeTransactionInfo">
         <include refid="select"/>
     </select>
 
-    <select id="selectBySalesId" resultMap="authorizePayInfo" parameterType="Integer">
+    <select id="selectBySalesId" resultMap="authorizeTransactionInfo" parameterType="Integer">
         <include refid="select"/>
         AND authorize_transaction.sales_id=#{_parameter}
     </select>

@@ -1,6 +1,6 @@
 package com.wiatec.panel.oxm.pojo;
 
-public class AuthUserInfo {
+public class AuthRegisterUserInfo {
     private int id;
     private String username;
     private String password;
@@ -16,12 +16,13 @@ public class AuthUserInfo {
     private String city;
     private String timeZone;
     private String token;
-    private String activeDate;
-    private String memberDateDate;
+    private String activeTime;
+    private String expiresTime;
     private String lastOnLineTime;
     private String createTime;
     private String modifyTime;
 
+    private boolean isExperience;
     private boolean online;
 
     public int getId() {
@@ -144,20 +145,20 @@ public class AuthUserInfo {
         this.token = token;
     }
 
-    public String getActiveDate() {
-        return activeDate;
+    public String getActiveTime() {
+        return activeTime;
     }
 
-    public void setActiveDate(String activeDate) {
-        this.activeDate = activeDate;
+    public void setActiveTime(String activeTime) {
+        this.activeTime = activeTime;
     }
 
-    public String getMemberDateDate() {
-        return memberDateDate;
+    public String getExpiresTime() {
+        return expiresTime;
     }
 
-    public void setMemberDateDate(String memberDateDate) {
-        this.memberDateDate = memberDateDate;
+    public void setExpiresTime(String expiresTime) {
+        this.expiresTime = expiresTime;
     }
 
     public String getLastOnLineTime() {
@@ -184,6 +185,14 @@ public class AuthUserInfo {
         this.modifyTime = modifyTime;
     }
 
+    public boolean isExperience() {
+        return isExperience;
+    }
+
+    public void setExperience(boolean experience) {
+        isExperience = experience;
+    }
+
     public boolean isOnline() {
         return online;
     }
@@ -194,7 +203,7 @@ public class AuthUserInfo {
 
     @Override
     public String toString() {
-        return "AuthUserInfo{" +
+        return "AuthRegisterUserInfo{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
@@ -210,11 +219,12 @@ public class AuthUserInfo {
                 ", city='" + city + '\'' +
                 ", timeZone='" + timeZone + '\'' +
                 ", token='" + token + '\'' +
-                ", activeDate='" + activeDate + '\'' +
-                ", memberDateDate='" + memberDateDate + '\'' +
+                ", activeTime='" + activeTime + '\'' +
+                ", expiresTime='" + expiresTime + '\'' +
                 ", lastOnLineTime='" + lastOnLineTime + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", modifyTime='" + modifyTime + '\'' +
+                ", isExperience=" + isExperience +
                 ", online=" + online +
                 '}';
     }

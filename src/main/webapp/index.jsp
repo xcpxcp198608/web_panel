@@ -23,15 +23,17 @@
         href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
-  <script type="application/javascript" language="JavaScript" src="Resource/js/jquery-3.2.1.min.js"></script>
-  <script type="application/javascript" language="JavaScript" src="Resource/js/common.js"></script>
+  <script
+          src="https://code.jquery.com/jquery-3.2.1.js"
+          integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+          crossorigin="anonymous"></script>
   <script type="application/javascript" language="JavaScript" src="Resource/js/base.js"></script>
   <link rel="stylesheet" type="text/css" href="Resource/css/base.css">
   <link rel="shortcut icon" href="Resource/img/btv.ico">
   <style type="text/css">
-    #div_sign_in {margin: 200px auto auto;  width: 400px; height: 300px; background-color: #2c343c;
+    #div_sign_in {margin: 200px auto auto;  width: 400px; height: 320px; background-color: #2c343c;
       box-shadow: 0 0 8px #1d2bfc;}
-    #div_sign_in_1 {width: 300px; height: 250px; margin: 25px auto auto}
+    #div_sign_in_1 {width: 300px; height: 270px; margin: 25px auto auto}
     h3 {width: 100%; text-align: center; color: whitesmoke}
     #error_message {color: red; font-size: 16px}
     #bt_submit {width: 100%}
@@ -39,30 +41,45 @@
 </head>
 
 <body style="background-color: #bbbbbb">
-<div id="div_sign_in">
-  <div id="div_sign_in_1">
-    <br/>
-    <h3>PREFERRED CUSTOMER PROGRAM</h3>
-    <br/>
-    <form action="/panel/signin" method="post">
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">
-          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-        </span>
-        <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="username">
-      </div>
+  <div id="div_sign_in">
+    <div id="div_sign_in_1">
       <br/>
-      <div class="input-group">
-        <span class="input-group-addon" id="basic-addon2">
-          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-        </span>
-        <input type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon2" name="password">
-      </div>
+      <h3>PREFERRED CUSTOMER PROGRAM</h3>
       <br/>
-      <button id="bt_submit" type="submit" class="btn btn-primary">SignIn</button>
-    </form>
-    <span id="error_message"></span>
+      <form action="/panel/signin" method="post">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          </span>
+          <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="username">
+        </div>
+        <br/>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon2">
+            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+          </span>
+          <input type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon2" name="password">
+        </div>
+        <br/>
+        <div style="color: whitesmoke">
+          <label class="radio-inline">
+            <input type="radio" name="type" id="inlineRadio1" value="3" checked> S
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="type" id="inlineRadio2" value="2"> D
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="type" id="inlineRadio3" value="1"> A
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="type" id="inlineRadio4" value="0"> M
+          </label>
+        </div>
+        <br/>
+        <button id="bt_submit" type="submit" class="btn btn-primary">SignIn</button>
+      </form>
+      <span id="error_message"></span>
+    </div>
   </div>
-</div>
 </body>
 </html>

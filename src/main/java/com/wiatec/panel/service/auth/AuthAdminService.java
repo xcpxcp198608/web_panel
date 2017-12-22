@@ -1,6 +1,6 @@
 package com.wiatec.panel.service.auth;
 
-import com.wiatec.panel.authorize.AuthorizePayInfo;
+import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
@@ -33,8 +33,6 @@ public class AuthAdminService {
     @Resource
     private AuthRentUserDao authRentUserDao;
     @Resource
-    private AuthOrderDao authOrderDao;
-    @Resource
     private CommissionCategoryDao commissionCategoryDao;
     @Resource
     private AuthorizeTransactionDao authorizeTransactionDao;
@@ -61,11 +59,12 @@ public class AuthAdminService {
             throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
         }
         try {
+            authSalesInfo.setDealerId(0);
             authSalesDao.insertOne(authSalesInfo);
             return ResultMaster.success(authSalesDao.selectOne(authSalesInfo));
         }catch (Exception e){
             logger.error(e.getMessage());
-            throw new XException(EnumResult.ERROR_SERVER_SQL);
+            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
 
@@ -76,7 +75,7 @@ public class AuthAdminService {
             return ResultMaster.success();
         }catch (Exception e){
             logger.error(e.getMessage());
-            throw new XException(EnumResult.ERROR_SERVER_SQL);
+            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
 
@@ -110,15 +109,8 @@ public class AuthAdminService {
             authRentUserDao.updateUserStatus(authRentUserInfo);
             return ResultMaster.success();
         }catch (Exception e){
-            return ResultMaster.error(EnumResult.ERROR_SERVER_SQL);
+            return ResultMaster.error(EnumResult.ERROR_SERVER_EXCEPTION);
         }
-
-    }
-
-    @Transactional
-    public ResultInfo activateUser(String key){
-        authRentUserDao.updateStatusToActivate(key);
-        return ResultMaster.success();
     }
 
     public String commission(Model model){
@@ -127,8 +119,8 @@ public class AuthAdminService {
             commissionCategoryInfo.setPrice();
         }
         model.addAttribute("commissionCategoryInfoList", commissionCategoryInfoList);
-        List<AuthorizePayInfo> authorizePayInfoList = authorizeTransactionDao.selectAll();
-        model.addAttribute("authorizePayInfoList", authorizePayInfoList);
+        List<AuthorizeTransactionInfo> authorizeTransactionInfoList = authorizeTransactionDao.selectAll();
+        model.addAttribute("authorizePayInfoList", authorizeTransactionInfoList);
         return "admin/commission";
     }
 

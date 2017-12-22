@@ -216,29 +216,29 @@
                         <select id="seType" style="width: 100%; height: 100%;
                             background-color: rgba(0,0,0,0); border: none; text-align: center">
                             <option value="">Type</option>
-                            <option value="lease">lease</option>
-                            <option value="rent">rent</option>
+                            <option value="lease">contracted</option>
+                            <option value="rent">monthly</option>
                             <option value="renew">renew</option>
                         </select>
                     </td>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${authorizePayInfoList}" var="authorizePayInfo" varStatus="status">
+                <c:forEach items="${authorizeTransactionInfoList}" var="authorizeTransactionInfo" varStatus="status">
                     <tr style="font-size: 14px">
                         <td>${status.index + 1}</td>
-                        <td>${authorizePayInfo.clientKey}</td>
-                        <td>${authorizePayInfo.salesName}</td>
-                        <td style="font-size: 12px">${authorizePayInfo.transactionId}</td>
-                        <td>${authorizePayInfo.amount}</td>
-                        <td>${authorizePayInfo.txFee}</td>
-                        <td>${authorizePayInfo.deposit}</td>
-                        <td>${authorizePayInfo.ldCommission}</td>
-                        <td>${authorizePayInfo.dealerCommission}</td>
-                        <td>${authorizePayInfo.salesCommission}</td>
-                        <td style="font-size: 12px">${fn:substring(authorizePayInfo.createTime, 0, 19)}</td>
-                        <td>${authorizePayInfo.category}</td>
-                        <td>${authorizePayInfo.type}</td>
+                        <td>${authorizeTransactionInfo.clientKey}</td>
+                        <td>${authorizeTransactionInfo.salesName}</td>
+                        <td style="font-size: 12px">${authorizeTransactionInfo.transactionId}</td>
+                        <td>${authorizeTransactionInfo.amount}</td>
+                        <td>${authorizeTransactionInfo.txFee}</td>
+                        <td>${authorizeTransactionInfo.deposit}</td>
+                        <td>${authorizeTransactionInfo.ldCommission}</td>
+                        <td>${authorizeTransactionInfo.dealerCommission}</td>
+                        <td>${authorizeTransactionInfo.salesCommission}</td>
+                        <td style="font-size: 12px">${fn:substring(authorizeTransactionInfo.createTime, 0, 19)}</td>
+                        <td>${authorizeTransactionInfo.category}</td>
+                        <td>${authorizeTransactionInfo.type}</td>
                     </tr>
                 </c:forEach>
             </tbody>

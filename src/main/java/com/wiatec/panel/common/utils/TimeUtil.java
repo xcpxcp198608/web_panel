@@ -44,6 +44,15 @@ public class TimeUtil {
         }
     }
 
+    public static String getExpiresTimeByDay(String activateTime, int days){
+        Date date = new Date(TimeUtil.getUnixFromStr(activateTime));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, days);
+        date = calendar.getTime();
+        return getStrTime(date.getTime());
+    }
+
     public static String getExpiresTime(String activateTime, int expires){
         Date date = new Date(TimeUtil.getUnixFromStr(activateTime));
         Calendar calendar = Calendar.getInstance();

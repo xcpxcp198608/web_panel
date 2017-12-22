@@ -82,35 +82,36 @@ public class AutoPayTask extends TimerTask {
             if(today.equals(date)){
                 logger.debug("= {} need check out on this month", date);
                 logger.debug("= checking check out on this month");
-                AuthorizePayInfo authorizePayInfo = new AuthorizePayInfo();
-                authorizePayInfo.setSalesId(authRentUserInfo.getSalesId());
-                authorizePayInfo.setClientKey(authRentUserInfo.getClientKey());
-                authorizePayInfo.setCategory(authRentUserInfo.getCategory());
-                authorizePayInfo.setCardNumber(authRentUserInfo.getCardNumber());
-                authorizePayInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
-                authorizePayInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-                authorizePayInfo.setAmount(authRentUserInfo.getMonthPay());
-                authorizePayInfo.setDeposit(0);
-                authorizePayInfo.setLdCommission(authRentUserInfo.getLdCommission());
-                authorizePayInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
-                authorizePayInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
-                authorizePayInfo.setType(AuthorizePayInfo.TYPE_RENT);
-                authorizePayInfo.setCreateTime(today.substring(0, 7));
+                AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
+                authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
+                authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
+                authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
+                authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
+                authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
+                authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+                authorizeTransactionInfo.setAmount(authRentUserInfo.getMonthPay());
+                authorizeTransactionInfo.setDeposit(0);
+                authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
+                authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
+                authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
+                authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_MONTHLY);
+                authorizeTransactionInfo.setCreateTime(today.substring(0, 7));
                 //check is already check out on this month
-                if(authorizeTransactionDao.countByKeyAndDate(authorizePayInfo) == 1){
+                if(authorizeTransactionDao.countByKeyAndDate(authorizeTransactionInfo) == 1){
                     logger.debug("= {} already check out on this month", authRentUserInfo.getClientKey());
                     logger.debug("====================================================================");
                     return;
                 }
                 logger.debug("= execute check out on this month");
-                AuthorizePayInfo authorizePayInfo1 = CreditCardTransaction.pay(authorizePayInfo);
-                if(authorizePayInfo1 != null && "approved".equals(authorizePayInfo1.getStatus())){
+                AuthorizeTransactionInfo authorizeTransactionInfo1 = ChargeCreditCard.pay(authorizeTransactionInfo);
+                if(authorizeTransactionInfo1 != null && "approved".equals(authorizeTransactionInfo1.getStatus())){
                     logger.debug("= {} check out month successfully", authRentUserInfo.getClientKey());
                     logger.debug("====================================================================");
-                    authorizeTransactionDao.insertOne(authorizePayInfo1);
+                    authorizeTransactionDao.insertOne(authorizeTransactionInfo1);
                 }else{
                     logger.debug("= check out month failure, deactivate = {}", authRentUserInfo.getClientKey());
-                    authRentUserDao.updateStatusToDeactivate(authRentUserInfo.getClientKey());
+                    authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
+                    authRentUserDao.updateUserStatus(authRentUserInfo);
                 }
                 return;
             }

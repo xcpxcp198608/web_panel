@@ -1,7 +1,6 @@
 package com.wiatec.panel.oxm.dao;
 
-import com.wiatec.panel.authorize.AuthorizePayInfo;
-import com.wiatec.panel.oxm.pojo.AuthOrderInfo;
+import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
@@ -13,10 +12,10 @@ import java.util.List;
 @Repository
 public interface AuthorizeTransactionDao {
 
-    void insertOne(AuthorizePayInfo authorizePayInfo);
-    List<AuthorizePayInfo> selectAll();
+    void insertOne(AuthorizeTransactionInfo authorizeTransactionInfo);
+    List<AuthorizeTransactionInfo> selectAll();
 
-    List<AuthorizePayInfo> selectBySalesId(int salesId);
+    List<AuthorizeTransactionInfo> selectBySalesId(int salesId);
 
     //chart of admin
     List<TopAmountInfo> selectTopAmount(int top);
@@ -29,5 +28,5 @@ public interface AuthorizeTransactionDao {
     List<SalesCommissionOfMonthInfo> getCommissionOfMonthBySales(YearOrMonthInfo yearOrMonthInfo);
 
     //check is already check out on this month
-    int countByKeyAndDate(AuthorizePayInfo authorizePayInfo);
+    int countByKeyAndDate(AuthorizeTransactionInfo authorizeTransactionInfo);
 }

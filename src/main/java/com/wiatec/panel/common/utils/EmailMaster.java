@@ -31,7 +31,7 @@ public class EmailMaster {
 
 		String sendAddress = "bactivation@legacy.direct";
 		String userName = "bactivation@legacy.direct";
-		String password ="Legacy123#";
+		String password ="Ihatespam123#";
 
 		String emailSubject = "WELCOME TO LD";
 		Properties properties;
@@ -114,7 +114,7 @@ public class EmailMaster {
 		stringBuilder.append("Legacy Direct"+"<br/>");
 		stringBuilder.append("You have requested to reset your password.  " +
 				"Please click the link below to finalize the process."+"<br/><br/>");
-		stringBuilder.append("<a href='" + basePath + "/go/"+token+"'>" +
+		stringBuilder.append("<a href='" + basePath + "/reset/"+token+"'>" +
 				"RESET PASSWORD</a>"+"<br/><br/>");
 		stringBuilder.append("Legacy Direct"+"<br/>");
 		this.emailContent = stringBuilder.toString();

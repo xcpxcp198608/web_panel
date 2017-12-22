@@ -1,11 +1,19 @@
 package com.wiatec.panel.service;
 
 import com.wiatec.panel.listener.SessionListener;
+import com.wiatec.panel.oxm.dao.AuthAdminDao;
+import com.wiatec.panel.oxm.dao.AuthDealerDao;
+import com.wiatec.panel.oxm.dao.AuthManagerDao;
 import com.wiatec.panel.oxm.dao.AuthSalesDao;
+import com.wiatec.panel.oxm.pojo.AuthAdminInfo;
+import com.wiatec.panel.oxm.pojo.AuthDealerInfo;
+import com.wiatec.panel.oxm.pojo.AuthManagerInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.web.AuthAdmin;
+import com.wiatec.panel.web.AuthDealer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,22 +25,43 @@ import javax.servlet.http.HttpSession;
 public class AuthService {
 
     @Resource
+    private AuthManagerDao authManagerDao;
+    @Resource
+    private AuthAdminDao authAdminDao;
+    @Resource
+    private AuthDealerDao authDealerDao;
+    @Resource
     private AuthSalesDao authSalesDao;
 
     @Transactional
-    public String signIn(HttpSession session, String username, String password){
+    public String signIn(HttpSession session, String username, String password, int type){
         session.setAttribute("username", username);
-        String permission = authSalesDao.selectPermission(new AuthSalesInfo(username, password));
-        if(TextUtil.isEmpty(permission)){
-            throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
+        if(TextUtil.isEmpty(username)){
+            throw new XException(EnumResult.ERROR_USERNAME_FORMAT);
         }
-        if("admin".equals(permission)){
-            return "redirect:/admin/";
+        if(TextUtil.isEmpty(password)){
+            throw new XException(EnumResult.ERROR_PASSWORD_FORMAT);
         }
-        if("sales".equals(permission)){
-            return "redirect:/sales/";
+        switch (type){
+            case 0:
+                if(authManagerDao.countOne(new AuthManagerInfo(username, password)) == 1) {
+                    return "redirect:/manager/";
+                }
+            case 1:
+                if(authAdminDao.countOne(new AuthAdminInfo(username, password)) == 1) {
+                    return "redirect:/admin/";
+                }
+            case 2:
+                if(authDealerDao.countOne(new AuthDealerInfo(username, password)) == 1) {
+                    return "redirect:/dealer/";
+                }
+            case 3:
+                if(authSalesDao.countOne(new AuthSalesInfo(username, password)) == 1) {
+                    return "redirect:/sales/";
+                }
+            default:
+                throw new XException(EnumResult.ERROR_AUTHORIZE);
         }
-        return "redirect:/";
     }
 
     public String signOut(HttpServletRequest request){

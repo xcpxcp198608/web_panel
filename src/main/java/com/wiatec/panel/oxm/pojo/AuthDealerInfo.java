@@ -3,15 +3,16 @@ package com.wiatec.panel.oxm.pojo;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-public class AuthSalesInfo {
+public class AuthDealerInfo {
+
 
     private int id;
     @Size(min = 6, max = 20, message = "username input format incorrect")
     private String username;
     @Size(min = 6, max = 20, message = "password input format incorrect")
     private String password;
-    private int dealerId;
-    private String dealerName;
+    private int leaderId;
+    private String leader;
     private String firstName;
     private String lastName;
     @Size(min = 9, max = 9, message = "ssn input format incorrect")
@@ -23,18 +24,17 @@ public class AuthSalesInfo {
     private String phone;
     private String createTime;
 
-    public AuthSalesInfo() {
+    public AuthDealerInfo() {
     }
 
-    public AuthSalesInfo(String username) {
+    public AuthDealerInfo(String username) {
         this.username = username;
     }
 
-    public AuthSalesInfo(String username, String password) {
+    public AuthDealerInfo(String username, String password) {
         this.username = username;
         this.password = password;
     }
-
 
     public int getId() {
         return id;
@@ -60,20 +60,20 @@ public class AuthSalesInfo {
         this.password = password;
     }
 
-    public int getDealerId() {
-        return dealerId;
+    public int getLeaderId() {
+        return leaderId;
     }
 
-    public void setDealerId(int dealerId) {
-        this.dealerId = dealerId;
+    public void setLeaderId(int leaderId) {
+        this.leaderId = leaderId;
     }
 
-    public String getDealerName() {
-        return dealerName;
+    public String getLeader() {
+        return leader;
     }
 
-    public void setDealerName(String dealerName) {
-        this.dealerName = dealerName;
+    public void setLeader(String leader) {
+        this.leader = leader;
     }
 
     public String getFirstName() {
@@ -130,8 +130,8 @@ public class AuthSalesInfo {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", dealerId=" + dealerId +
-                ", dealerName='" + dealerName + '\'' +
+                ", leaderId=" + leaderId +
+                ", leader='" + leader + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", ssn='" + ssn + '\'' +

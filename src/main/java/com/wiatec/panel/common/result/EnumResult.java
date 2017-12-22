@@ -2,30 +2,29 @@ package com.wiatec.panel.common.result;
 
 public enum  EnumResult {
 
-    SUCCESS(200, "successfully"),
+    SUCCESS(200, "Successfully"),
+    ERROR_UNAUTH(401, "Unauthorized"),
+    ERROR_NO_FOUND(404, "Resource not exists"),
+    ERROR_SERVER_EXCEPTION(500, "Server exception"),
 
-    ERROR_SYSTEM(1001, "system exception"),
+    ERROR_WRONG_PARAM_FORMAT(6001, "Request param format incorrect"),
+    ERROR_USERNAME_EXISTS(6002, "Username already exists"),
+    ERROR_USERNAME_FORMAT(6002, "Username format error"),
+    ERROR_PASSWORD_FORMAT(6002, "Password format error"),
+    ERROR_USERNAME_NOT_EXISTS(6003, "Username not exists"),
+    ERROR_USERNAME_PASSWORD_NO_MATCH(6004, "Username and password not match"),
+    ERROR_SSN_EXISTS(6005, "SSN is exists"),
+    ERROR_EMAIL_EXISTS(6006, "Email is exists"),
+    ERROR_DEVICE_ALREADY_REGISTER(6007, "This device has been registered"),
+    ERROR_DEVICE_NO_REGISTER(6008, "This device is not registered"),
+    ERROR_DEVICE_USING(6009, "The device is using"),
+    ERROR_KEY_INCORRECT(6010, "The key is incorrect"),
+    ERROR_KEY_DEACTIVATE(6011, "The key is not activate"),
+    ERROR_OUT_EXPIRATION(6012, "Out expiration date"),
+    ERROR_TOKEN_NOT_EXISTS(6012, "Token not exists"),
 
-    ERROR_PARAM(3001, "request param format error"),
 
-    ERROR_AUTHORIZATION_UNDEFINED(4000, "authorization undefined, sign in again"),
-    ERROR_USERNAME_PASSWORD_NO_MATCH(4100, "username and password not match"),
-
-    ERROR_USERNAME_EXISTS(4001, "username is exists"),
-    ERROR_USERNAME_NOT_EXISTS(4002, "username not exists"),
-    ERROR_SSN_EXISTS(4003, "ssn is exists"),
-    ERROR_EMAIL_EXISTS(4004, "email is exists"),
-    ERROR_MAC_EXISTS(4005, "mac is exists"),
-    ERROR_DEVICE_ALREADY_REGISTER(4006, "this device has been registered"),
-    ERROR_DEVICE_NO_REGISTER(4007, "this device is not registered"),
-    ERROR_KEY_INCORRECT(4008, "the key is incorrect"),
-    ERROR_KEY_DEACTIVATE(4009, "the key is not activate"),
-    ERROR_OUT_EXPIRATION(40010, "out expiration date"),
-    ERROR_MAC_USING(40011, "the device is using"),
-
-    ERROR_SERVER_SQL(5003, "server sql exception"),
-
-    ERROR_AUTHORIZE(9001, "authorize communication exception"),
+    ERROR_AUTHORIZE(9001, "Authorize communication exception"),
     ;
 
     private int code;

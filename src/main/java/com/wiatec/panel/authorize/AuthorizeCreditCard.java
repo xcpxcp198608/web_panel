@@ -11,22 +11,22 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 
-public class CreditCardTransaction {
+public class AuthorizeCreditCard {
 
-    private static Logger logger = LoggerFactory.getLogger(CreditCardTransaction.class);
+    private static Logger logger = LoggerFactory.getLogger(AuthorizeCreditCard.class);
 
-    public static AuthorizePayInfo pay(AuthorizePayInfo authorizePayInfo){
+    public static AuthorizeTransactionInfo pay(AuthorizeTransactionInfo authorizeTransactionInfo){
         AuthorizeConfig.init();
         PaymentType paymentType = new PaymentType();
         CreditCardType creditCard = new CreditCardType();
-        creditCard.setCardNumber(authorizePayInfo.getCardNumber());
-        creditCard.setExpirationDate(authorizePayInfo.getExpirationDate()+"");
+        creditCard.setCardNumber(authorizeTransactionInfo.getCardNumber());
+        creditCard.setExpirationDate(authorizeTransactionInfo.getExpirationDate()+"");
         paymentType.setCreditCard(creditCard);
 
         TransactionRequestType requestType = new TransactionRequestType();
         requestType.setTransactionType(TransactionTypeEnum.AUTH_ONLY_TRANSACTION.value());
         requestType.setPayment(paymentType);
-        requestType.setAmount(new BigDecimal(authorizePayInfo.getAmount()).setScale(2, RoundingMode.CEILING));
+        requestType.setAmount(new BigDecimal(authorizeTransactionInfo.getAmount()).setScale(2, RoundingMode.CEILING));
 
         CreateTransactionRequest apiRequest = new CreateTransactionRequest();
         apiRequest.setTransactionRequest(requestType);
@@ -43,25 +43,25 @@ public class CreditCardTransaction {
                     logger.debug("Message Code: " + result.getMessages().getMessage().get(0).getCode());
                     logger.debug("Description: " + result.getMessages().getMessage().get(0).getDescription());
                     logger.debug("Auth Code: " + result.getAuthCode());
-                    AuthorizePayInfo authorizePayInfo1 = new AuthorizePayInfo();
-                    authorizePayInfo1.setAmount(authorizePayInfo.getAmount());
-                    authorizePayInfo1.setDeposit(authorizePayInfo.getDeposit());
-                    authorizePayInfo1.setLdCommission(authorizePayInfo.getLdCommission());
-                    authorizePayInfo1.setDealerCommission(authorizePayInfo.getDealerCommission());
-                    authorizePayInfo1.setSalesCommission(authorizePayInfo.getSalesCommission());
-                    authorizePayInfo1.setExpirationDate(authorizePayInfo.getExpirationDate());
-                    authorizePayInfo1.setCardNumber(authorizePayInfo.getCardNumber());
-                    authorizePayInfo1.setSecurityKey(authorizePayInfo.getSecurityKey());
-                    authorizePayInfo1.setCategory(authorizePayInfo.getCategory());
-                    authorizePayInfo1.setSalesId(authorizePayInfo.getSalesId());
-                    authorizePayInfo1.setClientKey(authorizePayInfo.getClientKey());
-                    authorizePayInfo1.setType(authorizePayInfo.getType());
+                    AuthorizeTransactionInfo authorizeTransactionInfo1 = new AuthorizeTransactionInfo();
+                    authorizeTransactionInfo1.setAmount(authorizeTransactionInfo.getAmount());
+                    authorizeTransactionInfo1.setDeposit(authorizeTransactionInfo.getDeposit());
+                    authorizeTransactionInfo1.setLdCommission(authorizeTransactionInfo.getLdCommission());
+                    authorizeTransactionInfo1.setDealerCommission(authorizeTransactionInfo.getDealerCommission());
+                    authorizeTransactionInfo1.setSalesCommission(authorizeTransactionInfo.getSalesCommission());
+                    authorizeTransactionInfo1.setExpirationDate(authorizeTransactionInfo.getExpirationDate());
+                    authorizeTransactionInfo1.setCardNumber(authorizeTransactionInfo.getCardNumber());
+                    authorizeTransactionInfo1.setSecurityKey(authorizeTransactionInfo.getSecurityKey());
+                    authorizeTransactionInfo1.setCategory(authorizeTransactionInfo.getCategory());
+                    authorizeTransactionInfo1.setSalesId(authorizeTransactionInfo.getSalesId());
+                    authorizeTransactionInfo1.setClientKey(authorizeTransactionInfo.getClientKey());
+                    authorizeTransactionInfo1.setType(authorizeTransactionInfo.getType());
 
-                    authorizePayInfo1.setTransactionId(result.getTransId());
-                    authorizePayInfo1.setAuthCode(result.getAuthCode());
-                    authorizePayInfo1.setStatus("approved");
-                    authorizePayInfo1.setTxFee(0.00f);
-                    return authorizePayInfo1;
+                    authorizeTransactionInfo1.setTransactionId(result.getTransId());
+                    authorizeTransactionInfo1.setAuthCode(result.getAuthCode());
+                    authorizeTransactionInfo1.setStatus("approved");
+                    authorizeTransactionInfo1.setTxFee(0.00f);
+                    return authorizeTransactionInfo1;
                 }
                 else {
                     logger.debug("Failed Transaction.");

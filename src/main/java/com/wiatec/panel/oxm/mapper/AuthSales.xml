@@ -6,7 +6,8 @@
         <id column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
-        <result column="permission" property="permission"/>
+        <result column="dealerId" property="dealerId"/>
+        <result column="dealerName" property="dealerName"/>
         <result column="firstName" property="firstName"/>
         <result column="lastName" property="lastName"/>
         <result column="ssn" property="ssn"/>
@@ -16,16 +17,14 @@
     </resultMap>
 
     <sql id="select">
-        SELECT id, username, password, firstName, lastName, ssn, email, phone, createTime
+        SELECT id, username, password, dealerId, firstName, lastName, ssn, email, phone, createTime
         FROM auth_sales
-        WHERE permission='sales'
     </sql>
 
-    <select id="selectPermission" resultType="String" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
-        SELECT permission
+    <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
+        SELECT COUNT(*)
         FROM auth_sales
-        WHERE username=#{username}
-              AND password=#{password}
+        WHERE username=#{username} AND password=#{password}
     </select>
 
     <select id="countUsername" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
@@ -47,8 +46,8 @@
     </select>
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
-        INSERT INTO auth_sales (username, password, firstName, lastName, ssn, email, phone)
-        VALUES (#{username}, #{password}, #{firstName}, #{lastName}, #{ssn}, #{email}, #{phone})
+        INSERT INTO auth_sales (username, password, dealerId, firstName, lastName, ssn, email, phone)
+        VALUES (#{username}, #{password}, #{leaderId}, #{firstName}, #{lastName}, #{ssn}, #{email}, #{phone})
     </insert>
 
     <update id="updatePassword" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
@@ -59,7 +58,12 @@
 
     <select id="selectOne" resultMap="authSalesInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         <include refid="select"/>
-        AND username=#{username}
+        WHERE username=#{username}
+    </select>
+
+    <select id="selectSales" resultMap="authSalesInfo" parameterType="integer">
+        <include refid="select"/>
+        WHERE dealerId=#{_parameter}
     </select>
 
     <select id="selectAll" resultMap="authSalesInfo">

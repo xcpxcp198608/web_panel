@@ -9,7 +9,7 @@
 <head>
     <base href="<%=basePath%>">
 
-    <title>Result</title>
+    <title>HOME</title>
 
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
@@ -30,7 +30,6 @@
 
 <body>
 
-    ${resultInfo.message}
 
 </body>
 </html>

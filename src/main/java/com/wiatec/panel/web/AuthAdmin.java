@@ -119,7 +119,7 @@ public class AuthAdmin {
     @PutMapping(value = "/activate/{key}")
     @ResponseBody
     public ResultInfo activateUser(@PathVariable String key){
-        return authAdminService.activateUser(key);
+        return authAdminService.updateUserStatus(AuthRentUserInfo.STATUS_ACTIVATE, key);
     }
 
     /**

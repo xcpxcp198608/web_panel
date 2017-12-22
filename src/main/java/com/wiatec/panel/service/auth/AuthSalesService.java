@@ -1,7 +1,7 @@
 package com.wiatec.panel.service.auth;
 
-import com.wiatec.panel.authorize.AuthorizePayInfo;
-import com.wiatec.panel.authorize.CreditCardTransaction;
+import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
+import com.wiatec.panel.authorize.AuthorizeCreditCard;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
@@ -37,19 +37,18 @@ public class AuthSalesService {
     @Resource
     private AuthRentUserDao authRentUserDao;
     @Resource
-    private AuthOrderDao authOrderDao;
-    @Resource
     private CommissionCategoryDao commissionCategoryDao;
     @Resource
     private AuthorizeTransactionDao authorizeTransactionDao;
 
     public String home(HttpServletRequest request, Model model){
-        model.addAttribute("authorizePayInfoList", authorizeTransactionDao.selectBySalesId(getSalesId(request)));
+        model.addAttribute("authorizePayInfoList",
+                authorizeTransactionDao.selectBySalesId(getSalesInfo(request).getId()));
         return "sales/home";
     }
 
     public String users(HttpServletRequest request, Model model){
-        List<AuthRentUserInfo> authRentUserInfoList = authRentUserDao.selectBySalesId(getSalesId(request));
+        List<AuthRentUserInfo> authRentUserInfoList = authRentUserDao.selectBySalesId(getSalesInfo(request).getId());
         Map<String, HttpSession> sessionMap = SessionListener.sessionMap;
         for(AuthRentUserInfo authRentUserInfo: authRentUserInfoList){
             if(sessionMap.containsKey(authRentUserInfo.getClientKey())){
@@ -68,13 +67,13 @@ public class AuthSalesService {
             }
             if(authRentUserDao.countOneByMac(authRentUserInfo) == 1){
                 if(!"canceled".equals(authRentUserDao.selectStatusByMac(authRentUserInfo))){
-                    throw new XException(EnumResult.ERROR_MAC_USING);
+                    throw new XException(EnumResult.ERROR_DEVICE_USING);
                 }
             }
             CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
             commissionCategoryInfo.setPrice();
             commissionCategoryInfo.setFirstPay();
-            authRentUserInfo.setSalesId(getSalesId(request));
+            authRentUserInfo.setSalesId(getSalesInfo(request).getId());
             authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
             String activateTime = TimeUtil.getStrTime();
             authRentUserInfo.setActivateTime(activateTime);
@@ -88,20 +87,20 @@ public class AuthSalesService {
             authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
             authRentUserDao.insertOne(authRentUserInfo);
 
-            AuthorizePayInfo authorizePayInfo = new AuthorizePayInfo();
-            authorizePayInfo.setAmount(commissionCategoryInfo.getFirstPay());
-            authorizePayInfo.setDeposit(commissionCategoryInfo.getDeposit());
-            authorizePayInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
-            authorizePayInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
-            authorizePayInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
-            authorizePayInfo.setClientKey(authRentUserInfo.getClientKey());
-            authorizePayInfo.setSalesId(authRentUserInfo.getSalesId());
-            authorizePayInfo.setCategory(authRentUserInfo.getCategory());
-            authorizePayInfo.setCardNumber(authRentUserInfo.getCardNumber());
-            authorizePayInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
-            authorizePayInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-            authorizePayInfo.setType(AuthorizePayInfo.TYPE_LEASE);
-            AuthorizePayInfo payInfo = CreditCardTransaction.pay(authorizePayInfo);
+            AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
+            authorizeTransactionInfo.setAmount(commissionCategoryInfo.getFirstPay());
+            authorizeTransactionInfo.setDeposit(commissionCategoryInfo.getDeposit());
+            authorizeTransactionInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
+            authorizeTransactionInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
+            authorizeTransactionInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
+            authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
+            authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
+            authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
+            authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
+            authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
+            authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+            authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_CONTRACTED);
+            AuthorizeTransactionInfo payInfo = AuthorizeCreditCard.pay(authorizeTransactionInfo);
             if(payInfo == null){
                 throw new XException(EnumResult.ERROR_AUTHORIZE);
             }
@@ -116,7 +115,7 @@ public class AuthSalesService {
     ////////////////////////////////////////////////////////// chart ///////////////////////////////////////////////////
     public ResultInfo getCommissionByYear(HttpServletRequest request, int year){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
-        yearOrMonthInfo.setSalesId(getSalesId(request)+"");
+        yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
         try {
             List<SalesCommissionOfMonthInfo> salesCommissionOfMonthInfoList = authorizeTransactionDao.getCommissionOfMonthBySales(yearOrMonthInfo);
             return ResultMaster.success(salesCommissionOfMonthInfoList);
@@ -128,7 +127,7 @@ public class AuthSalesService {
 
     public ResultInfo getCommissionByMonth(HttpServletRequest request, int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
-        yearOrMonthInfo.setSalesId(getSalesId(request)+"");
+        yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
         try {
             List<SalesCommissionOfDaysInfo> salesCommissionOfDaysInfoList = authorizeTransactionDao.getCommissionOfDayBySales(yearOrMonthInfo);
             return ResultMaster.success(salesCommissionOfDaysInfoList);
@@ -138,12 +137,11 @@ public class AuthSalesService {
         }
     }
 
-    private int getSalesId(HttpServletRequest request){
+    private AuthSalesInfo getSalesInfo(HttpServletRequest request){
         String username = (String) request.getSession().getAttribute("username");
         if(TextUtil.isEmpty(username)){
             throw new RuntimeException("sign info error");
         }
-        AuthSalesInfo authSalesInfo = authSalesDao.selectOne(new AuthSalesInfo(username));
-        return authSalesInfo.getId();
+        return authSalesDao.selectOne(new AuthSalesInfo(username));
     }
 }

@@ -6,6 +6,8 @@
         <id column="id" property="id"/>
         <result column="salesId" property="salesId"/>
         <result column="salesName" property="salesName"/>
+        <result column="dealerId" property="dealerId"/>
+        <result column="dealerName" property="dealerName"/>
         <result column="clientKey" property="clientKey"/>
         <result column="category" property="category"/>
         <result column="mac" property="mac"/>
@@ -35,7 +37,7 @@
     </resultMap>
 
     <sql id="select">
-        SELECT auth_rent_user.id , auth_rent_user.salesId, auth_rent_user.clientKey,
+        SELECT auth_rent_user.id , auth_rent_user.salesId, auth_rent_user.dealerId, auth_rent_user.clientKey,
             auth_rent_user.category, auth_rent_user.mac, auth_rent_user.firstName,
             auth_rent_user.lastName, auth_rent_user.email, auth_rent_user.phone,
             auth_rent_user.cardNumber, auth_rent_user.expirationDate, auth_rent_user.securityKey,
@@ -44,8 +46,9 @@
             auth_rent_user.createTime, auth_rent_user.activateTime, auth_rent_user.expiresTime,
             auth_rent_user.status, auth_rent_user.country, auth_rent_user.region,
             auth_rent_user.city, auth_rent_user.timeZone, auth_rent_user.lastOnLineTime,
-            auth_sales.username salesName
+            auth_sales.username salesName, auth_dealer.username dealerName
         FROM auth_rent_user JOIN auth_sales ON auth_rent_user.salesId = auth_sales.id
+            JOIN auth_dealer ON auth_rent_user.dealerId = auth_dealer.id
     </sql>
 
     <select id="countOneByMac" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
@@ -56,11 +59,11 @@
         SELECT COUNT(*) FROM auth_rent_user WHERE email=#{email}
     </select>
 
-    <select id="selectStatusByMac" resultType="String" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
+    <select id="selectStatusByMac" resultType="java.lang.String" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         SELECT status FROM auth_rent_user WHERE mac=#{mac}
     </select>
 
-    <select id="selectOneByClientKey" resultMap="authRentUserInfo" parameterType="String">
+    <select id="selectOneByClientKey" resultMap="authRentUserInfo" parameterType="java.lang.String">
         <include refid="select"/>
         WHERE auth_rent_user.clientKey=#{_parameter}
     </select>
@@ -69,6 +72,11 @@
     <select id="selectBySalesId" resultMap="authRentUserInfo" parameterType="int">
         <include refid="select"/>
         WHERE auth_rent_user.salesId=#{_parameter}
+    </select>
+
+    <select id="selectByDealerId" resultMap="authRentUserInfo" parameterType="int">
+        <include refid="select"/>
+        WHERE auth_rent_user.dealerId=#{_parameter}
     </select>
 
     <select id="selectAll" resultMap="authRentUserInfo">
@@ -86,34 +94,11 @@
                 #{salesCommission}, #{activateTime}, #{expiresTime})
     </insert>
 
-    <select id="selectOneByMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
+    <select id="selectOneByMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo"
+        resultMap="authRentUserInfo">
         <include refid="select"/>
         WHERE mac=#{mac}
     </select>
-
-    <update id="updateStatusToActivate" parameterType="String">
-        UPDATE auth_rent_user
-        SET  status='activate'
-        WHERE clientKey=#{_parameter}
-    </update>
-
-    <update id="updateStatusToDeactivate" parameterType="String">
-        UPDATE auth_rent_user
-        SET  status='deactivate'
-        WHERE clientKey=#{_parameter}
-    </update>
-
-    <update id="updateStatusToLimited" parameterType="String">
-        UPDATE auth_rent_user
-        SET  status='limited'
-        WHERE clientKey=#{_parameter}
-    </update>
-
-    <update id="updateStatusToCanceled" parameterType="String">
-        UPDATE auth_rent_user
-        SET  status='canceled'
-        WHERE clientKey=#{_parameter}
-    </update>
 
     <select id="countOneByKeyAndMac" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         SELECT COUNT(*) FROM auth_rent_user
@@ -121,7 +106,7 @@
         AND mac=#{mac}
     </select>
 
-    <select id="selectByClientKey" resultMap="authRentUserInfo" parameterType="String">
+    <select id="selectByClientKey" resultMap="authRentUserInfo" parameterType="java.lang.String">
         <include refid="select"/>
         WHERE auth_rent_user.clientKey=#{_parameter}
     </select>
