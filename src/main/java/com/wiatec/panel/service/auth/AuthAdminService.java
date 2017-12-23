@@ -3,6 +3,7 @@ package com.wiatec.panel.service.auth;
 import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
+import com.wiatec.panel.oxm.pojo.AuthDealerInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
@@ -29,6 +30,8 @@ public class AuthAdminService {
     private Logger logger = LoggerFactory.getLogger(AuthAdminService.class);
 
     @Resource
+    private AuthDealerDao authDealerDao;
+    @Resource
     private AuthSalesDao authSalesDao;
     @Resource
     private AuthRentUserDao authRentUserDao;
@@ -41,9 +44,48 @@ public class AuthAdminService {
         return "admin/home";
     }
 
+    public String dealer(Model model){
+        List<AuthDealerInfo> authDealerInfoList = authDealerDao.selectAll();
+        model.addAttribute("authDealerInfoList", authDealerInfoList);
+        return "admin/dealer";
+    }
+
+    @Transactional
+    public ResultInfo createDealer(AuthDealerInfo authDealerInfo) throws Exception{
+        if(authDealerDao.countUsername(authDealerInfo) == 1){
+            throw new XException(EnumResult.ERROR_USERNAME_EXISTS);
+        }
+        if(authDealerDao.countSSN(authDealerInfo) == 1){
+            throw new XException(EnumResult.ERROR_SSN_EXISTS);
+        }
+        if(authDealerDao.countEmail(authDealerInfo) == 1){
+            throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
+        }
+        try {
+            authDealerDao.insertOne(authDealerInfo);
+            return ResultMaster.success(authDealerDao.selectOne(authDealerInfo));
+        }catch (Exception e){
+            logger.error(e.getMessage()+"");
+            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+        }
+    }
+
+    @Transactional
+    public ResultInfo updateDealerPassword(AuthDealerInfo authDealerInfo){
+        try {
+            authDealerDao.updatePassword(authDealerInfo);
+            return ResultMaster.success();
+        }catch (Exception e){
+            logger.error(e.getMessage()+"");
+            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+        }
+    }
+
     public String sales(Model model){
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectAll();
         model.addAttribute("authSalesInfoList", authSalesInfoList);
+        List<AuthDealerInfo> authDealerInfoList = authDealerDao.selectAll();
+        model.addAttribute("authDealerInfoList", authDealerInfoList);
         return "admin/sales";
     }
 
@@ -59,7 +101,6 @@ public class AuthAdminService {
             throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
         }
         try {
-            authSalesInfo.setDealerId(0);
             authSalesDao.insertOne(authSalesInfo);
             return ResultMaster.success(authSalesDao.selectOne(authSalesInfo));
         }catch (Exception e){
@@ -79,12 +120,20 @@ public class AuthAdminService {
         }
     }
 
-    public String users(Model model, int salesId){
+    public String users(Model model, int key, int value){
         List<AuthRentUserInfo> authRentUserInfoList;
-        if(salesId > 0){
-            authRentUserInfoList = authRentUserDao.selectBySalesId(salesId);
-        }else {
-            authRentUserInfoList = authRentUserDao.selectAll();
+        switch (key){
+            case 0:
+                authRentUserInfoList = authRentUserDao.selectAll();
+                break;
+            case 1:
+                authRentUserInfoList = authRentUserDao.selectByDealerId(value);
+                break;
+            case 2:
+                authRentUserInfoList = authRentUserDao.selectBySalesId(value);
+                break;
+            default:
+                throw new XException(EnumResult.ERROR_AUTHORIZE);
         }
         Map<String, HttpSession> sessionMap = SessionListener.sessionMap;
         for(AuthRentUserInfo authRentUserInfo: authRentUserInfoList){

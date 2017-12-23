@@ -10,7 +10,13 @@ import java.util.List;
 @Repository
 public interface AuthDealerDao {
 
+    List<AuthDealerInfo> selectAll();
     int countOne(AuthDealerInfo authDealerInfo);
     AuthDealerInfo selectOne(AuthDealerInfo authDealerInfo);
+    int countUsername(AuthDealerInfo authDealerInfo);
+    int countSSN(AuthDealerInfo authDealerInfo);
+    int countEmail(AuthDealerInfo authDealerInfo);
+    void insertOne(AuthDealerInfo authDealerInfo);
+    void updatePassword(AuthDealerInfo authDealerInfo);
 
 }

@@ -21,11 +21,44 @@
         FROM auth_dealer
     </sql>
 
+    <select id="selectAll" resultMap="authDealerInfo">
+        <include refid="select"/>
+    </select>
+
     <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthDealerInfo">
         SELECT COUNT(*)
         FROM auth_dealer
         WHERE username=#{username} AND password=#{password}
     </select>
+
+    <select id="countUsername" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthDealerInfo">
+        SELECT COUNT(*)
+        FROM auth_dealer
+        WHERE username=#{username}
+    </select>
+
+    <select id="countSSN" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthDealerInfo">
+        SELECT COUNT(*)
+        FROM auth_dealer
+        WHERE ssn=#{ssn}
+    </select>
+
+    <select id="countEmail" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthDealerInfo">
+        SELECT COUNT(*)
+        FROM auth_dealer
+        WHERE email=#{email}
+    </select>
+
+    <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthDealerInfo">
+        INSERT INTO auth_dealer (username, password, leader_id, first_name, last_name, ssn, email, phone)
+        VALUES (#{username}, #{password}, #{leaderId}, #{firstName}, #{lastName}, #{ssn}, #{email}, #{phone})
+    </insert>
+
+    <update id="updatePassword" parameterType="com.wiatec.panel.oxm.pojo.AuthDealerInfo">
+        UPDATE auth_dealer
+        SET password=#{password}
+        WHERE id=#{id}
+    </update>
 
     <select id="selectOne" resultMap="authDealerInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthDealerInfo">
         <include refid="select"/>

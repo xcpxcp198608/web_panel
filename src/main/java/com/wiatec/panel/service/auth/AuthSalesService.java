@@ -1,7 +1,7 @@
 package com.wiatec.panel.service.auth;
 
+import com.wiatec.panel.authorize.AuthorizeTransaction;
 import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
-import com.wiatec.panel.authorize.AuthorizeCreditCard;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
@@ -100,7 +100,7 @@ public class AuthSalesService {
             authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
             authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
             authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_CONTRACTED);
-            AuthorizeTransactionInfo payInfo = AuthorizeCreditCard.pay(authorizeTransactionInfo);
+            AuthorizeTransactionInfo payInfo = AuthorizeTransaction.charge(authorizeTransactionInfo);
             if(payInfo == null){
                 throw new XException(EnumResult.ERROR_AUTHORIZE);
             }

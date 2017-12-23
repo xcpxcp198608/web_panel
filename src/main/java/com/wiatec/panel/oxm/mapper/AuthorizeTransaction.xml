@@ -56,13 +56,10 @@
         <include refid="select"/>
     </select>
 
-    <select id="selectBySalesId" resultMap="authorizeTransactionInfo" parameterType="Integer">
+    <select id="selectBySalesId" resultMap="authorizeTransactionInfo" parameterType="java.lang.Integer">
         <include refid="select"/>
         AND authorize_transaction.sales_id=#{_parameter}
     </select>
-
-
-
 
 
     <!-- chart of top {top} amount-->

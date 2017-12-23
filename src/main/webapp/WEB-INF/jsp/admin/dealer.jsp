@@ -3,11 +3,11 @@
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <rapid:override name="title">
-    Sales
+    Dealer
 </rapid:override>
 <rapid:override name="css_js">
-    <link rel="stylesheet" href="Resource/css/admin/sales.css"/>
-    <script type="text/javascript" src="Resource/js/admin/sales.js"></script>
+    <link rel="stylesheet" href="Resource/css/admin/dealer.css"/>
+    <script type="text/javascript" src="Resource/js/admin/dealer.js"></script>
 </rapid:override>
 
 <rapid:override name="navigation">
@@ -124,7 +124,6 @@
                 <th>#</th>
                 <th>Username</th>
                 <th>Password</th>
-                <th>Dealer</th>
                 <th>FirstName</th>
                 <th>LastName</th>
                 <th>SSN</th>
@@ -136,23 +135,22 @@
             </thead>
             <tbody>
 
-            <c:forEach items="${authSalesInfoList}" var="authSalesInfo" varStatus="status">
+            <c:forEach items="${authDealerInfoList}" var="authDealerInfo" varStatus="status">
                 <tr>
-                    <td><input type="radio" name="update" value="${authSalesInfo.id}" currentRow="${status.index}"></td>
+                    <td><input type="radio" name="update" value="${authDealerInfo.id}" currentRow="${status.index}"></td>
                     <td>${status.index+1}</td>
-                    <td>${authSalesInfo.username}</td>
-                    <td><input type="text" value="${authSalesInfo.password}" title="pwd" size="12"/></td>
-                    <td>${authSalesInfo.dealerName}</td>
-                    <td>${authSalesInfo.firstName}</td>
-                    <td>${authSalesInfo.lastName}</td>
+                    <td>${authDealerInfo.username}</td>
+                    <td><input type="text" value="${authDealerInfo.password}" title="pwd" size="12"/></td>
+                    <td>${authDealerInfo.firstName}</td>
+                    <td>${authDealerInfo.lastName}</td>
                     <td>
-                        ${fn:substring(authSalesInfo.ssn, 0, 3)}-${fn:substring(authSalesInfo.ssn, 3, 5)}-${fn:substring(authSalesInfo.ssn, 5, 9)}
+                        ${fn:substring(authDealerInfo.ssn, 0, 3)}-${fn:substring(authDealerInfo.ssn, 3, 5)}-${fn:substring(authDealerInfo.ssn, 5, 9)}
                     </td>
-                    <td>${authSalesInfo.email}</td>
-                    <td>${authSalesInfo.phone}</td>
-                    <td class="tdRows12">${fn:substring(authSalesInfo.createTime, 0, 19)}</td>
+                    <td>${authDealerInfo.email}</td>
+                    <td>${authDealerInfo.phone}</td>
+                    <td class="tdRows12">${fn:substring(authDealerInfo.createTime, 0, 19)}</td>
                     <td>
-                        <a href="/panel/admin/users/2/${authSalesInfo.id}" title="show all users under this sales">
+                        <a href="/panel/admin/users/1/${authDealerInfo.id}" title="show all users under this sales">
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                         </a>
                     </td>
@@ -171,7 +169,7 @@
             <br/>
 
             <div>
-                <div style="width: 47%; height: 240px; display: block; float: left">
+                <div style="width: 47%; height: 200px; display: block; float: left">
                     <div class="input-group">
                     <span class="input-group-addon" id="basic-addon3">
                       <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -200,59 +198,47 @@
                         <input id="ipEmail" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon6" name="email">
                     </div>
                     <br/>
-                    <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon7">
-                      <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
-                    </span>
-                        <select class="form-control" id="ipDealerId">
-                            <option value="0">Choose Dealer</option>
-                            <c:forEach items="${authDealerInfoList}" var="authDealerInfo">
-                                <option value="${authDealerInfo.id}">${authDealerInfo.username}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <br/>
                 </div>
 
-                <div style="width: 47%; height: 240px; display: block; float: right">
+                <div style="width: 47%; height: 200px; display: block; float: right">
                     <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon8">
+                    <span class="input-group-addon" id="basic-addon7">
                       <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                     </span>
-                        <input id="ipSSN" type="number" class="form-control" placeholder="SSN" aria-describedby="basic-addon8" name="ssn">
+                        <input id="ipSSN" type="number" class="form-control" placeholder="SSN" aria-describedby="basic-addon7" name="ssn">
+                    </div>
+                    <br/>
+                    <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon8">
+                      <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                    </span>
+                        <input id="ipPassword1" type="password" class="form-control" placeholder="Password(length >= 6)" aria-describedby="basic-addon8" name="password1">
                     </div>
                     <br/>
                     <div class="input-group">
                     <span class="input-group-addon" id="basic-addon9">
-                      <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                      <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
                     </span>
-                        <input id="ipPassword1" type="password" class="form-control" placeholder="Password(length >= 6)" aria-describedby="basic-addon9" name="password1">
+                        <input id="ipLastName" type="text" class="form-control" placeholder="LastName" aria-describedby="basic-addon9" name="lastName">
                     </div>
                     <br/>
                     <div class="input-group">
                     <span class="input-group-addon" id="basic-addon10">
-                      <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-                    </span>
-                        <input id="ipLastName" type="text" class="form-control" placeholder="LastName" aria-describedby="basic-addon10" name="lastName">
-                    </div>
-                    <br/>
-                    <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon11">
                       <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
                     </span>
-                        <input id="ipPhone" type="number" class="form-control" placeholder="Phone" aria-describedby="basic-addon11" name="phone">
+                        <input id="ipPhone" type="number" class="form-control" placeholder="Phone" aria-describedby="basic-addon10" name="phone">
                     </div>
                     <br/>
                 </div>
             </div>
 
             <br style="clear: both"/>
-            <div style="width: 70%; margin: 15px auto; clear: both">
+            <div style="width: 70%; margin: 20px auto; clear: both">
                 <button id="btSubmitCreate" type="submit" class="btn btn-primary" style="width: 100%; margin: auto">
                     Create
                 </button>
             </div>
-            <h5 id="errorMessage" style="color: red; width: 100%; text-align: center"></h5>
+            <h4 id="errorMessage" style="color: red; width: 100%; text-align: center"></h4>
         </div>
     </div>
 

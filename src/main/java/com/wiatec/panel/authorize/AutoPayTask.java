@@ -103,7 +103,7 @@ public class AutoPayTask extends TimerTask {
                     return;
                 }
                 logger.debug("= execute check out on this month");
-                AuthorizeTransactionInfo authorizeTransactionInfo1 = ChargeCreditCard.pay(authorizeTransactionInfo);
+                AuthorizeTransactionInfo authorizeTransactionInfo1 = AuthorizeTransaction.charge(authorizeTransactionInfo);
                 if(authorizeTransactionInfo1 != null && "approved".equals(authorizeTransactionInfo1.getStatus())){
                     logger.debug("= {} check out month successfully", authRentUserInfo.getClientKey());
                     logger.debug("====================================================================");

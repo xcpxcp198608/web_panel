@@ -20,8 +20,8 @@ public class AuthRentUserInfo {
     private String email;
     private String phone;
     private String cardNumber;
-    private int expirationDate;
-    private int securityKey;
+    private String expirationDate;
+    private String securityKey;
     private float deposit;
     private float firstPay;
     private float monthPay;
@@ -152,19 +152,19 @@ public class AuthRentUserInfo {
         this.cardNumber = cardNumber;
     }
 
-    public int getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(int expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
-    public int getSecurityKey() {
+    public String getSecurityKey() {
         return securityKey;
     }
 
-    public void setSecurityKey(int securityKey) {
+    public void setSecurityKey(String securityKey) {
         this.securityKey = securityKey;
     }
 

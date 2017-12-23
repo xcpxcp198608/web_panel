@@ -13,8 +13,8 @@ public class AuthorizeTransactionInfo {
     private String category;
     private String clientKey;
     private String cardNumber;
-    private int expirationDate;
-    private int securityKey;
+    private String expirationDate;
+    private String securityKey;
 
     private float amount;
     private float deposit;
@@ -77,19 +77,19 @@ public class AuthorizeTransactionInfo {
         this.cardNumber = cardNumber;
     }
 
-    public int getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(int expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
-    public int getSecurityKey() {
+    public String getSecurityKey() {
         return securityKey;
     }
 
-    public void setSecurityKey(int securityKey) {
+    public void setSecurityKey(String securityKey) {
         this.securityKey = securityKey;
     }
 

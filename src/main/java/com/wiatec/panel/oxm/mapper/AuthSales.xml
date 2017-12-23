@@ -17,8 +17,12 @@
     </resultMap>
 
     <sql id="select">
-        SELECT id, username, password, dealerId, firstName, lastName, ssn, email, phone, createTime
-        FROM auth_sales
+        SELECT auth_sales.id, auth_sales.username, auth_sales.password, auth_sales.dealerId,
+            auth_sales.firstName, auth_sales.lastName, auth_sales.ssn, auth_sales.email,
+            auth_sales.phone, auth_sales.createTime,
+            auth_dealer.username dealerName
+
+        FROM auth_sales JOIN panel.auth_dealer ON auth_dealer.id = auth_sales.dealerId
     </sql>
 
     <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
@@ -47,7 +51,7 @@
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         INSERT INTO auth_sales (username, password, dealerId, firstName, lastName, ssn, email, phone)
-        VALUES (#{username}, #{password}, #{leaderId}, #{firstName}, #{lastName}, #{ssn}, #{email}, #{phone})
+        VALUES (#{username}, #{password}, #{dealerId}, #{firstName}, #{lastName}, #{ssn}, #{email}, #{phone})
     </insert>
 
     <update id="updatePassword" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">

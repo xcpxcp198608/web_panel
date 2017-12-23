@@ -1,6 +1,7 @@
 package com.wiatec.panel.web;
 
 import com.wiatec.panel.listener.SessionListener;
+import com.wiatec.panel.oxm.pojo.AuthDealerInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
@@ -35,6 +36,42 @@ public class AuthAdmin {
 
 
     /**
+     * dealer page
+     * @param model   mvc Model
+     * @return        dealer page
+     */
+    @GetMapping(value = "/dealer")
+    public String getDealer(Model model){
+        return authAdminService.dealer(model);
+    }
+
+    /**
+     * create user
+     * @param authDealerInfo  {@link AuthDealerInfo}
+     * @return               {@link ResultInfo}
+     */
+    @PostMapping(value = "/dealer/create")
+    @ResponseBody
+    public ResultInfo createDealer(@Valid AuthDealerInfo authDealerInfo,
+                                  BindingResult bindingResult) throws Exception {
+        if(bindingResult.hasErrors()){
+            throw new XException(3001, bindingResult.getFieldError().getDefaultMessage());
+        }
+        return authAdminService.createDealer(authDealerInfo);
+    }
+
+    /**
+     * update sales password
+     * @param authDealerInfo   {@link AuthDealerInfo}
+     * @return                {@link ResultInfo}
+     */
+    @PutMapping(value = "/dealer/update")
+    @ResponseBody
+    public ResultInfo updateDealer(@RequestBody AuthDealerInfo authDealerInfo){
+        return authAdminService.updateDealerPassword(authDealerInfo);
+    }
+
+    /**
      * sales page
      * @param model   mvc Model
      * @return        sales page
@@ -43,8 +80,6 @@ public class AuthAdmin {
     public String getSales(Model model){
         return authAdminService.sales(model);
     }
-
-
 
     /**
      * create user
@@ -79,22 +114,23 @@ public class AuthAdmin {
      */
     @GetMapping(value = "/users")
     public String getUsers(Model model){
-        return authAdminService.users( model, 0);
+        return authAdminService.users( model, 0, 0);
     }
 
     /**
      * get users under specify sales by sales id
      * @param model      mvc model
-     * @param salesId    sales id
+     * @param key        0 -> all 1 -> select by dealer  2-> select by sales
+     * @param value      dealer id or sales id
      * @return           users page
      */
-    @GetMapping(value = "/users/{salesId}")
-    public String getUsersBySale(Model model, @PathVariable int salesId){
-        return authAdminService.users(model, salesId);
+    @GetMapping(value = "/users/{key}/{value}")
+    public String getUsersBySale(Model model, @PathVariable int key, @PathVariable int value){
+        return authAdminService.users(model, key , value);
     }
 
     /**
-     * user details
+     * get user details
      * @param key    client key
      * @return       {@link AuthRentUserInfo}
      */

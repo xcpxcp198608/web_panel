@@ -3,7 +3,7 @@ package com.wiatec.panel.common.result;
 public enum  EnumResult {
 
     SUCCESS(200, "Successfully"),
-    ERROR_UNAUTH(401, "Unauthorized"),
+    ERROR_UNAUTHORIZED(401, "Unauthorized"),
     ERROR_NO_FOUND(404, "Resource not exists"),
     ERROR_SERVER_EXCEPTION(500, "Server exception"),
 
