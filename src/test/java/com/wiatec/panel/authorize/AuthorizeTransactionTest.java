@@ -34,7 +34,7 @@ public class AuthorizeTransactionTest {
         authorizeTransactionInfo.setCardNumber("4147202271733634");
         authorizeTransactionInfo.setExpirationDate("0819");
         authorizeTransactionInfo.setAmount(0.99f);
-        authorizeTransactionInfo.setTransactionId("");
+        authorizeTransactionInfo.setTransactionId("40479497411");
         authorizeTransactionInfo.setTransactionId(System.currentTimeMillis()+"");
         AuthorizeTransactionInfo pay = AuthorizeTransaction.refund(authorizeTransactionInfo);
         System.out.println(pay);

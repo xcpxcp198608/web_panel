@@ -1,6 +1,5 @@
 package com.wiatec.panel.common.utils;
 
-import com.wiatec.panel.authorize.AutoPayTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
@@ -16,30 +15,23 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationContextAfterLoading implements ApplicationListener<ContextRefreshedEvent> {
 
     private Logger logger = LoggerFactory.getLogger(ApplicationContextAfterLoading.class);
-    private static ThreadPoolExecutor threadPoolExecutor;
-
-    static {
-        threadPoolExecutor = new ThreadPoolExecutor(4, 10,
-                60000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
-    }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if(event.getApplicationContext().getParent() == null){
             logger.debug("application loading completed");
-//            threadPoolExecutor.execute(new AutoPayTask());
-            startTimeSchedule();
+//            startTimeSchedule();
         }
     }
 
-    private void  startTimeSchedule(){
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        calendar.set(year, month, day, 02, 00, 00);
-        Date date = calendar.getTime();
-        Timer timer = new Timer();
-        timer.schedule(new AutoPayTask(), date);
-    }
+//    private void  startTimeSchedule(){
+//        Calendar calendar = Calendar.getInstance();
+//        int year = calendar.get(Calendar.YEAR);
+//        int month = calendar.get(Calendar.MONTH);
+//        int day = calendar.get(Calendar.DAY_OF_MONTH);
+//        calendar.set(year, month, day, 02, 00, 00);
+//        Date date = calendar.getTime();
+//        Timer timer = new Timer();
+//        timer.schedule(new AutoPayTask(), date);
+//    }
 }

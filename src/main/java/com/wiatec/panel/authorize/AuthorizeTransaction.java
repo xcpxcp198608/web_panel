@@ -33,6 +33,9 @@ public class AuthorizeTransaction {
         requestType.setPayment(paymentType);
         requestType.setAmount(new BigDecimal(authorizeTransactionInfo.getAmount()).setScale(2, RoundingMode.CEILING));
 
+//        CustomerAddressType customerAddressType = new CustomerAddressType();
+//        requestType.setBillTo(customerAddressType);
+
         CreateTransactionRequest apiRequest = new CreateTransactionRequest();
         apiRequest.setTransactionRequest(requestType);
 
@@ -127,8 +130,7 @@ public class AuthorizeTransaction {
                     authorizeTransactionInfo1.setStatus("approved");
                     authorizeTransactionInfo1.setTxFee(0.00f);
                     return authorizeTransactionInfo1;
-                }
-                else {
+                } else {
                     logger.debug("Failed Transaction.");
                     if (response.getTransactionResponse().getErrors() != null) {
                         logger.debug("Error Code: " + response.getTransactionResponse().getErrors().getError().get(0).getErrorCode());
@@ -137,8 +139,7 @@ public class AuthorizeTransaction {
                                 response.getTransactionResponse().getErrors().getError().get(0).getErrorText()));
                     }
                 }
-            }
-            else {
+            } else {
                 logger.debug("Failed Transaction.");
                 if (response.getTransactionResponse() != null && response.getTransactionResponse().getErrors() != null) {
                     logger.debug("Error Code: " + response.getTransactionResponse().getErrors().getError().get(0).getErrorCode());

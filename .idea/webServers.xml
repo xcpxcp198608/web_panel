@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="1ffcad38-404e-4c1b-a40a-ba56aa2e3dd5" name="wiatec-216.244.85.34" url="http://216.244.85.34">
-        <fileTransfer host="216.244.85.34" port="21">
+      <webServer id="1ffcad38-404e-4c1b-a40a-ba56aa2e3dd5" name="wiatec-216.176.190.154" url="http://216.176.190.154">
+        <fileTransfer host="216.176.190.154" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>

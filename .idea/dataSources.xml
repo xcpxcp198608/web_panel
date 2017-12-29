@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="panel@216.244.85.34" uuid="f1cdb9e7-3e3f-48a1-a753-b82bdaf6363a">
+    <data-source source="LOCAL" name="panel@localhost" uuid="3d16d68c-6e0c-4048-9115-a2cbb79d26c5">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://216.244.85.34:3306/panel</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/panel</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />
@@ -15,11 +15,11 @@
         <property name="yearIsDateType" value="false" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="panel@localhost" uuid="3d16d68c-6e0c-4048-9115-a2cbb79d26c5">
+    <data-source source="LOCAL" name="panel@www.ldlegacy.com" uuid="0aa6f387-5a57-419b-b01e-9927dd066fc4">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/panel</jdbc-url>
+      <jdbc-url>jdbc:mysql://www.ldlegacy.com:3306/panel</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

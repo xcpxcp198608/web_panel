@@ -2,10 +2,10 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
-      <paths name="wiatec-216.244.85.34">
+      <paths name="wiatec-216.176.190.154">
         <serverdata>
           <mappings>
-            <mapping deploy="/panel/temp" local="$PROJECT_DIR$/build/libs/exploded/panel-1.0-SNAPSHOT.war" web="/" />
+            <mapping deploy="/home/ftp/panel/out" local="$PROJECT_DIR$/build/libs/exploded/panel-1.0-SNAPSHOT.war" web="/" />
           </mappings>
         </serverdata>
       </paths>
