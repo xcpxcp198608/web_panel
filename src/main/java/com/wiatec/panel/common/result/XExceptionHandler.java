@@ -18,8 +18,8 @@ public class XExceptionHandler {
             XException xException = (XException) e;
             return ResultMaster.error(xException.getCode(), xException.getMessage());
         }else {
-            logger.debug("= [system exception]= {}", e.getMessage());
-            return ResultMaster.error(1001, e.getMessage());
+            logger.debug("= [system exception]= {}", e.getLocalizedMessage());
+            return ResultMaster.error(1001, e.getLocalizedMessage());
         }
     }
 }

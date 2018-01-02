@@ -1,35 +1,35 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-%>
+<%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
+<%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<rapid:override name="title">
+    Home
+</rapid:override>
+<rapid:override name="css_js">
+    <link rel="stylesheet" href="Resource/css/users/home.css" />
+    <script type="application/javascript" src="Resource/js/users/home.js"></script>
+</rapid:override>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-    <base href="<%=basePath%>">
+<rapid:override name="navigation">
+    <ul>
+        <li>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            <a href="/panel/manager/">Home</a>
+        </li>
+        <li>
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <a href="/panel/manager/users">Customers</a>
+        </li>
+        <li>
+            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+            <a href="/panel/signout">SignOut</a>
+        </li>
+    </ul>
+</rapid:override>
 
-    <title>HOME</title>
-
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
-    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-    <meta http-equiv="description" content="This is my page">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <!--
-    <link rel="stylesheet" type="text/css" href="css/base.css">
-    <script type="application/javascript" language="JavaScript" src="js/base.js"/>
-    <link rel="shortcut icon" href="img/xxx.ico">
-    -->
-
-</head>
-
-<body>
+<rapid:override name="content">
 
 
-</body>
-</html>
+
+</rapid:override>
+<%@ include file="../base.jsp"%>

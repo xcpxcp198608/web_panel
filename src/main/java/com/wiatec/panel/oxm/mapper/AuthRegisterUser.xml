@@ -111,4 +111,11 @@
         WHERE username=#{username}
     </update>
 
+
+
+
+    <select id="selectAll" resultMap="authRegisterUserInfo">
+        <include refid="select"/>
+    </select>
+
 </mapper>

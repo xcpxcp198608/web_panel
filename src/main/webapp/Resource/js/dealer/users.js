@@ -9,7 +9,7 @@ $(function () {
      * set more click event to show user details for every rows
      */
     for(var i = 0; i < rowsLength; i ++){
-        tbUsers.rows[i].cells[12].onclick = function(){
+        tbUsers.rows[i].cells[11].onclick = function(){
             var key = this.parentNode.cells[2].innerHTML;
             getUserDetailInfoByKey(key)
         }
@@ -60,7 +60,7 @@ $(function () {
         var onlineCount = 0;
         for(var x =0 ; x < rowsLength; x ++){
             var status = tbUsers.rows[x].style.display;
-            var online = tbUsers.rows[x].cells[11].childNodes[1].getAttribute("online");
+            var online = tbUsers.rows[x].cells[10].childNodes[1].getAttribute("online");
             if(status !== 'none'){
                 count ++;
                 if(online === "true"){
@@ -87,7 +87,7 @@ $(function () {
             showAllRows();
         }else{
             for(var k = 0; k < rowsLength; k ++){
-                for(var j = 2; j < 9; j ++){
+                for(var j = 2; j < 8; j ++){
                     var content = tbUsers.rows[k].cells[j].innerHTML.toLowerCase();
                     if(content.search(key) >= 0){
                         tbUsers.rows[k].style.display = "";
@@ -103,14 +103,14 @@ $(function () {
 
 
     $('#seCategory').change(function () {
-        selectChangeListener($(this).val(), 9);
+        selectChangeListener($(this).val(), 8);
     });
 
     $('#seStatus').change(function () {
         var key = $(this).val();
         if(key.length >0){
             for(var i =0 ; i < rowsLength; i ++){
-                if(tbUsers.rows[i].cells[10].children[0].innerHTML === key){
+                if(tbUsers.rows[i].cells[9].children[0].innerHTML === key){
                     tbUsers.rows[i].style.display = "";
                 }else{
                     tbUsers.rows[i].style.display = "none";
@@ -194,22 +194,22 @@ $(function () {
         changeUserStatus('limited', currentClientKey);
     });
     
-    $('#btCanceled').click(function () {
-        if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
-            showNotice('have no choose user');
-            return;
-        }
-        if(currentStatus === 'canceled'){
-            showNotice('this user already canceled');
-            return;
-        }
-        if(currentStatus === 'activate'){
-            showNotice('this user in activate, can not cancel');
-            return;
-        }
-        console.log('go to cancel');
-        changeUserStatus('canceled', currentClientKey);
-    });
+    // $('#btCanceled').click(function () {
+    //     if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
+    //         showNotice('have no choose user');
+    //         return;
+    //     }
+    //     if(currentStatus === 'canceled'){
+    //         showNotice('this user already canceled');
+    //         return;
+    //     }
+    //     if(currentStatus === 'activate'){
+    //         showNotice('this user in activate, can not cancel');
+    //         return;
+    //     }
+    //     console.log('go to cancel');
+    //     changeUserStatus('canceled', currentClientKey);
+    // });
 
     function changeUserStatus(status, key) {
         $.ajax({
@@ -224,11 +224,11 @@ $(function () {
             success: function (response) {
                 hideLoading();
                 if(response.code === 200) {
-                    tbUsers.rows[currentRow].cells[10].children[0].innerHTML = status;
+                    tbUsers.rows[currentRow].cells[9].children[0].innerHTML = status;
                     if('activate' === status){
-                        tbUsers.rows[currentRow].cells[10].children[0].style.color = '#00b300';
+                        tbUsers.rows[currentRow].cells[9].children[0].style.color = '#00b300';
                     }else{
-                        tbUsers.rows[currentRow].cells[10].children[0].style.color = '#f00';
+                        tbUsers.rows[currentRow].cells[9].children[0].style.color = '#f00';
                     }
                     currentStatus = status;
                 }
@@ -240,43 +240,5 @@ $(function () {
             }
         });
     }
-    
-    var updateCategory = "";
-    $('#seUpdateCategory').change(function () {
-        updateCategory = $(this).val()
-    });
-    $('#btUpdatePlan').click(function () {
-        if(currentRow === 0 || currentClientKey.length <= 0){
-            showNotice('have no choose user');
-            return;
-        }
-        if(updateCategory.length <= 0){
-            showNotice('have no choose plan');
-            return;
-        }
-
-        $.ajax({
-            type: "PUT",
-            url: baseUrl + "/admin/user/category/" + currentClientKey + "/" + updateCategory,
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({"category": updateCategory}),
-            dataType: "json",
-            beforeSend: function () {
-                showLoading()
-            },
-            success: function (response) {
-                console.log(response);
-                hideLoading();
-                if(response.code === 200) {
-                    tbUsers.rows[currentRow].cells[9].innerHTML = response['data']['category'];
-                }
-                showNotice(response.message);
-            },
-            error: function () {
-                hideLoading();
-                showNotice('communication fail, try again later');
-            }
-        });
-    });
 
 });

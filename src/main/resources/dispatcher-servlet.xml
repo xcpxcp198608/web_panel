@@ -25,6 +25,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/sales/**"/>
+            <mvc:mapping path="/dealer/**"/>
             <mvc:mapping path="/admin/**"/>
             <bean class="com.wiatec.panel.inteceptor.AuthInterceptor"/>
         </mvc:interceptor>

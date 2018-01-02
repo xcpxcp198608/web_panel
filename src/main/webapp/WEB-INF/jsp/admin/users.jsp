@@ -41,7 +41,7 @@
 
 <rapid:override name="content">
 
-    <div>
+    <div style="height: 34px">
         <div style="width: 15%; display: block; float: left;">
             <button type="button" class="btn btn-default" id="btActivate" title="activate">
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> A
@@ -56,14 +56,32 @@
             </button>
         </div>
 
-        <div style="width: 80%; display: block; float: left">
+        <div style="width: 10%; display: block; float: left;">
+            <select id="seUpdateCategory" aria-describedby="basic-addon19" class="form-control"
+                    style="text-align: center;">
+                <option value="">Plan</option>
+                <c:forEach items="${commissionCategoryInfoList}" var="commissionCategoryInfo">
+                    <option value="${commissionCategoryInfo.category}">${commissionCategoryInfo.category}</option>
+                </c:forEach>
+            </select>
+        </div>
+
+        <div style="width: 10%; display: block; float: left;">
+            <button type="button" class="btn btn-default" id="btUpdatePlan" title="update">
+                <span class="glyphicon glyphicon-open" aria-hidden="true"></span> UpdatePlan
+            </button>
+        </div>
+    </div>
+    <hr/>
+    <div>
+        <div style="width: 90%; display: block; float: left">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Search</span>
                 <input type="text" class="form-control" placeholder="type in keyword (key, sales, mac, first name, last name, activate date)"
                        aria-describedby="basic-addon1" id="ipSearch">
             </div>
         </div>
-        <div style="width: 5%; display: block; float: right; font-size: 18px; font-weight: 500;
+        <div style="width: 10%; display: block; float: right; font-size: 18px; font-weight: 500;
             text-align: right; align-content: center">
             <span id="spOnlineCount" style="color: #008500; height: 100%; line-height: 100%"></span>
             /
@@ -80,6 +98,7 @@
                     <th>#</th>
                     <th>ClientKey</th>
                     <th>Sales</th>
+                    <th>Dealer</th>
                     <th>Mac</th>
                     <th>FirstName</th>
                     <th>LastName</th>
@@ -115,6 +134,7 @@
                     <td>${status.index+1}</td>
                     <td>${authRentUserInfo.clientKey}</td>
                     <td>${authRentUserInfo.salesName}</td>
+                    <td>${authRentUserInfo.dealerName}</td>
                     <td>${authRentUserInfo.mac}</td>
                     <td>${authRentUserInfo.firstName}</td>
                     <td>${authRentUserInfo.lastName}</td>

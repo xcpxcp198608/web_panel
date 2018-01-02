@@ -11,5 +11,6 @@ import java.util.List;
 public interface AuthAdminDao {
 
     int countOne(AuthAdminInfo authAdminInfo);
+    AuthAdminInfo selectOne(AuthAdminInfo authAdminInfo);
 
 }

@@ -28,7 +28,7 @@
 
 <rapid:override name="content">
     <div>
-        <div style="width: 40%; margin: auto">
+        <div style="width: 50%; margin: auto">
             <h3 style="width: 100%; text-align: center">Create an new user</h3>
             <div class="input-group">
                 <select  style="height: 34px;" id="seCategory" name="category">

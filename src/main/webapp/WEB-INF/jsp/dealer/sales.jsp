@@ -6,8 +6,8 @@
     Sales
 </rapid:override>
 <rapid:override name="css_js">
-    <link rel="stylesheet" href="Resource/css/admin/sales.css"/>
-    <script type="text/javascript" src="Resource/js/admin/sales.js"></script>
+    <link rel="stylesheet" href="Resource/css/dealer/sales.css"/>
+    <script type="text/javascript" src="Resource/js/dealer/sales.js"></script>
 </rapid:override>
 
 <rapid:override name="navigation">
@@ -142,7 +142,7 @@
                     <td>${authSalesInfo.phone}</td>
                     <td class="tdRows12">${fn:substring(authSalesInfo.createTime, 0, 19)}</td>
                     <td>
-                        <a href="/panel/admin/users/${authSalesInfo.id}" title="show all users under this sales">
+                        <a href="/panel/dealer/users/2/${authSalesInfo.id}" title="show all users under this sales">
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                         </a>
                     </td>

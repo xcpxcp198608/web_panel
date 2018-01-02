@@ -17,8 +17,8 @@ public class AuthorizeTransaction {
 
     /**
      * charge a transaction
-     * @param authorizeTransactionInfo
-     * @return
+     * @param authorizeTransactionInfo {@link AuthorizeTransactionInfo}
+     * @return {@link AuthorizeTransactionInfo} include all transaction information
      */
     public static AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo){
         AuthorizeConfig.init();
@@ -47,8 +47,8 @@ public class AuthorizeTransaction {
 
     /**
      * auth a transaction
-     * @param authorizeTransactionInfo
-     * @return
+     * @param authorizeTransactionInfo {@link AuthorizeTransactionInfo}
+     * @return {@link AuthorizeTransactionInfo} include all transaction information
      */
     public static AuthorizeTransactionInfo authorize(AuthorizeTransactionInfo authorizeTransactionInfo){
         AuthorizeConfig.init();
@@ -74,8 +74,8 @@ public class AuthorizeTransaction {
 
     /**
      * refund a transaction
-     * @param authorizeTransactionInfo
-     * @return
+     * @param authorizeTransactionInfo {@link AuthorizeTransactionInfo}
+     * @return {@link AuthorizeTransactionInfo} include all transaction information
      */
     public static AuthorizeTransactionInfo refund(AuthorizeTransactionInfo authorizeTransactionInfo){
         AuthorizeConfig.init();
@@ -122,9 +122,9 @@ public class AuthorizeTransaction {
                     authorizeTransactionInfo1.setSecurityKey(authorizeTransactionInfo.getSecurityKey());
                     authorizeTransactionInfo1.setCategory(authorizeTransactionInfo.getCategory());
                     authorizeTransactionInfo1.setSalesId(authorizeTransactionInfo.getSalesId());
+                    authorizeTransactionInfo1.setDealerId(authorizeTransactionInfo.getDealerId());
                     authorizeTransactionInfo1.setClientKey(authorizeTransactionInfo.getClientKey());
                     authorizeTransactionInfo1.setType(authorizeTransactionInfo.getType());
-
                     authorizeTransactionInfo1.setTransactionId(result.getTransId());
                     authorizeTransactionInfo1.setAuthCode(result.getAuthCode());
                     authorizeTransactionInfo1.setStatus("approved");

@@ -21,6 +21,7 @@ public class AuthRegisterUserInfo {
     private String lastOnLineTime;
     private String createTime;
     private String modifyTime;
+    private String status;
 
     private boolean isExperience;
     private boolean online;
@@ -185,6 +186,14 @@ public class AuthRegisterUserInfo {
         this.modifyTime = modifyTime;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public boolean isExperience() {
         return isExperience;
     }
@@ -224,6 +233,7 @@ public class AuthRegisterUserInfo {
                 ", lastOnLineTime='" + lastOnLineTime + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", modifyTime='" + modifyTime + '\'' +
+                ", status='" + status + '\'' +
                 ", isExperience=" + isExperience +
                 ", online=" + online +
                 '}';

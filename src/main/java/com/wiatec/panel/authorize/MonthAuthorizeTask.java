@@ -37,7 +37,7 @@ public class MonthAuthorizeTask {
     @Scheduled(cron="0 0 2 1-31 1-12 1-7")
     public void executeUploadBackTask() {
         logger.debug("MonthAuthorizeTask started");
-//        charge();
+        charge();
     }
 
     private void charge(){
@@ -88,6 +88,7 @@ public class MonthAuthorizeTask {
                 logger.debug("= checking check out on this month");
                 AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
                 authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
+                authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
                 authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
                 authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
                 authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());

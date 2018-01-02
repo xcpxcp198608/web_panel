@@ -5,9 +5,8 @@
     Home
 </rapid:override>
 <rapid:override name="css_js">
-    <link rel="stylesheet" href="Resource/css/admin/home.css" />
-    <script type="application/javascript" src="Resource/js/world.js"></script>
-    <script type="application/javascript" src="Resource/js/admin/home.js"></script>
+    <link rel="stylesheet" href="Resource/css/dealer/home.css" />
+    <script type="application/javascript" src="Resource/js/dealer/home.js"></script>
 </rapid:override>
 
 <rapid:override name="navigation">

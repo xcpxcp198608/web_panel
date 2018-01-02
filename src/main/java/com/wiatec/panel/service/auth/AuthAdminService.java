@@ -1,12 +1,11 @@
 package com.wiatec.panel.service.auth;
 
+import com.wiatec.panel.authorize.AuthorizeTransaction;
 import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
+import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
-import com.wiatec.panel.oxm.pojo.AuthDealerInfo;
-import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
-import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
-import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
+import com.wiatec.panel.oxm.pojo.*;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.common.result.EnumResult;
@@ -20,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +29,8 @@ public class AuthAdminService {
 
     private Logger logger = LoggerFactory.getLogger(AuthAdminService.class);
 
+    @Resource
+    private AuthAdminDao authAdminDao;
     @Resource
     private AuthDealerDao authDealerDao;
     @Resource
@@ -51,7 +53,7 @@ public class AuthAdminService {
     }
 
     @Transactional
-    public ResultInfo createDealer(AuthDealerInfo authDealerInfo) throws Exception{
+    public ResultInfo createDealer(HttpServletRequest request, AuthDealerInfo authDealerInfo) throws Exception{
         if(authDealerDao.countUsername(authDealerInfo) == 1){
             throw new XException(EnumResult.ERROR_USERNAME_EXISTS);
         }
@@ -62,6 +64,7 @@ public class AuthAdminService {
             throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
         }
         try {
+            authDealerInfo.setLeaderId(getAdminInfo(request).getId());
             authDealerDao.insertOne(authDealerInfo);
             return ResultMaster.success(authDealerDao.selectOne(authDealerInfo));
         }catch (Exception e){
@@ -133,7 +136,7 @@ public class AuthAdminService {
                 authRentUserInfoList = authRentUserDao.selectBySalesId(value);
                 break;
             default:
-                throw new XException(EnumResult.ERROR_AUTHORIZE);
+                throw new XException(EnumResult.ERROR_UNAUTHORIZED);
         }
         Map<String, HttpSession> sessionMap = SessionListener.sessionMap;
         for(AuthRentUserInfo authRentUserInfo: authRentUserInfoList){
@@ -141,7 +144,9 @@ public class AuthAdminService {
                 authRentUserInfo.setOnline(true);
             }
         }
+        List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
         model.addAttribute("authRentUserInfoList", authRentUserInfoList);
+        model.addAttribute("commissionCategoryInfoList", commissionCategoryInfoList);
         return "admin/users";
     }
 
@@ -162,6 +167,47 @@ public class AuthAdminService {
         }
     }
 
+    @Transactional
+    public ResultInfo updateUserCategory(String key, String category){
+        try {
+            AuthRentUserInfo authRentUserInfo = authRentUserDao.selectByClientKey(key);
+            CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(category);
+            commissionCategoryInfo.setFirstPay();
+            authRentUserInfo.setCategory(category);
+            authRentUserInfo.setDeposit(commissionCategoryInfo.getDeposit());
+            authRentUserInfo.setFirstPay(commissionCategoryInfo.getFirstPay());
+            authRentUserInfo.setMonthPay(commissionCategoryInfo.getMonthPay());
+            authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
+            authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
+            authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
+            AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
+            authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
+            authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
+            authorizeTransactionInfo.setSalesName(authRentUserInfo.getSalesName());
+            authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
+            authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
+            authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
+            authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
+            authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+            authorizeTransactionInfo.setAmount(authRentUserInfo.getFirstPay());
+            authorizeTransactionInfo.setDeposit(authRentUserInfo.getDeposit());
+            authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
+            authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
+            authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
+            authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_CONTRACTED);
+            AuthorizeTransactionInfo charge = AuthorizeTransaction.charge(authorizeTransactionInfo);
+            if(charge == null){
+                throw new XException(EnumResult.ERROR_AUTHORIZE);
+            }
+            authorizeTransactionDao.insertOne(charge);
+            authRentUserDao.updateUserCategory(authRentUserInfo);
+            return ResultMaster.success(authRentUserInfo);
+        }catch (Exception e){
+            logger.debug(e.getLocalizedMessage());
+            return ResultMaster.error(EnumResult.ERROR_SERVER_EXCEPTION);
+        }
+    }
+
     public String commission(Model model){
         List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
         for(CommissionCategoryInfo commissionCategoryInfo: commissionCategoryInfoList){
@@ -169,7 +215,7 @@ public class AuthAdminService {
         }
         model.addAttribute("commissionCategoryInfoList", commissionCategoryInfoList);
         List<AuthorizeTransactionInfo> authorizeTransactionInfoList = authorizeTransactionDao.selectAll();
-        model.addAttribute("authorizePayInfoList", authorizeTransactionInfoList);
+        model.addAttribute("authorizeTransactionInfoList", authorizeTransactionInfoList);
         return "admin/commission";
     }
 
@@ -205,6 +251,14 @@ public class AuthAdminService {
     public List<SalesAmountInfo> selectSaleAmountEveryDayInMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         return authorizeTransactionDao.selectSaleAmountEveryDayInMonth(yearOrMonthInfo);
+    }
+
+    private AuthAdminInfo getAdminInfo(HttpServletRequest request){
+        String username = (String) request.getSession().getAttribute("username");
+        if(TextUtil.isEmpty(username)){
+            throw new RuntimeException("sign info error");
+        }
+        return authAdminDao.selectOne(new AuthAdminInfo(username));
     }
 
 }

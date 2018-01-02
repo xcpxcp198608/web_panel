@@ -6,8 +6,8 @@
     Users
 </rapid:override>
 <rapid:override name="css_js">
-    <link rel="stylesheet" href="Resource/css/admin/users.css"/>
-    <script type="application/javascript" src="Resource/js/admin/users.js"></script>
+    <link rel="stylesheet" href="Resource/css/dealer/users.css"/>
+    <script type="application/javascript" src="Resource/js/dealer/users.js"></script>
 </rapid:override>
 
 <rapid:override name="navigation">
@@ -34,7 +34,7 @@
 <rapid:override name="content">
 
     <div>
-        <div style="width: 15%; display: block; float: left;">
+        <div style="width: 10%; display: block; float: left;">
             <button type="button" class="btn btn-default" id="btActivate" title="activate">
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> A
             </button>
@@ -43,9 +43,9 @@
                 <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> L
             </button>
 
-            <button type="button" class="btn btn-default" id="btCanceled" title="canceled">
-                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> C
-            </button>
+            <%--<button type="button" class="btn btn-default" id="btCanceled" title="canceled">--%>
+                <%--<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> C--%>
+            <%--</button>--%>
         </div>
 
         <div style="width: 80%; display: block; float: left">
@@ -55,7 +55,7 @@
                        aria-describedby="basic-addon1" id="ipSearch">
             </div>
         </div>
-        <div style="width: 5%; display: block; float: right; font-size: 18px; font-weight: 500;
+        <div style="width: 10%; display: block; float: right; font-size: 18px; font-weight: 500;
             text-align: right; align-content: center">
             <span id="spOnlineCount" style="color: #008500; height: 100%; line-height: 100%"></span>
             /

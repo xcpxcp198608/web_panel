@@ -31,7 +31,7 @@ $(function () {
      */
     for(var i = 0; i < rowsLength; i ++){
         tBody.rows[i].cells[9].onclick = function(){
-            var key = this.parentNode.cells[1].innerHTML;
+            var key = this.parentNode.cells[2].innerHTML;
             getUserDetailInfoByKey(key)
         }
     }

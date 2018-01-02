@@ -5,6 +5,7 @@ public class YearOrMonthInfo {
     private String start;
     private String end;
     private String salesId;
+    private String dealerId;
 
     public YearOrMonthInfo(int year) {
         this.start = year + "-1-1";
@@ -44,12 +45,21 @@ public class YearOrMonthInfo {
         this.salesId = salesId;
     }
 
+    public String getDealerId() {
+        return dealerId;
+    }
+
+    public void setDealerId(String dealerId) {
+        this.dealerId = dealerId;
+    }
+
     @Override
     public String toString() {
         return "YearOrMonthInfo{" +
                 "start='" + start + '\'' +
                 ", end='" + end + '\'' +
                 ", salesId='" + salesId + '\'' +
+                ", dealerId='" + dealerId + '\'' +
                 '}';
     }
 }

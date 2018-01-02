@@ -5,12 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 public class ApplicationContextAfterLoading implements ApplicationListener<ContextRefreshedEvent> {
 

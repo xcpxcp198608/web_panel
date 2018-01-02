@@ -9,6 +9,7 @@ public class AuthorizeTransactionInfo {
 
     private int id;
     private int salesId;
+    private int dealerId;
     private String salesName;
     private String category;
     private String clientKey;
@@ -43,6 +44,14 @@ public class AuthorizeTransactionInfo {
 
     public void setSalesId(int salesId) {
         this.salesId = salesId;
+    }
+
+    public int getDealerId() {
+        return dealerId;
+    }
+
+    public void setDealerId(int dealerId) {
+        this.dealerId = dealerId;
     }
 
     public String getSalesName() {
@@ -186,12 +195,13 @@ public class AuthorizeTransactionInfo {
         return "AuthorizeTransactionInfo{" +
                 "id=" + id +
                 ", salesId=" + salesId +
+                ", dealerId=" + dealerId +
                 ", salesName='" + salesName + '\'' +
                 ", category='" + category + '\'' +
                 ", clientKey='" + clientKey + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
-                ", expirationDate=" + expirationDate +
-                ", securityKey=" + securityKey +
+                ", expirationDate='" + expirationDate + '\'' +
+                ", securityKey='" + securityKey + '\'' +
                 ", amount=" + amount +
                 ", deposit=" + deposit +
                 ", ldCommission=" + ldCommission +

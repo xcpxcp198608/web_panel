@@ -1,6 +1,7 @@
 package com.wiatec.panel.oxm.dao;
 
 import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
+import com.wiatec.panel.oxm.pojo.AuthDealerInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
@@ -19,7 +20,9 @@ public interface AuthorizeTransactionDao {
 
     //chart of admin
     List<TopAmountInfo> selectTopAmount(int top);
+    List<TopAmountInfo> selectTopAmountByDealer(AuthDealerInfo authDealerInfo);
     List<AllSalesMonthCommissionInfo> selectAllSalesCommissionByMonth(YearOrMonthInfo yearOrMonthInfo);
+    List<AllSalesMonthCommissionInfo> selectSalesCommissionByMonthAndDealer(YearOrMonthInfo yearOrMonthInfo);
     List<SalesAmountInfo> selectSaleAmountEveryMonthInYear(YearOrMonthInfo yearOrMonthInfo);
     List<SalesAmountInfo> selectSaleAmountEveryDayInMonth(YearOrMonthInfo yearOrMonthInfo);
 

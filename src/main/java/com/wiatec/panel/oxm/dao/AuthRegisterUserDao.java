@@ -3,6 +3,8 @@ package com.wiatec.panel.oxm.dao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AuthRegisterUserDao {
 
@@ -22,4 +24,7 @@ public interface AuthRegisterUserDao {
     void updateLocation(AuthRegisterUserInfo authRegisterUserInfo);
     void updateToken(AuthRegisterUserInfo authRegisterUserInfo);
     void updatePassword(AuthRegisterUserInfo authRegisterUserInfo);
+
+
+    List<AuthRegisterUserInfo> selectAll();
 }

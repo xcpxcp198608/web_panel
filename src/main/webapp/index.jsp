@@ -41,6 +41,8 @@
 </head>
 
 <body style="background-color: #bbbbbb">
+
+<div style="width: 100%; height: 100%; background-image: url(Resource/img/bg.jpg); position: absolute; left: 0; top: 0">
   <div id="div_sign_in">
     <div id="div_sign_in_1">
       <br/>
@@ -81,5 +83,6 @@
       <span id="error_message"></span>
     </div>
   </div>
+</div>
 </body>
 </html>

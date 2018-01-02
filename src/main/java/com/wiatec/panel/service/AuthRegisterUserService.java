@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Service
 public class AuthRegisterUserService {
@@ -148,8 +149,13 @@ public class AuthRegisterUserService {
 
     //web
     public String home(Model model){
-
         return "users/home";
+    }
+
+    public String users(Model model){
+        List<AuthRegisterUserInfo> authRegisterUserInfoList = authRegisterUserDao.selectAll();
+        model.addAttribute("authRegisterUserInfoList", authRegisterUserInfoList);
+        return "users/users";
     }
 
 }

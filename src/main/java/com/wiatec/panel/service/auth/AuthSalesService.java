@@ -42,7 +42,7 @@ public class AuthSalesService {
     private AuthorizeTransactionDao authorizeTransactionDao;
 
     public String home(HttpServletRequest request, Model model){
-        model.addAttribute("authorizePayInfoList",
+        model.addAttribute("authorizeTransactionInfoList",
                 authorizeTransactionDao.selectBySalesId(getSalesInfo(request).getId()));
         return "sales/home";
     }
@@ -74,6 +74,7 @@ public class AuthSalesService {
             commissionCategoryInfo.setPrice();
             commissionCategoryInfo.setFirstPay();
             authRentUserInfo.setSalesId(getSalesInfo(request).getId());
+            authRentUserInfo.setDealerId(getSalesInfo(request).getDealerId());
             authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
             String activateTime = TimeUtil.getStrTime();
             authRentUserInfo.setActivateTime(activateTime);
@@ -95,6 +96,7 @@ public class AuthSalesService {
             authorizeTransactionInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
             authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
             authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
+            authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
             authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
             authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
             authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());

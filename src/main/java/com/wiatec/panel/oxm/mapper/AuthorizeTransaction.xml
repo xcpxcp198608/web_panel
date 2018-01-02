@@ -8,6 +8,7 @@
         <id column="category" property="category"/>
         <result column="sales_id" property="salesId"/>
         <result column="sales_name" property="salesName"/>
+        <result column="dealer_id" property="dealerId"/>
         <result column="amount" property="amount"/>
         <result column="deposit" property="deposit"/>
         <result column="ld_commission" property="ldCommission"/>
@@ -38,10 +39,10 @@
     </sql>
 
     <insert id="insertOne" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionInfo">
-      INSERT INTO authorize_transaction (sales_id, category, client_key, card_number,expiration_date,
+      INSERT INTO authorize_transaction (sales_id, dealer_id, category, client_key, card_number,expiration_date,
              security_key, amount, deposit, ld_commission, dealer_commission, sales_commission,
              tx_fee, transaction_id, status, auth_code, type)
-      VALUES (#{salesId}, #{category}, #{clientKey}, #{cardNumber}, #{expirationDate},
+      VALUES (#{salesId}, #{dealerId}, #{category}, #{clientKey}, #{cardNumber}, #{expirationDate},
               #{securityKey}, #{amount}, #{deposit}, #{ldCommission}, #{dealerCommission},
               #{salesCommission}, #{txFee}, #{transactionId}, #{status}, #{authCode}, #{type})
     </insert>
@@ -77,6 +78,17 @@
         LIMIT #{_parameter};
     </select>
 
+    <select id="selectTopAmountByDealer" resultMap="topAmountInfo"
+            parameterType="com.wiatec.panel.oxm.pojo.AuthDealerInfo">
+        SELECT sales_id, sum(amount) amount, auth_sales.username salesName
+        FROM authorize_transaction, auth_sales
+        WHERE authorize_transaction.sales_id = auth_sales.id
+            AND authorize_transaction.dealer_id=#{id}
+        GROUP BY sales_id
+        ORDER BY amount DESC
+        LIMIT #{leaderId};
+    </select>
+
     <!-- table of all sales commission in month-->
     <resultMap id="allSalesMonthCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.AllSalesMonthCommissionInfo">
         <result column="salesUsername" property="salesUsername"/>
@@ -89,6 +101,17 @@
         JOIN auth_sales
         ON authorize_transaction.sales_id=auth_sales.id
         WHERE create_time BETWEEN #{start} AND #{end}
+        GROUP BY salesUsername
+        ORDER BY salesUsername;
+    </select>
+    <select id="selectSalesCommissionByMonthAndDealer" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultMap="allSalesMonthCommissionInfo">
+        SELECT sum(sales_commission) commission, auth_sales.username salesUsername
+        FROM authorize_transaction
+        JOIN auth_sales
+        ON authorize_transaction.sales_id=auth_sales.id
+        WHERE create_time BETWEEN #{start} AND #{end}
+            AND authorize_transaction.dealer_id=#{dealerId}
         GROUP BY salesUsername
         ORDER BY salesUsername;
     </select>

@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -52,12 +53,12 @@ public class AuthAdmin {
      */
     @PostMapping(value = "/dealer/create")
     @ResponseBody
-    public ResultInfo createDealer(@Valid AuthDealerInfo authDealerInfo,
-                                  BindingResult bindingResult) throws Exception {
+    public ResultInfo createDealer(HttpServletRequest request, @Valid AuthDealerInfo authDealerInfo,
+                                   BindingResult bindingResult) throws Exception {
         if(bindingResult.hasErrors()){
             throw new XException(3001, bindingResult.getFieldError().getDefaultMessage());
         }
-        return authAdminService.createDealer(authDealerInfo);
+        return authAdminService.createDealer(request, authDealerInfo);
     }
 
     /**
@@ -150,6 +151,12 @@ public class AuthAdmin {
     @ResponseBody
     public ResultInfo updateUserStatus(@PathVariable String status, @PathVariable String key){
         return authAdminService.updateUserStatus(status, key);
+    }
+
+    @PutMapping(value = "/user/category/{key}/{category}")
+    @ResponseBody
+    public ResultInfo updateUserCategory(@PathVariable String key, @PathVariable String category){
+        return authAdminService.updateUserCategory(key, category);
     }
 
     @PutMapping(value = "/activate/{key}")

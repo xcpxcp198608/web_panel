@@ -85,10 +85,10 @@
     </select>
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
-        INSERT INTO auth_rent_user (salesId, clientKey, category, mac, firstName, lastName, email,
+        INSERT INTO auth_rent_user (salesId, dealerId, clientKey, category, mac, firstName, lastName, email,
                     phone, cardNumber, expirationDate, securityKey, deposit, first_pay, month_pay,
                     ld_commission, dealer_commission, sales_commission ,activateTime, expiresTime)
-        VALUES (#{salesId}, #{clientKey}, #{category}, #{mac}, #{firstName}, #{lastName},
+        VALUES (#{salesId}, #{dealerId}, #{clientKey}, #{category}, #{mac}, #{firstName}, #{lastName},
                 #{email}, #{phone}, #{cardNumber}, #{expirationDate}, #{securityKey},
                 #{deposit}, #{firstPay}, #{monthPay}, #{ldCommission}, #{dealerCommission},
                 #{salesCommission}, #{activateTime}, #{expiresTime})
@@ -117,6 +117,14 @@
         WHERE auth_rent_user.clientKey=#{clientKey}
     </update>
 
+    <update id="updateUserCategory"  parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
+        UPDATE auth_rent_user
+        SET category=#{category}, deposit=#{deposit}, first_pay=#{firstPay}, month_pay=#{monthPay},
+            ld_commission=#{ldCommission}, dealer_commission=#{dealerCommission},
+            sales_commission=#{salesCommission}
+        WHERE auth_rent_user.clientKey=#{clientKey}
+    </update>
+
     <update id="updateLocation" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         UPDATE auth_rent_user
         SET country=#{country}, region=#{region}, city=#{city}, timeZone=#{timeZone}, lastOnLineTime=now()
@@ -138,6 +146,16 @@
         GROUP BY  category, day;
     </select>
 
+    <select id="countSalesUnderDealerVolumeByDayOfMonth"  resultMap="salesVolumeInDayOfMonthInfo"
+            parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo">
+        SELECT category, COUNT(category) AS count, DAYOFMONTH(activateTime) day
+        FROM auth_rent_user
+        WHERE activateTime BETWEEN #{start} AND #{end}
+        AND status!='canceled'
+            AND auth_rent_user.dealerId=#{dealerId}
+        GROUP BY  category, day;
+    </select>
+
     <resultMap id="topVolumeInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.TopVolumeInfo">
         <id column="salesId" property="salesId"/>
         <result column="salesName" property="salesName"/>
@@ -151,6 +169,18 @@
         GROUP BY s.salesId
         ORDER BY volume DESC
         LIMIT #{_parameter};
+    </select>
+
+    <select id="selectTopVolumeByDealer" resultMap="topVolumeInfo"
+            parameterType="com.wiatec.panel.oxm.pojo.AuthDealerInfo">
+        SELECT s.salesId , COUNT(*) volume, auth_sales.username salesName
+        FROM auth_rent_user AS s, auth_sales
+        WHERE s.salesId = auth_sales.id
+            AND s.dealerId=#{id}
+        AND status!='canceled'
+        GROUP BY s.salesId
+        ORDER BY volume DESC
+        LIMIT #{leaderId};
     </select>
 
     <resultMap id="volumeDistributionInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo">

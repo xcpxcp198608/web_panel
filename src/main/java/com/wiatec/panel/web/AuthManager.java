@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping(value = "/manager")
-public class AuthUser {
+public class AuthManager {
 
     @Resource
     private AuthRegisterUserService authRegisterUserService;
@@ -21,5 +21,11 @@ public class AuthUser {
     @GetMapping(value = "/")
     public String home(Model model){
         return authRegisterUserService.home(model);
+    }
+
+
+    @GetMapping(value = "/users")
+    public String users(Model model){
+        return authRegisterUserService.users(model);
     }
 }

@@ -41,61 +41,6 @@
 
 <rapid:override name="content">
 
-    <div>
-        <div style="width: 49%; height: 200px; display: block; float: left; background-color: #2c343c;
-        box-shadow: 0 0 5px #000;">
-            <div id="chart_sales_volume" style="width: 100%; height: 100%; background-color: #2c343c;"></div>
-        </div>
-        <div style="width: 49%; height: 200px; display: block; float: right; background-color: #2c343c;
-        box-shadow: 0 0 5px #000;">
-            <div id="chart_sales_amount" style="width: 100%; height: 100%; background-color: #2c343c;"></div>
-        </div>
-    </div>
-    <br/>
-    <div style="width: 100%; height: 20px;clear: both">&nbsp;</div>
-    <div style="width:100%; overflow: scroll">
-        <div style="width: 100%; height: 34px; ">
-            <div style="width: 10%; display: block; float: left;">
-                <div style="margin: auto; height: 34px">
-                    <a style="display: block; float: left; height: 34px; line-height: 34px;
-                    font-size: 20px" id="aYear">0000</a>
-                    <a style="display: block; float: left; height: 34px; line-height: 34px;
-                    font-size: 20px">-</a>
-                    <a style="display: block; float: left; height: 34px; line-height: 34px;
-                    font-size: 20px" id="aMonth">00</a>
-                </div>
-            </div>
-
-            <div style="width: 80%; display: block; float: left">
-                <a style="width:100%; height: 34px; line-height: 34px; font-size: 20px; text-align: center; display: block">
-                    Month commission
-                </a>
-            </div>
-        </div>
-        <table class="table table-bordered table-striped table-condensed"
-            id="tbCommissionByMonth" style="box-shadow: 0 0 5px #000;">
-            <tbody>
-                <tr><td width="5%">
-                        <button type="button" class="btn btn-default" id="btPreviousMonth">
-                            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-                        </button>
-                    </td>
-                    <td>Sales</td>
-                </tr>
-                <tr>
-                    <td width="5%">
-                        <button type="button" class="btn btn-default" id="btNextMonth">
-                            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                        </button>
-                    </td>
-                    <td>Commission</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-
-
     <div style="width: 100%; height: 40px">
         <div style="width: 20%; display: block; float: left;">
             <button type="button" class="btn btn-default" id="btCreate" title="create a sales">

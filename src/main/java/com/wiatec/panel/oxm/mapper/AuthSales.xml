@@ -28,25 +28,25 @@
     <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         SELECT COUNT(*)
         FROM auth_sales
-        WHERE username=#{username} AND password=#{password}
+        WHERE auth_sales.username=#{username} AND auth_sales.password=#{password}
     </select>
 
     <select id="countUsername" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         SELECT COUNT(*)
         FROM auth_sales
-        WHERE username=#{username}
+        WHERE auth_sales.username=#{username}
     </select>
 
     <select id="countSSN" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         SELECT COUNT(*)
         FROM auth_sales
-        WHERE ssn=#{ssn}
+        WHERE auth_sales.ssn=#{ssn}
     </select>
 
     <select id="countEmail" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         SELECT COUNT(*)
         FROM auth_sales
-        WHERE email=#{email}
+        WHERE auth_sales.email=#{email}
     </select>
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
@@ -62,12 +62,12 @@
 
     <select id="selectOne" resultMap="authSalesInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         <include refid="select"/>
-        WHERE username=#{username}
+        WHERE auth_sales.username=#{username}
     </select>
 
     <select id="selectSales" resultMap="authSalesInfo" parameterType="integer">
         <include refid="select"/>
-        WHERE dealerId=#{_parameter}
+        WHERE auth_sales.dealerId=#{_parameter}
     </select>
 
     <select id="selectAll" resultMap="authSalesInfo">
