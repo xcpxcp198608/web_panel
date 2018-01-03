@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Service
 public class AuthRegisterUserService {
@@ -128,34 +127,21 @@ public class AuthRegisterUserService {
             authRegisterUserInfo.setToken(newToken);
             authRegisterUserDao.updateToken(authRegisterUserInfo);
             model.addAttribute("authRegisterUserInfo", authRegisterUserInfo);
-            return "/users/reset";
+            return "users/reset";
         }catch (Exception e){
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
 
     @Transactional
-    public ResultInfo updatePassword(AuthRegisterUserInfo userInfo){
+    public String updatePassword(AuthRegisterUserInfo userInfo, Model model){
         try{
             authRegisterUserDao.updatePassword(userInfo);
-            return ResultMaster.success();
+            model.addAttribute("resultInfo", ResultMaster.success());
+            return "users/result";
         }catch (Exception e){
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
-    }
-
-
-
-
-    //web
-    public String home(Model model){
-        return "users/home";
-    }
-
-    public String users(Model model){
-        List<AuthRegisterUserInfo> authRegisterUserInfoList = authRegisterUserDao.selectAll();
-        model.addAttribute("authRegisterUserInfoList", authRegisterUserInfoList);
-        return "users/users";
     }
 
 }

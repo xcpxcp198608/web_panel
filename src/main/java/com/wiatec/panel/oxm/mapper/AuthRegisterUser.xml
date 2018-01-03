@@ -68,6 +68,12 @@
         WHERE username=#{username}
     </update>
 
+    <update id="updateEmailStatusById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
+        UPDATE auth_register_user
+        SET email_status=1, token=#{token}, active_time=current_timestamp
+        WHERE id=#{id}
+    </update>
+
     <select id="countByUsernameAndPassword" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo" resultType="int">
         SELECT COUNT(*)
         FROM auth_register_user
@@ -86,11 +92,15 @@
         WHERE username=#{username} AND email=#{email}
     </select>
 
-    <update id="updateLevel" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
-        UPDATE auth_register_user
-        SET level=#{level}, expires_time=#{expiresTime}
-        WHERE username=#{username}
-    </update>
+    <select id="selectOneById" parameterType="java.lang.Integer"
+            resultMap="authRegisterUserInfo">
+        <include refid="select"/>
+        WHERE id=#{id}
+    </select>
+
+    <select id="selectExpiresTimeById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT expires_time FROM auth_register_user WHERE id=#{_parameter}
+    </select>
 
     <update id="updateLocation" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
         UPDATE auth_register_user
@@ -111,11 +121,41 @@
         WHERE username=#{username}
     </update>
 
+    <update id="updateStatusById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
+        UPDATE auth_register_user
+        SET status=#{status}
+        WHERE id=#{id}
+    </update>
 
+    <delete id="deleteOneById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
+        DELETE FROM auth_register_user
+        WHERE id=#{id}
+    </delete>
 
-
-    <select id="selectAll" resultMap="authRegisterUserInfo">
+    <select id="selectAll" resultMap="authRegisterUserInfo" parameterType="java.lang.Integer">
         <include refid="select"/>
+        WHERE id>#{_parameter}
+    </select>
+
+    <update id="updateLevel" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
+        UPDATE auth_register_user
+        SET level=#{level}, expires_time=#{expiresTime}
+        WHERE id=#{id}
+    </update>
+
+    <resultMap type="com.wiatec.panel.oxm.pojo.chart.users.LevelInfo" id="levelInfo">
+        <result column="count" property="count"/>
+        <result column="month" property="month"/>
+    </resultMap>
+
+    <select id="selectLevelOfYear" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+     resultMap="levelInfo">
+        SELECT count(*) count, month(expires_time) month
+        FROM auth_register_user
+        WHERE level=#{salesId}
+            AND id > 100
+              AND expires_time BETWEEN #{start} AND #{end}
+        GROUP BY month;
     </select>
 
 </mapper>

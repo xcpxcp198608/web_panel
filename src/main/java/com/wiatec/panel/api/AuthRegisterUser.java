@@ -28,7 +28,7 @@ public class AuthRegisterUser {
     public String activate(@PathVariable String token, Model model){
         ResultInfo resultInfo = authRegisterUserService.activate(token);
         model.addAttribute("resultInfo", resultInfo);
-        return "result";
+        return "users/result";
     }
 
     @PostMapping(value = "/login")
@@ -54,10 +54,9 @@ public class AuthRegisterUser {
         return authRegisterUserService.reset(token, model);
     }
 
-    @PutMapping(value = "/update")
-    @ResponseBody
-    public ResultInfo updatePassword(AuthRegisterUserInfo authRegisterUserInfo){
-        return authRegisterUserService.updatePassword(authRegisterUserInfo);
+    @PostMapping(value = "/update")
+    public String updatePassword(AuthRegisterUserInfo authRegisterUserInfo, Model model){
+        return authRegisterUserService.updatePassword(authRegisterUserInfo, model);
     }
 
 }
