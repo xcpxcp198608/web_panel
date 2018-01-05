@@ -32,7 +32,7 @@
   <link rel="shortcut icon" href="Resource/img/btv.ico">
   <style type="text/css">
     #div_sign_in {margin: 200px auto auto;  width: 400px; height: 320px; background-color: #2c343c;
-      box-shadow: 0 0 8px #1d2bfc;}
+      box-shadow: 0 0 8px #000000;}
     #div_sign_in_1 {width: 300px; height: 270px; margin: 25px auto auto}
     h3 {width: 100%; text-align: center; color: whitesmoke}
     #error_message {color: red; font-size: 16px}

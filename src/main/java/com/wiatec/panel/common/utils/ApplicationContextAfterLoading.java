@@ -14,18 +14,6 @@ public class ApplicationContextAfterLoading implements ApplicationListener<Conte
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if(event.getApplicationContext().getParent() == null){
             logger.debug("application loading completed");
-//            startTimeSchedule();
         }
     }
-
-//    private void  startTimeSchedule(){
-//        Calendar calendar = Calendar.getInstance();
-//        int year = calendar.get(Calendar.YEAR);
-//        int month = calendar.get(Calendar.MONTH);
-//        int day = calendar.get(Calendar.DAY_OF_MONTH);
-//        calendar.set(year, month, day, 02, 00, 00);
-//        Date date = calendar.getTime();
-//        Timer timer = new Timer();
-//        timer.schedule(new AutoPayTask(), date);
-//    }
 }

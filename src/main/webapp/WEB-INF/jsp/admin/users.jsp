@@ -42,21 +42,25 @@
 <rapid:override name="content">
 
     <div style="height: 34px">
-        <div style="width: 15%; display: block; float: left;">
+        <div style="width: 40%; display: block; float: left;">
             <button type="button" class="btn btn-default" id="btActivate" title="activate">
-                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> A
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Activate
             </button>
 
             <button type="button" class="btn btn-default" id="btLimited" title="limited">
-                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> L
+                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Limited
             </button>
 
-            <button type="button" class="btn btn-default" id="btCanceled" title="canceled">
-                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> C
+            <button type="button" class="btn btn-default" id="btCanceled" title="cancel">
+                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancel
+            </button>
+
+            <button type="button" class="btn btn-default" id="btCashActivate" title="activate cash customer">
+                <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Cash Activate
             </button>
         </div>
 
-        <div style="width: 10%; display: block; float: left;">
+        <div style="width: 5%; display: block; float: left;">
             <select id="seUpdateCategory" aria-describedby="basic-addon19" class="form-control"
                     style="text-align: center;">
                 <option value="">Plan</option>
@@ -67,12 +71,12 @@
         </div>
 
         <div style="width: 10%; display: block; float: left;">
-            <button type="button" class="btn btn-default" id="btUpdatePlan" title="update">
+            <button type="button" class="btn btn-default" id="btUpdatePlan" title="update plan">
                 <span class="glyphicon glyphicon-open" aria-hidden="true"></span> UpdatePlan
             </button>
         </div>
     </div>
-    <hr/>
+    <br/>
     <div>
         <div style="width: 90%; display: block; float: left">
             <div class="input-group">
@@ -88,7 +92,7 @@
             <span id="spTotalCount" style="height: 100%; line-height: 100%"></span>
         </div>
     </div>
-    <hr/>
+    <br/>
     <div>
         <table class="table table-bordered table-hover table-striped table-condensed"
                id="tbUsers">

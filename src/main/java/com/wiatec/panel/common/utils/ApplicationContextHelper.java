@@ -1,11 +1,9 @@
 package com.wiatec.panel.common.utils;
 
-import com.wiatec.panel.authorize.AutoPayTask;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import java.util.concurrent.*;
 
 /**
  * Created by xuchengpeng on 12/06/2017.

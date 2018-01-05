@@ -44,7 +44,7 @@ public class LogAuthService {
     public void afterThrowing(Exception exception) {
         logger.debug("======================================= service exception =====================================");
         logger.debug("=");
-        logger.debug("= exception= {}", exception.getMessage());
+        logger.debug("= exception= {}", exception.getLocalizedMessage());
         logger.debug("=");
         logger.debug("===============================================================================================");
     }

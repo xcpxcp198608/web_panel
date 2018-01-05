@@ -211,6 +211,27 @@ $(function () {
         changeUserStatus('canceled', currentClientKey);
     });
 
+    $('#btCashActivate').click(function () {
+        if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
+            showNotice('have no choose user');
+            return;
+        }
+        if(currentStatus === 'canceled'){
+            showNotice('this user already canceled');
+            return;
+        }
+        if(currentStatus === 'activate'){
+            showNotice('this user already activated');
+            return;
+        }
+        if(currentStatus === 'limited'){
+            showNotice('this user already limited');
+            return;
+        }
+        console.log('go to cash activate');
+        changeUserStatus('activate', currentClientKey);
+    });
+
     function changeUserStatus(status, key) {
         $.ajax({
             type: "PUT",
@@ -227,6 +248,8 @@ $(function () {
                     tbUsers.rows[currentRow].cells[10].children[0].innerHTML = status;
                     if('activate' === status){
                         tbUsers.rows[currentRow].cells[10].children[0].style.color = '#00b300';
+                    }else if('canceled' === status){
+                        tbUsers.rows[currentRow].cells[10].children[0].style.color = '#777';
                     }else{
                         tbUsers.rows[currentRow].cells[10].children[0].style.color = '#f00';
                     }

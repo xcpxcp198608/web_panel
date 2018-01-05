@@ -6,19 +6,19 @@ $(function () {
        var value = $(this).val();
        if(value.length <= 0){
            var length = tbCategory.rows[1].cells.length;
-           for(var i = 0 ; i < length; i ++){
+           for(var i = 1 ; i < length; i ++){
                tbCategory.rows[1].cells[i].innerHTML = 0;
            }
            return;
        }
        var url = baseUrl + "/category/" + value;
        $.get(url,function (response, status) {
-           tbCategory.rows[1].cells[0].innerHTML = response['firstPay'];
-           tbCategory.rows[1].cells[1].innerHTML = response['monthPay'];
-           tbCategory.rows[1].cells[2].innerHTML = response['deposit'];
-           tbCategory.rows[1].cells[3].innerHTML = response['expires'];
-           tbCategory.rows[1].cells[4].innerHTML = response['bonus'];
-           tbCategory.rows[1].cells[5].innerHTML = response['price'];
+           tbCategory.rows[1].cells[1].innerHTML = response['firstPay'];
+           tbCategory.rows[1].cells[2].innerHTML = response['monthPay'];
+           tbCategory.rows[1].cells[3].innerHTML = response['deposit'];
+           tbCategory.rows[1].cells[4].innerHTML = response['expires'];
+           tbCategory.rows[1].cells[5].innerHTML = response['bonus'];
+           tbCategory.rows[1].cells[6].innerHTML = response['price'];
        });
    });
 
@@ -44,6 +44,23 @@ $(function () {
            $(this).val(mac + ':');
        }
    });
+
+    var currentPaymentMethod = 0;
+    $('input[name=payMethod]').each(function(){
+        $(this).click(function(){
+            currentPaymentMethod = $(this).val();
+            console.log(currentPaymentMethod);
+            if(currentPaymentMethod === '0'){
+                $('#dCardInfo').css('display', 'none')
+            }else if(currentPaymentMethod === '1'){
+                $('#dCardInfo').css('display', 'block')
+            }else if(currentPaymentMethod === '2'){
+                $('#dCardInfo').css('display', 'none')
+            }else{
+                showNotice("payment method error")
+            }
+        });
+    });
    
    $('#btSubmitCreate').click(function () {
        $('#errorMessage').html('');
@@ -84,19 +101,21 @@ $(function () {
            $('#errorMessage').html('phone input error');
            return;
        }
-       if(cardNumber.length !== 16){
-           $('#errorMessage').html('card number input error');
-           return;
+       if(currentPaymentMethod === '1') {
+           if (cardNumber.length !== 16) {
+               $('#errorMessage').html('card number input error');
+               return;
+           }
+           if (expirationDate.length !== 4) {
+               $('#errorMessage').html('expiration date input error');
+               return;
+           }
+           if (securityKey.length !== 3) {
+               $('#errorMessage').html('security key input error');
+               return;
+           }
        }
-       if(expirationDate.length !== 4){
-           $('#errorMessage').html('expiration date input error');
-           return;
-       }
-       if(securityKey.length !== 3){
-           $('#errorMessage').html('security key input error');
-           return;
-       }
-       var url = baseUrl + '/sales/create';
+       var url = baseUrl + '/sales/create/' + currentPaymentMethod;
        $.ajax({
            type: 'POST',
            url: url,
@@ -121,6 +140,5 @@ $(function () {
            }
        });
    });
-
 
 });

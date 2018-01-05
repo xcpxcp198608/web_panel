@@ -57,10 +57,10 @@ public class AuthSales {
      * @param authRentUserInfo user information from form submit
      * @return
      */
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/create/{paymentMethod}")
     @ResponseBody
-    public ResultInfo create(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
-        return authSalesService.createUser(request, authRentUserInfo);
+    public ResultInfo create(HttpServletRequest request, AuthRentUserInfo authRentUserInfo, @PathVariable int paymentMethod){
+        return authSalesService.createUser(request, authRentUserInfo, paymentMethod);
     }
 
     /**

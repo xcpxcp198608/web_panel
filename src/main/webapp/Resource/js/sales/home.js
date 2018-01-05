@@ -224,7 +224,6 @@ $(function () {
         var url = baseUrl + "/sales/commission/" + year;
         $.get(url,function(response, status){
             var commissionList = response.dataList;
-            console.log(commissionList);
             var totalCommission = 0;
             yearCommissionData.length = 0;
             var ll = commissionList.length;
@@ -242,7 +241,6 @@ $(function () {
                 }
                 yearCommissionData.push(currentMonthCommission);
             }
-            console.log(yearCommissionData);
             tbYearCommission.rows[0].cells[1].innerHTML = totalCommission;
             yearChart.setOption(yearOption);
         })
@@ -306,9 +304,9 @@ $(function () {
      */
     function selectChangeListener(key, cellIndex) {
         if(key.length >0){
-            for(var i =0 ; i < orderRowsLength; i ++){
-                var currentStatus = tbOrders.rows[i].style.display;
-                if (tbOrders.rows[i].cells[cellIndex].innerHTML.search(key) >= 0) {
+            for(var i = 0 ; i < orderRowsLength; i ++){
+                var content = tbOrders.rows[i].cells[cellIndex].innerHTML;
+                if (content === key) {
                     tbOrders.rows[i].style.display = "";
                 } else {
                     tbOrders.rows[i].style.display = "none";

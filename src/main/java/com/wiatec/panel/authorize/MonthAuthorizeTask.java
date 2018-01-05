@@ -85,6 +85,19 @@ public class MonthAuthorizeTask {
             String date = TimeUtil.getExpiresDate(authRentUserInfo.getActivateTime(), i);
             if(today.equals(date)){
                 logger.debug("= {} need check out on this month", date);
+                if(AuthRentUserInfo.PAYMENT_CASH.equals(authRentUserInfo.getPaymentType())){
+                    logger.debug("= payment method is cash");
+                    authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
+                    authRentUserDao.updateUserStatus(authRentUserInfo);
+                    return;
+                }
+                if(AuthRentUserInfo.PAYMENT_PAYPAL.equals(authRentUserInfo.getPaymentType())){
+                    logger.debug("= payment method is paypal");
+                    authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
+                    authRentUserDao.updateUserStatus(authRentUserInfo);
+                    return;
+                }
+                logger.debug("= payment method is credit card");
                 logger.debug("= checking check out on this month");
                 AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
                 authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());

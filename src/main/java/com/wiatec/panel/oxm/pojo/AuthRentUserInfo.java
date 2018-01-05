@@ -7,6 +7,10 @@ public class AuthRentUserInfo {
     public static final String STATUS_LIMITED = "limited";
     public static final String STATUS_CANCELED = "canceled";
 
+    public static final String PAYMENT_CASH = "cash";
+    public static final String PAYMENT_CREDIT_CARD = "credit_card";
+    public static final String PAYMENT_PAYPAL = "paypal";
+
     private int id;
     private int salesId;
     private String salesName;
@@ -22,6 +26,7 @@ public class AuthRentUserInfo {
     private String cardNumber;
     private String expirationDate;
     private String securityKey;
+    private String paymentType;
     private float deposit;
     private float firstPay;
     private float monthPay;
@@ -168,6 +173,14 @@ public class AuthRentUserInfo {
         this.securityKey = securityKey;
     }
 
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
     public float getDeposit() {
         return deposit;
     }
@@ -312,8 +325,9 @@ public class AuthRentUserInfo {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
-                ", expirationDate=" + expirationDate +
-                ", securityKey=" + securityKey +
+                ", expirationDate='" + expirationDate + '\'' +
+                ", securityKey='" + securityKey + '\'' +
+                ", paymentType='" + paymentType + '\'' +
                 ", deposit=" + deposit +
                 ", firstPay=" + firstPay +
                 ", monthPay=" + monthPay +

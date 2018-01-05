@@ -67,6 +67,7 @@
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-core:2.9.1" level="project" />
     <orderEntry type="library" name="Gradle: net.authorize:anet-java-sdk:1.9.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.lowagie:itext:2.1.7" level="project" />
     <orderEntry type="library" name="Gradle: com.sun.mail:javax.mail:1.5.0" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.13.0" level="project" />
     <orderEntry type="library" name="Gradle: javax.activation:activation:1.1.1" level="project" />
@@ -75,6 +76,8 @@
     <orderEntry type="library" name="Gradle: org.apache.cxf:cxf-rt-ws-security:2.3.1" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.9.1" level="project" />
     <orderEntry type="library" name="Gradle: log4j:log4j:1.2.16" level="project" />
+    <orderEntry type="library" name="Gradle: bouncycastle:bcmail-jdk14:138" level="project" />
+    <orderEntry type="library" name="Gradle: bouncycastle:bcprov-jdk14:138" level="project" />
     <orderEntry type="library" name="Gradle: xml-resolver:xml-resolver:1.2" level="project" />
     <orderEntry type="library" name="Gradle: asm:asm:3.3" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.cxf:cxf-api:2.3.1" level="project" />
@@ -87,6 +90,7 @@
     <orderEntry type="library" name="Gradle: org.apache.ws.security:wss4j:1.5.10" level="project" />
     <orderEntry type="library" name="Gradle: xalan:xalan:2.7.1" level="project" />
     <orderEntry type="library" name="Gradle: org.bouncycastle:bcprov-jdk15:1.45" level="project" />
+    <orderEntry type="library" name="Gradle: org.bouncycastle:bctsp-jdk14:1.38" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.ws.commons.schema:XmlSchema:1.4.7" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.neethi:neethi:2.0.4" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.cxf:cxf-common-schemas:2.3.1" level="project" />
@@ -97,6 +101,8 @@
     <orderEntry type="library" name="Gradle: org.codehaus.woodstox:woodstox-core-asl:4.0.8" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.santuario:xmlsec:1.4.4" level="project" />
     <orderEntry type="library" name="Gradle: xalan:serializer:2.7.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.bouncycastle:bcprov-jdk14:1.38" level="project" />
+    <orderEntry type="library" name="Gradle: org.bouncycastle:bcmail-jdk14:1.38" level="project" />
     <orderEntry type="library" name="Gradle: wsdl4j:wsdl4j:1.6.2" level="project" />
     <orderEntry type="library" name="Gradle: com.sun.xml.bind:jaxb-xjc:2.1.13" level="project" />
     <orderEntry type="library" name="Gradle: javax.xml.stream:stax-api:1.0-2" level="project" />

@@ -2,15 +2,15 @@ package com.wiatec.panel.service.auth;
 
 import com.wiatec.panel.authorize.AuthorizeTransaction;
 import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
-import com.wiatec.panel.common.utils.TimeUtil;
+import com.wiatec.panel.common.utils.*;
+import com.wiatec.panel.invoice.InvoiceInfo;
+import com.wiatec.panel.invoice.InvoiceUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo;
-import com.wiatec.panel.common.utils.TextUtil;
-import com.wiatec.panel.common.utils.TokenUtil;
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
@@ -60,13 +60,13 @@ public class AuthSalesService {
     }
 
     @Transactional
-    public ResultInfo createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
+    public ResultInfo createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo, int paymentMethod){
         try {
-            if(authRentUserDao.countOneByEmail(authRentUserInfo) == 1){
+            if (authRentUserDao.countOneByEmail(authRentUserInfo) == 1) {
                 throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
             }
-            if(authRentUserDao.countOneByMac(authRentUserInfo) == 1){
-                if(!"canceled".equals(authRentUserDao.selectStatusByMac(authRentUserInfo))){
+            if (authRentUserDao.countOneByMac(authRentUserInfo) == 1) {
+                if (!"canceled".equals(authRentUserDao.selectStatusByMac(authRentUserInfo))) {
                     throw new XException(EnumResult.ERROR_DEVICE_USING);
                 }
             }
@@ -86,32 +86,53 @@ public class AuthSalesService {
             authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
             authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
             authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
-            authRentUserDao.insertOne(authRentUserInfo);
-
-            AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
-            authorizeTransactionInfo.setAmount(commissionCategoryInfo.getFirstPay());
-            authorizeTransactionInfo.setDeposit(commissionCategoryInfo.getDeposit());
-            authorizeTransactionInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
-            authorizeTransactionInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
-            authorizeTransactionInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
-            authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
-            authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
-            authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
-            authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
-            authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
-            authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
-            authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-            authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_CONTRACTED);
-            AuthorizeTransactionInfo payInfo = AuthorizeTransaction.charge(authorizeTransactionInfo);
-            if(payInfo == null){
-                throw new XException(EnumResult.ERROR_AUTHORIZE);
+            if (paymentMethod == 0) { //cash payment
+                authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CASH);
+                authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
+                authRentUserDao.insertOne(authRentUserInfo);
+                return ResultMaster.success(authRentUserInfo.getClientKey());
+            } else if (paymentMethod == 1) { //credit card
+                authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
+                authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
+                authRentUserDao.insertOne(authRentUserInfo);
+                AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
+                authorizeTransactionInfo.setAmount(commissionCategoryInfo.getFirstPay());
+                authorizeTransactionInfo.setDeposit(commissionCategoryInfo.getDeposit());
+                authorizeTransactionInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
+                authorizeTransactionInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
+                authorizeTransactionInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
+                authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
+                authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
+                authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
+                authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
+                authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
+                authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
+                authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+                authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_CONTRACTED);
+                AuthorizeTransactionInfo payInfo = AuthorizeTransaction.charge(authorizeTransactionInfo);
+                if (payInfo == null) {
+                    throw new XException(EnumResult.ERROR_AUTHORIZE);
+                }
+                authorizeTransactionDao.insertOne(payInfo);
+                InvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
+                String invoicePath = InvoiceUtil.createInvoice(authRentUserInfo.getEmail(), InvoiceInfo.B1Contracted());
+                EmailMaster emailMaster = new EmailMaster();
+                emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
+                emailMaster.addAttachment(invoicePath);
+                emailMaster.sendMessage(authRentUserInfo.getEmail());
+                return ResultMaster.success(authRentUserInfo.getClientKey());
+            }else if (paymentMethod == 2) { // paypal payment
+                authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_PAYPAL);
+                authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
+                authRentUserDao.insertOne(authRentUserInfo);
+            }else{
+                throw new XException(ResultMaster.error(5001, "payment method error"));
             }
-            authorizeTransactionDao.insertOne(payInfo);
-            return ResultMaster.success(authRentUserInfo.getClientKey());
         }catch (Exception e){
             logger.error(e.getMessage());
             throw new XException(ResultMaster.error(5000, e.getMessage()));
         }
+        return ResultMaster.error(5000, "server error");
     }
 
     ////////////////////////////////////////////////////////// chart ///////////////////////////////////////////////////

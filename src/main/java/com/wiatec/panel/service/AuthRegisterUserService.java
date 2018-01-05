@@ -43,7 +43,7 @@ public class AuthRegisterUserService {
         String url = request.getRequestURL().toString();
         String path = url.substring(0, url.lastIndexOf("/"));
         emailMaster.setEmailContent(path, authRegisterUserInfo.getUsername(), token);
-        emailMaster.send(authRegisterUserInfo.getEmail());
+        emailMaster.sendMessage(authRegisterUserInfo.getEmail());
         return ResultMaster.success();
     }
 
@@ -109,7 +109,7 @@ public class AuthRegisterUserService {
             String url = request.getRequestURL().toString();
             String path = url.substring(0, url.lastIndexOf("/"));
             emailMaster.setResetPasswordContent(path, authRegisterUserInfo.getUsername(), authRegisterUserInfo.getToken());
-            emailMaster.send(authRegisterUserInfo.getEmail());
+            emailMaster.sendMessage(authRegisterUserInfo.getEmail());
             return ResultMaster.success();
         }catch (Exception e){
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);

@@ -152,8 +152,8 @@
                         <select id="seType" style="width: 100%; height: 100%;
                             background-color: rgba(0,0,0,0); border: none; text-align: center">
                             <option value="">Type</option>
-                            <option value="lease">contracted</option>
-                            <option value="rent">monthly</option>
+                            <option value="contracted">contracted</option>
+                            <option value="monthly">monthly</option>
                             <option value="renew">renew</option>
                         </select>
                     </td>

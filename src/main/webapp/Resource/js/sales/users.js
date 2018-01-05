@@ -31,7 +31,7 @@ $(function () {
      */
     for(var i = 0; i < rowsLength; i ++){
         tBody.rows[i].cells[9].onclick = function(){
-            var key = this.parentNode.cells[2].innerHTML;
+            var key = this.parentNode.cells[1].innerHTML;
             getUserDetailInfoByKey(key)
         }
     }
@@ -119,8 +119,15 @@ $(function () {
 
     function selectChangeListener(key, cellIndex) {
         if(key.length >0){
-            for(var i =0 ; i < rowsLength; i ++){
-                if(tBody.rows[i].cells[cellIndex].innerHTML === key){
+            for(var i = 0 ; i < rowsLength; i ++){
+                var content = "";
+                if(cellIndex === 7){
+                    content = tBody.rows[i].cells[cellIndex].children[0].innerHTML;
+                }else {
+                    content = tBody.rows[i].cells[cellIndex].innerHTML;
+                }
+                console.log(content);
+                if(content === key){
                     tBody.rows[i].style.display = "";
                 }else{
                     tBody.rows[i].style.display = "none";
