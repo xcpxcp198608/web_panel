@@ -36,7 +36,8 @@ public class InvoiceUtil {
     private static final float RATE_TAX = 0.08F;
 
     public static void main(String[] args) throws Exception {
-        String pdf = createInvoice("patrickxu@wiatec.com", InvoiceInfo.B1Contracted());
+        String pdf = createInvoice("patrickxu@wiatec.com", "32432432432432",
+                InvoiceInfo.B1Contracted());
         System.out.println(pdf);
     }
 
@@ -51,7 +52,7 @@ public class InvoiceUtil {
      * @return
      * @throws Exception
      */
-    public static String createInvoice(String email, List<InvoiceInfo> invoiceInfoList) throws Exception {
+    public static String createInvoice(String email, String transactionId, List<InvoiceInfo> invoiceInfoList) throws Exception {
         FileOutputStream fileOutputStream = null;
         Document doc = null;
         try {
@@ -68,12 +69,13 @@ public class InvoiceUtil {
             Font secondTitleFont = new Font(bfChinese, 15, Font.BOLD); //二级标题
             Font underlineFont = new Font(bfChinese, 11, Font.UNDERLINE); //下划线斜体
             Font underlineRedFont = new Font(bfChinese, 11, Font.UNDERLINE, Color.RED);
+            Font BlueFont = new Font(bfChinese, 11, Font.NORMAL, Color.BLUE);
 
             //手指图片
             //Image hand = Image.getInstance("/Users/xuchengpeng/IdeaProjects/panel/src/main/webapp/Resource/img/btv.ico");
 
             //创建输出流
-            String fileName = System.currentTimeMillis() + TimeUtil.getStrTime() + ".pdf";
+            String fileName = "Invoice" + System.currentTimeMillis() + ".pdf";
             String path = outPath + fileName;
             File file = new File(path);
             fileOutputStream = new FileOutputStream(file);
@@ -134,7 +136,7 @@ public class InvoiceUtil {
             doc.add(p1);
 
             p1 = new Paragraph();
-            p1.setLeading(30);
+            p1.setLeading(20);
             ph1 = new Phrase();
             Chunk c13 = new Chunk("  ", secondTitleFont);
             ph1.add(c13);
@@ -142,7 +144,7 @@ public class InvoiceUtil {
             doc.add(p1);
 
             PdfPTable table = new PdfPTable(5); // 创建一个有5列的表格
-            table.setTotalWidth(new float[]{110, 110, 110, 110, 110}); //设置列宽
+            table.setTotalWidth(new float[]{105, 105, 105, 105, 105}); //设置列宽
             table.setLockedWidth(true); //锁定列宽
 
             PdfPCell cell = new PdfPCell(new Phrase("DIST. #", bold12Font));
@@ -209,15 +211,25 @@ public class InvoiceUtil {
             doc.add(table);
 
             p1 = new Paragraph();
-            p1.setLeading(30);
+            p1.setLeading(40);
             ph1 = new Phrase();
-            Chunk c18 = new Chunk("  ", boldFont);
-            ph1.add(c18);
+            Chunk c34 = new Chunk("TRANSACTION ID: ", bold12Font);
+            Chunk c334 = new Chunk(transactionId, BlueFont);
+            ph1.add(c34);
+            ph1.add(c334);
+            p1.add(ph1);
+            doc.add(p1);
+
+            p1 = new Paragraph();
+            p1.setLeading(10);
+            ph1 = new Phrase();
+            Chunk c135 = new Chunk("  ", secondTitleFont);
+            ph1.add(c135);
             p1.add(ph1);
             doc.add(p1);
 
             table = new PdfPTable(5);
-            table.setTotalWidth(new float[]{80, 210, 60, 100, 100});
+            table.setTotalWidth(new float[]{80, 205, 60, 90, 90});
             table.setLockedWidth(true);
             cell = new PdfPCell(new Phrase("ITEM #", boldFont));
             cell.setMinimumHeight(25);

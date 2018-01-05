@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -115,7 +116,22 @@ public class AuthSalesService {
                 }
                 authorizeTransactionDao.insertOne(payInfo);
                 InvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-                String invoicePath = InvoiceUtil.createInvoice(authRentUserInfo.getEmail(), InvoiceInfo.B1Contracted());
+                List<InvoiceInfo> invoiceInfoList;
+                switch (commissionCategoryInfo.getCategory()){
+                    case "B1":
+                        invoiceInfoList = InvoiceInfo.B1Contracted();
+                        break;
+                    case "P1":
+                        invoiceInfoList = InvoiceInfo.P1Contracted();
+                        break;
+                    case "P2":
+                        invoiceInfoList = InvoiceInfo.P2Contracted();
+                        break;
+                    default:
+                        throw new XException(ResultMaster.error(5003, "plan error"));
+                }
+                String invoicePath = InvoiceUtil.createInvoice(authRentUserInfo.getEmail(),
+                        payInfo.getTransactionId(), invoiceInfoList);
                 EmailMaster emailMaster = new EmailMaster();
                 emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
                 emailMaster.addAttachment(invoicePath);

@@ -268,7 +268,7 @@ $(function () {
                     tbUsers = $('#tbUsers').get(0).tBodies[0];
                     var td = tbUsers.rows[currentRow].cells[9];
                     td.removeChild(td.children[0]);
-                    if(level === '0'){
+                    if(level === 0){
                         td.innerHTML = "<span style=\"color: #a01c34\">0</span>"
                     }else if (level === '5'){
                         td.innerHTML = "<span>fto</span>";

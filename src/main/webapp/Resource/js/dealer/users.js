@@ -101,43 +101,6 @@ $(function () {
         showOnlineAndTotalCount();
     });
 
-
-    $('#seCategory').change(function () {
-        selectChangeListener($(this).val(), 8);
-    });
-
-    $('#seStatus').change(function () {
-        var key = $(this).val();
-        if(key.length >0){
-            for(var i =0 ; i < rowsLength; i ++){
-                if(tbUsers.rows[i].cells[9].children[0].innerHTML === key){
-                    tbUsers.rows[i].style.display = "";
-                }else{
-                    tbUsers.rows[i].style.display = "none";
-                }
-            }
-        }else{
-            showAllRows();
-        }
-        showOnlineAndTotalCount();
-    });
-
-    function selectChangeListener(key, cellIndex) {
-        if(key.length >0){
-            for(var i =0 ; i < rowsLength; i ++){
-                if(tbUsers.rows[i].cells[cellIndex].innerHTML === key){
-                    tbUsers.rows[i].style.display = "";
-                }else{
-                    tbUsers.rows[i].style.display = "none";
-                }
-            }
-        }else{
-            showAllRows();
-        }
-        showOnlineAndTotalCount();
-    }
-
-
     var currentRow = 0;
     var currentClientKey = '';
     var currentStatus = '';
@@ -193,23 +156,6 @@ $(function () {
         console.log('go to limited');
         changeUserStatus('limited', currentClientKey);
     });
-    
-    // $('#btCanceled').click(function () {
-    //     if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
-    //         showNotice('have no choose user');
-    //         return;
-    //     }
-    //     if(currentStatus === 'canceled'){
-    //         showNotice('this user already canceled');
-    //         return;
-    //     }
-    //     if(currentStatus === 'activate'){
-    //         showNotice('this user in activate, can not cancel');
-    //         return;
-    //     }
-    //     console.log('go to cancel');
-    //     changeUserStatus('canceled', currentClientKey);
-    // });
 
     function changeUserStatus(status, key) {
         $.ajax({
@@ -239,6 +185,80 @@ $(function () {
                 showNotice('communication fail, try again later');
             }
         });
+    }
+
+    var currentSePlan = "";
+    var currentSeStatus = "";
+    $('#seCategory').change(function () {
+        currentSePlan = $(this).val();
+        var key = $(this).val();
+        if(key.length >0){
+            for(var i =0 ; i < rowsLength; i ++){
+                var content = tbUsers.rows[i].cells[8].innerHTML;
+                if(currentSeStatus.length > 0){
+                    var statusContent = tbUsers.rows[i].cells[9].children[0].innerHTML;
+                    if(content === key && statusContent === currentSeStatus){
+                        tbUsers.rows[i].style.display = "";
+                    }else{
+                        tbUsers.rows[i].style.display = "none";
+                    }
+                }else {
+                    if (content === key) {
+                        tbUsers.rows[i].style.display = "";
+                    } else {
+                        tbUsers.rows[i].style.display = "none";
+                    }
+                }
+            }
+        }else{
+            showDisplayRows();
+        }
+        showOnlineAndTotalCount();
+    });
+
+    $('#seStatus').change(function () {
+        currentSeStatus = $(this).val();
+        var key = $(this).val();
+        if(key.length >0){
+            for(var i =0 ; i < rowsLength; i ++){
+                var content = tbUsers.rows[i].cells[9].children[0].innerHTML;
+                if(currentSePlan.length > 0){
+                    var planContent = tbUsers.rows[i].cells[8].innerHTML;
+                    if (content === key && planContent === currentSePlan) {
+                        tbUsers.rows[i].style.display = "";
+                    } else {
+                        tbUsers.rows[i].style.display = "none";
+                    }
+                }else {
+                    if (content === key) {
+                        tbUsers.rows[i].style.display = "";
+                    } else {
+                        tbUsers.rows[i].style.display = "none";
+                    }
+                }
+            }
+        }else{
+            showDisplayRows();
+        }
+        showOnlineAndTotalCount();
+    });
+
+    function showDisplayRows() {
+        for(var i =0 ; i < rowsLength; i ++){
+            tbUsers.rows[i].style.display = "";
+            if(currentSePlan.length > 0){
+                var content1 = tbUsers.rows[i].cells[8].innerHTML;
+                if (content1 !== currentSePlan) {
+                    tbUsers.rows[i].style.display = "none";
+                }
+            }
+            if(currentSeStatus.length > 0) {
+                var content2 = tbUsers.rows[i].cells[9].children[0].innerHTML;
+                if (content2 !== currentSeStatus) {
+                    tbUsers.rows[i].style.display = "none";
+                }
+            }
+        }
     }
 
 });

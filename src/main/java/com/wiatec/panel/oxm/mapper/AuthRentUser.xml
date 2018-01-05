@@ -40,7 +40,7 @@
     <sql id="select">
         SELECT auth_rent_user.id , auth_rent_user.salesId, auth_rent_user.dealerId, auth_rent_user.clientKey,
             auth_rent_user.category, auth_rent_user.mac, auth_rent_user.firstName,
-            auth_rent_user.lastName, auth_rent_user.email, auth_rent_user.phone,
+            auth_rent_user.lastName, auth_rent_user.email, auth_rent_user.phone, auth_rent_user.paymentType,
             auth_rent_user.cardNumber, auth_rent_user.expirationDate, auth_rent_user.securityKey,
             auth_rent_user.deposit, auth_rent_user.first_pay, auth_rent_user.month_pay,
             auth_rent_user.ld_commission, auth_rent_user.dealer_commission, auth_rent_user.sales_commission,
@@ -87,10 +87,10 @@
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         INSERT INTO auth_rent_user (salesId, dealerId, clientKey, category, mac, firstName, lastName, email,
-                    phone, cardNumber, expirationDate, securityKey, deposit, first_pay, month_pay,
+                    phone, paymentType, cardNumber, expirationDate, securityKey, deposit, first_pay, month_pay,
                     ld_commission, dealer_commission, sales_commission ,activateTime, expiresTime, status)
         VALUES (#{salesId}, #{dealerId}, #{clientKey}, #{category}, #{mac}, #{firstName}, #{lastName},
-                #{email}, #{phone}, #{cardNumber}, #{expirationDate}, #{securityKey},
+                #{email}, #{phone}, #{paymentType}, #{cardNumber}, #{expirationDate}, #{securityKey},
                 #{deposit}, #{firstPay}, #{monthPay}, #{ldCommission}, #{dealerCommission},
                 #{salesCommission}, #{activateTime}, #{expiresTime}, #{status})
     </insert>

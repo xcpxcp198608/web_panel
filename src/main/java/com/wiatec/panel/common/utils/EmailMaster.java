@@ -71,6 +71,8 @@ public class EmailMaster {
 	public void setInvoiceContent(String userName){
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("Dear "+userName+":<br/>");
+		stringBuilder.append("<br/>");
+		stringBuilder.append("Please check the attachment to view your invoice!"+"<br/>");
 		this.emailContent = stringBuilder.toString();
 	}
 

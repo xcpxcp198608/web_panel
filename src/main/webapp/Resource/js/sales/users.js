@@ -109,35 +109,79 @@ $(function () {
     /**
      * select event
      */
+    var currentSePlan = "";
+    var currentSeStatus = "";
+
     $('#seCategory').change(function () {
-        selectChangeListener($(this).val(), 6);
-    });
-
-    $('#seStatus').change(function () {
-        selectChangeListener($(this).val(), 7);
-    });
-
-    function selectChangeListener(key, cellIndex) {
+        currentSePlan = $(this).val();
+        var key = $(this).val();
         if(key.length >0){
-            for(var i = 0 ; i < rowsLength; i ++){
-                var content = "";
-                if(cellIndex === 7){
-                    content = tBody.rows[i].cells[cellIndex].children[0].innerHTML;
+            for(var i =0 ; i < rowsLength; i ++){
+                var content = tBody.rows[i].cells[6].innerHTML;
+                if(currentSeStatus.length > 0){
+                    var statusContent = tBody.rows[i].cells[7].children[0].innerHTML;
+                    if(content === key && statusContent === currentSeStatus){
+                        tBody.rows[i].style.display = "";
+                    }else{
+                        tBody.rows[i].style.display = "none";
+                    }
                 }else {
-                    content = tBody.rows[i].cells[cellIndex].innerHTML;
-                }
-                console.log(content);
-                if(content === key){
-                    tBody.rows[i].style.display = "";
-                }else{
-                    tBody.rows[i].style.display = "none";
+                    if (content === key) {
+                        tBody.rows[i].style.display = "";
+                    } else {
+                        tBody.rows[i].style.display = "none";
+                    }
                 }
             }
         }else{
-            showAllRows();
+            showDisplayRows();
         }
-        showOnlineAndTotalCount()
-    }
+        showOnlineAndTotalCount();
+    });
 
+    $('#seStatus').change(function () {
+        currentSeStatus = $(this).val();
+        var key = $(this).val();
+        if(key.length >0){
+            for(var i =0 ; i < rowsLength; i ++){
+                var content = tBody.rows[i].cells[7].children[0].innerHTML;
+                if(currentSePlan.length > 0){
+                    var planContent = tBody.rows[i].cells[6].innerHTML;
+                    if (content === key && planContent === currentSePlan) {
+                        tBody.rows[i].style.display = "";
+                    } else {
+                        tBody.rows[i].style.display = "none";
+                    }
+                }else {
+                    if (content === key) {
+                        tBody.rows[i].style.display = "";
+                    } else {
+                        tBody.rows[i].style.display = "none";
+                    }
+                }
+            }
+        }else{
+            showDisplayRows();
+        }
+        showOnlineAndTotalCount();
+    });
+
+    function showDisplayRows() {
+        for(var i =0 ; i < rowsLength; i ++){
+            tBody.rows[i].style.display = "";
+            if(currentSePlan.length > 0){
+                var content1 = tBody.rows[i].cells[6].innerHTML;
+                if (content1 !== currentSePlan) {
+                    tBody.rows[i].style.display = "none";
+                }
+            }
+            if(currentSeStatus.length > 0) {
+                var content2 = tBody.rows[i].cells[7].children[0].innerHTML;
+                if (content2 !== currentSeStatus) {
+                    tBody.rows[i].style.display = "none";
+                }
+            }
+        }
+    }
 
 });

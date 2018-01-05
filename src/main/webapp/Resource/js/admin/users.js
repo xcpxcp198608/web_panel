@@ -52,92 +52,6 @@ $(function () {
         })
     }
 
-    /**
-     * show current online and total user count in table of users
-     */
-    function showOnlineAndTotalCount() {
-        var count = 0;
-        var onlineCount = 0;
-        for(var x =0 ; x < rowsLength; x ++){
-            var status = tbUsers.rows[x].style.display;
-            var online = tbUsers.rows[x].cells[11].childNodes[1].getAttribute("online");
-            if(status !== 'none'){
-                count ++;
-                if(online === "true"){
-                    onlineCount ++;
-                }
-            }
-        }
-        $('#spTotalCount').html(''+count);
-        $('#spOnlineCount').html(''+onlineCount);
-    }
-
-    /**
-     * display all rows in table of users
-     */
-    function showAllRows() {
-        for(var i =0 ; i < rowsLength; i ++){
-            tbUsers.rows[i].style.display = "";
-        }
-    }
-
-    $('#ipSearch').keyup(function () {
-        var key = $(this).val().toLowerCase();
-        if(key.length <= 0){
-            showAllRows();
-        }else{
-            for(var k = 0; k < rowsLength; k ++){
-                for(var j = 2; j < 9; j ++){
-                    var content = tbUsers.rows[k].cells[j].innerHTML.toLowerCase();
-                    if(content.search(key) >= 0){
-                        tbUsers.rows[k].style.display = "";
-                        break
-                    }else{
-                        tbUsers.rows[k].style.display = "none";
-                    }
-                }
-            }
-        }
-        showOnlineAndTotalCount();
-    });
-
-
-    $('#seCategory').change(function () {
-        selectChangeListener($(this).val(), 9);
-    });
-
-    $('#seStatus').change(function () {
-        var key = $(this).val();
-        if(key.length >0){
-            for(var i =0 ; i < rowsLength; i ++){
-                if(tbUsers.rows[i].cells[10].children[0].innerHTML === key){
-                    tbUsers.rows[i].style.display = "";
-                }else{
-                    tbUsers.rows[i].style.display = "none";
-                }
-            }
-        }else{
-            showAllRows();
-        }
-        showOnlineAndTotalCount();
-    });
-
-    function selectChangeListener(key, cellIndex) {
-        if(key.length >0){
-            for(var i =0 ; i < rowsLength; i ++){
-                if(tbUsers.rows[i].cells[cellIndex].innerHTML === key){
-                    tbUsers.rows[i].style.display = "";
-                }else{
-                    tbUsers.rows[i].style.display = "none";
-                }
-            }
-        }else{
-            showAllRows();
-        }
-        showOnlineAndTotalCount();
-    }
-
-
     var currentRow = 0;
     var currentClientKey = '';
     var currentStatus = '';
@@ -171,8 +85,7 @@ $(function () {
         changeUserStatus('activate', currentClientKey);
 
     });
-    
-    
+
     $('#btLimited').click(function () {
         if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
             showNotice('have no choose user');
@@ -268,6 +181,7 @@ $(function () {
     $('#seUpdateCategory').change(function () {
         updateCategory = $(this).val()
     });
+
     $('#btUpdatePlan').click(function () {
         if(currentRow === 0 || currentClientKey.length <= 0){
             showNotice('have no choose user');
@@ -301,5 +215,133 @@ $(function () {
             }
         });
     });
+
+
+    /**
+     * show current online and total user count in table of users
+     */
+    function showOnlineAndTotalCount() {
+        var count = 0;
+        var onlineCount = 0;
+        for(var x =0 ; x < rowsLength; x ++){
+            var status = tbUsers.rows[x].style.display;
+            var online = tbUsers.rows[x].cells[11].childNodes[1].getAttribute("online");
+            if(status !== 'none'){
+                count ++;
+                if(online === "true"){
+                    onlineCount ++;
+                }
+            }
+        }
+        $('#spTotalCount').html(''+count);
+        $('#spOnlineCount').html(''+onlineCount);
+    }
+
+    /**
+     * display all rows in table of users
+     */
+    function showAllRows() {
+        for(var i =0 ; i < rowsLength; i ++){
+            tbUsers.rows[i].style.display = "";
+        }
+    }
+
+    $('#ipSearch').keyup(function () {
+        var key = $(this).val().toLowerCase();
+        if(key.length <= 0){
+            showAllRows();
+        }else{
+            for(var k = 0; k < rowsLength; k ++){
+                for(var j = 2; j < 9; j ++){
+                    var content = tbUsers.rows[k].cells[j].innerHTML.toLowerCase();
+                    if(content.search(key) >= 0){
+                        tbUsers.rows[k].style.display = "";
+                        break
+                    }else{
+                        tbUsers.rows[k].style.display = "none";
+                    }
+                }
+            }
+        }
+        showOnlineAndTotalCount();
+    });
+
+
+    /**
+     * plan and status select change listener
+     */
+    var currentSePlan = "";
+    var currentSeStatus = "";
+    $('#seCategory').change(function () {
+        currentSePlan = $(this).val();
+        var key = $(this).val();
+        if(key.length >0){
+            for(var i =0 ; i < rowsLength; i ++){
+                var content = tbUsers.rows[i].cells[9].innerHTML;
+                if(currentSeStatus.length > 0){
+                    var statusContent = tbUsers.rows[i].cells[10].children[0].innerHTML;
+                    if(content === key && statusContent === currentSeStatus){
+                        tbUsers.rows[i].style.display = "";
+                    }else{
+                        tbUsers.rows[i].style.display = "none";
+                    }
+                }else {
+                    if (content === key) {
+                        tbUsers.rows[i].style.display = "";
+                    } else {
+                        tbUsers.rows[i].style.display = "none";
+                    }
+                }
+            }
+        }else{
+            showDisplayRows();
+        }
+        showOnlineAndTotalCount();
+    });
+
+    $('#seStatus').change(function () {
+        currentSeStatus = $(this).val();
+        var key = $(this).val();
+        if(key.length >0){
+            for(var i =0 ; i < rowsLength; i ++){
+                var content = tbUsers.rows[i].cells[10].children[0].innerHTML;
+                if(currentSePlan.length > 0){
+                    var planContent = tbUsers.rows[i].cells[9].innerHTML;
+                    if (content === key && planContent === currentSePlan) {
+                        tbUsers.rows[i].style.display = "";
+                    } else {
+                        tbUsers.rows[i].style.display = "none";
+                    }
+                }else {
+                    if (content === key) {
+                        tbUsers.rows[i].style.display = "";
+                    } else {
+                        tbUsers.rows[i].style.display = "none";
+                    }
+                }
+            }
+        }else{
+            showDisplayRows();
+        }
+        showOnlineAndTotalCount();
+    });
+
+    function showDisplayRows() {
+        for(var i =0 ; i < rowsLength; i ++){
+            tbUsers.rows[i].style.display = "";
+            if(currentSePlan.length > 0){
+                var content1 = tbUsers.rows[i].cells[9].innerHTML;
+                if (content1 !== currentSePlan) {
+                    tbUsers.rows[i].style.display = "none";
+                }
+            }
+            if(currentSeStatus.length > 0) {
+                var content2 = tbUsers.rows[i].cells[10].children[0].innerHTML;
+                if (content2 !== currentSeStatus) {
+                    tbUsers.rows[i].style.display = "none";
+                }
+            }
+        }
+    }
 
 });

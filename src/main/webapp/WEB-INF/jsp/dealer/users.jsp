@@ -43,9 +43,6 @@
                 <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> L
             </button>
 
-            <%--<button type="button" class="btn btn-default" id="btCanceled" title="canceled">--%>
-                <%--<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> C--%>
-            <%--</button>--%>
         </div>
 
         <div style="width: 80%; display: block; float: left">
@@ -114,18 +111,16 @@
                     <td>${authRentUserInfo.category}</td>
                     <td>
                         <c:if test="${authRentUserInfo.status == 'activate'}">
-                            <a style="color: #00b300;">${authRentUserInfo.status}</a>
+                            <span style="color: #00b300;">${authRentUserInfo.status}</span>
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'deactivate'}">
-                            <a style="color: #f00;" href="/panel/admin/activate/${authRentUserInfo.clientKey}">
-                                    ${authRentUserInfo.status}
-                            </a>
+                            <span style="color: #f00;">${authRentUserInfo.status}</span>
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'limited'}">
-                            <a style="color: #f00;">${authRentUserInfo.status}</a>
+                            <span style="color: #f00;">${authRentUserInfo.status}</span>
                         </c:if>
                         <c:if test="${authRentUserInfo.status == 'canceled'}">
-                            <a style="color: #777;">${authRentUserInfo.status}</a>
+                            <span style="color: #777;">${authRentUserInfo.status}</span>
                         </c:if>
                     </td>
                     <td>
