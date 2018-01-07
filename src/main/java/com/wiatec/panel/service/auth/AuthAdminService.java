@@ -136,7 +136,7 @@ public class AuthAdminService {
                 authRentUserInfoList = authRentUserDao.selectBySalesId(value);
                 break;
             default:
-                throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+                throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
         Map<String, HttpSession> sessionMap = SessionListener.sessionMap;
         for(AuthRentUserInfo authRentUserInfo: authRentUserInfoList){

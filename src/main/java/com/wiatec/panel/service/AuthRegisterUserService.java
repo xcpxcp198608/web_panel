@@ -4,6 +4,7 @@ import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
+import com.wiatec.panel.oxm.dao.AuthUserLogDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.common.utils.EmailMaster;
 import com.wiatec.panel.common.utils.TokenUtil;
@@ -11,6 +12,9 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.oxm.pojo.AuthUserLogInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -22,11 +26,18 @@ import javax.servlet.http.HttpSession;
 @Service
 public class AuthRegisterUserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthRegisterUserService.class);
+
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
+    @Resource
+    private AuthUserLogDao authUserLogDao;
 
     @Transactional
-    public ResultInfo register(HttpServletRequest request, AuthRegisterUserInfo authRegisterUserInfo){
+    public ResultInfo register(HttpServletRequest request, AuthRegisterUserInfo authRegisterUserInfo, String language){
+        if(TextUtil.isEmpty(authRegisterUserInfo.getMac())){
+            throw new XException(ResultMaster.error("device s/n error"));
+        }
         if(authRegisterUserDao.countByMac(authRegisterUserInfo) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
         }
@@ -42,9 +53,11 @@ public class AuthRegisterUserService {
         EmailMaster emailMaster = new EmailMaster();
         String url = request.getRequestURL().toString();
         String path = url.substring(0, url.lastIndexOf("/"));
-        emailMaster.setEmailContent(path, authRegisterUserInfo.getUsername(), token);
+        emailMaster.setEmailContent(path, authRegisterUserInfo.getUsername(), token, language);
         emailMaster.sendMessage(authRegisterUserInfo.getEmail());
-        return ResultMaster.success();
+        return ResultMaster.success(" Please check your email to confirm and activate the account. " +
+                "The activation email may take up to 60 minutes to arrive, if you didn't get " +
+                "the email, please contact customer service.");
     }
 
     @Transactional
@@ -56,7 +69,7 @@ public class AuthRegisterUserService {
         String newToken = TokenUtil.create32(token, System.currentTimeMillis()+"");
         authRegisterUserInfo.setToken(newToken);
         authRegisterUserDao.updateEmailStatus(authRegisterUserInfo);
-        return ResultMaster.success();
+        return ResultMaster.success("Activation successfully");
     }
 
     public ResultInfo login(AuthRegisterUserInfo authRegisterUserInfo){
@@ -69,32 +82,40 @@ public class AuthRegisterUserService {
         if(authRegisterUserDao.countByUsernameAndPassword(authRegisterUserInfo) != 1){
             throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
         }
-        return ResultMaster.success();
+        AuthRegisterUserInfo authRegisterUserInfo1 = authRegisterUserDao.selectOneByUsernameAndMac(authRegisterUserInfo);
+        if(authRegisterUserInfo1.getEmailStatus() != 1){
+            throw new XException(EnumResult.ERROR_USER_NO_ACTIVATE);
+        }
+        if(authRegisterUserInfo1.getLevel() <= 0){
+            throw new XException(EnumResult.ERROR_DEVICE_LIMITED);
+        }
+        return ResultMaster.success(authRegisterUserInfo1);
     }
 
     @Transactional
     public ResultInfo validate(HttpSession session, AuthRegisterUserInfo userInfo){
         try {
-            AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByUsernameAndMac(userInfo);
+            AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByUsername(userInfo);
             if (authRegisterUserInfo == null) {
                 throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
             }
             session.setAttribute(SessionListener.KEY_USER_NAME, authRegisterUserInfo.getUsername());
             authRegisterUserDao.updateLocation(userInfo);
-            if(TextUtil.isEmpty(authRegisterUserInfo.getExpiresTime())){
-                String e = TimeUtil.getExpiresTimeByDay(authRegisterUserInfo.getActiveTime(), 7);
-                if(!TimeUtil.isOutExpires(e)){
-                    authRegisterUserInfo.setExperience(true);
-                }
-            }else {
-                if(TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())) {
-                    authRegisterUserInfo.setLevel(1);
-                    authRegisterUserInfo.setExpiresTime("");
-                    authRegisterUserDao.updateLevel(authRegisterUserInfo);
-                }
+            if(authRegisterUserInfo.getLevel() == 0){
+                return ResultMaster.success(authRegisterUserInfo);
+            }
+            String e = TimeUtil.getExpiresTimeByDay(authRegisterUserInfo.getActiveTime(), 7);
+            if (!TimeUtil.isOutExpires(e)) {
+                authRegisterUserInfo.setExperience(true);
+            }
+            if(authRegisterUserInfo.getLevel() > 1 && TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())) {
+                authRegisterUserInfo.setLevel(1);
+                authRegisterUserInfo.setExpiresTime("");
+                authRegisterUserDao.updateLevelById(authRegisterUserInfo);
             }
             return ResultMaster.success(authRegisterUserInfo);
         }catch (Exception e){
+            logger.error(e.getLocalizedMessage());
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
@@ -110,37 +131,48 @@ public class AuthRegisterUserService {
             String path = url.substring(0, url.lastIndexOf("/"));
             emailMaster.setResetPasswordContent(path, authRegisterUserInfo.getUsername(), authRegisterUserInfo.getToken());
             emailMaster.sendMessage(authRegisterUserInfo.getEmail());
-            return ResultMaster.success();
+            return ResultMaster.success("Please check your email to confirm and reset the account password. " +
+                    "The reset email may take up to 60 minutes to arrive, if you didn't get the " +
+                    "email, please contact customer service.");
         }catch (Exception e){
+            logger.error(e.getLocalizedMessage());
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
 
     @Transactional
     public String reset(String token, Model model){
-        try{
-            AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByToken(token);
-            if(authRegisterUserInfo == null){
-                throw new XException(EnumResult.ERROR_TOKEN_NOT_EXISTS);
-            }
-            String newToken = TokenUtil.create32(token, System.currentTimeMillis()+"");
-            authRegisterUserInfo.setToken(newToken);
-            authRegisterUserDao.updateToken(authRegisterUserInfo);
-            model.addAttribute("authRegisterUserInfo", authRegisterUserInfo);
-            return "users/reset";
-        }catch (Exception e){
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+        AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByToken(token);
+        if(authRegisterUserInfo == null){
+            throw new XException(EnumResult.ERROR_TOKEN_NOT_EXISTS);
         }
+        String newToken = TokenUtil.create32(token, System.currentTimeMillis()+"");
+        authRegisterUserInfo.setToken(newToken);
+        authRegisterUserDao.updateToken(authRegisterUserInfo);
+        model.addAttribute("authRegisterUserInfo", authRegisterUserInfo);
+        return "users/reset";
     }
 
     @Transactional
     public String updatePassword(AuthRegisterUserInfo userInfo, Model model){
         try{
             authRegisterUserDao.updatePassword(userInfo);
-            model.addAttribute("resultInfo", ResultMaster.success());
+            model.addAttribute("resultInfo", ResultMaster.success("Password reset successfully"));
             return "users/result";
         }catch (Exception e){
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+            logger.error(e.getLocalizedMessage());
+            throw new XException(ResultMaster.error(e.getLocalizedMessage()));
+        }
+    }
+
+    @Transactional
+    public ResultInfo insertOneUserLog(AuthUserLogInfo authUserLogInfo){
+        try{
+            authUserLogDao.insertOne(authUserLogInfo);
+            return ResultMaster.success();
+        }catch (Exception e){
+            logger.error(e.getLocalizedMessage());
+            throw new XException(ResultMaster.error(e.getLocalizedMessage()));
         }
     }
 

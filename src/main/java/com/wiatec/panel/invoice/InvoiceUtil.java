@@ -29,9 +29,13 @@ import com.lowagie.text.pdf.PdfWriter;
 import com.wiatec.panel.common.utils.PathUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.common.utils.UnitUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class InvoiceUtil {
+
+    private static final Logger logger = LoggerFactory.getLogger(InvoiceUtil.class);
 
     private static final float RATE_TAX = 0.08F;
 
@@ -381,10 +385,10 @@ public class InvoiceUtil {
             doc.add(p1);
 
 
-            Runtime.getRuntime().exec("chmod 755 " + outPath);
+            Runtime.getRuntime().exec("chmod 777 " + path);
             return path;
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getLocalizedMessage());
             return "";
         }finally {
             if(doc != null){

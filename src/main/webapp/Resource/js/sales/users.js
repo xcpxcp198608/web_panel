@@ -37,7 +37,7 @@ $(function () {
     }
 
     function getUserDetailInfoByKey(key) {
-        var url = baseUrl + "/admin/user/" + key;
+        var url = baseUrl + "/sales/user/" + key;
         loading.css('display', 'block');
         $.get(url, function (response, status) {
             loading.css('display', 'none');

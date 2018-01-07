@@ -27,7 +27,8 @@
 
     <sql id="select">
         SELECT id, username, password, email, phone, first_name, last_name, level, email_status,
-            mac, country, region, city, time_zone, active_time, expires_time, last_online_time
+            mac, country, region, city, time_zone, token, active_time, expires_time, last_online_time,
+            create_time, modify_time, status
         FROM auth_register_user
     </sql>
 
@@ -78,6 +79,12 @@
         SELECT COUNT(*)
         FROM auth_register_user
         WHERE username=#{username} AND password=#{password}
+    </select>
+
+    <select id="selectOneByUsername" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo"
+            resultMap="authRegisterUserInfo">
+        <include refid="select"/>
+        WHERE username=#{username}
     </select>
 
     <select id="selectOneByUsernameAndMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo"
@@ -137,7 +144,7 @@
         WHERE id>#{_parameter}
     </select>
 
-    <update id="updateLevel" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
+    <update id="updateLevelById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
         UPDATE auth_register_user
         SET level=#{level}, expires_time=#{expiresTime}
         WHERE id=#{id}

@@ -1,5 +1,7 @@
 package com.wiatec.panel.authorize;
 
+import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
+
 public class AuthorizeTransactionInfo {
 
     public static final String TYPE_CONTRACTED = "contracted";
@@ -214,5 +216,42 @@ public class AuthorizeTransactionInfo {
                 ", type='" + type + '\'' +
                 ", createTime='" + createTime + '\'' +
                 '}';
+    }
+
+    public static AuthorizeTransactionInfo contractedFromAuthRentInfo(AuthRentUserInfo authRentUserInfo){
+        AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
+        authorizeTransactionInfo.setAmount(authRentUserInfo.getFirstPay());
+        authorizeTransactionInfo.setDeposit(authRentUserInfo.getDeposit());
+        authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
+        authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
+        authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
+        authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
+        authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
+        authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
+        authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
+        authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
+        authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
+        authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+        authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_CONTRACTED);
+        return authorizeTransactionInfo;
+    }
+
+    public static AuthorizeTransactionInfo monthlyFromAuthRentInfo(AuthRentUserInfo authRentUserInfo, String today){
+        AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
+        authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
+        authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
+        authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
+        authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
+        authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
+        authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
+        authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+        authorizeTransactionInfo.setAmount(authRentUserInfo.getMonthPay());
+        authorizeTransactionInfo.setDeposit(0);
+        authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
+        authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
+        authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
+        authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_MONTHLY);
+        authorizeTransactionInfo.setCreateTime(today.substring(0, 7));
+        return authorizeTransactionInfo;
     }
 }

@@ -31,7 +31,7 @@ public class AuthManagerService {
     public String users(HttpSession session, Model model){
         String username = (String) session.getAttribute("username");
         if(username == null){
-            throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+            throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
         List<AuthRegisterUserInfo> authRegisterUserInfoList = null;
         if(username.equals("wiatec")) {
@@ -77,7 +77,7 @@ public class AuthManagerService {
             newExpiresTime = TimeUtil.getExpiresTimeByDay(expiresTime, days);
         }
         authRegisterUserInfo.setExpiresTime(newExpiresTime);
-        authRegisterUserDao.updateLevel(authRegisterUserInfo);
+        authRegisterUserDao.updateLevelById(authRegisterUserInfo);
         return ResultMaster.success(authRegisterUserInfo);
     }
 

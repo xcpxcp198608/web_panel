@@ -60,6 +60,10 @@ public class AuthSalesService {
         return "sales/users";
     }
 
+    public AuthRentUserInfo getUserByKey(String key){
+        return authRentUserDao.selectOneByClientKey(key);
+    }
+
     @Transactional
     public ResultInfo createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo, int paymentMethod){
         try {
@@ -96,25 +100,12 @@ public class AuthSalesService {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
                 authRentUserDao.insertOne(authRentUserInfo);
-                AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
-                authorizeTransactionInfo.setAmount(commissionCategoryInfo.getFirstPay());
-                authorizeTransactionInfo.setDeposit(commissionCategoryInfo.getDeposit());
-                authorizeTransactionInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
-                authorizeTransactionInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
-                authorizeTransactionInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
-                authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
-                authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
-                authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
-                authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
-                authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
-                authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
-                authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-                authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_CONTRACTED);
-                AuthorizeTransactionInfo payInfo = AuthorizeTransaction.charge(authorizeTransactionInfo);
-                if (payInfo == null) {
+                AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransaction.charge(AuthorizeTransactionInfo
+                        .contractedFromAuthRentInfo(authRentUserInfo));
+                if (authorizeTransactionInfo == null) {
                     throw new XException(EnumResult.ERROR_AUTHORIZE);
                 }
-                authorizeTransactionDao.insertOne(payInfo);
+                authorizeTransactionDao.insertOne(authorizeTransactionInfo);
                 InvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
                 List<InvoiceInfo> invoiceInfoList;
                 switch (commissionCategoryInfo.getCategory()){
@@ -131,7 +122,8 @@ public class AuthSalesService {
                         throw new XException(ResultMaster.error(5003, "plan error"));
                 }
                 String invoicePath = InvoiceUtil.createInvoice(authRentUserInfo.getEmail(),
-                        payInfo.getTransactionId(), invoiceInfoList);
+                        authorizeTransactionInfo.getTransactionId(), invoiceInfoList);
+                logger.debug("invoicePath: {}", invoicePath);
                 EmailMaster emailMaster = new EmailMaster();
                 emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
                 emailMaster.addAttachment(invoicePath);
@@ -145,7 +137,7 @@ public class AuthSalesService {
                 throw new XException(ResultMaster.error(5001, "payment method error"));
             }
         }catch (Exception e){
-            logger.error(e.getMessage());
+            logger.error(e.getLocalizedMessage());
             throw new XException(ResultMaster.error(5000, e.getMessage()));
         }
         return ResultMaster.error(5000, "server error");
@@ -159,7 +151,7 @@ public class AuthSalesService {
             List<SalesCommissionOfMonthInfo> salesCommissionOfMonthInfoList = authorizeTransactionDao.getCommissionOfMonthBySales(yearOrMonthInfo);
             return ResultMaster.success(salesCommissionOfMonthInfoList);
         }catch (Exception e){
-            logger.error(e.getMessage());
+            logger.error(e.getLocalizedMessage());
             throw new XException(ResultMaster.error(5000, e.getMessage()));
         }
     }
@@ -171,7 +163,7 @@ public class AuthSalesService {
             List<SalesCommissionOfDaysInfo> salesCommissionOfDaysInfoList = authorizeTransactionDao.getCommissionOfDayBySales(yearOrMonthInfo);
             return ResultMaster.success(salesCommissionOfDaysInfoList);
         }catch (Exception e){
-            logger.error(e.getMessage());
+            logger.error(e.getLocalizedMessage());
             throw new XException(ResultMaster.error(5000, e.getMessage()));
         }
     }

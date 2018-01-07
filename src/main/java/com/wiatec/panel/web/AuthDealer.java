@@ -58,6 +58,17 @@ public class AuthDealer {
 
 
     /**
+     * get user details
+     * @param key    client key
+     * @return       {@link AuthRentUserInfo}
+     */
+    @GetMapping(value = "/user/{key}")
+    @ResponseBody
+    public AuthRentUserInfo getUserByKey(@PathVariable String key) {
+        return authDealerService.getUserByKey(key);
+    }
+
+    /**
      * get every day sales volume in specify year and month
      * @param year    specify year
      * @param month   specify month

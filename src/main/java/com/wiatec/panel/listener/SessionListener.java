@@ -22,13 +22,13 @@ public class SessionListener implements HttpSessionListener,HttpSessionAttribute
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-        logger.debug(httpSessionEvent.getSession().getId()+" created");
+        logger.warn(httpSessionEvent.getSession().getId()+" created");
         idSessionMap.put(httpSessionEvent.getSession().getId(), httpSessionEvent.getSession());
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
-        logger.debug(httpSessionEvent.getSession().getId()+" destroyed");
+        logger.warn(httpSessionEvent.getSession().getId()+" destroyed");
         idSessionMap.remove(httpSessionEvent.getSession().getId());
     }
 

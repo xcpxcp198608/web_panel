@@ -20,7 +20,7 @@ $(function () {
      * @param key
      */
     function getUserDetailInfoByKey(key) {
-        var url = baseUrl + "/admin/user/" + key;
+        var url = baseUrl + "/dealer/user/" + key;
         loading.css('display', 'block');
         $.get(url,{}, function (response, status) {
             loading.css('display', 'none');

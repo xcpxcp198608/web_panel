@@ -22,12 +22,12 @@ public class AuthInterceptor implements HandlerInterceptor {
         String ref = request.getHeader("Referer");
         logger.info("= ref = {}", ref);
         if(ref == null || !ref.contains("/panel")){
-            throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+            throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
         String username = (String) request.getSession().getAttribute("username");
         logger.info("= username = {}", username);
         if(username == null){
-            throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+            throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
         logger.info("===============================================================================================");
         return true;
@@ -37,7 +37,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         String username = (String) request.getSession().getAttribute("username");
         if(TextUtil.isEmpty(username)){
-            throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+            throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
         if(modelAndView != null) modelAndView.getModel().put("username", username);
     }

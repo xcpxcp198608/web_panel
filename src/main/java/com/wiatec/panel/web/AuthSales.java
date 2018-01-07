@@ -43,6 +43,17 @@ public class AuthSales {
     }
 
     /**
+     * get user details
+     * @param key    client key
+     * @return       {@link AuthRentUserInfo}
+     */
+    @GetMapping(value = "/user/{key}")
+    @ResponseBody
+    public AuthRentUserInfo getUserByKey(@PathVariable String key) {
+        return authSalesService.getUserByKey(key);
+    }
+
+    /**
      * go to create_user page to fill in information
      * @return
      */

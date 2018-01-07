@@ -1,6 +1,5 @@
 package com.wiatec.panel.service.auth;
 
-import com.wiatec.panel.authorize.AuthorizeTransaction;
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.XException;
 import com.wiatec.panel.common.utils.TextUtil;
@@ -12,7 +11,6 @@ import com.wiatec.panel.oxm.dao.AuthorizeTransactionDao;
 import com.wiatec.panel.oxm.pojo.AuthDealerInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
-import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.AllSalesMonthCommissionInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo;
@@ -59,7 +57,7 @@ public class AuthDealerService {
                 authRentUserInfoList = authRentUserDao.selectBySalesId(value);
                 break;
             default:
-                throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+                throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
         Map<String, HttpSession> sessionMap = SessionListener.sessionMap;
         for(AuthRentUserInfo authRentUserInfo: authRentUserInfoList){
@@ -71,6 +69,9 @@ public class AuthDealerService {
         return "dealer/users";
     }
 
+    public AuthRentUserInfo getUserByKey(String key){
+        return authRentUserDao.selectOneByClientKey(key);
+    }
 
     private AuthDealerInfo getDealerInfo(HttpServletRequest request){
         String username = (String) request.getSession().getAttribute("username");

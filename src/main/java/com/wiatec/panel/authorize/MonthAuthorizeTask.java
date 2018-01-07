@@ -99,22 +99,8 @@ public class MonthAuthorizeTask {
                 }
                 logger.debug("= payment method is credit card");
                 logger.debug("= checking check out on this month");
-                AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
-                authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
-                authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
-                authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
-                authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
-                authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
-                authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
-                authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-                authorizeTransactionInfo.setAmount(authRentUserInfo.getMonthPay());
-                authorizeTransactionInfo.setDeposit(0);
-                authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
-                authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
-                authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
-                authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_MONTHLY);
-                authorizeTransactionInfo.setCreateTime(today.substring(0, 7));
                 //check is already check out on this month
+                AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo.monthlyFromAuthRentInfo(authRentUserInfo, today);
                 if(authorizeTransactionDao.countByKeyAndDate(authorizeTransactionInfo) == 1){
                     logger.debug("= {} already check out on this month", authRentUserInfo.getClientKey());
                     logger.debug("====================================================================");

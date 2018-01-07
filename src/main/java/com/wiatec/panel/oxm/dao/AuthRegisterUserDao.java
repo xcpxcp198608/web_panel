@@ -16,6 +16,7 @@ public interface AuthRegisterUserDao {
     void updateEmailStatus(AuthRegisterUserInfo authRegisterUserInfo);
     int countByUsernameAndPassword(AuthRegisterUserInfo authRegisterUserInfo);
     AuthRegisterUserInfo selectOneByToken(String token);
+    AuthRegisterUserInfo selectOneByUsername(AuthRegisterUserInfo authRegisterUserInfo);
     AuthRegisterUserInfo selectOneByUsernameAndMac(AuthRegisterUserInfo authRegisterUserInfo);
     AuthRegisterUserInfo selectOneByUsernameAndEmail(AuthRegisterUserInfo authRegisterUserInfo);
     void updateLocation(AuthRegisterUserInfo authRegisterUserInfo);
@@ -29,7 +30,7 @@ public interface AuthRegisterUserDao {
     void deleteOneById(AuthRegisterUserInfo authRegisterUserInfo);
     String selectExpiresTimeById(int id);
     AuthRegisterUserInfo selectOneById(int id);
-    void updateLevel(AuthRegisterUserInfo authRegisterUserInfo);
+    void updateLevelById(AuthRegisterUserInfo authRegisterUserInfo);
 
     List<Integer> selectLevelOfYear(YearOrMonthInfo yearOrMonthInfo);
 }

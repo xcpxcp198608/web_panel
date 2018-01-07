@@ -4,9 +4,6 @@ import com.wiatec.panel.authorize.MonthAuthorizeTask;
 import com.wiatec.panel.common.utils.ApplicationContextHelper;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
-import com.wiatec.panel.oxm.dao.AuthRentUserDao;
-import com.wiatec.panel.oxm.dao.AuthorizeTransactionDao;
-import com.wiatec.panel.oxm.dao.CommissionCategoryDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -44,7 +41,7 @@ public class RegisterUserLevelTask {
             if(TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())){
                 authRegisterUserInfo.setLevel(1);
                 authRegisterUserInfo.setExpiresTime("");
-                authRegisterUserDao.updateLevel(authRegisterUserInfo);
+                authRegisterUserDao.updateLevelById(authRegisterUserInfo);
             }
         }
     }
