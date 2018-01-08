@@ -251,7 +251,7 @@ $(function () {
                     var td = tbUsers.rows[currentRow].cells[8];
                     td.removeChild(td.children[0]);
                     if(level === 0){
-                        td.innerHTML = "<span style=\"color: #a01c34\">0</span>"
+                        td.innerHTML = "<span style=\"color: #a01c34\">limited</span>"
                     }else if (level === '5'){
                         td.innerHTML = "<span>fto</span>";
                         tbUsers.rows[currentRow].cells[6].innerHTML = response['data']['expiresTime'];

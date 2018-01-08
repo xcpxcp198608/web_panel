@@ -50,6 +50,7 @@
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="7">7</option>
+                    <option value="28">28</option>
                     <option value="30">30</option>
                     <option value="92">92</option>
                     <option value="183">183</option>
@@ -149,7 +150,7 @@
                     </td>
                     <td>
                         <c:if test="${authRegisterUserInfo.level == 0}">
-                            <span style="color: #a01c34">${authRegisterUserInfo.level}</span>
+                            <span style="color: #a01c34">limited</span>
                         </c:if>
                         <c:if test="${authRegisterUserInfo.level == 5}">
                             <span>fto</span>

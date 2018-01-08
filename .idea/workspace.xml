@@ -7,39 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcbb8162-7201-4f40-a409-92e2db470717" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthManagerService.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/LogAuthService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/LogAuthService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/LogWebRequest.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/aop/LogWebRequest.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/TimeUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/TimeUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/inteceptor/AuthInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/inteceptor/AuthInterceptor.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRegisterUserDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRegisterUserDao.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthManagerService.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRegisterUserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRegisterUserService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRentUserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRentUserService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthDealerService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthDealerService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/CommissionCategoryService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/CommissionCategoryService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dispatcher-servlet.xml" afterPath="$PROJECT_DIR$/src/main/resources/dispatcher-servlet.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis-configuration.xml" afterPath="$PROJECT_DIR$/src/main/resources/mybatis-configuration.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/dealer.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/dealer.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/users.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/users.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/sales.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/sales.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/users.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/users.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/sales/users.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/sales/users.js" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/EmailMaster.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/EmailMaster.java" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/users/users.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/users/users.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/dealer.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/dealer.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/users.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/users.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/sales.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/sales.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/users.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/users.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/users.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/users.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/users.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/users.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -436,11 +406,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/listener/SessionListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRegisterUser.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/api/AuthRegisterUser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/EmailMaster.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/EnumResult.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/sales/create_user.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/create_user.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/users.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/users.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/users.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/users.jsp" />
@@ -471,6 +439,8 @@
         <option value="$PROJECT_DIR$/src/main/resources/applicationContext.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRegisterUserDao.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/users/users.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/users.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/EmailMaster.java" />
       </list>
     </option>
   </component>
@@ -532,6 +502,41 @@
             <path>
               <item name="panel" type="b2602c69:ProjectViewProjectNode" />
               <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="libs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="libs" type="462c0819:PsiDirectoryNode" />
+              <item name="exploded" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="libs" type="462c0819:PsiDirectoryNode" />
+              <item name="exploded" type="462c0819:PsiDirectoryNode" />
+              <item name="panel-1.0-SNAPSHOT.war" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="libs" type="462c0819:PsiDirectoryNode" />
+              <item name="exploded" type="462c0819:PsiDirectoryNode" />
+              <item name="panel-1.0-SNAPSHOT.war" type="462c0819:PsiDirectoryNode" />
+              <item name="invoice" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="panel" type="b2602c69:ProjectViewProjectNode" />
@@ -631,6 +636,67 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="Resource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="Resource" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="Resource" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -701,7 +767,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Tomcat Server.8.5.24">
+  <component name="RunManager" selected="Application.EmailMaster">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
@@ -966,8 +1032,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.InvoiceUtil" />
-        <item index="1" class="java.lang.String" itemvalue="Application.EmailMaster" />
+        <item index="0" class="java.lang.String" itemvalue="Application.EmailMaster" />
+        <item index="1" class="java.lang.String" itemvalue="Application.InvoiceUtil" />
         <item index="2" class="java.lang.String" itemvalue="Application.PathUtil" />
         <item index="3" class="java.lang.String" itemvalue="Application.UnitUtil" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.AuthorizeTransactionTest.charge" />
@@ -1065,7 +1131,7 @@
       <workItem from="1515253989078" duration="1071000" />
       <workItem from="1515286391322" duration="978000" />
       <workItem from="1515374180763" duration="3016000" />
-      <workItem from="1515378129605" duration="6136000" />
+      <workItem from="1515378129605" duration="8313000" />
     </task>
     <task id="LOCAL-00001" summary="201711111120">
       <created>1510370376796</created>
@@ -1298,7 +1364,14 @@
       <option name="project" value="LOCAL" />
       <updated>1515374748003</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="201801081205">
+      <created>1515384348231</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1515384348232</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1334,7 +1407,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="570872000" />
+    <option name="totallyTimeSpent" value="573049000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1370,7 +1443,7 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985657" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29032257" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3483871" sideWeight="0.49137932" order="5" side_tool="false" content_ui="tabs" x="0" y="0" width="1440" height="900" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35741934" sideWeight="0.49137932" order="5" side_tool="false" content_ui="tabs" x="0" y="0" width="1440" height="900" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985657" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987013" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1423,7 +1496,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="201711181015" />
     <MESSAGE value="201711181150" />
     <MESSAGE value="201711201610" />
     <MESSAGE value="201711210920" />
@@ -1448,7 +1520,8 @@
     <MESSAGE value="201801051155" />
     <MESSAGE value="201801070850" />
     <MESSAGE value="201801080925" />
-    <option name="LAST_COMMIT_MESSAGE" value="201801080925" />
+    <MESSAGE value="201801081205" />
+    <option name="LAST_COMMIT_MESSAGE" value="201801081205" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1530,14 +1603,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="60" column="24" lean-forward="false" selection-start-line="60" selection-start-column="24" selection-end-line="60" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/users.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="137" column="63" lean-forward="false" selection-start-line="137" selection-start-column="57" selection-end-line="137" selection-end-column="63" />
           <folding />
         </state>
       </provider>
@@ -1673,14 +1738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/EmailMaster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="173" column="19" lean-forward="false" selection-start-line="173" selection-start-column="19" selection-end-line="173" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/api/AuthRegisterUser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
@@ -1812,14 +1869,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRegisterUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2398">
-          <caret line="174" column="18" lean-forward="true" selection-start-line="174" selection-start-column="18" selection-end-line="174" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://table:/49917121/0aa6f387-5a57-419b-b01e-9927dd066fc4/panel.auth_register_user">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1868,21 +1917,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/users/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="26" column="38" lean-forward="true" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
-          <folding>
-            <marker date="1515383992583" expanded="true" signature="6222:6236" ph="..." />
-            <marker date="1515383992583" expanded="true" signature="8898:8912" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/inteceptor/AuthInterceptor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
           <caret line="32" column="27" lean-forward="true" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/users/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="251" column="51" lean-forward="true" selection-start-line="251" selection-start-column="51" selection-end-line="251" selection-end-column="51" />
+          <folding>
+            <marker date="1515389031133" expanded="true" signature="6222:6236" ph="..." />
+            <marker date="1515389031133" expanded="true" signature="8898:8912" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/users.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="54" column="50" lean-forward="true" selection-start-line="54" selection-start-column="50" selection-end-line="54" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/EmailMaster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="230" column="0" lean-forward="true" selection-start-line="230" selection-start-column="0" selection-end-line="230" selection-end-column="0" />
+          <folding>
+            <element signature="method#setEmailContent#0;class#EmailMaster#0" expanded="false" />
+            <element signature="method#setResetPasswordContent#0;class#EmailMaster#0" expanded="false" />
+            <element signature="method#setInvoiceContent#0;class#EmailMaster#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRegisterUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="139" column="31" lean-forward="false" selection-start-line="139" selection-start-column="31" selection-end-line="139" selection-end-column="31" />
           <folding />
         </state>
       </provider>
