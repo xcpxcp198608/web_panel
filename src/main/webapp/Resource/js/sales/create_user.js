@@ -74,7 +74,7 @@ $(function () {
        var expirationDate = $('#ipExpirationDate').val();
        var securityKey = $('#ipSecurityKey').val();
        if(category.length <= 0){
-           $('#errorMessage').html('have no choose plan');
+           $('#errorMessage').html('No Plan chosen');
            return;
        }
        if(mac.length !== 17){

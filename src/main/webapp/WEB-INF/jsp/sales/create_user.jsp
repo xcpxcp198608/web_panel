@@ -30,14 +30,6 @@
     <div>
         <div style="width: 50%; margin: auto">
             <h3 style="width: 100%; text-align: center">Create an new user</h3>
-            <%--<div class="input-group">--%>
-                <%--<select  style="height: 34px;" id="seCategory" name="category">--%>
-                    <%--<option value="">Choose Plan</option>--%>
-                    <%--<option value="B1">B1</option>--%>
-                    <%--<option value="P1">P1</option>--%>
-                    <%--<option value="P2">P2</option>--%>
-                <%--</select>--%>
-            <%--</div>--%>
             <div style="margin-top: 3px">
                 <table class="table table-bordered table-condensed" id="tbCategory">
                     <tbody>
@@ -164,6 +156,13 @@
                 Create
             </button>
             <h4 id="errorMessage" style="color: red; width: 100%; text-align: center"></h4>
+
+            <div style="color: grey">
+                Plans:<br/>
+                1. B1    24 months Basic BVision package<br/>
+                2. P1    12 months VIP BVision package<br/>
+                3. P2    24 months VIP BVision package<br/>
+            </div>
         </div>
 
     </div>

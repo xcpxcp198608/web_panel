@@ -66,7 +66,7 @@ $(function () {
     
     $('#btActivate').click(function () {
         if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
-            showNotice('have no choose user');
+            showNotice('No user chosen');
             return;
         }
         if(currentStatus === 'canceled'){
@@ -88,7 +88,7 @@ $(function () {
 
     $('#btLimited').click(function () {
         if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
-            showNotice('have no choose user');
+            showNotice('No user chosen');
             return;
         }
         if(currentStatus === 'canceled'){
@@ -109,7 +109,7 @@ $(function () {
     
     $('#btCanceled').click(function () {
         if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
-            showNotice('have no choose user');
+            showNotice('No user chosen');
             return;
         }
         if(currentStatus === 'canceled'){
@@ -126,7 +126,7 @@ $(function () {
 
     $('#btCashActivate').click(function () {
         if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
-            showNotice('have no choose user');
+            showNotice('No user chosen');
             return;
         }
         if(currentStatus === 'canceled'){
@@ -184,7 +184,7 @@ $(function () {
 
     $('#btUpdatePlan').click(function () {
         if(currentRow === 0 || currentClientKey.length <= 0){
-            showNotice('have no choose user');
+            showNotice('No user chosen');
             return;
         }
         if(updateCategory.length <= 0){

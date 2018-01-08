@@ -115,7 +115,7 @@ $(function () {
     
     $('#btActivate').click(function () {
         if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
-            showNotice('have no choose user');
+            showNotice('No user chosen');
             return;
         }
         if(currentStatus === 'canceled'){
@@ -138,7 +138,7 @@ $(function () {
     
     $('#btLimited').click(function () {
         if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
-            showNotice('have no choose user');
+            showNotice('No user chosen');
             return;
         }
         if(currentStatus === 'canceled'){
