@@ -12,15 +12,15 @@ import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.XException;
-import com.wiatec.panel.web.AuthAdmin;
-import com.wiatec.panel.web.AuthDealer;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author patrick
+ */
 @Service
 public class AuthService {
 
@@ -33,7 +33,6 @@ public class AuthService {
     @Resource
     private AuthSalesDao authSalesDao;
 
-    @Transactional
     public String signIn(HttpSession session, String username, String password, int type){
         session.setAttribute("username", username);
         if(TextUtil.isEmpty(username)){

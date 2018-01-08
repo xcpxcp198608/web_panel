@@ -25,6 +25,9 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author patrick
+ */
 @Service
 public class AuthDealerService {
 
@@ -90,13 +93,15 @@ public class AuthDealerService {
 
     public List<TopVolumeInfo> getTopVolume(HttpServletRequest request, int top){
         AuthDealerInfo authDealerInfo = getDealerInfo(request);
-        authDealerInfo.setLeaderId(top); //用leader id 代替top
+        //用leader id 代替top
+        authDealerInfo.setLeaderId(top);
         return authRentUserDao.selectTopVolumeByDealer(authDealerInfo);
     }
 
     public List<TopAmountInfo> getTopAmount(HttpServletRequest request, int top){
         AuthDealerInfo authDealerInfo = getDealerInfo(request);
-        authDealerInfo.setLeaderId(top); //用leader id 代替top
+        //用leader id 代替top
+        authDealerInfo.setLeaderId(top);
         return authorizeTransactionDao.selectTopAmountByDealer(authDealerInfo);
     }
 

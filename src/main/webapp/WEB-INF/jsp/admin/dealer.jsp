@@ -69,8 +69,7 @@
                 <th>#</th>
                 <th>Username</th>
                 <th>Password</th>
-                <th>FirstName</th>
-                <th>LastName</th>
+                <th>Name</th>
                 <th>SSN</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -86,8 +85,7 @@
                     <td>${status.index+1}</td>
                     <td>${authDealerInfo.username}</td>
                     <td><input type="text" value="${authDealerInfo.password}" title="pwd" size="12"/></td>
-                    <td>${authDealerInfo.firstName}</td>
-                    <td>${authDealerInfo.lastName}</td>
+                    <td>${authDealerInfo.firstName}&nbsp;${authDealerInfo.lastName}</td>
                     <td>
                         ${fn:substring(authDealerInfo.ssn, 0, 3)}-${fn:substring(authDealerInfo.ssn, 3, 5)}-${fn:substring(authDealerInfo.ssn, 5, 9)}
                     </td>

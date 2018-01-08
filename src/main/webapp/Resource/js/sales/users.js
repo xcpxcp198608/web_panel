@@ -13,7 +13,7 @@ $(function () {
         var onlineCount = 0;
         for(var x =0 ; x < rowsLength; x ++){
             var status = tBody.rows[x].style.display;
-            var online = tBody.rows[x].cells[8].childNodes[1].getAttribute("online");
+            var online = tBody.rows[x].cells[7].childNodes[1].getAttribute("online");
             if(status !== 'none'){
                 count ++;
                 if(online === "true"){
@@ -30,7 +30,7 @@ $(function () {
      * @param key
      */
     for(var i = 0; i < rowsLength; i ++){
-        tBody.rows[i].cells[9].onclick = function(){
+        tBody.rows[i].cells[8].onclick = function(){
             var key = this.parentNode.cells[1].innerHTML;
             getUserDetailInfoByKey(key)
         }
@@ -92,7 +92,7 @@ $(function () {
             showAllRows();
         }else{
             for(var k = 0; k < rowsLength; k ++){
-                for(var j = 1; j < 6; j ++){
+                for(var j = 1; j < 5; j ++){
                     var content = tBody.rows[k].cells[j].innerHTML.toLowerCase();
                     if(content.search(key) >= 0){
                         tBody.rows[k].style.display = "";
@@ -144,9 +144,9 @@ $(function () {
         var key = $(this).val();
         if(key.length >0){
             for(var i =0 ; i < rowsLength; i ++){
-                var content = tBody.rows[i].cells[7].children[0].innerHTML;
+                var content = tBody.rows[i].cells[6].children[0].innerHTML;
                 if(currentSePlan.length > 0){
-                    var planContent = tBody.rows[i].cells[6].innerHTML;
+                    var planContent = tBody.rows[i].cells[5].innerHTML;
                     if (content === key && planContent === currentSePlan) {
                         tBody.rows[i].style.display = "";
                     } else {
@@ -170,13 +170,13 @@ $(function () {
         for(var i =0 ; i < rowsLength; i ++){
             tBody.rows[i].style.display = "";
             if(currentSePlan.length > 0){
-                var content1 = tBody.rows[i].cells[6].innerHTML;
+                var content1 = tBody.rows[i].cells[5].innerHTML;
                 if (content1 !== currentSePlan) {
                     tBody.rows[i].style.display = "none";
                 }
             }
             if(currentSeStatus.length > 0) {
-                var content2 = tBody.rows[i].cells[7].children[0].innerHTML;
+                var content2 = tBody.rows[i].cells[6].children[0].innerHTML;
                 if (content2 !== currentSeStatus) {
                     tBody.rows[i].style.display = "none";
                 }

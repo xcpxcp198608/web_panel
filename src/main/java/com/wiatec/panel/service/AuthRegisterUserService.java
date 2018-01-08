@@ -23,6 +23,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author patrick
+ */
 @Service
 public class AuthRegisterUserService {
 
@@ -104,7 +107,11 @@ public class AuthRegisterUserService {
             if(authRegisterUserInfo.getLevel() == 0){
                 return ResultMaster.success(authRegisterUserInfo);
             }
-            String e = TimeUtil.getExpiresTimeByDay(authRegisterUserInfo.getActiveTime(), 7);
+            String activateTime = authRegisterUserInfo.getActiveTime();
+            if(TextUtil.isEmpty(activateTime)){
+                activateTime = "2017-01-01 00:00:00";
+            }
+            String e = TimeUtil.getExpiresTimeByDay(activateTime, 7);
             if (!TimeUtil.isOutExpires(e)) {
                 authRegisterUserInfo.setExperience(true);
             }
@@ -115,8 +122,8 @@ public class AuthRegisterUserService {
             }
             return ResultMaster.success(authRegisterUserInfo);
         }catch (Exception e){
-            logger.error(e.getLocalizedMessage());
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+            logger.error("Exception:", e);
+            return ResultMaster.success("Error during validate on server");
         }
     }
 
@@ -135,7 +142,7 @@ public class AuthRegisterUserService {
                     "The reset email may take up to 60 minutes to arrive, if you didn't get the " +
                     "email, please contact customer service.");
         }catch (Exception e){
-            logger.error(e.getLocalizedMessage());
+            logger.error("Exception:", e);
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
@@ -160,7 +167,7 @@ public class AuthRegisterUserService {
             model.addAttribute("resultInfo", ResultMaster.success("Password reset successfully"));
             return "users/result";
         }catch (Exception e){
-            logger.error(e.getLocalizedMessage());
+            logger.error("Exception:", e);
             throw new XException(ResultMaster.error(e.getLocalizedMessage()));
         }
     }
@@ -171,7 +178,7 @@ public class AuthRegisterUserService {
             authUserLogDao.insertOne(authUserLogInfo);
             return ResultMaster.success();
         }catch (Exception e){
-            logger.error(e.getLocalizedMessage());
+            logger.error("Exception:", e);
             throw new XException(ResultMaster.error(e.getLocalizedMessage()));
         }
     }

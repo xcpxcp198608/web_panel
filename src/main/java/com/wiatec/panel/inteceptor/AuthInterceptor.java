@@ -11,6 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author patrick
+ */
 public class AuthInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
@@ -39,7 +42,9 @@ public class AuthInterceptor implements HandlerInterceptor {
         if(TextUtil.isEmpty(username)){
             throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
-        if(modelAndView != null) modelAndView.getModel().put("username", username);
+        if(modelAndView != null) {
+            modelAndView.getModel().put("username", username);
+        }
     }
 
     @Override

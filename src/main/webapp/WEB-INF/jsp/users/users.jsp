@@ -107,8 +107,7 @@
                 <th>Username</th>
                 <th>Mac</th>
                 <th>Email</th>
-                <th>FirstName</th>
-                <th>LastName</th>
+                <th>Name</th>
                 <th>ExpiresTime</th>
                 <th>Status</th>
                 <th>
@@ -136,8 +135,7 @@
                     <td>${authRegisterUserInfo.username}</td>
                     <td>${authRegisterUserInfo.mac}</td>
                     <td>${authRegisterUserInfo.email}</td>
-                    <td>${authRegisterUserInfo.firstName}</td>
-                    <td>${authRegisterUserInfo.lastName}</td>
+                    <td>${authRegisterUserInfo.firstName}&nbsp;${authRegisterUserInfo.lastName} </td>
                     <td>${authRegisterUserInfo.expiresTime}</td>
                     <td>
                         <c:if test="${authRegisterUserInfo.emailStatus == 1}">

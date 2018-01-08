@@ -388,26 +388,23 @@ $(function () {
                     tdObj.innerHTML = authSalesInfo.dealerName;
                     break;
                 case 5:
-                    tdObj.innerHTML = authSalesInfo.firstName;
+                    tdObj.innerHTML = authSalesInfo.firstName + " " + authSalesInfo.lastName;
                     break;
                 case 6:
-                    tdObj.innerHTML = authSalesInfo.lastName;
-                    break;
-                case 7:
                     var ssn = authSalesInfo.ssn.toString();
                     tdObj.innerHTML = ssn.substring(0, 3) + '-' + ssn.substring(3, 5) + '-'+ ssn.substring(5, 9);
                     break;
-                case 8:
+                case 7:
                     tdObj.innerHTML = authSalesInfo.email;
                     break;
-                case 9:
+                case 8:
                     tdObj.innerHTML = authSalesInfo.phone;
                     break;
-                case 10:
+                case 9:
                     tdObj.innerHTML = authSalesInfo.createTime.substring(0, 19);
                     tdObj.setAttribute('class', 'tdRows12');
                     break;
-                case 11:
+                case 10:
                     tdObj.innerHTML = '<a href="/panel/admin/users/'+ authSalesInfo.id+'">\n' +
                         '                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>\n' +
                         '              </a>';

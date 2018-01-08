@@ -9,7 +9,7 @@ $(function () {
      * set more click event to show user details for every rows
      */
     for(var i = 0; i < rowsLength; i ++){
-        tbUsers.rows[i].cells[11].onclick = function(){
+        tbUsers.rows[i].cells[10].onclick = function(){
             var userId = this.parentNode.cells[1].innerHTML;
             getUserDetailInfoById(userId)
         }
@@ -33,7 +33,7 @@ $(function () {
                 tbUserDetails.rows[5].cells[1].innerHTML = response['email'];
                 tbUserDetails.rows[6].cells[1].innerHTML = response['phone'];
                 tbUserDetails.rows[7].cells[1].innerHTML = response['createTime'];
-                tbUserDetails.rows[8].cells[1].innerHTML = response['activateTime'];
+                tbUserDetails.rows[8].cells[1].innerHTML = response['activeTime'];
                 tbUserDetails.rows[9].cells[1].innerHTML = response['level'];
                 tbUserDetails.rows[10].cells[1].innerHTML = response['expiresTime'];
                 tbUserDetails.rows[11].cells[1].innerHTML = response['status'];
@@ -58,7 +58,7 @@ $(function () {
         rowsLength = tbUsers.rows.length;
         for(var x =0 ; x < rowsLength; x ++){
             var status = tbUsers.rows[x].style.display;
-            var online = tbUsers.rows[x].cells[10].childNodes[1].getAttribute("online");
+            var online = tbUsers.rows[x].cells[9].childNodes[1].getAttribute("online");
             if(status !== 'none'){
                 count ++;
                 if(online === "true"){
@@ -87,7 +87,7 @@ $(function () {
         }else{
             rowsLength = tbUsers.rows.length;
             for(var k = 0; k < rowsLength; k ++){
-                for(var j = 1; j < 8; j ++){
+                for(var j = 1; j < 7; j ++){
                     var content = tbUsers.rows[k].cells[j].innerHTML.toLowerCase();
                     if(content.search(key) >= 0){
                         tbUsers = $('#tbUsers').get(0).tBodies[0];
@@ -109,7 +109,7 @@ $(function () {
             rowsLength = tbUsers.rows.length;
             for(var i =0 ; i < rowsLength; i ++){
                 tbUsers = $('#tbUsers').get(0).tBodies[0];
-                if(tbUsers.rows[i].cells[9].children[0].innerHTML === key){
+                if(tbUsers.rows[i].cells[8].children[0].innerHTML === key){
                     tbUsers.rows[i].style.display = "";
                 }else{
                     tbUsers.rows[i].style.display = "none";
@@ -120,24 +120,6 @@ $(function () {
         }
         showOnlineAndTotalCount();
     });
-
-
-
-
-    function selectChangeListener(key, cellIndex) {
-        if(key.length >0){
-            for(var i =0 ; i < rowsLength; i ++){
-                if(tbUsers.rows[i].cells[cellIndex].innerHTML === key){
-                    tbUsers.rows[i].style.display = "";
-                }else{
-                    tbUsers.rows[i].style.display = "none";
-                }
-            }
-        }else{
-            showAllRows();
-        }
-        showOnlineAndTotalCount();
-    }
 
 
     var currentRow = 0;
@@ -165,12 +147,12 @@ $(function () {
     
     $('#btActivate').click(function () {
         if(currentId <= 0){
-            showNotice('have no choose user');
+            showNotice('No user choose');
             return;
         }
         console.log(currentStatus);
         if(currentStatus === '1'){
-            showNotice('already activate');
+            showNotice('the user already activate');
             return;
         }
         $.ajax({
@@ -186,8 +168,8 @@ $(function () {
                 if(response.code === 200) {
                     tbUsers = $('#tbUsers').get(0).tBodies[0];
                     var tr = tbUsers.rows[currentRow];
-                    tr.cells[8].removeChild(tr.cells[8].children[0]);
-                    tr.cells[8].innerHTML = "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\" style=\"color: #9f9f9f\"\n" +
+                    tr.cells[7].removeChild(tr.cells[7].children[0]);
+                    tr.cells[7].innerHTML = "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\" style=\"color: #9f9f9f\"\n" +
                         "                                  status=\"1\"></span>"
                 }
                 showNotice(response.message);
@@ -266,16 +248,16 @@ $(function () {
                 hideLoading();
                 if(response.code === 200) {
                     tbUsers = $('#tbUsers').get(0).tBodies[0];
-                    var td = tbUsers.rows[currentRow].cells[9];
+                    var td = tbUsers.rows[currentRow].cells[8];
                     td.removeChild(td.children[0]);
                     if(level === 0){
                         td.innerHTML = "<span style=\"color: #a01c34\">0</span>"
                     }else if (level === '5'){
                         td.innerHTML = "<span>fto</span>";
-                        tbUsers.rows[currentRow].cells[7].innerHTML = response['data']['expiresTime'];
+                        tbUsers.rows[currentRow].cells[6].innerHTML = response['data']['expiresTime'];
                     }else{
                         td.innerHTML = "<span>" + level + "</span>";
-                        tbUsers.rows[currentRow].cells[7].innerHTML = response['data']['expiresTime'];
+                        tbUsers.rows[currentRow].cells[6].innerHTML = response['data']['expiresTime'];
                     }
                 }
                 showNotice(response.message);

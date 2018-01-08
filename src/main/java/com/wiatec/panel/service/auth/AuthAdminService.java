@@ -68,7 +68,7 @@ public class AuthAdminService {
             authDealerDao.insertOne(authDealerInfo);
             return ResultMaster.success(authDealerDao.selectOne(authDealerInfo));
         }catch (Exception e){
-            logger.error(e.getMessage()+"");
+            logger.error("Exception:", e);
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
@@ -79,7 +79,7 @@ public class AuthAdminService {
             authDealerDao.updatePassword(authDealerInfo);
             return ResultMaster.success();
         }catch (Exception e){
-            logger.error(e.getMessage()+"");
+            logger.error("Exception:", e);
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
@@ -107,7 +107,7 @@ public class AuthAdminService {
             authSalesDao.insertOne(authSalesInfo);
             return ResultMaster.success(authSalesDao.selectOne(authSalesInfo));
         }catch (Exception e){
-            logger.error(e.getMessage());
+            logger.error("Exception:", e);
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
@@ -118,7 +118,7 @@ public class AuthAdminService {
             authSalesDao.updatePassword(authSalesInfo);
             return ResultMaster.success();
         }catch (Exception e){
-            logger.error(e.getMessage());
+            logger.error("Exception:", e);
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
@@ -163,6 +163,7 @@ public class AuthAdminService {
             authRentUserDao.updateUserStatus(authRentUserInfo);
             return ResultMaster.success();
         }catch (Exception e){
+            logger.error("Exception:", e);
             return ResultMaster.error(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
@@ -203,7 +204,7 @@ public class AuthAdminService {
             authRentUserDao.updateUserCategory(authRentUserInfo);
             return ResultMaster.success(authRentUserInfo);
         }catch (Exception e){
-            logger.debug(e.getLocalizedMessage());
+            logger.error("Exception:", e);
             return ResultMaster.error(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }

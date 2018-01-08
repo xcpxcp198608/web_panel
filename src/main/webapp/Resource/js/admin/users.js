@@ -9,7 +9,7 @@ $(function () {
      * set more click event to show user details for every rows
      */
     for(var i = 0; i < rowsLength; i ++){
-        tbUsers.rows[i].cells[12].onclick = function(){
+        tbUsers.rows[i].cells[11].onclick = function(){
             var key = this.parentNode.cells[2].innerHTML;
             getUserDetailInfoByKey(key)
         }
@@ -158,13 +158,13 @@ $(function () {
             success: function (response) {
                 hideLoading();
                 if(response.code === 200) {
-                    tbUsers.rows[currentRow].cells[10].children[0].innerHTML = status;
+                    tbUsers.rows[currentRow].cells[9].children[0].innerHTML = status;
                     if('activate' === status){
-                        tbUsers.rows[currentRow].cells[10].children[0].style.color = '#00b300';
+                        tbUsers.rows[currentRow].cells[9].children[0].style.color = '#00b300';
                     }else if('canceled' === status){
-                        tbUsers.rows[currentRow].cells[10].children[0].style.color = '#777';
+                        tbUsers.rows[currentRow].cells[9].children[0].style.color = '#777';
                     }else{
-                        tbUsers.rows[currentRow].cells[10].children[0].style.color = '#f00';
+                        tbUsers.rows[currentRow].cells[9].children[0].style.color = '#f00';
                     }
                     currentStatus = status;
                 }
@@ -205,7 +205,7 @@ $(function () {
                 console.log(response);
                 hideLoading();
                 if(response.code === 200) {
-                    tbUsers.rows[currentRow].cells[9].innerHTML = response['data']['category'];
+                    tbUsers.rows[currentRow].cells[8].innerHTML = response['data']['category'];
                 }
                 showNotice(response.message);
             },
@@ -225,7 +225,7 @@ $(function () {
         var onlineCount = 0;
         for(var x =0 ; x < rowsLength; x ++){
             var status = tbUsers.rows[x].style.display;
-            var online = tbUsers.rows[x].cells[11].childNodes[1].getAttribute("online");
+            var online = tbUsers.rows[x].cells[10].childNodes[1].getAttribute("online");
             if(status !== 'none'){
                 count ++;
                 if(online === "true"){
@@ -252,7 +252,7 @@ $(function () {
             showAllRows();
         }else{
             for(var k = 0; k < rowsLength; k ++){
-                for(var j = 2; j < 9; j ++){
+                for(var j = 2; j < 8; j ++){
                     var content = tbUsers.rows[k].cells[j].innerHTML.toLowerCase();
                     if(content.search(key) >= 0){
                         tbUsers.rows[k].style.display = "";
@@ -277,9 +277,9 @@ $(function () {
         var key = $(this).val();
         if(key.length >0){
             for(var i =0 ; i < rowsLength; i ++){
-                var content = tbUsers.rows[i].cells[9].innerHTML;
+                var content = tbUsers.rows[i].cells[8].innerHTML;
                 if(currentSeStatus.length > 0){
-                    var statusContent = tbUsers.rows[i].cells[10].children[0].innerHTML;
+                    var statusContent = tbUsers.rows[i].cells[9].children[0].innerHTML;
                     if(content === key && statusContent === currentSeStatus){
                         tbUsers.rows[i].style.display = "";
                     }else{
@@ -304,9 +304,9 @@ $(function () {
         var key = $(this).val();
         if(key.length >0){
             for(var i =0 ; i < rowsLength; i ++){
-                var content = tbUsers.rows[i].cells[10].children[0].innerHTML;
+                var content = tbUsers.rows[i].cells[9].children[0].innerHTML;
                 if(currentSePlan.length > 0){
-                    var planContent = tbUsers.rows[i].cells[9].innerHTML;
+                    var planContent = tbUsers.rows[i].cells[8].innerHTML;
                     if (content === key && planContent === currentSePlan) {
                         tbUsers.rows[i].style.display = "";
                     } else {
@@ -330,13 +330,13 @@ $(function () {
         for(var i =0 ; i < rowsLength; i ++){
             tbUsers.rows[i].style.display = "";
             if(currentSePlan.length > 0){
-                var content1 = tbUsers.rows[i].cells[9].innerHTML;
+                var content1 = tbUsers.rows[i].cells[8].innerHTML;
                 if (content1 !== currentSePlan) {
                     tbUsers.rows[i].style.display = "none";
                 }
             }
             if(currentSeStatus.length > 0) {
-                var content2 = tbUsers.rows[i].cells[10].children[0].innerHTML;
+                var content2 = tbUsers.rows[i].cells[9].children[0].innerHTML;
                 if (content2 !== currentSeStatus) {
                     tbUsers.rows[i].style.display = "none";
                 }

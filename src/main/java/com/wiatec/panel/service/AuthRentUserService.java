@@ -17,6 +17,9 @@ import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * @author patrick
+ */
 @Service
 public class AuthRentUserService {
 
@@ -34,7 +37,7 @@ public class AuthRentUserService {
             throw new XException(EnumResult.ERROR_KEY_INCORRECT);
         }
         AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectByClientKey(clientKey);
-        if(!"activate".equals(authRentUserInfo1.getStatus())){
+        if(!AuthRentUserInfo.STATUS_ACTIVATE.equals(authRentUserInfo1.getStatus())){
             throw new XException(EnumResult.ERROR_KEY_DEACTIVATE);
         }
         int expires = commissionCategoryDao.selectOne(authRentUserInfo1.getCategory()).getExpires();
@@ -56,7 +59,7 @@ public class AuthRentUserService {
             throw new XException(EnumResult.ERROR_KEY_INCORRECT);
         }
         AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectByClientKey(clientKey);
-        if(!"activate".equals(authRentUserInfo1.getStatus())){
+        if(!AuthRentUserInfo.STATUS_ACTIVATE.equals(authRentUserInfo1.getStatus())){
             throw new XException(EnumResult.ERROR_KEY_DEACTIVATE);
         }
         int expires = commissionCategoryDao.selectOne(authRentUserInfo1.getCategory()).getExpires();

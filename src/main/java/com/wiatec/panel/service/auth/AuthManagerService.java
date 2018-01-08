@@ -1,4 +1,4 @@
-package com.wiatec.panel.service;
+package com.wiatec.panel.service.auth;
 
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
@@ -18,8 +18,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * @author patrick
+ */
 @Service
 public class AuthManagerService {
+
+    private static final String ADMIN = "wiatec";
 
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
@@ -33,8 +38,8 @@ public class AuthManagerService {
         if(username == null){
             throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
-        List<AuthRegisterUserInfo> authRegisterUserInfoList = null;
-        if(username.equals("wiatec")) {
+        List<AuthRegisterUserInfo> authRegisterUserInfoList;
+        if(ADMIN.equals(username)) {
             authRegisterUserInfoList = authRegisterUserDao.selectAll(0);
         }else{
             authRegisterUserInfoList = authRegisterUserDao.selectAll(100);

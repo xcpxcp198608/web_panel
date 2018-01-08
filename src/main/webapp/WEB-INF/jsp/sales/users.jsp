@@ -58,8 +58,7 @@
                     <th>#</th>
                     <th>ClientKey</th>
                     <th>Mac</th>
-                    <th>FirstName</th>
-                    <th>LastName</th>
+                    <th>Name</th>
                     <th>ActiveTime</th>
                     <th>
                         <select id="seCategory" style="width: 100%; height: 100%;
@@ -90,8 +89,7 @@
                     <td>${status.index+1}</td>
                     <td>${authRentUserInfo.clientKey}</td>
                     <td>${authRentUserInfo.mac}</td>
-                    <td>${authRentUserInfo.firstName}</td>
-                    <td>${authRentUserInfo.lastName}</td>
+                    <td>${authRentUserInfo.firstName}&nbsp;${authRentUserInfo.lastName}</td>
                     <td>${fn:substring(authRentUserInfo.activateTime, 0, 19)}</td>
                     <td>${authRentUserInfo.category}</td>
                     <td>

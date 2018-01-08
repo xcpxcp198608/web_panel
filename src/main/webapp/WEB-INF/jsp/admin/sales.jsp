@@ -125,8 +125,7 @@
                 <th>Username</th>
                 <th>Password</th>
                 <th>Dealer</th>
-                <th>FirstName</th>
-                <th>LastName</th>
+                <th>Name</th>
                 <th>SSN</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -143,8 +142,7 @@
                     <td>${authSalesInfo.username}</td>
                     <td><input type="text" value="${authSalesInfo.password}" title="pwd" size="12"/></td>
                     <td>${authSalesInfo.dealerName}</td>
-                    <td>${authSalesInfo.firstName}</td>
-                    <td>${authSalesInfo.lastName}</td>
+                    <td>${authSalesInfo.firstName}&nbsp;${authSalesInfo.lastName}</td>
                     <td>
                         ${fn:substring(authSalesInfo.ssn, 0, 3)}-${fn:substring(authSalesInfo.ssn, 3, 5)}-${fn:substring(authSalesInfo.ssn, 5, 9)}
                     </td>

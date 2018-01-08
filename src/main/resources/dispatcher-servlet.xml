@@ -27,6 +27,7 @@
             <mvc:mapping path="/sales/**"/>
             <mvc:mapping path="/dealer/**"/>
             <mvc:mapping path="/admin/**"/>
+            <mvc:mapping path="/manager/**"/>
             <bean class="com.wiatec.panel.inteceptor.AuthInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

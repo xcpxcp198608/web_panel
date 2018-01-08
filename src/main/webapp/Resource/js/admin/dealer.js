@@ -16,140 +16,7 @@ $(function () {
     //         $('#aMonth').html(currentMonth);
     //     }
     // }
-    //
-    // /**
-    //  * init top5 volume chart
-    //  */
-    // var chartSalesVolume = echarts.init(document.getElementById('chart_sales_volume'));
-    // var volumeXData = ['s1', 's2', 's3', 's4', 's5'];
-    // var volumeData = [0, 0, 0, 0, 0];
-    // var salesVolumeOption = {
-    //     title: {
-    //         text: 'Top '+topLimit+' of sales volume',
-    //         textStyle:{
-    //             color: 'rgba(255, 255, 255, 0.8)'
-    //         }
-    //     },
-    //     backgroundColor: '#2c343c',
-    //     textStyle: {
-    //         color: 'rgba(255, 255, 255, 0.8)'
-    //     },
-    //     itemStyle: {
-    //         normal: {
-    //             color: function(params) {
-    //                 var colorList = [
-    //                     '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
-    //                 ];
-    //                 return colorList[params.dataIndex]
-    //             },
-    //             shadowBlur: 200,
-    //             shadowColor: 'rgba(0, 0, 0, 0.7)'
-    //         }
-    //     },
-    //     tooltip: {},
-    //     xAxis: {
-    //         data: volumeXData
-    //     },
-    //     yAxis: {},
-    //     series: [{
-    //         name: 'sales volume',
-    //         type: 'bar',
-    //         barWidth: 30,
-    //         data: volumeData
-    //     }]
-    // };
-    // chartSalesVolume.setOption(salesVolumeOption);
-    //
-    // /**
-    //  * init top5 amount chart
-    //  */
-    // var chartSalesAmount = echarts.init(document.getElementById('chart_sales_amount'));
-    // var amountXData = ['s1', 's2', 's3', 's4', 's5'];
-    // var amountData = [0, 0, 0, 0, 0];
-    // var salesAmountOption = {
-    //     title: {
-    //         text: 'Top '+topLimit+' of sales amount',
-    //         textStyle:{
-    //             color: 'rgba(255, 255, 255, 0.8)'
-    //         }
-    //     },
-    //     backgroundColor: '#2c343c',
-    //     textStyle: {
-    //         color: 'rgba(255, 255, 255, 0.8)'
-    //     },
-    //     itemStyle: {
-    //         normal: {
-    //             color: function(params) {
-    //                 var colorList = [
-    //                     '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
-    //                 ];
-    //                 return colorList[params.dataIndex]
-    //             },
-    //             shadowBlur: 200,
-    //             shadowColor: 'rgba(0, 0, 0, 0.5)'
-    //         }
-    //     },
-    //     tooltip: {},
-    //     xAxis: {
-    //         data: amountXData
-    //     },
-    //     yAxis: {},
-    //     series: [{
-    //         name: 'sales amount',
-    //         type: 'bar',
-    //         barWidth: 30,
-    //         data: amountData
-    //     }]
-    // };
-    // chartSalesAmount.setOption(salesAmountOption);
-    //
-    // /**
-    //  * get volume data
-    //  */
-    // getTopVolume(topLimit);
-    // function getTopVolume(limit) {
-    //     var url = baseUrl + '/admin/chart/sales/volume/' + limit;
-    //     $.get(url, function (topVolumeList, status) {
-    //         volumeXData.length = 0;
-    //         volumeData.length = 0;
-    //         var length = topVolumeList.length;
-    //         for(var i = 0; i < topLimit; i ++){
-    //             if(i >= length){
-    //                 volumeXData.push(' ');
-    //                 volumeData.push(0);
-    //             }else{
-    //                 volumeXData.push(topVolumeList[i]['salesName']);
-    //                 volumeData.push(topVolumeList[i]['volume']);
-    //             }
-    //         }
-    //         chartSalesVolume.setOption(salesVolumeOption);
-    //     })
-    // }
-    //
-    // /**
-    //  * get amount data
-    //  */
-    // getTopAmount(topLimit);
-    // function getTopAmount(limit) {
-    //     var url = baseUrl + '/admin/chart/sales/amount/' + limit;
-    //     $.get(url, function (topAmountList, status) {
-    //         amountXData.length = 0;
-    //         amountData.length = 0;
-    //         var length = topAmountList.length;
-    //         for(var i = 0; i < topLimit; i ++){
-    //             if(i >= length){
-    //                 amountXData.push(' ');
-    //                 amountData.push(0);
-    //             }else{
-    //                 amountXData.push(topAmountList[i]['salesName']);
-    //                 amountData.push(topAmountList[i]['amount']);
-    //             }
-    //         }
-    //         chartSalesAmount.setOption(salesAmountOption);
-    //     })
-    // }
-    //
-    //
+
     // /**
     //  * get all sales commission by month
     //  */
@@ -380,26 +247,23 @@ $(function () {
                     tdObj.append(pwdInput);
                     break;
                 case 4:
-                    tdObj.innerHTML = authSalesInfo.firstName;
+                    tdObj.innerHTML = authSalesInfo.firstName + " " + authSalesInfo.lastName;
                     break;
                 case 5:
-                    tdObj.innerHTML = authSalesInfo.lastName;
-                    break;
-                case 6:
                     var ssn = authSalesInfo.ssn.toString();
                     tdObj.innerHTML = ssn.substring(0, 3) + '-' + ssn.substring(3, 5) + '-'+ ssn.substring(5, 9);
                     break;
-                case 7:
+                case 6:
                     tdObj.innerHTML = authSalesInfo.email;
                     break;
-                case 8:
+                case 7:
                     tdObj.innerHTML = authSalesInfo.phone;
                     break;
-                case 9:
+                case 8:
                     tdObj.innerHTML = authSalesInfo.createTime.substring(0, 19);
                     tdObj.setAttribute('class', 'tdRows12');
                     break;
-                case 10:
+                case 9:
                     tdObj.innerHTML = '<a href="/panel/admin/users/'+ authSalesInfo.id+'">\n' +
                         '                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>\n' +
                         '              </a>';

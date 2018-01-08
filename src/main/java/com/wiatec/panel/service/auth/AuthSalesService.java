@@ -28,10 +28,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author patrick
+ */
 @Service
 public class AuthSalesService {
 
     private Logger logger = LoggerFactory.getLogger(AuthSalesService.class);
+    private static final int PAYMENT_METHOD_CASH = 0;
+    private static final int PAYMENT_METHOD_CREDIT_CARD = 1;
+    private static final int PAYMENT_METHOD_PAYPAL = 2;
 
     @Resource
     private AuthSalesDao authSalesDao;
@@ -71,7 +77,7 @@ public class AuthSalesService {
                 throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
             }
             if (authRentUserDao.countOneByMac(authRentUserInfo) == 1) {
-                if (!"canceled".equals(authRentUserDao.selectStatusByMac(authRentUserInfo))) {
+                if (!AuthRentUserInfo.STATUS_CANCELED.equals(authRentUserDao.selectStatusByMac(authRentUserInfo))) {
                     throw new XException(EnumResult.ERROR_DEVICE_USING);
                 }
             }
@@ -91,12 +97,12 @@ public class AuthSalesService {
             authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
             authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
             authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
-            if (paymentMethod == 0) { //cash payment
+            if (paymentMethod == PAYMENT_METHOD_CASH) {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CASH);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
                 authRentUserDao.insertOne(authRentUserInfo);
                 return ResultMaster.success(authRentUserInfo.getClientKey());
-            } else if (paymentMethod == 1) { //credit card
+            } else if (paymentMethod == PAYMENT_METHOD_CREDIT_CARD) {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
                 authRentUserDao.insertOne(authRentUserInfo);
@@ -129,7 +135,7 @@ public class AuthSalesService {
                 emailMaster.addAttachment(invoicePath);
                 emailMaster.sendMessage(authRentUserInfo.getEmail());
                 return ResultMaster.success(authRentUserInfo.getClientKey());
-            }else if (paymentMethod == 2) { // paypal payment
+            }else if (paymentMethod == PAYMENT_METHOD_PAYPAL) {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_PAYPAL);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
                 authRentUserDao.insertOne(authRentUserInfo);
@@ -137,13 +143,14 @@ public class AuthSalesService {
                 throw new XException(ResultMaster.error(5001, "payment method error"));
             }
         }catch (Exception e){
-            logger.error(e.getLocalizedMessage());
+            logger.error("Exception:", e);
             throw new XException(ResultMaster.error(5000, e.getMessage()));
         }
         return ResultMaster.error(5000, "server error");
     }
 
     ////////////////////////////////////////////////////////// chart ///////////////////////////////////////////////////
+
     public ResultInfo getCommissionByYear(HttpServletRequest request, int year){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
         yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
@@ -151,7 +158,7 @@ public class AuthSalesService {
             List<SalesCommissionOfMonthInfo> salesCommissionOfMonthInfoList = authorizeTransactionDao.getCommissionOfMonthBySales(yearOrMonthInfo);
             return ResultMaster.success(salesCommissionOfMonthInfoList);
         }catch (Exception e){
-            logger.error(e.getLocalizedMessage());
+            logger.error("Exception:", e);
             throw new XException(ResultMaster.error(5000, e.getMessage()));
         }
     }
@@ -163,7 +170,7 @@ public class AuthSalesService {
             List<SalesCommissionOfDaysInfo> salesCommissionOfDaysInfoList = authorizeTransactionDao.getCommissionOfDayBySales(yearOrMonthInfo);
             return ResultMaster.success(salesCommissionOfDaysInfoList);
         }catch (Exception e){
-            logger.error(e.getLocalizedMessage());
+            logger.error("Exception:", e);
             throw new XException(ResultMaster.error(5000, e.getMessage()));
         }
     }
