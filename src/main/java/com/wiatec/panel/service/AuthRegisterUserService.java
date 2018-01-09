@@ -136,14 +136,20 @@ public class AuthRegisterUserService {
     }
 
     public ResultInfo goReset(HttpServletRequest request, AuthRegisterUserInfo userInfo){
+        if(authRegisterUserDao.countByUsername(userInfo) != 1){
+            throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
+        }
+        AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByUsername(userInfo);
+        if(authRegisterUserInfo == null){
+            throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
+        }
+        if(authRegisterUserInfo.getEmailStatus() == 0){
+            throw new XException(EnumResult.ERROR_USER_NO_ACTIVATE);
+        }
+        if(!authRegisterUserInfo.getEmail().equals(userInfo.getEmail())){
+            throw new XException(EnumResult.ERROR_EMAIL_NOT_MATCH);
+        }
         try{
-            AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByUsernameAndEmail(userInfo);
-            if(authRegisterUserInfo == null){
-                throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
-            }
-            if(authRegisterUserInfo.getEmailStatus() == 0){
-                throw new XException(EnumResult.ERROR_USER_NO_ACTIVATE);
-            }
             EmailMaster emailMaster = new EmailMaster();
             String url = request.getRequestURL().toString();
             String path = url.substring(0, url.lastIndexOf("/"));

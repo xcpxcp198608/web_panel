@@ -24,6 +24,8 @@ public enum  EnumResult {
     ERROR_USER_NO_ACTIVATE(6004, "No activate"),
     ERROR_SSN_EXISTS(6005, "SSN is exists"),
     ERROR_EMAIL_EXISTS(6006, "Email is exists"),
+    ERROR_EMAIL_NOT_EXISTS(6006, "Email not exists"),
+    ERROR_EMAIL_NOT_MATCH(6006, "Email not match with register email"),
     ERROR_DEVICE_ALREADY_REGISTER(6007, "This device has been registered"),
     ERROR_DEVICE_NO_REGISTER(6008, "This device is not registered"),
     ERROR_DEVICE_LIMITED(6008, "This device is limited"),

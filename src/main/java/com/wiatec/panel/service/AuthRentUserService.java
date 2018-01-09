@@ -60,8 +60,7 @@ public class AuthRentUserService {
         if(!AuthRentUserInfo.STATUS_ACTIVATE.equals(authRentUserInfo1.getStatus())){
             throw new XException(EnumResult.ERROR_KEY_DEACTIVATE);
         }
-        int expires = commissionCategoryDao.selectOne(authRentUserInfo1.getCategory()).getExpires();
-        if(TimeUtil.isOutExpires(authRentUserInfo1.getActivateTime(), expires)){
+        if(TimeUtil.isOutExpires(authRentUserInfo1.getExpiresTime())){
             throw new XException(EnumResult.ERROR_OUT_EXPIRATION);
         }
         authRentUserInfo1.setCountry(country);
