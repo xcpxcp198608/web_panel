@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * @author patrick
+ */
 @Controller
 @RequestMapping(value = "/admin")
 public class AuthAdmin {
@@ -27,12 +30,11 @@ public class AuthAdmin {
 
     /**
      * home page
-     * @param model   mvc Model
      * @return        home page
      */
     @GetMapping(value = "/")
-    public String home(Model model){
-        return authAdminService.home(model);
+    public String home(){
+        return authAdminService.home();
     }
 
 

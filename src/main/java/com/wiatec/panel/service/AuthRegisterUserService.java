@@ -40,7 +40,7 @@ public class AuthRegisterUserService {
     @Resource
     private AuthUserLogDao authUserLogDao;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo register(HttpServletRequest request, AuthRegisterUserInfo authRegisterUserInfo, String language){
         if(TextUtil.isEmpty(authRegisterUserInfo.getMac())){
             throw new XException(ResultMaster.error("device s/n error"));
@@ -71,7 +71,7 @@ public class AuthRegisterUserService {
                 "the email, please contact customer service.");
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo activate(String token){
         AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByToken(token);
         if(authRegisterUserInfo == null){
@@ -103,13 +103,13 @@ public class AuthRegisterUserService {
         return ResultMaster.success(authRegisterUserInfo1);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo validate(HttpSession session, AuthRegisterUserInfo userInfo){
+        AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByUsername(userInfo);
+        if (authRegisterUserInfo == null) {
+            throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
+        }
         try {
-            AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByUsername(userInfo);
-            if (authRegisterUserInfo == null) {
-                throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
-            }
             session.setAttribute(SessionListener.KEY_USER_NAME, authRegisterUserInfo.getUsername());
             authRegisterUserDao.updateLocation(userInfo);
             if(authRegisterUserInfo.getLevel() == 0){
@@ -131,7 +131,7 @@ public class AuthRegisterUserService {
             return ResultMaster.success(authRegisterUserInfo);
         }catch (Exception e){
             logger.error("Exception:", e);
-            return ResultMaster.success("Error during validate on server");
+            return ResultMaster.success("Error when validate on server");
         }
     }
 
@@ -158,7 +158,7 @@ public class AuthRegisterUserService {
         }
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String reset(String token, Model model){
         AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByToken(token);
         if(authRegisterUserInfo == null){
@@ -171,7 +171,7 @@ public class AuthRegisterUserService {
         return "users/reset";
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String updatePassword(AuthRegisterUserInfo userInfo, Model model){
         try{
             authRegisterUserDao.updatePassword(userInfo);
@@ -183,7 +183,7 @@ public class AuthRegisterUserService {
         }
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo insertOneUserLog(AuthUserLogInfo authUserLogInfo){
         try{
             authUserLogDao.insertOne(authUserLogInfo);

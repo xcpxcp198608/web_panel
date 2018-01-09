@@ -26,13 +26,16 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import com.lowagie.text.pdf.PdfWriter;
-import com.wiatec.panel.common.utils.PathUtil;
+import com.wiatec.panel.common.utils.EmailMaster;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.common.utils.UnitUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+/**
+ * @author patrick
+ */
 public class InvoiceUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(InvoiceUtil.class);
@@ -43,6 +46,10 @@ public class InvoiceUtil {
         String pdf = createInvoice("patrickxu@wiatec.com", "32432432432432",
                 InvoiceInfo.B1Contracted());
         System.out.println(pdf);
+        EmailMaster emailMaster = new EmailMaster();
+        emailMaster.setInvoiceContent("sdf");
+        emailMaster.addAttachment(pdf);
+        emailMaster.sendMessage("patrickxu@wiatec.com");
     }
 
     private static String outPath = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/invoice/";
@@ -53,33 +60,34 @@ public class InvoiceUtil {
 
     /**
      * 创建PDF文档
-     * @return
-     * @throws Exception
+     * @return 创建好的文档路径
+     * @throws Exception {@link Exception}
      */
     public static String createInvoice(String email, String transactionId, List<InvoiceInfo> invoiceInfoList) throws Exception {
         FileOutputStream fileOutputStream = null;
         Document doc = null;
         try {
-            Rectangle rect = new Rectangle(PageSize.A4);            //设置纸张
-            doc = new Document(rect);            //创建文档实例
+            //设置纸张
+            Rectangle rect = new Rectangle(PageSize.A4);
+            //创建文档实例
+            doc = new Document(rect);
             BaseFont bfChinese = BaseFont.createFont("Helvetica", "Cp1252", BaseFont.NOT_EMBEDDED);
             //设置字体样式
-            Font textFont = new Font(bfChinese, 10, Font.NORMAL); //正常
-            Font redTextFont = new Font(bfChinese, 11, Font.NORMAL, Color.RED); //正常,红色
-            Font boldFont = new Font(bfChinese, 11, Font.BOLD); //加粗
-            Font bold12Font = new Font(bfChinese, 12, Font.BOLD); //加粗
-            Font redBoldFont = new Font(bfChinese, 11, Font.BOLD, Color.RED); //加粗,红色
-            Font firstTitleFont = new Font(bfChinese, 22, Font.BOLD); //一级标题
-            Font secondTitleFont = new Font(bfChinese, 15, Font.BOLD); //二级标题
-            Font underlineFont = new Font(bfChinese, 11, Font.UNDERLINE); //下划线斜体
+            Font textFont = new Font(bfChinese, 10, Font.NORMAL);
+            Font redTextFont = new Font(bfChinese, 11, Font.NORMAL, Color.RED);
+            Font boldFont = new Font(bfChinese, 11, Font.BOLD);
+            Font bold12Font = new Font(bfChinese, 12, Font.BOLD);
+            Font redBoldFont = new Font(bfChinese, 11, Font.BOLD, Color.RED);
+            Font firstTitleFont = new Font(bfChinese, 22, Font.BOLD);
+            Font secondTitleFont = new Font(bfChinese, 15, Font.BOLD);
+            Font underlineFont = new Font(bfChinese, 11, Font.UNDERLINE);
             Font underlineRedFont = new Font(bfChinese, 11, Font.UNDERLINE, Color.RED);
             Font BlueFont = new Font(bfChinese, 11, Font.NORMAL, Color.BLUE);
 
             //手指图片
             //Image hand = Image.getInstance("/Users/xuchengpeng/IdeaProjects/panel/src/main/webapp/Resource/img/btv.ico");
 
-            //创建输出流
-            String fileName = "Invoice" + System.currentTimeMillis() + ".pdf";
+            String fileName = "ld_invoice_" + transactionId + ".pdf";
             String path = outPath + fileName;
             File file = new File(path);
             fileOutputStream = new FileOutputStream(file);
@@ -88,13 +96,19 @@ public class InvoiceUtil {
             doc.open();
             doc.newPage();
 
-            Paragraph p1 = new Paragraph();            //段落
-            Phrase ph1 = new Phrase();            //短语
-            Chunk c1 = new Chunk("Invoice", firstTitleFont);            //块
-            ph1.add(c1);            //将块添加到短语
-            p1.add(ph1);            //将短语添加到段落
+            //段落
+            Paragraph p1 = new Paragraph();
+            //短语
+            Phrase ph1 = new Phrase();
+            //块
+            Chunk c1 = new Chunk("Invoice", firstTitleFont);
+            //将块添加到短语
+            ph1.add(c1);
+            //将短语添加到段落
+            p1.add(ph1);
             p1.setLeading(50);
-            doc.add(p1);            //将段落添加到文档
+            //将段落添加到文档
+            doc.add(p1);
 
 
             p1 = new Paragraph();
@@ -147,70 +161,76 @@ public class InvoiceUtil {
             p1.add(ph1);
             doc.add(p1);
 
-            PdfPTable table = new PdfPTable(5); // 创建一个有5列的表格
-            table.setTotalWidth(new float[]{105, 105, 105, 105, 105}); //设置列宽
-            table.setLockedWidth(true); //锁定列宽
-
+            // 创建一个有5列的表格
+            PdfPTable table = new PdfPTable(5);
+            //设置列宽
+            table.setTotalWidth(new float[]{105, 105, 105, 105, 105});
+            //锁定列宽
+            table.setLockedWidth(true);
             PdfPCell cell = new PdfPCell(new Phrase("DIST. #", bold12Font));
-            cell.setMinimumHeight(30); //设置单元格高度
-            cell.setUseAscender(true); //设置可以居中
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER); //设置水平居中
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE); //设置垂直居中
+            //设置单元格高度
+            cell.setMinimumHeight(30);
+            //设置可以居中
+            cell.setUseAscender(true);
+            //设置水平居中
+            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+            //设置垂直居中
+            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
             table.addCell(cell);
             cell = new PdfPCell(new Phrase("DATE", bold12Font));
-            cell.setMinimumHeight(30); //设置单元格高度
-            cell.setUseAscender(true); //设置可以居中
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER); //设置水平居中
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE); //设置垂直居中
+            cell.setMinimumHeight(30);
+            cell.setUseAscender(true);
+            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
             table.addCell(cell);
             cell = new PdfPCell(new Phrase("INVOICE #", bold12Font));
-            cell.setMinimumHeight(30); //设置单元格高度
-            cell.setUseAscender(true); //设置可以居中
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER); //设置水平居中
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE); //设置垂直居中
+            cell.setMinimumHeight(30);
+            cell.setUseAscender(true);
+            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
             table.addCell(cell);
             cell = new PdfPCell(new Phrase("SHIP VIA", bold12Font));
-            cell.setMinimumHeight(30); //设置单元格高度
-            cell.setUseAscender(true); //设置可以居中
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER); //设置水平居中
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE); //设置垂直居中
+            cell.setMinimumHeight(30);
+            cell.setUseAscender(true);
+            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
             table.addCell(cell);
             cell = new PdfPCell(new Phrase("SALE TYPE", bold12Font));
-            cell.setMinimumHeight(30); //设置单元格高度
-            cell.setUseAscender(true); //设置可以居中
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER); //设置水平居中
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE); //设置垂直居中
+            cell.setMinimumHeight(30);
+            cell.setUseAscender(true);
+            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
             table.addCell(cell);
 
             cell = new PdfPCell(new Phrase("~", textFont));
-            cell.setMinimumHeight(30); //设置单元格高度
-            cell.setUseAscender(true); //设置可以居中
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER); //设置水平居中
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE); //设置垂直居中
+            cell.setMinimumHeight(30);
+            cell.setUseAscender(true);
+            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
             table.addCell(cell);
             cell = new PdfPCell(new Phrase(TimeUtil.getStrDate(), textFont));
             cell.setMinimumHeight(30);
-            cell.setUseAscender(true); //设置可以居中
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER); //设置水平居中
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE); //设置垂直居中
+            cell.setUseAscender(true);
+            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
             table.addCell(cell);
             cell = new PdfPCell(new Phrase(" ~sku~ ", textFont));
             cell.setMinimumHeight(30);
-            cell.setUseAscender(true); //设置可以居中
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER); //设置水平居中
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE); //设置垂直居中
+            cell.setUseAscender(true);
+            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
             table.addCell(cell);
             cell = new PdfPCell(new Phrase("~", textFont));
             cell.setMinimumHeight(30);
-            cell.setUseAscender(true); //设置可以居中
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER); //设置水平居中
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE); //设置垂直居中
+            cell.setUseAscender(true);
+            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
             table.addCell(cell);
             cell = new PdfPCell(new Phrase("PCP", textFont));
             cell.setMinimumHeight(30);
-            cell.setUseAscender(true); //设置可以居中
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER); //设置水平居中
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE); //设置垂直居中
+            cell.setUseAscender(true);
+            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
             table.addCell(cell);
             doc.add(table);
 
@@ -454,8 +474,6 @@ public class InvoiceUtil {
      * @throws DocumentException
      */
     private static PdfPTable createCell(PdfPTable table, String[] title, int row, int cols) throws DocumentException, IOException{
-        //添加中文字体
-//        BaseFont bfChinese=BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
         BaseFont bfChinese=BaseFont.createFont("Helvetica", "Cp1252", BaseFont.NOT_EMBEDDED);
         Font font = new Font(bfChinese,11,Font.BOLD);
 
@@ -464,34 +482,38 @@ public class InvoiceUtil {
             for(int j = 0; j < cols; j++){
 
                 PdfPCell cell = new PdfPCell();
-
-                if(i==0 && title!=null){//设置表头
-                    cell = new PdfPCell(new Phrase(title[j], font)); //这样表头才能居中
+                //设置表头
+                if(i==0 && title!=null){
+                    //表头居中
+                    cell = new PdfPCell(new Phrase(title[j], font));
                     if(table.getRows().size() == 0){
                         cell.setBorderWidthTop(3);
                     }
                 }
-
-                if(row==1 && cols==1){ //只有一行一列
+                //只有一行一列
+                if(row==1 && cols==1){
                     cell.setBorderWidthTop(3);
                 }
-
-                if(j==0){//设置左边的边框宽度
+                //设置左边的边框宽度
+                if(j==0){
                     cell.setBorderWidthLeft(3);
                 }
-
-                if(j==(cols-1)){//设置右边的边框宽度
+                //设置右边的边框宽度
+                if(j==(cols-1)){
                     cell.setBorderWidthRight(3);
                 }
-
-                if(i==(row-1)){//设置底部的边框宽度
+                //设置底部的边框宽度
+                if(i==(row-1)){
                     cell.setBorderWidthBottom(3);
                 }
-
-                cell.setMinimumHeight(40); //设置单元格高度
-                cell.setUseAscender(true); //设置可以居中
-                cell.setHorizontalAlignment(Cell.ALIGN_CENTER); //设置水平居中
-                cell.setVerticalAlignment(Cell.ALIGN_MIDDLE); //设置垂直居中
+                //设置单元格高度
+                cell.setMinimumHeight(40);
+                //设置可以居中
+                cell.setUseAscender(true);
+                //设置水平居中
+                cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+                //设置垂直居中
+                cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
 
                 table.addCell(cell);
             }
@@ -514,7 +536,6 @@ public class InvoiceUtil {
             PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(outputFile));
             //添加中文字体
             BaseFont bfChinese=BaseFont.createFont("Helvetica", "Cp1252", BaseFont.NOT_EMBEDDED);
-//            BaseFont bfChinese=BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
             int total = reader.getNumberOfPages() + 1;
             PdfContentByte under;
             int j = waterMarkName.length();
@@ -532,8 +553,6 @@ public class InvoiceUtil {
                     c = waterMarkName.charAt(k);
                     under.showText(c + "");
                 }
-
-
                 // 添加水印文字
                 under.endText();
             }
@@ -559,15 +578,17 @@ public class InvoiceUtil {
             int total = reader.getNumberOfPages() + 1;
 
             Image image = Image.getInstance(imageFile);
-            image.setAbsolutePosition(-100, 0);//坐标
-            image.scaleAbsolute(800,1000);//自定义大小
+            //坐标
+            image.setAbsolutePosition(-100, 0);
+            //自定义大小
+            image.scaleAbsolute(800,1000);
             //image.setRotation(-20);//旋转 弧度
             //image.setRotationDegrees(-45);//旋转 角度
             //image.scalePercent(50);//依照比例缩放
 
             PdfGState gs = new PdfGState();
-            gs.setFillOpacity(0.2f);// 设置透明度为0.2
-
+            // 设置透明度为0.2
+            gs.setFillOpacity(0.2f);
 
             PdfContentByte under;
             //给每一页加水印

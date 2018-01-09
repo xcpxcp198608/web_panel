@@ -3,7 +3,6 @@ package com.wiatec.panel.service.auth;
 import com.wiatec.panel.oxm.dao.CommissionCategoryDao;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;

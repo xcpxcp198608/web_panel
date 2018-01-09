@@ -15,8 +15,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.*;
 
+/**
+ * @author patrick
+ */
 public class EmailMaster {
-
 
 	private static final Logger logger = LoggerFactory.getLogger(EmailMaster.class);
 
@@ -172,7 +174,7 @@ public class EmailMaster {
 	}
 
 	public boolean sendMessage(String receiverAddress){
-		if(receiverAddress == null || receiverAddress.equals("")){
+		if(TextUtil.isEmpty(receiverAddress)){
 			System.out.println("receiverAddress error");
 			return false;
 		}
@@ -224,10 +226,7 @@ public class EmailMaster {
 	public static void main (String [] args){
 		EmailMaster emailMaster = new EmailMaster();
 		emailMaster.setEmailContent("sf", "sdfsf", "sdfsdf", "sdfsd");
-//		emailMaster.setInvoiceContent("dsdf");
-//		emailMaster.addAttachment("/Users/xuchengpeng/IdeaProjects/panel/build/libs/exploded/panel-1.0-SNAPSHOT.war/invoice/Invoice1515132608370.pdf");
 		emailMaster.sendMessage("patrickxu@wiatec.com");
-
 	}
 
 

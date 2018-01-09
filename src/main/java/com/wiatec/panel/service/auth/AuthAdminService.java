@@ -24,6 +24,9 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author patrick
+ */
 @Service
 public class AuthAdminService {
 
@@ -42,7 +45,7 @@ public class AuthAdminService {
     @Resource
     private AuthorizeTransactionDao authorizeTransactionDao;
 
-    public String home(Model model){
+    public String home(){
         return "admin/home";
     }
 
@@ -52,8 +55,8 @@ public class AuthAdminService {
         return "admin/dealer";
     }
 
-    @Transactional
-    public ResultInfo createDealer(HttpServletRequest request, AuthDealerInfo authDealerInfo) throws Exception{
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo createDealer(HttpServletRequest request, AuthDealerInfo authDealerInfo) {
         if(authDealerDao.countUsername(authDealerInfo) == 1){
             throw new XException(EnumResult.ERROR_USERNAME_EXISTS);
         }
@@ -73,7 +76,7 @@ public class AuthAdminService {
         }
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo updateDealerPassword(AuthDealerInfo authDealerInfo){
         try {
             authDealerDao.updatePassword(authDealerInfo);
@@ -92,8 +95,8 @@ public class AuthAdminService {
         return "admin/sales";
     }
 
-    @Transactional
-    public ResultInfo createSales(AuthSalesInfo authSalesInfo) throws Exception{
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo createSales(AuthSalesInfo authSalesInfo) {
         if(authSalesDao.countUsername(authSalesInfo) == 1){
             throw new XException(EnumResult.ERROR_USERNAME_EXISTS);
         }
@@ -112,13 +115,13 @@ public class AuthAdminService {
         }
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo updateSalesPassword(AuthSalesInfo authSalesInfo){
         try {
             authSalesDao.updatePassword(authSalesInfo);
             return ResultMaster.success();
         }catch (Exception e){
-            logger.error("Exception:", e);
+            logger.error("Exception: ", e);
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }
@@ -154,7 +157,7 @@ public class AuthAdminService {
         return authRentUserDao.selectOneByClientKey(key);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo updateUserStatus(String status, String key){
         try {
             AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo();
@@ -168,7 +171,7 @@ public class AuthAdminService {
         }
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo updateUserCategory(String key, String category){
         try {
             AuthRentUserInfo authRentUserInfo = authRentUserDao.selectByClientKey(key);
@@ -221,6 +224,7 @@ public class AuthAdminService {
     }
 
     /////////////////////////////////////////////////// chart //////////////////////////////////////////////////////////
+
     public List<VolumeDistributionInfo> getDistributionData(){
         return authRentUserDao.getDistributionData();
     }

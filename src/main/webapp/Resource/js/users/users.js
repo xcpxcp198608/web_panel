@@ -170,7 +170,9 @@ $(function () {
                     var tr = tbUsers.rows[currentRow];
                     tr.cells[7].removeChild(tr.cells[7].children[0]);
                     tr.cells[7].innerHTML = "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\" style=\"color: #9f9f9f\"\n" +
-                        "                                  status=\"1\"></span>"
+                        "                                  status=\"1\"></span>";
+                    tr.cells[0].children[0].setAttribute("currentStatus", "1");
+                    currentStatus = "1";
                 }
                 showNotice(response.message);
             },

@@ -11,7 +11,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 /**
- * register user
+ * register user manager
+ * @author patrick
  */
 @Controller
 @RequestMapping(value = "/manager")
@@ -21,8 +22,8 @@ public class AuthManager {
     private AuthManagerService authManagerService;
 
     @GetMapping(value = "/")
-    public String home(Model model){
-        return authManagerService.home(model);
+    public String home(){
+        return authManagerService.home();
     }
 
 

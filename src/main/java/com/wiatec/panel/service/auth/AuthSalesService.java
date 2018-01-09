@@ -24,7 +24,6 @@ import org.springframework.ui.Model;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +69,7 @@ public class AuthSalesService {
         return authRentUserDao.selectOneByClientKey(key);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo, int paymentMethod){
         try {
             if (authRentUserDao.countOneByEmail(authRentUserInfo) == 1) {

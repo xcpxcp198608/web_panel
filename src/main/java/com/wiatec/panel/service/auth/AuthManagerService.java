@@ -29,7 +29,7 @@ public class AuthManagerService {
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
 
-    public String home(Model model){
+    public String home(){
         return "users/home";
     }
 
@@ -52,7 +52,7 @@ public class AuthManagerService {
         return authRegisterUserDao.selectOneById(id);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo activate(int id){
         AuthRegisterUserInfo authRegisterUserInfo = new AuthRegisterUserInfo();
         authRegisterUserInfo.setId(id);
@@ -61,7 +61,7 @@ public class AuthManagerService {
         return ResultMaster.success();
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo delete(int id){
         AuthRegisterUserInfo authRegisterUserInfo = new AuthRegisterUserInfo();
         authRegisterUserInfo.setId(id);
@@ -69,13 +69,13 @@ public class AuthManagerService {
         return ResultMaster.success();
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo updateLevel(int id, int level, int days){
         AuthRegisterUserInfo authRegisterUserInfo = new AuthRegisterUserInfo();
         authRegisterUserInfo.setId(id);
         authRegisterUserInfo.setLevel(level);
         String expiresTime = authRegisterUserDao.selectExpiresTimeById(id);
-        String newExpiresTime = "";
+        String newExpiresTime;
         if(TextUtil.isEmpty(expiresTime)){
             newExpiresTime = TimeUtil.getExpiresTimeByDay(TimeUtil.getStrTime(), days);
         }else{
@@ -89,7 +89,8 @@ public class AuthManagerService {
 
     public ResultInfo<Integer> getLevelChart(int level, int year){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
-        yearOrMonthInfo.setSalesId(level+""); //sale id replace level
+        //sale id replace level
+        yearOrMonthInfo.setSalesId(level+"");
         return ResultMaster.success(authRegisterUserDao.selectLevelOfYear(yearOrMonthInfo));
     }
 
