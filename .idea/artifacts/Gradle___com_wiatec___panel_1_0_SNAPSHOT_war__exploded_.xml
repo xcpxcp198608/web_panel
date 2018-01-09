@@ -61,6 +61,7 @@
           <element id="library" level="project" name="Gradle: org.apache.logging.log4j:log4j-core:2.9.1" />
           <element id="library" level="project" name="Gradle: net.authorize:anet-java-sdk:1.9.4" />
           <element id="library" level="project" name="Gradle: com.lowagie:itext:2.1.7" />
+          <element id="library" level="project" name="Gradle: dom4j:dom4j:1.6.1" />
           <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.5.0" />
           <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.13.0" />
           <element id="library" level="project" name="Gradle: javax.activation:activation:1.1.1" />
@@ -71,6 +72,7 @@
           <element id="library" level="project" name="Gradle: log4j:log4j:1.2.16" />
           <element id="library" level="project" name="Gradle: bouncycastle:bcmail-jdk14:138" />
           <element id="library" level="project" name="Gradle: bouncycastle:bcprov-jdk14:138" />
+          <element id="library" level="project" name="Gradle: xml-apis:xml-apis:1.0.b2" />
           <element id="library" level="project" name="Gradle: xml-resolver:xml-resolver:1.2" />
           <element id="library" level="project" name="Gradle: asm:asm:3.3" />
           <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-api:2.3.1" />
