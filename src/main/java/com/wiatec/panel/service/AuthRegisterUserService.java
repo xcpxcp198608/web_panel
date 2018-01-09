@@ -4,6 +4,7 @@ import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
+import com.wiatec.panel.oxm.dao.AuthRentUserDao;
 import com.wiatec.panel.oxm.dao.AuthUserLogDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.common.utils.EmailMaster;
@@ -12,6 +13,7 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthUserLogInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,8 @@ public class AuthRegisterUserService {
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
     @Resource
+    private AuthRentUserDao authRentUserDao;
+    @Resource
     private AuthUserLogDao authUserLogDao;
 
     @Transactional
@@ -43,6 +47,10 @@ public class AuthRegisterUserService {
         }
         if(authRegisterUserDao.countByMac(authRegisterUserInfo) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
+        }
+
+        if(authRentUserDao.countOneByMac(new AuthRentUserInfo(authRegisterUserInfo.getMac())) == 1){
+            throw new XException(EnumResult.ERROR_DEVICE_USING);
         }
         if(authRegisterUserDao.countByUsername(authRegisterUserInfo) == 1){
             throw new XException(EnumResult.ERROR_USERNAME_EXISTS);
@@ -132,6 +140,9 @@ public class AuthRegisterUserService {
             AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByUsernameAndEmail(userInfo);
             if(authRegisterUserInfo == null){
                 throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
+            }
+            if(authRegisterUserInfo.getEmailStatus() == 0){
+                throw new XException(EnumResult.ERROR_USER_NO_ACTIVATE);
             }
             EmailMaster emailMaster = new EmailMaster();
             String url = request.getRequestURL().toString();

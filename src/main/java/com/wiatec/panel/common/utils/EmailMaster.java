@@ -223,9 +223,11 @@ public class EmailMaster {
 
 	public static void main (String [] args){
 		EmailMaster emailMaster = new EmailMaster();
-		emailMaster.setInvoiceContent("dsdf");
-		emailMaster.addAttachment("/Users/xuchengpeng/IdeaProjects/panel/build/libs/exploded/panel-1.0-SNAPSHOT.war/invoice/Invoice1515132608370.pdf");
+		emailMaster.setEmailContent("sf", "sdfsf", "sdfsdf", "sdfsd");
+//		emailMaster.setInvoiceContent("dsdf");
+//		emailMaster.addAttachment("/Users/xuchengpeng/IdeaProjects/panel/build/libs/exploded/panel-1.0-SNAPSHOT.war/invoice/Invoice1515132608370.pdf");
 		emailMaster.sendMessage("patrickxu@wiatec.com");
+
 	}
 
 

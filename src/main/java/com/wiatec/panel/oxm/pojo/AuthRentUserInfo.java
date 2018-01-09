@@ -48,6 +48,10 @@ public class AuthRentUserInfo {
     public AuthRentUserInfo() {
     }
 
+    public AuthRentUserInfo(String mac) {
+        this.mac = mac;
+    }
+
     public AuthRentUserInfo(String clientKey, String mac) {
         this.clientKey = clientKey;
         this.mac = mac;

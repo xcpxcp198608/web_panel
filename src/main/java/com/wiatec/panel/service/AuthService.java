@@ -59,7 +59,7 @@ public class AuthService {
                     return "redirect:/sales/";
                 }
             default:
-                throw new XException(EnumResult.ERROR_AUTHORIZE);
+                throw new XException(EnumResult.ERROR_UNAUTHORIZED);
         }
     }
 

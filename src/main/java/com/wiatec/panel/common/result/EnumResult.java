@@ -1,10 +1,17 @@
 package com.wiatec.panel.common.result;
 
+/**
+ * @author patrick
+ */
+
 public enum  EnumResult {
 
+    /**
+     * response json result
+     */
     SUCCESS(200, "Successfully"),
     ERROR_RE_LOGIN(401, " Login time session expired, please login to your account again."),
-//    ERROR_UNAUTHORIZED(401, "Unauthorized"),
+    ERROR_UNAUTHORIZED(400, "Unauthorized"),
     ERROR_NO_FOUND(404, "Resource not exists"),
     ERROR_SERVER_EXCEPTION(500, "Server exception"),
 

@@ -1,6 +1,7 @@
 package com.wiatec.panel.oxm.pojo;
 
 public class AuthRegisterUserInfo {
+
     private int id;
     private String username;
     private String password;

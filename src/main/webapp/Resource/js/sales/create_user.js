@@ -129,7 +129,7 @@ $(function () {
            success:function(response){
                hideLoading();
                if(response.code === 200) {
-                   showNotice(response.message);
+                   showNotice("Successfully");
                    window.open(baseUrl + "/sales/users/", "_self")
                }else{
                    $('#errorMessage').html(response.message);

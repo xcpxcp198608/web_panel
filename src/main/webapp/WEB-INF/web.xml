@@ -14,13 +14,17 @@
         <param-value>webapp.root</param-value>
     </context-param>
 
+    <context-param>
+        <param-name>org.apache.tomcat.websocket.executorCoreSize</param-name>
+        <param-value>30000</param-value>
+    </context-param>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <listener>
         <listener-class>com.wiatec.panel.listener.SessionListener</listener-class>
     </listener>
-
 
 
     <servlet>
