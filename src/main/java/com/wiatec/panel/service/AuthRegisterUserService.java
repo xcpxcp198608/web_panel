@@ -48,7 +48,6 @@ public class AuthRegisterUserService {
         if(authRegisterUserDao.countByMac(authRegisterUserInfo) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
         }
-
         if(authRentUserDao.countOneByMac(new AuthRentUserInfo(authRegisterUserInfo.getMac())) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_USING);
         }

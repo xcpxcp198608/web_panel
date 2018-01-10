@@ -23,7 +23,9 @@ public class AuthorizeConfig {
     }
 
     public static void init(){
-        String xmlPath = PathUtil.getResourcePath() + "authorize.xml";
+        //本地测试用
+//        String xmlPath = PathUtil.getResourcePath() + "authorize.xml";
+        String xmlPath = PathUtil.getClassPath() + "authorize.xml";
         logger.debug(xmlPath);
         config(xmlPath);
     }

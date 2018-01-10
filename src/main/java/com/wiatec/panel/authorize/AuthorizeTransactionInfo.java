@@ -1,5 +1,6 @@
 package com.wiatec.panel.authorize;
 
+import com.wiatec.panel.common.utils.UnitUtil;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 
 public class AuthorizeTransactionInfo {
@@ -7,6 +8,8 @@ public class AuthorizeTransactionInfo {
     public static final String TYPE_CONTRACTED = "contracted";
     public static final String TYPE_MONTHLY = "monthly";
     public static final String TYPE_RENEW = "renew";
+
+    public static final float TAX = 0.08F;
 
 
     private int id;
@@ -20,11 +23,12 @@ public class AuthorizeTransactionInfo {
     private String securityKey;
 
     private float amount;
+    private float price;
+    private float txFee;
     private float deposit;
     private float ldCommission;
     private float dealerCommission;
     private float salesCommission;
-    private float txFee;
 
     private String transactionId;
     private String status;
@@ -112,6 +116,22 @@ public class AuthorizeTransactionInfo {
         this.amount = amount;
     }
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public float getTxFee() {
+        return txFee;
+    }
+
+    public void setTxFee(float txFee) {
+        this.txFee = txFee;
+    }
+
     public float getDeposit() {
         return deposit;
     }
@@ -142,14 +162,6 @@ public class AuthorizeTransactionInfo {
 
     public void setSalesCommission(float salesCommission) {
         this.salesCommission = salesCommission;
-    }
-
-    public float getTxFee() {
-        return txFee;
-    }
-
-    public void setTxFee(float txFee) {
-        this.txFee = txFee;
     }
 
     public String getTransactionId() {
@@ -205,11 +217,12 @@ public class AuthorizeTransactionInfo {
                 ", expirationDate='" + expirationDate + '\'' +
                 ", securityKey='" + securityKey + '\'' +
                 ", amount=" + amount +
+                ", price=" + price +
+                ", txFee=" + txFee +
                 ", deposit=" + deposit +
                 ", ldCommission=" + ldCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +
-                ", txFee=" + txFee +
                 ", transactionId='" + transactionId + '\'' +
                 ", status='" + status + '\'' +
                 ", authCode='" + authCode + '\'' +
@@ -220,7 +233,9 @@ public class AuthorizeTransactionInfo {
 
     public static AuthorizeTransactionInfo contractedFromAuthRentInfo(AuthRentUserInfo authRentUserInfo){
         AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
-        authorizeTransactionInfo.setAmount(authRentUserInfo.getFirstPay());
+        authorizeTransactionInfo.setPrice(authRentUserInfo.getFirstPay());
+        authorizeTransactionInfo.setTxFee(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX));
+        authorizeTransactionInfo.setAmount(authorizeTransactionInfo.getPrice() + authorizeTransactionInfo.getTxFee());
         authorizeTransactionInfo.setDeposit(authRentUserInfo.getDeposit());
         authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
         authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
@@ -245,7 +260,9 @@ public class AuthorizeTransactionInfo {
         authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
         authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
         authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-        authorizeTransactionInfo.setAmount(authRentUserInfo.getMonthPay());
+        authorizeTransactionInfo.setPrice(authRentUserInfo.getMonthPay());
+        authorizeTransactionInfo.setTxFee(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX));
+        authorizeTransactionInfo.setAmount(authorizeTransactionInfo.getPrice() + authorizeTransactionInfo.getTxFee());
         authorizeTransactionInfo.setDeposit(0);
         authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
         authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());

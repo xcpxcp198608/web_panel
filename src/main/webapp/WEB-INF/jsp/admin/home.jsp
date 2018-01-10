@@ -34,6 +34,10 @@
             <a href="/panel/admin/commission">Commission</a>
         </li>
         <li>
+            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
+            <a href="/panel/admin/devices">Devices</a>
+        </li>
+        <li>
             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
             <a href="/panel/signout">SignOut</a>
         </li>

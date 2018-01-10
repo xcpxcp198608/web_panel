@@ -172,7 +172,7 @@ public class AuthAdminService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo updateUserCategory(String key, String category){
+    public ResultInfo updateUserCategory(HttpServletRequest request, String key, String category){
         try {
             AuthRentUserInfo authRentUserInfo = authRentUserDao.selectByClientKey(key);
             CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(category);
@@ -199,7 +199,7 @@ public class AuthAdminService {
             authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
             authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
             authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_CONTRACTED);
-            AuthorizeTransactionInfo charge = AuthorizeTransaction.charge(authorizeTransactionInfo);
+            AuthorizeTransactionInfo charge = AuthorizeTransaction.charge(authorizeTransactionInfo, request);
             if(charge == null){
                 throw new XException(EnumResult.ERROR_AUTHORIZE);
             }
@@ -221,6 +221,10 @@ public class AuthAdminService {
         List<AuthorizeTransactionInfo> authorizeTransactionInfoList = authorizeTransactionDao.selectAll();
         model.addAttribute("authorizeTransactionInfoList", authorizeTransactionInfoList);
         return "admin/commission";
+    }
+
+    public String devices(Model model){
+        return "admin/devices";
     }
 
     /////////////////////////////////////////////////// chart //////////////////////////////////////////////////////////

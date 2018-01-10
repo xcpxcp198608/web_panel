@@ -7,21 +7,33 @@ import net.authorize.api.controller.CreateTransactionController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 
+/**
+ * @author patrick
+ */
 public class AuthorizeTransaction {
 
     private static Logger logger = LoggerFactory.getLogger(AuthorizeTransaction.class);
+
+    public static AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo){
+        return charge(authorizeTransactionInfo, null);
+    }
 
     /**
      * charge a transaction
      * @param authorizeTransactionInfo {@link AuthorizeTransactionInfo}
      * @return {@link AuthorizeTransactionInfo} include all transaction information
      */
-    public static AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo){
-        AuthorizeConfig.init();
+    public static AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo, HttpServletRequest request){
+        if(request == null){
+            AuthorizeConfig.init();
+        }else {
+            AuthorizeConfig.init(request);
+        }
         PaymentType paymentType = new PaymentType();
         CreditCardType creditCard = new CreditCardType();
         creditCard.setCardNumber(authorizeTransactionInfo.getCardNumber());
@@ -32,9 +44,6 @@ public class AuthorizeTransaction {
         requestType.setTransactionType(TransactionTypeEnum.AUTH_CAPTURE_TRANSACTION.value());
         requestType.setPayment(paymentType);
         requestType.setAmount(new BigDecimal(authorizeTransactionInfo.getAmount()).setScale(2, RoundingMode.CEILING));
-
-//        CustomerAddressType customerAddressType = new CustomerAddressType();
-//        requestType.setBillTo(customerAddressType);
 
         CreateTransactionRequest apiRequest = new CreateTransactionRequest();
         apiRequest.setTransactionRequest(requestType);
@@ -128,7 +137,8 @@ public class AuthorizeTransaction {
                     authorizeTransactionInfo1.setTransactionId(result.getTransId());
                     authorizeTransactionInfo1.setAuthCode(result.getAuthCode());
                     authorizeTransactionInfo1.setStatus("approved");
-                    authorizeTransactionInfo1.setTxFee(0.00f);
+                    authorizeTransactionInfo1.setPrice(authorizeTransactionInfo.getPrice());
+                    authorizeTransactionInfo1.setTxFee(authorizeTransactionInfo.getTxFee());
                     return authorizeTransactionInfo1;
                 } else {
                     logger.debug("Failed Transaction.");

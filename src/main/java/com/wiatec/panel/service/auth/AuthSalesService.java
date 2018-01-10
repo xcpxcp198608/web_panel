@@ -43,6 +43,8 @@ public class AuthSalesService {
     @Resource
     private AuthRentUserDao authRentUserDao;
     @Resource
+    private AuthRegisterUserDao authRegisterUserDao;
+    @Resource
     private CommissionCategoryDao commissionCategoryDao;
     @Resource
     private AuthorizeTransactionDao authorizeTransactionDao;
@@ -72,13 +74,13 @@ public class AuthSalesService {
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo, int paymentMethod){
         try {
-            if (authRentUserDao.countOneByEmail(authRentUserInfo) == 1) {
-                throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
-            }
             if (authRentUserDao.countOneByMac(authRentUserInfo) == 1) {
                 if (!AuthRentUserInfo.STATUS_CANCELED.equals(authRentUserDao.selectStatusByMac(authRentUserInfo))) {
                     throw new XException(EnumResult.ERROR_DEVICE_USING);
                 }
+            }
+            if(authRegisterUserDao.countByMac(new AuthRegisterUserInfo(authRentUserInfo.getMac())) == 1){
+                throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
             }
             CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
             commissionCategoryInfo.setPrice();
@@ -106,7 +108,7 @@ public class AuthSalesService {
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
                 authRentUserDao.insertOne(authRentUserInfo);
                 AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransaction.charge(AuthorizeTransactionInfo
-                        .contractedFromAuthRentInfo(authRentUserInfo));
+                        .contractedFromAuthRentInfo(authRentUserInfo), request);
                 if (authorizeTransactionInfo == null) {
                     throw new XException(EnumResult.ERROR_AUTHORIZE);
                 }

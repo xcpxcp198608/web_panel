@@ -157,8 +157,8 @@ public class AuthAdmin {
 
     @PutMapping(value = "/user/category/{key}/{category}")
     @ResponseBody
-    public ResultInfo updateUserCategory(@PathVariable String key, @PathVariable String category){
-        return authAdminService.updateUserCategory(key, category);
+    public ResultInfo updateUserCategory(HttpServletRequest request, @PathVariable String key, @PathVariable String category){
+        return authAdminService.updateUserCategory(request, key, category);
     }
 
     @PutMapping(value = "/activate/{key}")
@@ -176,6 +176,17 @@ public class AuthAdmin {
     public String getCommission(Model model){
         return authAdminService.commission(model);
     }
+
+    /**
+     * commission page
+     * @param model    mvc model
+     * @return         commission page
+     */
+    @GetMapping(value = "/devices")
+    public String devices(Model model){
+        return authAdminService.devices(model);
+    }
+
 
     @GetMapping(value = "/chart/distribution")
     @ResponseBody

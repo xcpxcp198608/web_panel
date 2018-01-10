@@ -1,5 +1,8 @@
 package com.wiatec.panel.oxm.pojo;
 
+/**
+ * @author patrick
+ */
 public class AuthRegisterUserInfo {
 
     private int id;
@@ -26,6 +29,13 @@ public class AuthRegisterUserInfo {
 
     private boolean isExperience;
     private boolean online;
+
+    public AuthRegisterUserInfo() {
+    }
+
+    public AuthRegisterUserInfo(String mac) {
+        this.mac = mac;
+    }
 
     public int getId() {
         return id;

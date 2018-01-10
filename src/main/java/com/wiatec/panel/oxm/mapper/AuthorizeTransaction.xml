@@ -9,16 +9,17 @@
         <result column="sales_id" property="salesId"/>
         <result column="sales_name" property="salesName"/>
         <result column="dealer_id" property="dealerId"/>
+        <result column="transaction_id" property="transactionId"/>
         <result column="amount" property="amount"/>
+        <result column="price" property="price"/>
+        <result column="tx_fee" property="txFee"/>
         <result column="deposit" property="deposit"/>
         <result column="ld_commission" property="ldCommission"/>
         <result column="dealer_commission" property="dealerCommission"/>
         <result column="sales_commission" property="salesCommission"/>
-        <result column="tx_fee" property="txFee"/>
         <result column="card_number" property="cardNumber"/>
         <result column="expiration_date" property="expirationDate"/>
         <result column="security_key" property="securityKey"/>
-        <result column="transaction_id" property="transactionId"/>
         <result column="status" property="status"/>
         <result column="auth_code" property="authCode"/>
         <result column="type" property="type"/>
@@ -27,8 +28,8 @@
 
     <sql id="select">
         SELECT authorize_transaction.id, authorize_transaction.client_key, authorize_transaction.category,
-            authorize_transaction.sales_id, authorize_transaction.amount, authorize_transaction.deposit,
-            authorize_transaction.ld_commission, authorize_transaction.dealer_commission,
+            authorize_transaction.sales_id, authorize_transaction.amount, authorize_transaction.price,
+            authorize_transaction.deposit, authorize_transaction.ld_commission, authorize_transaction.dealer_commission,
             authorize_transaction.sales_commission, authorize_transaction.tx_fee,
             authorize_transaction.card_number, authorize_transaction.expiration_date,
             authorize_transaction.security_key, authorize_transaction.transaction_id,
@@ -40,10 +41,10 @@
 
     <insert id="insertOne" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionInfo">
       INSERT INTO authorize_transaction (sales_id, dealer_id, category, client_key, card_number,expiration_date,
-             security_key, amount, deposit, ld_commission, dealer_commission, sales_commission,
+             security_key, amount, price, deposit, ld_commission, dealer_commission, sales_commission,
              tx_fee, transaction_id, status, auth_code, type)
       VALUES (#{salesId}, #{dealerId}, #{category}, #{clientKey}, #{cardNumber}, #{expirationDate},
-              #{securityKey}, #{amount}, #{deposit}, #{ldCommission}, #{dealerCommission},
+              #{securityKey}, #{amount}, #{price}, #{deposit}, #{ldCommission}, #{dealerCommission},
               #{salesCommission}, #{txFee}, #{transactionId}, #{status}, #{authCode}, #{type})
     </insert>
 
@@ -127,7 +128,7 @@
         <result column="date" property="date"/>
     </resultMap>
     <select id="selectSaleAmountEveryMonthInYear" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo" resultMap="salesAmountInfo">
-        SELECT sum(amount) amount, sum(tx_fee) txFee, sum(deposit) deposit,
+        SELECT sum(amount) amount, sum(price), sum(tx_fee) txFee, sum(deposit) deposit,
         sum(ld_commission) ldCommission, sum(dealer_commission) dealerCommission,
         sum(sales_commission) salesCommission, MONTH(create_time) date
         FROM authorize_transaction
@@ -136,7 +137,7 @@
     </select>
 
     <select id="selectSaleAmountEveryDayInMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo" resultMap="salesAmountInfo">
-        SELECT sum(amount) amount, sum(tx_fee) txFee, sum(deposit) deposit,
+        SELECT sum(amount) amount, sum(price), sum(tx_fee) txFee, sum(deposit) deposit,
         sum(ld_commission) ldCommission, sum(dealer_commission) dealerCommission,
         sum(sales_commission) salesCommission, DAYOFMONTH(create_time) date
         FROM authorize_transaction
