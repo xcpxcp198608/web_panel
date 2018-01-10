@@ -161,8 +161,34 @@
         FROM auth_register_user
         WHERE level=#{salesId}
             AND id > 100
-              AND expires_time BETWEEN #{start} AND #{end}
+              AND expires_time > #{start}
         GROUP BY month;
+    </select>
+
+    <resultMap type="com.wiatec.panel.oxm.pojo.chart.users.YearVolumeInfo" id="yearVolumeInfo">
+        <result column="month" property="month"/>
+        <result column="volume" property="volume"/>
+    </resultMap>
+
+    <select id="selectVolumeOfYear" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+     resultMap="yearVolumeInfo">
+        SELECT count(*) volume, month(create_time) month
+        FROM auth_register_user
+        WHERE create_time BETWEEN #{start} AND #{end}
+        GROUP BY month;
+    </select>
+
+    <resultMap type="com.wiatec.panel.oxm.pojo.chart.users.MonthVolumeInfo" id="monthVolumeInfo">
+        <result column="day" property="day"/>
+        <result column="volume" property="volume"/>
+    </resultMap>
+
+    <select id="selectVolumeOfMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+     resultMap="monthVolumeInfo">
+        SELECT count(*) volume, dayofmonth(create_time) day
+        FROM auth_register_user
+        WHERE create_time BETWEEN #{start} AND #{end}
+        GROUP BY day;
     </select>
 
 </mapper>

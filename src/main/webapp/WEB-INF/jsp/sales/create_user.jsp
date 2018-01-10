@@ -76,7 +76,7 @@
                       <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
                     </span>
                 <input id="ipFirstName" type="text" class="form-control" placeholder="First Name"
-                       aria-describedby="basic-addon4" name="firstName">
+                       aria-describedby="basic-addon4" name="firstName" maxlength="20">
             </div>
             <br/>
             <div class="input-group">
@@ -84,7 +84,7 @@
                       <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
                     </span>
                 <input id="ipLastName" type="text" class="form-control" placeholder="Last Name"
-                       aria-describedby="basic-addon5" name="lastName">
+                       aria-describedby="basic-addon5" name="lastName" maxlength="20">
             </div>
             <br/>
             <div class="input-group">
@@ -92,7 +92,7 @@
                       <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                     </span>
                 <input id="ipEmail" type="email" class="form-control" placeholder="Email"
-                       aria-describedby="basic-addon6" name="email">
+                       aria-describedby="basic-addon6" name="email" maxlength="50">
             </div>
             <br/>
 
@@ -101,7 +101,7 @@
                       <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
                     </span>
                 <input id="ipPhone" type="number" class="form-control" placeholder="Phone"
-                       aria-describedby="basic-addon7" name="phone">
+                       aria-describedby="basic-addon7" name="phone" maxlength="20">
             </div>
             <br/>
 
@@ -123,7 +123,7 @@
                           <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>
                         </span>
                     <input id="ipCardNumber" type="number" class="form-control" placeholder="CreditCardNumber(16)"
-                           aria-describedby="basic-addon8" name="cardNumber" maxlength="16" minlength="16">
+                           aria-describedby="basic-addon8" name="cardNumber" maxlength="16">
                 </div>
                 <br/>
 
@@ -134,7 +134,7 @@
                           <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                         </span>
                             <input id="ipExpirationDate" type="number" class="form-control" placeholder="ExpirationDate(mmyy)"
-                                   aria-describedby="basic-addon9" name="expirationDate" maxlength="4" minlength="4">
+                                   aria-describedby="basic-addon9" name="expirationDate" maxlength="4">
                         </div>
                     </div>
 
@@ -144,7 +144,7 @@
                               <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                             </span>
                             <input id="ipSecurityKey" type="number" class="form-control" placeholder="SecurtyKey(3)"
-                                   aria-describedby="basic-addon10" name="securityKey" maxlength="3" minlength="3">
+                                   aria-describedby="basic-addon10" name="securityKey" maxlength="3">
                         </div>
                     </div>
                 </div>

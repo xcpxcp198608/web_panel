@@ -56,6 +56,11 @@ public class AuthManager {
         return authManagerService.updateLevel(id, level, days);
     }
 
+    @GetMapping(value = "/chart/volume/{year}/{month}")
+    @ResponseBody
+    public ResultInfo getYearVolume(@PathVariable int year, @PathVariable int month){
+        return authManagerService.getYearOrMonthVolume(year, month);
+    }
 
     @GetMapping(value = "/chart/level/{level}/{year}")
     @ResponseBody

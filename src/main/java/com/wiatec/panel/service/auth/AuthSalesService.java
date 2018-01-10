@@ -48,6 +48,8 @@ public class AuthSalesService {
     private CommissionCategoryDao commissionCategoryDao;
     @Resource
     private AuthorizeTransactionDao authorizeTransactionDao;
+    @Resource
+    private DeviceRentDao deviceRentDao;
 
     public String home(HttpServletRequest request, Model model){
         model.addAttribute("authorizeTransactionInfoList",
@@ -82,9 +84,13 @@ public class AuthSalesService {
             if(authRegisterUserDao.countByMac(new AuthRegisterUserInfo(authRentUserInfo.getMac())) == 1){
                 throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
             }
+            if(deviceRentDao.countOne(new DeviceRentInfo(authRentUserInfo.getMac())) != 1){
+                throw new XException(EnumResult.ERROR_DEVICE_NO_CHECK_IN);
+            }
             CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
             commissionCategoryInfo.setPrice();
             commissionCategoryInfo.setFirstPay();
+            authRentUserInfo.setMac(authRentUserInfo.getMac().toUpperCase());
             authRentUserInfo.setSalesId(getSalesInfo(request).getId());
             authRentUserInfo.setDealerId(getSalesInfo(request).getDealerId());
             authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));

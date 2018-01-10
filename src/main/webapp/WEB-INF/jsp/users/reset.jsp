@@ -37,4 +37,4 @@
     <div style="clear: both"><span id="error_message_reset" style="color: red; font-size: 18px; text-align: center"></span></div>
 
 </rapid:override>
-<%@ include file="../base1.jsp"%>
+<%@ include file="base1.jsp"%>

@@ -10,6 +10,8 @@ import com.wiatec.panel.common.utils.TokenUtil;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
+import com.wiatec.panel.oxm.pojo.chart.users.MonthVolumeInfo;
+import com.wiatec.panel.oxm.pojo.chart.users.YearVolumeInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -86,11 +88,22 @@ public class AuthManagerService {
         return ResultMaster.success(authRegisterUserInfo);
     }
 
+    //chart
+
+    public ResultInfo getYearOrMonthVolume(int year, int month){
+        if(month <= 0) {
+            List<YearVolumeInfo> yearVolumeInfoList = authRegisterUserDao.selectVolumeOfYear(new YearOrMonthInfo(year));
+            return ResultMaster.success(yearVolumeInfoList);
+        }else{
+            List<MonthVolumeInfo> monthVolumeInfoList = authRegisterUserDao.selectVolumeOfMonth(new YearOrMonthInfo(year, month));
+            return ResultMaster.success(monthVolumeInfoList);
+        }
+    }
 
     public ResultInfo<Integer> getLevelChart(int level, int year){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
         //sale id replace level
-        yearOrMonthInfo.setSalesId(level+"");
+        yearOrMonthInfo.setSalesId(level + "");
         return ResultMaster.success(authRegisterUserDao.selectLevelOfYear(yearOrMonthInfo));
     }
 

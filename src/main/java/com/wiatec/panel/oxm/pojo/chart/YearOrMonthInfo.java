@@ -1,5 +1,8 @@
 package com.wiatec.panel.oxm.pojo.chart;
 
+/**
+ * @author patrick
+ */
 public class YearOrMonthInfo {
 
     private String start;
@@ -8,16 +11,21 @@ public class YearOrMonthInfo {
     private String dealerId;
 
     public YearOrMonthInfo(int year) {
-        this.start = year + "-1-1";
-        this.end = (year+1) + "-1-1";
+        this.start = year + "-01-01";
+        this.end = (year + 1) + "-01-01";
     }
 
     public YearOrMonthInfo(int year, int month) {
-        this.start = year + "-" + month + "-1";
+        this.start = year + "-" + month + "-01";
         if(month == 12){
-            this.end = (year + 1) + "-1-1";
+            this.end = (year + 1) + "-01-01";
         }else{
-            this.end = year + "-" + (month + 1) + "-1";
+            int e = month + 1;
+            if(e < 10){
+                this.end = year + "-0" + e + "-01";
+            }else {
+                this.end = year + "-" + e + "-01";
+            }
         }
     }
 

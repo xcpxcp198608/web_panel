@@ -45,18 +45,26 @@ public class AuthService {
             case 0:
                 if(authManagerDao.countOne(new AuthManagerInfo(username, password)) == 1) {
                     return "redirect:/manager/";
+                }else{
+                    throw new XException(EnumResult.ERROR_UNAUTHORIZED);
                 }
             case 1:
                 if(authAdminDao.countOne(new AuthAdminInfo(username, password)) == 1) {
                     return "redirect:/admin/";
+                }else{
+                    throw new XException(EnumResult.ERROR_UNAUTHORIZED);
                 }
             case 2:
                 if(authDealerDao.countOne(new AuthDealerInfo(username, password)) == 1) {
                     return "redirect:/dealer/";
+                }else{
+                    throw new XException(EnumResult.ERROR_UNAUTHORIZED);
                 }
             case 3:
                 if(authSalesDao.countOne(new AuthSalesInfo(username, password)) == 1) {
                     return "redirect:/sales/";
+                }else{
+                    throw new XException(EnumResult.ERROR_UNAUTHORIZED);
                 }
             default:
                 throw new XException(EnumResult.ERROR_UNAUTHORIZED);

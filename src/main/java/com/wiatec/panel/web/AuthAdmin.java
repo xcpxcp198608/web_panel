@@ -4,6 +4,7 @@ import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.pojo.AuthDealerInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
+import com.wiatec.panel.oxm.pojo.DeviceRentInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.service.auth.AuthAdminService;
 import com.wiatec.panel.common.result.ResultInfo;
@@ -178,13 +179,25 @@ public class AuthAdmin {
     }
 
     /**
-     * commission page
+     * device page
      * @param model    mvc model
-     * @return         commission page
+     * @return         device page
      */
     @GetMapping(value = "/devices")
     public String devices(Model model){
         return authAdminService.devices(model);
+    }
+
+    /**
+     * commission page
+     * @param request  HttpServletRequest
+     * @param deviceRentInfo  DeviceRentInfo required: mac, dealerId
+     * @return         commission page
+     */
+    @PostMapping(value = "/devices/save")
+    @ResponseBody
+    public ResultInfo saveDevice(HttpServletRequest request, DeviceRentInfo deviceRentInfo){
+        return authAdminService.saveDevice(request, deviceRentInfo);
     }
 
 

@@ -178,28 +178,32 @@
                     <span class="input-group-addon" id="basic-addon3">
                       <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                     </span>
-                        <input id="ipUsername" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon3" name="username">
+                        <input id="ipUsername" type="text" class="form-control" placeholder="Username"
+                               aria-describedby="basic-addon3" name="username" maxlength="20">
                     </div>
                     <br/>
                     <div class="input-group">
                     <span class="input-group-addon" id="basic-addon4">
                       <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                     </span>
-                        <input id="ipPassword" type="password" class="form-control" placeholder="Password(length >= 6)" aria-describedby="basic-addon4" name="password">
+                        <input id="ipPassword" type="password" class="form-control" placeholder="Password(length >= 6)"
+                               aria-describedby="basic-addon4" name="password" maxlength="30">
                     </div>
                     <br/>
                     <div class="input-group">
                     <span class="input-group-addon" id="basic-addon5">
                       <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
                     </span>
-                        <input id="ipFirstName" type="text" class="form-control" placeholder="FirstName" aria-describedby="basic-addon5" name="firstName">
+                        <input id="ipFirstName" type="text" class="form-control" placeholder="FirstName"
+                               aria-describedby="basic-addon5" name="firstName" maxlength="30">
                     </div>
                     <br/>
                     <div class="input-group">
                     <span class="input-group-addon" id="basic-addon6">
                       <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                     </span>
-                        <input id="ipEmail" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon6" name="email">
+                        <input id="ipEmail" type="email" class="form-control" placeholder="Email"
+                               aria-describedby="basic-addon6" name="email" maxlength="50">
                     </div>
                     <br/>
                     <div class="input-group">
@@ -221,28 +225,32 @@
                     <span class="input-group-addon" id="basic-addon8">
                       <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                     </span>
-                        <input id="ipSSN" type="number" class="form-control" placeholder="SSN" aria-describedby="basic-addon8" name="ssn">
+                        <input id="ipSSN" type="number" class="form-control" placeholder="SSN"
+                               aria-describedby="basic-addon8" name="ssn" maxlength="9">
                     </div>
                     <br/>
                     <div class="input-group">
                     <span class="input-group-addon" id="basic-addon9">
                       <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                     </span>
-                        <input id="ipPassword1" type="password" class="form-control" placeholder="Password(length >= 6)" aria-describedby="basic-addon9" name="password1">
+                        <input id="ipPassword1" type="password" class="form-control" placeholder="Password(length >= 6)"
+                               aria-describedby="basic-addon9" name="password1" maxlength="30">
                     </div>
                     <br/>
                     <div class="input-group">
                     <span class="input-group-addon" id="basic-addon10">
                       <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
                     </span>
-                        <input id="ipLastName" type="text" class="form-control" placeholder="LastName" aria-describedby="basic-addon10" name="lastName">
+                        <input id="ipLastName" type="text" class="form-control" placeholder="LastName"
+                               aria-describedby="basic-addon10" name="lastName" maxlength="20">
                     </div>
                     <br/>
                     <div class="input-group">
                     <span class="input-group-addon" id="basic-addon11">
                       <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
                     </span>
-                        <input id="ipPhone" type="number" class="form-control" placeholder="Phone" aria-describedby="basic-addon11" name="phone">
+                        <input id="ipPhone" type="number" class="form-control" placeholder="Phone"
+                               aria-describedby="basic-addon11" name="phone" maxlength="20">
                     </div>
                     <br/>
                 </div>

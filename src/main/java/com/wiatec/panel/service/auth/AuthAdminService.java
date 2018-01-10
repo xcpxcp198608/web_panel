@@ -44,6 +44,8 @@ public class AuthAdminService {
     private CommissionCategoryDao commissionCategoryDao;
     @Resource
     private AuthorizeTransactionDao authorizeTransactionDao;
+    @Resource
+    private DeviceRentDao deviceRentDao;
 
     public String home(){
         return "admin/home";
@@ -224,7 +226,25 @@ public class AuthAdminService {
     }
 
     public String devices(Model model){
+        List<DeviceRentInfo> deviceRentInfoList = deviceRentDao.selectAll();
+        List<AuthDealerInfo> authDealerInfoList = authDealerDao.selectAll();
+        model.addAttribute("deviceRentInfoList", deviceRentInfoList);
+        model.addAttribute("authDealerInfoList", authDealerInfoList);
         return "admin/devices";
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo saveDevice(HttpServletRequest request, DeviceRentInfo deviceRentInfo){
+        if(deviceRentInfo.getMac().length() != 17){
+            throw new XException(EnumResult.ERROR_MAC_FORMAT);
+        }
+        if(deviceRentDao.countOne(deviceRentInfo) ==1){
+            throw new XException(1100, "this mac address already check in");
+        }
+        deviceRentInfo.setMac(deviceRentInfo.getMac().toUpperCase());
+        deviceRentInfo.setAdminId(getAdminInfo(request).getId());
+        deviceRentDao.insertOne(deviceRentInfo);
+        return ResultMaster.success(deviceRentDao.selectOne(deviceRentInfo));
     }
 
     /////////////////////////////////////////////////// chart //////////////////////////////////////////////////////////

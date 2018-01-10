@@ -10,65 +10,9 @@
     <script type="application/javascript" src="Resource/js/users/users.js"></script>
 </rapid:override>
 
-<rapid:override name="navigation">
-    <ul>
-        <li>
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            <a href="/panel/manager/">Home</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <a href="/panel/manager/users">Customers</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            <a href="/panel/signout">SignOut</a>
-        </li>
-    </ul>
-</rapid:override>
+<rapid:override name="content_header">
 
-<rapid:override name="content">
-
-    <c:if test="${username eq 'wiatec'}">
-        <div style="width: 100%">
-            <div style="width: 5%; display: block; float: left;">
-                <select id="seUpdateLevel" aria-describedby="basic-addon19" class="form-control"
-                        style="text-align: center;">
-                    <option value="0">Level</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">fto</option>
-                </select>
-            </div>
-
-            <div style="width: 5%; display: block; float: left;">
-                <select id="seDays" aria-describedby="basic-addon19" class="form-control"
-                        style="text-align: center;">
-                    <option value="-1">Days</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="7">7</option>
-                    <option value="28">28</option>
-                    <option value="30">30</option>
-                    <option value="92">92</option>
-                    <option value="183">183</option>
-                    <option value="365">365</option>
-                </select>
-            </div>
-
-            <div style="width: 10%; display: block; float: left;">
-                <button type="button" class="btn btn-default" id="btUpdateLevel" title="update">
-                    <span class="glyphicon glyphicon-open" aria-hidden="true"></span> UpdateLevel
-                </button>
-            </div>
-        </div>
-        <br/>
-        <br/>
-    </c:if>
-
-    <div style="clear: both">
+    <div style="width: 100%; height: 34px;">
         <div style="width: 25%; display: block; float: left;">
             <button type="button" class="btn btn-default" id="btActivate" title="activate">
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Activate
@@ -83,20 +27,62 @@
             </button>
         </div>
 
-        <div style="width: 60%; display: block; float: left">
+        <div style="width: 45%; display: block; float: left">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Search</span>
                 <input type="text" class="form-control" aria-describedby="basic-addon1" id="ipSearch"
-                       placeholder="type in keyword(username, mac, email, first name, last name, expires time)">
+                       placeholder="type in keyword(username, mac, email, name, time)">
             </div>
         </div>
-        <div style="width: 15%; display: block; float: right; font-size: 15px; font-weight: 500;
+
+        <c:if test="${username eq 'wiatec'}">
+            <div style="width: 20%; display: block; float: left">
+                <div style="width: 25%; display: block; float: left;">
+                    <select id="seUpdateLevel" aria-describedby="basic-addon19" class="form-control"
+                            style="text-align: center;">
+                        <option value="0">Level</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">fto</option>
+                    </select>
+                </div>
+
+                <div style="width: 25%; display: block; float: left;">
+                    <select id="seDays" aria-describedby="basic-addon19" class="form-control"
+                            style="text-align: center;">
+                        <option value="-1">Days</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="7">7</option>
+                        <option value="28">28</option>
+                        <option value="30">30</option>
+                        <option value="92">92</option>
+                        <option value="183">183</option>
+                        <option value="365">365</option>
+                    </select>
+                </div>
+
+                <div style="width: 50%; display: block; float: left;">
+                    <button type="button" class="btn btn-default" id="btUpdateLevel" title="update">
+                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span> UpdateLevel
+                    </button>
+                </div>
+            </div>
+        </c:if>
+
+        <div style="width: 10%; display: block; float: right; font-size: 15px; font-weight: 500;
             text-align: right; align-content: center">
-            <span id="spOnlineCount" style="color: #008500; height: 100%; line-height: 100%"></span>
-            /
-            <span id="spTotalCount" style="height: 100%; line-height: 100%"></span>
+            <span id="spOnlineCount" style="color: #008500; height: 34px; line-height: 34px"></span>
+            <span style="height: 34px; line-height: 34px">/</span>
+            <span id="spTotalCount" style="height: 34px; line-height: 34px"></span>
         </div>
     </div>
+
+</rapid:override>
+
+<rapid:override name="content_body">
 
     <div>
         <table class="table table-bordered table-hover table-striped table-condensed"
@@ -211,4 +197,4 @@
     </table>
 </rapid:override>
 
-<%@ include file="../base.jsp"%>
+<%@ include file="base_manger.jsp"%>

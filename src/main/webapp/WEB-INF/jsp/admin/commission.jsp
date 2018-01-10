@@ -128,9 +128,9 @@
                     </tbody>
                 </table>
             </div>
-            <div id="yearIncomeChart" style="width: 80%; height:198px; display: block; float: right; background-color: #2c343c">
 
-            </div>
+            <div id="yearIncomeChart" style="width: 80%; height:198px; display: block; float: right; background-color: #2c343c"></div>
+
         </div>
         <div style="width: 100%; height: 5px"></div>
 

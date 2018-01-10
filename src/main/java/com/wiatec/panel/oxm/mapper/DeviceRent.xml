@@ -1,0 +1,41 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.DeviceRentDao">
+    <resultMap type="com.wiatec.panel.oxm.pojo.DeviceRentInfo" id="deviceRentInfo">
+        <id column="id" property="id"/>
+        <result column="mac" property="mac"/>
+        <result column="dealerId" property="dealerId"/>
+        <result column="dealerName" property="dealerName"/>
+        <result column="adminId" property="adminId"/>
+        <result column="createTime" property="createTime"/>
+    </resultMap>
+
+    <sql id="select">
+        SELECT device_rent.id, device_rent.mac, device_rent.dealer_id, device_rent.admin_id, device_rent.create_time,
+            auth_dealer.username dealerName
+        FROM device_rent, auth_dealer
+        WHERE device_rent.dealer_id = auth_dealer.id
+    </sql>
+
+    <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+        SELECT COUNT(*)
+        FROM device_rent
+        WHERE mac=#{mac}
+    </select>
+
+    <select id="selectOne" resultMap="deviceRentInfo" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+      <include refid="select"/>
+      AND mac=#{mac}
+    </select>
+
+    <select id="selectAll" resultMap="deviceRentInfo" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+        <include refid="select"/>
+    </select>
+
+    <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+        INSERT INTO device_rent (mac, dealer_id, admin_id)
+                VALUES (#{mac}, #{dealerId}, #{adminId})
+    </insert>
+
+</mapper>

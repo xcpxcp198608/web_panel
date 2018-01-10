@@ -28,12 +28,14 @@ public enum  EnumResult {
     ERROR_EMAIL_NOT_MATCH(6006, "Email not match with register email"),
     ERROR_DEVICE_ALREADY_REGISTER(6007, "This device has been registered"),
     ERROR_DEVICE_NO_REGISTER(6008, "This device is not registered"),
+    ERROR_DEVICE_NO_CHECK_IN(6008, "This device is not check in"),
     ERROR_DEVICE_LIMITED(6008, "This device is limited"),
     ERROR_DEVICE_USING(6009, "The device is using"),
     ERROR_KEY_INCORRECT(6010, "The key is incorrect"),
     ERROR_KEY_DEACTIVATE(6011, "The key is not activate"),
     ERROR_OUT_EXPIRATION(6012, "Out expiration date"),
     ERROR_TOKEN_NOT_EXISTS(6012, "Token not exists"),
+    ERROR_MAC_FORMAT(6012, "Mac address format error"),
 
 
     ERROR_AUTHORIZE(9001, "Authorize communication exception"),
