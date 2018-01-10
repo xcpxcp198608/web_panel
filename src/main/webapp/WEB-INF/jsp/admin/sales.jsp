@@ -57,7 +57,7 @@
     </div>
     <br/>
     <div style="width: 100%; height: 20px;clear: both">&nbsp;</div>
-    <div style="width:100%; overflow: scroll">
+    <div style="width:100%; overflow: scroll; padding: 3px">
         <div style="width: 100%; height: 34px; ">
             <div style="width: 10%; display: block; float: left;">
                 <div style="margin: auto; height: 34px">

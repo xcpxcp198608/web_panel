@@ -137,7 +137,7 @@ $(function () {
     function initMonthData(days) {
         for (var j = 0; j < days; j++) {
             var tdObj = document.createElement("td");
-            tdObj.innerHTML = j+1;
+            tdObj.innerHTML = (j + 1).toString();
             thMonth.append(tdObj);
             for(var k = 0; k < rowsLength; k ++){
                 var tdObj1 = document.createElement("td");

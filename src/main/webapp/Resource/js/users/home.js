@@ -4,6 +4,10 @@ $(function () {
     var currentYear = now.getFullYear();
     var currentMonth = now.getMonth() + 1;
 
+    var tbYearVolume = $('#tbYearVolume').get(0).tBodies[0];
+    var tbMonthVolume = $('#tbMonthVolume').get(0).tBodies[0];
+    var thMonthVolume = $('#tbMonthVolume').get(0).tHead;
+
     /**
      * init data and chart
      */
@@ -72,9 +76,10 @@ $(function () {
                 name: 'volume',
                 type: 'bar',
                 data: yearVolume,
+                barWidth: 30,
                 itemStyle: {
                     normal: {
-                        color: '#fc0a5b',
+                        color: '#fc3ba8',
                         shadowBlur: 200,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
@@ -86,12 +91,13 @@ $(function () {
     getYearVolume(currentYear);
     function getYearVolume(year) {
         var url = baseUrl + '/manager/chart/volume/' + year + '/0';
-        $.get(url, {}, function (response, status) {
+        $.get(url, {}, function (response) {
             if(response['code'] === 200){
                 yearVolume.length = 0;
                 var dataList = response['dataList'];
                 var length = dataList.length;
             }
+            var totalVolume = 0;
             for(var i = 0; i < 12; i ++){
                 var volume = 0;
                 for(var j = 0; j < length; j ++){
@@ -100,8 +106,11 @@ $(function () {
                         volume = data['volume'];
                     }
                 }
+                totalVolume += volume;
                 yearVolume.push(volume);
+                tbYearVolume.rows[0].cells[i+1].innerHTML = volume.toString();
             }
+            tbYearVolume.rows[0].cells[0].innerHTML = totalVolume.toString();
             chartYearVolume.setOption(chartYearVolumeOption);
         });
     }
@@ -167,28 +176,48 @@ $(function () {
         $('#btPreviousMonth').attr('disabled', 'disabled');
         $('#btNextMonth').attr('disabled', 'disabled');
         var url = baseUrl + '/manager/chart/volume/' + year + '/' + month;
-        $.get(url, {}, function (response, status) {
-            if(response['code'] === 200){
+        $.get(url, {}, function (response) {
+            if(response['code'] === 200) {
                 monthVolume.length = 0;
                 var dataList = response['dataList'];
                 var length = dataList.length;
-            }
-            var l = getDaysOfYearAndMonth(currentYear, currentMonth);
-            console.log(l);
-            for(var i = 0; i < l; i ++){
-                var volume = 0;
-                for(var j = 0; j < length; j ++){
-                    var data = dataList[j];
-                    if(data['day'] === i + 1){
-                        volume = data['volume'];
+
+                cleanMonthVolumeTable();
+                var l = getDaysOfYearAndMonth(currentYear, currentMonth);
+                var totalVolume = 0;
+                for (var i = 0; i < l; i++) {
+                    var volume = 0;
+                    for (var j = 0; j < length; j++) {
+                        var data = dataList[j];
+                        if (data['day'] === i + 1) {
+                            volume = data['volume'];
+                        }
                     }
+                    totalVolume += volume;
+                    monthVolume.push(volume);
+
+                    var th = document.createElement("th");
+                    th.innerHTML = (i + 1).toString();
+                    thMonthVolume.rows[0].appendChild(th);
+
+                    var td = document.createElement("td");
+                    td.innerHTML = volume.toString();
+                    tbMonthVolume.rows[0].appendChild(td);
                 }
-                monthVolume.push(volume);
+                tbMonthVolume.rows[0].cells[0].innerHTML = totalVolume.toString();
+                chartMonthVolume.setOption(chartMonthVolumeOption);
             }
-            chartMonthVolume.setOption(chartMonthVolumeOption);
             $('#btPreviousMonth').removeAttr('disabled');
             $('#btNextMonth').removeAttr('disabled');
         });
+    }
+    
+    function cleanMonthVolumeTable() {
+        var cells = tbMonthVolume.rows[0].cells.length -1;
+        for(var i = 0; i < cells; i ++){
+            tbMonthVolume.rows[0].removeChild(tbMonthVolume.rows[0].lastChild);
+            thMonthVolume.rows[0].removeChild(thMonthVolume.rows[0].lastChild);
+        }
     }
 
 
@@ -368,7 +397,7 @@ $(function () {
 
     function getLevelNumber(level, levelData, chart , chartOption) {
         var url = baseUrl + '/manager/chart/level/' + level + '/' + currentYear;
-        $.get(url, {}, function (response, status) {
+        $.get(url, {}, function (response) {
             if(response['code'] === 200){
                 levelData.length = 0;
                 var dataList = response['dataList'];

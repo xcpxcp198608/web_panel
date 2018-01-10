@@ -46,10 +46,38 @@
 <rapid:override name="content_body">
 
     <div id="chartYearVolume" style="width: 100%; height: 200px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div> <br/>
-    <div id="chartMonthVolume" style="width: 100%; height: 300px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div> <br/>
+        box-shadow: 0 0 5px #0a148f; clear: both"></div>
+    <div>
+        <table id="tbYearVolume" class="table table-bordered table-hover table-striped table-condensed"
+               style="box-shadow: 0 0 5px #000; overflow: scroll">
+            <thead style="background-color: #566778;">
+                <tr>
+                    <th>YEAR</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+                    <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                    <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
+    <div id="chartMonthVolume" style="width: 100%; height: 300px; background-color: #2c343c;
+        box-shadow: 0 0 5px #0a148f; clear: both"></div>
+    <div>
+        <table id="tbMonthVolume" class="table table-bordered table-hover table-striped table-condensed"
+               style="box-shadow: 0 0 5px #000;">
+            <thead style="background-color: #566778;">
+                <tr><th>MONTH</th></tr>
+            </thead>
+            <tbody>
+                <td>0</td>
+            </tbody>
+        </table>
+    </div>
 
     <div id="chartLevel5" style="width: 100%; height: 200px; background-color: #2c343c;
         box-shadow: 0 0 5px #0a148f; clear: both"></div> <br/>

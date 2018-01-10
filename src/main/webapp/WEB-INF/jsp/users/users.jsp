@@ -8,6 +8,8 @@
 <rapid:override name="css_js">
     <link rel="stylesheet" href="Resource/css/users/users.css" />
     <script type="application/javascript" src="Resource/js/users/users.js"></script>
+    <script type="application/javascript" src="Resource/js/jquery.jqprint-0.3.js"></script>
+    <script type="application/javascript" src="Resource/js/jquery-migrate-1.1.0.js"></script>
 </rapid:override>
 
 <rapid:override name="content_header">
@@ -27,7 +29,7 @@
             </button>
         </div>
 
-        <div style="width: 45%; display: block; float: left">
+        <div style="width: 37%; display: block; float: left">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Search</span>
                 <input type="text" class="form-control" aria-describedby="basic-addon1" id="ipSearch"
@@ -36,8 +38,8 @@
         </div>
 
         <c:if test="${username eq 'wiatec'}">
-            <div style="width: 20%; display: block; float: left">
-                <div style="width: 25%; display: block; float: left;">
+            <div style="width: 28%; display: block; float: left">
+                <div style="width: 20%; display: block; float: left;">
                     <select id="seUpdateLevel" aria-describedby="basic-addon19" class="form-control"
                             style="text-align: center;">
                         <option value="0">Level</option>
@@ -49,7 +51,7 @@
                     </select>
                 </div>
 
-                <div style="width: 25%; display: block; float: left;">
+                <div style="width: 20%; display: block; float: left;">
                     <select id="seDays" aria-describedby="basic-addon19" class="form-control"
                             style="text-align: center;">
                         <option value="-1">Days</option>
@@ -64,9 +66,15 @@
                     </select>
                 </div>
 
-                <div style="width: 50%; display: block; float: left;">
+                <div style="width: 40%; display: block; float: left;">
                     <button type="button" class="btn btn-default" id="btUpdateLevel" title="update">
                         <span class="glyphicon glyphicon-open" aria-hidden="true"></span> UpdateLevel
+                    </button>
+                </div>
+
+                <div style="width: 20%; display: block; float: left;">
+                    <button type="button" class="btn btn-default" id="btPrint" title="update">
+                        <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
                     </button>
                 </div>
             </div>
@@ -83,8 +91,8 @@
 </rapid:override>
 
 <rapid:override name="content_body">
-
-    <div>
+    <!--startp-->
+    <div id="dTable">
         <table class="table table-bordered table-hover table-striped table-condensed"
                id="tbUsers">
             <thead style="background-color: #566778;">
@@ -165,7 +173,7 @@
             </tbody>
         </table>
     </div>
-
+    <!--endp-->
 </rapid:override>
 
 <rapid:override name="details">

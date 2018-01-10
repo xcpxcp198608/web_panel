@@ -271,4 +271,8 @@ $(function () {
         });
     }
 
+    $('#btPrint').click(function () {
+        $('#dTable').jqprint();
+    });
+
 });

@@ -158,17 +158,17 @@
 
     <hr/>
 
-    <div style="width: 100%; clear: both">
-        <table id="tbTotal" class="table table-striped">
+    <div style="width: 100%; clear: both; box-shadow: 0 0 5px #000;">
+        <table id="tbTotal" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <td>Count</td>
-                    <td>Amount</td>
-                    <td>TxFee</td>
-                    <td>Deposit</td>
-                    <td>LD</td>
-                    <td>Dealer</td>
-                    <td>Sales</td>
+                    <th>Count</th>
+                    <th>Amount</th>
+                    <th>TxFee</th>
+                    <th>Deposit</th>
+                    <th>LD</th>
+                    <th>Dealer</th>
+                    <th>Sales</th>
                 </tr>
             </thead>
             <tbody>
@@ -184,8 +184,7 @@
             </tbody>
         </table>
     </div>
-
-    <div style="width: 100%;">
+    <div style="width: 100%; margin-top: 10px">
         <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">Search</span>
             <input type="text" class="form-control" placeholder="type in keyword (client key, sales, transaction id)"

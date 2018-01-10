@@ -95,29 +95,29 @@
         </div>
     </div>
 
-    <div style="margin-top: 10px">
-        <div style="width: 100%; clear: both">
-            <table id="tbTotal" class="table table-striped">
+    <div style="margin-top: 10px;">
+        <div style="width: 100%; clear: both; box-shadow: 0 0 5px #000;">
+            <table id="tbTotal" class="table table-striped table-bordered">
                 <thead>
-                <tr>
-                    <td>Count</td>
-                    <td>Amount</td>
-                    <td>Deposit</td>
-                    <td>Commission</td>
-                </tr>
+                    <tr>
+                        <th>Count</th>
+                        <th>Amount</th>
+                        <th>Deposit</th>
+                        <th>Commission</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr id="trTotal">
-                    <td class="tdTotal">0</td>
-                    <td class="tdTotal">0</td>
-                    <td class="tdTotal">0</td>
-                    <td class="tdTotal">0</td>
-                </tr>
+                    <tr id="trTotal">
+                        <td class="tdTotal">0</td>
+                        <td class="tdTotal">0</td>
+                        <td class="tdTotal">0</td>
+                        <td class="tdTotal">0</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
-        <div style="width: 100%;">
+        <div style="width: 100%; margin-top: 10px">
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">Search</span>
                 <input type="text" class="form-control" placeholder="type in keyword (client key, transaction id)"

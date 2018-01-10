@@ -91,9 +91,9 @@
         </div>
         <div style="width: 10%; display: block; float: right; font-size: 18px; font-weight: 500;
             text-align: right; align-content: center">
-            <span id="spOnlineCount" style="color: #008500; height: 100%; line-height: 100%"></span>
-            /
-            <span id="spTotalCount" style="height: 100%; line-height: 100%"></span>
+            <span id="spOnlineCount" style="color: #008500; height: 34px; line-height: 34px"></span>
+            <span style="height: 34px; line-height: 34px">/</span>
+            <span id="spTotalCount" style="height: 34px; line-height: 34px"></span>
         </div>
     </div>
     <br/>
