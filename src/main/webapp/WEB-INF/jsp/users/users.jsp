@@ -39,7 +39,7 @@
 
         <c:if test="${username eq 'wiatec'}">
             <div style="width: 28%; display: block; float: left">
-                <div style="width: 20%; display: block; float: left;">
+                <div style="width: 25%; display: block; float: left;">
                     <select id="seUpdateLevel" aria-describedby="basic-addon19" class="form-control"
                             style="text-align: center;">
                         <option value="0">Level</option>
@@ -51,7 +51,7 @@
                     </select>
                 </div>
 
-                <div style="width: 20%; display: block; float: left;">
+                <div style="width: 25%; display: block; float: left;">
                     <select id="seDays" aria-describedby="basic-addon19" class="form-control"
                             style="text-align: center;">
                         <option value="-1">Days</option>
@@ -66,9 +66,9 @@
                     </select>
                 </div>
 
-                <div style="width: 40%; display: block; float: left;">
+                <div style="width: 30%; display: block; float: left;">
                     <button type="button" class="btn btn-default" id="btUpdateLevel" title="update">
-                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span> UpdateLevel
+                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span> Update
                     </button>
                 </div>
 

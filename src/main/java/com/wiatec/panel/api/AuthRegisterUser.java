@@ -12,6 +12,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author patrick
+ */
 @Controller
 @RequestMapping(value = "/user")
 public class AuthRegisterUser {

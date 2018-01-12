@@ -403,6 +403,7 @@ $(function () {
                 var dataList = response['dataList'];
                 var length = dataList.length;
             }
+            var tempLevelData = [];
             for(var i = 0; i < 12; i ++){
                 var count = 0;
                 for(var j = 0; j < length; j ++){
@@ -411,7 +412,35 @@ $(function () {
                         count = data['count'];
                     }
                 }
-                levelData.push(count);
+                tempLevelData.push(count);
+            }
+            console.log(tempLevelData);
+            for(var j = 0; j < 12; j ++){
+                var temp = 0;
+                for(var k = 11; k >= j; k --){
+                    temp += tempLevelData[k]
+                }
+                levelData.push(temp)
+                switch (level){
+                    case 5:
+                        var tbLevel5 = $('#tbLevel5').get(0).tBodies[0];
+                        tbLevel5.rows[0].cells[j].innerHTML = temp.toString();
+                        break;
+                    case 4:
+                        var tbLevel4 = $('#tbLevel4').get(0).tBodies[0];
+                        tbLevel4.rows[0].cells[j].innerHTML = temp.toString();
+                        break;
+                    case 3:
+                        var tbLevel3 = $('#tbLevel3').get(0).tBodies[0];
+                        tbLevel3.rows[0].cells[j].innerHTML = temp.toString();
+                        break;
+                    case 2:
+                        var tbLevel2 = $('#tbLevel2').get(0).tBodies[0];
+                        tbLevel2.rows[0].cells[j].innerHTML = temp.toString();
+                        break;
+                    default:
+                        break;
+                }
             }
             chart.setOption(chartOption);
         });

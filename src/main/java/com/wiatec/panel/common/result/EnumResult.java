@@ -21,6 +21,7 @@ public enum  EnumResult {
     ERROR_PASSWORD_FORMAT(6002, "Password format error"),
     ERROR_USERNAME_NOT_EXISTS(6003, "Username not exists"),
     ERROR_USERNAME_PASSWORD_NO_MATCH(6004, "Username and password not match"),
+    ERROR_USERNAME_MAC_NO_MATCH(6004, "Username and mac not match"),
     ERROR_USER_NO_ACTIVATE(6004, "No activate"),
     ERROR_SSN_EXISTS(6005, "SSN is exists"),
     ERROR_EMAIL_EXISTS(6006, "Email is exists"),

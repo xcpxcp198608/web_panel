@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * manage information after sales sign in
+ * @author patrick
  */
 @Controller
 @RequestMapping(value = "/sales")
@@ -22,9 +23,9 @@ public class AuthSales {
 
     /**
      * home page
-     * @param request
-     * @param model
-     * @return
+     * @param request HttpServletRequest
+     * @param model model
+     * @return sales home page
      */
     @GetMapping(value = "/")
     public String home(HttpServletRequest request, Model model){
@@ -33,9 +34,9 @@ public class AuthSales {
 
     /**
      * user page
-     * @param request
-     * @param model
-     * @return
+     * @param request HttpServletRequest
+     * @param model model
+     * @return sales users page
      */
     @GetMapping(value = "/users")
     public String users(HttpServletRequest request, Model model){
@@ -55,7 +56,7 @@ public class AuthSales {
 
     /**
      * go to create_user page to fill in information
-     * @return
+     * @return sales create user page
      */
     @GetMapping(value = "/go")
     public String goCreate(){
@@ -64,9 +65,9 @@ public class AuthSales {
 
     /**
      * create user, store user information in table of auth_rent_user
-     * @param request
+     * @param request HttpServletRequest
      * @param authRentUserInfo user information from form submit
-     * @return
+     * @return ResultInfo
      */
     @PostMapping(value = "/create/{paymentMethod}")
     @ResponseBody
@@ -77,7 +78,7 @@ public class AuthSales {
     /**
      * response year commission chart
      * @param year target year from ajax
-     * @return
+     * @return ResultInfo
      */
     @GetMapping(value = "/commission/{year}")
     @ResponseBody
@@ -89,7 +90,7 @@ public class AuthSales {
      * response month commission chart
      * @param year   target year from ajax
      * @param month  target month from ajax
-     * @return
+     * @return ResultInfo
      */
     @GetMapping(value = "/commission/{year}/{month}")
     @ResponseBody

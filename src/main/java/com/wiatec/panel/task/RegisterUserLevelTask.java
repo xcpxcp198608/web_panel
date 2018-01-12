@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author patrick
+ */
 @Component
 public class RegisterUserLevelTask {
 

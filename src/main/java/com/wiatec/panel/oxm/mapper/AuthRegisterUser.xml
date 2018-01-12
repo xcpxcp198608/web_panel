@@ -161,7 +161,7 @@
         FROM auth_register_user
         WHERE level=#{salesId}
             AND id > 100
-              AND expires_time > #{start}
+              AND expires_time BETWEEN #{start} AND #{end}
         GROUP BY month;
     </select>
 

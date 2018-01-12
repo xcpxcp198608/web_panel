@@ -92,7 +92,15 @@ public class AuthRegisterUserService {
         if(authRegisterUserDao.countByUsernameAndPassword(authRegisterUserInfo) != 1){
             throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
         }
-        AuthRegisterUserInfo authRegisterUserInfo1 = authRegisterUserDao.selectOneByUsernameAndMac(authRegisterUserInfo);
+        AuthRegisterUserInfo authRegisterUserInfo1;
+        try {
+            authRegisterUserInfo1 = authRegisterUserDao.selectOneByUsernameAndMac(authRegisterUserInfo);
+        }catch (Exception e){
+            throw new XException(EnumResult.ERROR_USERNAME_MAC_NO_MATCH);
+        }
+        if(authRegisterUserInfo1 == null){
+            throw new XException(EnumResult.ERROR_USERNAME_MAC_NO_MATCH);
+        }
         if(authRegisterUserInfo1.getEmailStatus() != 1){
             throw new XException(EnumResult.ERROR_USER_NO_ACTIVATE);
         }

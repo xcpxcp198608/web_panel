@@ -80,13 +80,101 @@
     </div>
 
     <div id="chartLevel5" style="width: 100%; height: 200px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div> <br/>
+        box-shadow: 0 0 5px #0a148f; clear: both"></div>
+    <div>
+        <table id="tbLevel5" class="table table-bordered table-hover table-striped table-condensed"
+               style="box-shadow: 0 0 5px #000; overflow: scroll">
+            <thead style="background-color: #566778;">
+            <tr>
+                <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+                <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div id="chartLevel4" style="width: 100%; height: 200px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div> <br/>
+        box-shadow: 0 0 5px #0a148f; clear: both"></div>
+    <div>
+        <table id="tbLevel4" class="table table-bordered table-hover table-striped table-condensed"
+               style="box-shadow: 0 0 5px #000; overflow: scroll">
+            <thead style="background-color: #566778;">
+            <tr>
+                <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+                <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div id="chartLevel3" style="width: 100%; height: 200px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div> <br/>
+        box-shadow: 0 0 5px #0a148f; clear: both"></div>
+    <div>
+        <table id="tbLevel3" class="table table-bordered table-hover table-striped table-condensed"
+               style="box-shadow: 0 0 5px #000; overflow: scroll">
+            <thead style="background-color: #566778;">
+            <tr>
+                <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+                <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
     <div id="chartLevel2" style="width: 100%; height: 200px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div> <br/>
+        box-shadow: 0 0 5px #0a148f; clear: both"></div>
+    <div>
+        <table id="tbLevel2" class="table table-bordered table-hover table-striped table-condensed"
+               style="box-shadow: 0 0 5px #000; overflow: scroll">
+            <thead style="background-color: #566778;">
+            <tr>
+                <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+                <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+                <td class="col-md-1">0</td><td class="col-md-1">0</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </rapid:override>
 <%@ include file="base_manger.jsp"%>
