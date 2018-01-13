@@ -9,7 +9,7 @@
     </resultMap>
 
     <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthAdminInfo">
-        SELECT COUNT(*)
+        SELECT COUNT(*) count
         FROM auth_admin
         WHERE username=#{username} AND password=#{password}
     </select>

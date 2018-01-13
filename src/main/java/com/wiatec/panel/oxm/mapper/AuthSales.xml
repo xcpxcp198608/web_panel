@@ -26,25 +26,25 @@
     </sql>
 
     <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
-        SELECT COUNT(*)
+        SELECT COUNT(*) count
         FROM auth_sales
         WHERE auth_sales.username=#{username} AND auth_sales.password=#{password}
     </select>
 
     <select id="countUsername" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
-        SELECT COUNT(*)
+        SELECT COUNT(*) count
         FROM auth_sales
         WHERE auth_sales.username=#{username}
     </select>
 
     <select id="countSSN" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
-        SELECT COUNT(*)
+        SELECT COUNT(*) count
         FROM auth_sales
         WHERE auth_sales.ssn=#{ssn}
     </select>
 
     <select id="countEmail" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
-        SELECT COUNT(*)
+        SELECT COUNT(*) count
         FROM auth_sales
         WHERE auth_sales.email=#{email}
     </select>

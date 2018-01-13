@@ -24,7 +24,7 @@ public interface DeviceRentDao {
      * @param deviceRentInfo  required: mac
      * @return all field
      */
-    DeviceRentInfo selectOne(DeviceRentInfo deviceRentInfo);
+    DeviceRentInfo selectOneByMac(DeviceRentInfo deviceRentInfo);
 
     /**
      * get all device_rent info

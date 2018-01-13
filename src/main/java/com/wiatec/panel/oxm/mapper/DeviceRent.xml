@@ -19,12 +19,12 @@
     </sql>
 
     <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
-        SELECT COUNT(*)
+        SELECT COUNT(*) count
         FROM device_rent
         WHERE mac=#{mac}
     </select>
 
-    <select id="selectOne" resultMap="deviceRentInfo" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+    <select id="selectOneByMac" resultMap="deviceRentInfo" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
       <include refid="select"/>
       AND mac=#{mac}
     </select>

@@ -49,7 +49,7 @@
     </insert>
 
     <select id="countByKeyAndDate" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionInfo" resultType="int">
-        SELECT COUNT(*)
+        SELECT COUNT(*) count
         FROM authorize_transaction
         WHERE client_key=#{clientKey} AND create_time LIKE concat(#{createTime},'%')
     </select>

@@ -21,7 +21,7 @@
         <include refid="select"/>
     </select>
 
-    <select id="selectOne" resultMap="commissionCategoryInfo" parameterType="String">
+    <select id="selectOne" resultMap="commissionCategoryInfo" parameterType="java.lang.String">
         <include refid="select"/>
         WHERE category=#{_parameter}
     </select>

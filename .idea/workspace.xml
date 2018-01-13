@@ -6,16 +6,19 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fcbb8162-7201-4f40-a409-92e2db470717" name="Default" comment="201801120925">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceInfoMaker.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/authorize.xml" />
+    <list default="true" id="fcbb8162-7201-4f40-a409-92e2db470717" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRegisterUser.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRegisterUser.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/CommissionCategoryInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/CommissionCategoryInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/DeviceRentDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/DeviceRentDao.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthAdmin.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthAdmin.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthDealer.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthDealer.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthManager.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthManager.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthSales.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthSales.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransaction.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransaction.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/CommissionCategory.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/CommissionCategory.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/DeviceRent.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/DeviceRent.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRentUserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRentUserService.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/base.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/base.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -57,7 +60,183 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="DeviceRent.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/DeviceRent.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="64">
+              <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="29" />
+              <folding>
+                <marker date="1515813392193" expanded="true" signature="632:876" ph="SELECT devic... device_rent" />
+                <marker date="1515813392193" expanded="true" signature="998:1069" ph="SELECT COUNT... device_rent" />
+                <marker date="1515813392193" expanded="true" signature="1524:1631" ph="INSERT INTO device_rent... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommissionCategory.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/CommissionCategory.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="19" column="62" lean-forward="true" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
+              <folding>
+                <marker date="1515813473044" expanded="true" signature="847:1000" ph="SELECT id, c... commission_category" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthUserLog.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthUserLog.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <marker date="1515134267341" expanded="true" signature="783:965" ph="INSERT INTO auth_user_log... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthSales.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthSales.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-164">
+              <caret line="46" column="29" lean-forward="false" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
+              <folding>
+                <marker date="1515813473039" expanded="true" signature="901:1259" ph="SELECT auth_... auth_sales" />
+                <marker date="1515813473039" expanded="true" signature="1380:1507" ph="SELECT COUNT... auth_sales" />
+                <marker date="1515813473039" expanded="true" signature="1636:1727" ph="SELECT COUNT... auth_sales" />
+                <marker date="1515813473039" expanded="true" signature="1851:1932" ph="SELECT COUNT... auth_sales" />
+                <marker date="1515813473039" expanded="true" signature="2058:2143" ph="SELECT COUNT... auth_sales" />
+                <marker date="1515813473039" expanded="true" signature="2251:2454" ph="INSERT INTO auth_sales... " />
+                <marker date="1515813473039" expanded="true" signature="2567:2640" ph="UPDATE auth_sales... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthRentUser.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-497">
+              <caret line="109" column="16" lean-forward="false" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="16" />
+              <folding>
+                <marker date="1515808314105" expanded="true" signature="2110:3199" ph="SELECT auth_... auth_rent_user" />
+                <marker date="1515808314105" expanded="true" signature="3328:3386" ph="SELECT COUNT... auth_rent_user" />
+                <marker date="1515808314105" expanded="true" signature="3520:3582" ph="SELECT COUNT... auth_rent_user" />
+                <marker date="1515808314105" expanded="true" signature="3731:3781" ph="SELECT statu... auth_rent_user" />
+                <marker date="1515808314105" expanded="true" signature="4606:5302" ph="INSERT INTO auth_rent_user... " />
+                <marker date="1515808314105" expanded="true" signature="5643:5744" ph="SELECT COUNT... auth_rent_user" />
+                <marker date="1515808314105" expanded="true" signature="6063:6188" ph="UPDATE auth_rent_user... " />
+                <marker date="1515808314105" expanded="true" signature="6309:6612" ph="UPDATE auth_rent_user... " />
+                <marker date="1515808314105" expanded="true" signature="6728:6893" ph="UPDATE auth_rent_user... " />
+                <marker date="1515808314105" expanded="true" signature="7373:7590" ph="SELECT categ... auth_rent_user" />
+                <marker date="1515808314105" expanded="true" signature="7790:8059" ph="SELECT categ... auth_rent_user" />
+                <marker date="1515808314105" expanded="true" signature="8435:8700" ph="SELECT s.sal... auth_rent_user" />
+                <marker date="1515808314105" expanded="true" signature="8862:9158" ph="SELECT s.sal... auth_rent_user" />
+                <marker date="1515808314105" expanded="true" signature="9483:9583" ph="SELECT count... auth_rent_user" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthRegisterUser.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRegisterUser.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="64">
+              <caret line="78" column="29" lean-forward="false" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
+              <folding>
+                <marker date="1515808314112" expanded="true" signature="1438:1706" ph="SELECT id, u... auth_register_user" />
+                <marker date="1515808314112" expanded="true" signature="1841:1929" ph="SELECT COUNT... auth_register_user" />
+                <marker date="1515808314112" expanded="true" signature="2062:2140" ph="SELECT COUNT... auth_register_user" />
+                <marker date="1515808314112" expanded="true" signature="2275:2357" ph="SELECT COUNT... auth_register_user" />
+                <marker date="1515808314112" expanded="true" signature="2474:2736" ph="INSERT INTO auth_register_user... " />
+                <marker date="1515808314112" expanded="true" signature="3055:3189" ph="UPDATE auth_register_user... " />
+                <marker date="1515808314112" expanded="true" signature="3316:3438" ph="UPDATE auth_register_user... " />
+                <marker date="1515808314112" expanded="true" signature="3587:3700" ph="SELECT COUNT... auth_register_user" />
+                <marker date="1515808314112" expanded="true" signature="4749:4815" ph="SELECT expir... auth_register_user" />
+                <marker date="1515808314112" expanded="true" signature="4935:5129" ph="UPDATE auth_register_user... " />
+                <marker date="1515808314112" expanded="true" signature="5246:5333" ph="UPDATE auth_register_user... " />
+                <marker date="1515808314112" expanded="true" signature="5453:5546" ph="UPDATE auth_register_user... " />
+                <marker date="1515808314112" expanded="true" signature="5668:5745" ph="UPDATE auth_register_user... " />
+                <marker date="1515808314112" expanded="true" signature="5864:5917" ph="DELETE FROM auth_register_user... " />
+                <marker date="1515808314112" expanded="true" signature="6213:6317" ph="UPDATE auth_register_user... " />
+                <marker date="1515808314112" expanded="true" signature="6672:6890" ph="SELECT count... auth_register_user" />
+                <marker date="1515808314112" expanded="true" signature="7264:7421" ph="SELECT count... auth_register_user" />
+                <marker date="1515808314112" expanded="true" signature="7795:7953" ph="SELECT count... auth_register_user" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthorizeTransaction.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransaction.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1798">
+              <caret line="51" column="29" lean-forward="false" selection-start-line="51" selection-start-column="29" selection-end-line="51" selection-end-column="29" />
+              <folding>
+                <marker date="1515813473050" expanded="true" signature="1559:2429" ph="SELECT autho... authorize_transaction" />
+                <marker date="1515813473050" expanded="true" signature="2544:3111" ph="INSERT INTO authorize_transaction... " />
+                <marker date="1515813473050" expanded="true" signature="3256:3397" ph="SELECT COUNT... authorize_transaction" />
+                <marker date="1515813473050" expanded="true" signature="4136:4393" ph="SELECT sales... authorize_transaction" />
+                <marker date="1515813473050" expanded="true" signature="4555:4864" ph="SELECT sales... authorize_transaction" />
+                <marker date="1515813473050" expanded="true" signature="5371:5676" ph="SELECT sum(s... authorize_transaction" />
+                <marker date="1515813473050" expanded="true" signature="5872:6237" ph="SELECT sum(s... authorize_transaction" />
+                <marker date="1515813473050" expanded="true" signature="6979:7322" ph="SELECT sum(a... authorize_transaction" />
+                <marker date="1515813473050" expanded="true" signature="7489:7837" ph="SELECT sum(a... authorize_transaction" />
+                <marker date="1515813473050" expanded="true" signature="8308:8539" ph="SELECT sum(s... authorize_transaction" />
+                <marker date="1515813473050" expanded="true" signature="9019:9251" ph="SELECT sum(s... authorize_transaction" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthManager.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthManager.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+              <folding>
+                <marker date="1515813473054" expanded="true" signature="551:658" ph="SELECT COUNT... auth_manager" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthDealer.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthDealer.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="395">
+              <caret line="46" column="29" lean-forward="false" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
+              <folding>
+                <marker date="1515813473060" expanded="true" signature="900:1020" ph="SELECT id, u... auth_dealer" />
+                <marker date="1515813473060" expanded="true" signature="1246:1352" ph="SELECT COUNT... auth_dealer" />
+                <marker date="1515813473060" expanded="true" signature="1482:1563" ph="SELECT COUNT... auth_dealer" />
+                <marker date="1515813473060" expanded="true" signature="1688:1759" ph="SELECT COUNT... auth_dealer" />
+                <marker date="1515813473060" expanded="true" signature="1886:1961" ph="SELECT COUNT... auth_dealer" />
+                <marker date="1515813473060" expanded="true" signature="2070:2277" ph="INSERT INTO auth_dealer... " />
+                <marker date="1515813473060" expanded="true" signature="2391:2465" ph="UPDATE auth_dealer... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthAdmin.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthAdmin.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding>
+                <marker date="1515813473066" expanded="true" signature="543:648" ph="SELECT COUNT... auth_admin" />
+                <marker date="1515813473066" expanded="true" signature="780:831" ph="SELECT * FRO... auth_admin" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -384,16 +563,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/DeviceRentInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/DeviceRentService.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/Resource/css/admin/device.css" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/DeviceRentDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/DeviceRent.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/dealer.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/devices.js" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthAdmin.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/create_user.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/base_manger.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/users/base_manger.jsp" />
@@ -431,10 +600,20 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/CommissionCategoryInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/MonthAuthorizeTask.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceMaker.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceInfoMaker.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRentUserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/DeviceRentDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/base.js" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/DeviceRent.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/CommissionCategory.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthSales.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransaction.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthManager.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthDealer.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthAdmin.xml" />
       </list>
     </option>
   </component>
@@ -538,7 +717,7 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="panel" type="462c0819:PsiDirectoryNode" />
-              <item name="invoice" type="462c0819:PsiDirectoryNode" />
+              <item name="oxm" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="panel" type="b2602c69:ProjectViewProjectNode" />
@@ -547,7 +726,8 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="panel" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="oxm" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="panel" type="b2602c69:ProjectViewProjectNode" />
@@ -555,6 +735,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -1001,7 +1188,7 @@
       <workItem from="1515633685864" duration="7216000" />
       <workItem from="1515681483771" duration="1240000" />
       <workItem from="1515720332839" duration="500000" />
-      <workItem from="1515806118873" duration="4959000" />
+      <workItem from="1515806118873" duration="7501000" />
     </task>
     <task id="LOCAL-00001" summary="201711111120">
       <created>1510370376796</created>
@@ -1304,7 +1491,14 @@
       <option name="project" value="LOCAL" />
       <updated>1515720575436</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="201801131040">
+      <created>1515811230060</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1515811230060</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1340,7 +1534,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="667476000" />
+    <option name="totallyTimeSpent" value="670018000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1375,9 +1569,9 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985657" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29032257" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29032257" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985657" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35741934" sideWeight="0.49137932" order="5" side_tool="false" content_ui="tabs" x="0" y="0" width="1440" height="900" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35741934" sideWeight="0.49137932" order="5" side_tool="false" content_ui="tabs" x="0" y="0" width="1440" height="900" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987013" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17816092" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1429,8 +1623,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="201711241335" />
-    <MESSAGE value="201711241525" />
     <MESSAGE value="201711241620" />
     <MESSAGE value="201711281055" />
     <MESSAGE value="201711291110" />
@@ -1454,7 +1646,9 @@
     <MESSAGE value="201801101815" />
     <MESSAGE value="201801102300" />
     <MESSAGE value="201801120925" />
-    <option name="LAST_COMMIT_MESSAGE" value="201801120925" />
+    <MESSAGE value="201801131040" />
+    <MESSAGE value="201801131125" />
+    <option name="LAST_COMMIT_MESSAGE" value="201801131125" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1467,84 +1661,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/ResultMaster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="20" column="36" lean-forward="false" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.lowagie/itext/2.1.7/892bfb3e97074a61123b3b2d7caa2db112750864/itext-2.1.7.jar!/com/lowagie/text/Paragraph.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="115" column="16" lean-forward="false" selection-start-line="115" selection-start-column="16" selection-end-line="115" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRegisterUserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="42" column="30" lean-forward="true" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="158" column="8" lean-forward="false" selection-start-line="158" selection-start-column="8" selection-end-line="159" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/commission.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="286" column="26" lean-forward="false" selection-start-line="286" selection-start-column="23" selection-end-line="286" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="61" column="9" lean-forward="false" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/home.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="100" column="24" lean-forward="true" selection-start-line="100" selection-start-column="24" selection-end-line="100" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/jquery.jqprint-0.3.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/css/base_manager.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="38" column="60" lean-forward="false" selection-start-line="38" selection-start-column="60" selection-end-line="38" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/users/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4446">
-          <caret line="274" column="31" lean-forward="false" selection-start-line="274" selection-start-column="31" selection-end-line="274" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/home.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2549">
-          <caret line="148" column="0" lean-forward="true" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/jquery-migrate-1.1.0.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1655,6 +1771,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
           <caret line="102" column="16" lean-forward="true" selection-start-line="102" selection-start-column="16" selection-end-line="102" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1684,6 +1801,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="e#1966#2013#0#HTML" expanded="false" />
+            <element signature="e#2036#2084#0#HTML" expanded="false" />
+            <element signature="e#2643#2691#0#HTML" expanded="false" />
+            <element signature="e#3414#3462#0#HTML" expanded="false" />
+            <element signature="e#3737#3785#0#HTML" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1691,14 +1815,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="94">
           <caret line="20" column="22" lean-forward="false" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/EnumResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="23" column="31" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1765,64 +1881,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRentUserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="37" column="18" lean-forward="false" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRegisterUser.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1611">
-          <caret line="78" column="29" lean-forward="false" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
-          <folding>
-            <marker date="1515808314112" expanded="true" signature="1438:1706" ph="SELECT id, u... auth_register_user" />
-            <marker date="1515808314112" expanded="true" signature="1841:1929" ph="SELECT COUNT... auth_register_user" />
-            <marker date="1515808314112" expanded="true" signature="2062:2140" ph="SELECT COUNT... auth_register_user" />
-            <marker date="1515808314112" expanded="true" signature="2275:2357" ph="SELECT COUNT... auth_register_user" />
-            <marker date="1515808314112" expanded="true" signature="2474:2736" ph="INSERT INTO auth_register_user... " />
-            <marker date="1515808314112" expanded="true" signature="3055:3189" ph="UPDATE auth_register_user... " />
-            <marker date="1515808314112" expanded="true" signature="3316:3438" ph="UPDATE auth_register_user... " />
-            <marker date="1515808314112" expanded="true" signature="3587:3700" ph="SELECT COUNT... auth_register_user" />
-            <marker date="1515808314112" expanded="true" signature="4749:4815" ph="SELECT expir... auth_register_user" />
-            <marker date="1515808314112" expanded="true" signature="4935:5129" ph="UPDATE auth_register_user... " />
-            <marker date="1515808314112" expanded="true" signature="5246:5333" ph="UPDATE auth_register_user... " />
-            <marker date="1515808314112" expanded="true" signature="5453:5546" ph="UPDATE auth_register_user... " />
-            <marker date="1515808314112" expanded="true" signature="5668:5745" ph="UPDATE auth_register_user... " />
-            <marker date="1515808314112" expanded="true" signature="5864:5917" ph="DELETE FROM auth_register_user... " />
-            <marker date="1515808314112" expanded="true" signature="6213:6317" ph="UPDATE auth_register_user... " />
-            <marker date="1515808314112" expanded="true" signature="6672:6890" ph="SELECT count... auth_register_user" />
-            <marker date="1515808314112" expanded="true" signature="7264:7421" ph="SELECT count... auth_register_user" />
-            <marker date="1515808314112" expanded="true" signature="7795:7953" ph="SELECT count... auth_register_user" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1985">
-          <caret line="59" column="29" lean-forward="false" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
-          <folding>
-            <marker date="1515808314105" expanded="true" signature="2110:3199" ph="SELECT auth_... auth_rent_user" />
-            <marker date="1515808314105" expanded="true" signature="3328:3386" ph="SELECT COUNT... auth_rent_user" />
-            <marker date="1515808314105" expanded="true" signature="3520:3582" ph="SELECT COUNT... auth_rent_user" />
-            <marker date="1515808314105" expanded="true" signature="3731:3781" ph="SELECT statu... auth_rent_user" />
-            <marker date="1515808314105" expanded="true" signature="4606:5302" ph="INSERT INTO auth_rent_user... " />
-            <marker date="1515808314105" expanded="true" signature="5643:5744" ph="SELECT COUNT... auth_rent_user" />
-            <marker date="1515808314105" expanded="true" signature="6063:6188" ph="UPDATE auth_rent_user... " />
-            <marker date="1515808314105" expanded="true" signature="6309:6612" ph="UPDATE auth_rent_user... " />
-            <marker date="1515808314105" expanded="true" signature="6728:6893" ph="UPDATE auth_rent_user... " />
-            <marker date="1515808314105" expanded="true" signature="7373:7590" ph="SELECT categ... auth_rent_user" />
-            <marker date="1515808314105" expanded="true" signature="7790:8059" ph="SELECT categ... auth_rent_user" />
-            <marker date="1515808314105" expanded="true" signature="8435:8700" ph="SELECT s.sal... auth_rent_user" />
-            <marker date="1515808314105" expanded="true" signature="8862:9158" ph="SELECT s.sal... auth_rent_user" />
-            <marker date="1515808314105" expanded="true" signature="9483:9583" ph="SELECT count... auth_rent_user" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/CommissionCategoryInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1843,14 +1901,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="125" column="86" lean-forward="true" selection-start-line="125" selection-start-column="86" selection-end-line="125" selection-end-column="86" />
           <folding />
         </state>
       </provider>
@@ -1884,11 +1934,214 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRentUserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="38" column="26" lean-forward="true" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/EnumResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="35" column="4" lean-forward="false" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/DeviceRentDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="86" column="13" lean-forward="false" selection-start-line="86" selection-start-column="13" selection-end-line="86" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="55" column="26" lean-forward="true" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/sales/create_user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="95" column="18" lean-forward="false" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRentUserService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="56" column="65" lean-forward="true" selection-start-line="56" selection-start-column="65" selection-end-line="56" selection-end-column="65" />
+        <state relative-caret-position="226">
+          <caret line="59" column="38" lean-forward="true" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/DeviceRent.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="29" />
+          <folding>
+            <marker date="1515813392193" expanded="true" signature="632:876" ph="SELECT devic... device_rent" />
+            <marker date="1515813392193" expanded="true" signature="998:1069" ph="SELECT COUNT... device_rent" />
+            <marker date="1515813392193" expanded="true" signature="1524:1631" ph="INSERT INTO device_rent... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/CommissionCategory.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="19" column="62" lean-forward="true" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
+          <folding>
+            <marker date="1515813473044" expanded="true" signature="847:1000" ph="SELECT id, c... commission_category" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthUserLog.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1515134267341" expanded="true" signature="783:965" ph="INSERT INTO auth_user_log... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthSales.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-164">
+          <caret line="46" column="29" lean-forward="false" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
+          <folding>
+            <marker date="1515813473039" expanded="true" signature="901:1259" ph="SELECT auth_... auth_sales" />
+            <marker date="1515813473039" expanded="true" signature="1380:1507" ph="SELECT COUNT... auth_sales" />
+            <marker date="1515813473039" expanded="true" signature="1636:1727" ph="SELECT COUNT... auth_sales" />
+            <marker date="1515813473039" expanded="true" signature="1851:1932" ph="SELECT COUNT... auth_sales" />
+            <marker date="1515813473039" expanded="true" signature="2058:2143" ph="SELECT COUNT... auth_sales" />
+            <marker date="1515813473039" expanded="true" signature="2251:2454" ph="INSERT INTO auth_sales... " />
+            <marker date="1515813473039" expanded="true" signature="2567:2640" ph="UPDATE auth_sales... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-497">
+          <caret line="109" column="16" lean-forward="false" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="16" />
+          <folding>
+            <marker date="1515808314105" expanded="true" signature="2110:3199" ph="SELECT auth_... auth_rent_user" />
+            <marker date="1515808314105" expanded="true" signature="3328:3386" ph="SELECT COUNT... auth_rent_user" />
+            <marker date="1515808314105" expanded="true" signature="3520:3582" ph="SELECT COUNT... auth_rent_user" />
+            <marker date="1515808314105" expanded="true" signature="3731:3781" ph="SELECT statu... auth_rent_user" />
+            <marker date="1515808314105" expanded="true" signature="4606:5302" ph="INSERT INTO auth_rent_user... " />
+            <marker date="1515808314105" expanded="true" signature="5643:5744" ph="SELECT COUNT... auth_rent_user" />
+            <marker date="1515808314105" expanded="true" signature="6063:6188" ph="UPDATE auth_rent_user... " />
+            <marker date="1515808314105" expanded="true" signature="6309:6612" ph="UPDATE auth_rent_user... " />
+            <marker date="1515808314105" expanded="true" signature="6728:6893" ph="UPDATE auth_rent_user... " />
+            <marker date="1515808314105" expanded="true" signature="7373:7590" ph="SELECT categ... auth_rent_user" />
+            <marker date="1515808314105" expanded="true" signature="7790:8059" ph="SELECT categ... auth_rent_user" />
+            <marker date="1515808314105" expanded="true" signature="8435:8700" ph="SELECT s.sal... auth_rent_user" />
+            <marker date="1515808314105" expanded="true" signature="8862:9158" ph="SELECT s.sal... auth_rent_user" />
+            <marker date="1515808314105" expanded="true" signature="9483:9583" ph="SELECT count... auth_rent_user" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRegisterUser.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="78" column="29" lean-forward="false" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
+          <folding>
+            <marker date="1515808314112" expanded="true" signature="1438:1706" ph="SELECT id, u... auth_register_user" />
+            <marker date="1515808314112" expanded="true" signature="1841:1929" ph="SELECT COUNT... auth_register_user" />
+            <marker date="1515808314112" expanded="true" signature="2062:2140" ph="SELECT COUNT... auth_register_user" />
+            <marker date="1515808314112" expanded="true" signature="2275:2357" ph="SELECT COUNT... auth_register_user" />
+            <marker date="1515808314112" expanded="true" signature="2474:2736" ph="INSERT INTO auth_register_user... " />
+            <marker date="1515808314112" expanded="true" signature="3055:3189" ph="UPDATE auth_register_user... " />
+            <marker date="1515808314112" expanded="true" signature="3316:3438" ph="UPDATE auth_register_user... " />
+            <marker date="1515808314112" expanded="true" signature="3587:3700" ph="SELECT COUNT... auth_register_user" />
+            <marker date="1515808314112" expanded="true" signature="4749:4815" ph="SELECT expir... auth_register_user" />
+            <marker date="1515808314112" expanded="true" signature="4935:5129" ph="UPDATE auth_register_user... " />
+            <marker date="1515808314112" expanded="true" signature="5246:5333" ph="UPDATE auth_register_user... " />
+            <marker date="1515808314112" expanded="true" signature="5453:5546" ph="UPDATE auth_register_user... " />
+            <marker date="1515808314112" expanded="true" signature="5668:5745" ph="UPDATE auth_register_user... " />
+            <marker date="1515808314112" expanded="true" signature="5864:5917" ph="DELETE FROM auth_register_user... " />
+            <marker date="1515808314112" expanded="true" signature="6213:6317" ph="UPDATE auth_register_user... " />
+            <marker date="1515808314112" expanded="true" signature="6672:6890" ph="SELECT count... auth_register_user" />
+            <marker date="1515808314112" expanded="true" signature="7264:7421" ph="SELECT count... auth_register_user" />
+            <marker date="1515808314112" expanded="true" signature="7795:7953" ph="SELECT count... auth_register_user" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransaction.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1798">
+          <caret line="51" column="29" lean-forward="false" selection-start-line="51" selection-start-column="29" selection-end-line="51" selection-end-column="29" />
+          <folding>
+            <marker date="1515813473050" expanded="true" signature="1559:2429" ph="SELECT autho... authorize_transaction" />
+            <marker date="1515813473050" expanded="true" signature="2544:3111" ph="INSERT INTO authorize_transaction... " />
+            <marker date="1515813473050" expanded="true" signature="3256:3397" ph="SELECT COUNT... authorize_transaction" />
+            <marker date="1515813473050" expanded="true" signature="4136:4393" ph="SELECT sales... authorize_transaction" />
+            <marker date="1515813473050" expanded="true" signature="4555:4864" ph="SELECT sales... authorize_transaction" />
+            <marker date="1515813473050" expanded="true" signature="5371:5676" ph="SELECT sum(s... authorize_transaction" />
+            <marker date="1515813473050" expanded="true" signature="5872:6237" ph="SELECT sum(s... authorize_transaction" />
+            <marker date="1515813473050" expanded="true" signature="6979:7322" ph="SELECT sum(a... authorize_transaction" />
+            <marker date="1515813473050" expanded="true" signature="7489:7837" ph="SELECT sum(a... authorize_transaction" />
+            <marker date="1515813473050" expanded="true" signature="8308:8539" ph="SELECT sum(s... authorize_transaction" />
+            <marker date="1515813473050" expanded="true" signature="9019:9251" ph="SELECT sum(s... authorize_transaction" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthManager.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding>
+            <marker date="1515813473054" expanded="true" signature="551:658" ph="SELECT COUNT... auth_manager" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthDealer.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="46" column="29" lean-forward="false" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
+          <folding>
+            <marker date="1515813473060" expanded="true" signature="900:1020" ph="SELECT id, u... auth_dealer" />
+            <marker date="1515813473060" expanded="true" signature="1246:1352" ph="SELECT COUNT... auth_dealer" />
+            <marker date="1515813473060" expanded="true" signature="1482:1563" ph="SELECT COUNT... auth_dealer" />
+            <marker date="1515813473060" expanded="true" signature="1688:1759" ph="SELECT COUNT... auth_dealer" />
+            <marker date="1515813473060" expanded="true" signature="1886:1961" ph="SELECT COUNT... auth_dealer" />
+            <marker date="1515813473060" expanded="true" signature="2070:2277" ph="INSERT INTO auth_dealer... " />
+            <marker date="1515813473060" expanded="true" signature="2391:2465" ph="UPDATE auth_dealer... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthAdmin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <marker date="1515813473066" expanded="true" signature="543:648" ph="SELECT COUNT... auth_admin" />
+            <marker date="1515813473066" expanded="true" signature="780:831" ph="SELECT * FRO... auth_admin" />
+          </folding>
         </state>
       </provider>
     </entry>

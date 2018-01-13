@@ -57,6 +57,9 @@ public class AuthRentUserService {
             throw new XException(EnumResult.ERROR_KEY_INCORRECT);
         }
         AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectByClientKey(clientKey);
+        if(authRentUserInfo1 == null){
+            throw new XException(EnumResult.ERROR_KEY_INCORRECT);
+        }
         if(!AuthRentUserInfo.STATUS_ACTIVATE.equals(authRentUserInfo1.getStatus())){
             throw new XException(EnumResult.ERROR_KEY_DEACTIVATE);
         }

@@ -73,6 +73,6 @@ function getDaysOfYearAndMonth(year, month) {
 }
 
 function validateEmail(email) {
-    var regExp = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-_.])+[A-Za-z\d]{2,5}$/gi;
+    var regExp = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-_.])+[A-Za-z\d]{1,10}$/gi;
     return regExp.test(email);
 }

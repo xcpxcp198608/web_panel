@@ -244,7 +244,7 @@ public class AuthAdminService {
         deviceRentInfo.setMac(deviceRentInfo.getMac().toUpperCase());
         deviceRentInfo.setAdminId(getAdminInfo(request).getId());
         deviceRentDao.insertOne(deviceRentInfo);
-        return ResultMaster.success(deviceRentDao.selectOne(deviceRentInfo));
+        return ResultMaster.success(deviceRentDao.selectOneByMac(deviceRentInfo));
     }
 
     /////////////////////////////////////////////////// chart //////////////////////////////////////////////////////////
