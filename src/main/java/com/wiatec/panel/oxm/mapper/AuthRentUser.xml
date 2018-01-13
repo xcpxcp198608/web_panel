@@ -53,11 +53,11 @@
     </sql>
 
     <select id="countOneByMac" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
-        SELECT COUNT(*) FROM auth_rent_user WHERE mac=#{mac}
+        SELECT COUNT(*) count FROM auth_rent_user WHERE mac=#{mac}
     </select>
 
     <select id="countOneByEmail" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
-        SELECT COUNT(*) FROM auth_rent_user WHERE email=#{email}
+        SELECT COUNT(*) count FROM auth_rent_user WHERE email=#{email}
     </select>
 
     <select id="selectStatusByMac" resultType="java.lang.String" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
@@ -102,7 +102,7 @@
     </select>
 
     <select id="countOneByKeyAndMac" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
-        SELECT COUNT(*) FROM auth_rent_user
+        SELECT COUNT(*) count FROM auth_rent_user
         WHERE clientKey=#{clientKey}
         AND mac=#{mac}
     </select>

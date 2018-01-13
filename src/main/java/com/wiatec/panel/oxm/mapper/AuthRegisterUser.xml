@@ -33,19 +33,19 @@
     </sql>
 
     <select id="countByUsername" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo" resultType="int">
-        SELECT COUNT(*)
+        SELECT COUNT(*) count
         FROM auth_register_user
         WHERE username=#{username}
     </select>
 
     <select id="countByMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo" resultType="int">
-        SELECT COUNT(*)
+        SELECT COUNT(*) count
         FROM auth_register_user
         WHERE mac=#{mac}
     </select>
 
     <select id="countByEmail" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo" resultType="int">
-        SELECT COUNT(*)
+        SELECT COUNT(*) count
         FROM auth_register_user
         WHERE email=#{email}
     </select>
@@ -76,7 +76,7 @@
     </update>
 
     <select id="countByUsernameAndPassword" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo" resultType="int">
-        SELECT COUNT(*)
+        SELECT COUNT(*) count
         FROM auth_register_user
         WHERE username=#{username} AND password=#{password}
     </select>

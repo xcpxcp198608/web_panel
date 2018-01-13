@@ -2,7 +2,14 @@ package com.wiatec.panel.oxm.pojo;
 
 import java.math.BigDecimal;
 
+/**
+ * @author patrick
+ */
 public class  CommissionCategoryInfo {
+
+    public static final String CATEGORY_B1 = "B1";
+    public static final String CATEGORY_P1 = "P1";
+    public static final String CATEGORY_P2 = "P2";
 
     private int id;
     private String category;

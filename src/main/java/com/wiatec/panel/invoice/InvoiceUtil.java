@@ -26,9 +26,9 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import com.lowagie.text.pdf.PdfWriter;
-import com.wiatec.panel.common.utils.EmailMaster;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.common.utils.UnitUtil;
+import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +44,12 @@ public class InvoiceUtil {
     private static final float SPACE = 8;
 
     public static void main(String[] args) throws Exception {
+        CommissionCategoryInfo commissionCategoryInfo = new CommissionCategoryInfo();
+        commissionCategoryInfo.setCategory(CommissionCategoryInfo.CATEGORY_P1);
+        commissionCategoryInfo.setDeposit(100F);
+        commissionCategoryInfo.setMonthPay(23F);
         String pdf = createInvoice("patrickxu@wiatec.com", "32432432432432",
-                InvoiceInfo.B1Contracted());
+                InvoiceInfoMaker.contracted(commissionCategoryInfo));
         System.out.println(pdf);
 //        EmailMaster emailMaster = new EmailMaster();
 //        emailMaster.setInvoiceContent("sdf");

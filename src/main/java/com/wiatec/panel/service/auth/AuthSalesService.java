@@ -4,6 +4,7 @@ import com.wiatec.panel.authorize.AuthorizeTransaction;
 import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
 import com.wiatec.panel.common.utils.*;
 import com.wiatec.panel.invoice.InvoiceInfo;
+import com.wiatec.panel.invoice.InvoiceInfoMaker;
 import com.wiatec.panel.invoice.InvoiceUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
@@ -120,20 +121,7 @@ public class AuthSalesService {
                 }
                 authorizeTransactionDao.insertOne(authorizeTransactionInfo);
                 InvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-                List<InvoiceInfo> invoiceInfoList;
-                switch (commissionCategoryInfo.getCategory()){
-                    case "B1":
-                        invoiceInfoList = InvoiceInfo.B1Contracted();
-                        break;
-                    case "P1":
-                        invoiceInfoList = InvoiceInfo.P1Contracted();
-                        break;
-                    case "P2":
-                        invoiceInfoList = InvoiceInfo.P2Contracted();
-                        break;
-                    default:
-                        throw new XException(ResultMaster.error(5003, "plan error"));
-                }
+                List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.contracted(commissionCategoryInfo);
                 String invoicePath = InvoiceUtil.createInvoice(authRentUserInfo.getEmail(),
                         authorizeTransactionInfo.getTransactionId(), invoiceInfoList);
                 logger.debug("invoicePath: {}", invoicePath);
