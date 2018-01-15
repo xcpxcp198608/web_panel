@@ -22,7 +22,14 @@ $(function () {
        });
    });
 
-   $('#ipMac').keyup(function () {
+   $('#ipMac').keyup(function (e) {
+       var code = e.keyCode;
+       if(code === 8){
+           return true;
+       }
+       if(code === 32){
+           return;
+       }
        var mac = $(this).val();
        if(mac.length === 2){
            $(this).val(mac + ':');

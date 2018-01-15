@@ -234,7 +234,7 @@ public class AuthorizeTransactionInfo {
     public static AuthorizeTransactionInfo contractedFromAuthRentInfo(AuthRentUserInfo authRentUserInfo){
         AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
         authorizeTransactionInfo.setPrice(authRentUserInfo.getFirstPay());
-        authorizeTransactionInfo.setTxFee(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX));
+        authorizeTransactionInfo.setTxFee(Float.parseFloat(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX)));
         authorizeTransactionInfo.setAmount(authorizeTransactionInfo.getPrice() + authorizeTransactionInfo.getTxFee());
         authorizeTransactionInfo.setDeposit(authRentUserInfo.getDeposit());
         authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
@@ -261,7 +261,7 @@ public class AuthorizeTransactionInfo {
         authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
         authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
         authorizeTransactionInfo.setPrice(authRentUserInfo.getMonthPay());
-        authorizeTransactionInfo.setTxFee(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX));
+        authorizeTransactionInfo.setTxFee(Float.parseFloat(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX)));
         authorizeTransactionInfo.setAmount(authorizeTransactionInfo.getPrice() + authorizeTransactionInfo.getTxFee());
         authorizeTransactionInfo.setDeposit(0);
         authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());

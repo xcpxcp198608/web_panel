@@ -47,7 +47,7 @@ public class InvoiceUtil {
         CommissionCategoryInfo commissionCategoryInfo = new CommissionCategoryInfo();
         commissionCategoryInfo.setCategory(CommissionCategoryInfo.CATEGORY_P1);
         commissionCategoryInfo.setDeposit(100F);
-        commissionCategoryInfo.setMonthPay(23F);
+        commissionCategoryInfo.setMonthPay(14.99F);
         String pdf = createInvoice("patrickxu@wiatec.com", "32432432432432",
                 InvoiceInfoMaker.contracted(commissionCategoryInfo));
         System.out.println(pdf);
@@ -643,30 +643,30 @@ public class InvoiceUtil {
     }
 
     private static class AmountInfo{
-        private float tax;
-        private float total;
+        private String tax;
+        private String total;
 
-        public float getTax() {
+        public String getTax() {
             return tax;
         }
 
-        public void setTax(float tax) {
+        public void setTax(String tax) {
             this.tax = tax;
         }
 
-        public float getTotal() {
+        public String getTotal() {
             return total;
         }
 
-        public void setTotal(float total) {
+        public void setTotal(String total) {
             this.total = total;
         }
 
         @Override
         public String toString() {
             return "AmountInfo{" +
-                    "tax=" + tax +
-                    ", total=" + total +
+                    "tax='" + tax + '\'' +
+                    ", total='" + total + '\'' +
                     '}';
         }
     }
