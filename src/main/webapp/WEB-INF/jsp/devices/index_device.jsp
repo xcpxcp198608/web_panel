@@ -27,9 +27,9 @@
           src="https://code.jquery.com/jquery-3.2.1.js"
           integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
           crossorigin="anonymous"></script>
-  <script type="application/javascript" language="JavaScript" src="../../../Resource/js/base.js"></script>
-  <link rel="stylesheet" type="text/css" href="../../../Resource/css/base.css">
-  <link rel="shortcut icon" href="../../../Resource/img/btv.ico">
+  <script type="application/javascript" language="JavaScript" src="Resource/js/base.js"></script>
+  <link rel="stylesheet" type="text/css" href="Resource/css/base.css">
+  <link rel="shortcut icon" href="Resource/img/btv.ico">
   <style type="text/css">
     #div_sign_in {margin: 200px auto auto;  width: 400px; height: 320px; background-color: #2c343c;
       box-shadow: 0 0 8px #000000;}
@@ -42,7 +42,7 @@
 
 <body style="background-color: #bbbbbb">
 
-<div style="width: 100%; height: 100%; background-image: url(../../../../Resource/img/bg.jpg);
+<div style="width: 100%; height: 100%; background-image: url(Resource/img/bg.jpg);
      position: absolute; left: 0; top: 0">
   <div id="div_sign_in">
     <div id="div_sign_in_1">
