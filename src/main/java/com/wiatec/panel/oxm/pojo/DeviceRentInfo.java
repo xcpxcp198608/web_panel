@@ -14,6 +14,7 @@ public class DeviceRentInfo {
     private String dealerName;
     private int adminId;
     private String createTime;
+    private boolean isRented;
 
     public DeviceRentInfo() {
     }
@@ -86,6 +87,14 @@ public class DeviceRentInfo {
         this.createTime = createTime;
     }
 
+    public boolean isRented() {
+        return isRented;
+    }
+
+    public void setRented(boolean rented) {
+        isRented = rented;
+    }
+
     @Override
     public String toString() {
         return "DeviceRentInfo{" +
@@ -97,6 +106,7 @@ public class DeviceRentInfo {
                 ", dealerName='" + dealerName + '\'' +
                 ", adminId=" + adminId +
                 ", createTime='" + createTime + '\'' +
+                ", isRented=" + isRented +
                 '}';
     }
 }

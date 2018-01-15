@@ -5,6 +5,8 @@
     <resultMap type="com.wiatec.panel.oxm.pojo.DeviceRentInfo" id="deviceRentInfo">
         <id column="id" property="id"/>
         <result column="mac" property="mac"/>
+        <result column="salesId" property="salesId"/>
+        <result column="salesName" property="salesName"/>
         <result column="dealerId" property="dealerId"/>
         <result column="dealerName" property="dealerName"/>
         <result column="adminId" property="adminId"/>
@@ -12,13 +14,14 @@
     </resultMap>
 
     <sql id="select">
-        SELECT device_rent.id, device_rent.mac, device_rent.dealer_id, device_rent.admin_id, device_rent.create_time,
-            auth_dealer.username dealerName
-        FROM device_rent, auth_dealer
-        WHERE device_rent.dealer_id = auth_dealer.id
+        SELECT device_rent.id, device_rent.mac, device_rent.sales_id, device_rent.dealer_id,
+            device_rent.admin_id, device_rent.create_time,
+            auth_sales.username salesName
+        FROM device_rent, auth_sales
+        WHERE device_rent.sales_id = auth_sales.id
     </sql>
 
-    <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+    <select id="countOne" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
         SELECT COUNT(*) count
         FROM device_rent
         WHERE mac=#{mac}
@@ -34,8 +37,20 @@
     </select>
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
-        INSERT INTO device_rent (mac, dealer_id, admin_id)
-                VALUES (#{mac}, #{dealerId}, #{adminId})
+        INSERT INTO device_rent (mac, sales_id, dealer_id, admin_id)
+                VALUES (#{mac}, #{salesId}, #{dealerId}, #{adminId})
     </insert>
+
+    <update id="updateRented">
+        UPDATE device_rent SET is_rented=1
+        WHERE mac=#{mac}
+    </update>
+
+    <select id="countNoRentedBySalesId" resultType="java.lang.Integer">
+        SELECT COUNT(*) count
+        FROM device_rent
+        WHERE is_rented=0
+        AND sales_id=#{salesId}
+    </select>
 
 </mapper>

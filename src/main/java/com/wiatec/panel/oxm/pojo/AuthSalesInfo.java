@@ -3,6 +3,9 @@ package com.wiatec.panel.oxm.pojo;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * @author patrick
+ */
 public class AuthSalesInfo {
 
     private int id;
@@ -21,6 +24,11 @@ public class AuthSalesInfo {
     private String email;
     @Size(min = 10, max = 12, message = "phone number input format incorrect")
     private String phone;
+
+    /**
+     * 当销售一次拿货10台或以上时此属性为true，salesCommission + 1;
+     */
+    private boolean isGold;
     private String createTime;
 
     public AuthSalesInfo() {
@@ -34,7 +42,6 @@ public class AuthSalesInfo {
         this.username = username;
         this.password = password;
     }
-
 
     public int getId() {
         return id;
@@ -116,6 +123,14 @@ public class AuthSalesInfo {
         this.phone = phone;
     }
 
+    public boolean isGold() {
+        return isGold;
+    }
+
+    public void setGold(boolean gold) {
+        isGold = gold;
+    }
+
     public String getCreateTime() {
         return createTime;
     }
@@ -137,6 +152,7 @@ public class AuthSalesInfo {
                 ", ssn='" + ssn + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", isGold=" + isGold +
                 ", createTime='" + createTime + '\'' +
                 '}';
     }

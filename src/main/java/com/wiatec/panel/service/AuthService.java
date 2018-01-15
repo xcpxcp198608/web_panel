@@ -80,4 +80,21 @@ public class AuthService {
         session.invalidate();
         return "redirect:/";
     }
+
+
+    public String signInDevice(HttpSession session, String username, String password){
+        session.setAttribute("username", username);
+        if(TextUtil.isEmpty(username)){
+            throw new XException(EnumResult.ERROR_USERNAME_FORMAT);
+        }
+        if(TextUtil.isEmpty(password)){
+            throw new XException(EnumResult.ERROR_PASSWORD_FORMAT);
+        }
+        if("ldevice".equals(username) && "ldevice".equals(password)) {
+            return "redirect:/device/home";
+        }else{
+            throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+        }
+
+    }
 }

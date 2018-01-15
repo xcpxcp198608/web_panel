@@ -7,40 +7,7 @@
 </rapid:override>
 <rapid:override name="css_js">
     <link rel="stylesheet" href="Resource/css/admin/devices.css"/>
-    <script type="application/javascript" src="Resource/js/admin/devices.js"></script>
-</rapid:override>
-
-<rapid:override name="navigation">
-    <ul>
-        <li>
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            <a href="/panel/admin/">Home</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-            <a href="/panel/admin/dealer">Dealer</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            <a href="/panel/admin/sales">Sales</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <a href="/panel/admin/users">Customers</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
-            <a href="/panel/admin/commission">Commission</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
-            <a href="/panel/admin/devices">Devices</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            <a href="/panel/signout">SignOut</a>
-        </li>
-    </ul>
+    <script type="application/javascript" src="Resource/js/device/devices.js"></script>
 </rapid:override>
 
 <rapid:override name="content">
@@ -138,4 +105,4 @@
         </div>
     </div>
 </rapid:override>
-<%@ include file="../base.jsp"%>
+<%@ include file="base1.jsp"%>

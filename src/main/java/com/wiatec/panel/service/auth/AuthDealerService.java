@@ -1,6 +1,8 @@
 package com.wiatec.panel.service.auth;
 
 import com.wiatec.panel.common.result.EnumResult;
+import com.wiatec.panel.common.result.ResultInfo;
+import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
 import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.listener.SessionListener;
@@ -16,7 +18,10 @@ import com.wiatec.panel.oxm.pojo.chart.admin.AllSalesMonthCommissionInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.TopAmountInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.TopVolumeInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import javax.annotation.Resource;
@@ -30,6 +35,8 @@ import java.util.Map;
  */
 @Service
 public class AuthDealerService {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
     private AuthDealerDao authDealerDao;
@@ -48,6 +55,27 @@ public class AuthDealerService {
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectSales(getDealerInfo(request).getId());
         model.addAttribute("authSalesInfoList", authSalesInfoList);
         return "dealer/sales";
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo createSales(HttpServletRequest request, AuthSalesInfo authSalesInfo) {
+        if(authSalesDao.countUsername(authSalesInfo) == 1){
+            throw new XException(EnumResult.ERROR_USERNAME_EXISTS);
+        }
+        if(authSalesDao.countSSN(authSalesInfo) == 1){
+            throw new XException(EnumResult.ERROR_SSN_EXISTS);
+        }
+        if(authSalesDao.countEmail(authSalesInfo) == 1){
+            throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
+        }
+        try {
+            authSalesInfo.setDealerId(getDealerInfo(request).getId());
+            authSalesDao.insertOne(authSalesInfo);
+            return ResultMaster.success(authSalesDao.selectOneByUsername(authSalesInfo));
+        }catch (Exception e){
+            logger.error("Exception: ", e);
+            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+        }
     }
 
     public String users(HttpServletRequest request, Model model, int key, int value){

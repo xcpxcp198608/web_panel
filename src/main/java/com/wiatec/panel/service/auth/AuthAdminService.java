@@ -110,7 +110,7 @@ public class AuthAdminService {
         }
         try {
             authSalesDao.insertOne(authSalesInfo);
-            return ResultMaster.success(authSalesDao.selectOne(authSalesInfo));
+            return ResultMaster.success(authSalesDao.selectOneByUsername(authSalesInfo));
         }catch (Exception e){
             logger.error("Exception:", e);
             throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
@@ -227,9 +227,9 @@ public class AuthAdminService {
 
     public String devices(Model model){
         List<DeviceRentInfo> deviceRentInfoList = deviceRentDao.selectAll();
-        List<AuthDealerInfo> authDealerInfoList = authDealerDao.selectAll();
+        List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectAll();
         model.addAttribute("deviceRentInfoList", deviceRentInfoList);
-        model.addAttribute("authDealerInfoList", authDealerInfoList);
+        model.addAttribute("authSalesInfoList", authSalesInfoList);
         return "admin/devices";
     }
 
@@ -242,8 +242,14 @@ public class AuthAdminService {
             throw new XException(1100, "this mac address already check in");
         }
         deviceRentInfo.setMac(deviceRentInfo.getMac().toUpperCase());
+        AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(deviceRentInfo.getSalesId());
+        deviceRentInfo.setDealerId(authSalesInfo.getDealerId());
         deviceRentInfo.setAdminId(getAdminInfo(request).getId());
         deviceRentDao.insertOne(deviceRentInfo);
+        int salesStoreCount = deviceRentDao.countNoRentedBySalesId(authSalesInfo.getId());
+        if(salesStoreCount >= 10){
+            authSalesDao.updateGoldById(authSalesInfo.getId());
+        }
         return ResultMaster.success(deviceRentDao.selectOneByMac(deviceRentInfo));
     }
 

@@ -13,37 +13,37 @@
         <result column="ssn" property="ssn"/>
         <result column="email" property="email"/>
         <result column="phone" property="phone"/>
+        <result column="is_gold" property="isGold"/>
         <result column="createTime" property="createTime"/>
     </resultMap>
 
     <sql id="select">
         SELECT auth_sales.id, auth_sales.username, auth_sales.password, auth_sales.dealerId,
             auth_sales.firstName, auth_sales.lastName, auth_sales.ssn, auth_sales.email,
-            auth_sales.phone, auth_sales.createTime,
+            auth_sales.phone, auth_sales.is_gold, auth_sales.createTime,
             auth_dealer.username dealerName
-
         FROM auth_sales JOIN panel.auth_dealer ON auth_dealer.id = auth_sales.dealerId
     </sql>
 
-    <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
+    <select id="countOne" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         SELECT COUNT(*) count
         FROM auth_sales
         WHERE auth_sales.username=#{username} AND auth_sales.password=#{password}
     </select>
 
-    <select id="countUsername" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
+    <select id="countUsername" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         SELECT COUNT(*) count
         FROM auth_sales
         WHERE auth_sales.username=#{username}
     </select>
 
-    <select id="countSSN" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
+    <select id="countSSN" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         SELECT COUNT(*) count
         FROM auth_sales
         WHERE auth_sales.ssn=#{ssn}
     </select>
 
-    <select id="countEmail" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
+    <select id="countEmail" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         SELECT COUNT(*) count
         FROM auth_sales
         WHERE auth_sales.email=#{email}
@@ -60,9 +60,14 @@
         WHERE id=#{id}
     </update>
 
-    <select id="selectOne" resultMap="authSalesInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
+    <select id="selectOneByUsername" resultMap="authSalesInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
         <include refid="select"/>
         WHERE auth_sales.username=#{username}
+    </select>
+
+    <select id="selectOneById" resultMap="authSalesInfo">
+        <include refid="select"/>
+        WHERE auth_sales.id=#{id}
     </select>
 
     <select id="selectSales" resultMap="authSalesInfo" parameterType="integer">
@@ -73,5 +78,10 @@
     <select id="selectAll" resultMap="authSalesInfo">
         <include refid="select"/>
     </select>
+
+    <update id="updateGoldById">
+        UPDATE auth_sales SET is_gold=1
+        WHERE id=#{id}
+    </update>
 
 </mapper>

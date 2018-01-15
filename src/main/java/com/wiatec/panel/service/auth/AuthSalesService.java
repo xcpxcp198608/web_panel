@@ -88,12 +88,13 @@ public class AuthSalesService {
             if(deviceRentDao.countOne(new DeviceRentInfo(authRentUserInfo.getMac())) != 1){
                 throw new XException(EnumResult.ERROR_DEVICE_NO_CHECK_IN);
             }
+            AuthSalesInfo authSalesInfo = getSalesInfo(request);
             CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
             commissionCategoryInfo.setPrice();
             commissionCategoryInfo.setFirstPay();
             authRentUserInfo.setMac(authRentUserInfo.getMac().toUpperCase());
-            authRentUserInfo.setSalesId(getSalesInfo(request).getId());
-            authRentUserInfo.setDealerId(getSalesInfo(request).getDealerId());
+            authRentUserInfo.setSalesId(authSalesInfo.getId());
+            authRentUserInfo.setDealerId(authSalesInfo.getDealerId());
             authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
             String activateTime = TimeUtil.getStrTime();
             authRentUserInfo.setActivateTime(activateTime);
@@ -104,7 +105,11 @@ public class AuthSalesService {
             authRentUserInfo.setMonthPay(commissionCategoryInfo.getMonthPay());
             authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
             authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
-            authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
+            if(authSalesInfo.isGold()) {
+                authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission() + 1);
+            }else{
+                authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
+            }
             if (paymentMethod == PAYMENT_METHOD_CASH) {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CASH);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
@@ -175,6 +180,6 @@ public class AuthSalesService {
         if(TextUtil.isEmpty(username)){
             throw new RuntimeException("sign info error");
         }
-        return authSalesDao.selectOne(new AuthSalesInfo(username));
+        return authSalesDao.selectOneByUsername(new AuthSalesInfo(username));
     }
 }

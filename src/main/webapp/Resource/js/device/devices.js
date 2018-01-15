@@ -92,6 +92,7 @@ $(function () {
 
     var errorMessage = $('#errorMessage');
     $('#btSubmitCheckIn').click(function () {
+        errorMessage.html(response.message);
         var mac = $('#ipMac').val();
         var salesId = $('#ipSalesId').val();
         if(mac.length !== 17){
@@ -102,7 +103,7 @@ $(function () {
             errorMessage.html('No sales choose');
             return;
         }
-        var url = baseUrl + '/admin/devices/save/';
+        var url = baseUrl + '/device/save/';
         $.ajax({
             type: 'POST',
             url: url,
@@ -115,9 +116,9 @@ $(function () {
                 hideLoading();
                 if(response.code === 200) {
                     showNotice("Successfully");
-                    window.open(baseUrl + "/admin/devices", "_self")
+                    window.open(baseUrl + "/device/home", "_self")
                 }else{
-                    $('#errorMessage').html(response.message);
+                    errorMessage.html(response.message);
                 }
             },
             error:function(){

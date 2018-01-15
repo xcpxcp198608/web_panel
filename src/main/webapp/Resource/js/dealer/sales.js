@@ -274,7 +274,6 @@ $(function () {
         var lastName = $('#ipLastName').val();
         var email = $('#ipEmail').val();
         var phone = $('#ipPhone').val();
-        var dealerId = $('#ipDealerId').val();
         if(username.length <= 0){
             errorMessage.html('username no type in');
             return;
@@ -315,16 +314,12 @@ $(function () {
             errorMessage.html('phone no type in');
             return;
         }
-        if(dealerId <= 0){
-            errorMessage.html('have no choose dealer');
-            return;
-        }
         errorMessage.html('');
         $.ajax({
             type: "POST",
-            url: baseUrl + "/admin/sale/create",
+            url: baseUrl + "/dealer/sale/create",
             data: {"username": username, "password": password, "firstName": firstName,
-                'lastName': lastName, 'ssn': ssn, 'email': email, 'phone': phone, 'dealerId': dealerId},
+                'lastName': lastName, 'ssn': ssn, 'email': email, 'phone': phone},
             dataType: "json",
             beforeSend: function () {
                 showLoading()
@@ -385,26 +380,23 @@ $(function () {
                     tdObj.append(pwdInput);
                     break;
                 case 4:
-                    tdObj.innerHTML = authSalesInfo.dealerName;
-                    break;
-                case 5:
                     tdObj.innerHTML = authSalesInfo.firstName + " " + authSalesInfo.lastName;
                     break;
-                case 6:
+                case 5:
                     var ssn = authSalesInfo.ssn.toString();
                     tdObj.innerHTML = ssn.substring(0, 3) + '-' + ssn.substring(3, 5) + '-'+ ssn.substring(5, 9);
                     break;
-                case 7:
+                case 6:
                     tdObj.innerHTML = authSalesInfo.email;
                     break;
-                case 8:
+                case 7:
                     tdObj.innerHTML = authSalesInfo.phone;
                     break;
-                case 9:
+                case 8:
                     tdObj.innerHTML = authSalesInfo.createTime.substring(0, 19);
                     tdObj.setAttribute('class', 'tdRows12');
                     break;
-                case 10:
+                case 9:
                     tdObj.innerHTML = '<a href="/panel/admin/users/'+ authSalesInfo.id+'">\n' +
                         '                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>\n' +
                         '              </a>';

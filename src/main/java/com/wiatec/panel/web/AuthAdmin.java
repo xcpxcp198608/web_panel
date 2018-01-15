@@ -189,10 +189,10 @@ public class AuthAdmin {
     }
 
     /**
-     * commission page
+     * save a device rent info
      * @param request  HttpServletRequest
      * @param deviceRentInfo  DeviceRentInfo required: mac, dealerId
-     * @return         commission page
+     * @return         ResultInfo
      */
     @PostMapping(value = "/devices/save")
     @ResponseBody

@@ -15,8 +15,11 @@ public interface AuthSalesDao {
     void insertOne(AuthSalesInfo authSalesInfo);
     void updatePassword(AuthSalesInfo authSalesInfo);
 
-    AuthSalesInfo selectOne(AuthSalesInfo authSalesInfo);
+    AuthSalesInfo selectOneByUsername(AuthSalesInfo authSalesInfo);
+    AuthSalesInfo selectOneById(int id);
     List<AuthSalesInfo> selectAll();
     List<AuthSalesInfo> selectSales(int leaderId);
+
+    int updateGoldById(int id);
 
 }

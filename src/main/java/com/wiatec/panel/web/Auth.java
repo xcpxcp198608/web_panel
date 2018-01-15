@@ -39,4 +39,17 @@ public class Auth {
         return authService.signOut(request);
     }
 
+
+
+    /**
+     * sign in
+     * @param username  username
+     * @param password  password
+     * @return          home page
+     */
+    @PostMapping(value = "/signin_device")
+    public String signInDevice(HttpSession session, String username, String password){
+        return authService.signInDevice(session, username, password);
+    }
+
 }

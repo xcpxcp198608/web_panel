@@ -39,6 +39,21 @@ public class AuthDealer {
         return authDealerService.sales(request, model);
     }
 
+    /**
+     * create user
+     * @param authSalesInfo  {@link AuthSalesInfo}
+     * @return               {@link ResultInfo}
+     */
+    @PostMapping(value = "/sale/create")
+    @ResponseBody
+    public ResultInfo createSales(HttpServletRequest request, @Valid AuthSalesInfo authSalesInfo,
+                                  BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            throw new XException(3001, bindingResult.getFieldError().getDefaultMessage());
+        }
+        return authDealerService.createSales(request, authSalesInfo);
+    }
+
     @GetMapping(value = "/users")
     public String getUsers(HttpServletRequest request, Model model){
         return authDealerService.users(request, model, 1, 0);

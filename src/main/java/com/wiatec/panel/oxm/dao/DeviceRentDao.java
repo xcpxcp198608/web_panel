@@ -32,6 +32,14 @@ public interface DeviceRentDao {
      */
     List<DeviceRentInfo> selectAll();
 
+    /**
+     * insert a new device rent info
+     * @param deviceRentInfo required: mac, sales_id, dealer_id, admin_id
+     */
     void insertOne(DeviceRentInfo deviceRentInfo);
+
+    int updateRented(String mac);
+
+    int countNoRentedBySalesId(int salesId);
 
 }
