@@ -8,6 +8,8 @@ public class DeviceRentInfo {
 
     private int id;
     private String mac;
+    private int salesId;
+    private String salesName;
     private int dealerId;
     private String dealerName;
     private int adminId;
@@ -34,6 +36,22 @@ public class DeviceRentInfo {
 
     public void setMac(String mac) {
         this.mac = mac;
+    }
+
+    public int getSalesId() {
+        return salesId;
+    }
+
+    public void setSalesId(int salesId) {
+        this.salesId = salesId;
+    }
+
+    public String getSalesName() {
+        return salesName;
+    }
+
+    public void setSalesName(String salesName) {
+        this.salesName = salesName;
     }
 
     public int getDealerId() {
@@ -73,6 +91,8 @@ public class DeviceRentInfo {
         return "DeviceRentInfo{" +
                 "id=" + id +
                 ", mac='" + mac + '\'' +
+                ", salesId=" + salesId +
+                ", salesName='" + salesName + '\'' +
                 ", dealerId=" + dealerId +
                 ", dealerName='" + dealerName + '\'' +
                 ", adminId=" + adminId +

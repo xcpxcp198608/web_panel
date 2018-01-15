@@ -14,11 +14,11 @@ public class InvoiceInfoMaker {
     private Logger logger = LoggerFactory.getLogger(InvoiceInfoMaker.class);
 
     public static List<InvoiceInfo> contracted(CommissionCategoryInfo commissionCategoryInfo){
-        return realCreate(commissionCategoryInfo, true);
+        return realCreate(commissionCategoryInfo, true, 1);
     }
 
-    public static List<InvoiceInfo> monthly(CommissionCategoryInfo commissionCategoryInfo){
-        return realCreate(commissionCategoryInfo, false);
+    public static List<InvoiceInfo> monthly(CommissionCategoryInfo commissionCategoryInfo, int currentMonth){
+        return realCreate(commissionCategoryInfo, false, currentMonth);
     }
 
     private static InvoiceInfo createDeposit(CommissionCategoryInfo commissionCategoryInfo){
@@ -32,7 +32,8 @@ public class InvoiceInfoMaker {
     }
 
 
-    private static List<InvoiceInfo> realCreate(CommissionCategoryInfo commissionCategoryInfo, boolean isContract){
+    private static List<InvoiceInfo> realCreate(CommissionCategoryInfo commissionCategoryInfo, boolean isContract,
+                                                int currentMonth){
         List<InvoiceInfo> invoiceInfoList = new ArrayList<>();
         if(isContract) {
             invoiceInfoList.add(createDeposit(commissionCategoryInfo));
@@ -42,6 +43,8 @@ public class InvoiceInfoMaker {
         invoiceInfo.setPrice(commissionCategoryInfo.getMonthPay());
         invoiceInfo.setAmount(commissionCategoryInfo.getMonthPay());
         invoiceInfo.setTax(true);
+        invoiceInfo.setCurrentMonth(currentMonth);
+        invoiceInfo.setTotalMonth(commissionCategoryInfo.getExpires());
         switch (commissionCategoryInfo.getCategory()){
             case CommissionCategoryInfo.CATEGORY_B1:
                 invoiceInfo.setItem("BVB1");

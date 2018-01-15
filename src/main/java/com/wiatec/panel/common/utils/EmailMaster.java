@@ -166,6 +166,7 @@ public class EmailMaster {
 	}
 
 	public void setInvoiceContent(String userName){
+		setEmailSubject("WELCOME TO LDEUFONIC");
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("Dear "+userName+":<br/>");
 		stringBuilder.append("<br/>");

@@ -114,7 +114,7 @@ public class AuthSalesService {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
                 authRentUserDao.insertOne(authRentUserInfo);
-                AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransaction.charge(AuthorizeTransactionInfo
+                AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransaction().charge(AuthorizeTransactionInfo
                         .contractedFromAuthRentInfo(authRentUserInfo), request);
                 if (authorizeTransactionInfo == null) {
                     throw new XException(EnumResult.ERROR_AUTHORIZE);

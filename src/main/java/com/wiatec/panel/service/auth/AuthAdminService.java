@@ -201,7 +201,7 @@ public class AuthAdminService {
             authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
             authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
             authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_CONTRACTED);
-            AuthorizeTransactionInfo charge = AuthorizeTransaction.charge(authorizeTransactionInfo, request);
+            AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request);
             if(charge == null){
                 throw new XException(EnumResult.ERROR_AUTHORIZE);
             }

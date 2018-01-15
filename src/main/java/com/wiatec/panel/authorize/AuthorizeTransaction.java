@@ -18,8 +18,9 @@ import java.math.RoundingMode;
 public class AuthorizeTransaction {
 
     private static Logger logger = LoggerFactory.getLogger(AuthorizeTransaction.class);
+    private String path = this.getClass().getClassLoader().getResource("/").getPath() + "authorize.xml";
 
-    public static AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo){
+    public AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo){
         return charge(authorizeTransactionInfo, null);
     }
 
@@ -28,9 +29,9 @@ public class AuthorizeTransaction {
      * @param authorizeTransactionInfo {@link AuthorizeTransactionInfo}
      * @return {@link AuthorizeTransactionInfo} include all transaction information
      */
-    public static AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo, HttpServletRequest request){
+    public AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo, HttpServletRequest request){
         if(request == null){
-            AuthorizeConfig.init();
+            AuthorizeConfig.init(path);
         }else {
             AuthorizeConfig.init(request);
         }
@@ -59,8 +60,8 @@ public class AuthorizeTransaction {
      * @param authorizeTransactionInfo {@link AuthorizeTransactionInfo}
      * @return {@link AuthorizeTransactionInfo} include all transaction information
      */
-    public static AuthorizeTransactionInfo authorize(AuthorizeTransactionInfo authorizeTransactionInfo){
-        AuthorizeConfig.init();
+    public AuthorizeTransactionInfo authorize(AuthorizeTransactionInfo authorizeTransactionInfo){
+        AuthorizeConfig.init(path);
         PaymentType paymentType = new PaymentType();
         CreditCardType creditCard = new CreditCardType();
         creditCard.setCardNumber(authorizeTransactionInfo.getCardNumber());
@@ -86,8 +87,8 @@ public class AuthorizeTransaction {
      * @param authorizeTransactionInfo {@link AuthorizeTransactionInfo}
      * @return {@link AuthorizeTransactionInfo} include all transaction information
      */
-    public static AuthorizeTransactionInfo refund(AuthorizeTransactionInfo authorizeTransactionInfo){
-        AuthorizeConfig.init();
+    public AuthorizeTransactionInfo refund(AuthorizeTransactionInfo authorizeTransactionInfo){
+        AuthorizeConfig.init(path);
         PaymentType paymentType = new PaymentType();
         CreditCardType creditCard = new CreditCardType();
         creditCard.setCardNumber(authorizeTransactionInfo.getCardNumber());
@@ -110,7 +111,7 @@ public class AuthorizeTransaction {
         return handleResponse(response, authorizeTransactionInfo);
     }
 
-    private static AuthorizeTransactionInfo handleResponse(CreateTransactionResponse response, AuthorizeTransactionInfo authorizeTransactionInfo){
+    private AuthorizeTransactionInfo handleResponse(CreateTransactionResponse response, AuthorizeTransactionInfo authorizeTransactionInfo){
         if (response!=null) {
             if (response.getMessages().getResultCode() == MessageTypeEnum.OK) {
                 TransactionResponse result = response.getTransactionResponse();

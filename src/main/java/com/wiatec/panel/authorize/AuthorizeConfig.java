@@ -19,15 +19,13 @@ public class AuthorizeConfig {
     private static final Logger logger = LoggerFactory.getLogger(AuthorizeConfig.class);
 
     public static void main (String [] args){
-        AuthorizeConfig.init();
+        //本地测试用
+//        AuthorizeConfig.init(PathUtil.getResourcePath() + "authorize.xml");
     }
 
-    public static void init(){
-        //本地测试用
-//        String xmlPath = PathUtil.getResourcePath() + "authorize.xml";
-        String xmlPath = PathUtil.getClassPath() + "authorize.xml";
-        logger.debug(xmlPath);
-        config(xmlPath);
+    public static void init(String path){
+        logger.debug(path);
+        config(path);
     }
 
     public static void init(HttpServletRequest request){

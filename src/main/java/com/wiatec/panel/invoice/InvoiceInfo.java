@@ -12,6 +12,8 @@ public class InvoiceInfo {
     private float price;
     private float amount;
     private boolean isTax;
+    private int currentMonth;
+    private int totalMonth;
 
     public String getItem() {
         return item;
@@ -61,6 +63,22 @@ public class InvoiceInfo {
         isTax = tax;
     }
 
+    public int getCurrentMonth() {
+        return currentMonth;
+    }
+
+    public void setCurrentMonth(int currentMonth) {
+        this.currentMonth = currentMonth;
+    }
+
+    public int getTotalMonth() {
+        return totalMonth;
+    }
+
+    public void setTotalMonth(int totalMonth) {
+        this.totalMonth = totalMonth;
+    }
+
     @Override
     public String toString() {
         return "InvoiceInfo{" +
@@ -70,8 +88,8 @@ public class InvoiceInfo {
                 ", price=" + price +
                 ", amount=" + amount +
                 ", isTax=" + isTax +
+                ", currentMonth=" + currentMonth +
+                ", totalMonth=" + totalMonth +
                 '}';
     }
-
-
 }

@@ -19,7 +19,11 @@ public class PathUtil {
     }
 
     public static String getClassPath(){
-        return Class.class.getClass().getResource("/").getPath();
+        return PathUtil.class.getClass().getResource("/").getPath();
+    }
+
+    public static String getWebClassPath(){
+        return PathUtil.class.getClass().getClassLoader().getResource("/").getPath();
     }
 
     public static String getResourcePath(){

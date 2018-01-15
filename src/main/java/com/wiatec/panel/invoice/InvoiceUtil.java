@@ -48,6 +48,7 @@ public class InvoiceUtil {
         commissionCategoryInfo.setCategory(CommissionCategoryInfo.CATEGORY_P1);
         commissionCategoryInfo.setDeposit(100F);
         commissionCategoryInfo.setMonthPay(14.99F);
+        commissionCategoryInfo.setExpires(24);
         String pdf = createInvoice("patrickxu@wiatec.com", "32432432432432",
                 InvoiceInfoMaker.contracted(commissionCategoryInfo));
         System.out.println(pdf);
@@ -57,7 +58,9 @@ public class InvoiceUtil {
 //        emailMaster.sendMessage("patrickxu@wiatec.com");
     }
 
-    private static String outPath = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/invoice/";
+    //本地测试用
+//    private static String outPath = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/invoice/";
+    private static String outPath = "/home/java_app/panel/web/invoice/";
 
     public static void setPath(String path){
         outPath = path;
@@ -79,6 +82,7 @@ public class InvoiceUtil {
             BaseFont bfChinese = BaseFont.createFont("Helvetica", "Cp1252", BaseFont.NOT_EMBEDDED);
             //设置字体样式
             Font littleTextFont = new Font(bfChinese, 7, Font.NORMAL, Color.GRAY);
+            Font littleTextFont1 = new Font(bfChinese, 8, Font.NORMAL, Color.GRAY);
             Font textFont = new Font(bfChinese, 10, Font.NORMAL);
             Font redTextFont = new Font(bfChinese, 11, Font.NORMAL, Color.RED);
             Font boldFont = new Font(bfChinese, 11, Font.BOLD);
@@ -167,78 +171,116 @@ public class InvoiceUtil {
             p1.add(ph1);
             doc.add(p1);
 
-            // 创建一个有5列的表格
-            PdfPTable table = new PdfPTable(5);
-            //设置列宽
-            table.setTotalWidth(new float[]{105, 105, 105, 105, 105});
-            //锁定列宽
-            table.setLockedWidth(true);
-            PdfPCell cell = new PdfPCell(new Phrase("DIST. #", bold12Font));
-            //设置单元格高度
-            cell.setMinimumHeight(30);
-            //设置可以居中
-            cell.setUseAscender(true);
-            //设置水平居中
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
-            //设置垂直居中
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
-            table.addCell(cell);
-            cell = new PdfPCell(new Phrase("DATE", bold12Font));
-            cell.setMinimumHeight(30);
-            cell.setUseAscender(true);
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
-            table.addCell(cell);
-            cell = new PdfPCell(new Phrase("INVOICE #", bold12Font));
-            cell.setMinimumHeight(30);
-            cell.setUseAscender(true);
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
-            table.addCell(cell);
-            cell = new PdfPCell(new Phrase("SHIP VIA", bold12Font));
-            cell.setMinimumHeight(30);
-            cell.setUseAscender(true);
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
-            table.addCell(cell);
-            cell = new PdfPCell(new Phrase("SALE TYPE", bold12Font));
-            cell.setMinimumHeight(30);
-            cell.setUseAscender(true);
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
-            table.addCell(cell);
+            AmountInfo amountInfo = getTotalAmount(invoiceInfoList);
 
-            cell = new PdfPCell(new Phrase("~", textFont));
-            cell.setMinimumHeight(30);
-            cell.setUseAscender(true);
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
-            table.addCell(cell);
-            cell = new PdfPCell(new Phrase(TimeUtil.getStrDate(), textFont));
-            cell.setMinimumHeight(30);
-            cell.setUseAscender(true);
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
-            table.addCell(cell);
-            cell = new PdfPCell(new Phrase(" ~sku~ ", textFont));
-            cell.setMinimumHeight(30);
-            cell.setUseAscender(true);
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
-            table.addCell(cell);
-            cell = new PdfPCell(new Phrase("~", textFont));
-            cell.setMinimumHeight(30);
-            cell.setUseAscender(true);
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
-            table.addCell(cell);
-            cell = new PdfPCell(new Phrase("PCP", textFont));
-            cell.setMinimumHeight(30);
-            cell.setUseAscender(true);
-            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
-            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
-            table.addCell(cell);
-            doc.add(table);
+            p1 = new Paragraph();
+            p1.setLeading(10);
+            ph1 = new Phrase();
+            Chunk c143 = new Chunk("Thank you for your payment for the Preferred Customer Program in the " +
+                    "amount of $"+ amountInfo.getTotal() + ".", littleTextFont1);
+            ph1.add(c143);
+            p1.add(ph1);
+            doc.add(p1);
+
+            p1 = new Paragraph();
+            p1.setLeading(10);
+            ph1 = new Phrase();
+            Chunk c144 = new Chunk("Payment "+amountInfo.getCurrentMonth()+" of "+amountInfo.getTotalMonth()+" has been applied to " +
+                    "your account.", littleTextFont1);
+            ph1.add(c144);
+            p1.add(ph1);
+            doc.add(p1);
+
+            p1 = new Paragraph();
+            p1.setLeading(10);
+            ph1 = new Phrase();
+            Chunk c145 = new Chunk("Your next payment of "+amountInfo.getNextPay()+" is due on " + amountInfo.getNextPayDate()+ ".",
+                    littleTextFont1);
+            ph1.add(c145);
+            p1.add(ph1);
+            doc.add(p1);
+
+            p1 = new Paragraph();
+            p1.setLeading(10);
+            ph1 = new Phrase();
+            Chunk c146 = new Chunk("Please call (866) 935-4855, Ext. 104 if you have any questions or concerns.",
+                    littleTextFont1);
+            ph1.add(c146);
+            p1.add(ph1);
+            doc.add(p1);
+
+//            // 创建一个有5列的表格
+//            PdfPTable table = new PdfPTable(5);
+//            //设置列宽
+//            table.setTotalWidth(new float[]{105, 105, 105, 105, 105});
+//            //锁定列宽
+//            table.setLockedWidth(true);
+//            PdfPCell cell = new PdfPCell(new Phrase("DIST. #", bold12Font));
+//            //设置单元格高度
+//            cell.setMinimumHeight(30);
+//            //设置可以居中
+//            cell.setUseAscender(true);
+//            //设置水平居中
+//            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+//            //设置垂直居中
+//            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
+//            table.addCell(cell);
+//            cell = new PdfPCell(new Phrase("DATE", bold12Font));
+//            cell.setMinimumHeight(30);
+//            cell.setUseAscender(true);
+//            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+//            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
+//            table.addCell(cell);
+//            cell = new PdfPCell(new Phrase("INVOICE #", bold12Font));
+//            cell.setMinimumHeight(30);
+//            cell.setUseAscender(true);
+//            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+//            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
+//            table.addCell(cell);
+//            cell = new PdfPCell(new Phrase("SHIP VIA", bold12Font));
+//            cell.setMinimumHeight(30);
+//            cell.setUseAscender(true);
+//            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+//            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
+//            table.addCell(cell);
+//            cell = new PdfPCell(new Phrase("SALE TYPE", bold12Font));
+//            cell.setMinimumHeight(30);
+//            cell.setUseAscender(true);
+//            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+//            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
+//            table.addCell(cell);
+//
+//            cell = new PdfPCell(new Phrase("~", textFont));
+//            cell.setMinimumHeight(30);
+//            cell.setUseAscender(true);
+//            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+//            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
+//            table.addCell(cell);
+//            cell = new PdfPCell(new Phrase(TimeUtil.getStrDate(), textFont));
+//            cell.setMinimumHeight(30);
+//            cell.setUseAscender(true);
+//            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+//            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
+//            table.addCell(cell);
+//            cell = new PdfPCell(new Phrase(" ~sku~ ", textFont));
+//            cell.setMinimumHeight(30);
+//            cell.setUseAscender(true);
+//            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+//            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
+//            table.addCell(cell);
+//            cell = new PdfPCell(new Phrase("~", textFont));
+//            cell.setMinimumHeight(30);
+//            cell.setUseAscender(true);
+//            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+//            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
+//            table.addCell(cell);
+//            cell = new PdfPCell(new Phrase("PCP", textFont));
+//            cell.setMinimumHeight(30);
+//            cell.setUseAscender(true);
+//            cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
+//            cell.setVerticalAlignment(Cell.ALIGN_MIDDLE);
+//            table.addCell(cell);
+//            doc.add(table);
 
             p1 = new Paragraph();
             p1.setLeading(30);
@@ -258,10 +300,10 @@ public class InvoiceUtil {
             p1.add(ph1);
             doc.add(p1);
 
-            table = new PdfPTable(5);
+            PdfPTable table = new PdfPTable(5);
             table.setTotalWidth(new float[]{80, 205, 60, 90, 90});
             table.setLockedWidth(true);
-            cell = new PdfPCell(new Phrase("ITEM #", boldFont));
+            PdfPCell    cell = new PdfPCell(new Phrase("ITEM #", boldFont));
             cell.setMinimumHeight(25);
             cell.setUseAscender(true);
             cell.setHorizontalAlignment(Cell.ALIGN_CENTER);
@@ -359,7 +401,7 @@ public class InvoiceUtil {
                 table.addCell(cell);
             }
 
-            AmountInfo amountInfo = getTotalAmount(invoiceInfoList);
+
             cell = new PdfPCell(new Phrase("  ", textFont));
             cell.setMinimumHeight(20);
             cell.setUseAscender(true);
@@ -645,6 +687,10 @@ public class InvoiceUtil {
     private static class AmountInfo{
         private String tax;
         private String total;
+        private String nextPay;
+        private int currentMonth;
+        private int totalMonth;
+        private String nextPayDate;
 
         public String getTax() {
             return tax;
@@ -662,11 +708,47 @@ public class InvoiceUtil {
             this.total = total;
         }
 
+        public String getNextPay() {
+            return nextPay;
+        }
+
+        public void setNextPay(String nextPay) {
+            this.nextPay = nextPay;
+        }
+
+        public int getCurrentMonth() {
+            return currentMonth;
+        }
+
+        public void setCurrentMonth(int currentMonth) {
+            this.currentMonth = currentMonth;
+        }
+
+        public int getTotalMonth() {
+            return totalMonth;
+        }
+
+        public void setTotalMonth(int totalMonth) {
+            this.totalMonth = totalMonth;
+        }
+
+        public String getNextPayDate() {
+            return nextPayDate;
+        }
+
+        public void setNextPayDate(String nextPayDate) {
+            this.nextPayDate = nextPayDate;
+        }
+
         @Override
         public String toString() {
             return "AmountInfo{" +
                     "tax='" + tax + '\'' +
                     ", total='" + total + '\'' +
+                    ", nextPay='" + nextPay + '\'' +
+                    ", currentMonth=" + currentMonth +
+                    ", totalMonth=" + totalMonth +
+                    ", nextPayDate='" + nextPayDate + '\'' +
                     '}';
         }
     }
@@ -678,6 +760,10 @@ public class InvoiceUtil {
         for (InvoiceInfo invoiceInfo : invoiceInfoList) {
             if (invoiceInfo.isTax()) {
                 tax += invoiceInfo.getAmount() * RATE_TAX;
+                amountInfo.setCurrentMonth(invoiceInfo.getCurrentMonth());
+                amountInfo.setTotalMonth(invoiceInfo.getTotalMonth());
+                amountInfo.setNextPayDate(TimeUtil.getExpiresDate(TimeUtil.getStrTime(), 1));
+                amountInfo.setNextPay(UnitUtil.round(invoiceInfo.getAmount()));
             }
             amount += invoiceInfo.getAmount();
         }
