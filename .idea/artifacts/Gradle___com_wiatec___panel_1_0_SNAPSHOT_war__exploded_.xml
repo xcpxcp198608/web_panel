@@ -36,6 +36,7 @@
           <element id="library" level="project" name="Gradle: org.springframework:spring-websocket:4.3.9.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-jdbc:4.3.9.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-test:4.3.9.RELEASE" />
+          <element id="library" level="project" name="Gradle: javax:javaee-api:7.0" />
           <element id="library" level="project" name="Gradle: jstl:jstl:1.2" />
           <element id="library" level="project" name="Gradle: com.squareup.okhttp3:okhttp:3.9.0" />
           <element id="library" level="project" name="Gradle: com.googlecode.rapid-framework:rapid-core:4.0.5" />
@@ -59,6 +60,7 @@
           <element id="library" level="project" name="Gradle: net.authorize:anet-java-sdk:1.9.4" />
           <element id="library" level="project" name="Gradle: com.lowagie:itext:2.1.7" />
           <element id="library" level="project" name="Gradle: dom4j:dom4j:1.6.1" />
+          <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.5.0" />
           <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.13.0" />
           <element id="library" level="project" name="Gradle: javax.activation:activation:1.1.1" />
           <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-rt-frontend-jaxws:2.3.1" />
@@ -102,8 +104,6 @@
           <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
           <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.3" />
           <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpcore:4.4.6" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/51399f902cc27a808122edcbebfaa1ad989954ba/javaee-api-7.0.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.mail/javax.mail/1.5.0/ec2410fdf7e0a3022e7c2a2e6241039d1abc1e98/javax.mail-1.5.0.jar" />
         </element>
       </element>
     </root>
