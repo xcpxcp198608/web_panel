@@ -2,8 +2,10 @@ package com.wiatec.panel.oxm.pojo;
 
 import javax.validation.constraints.Size;
 
+/**
+ * @author patrick
+ */
 public class AuthManagerInfo {
-
 
     private int id;
     @Size(min = 6, max = 20, message = "username input format incorrect")

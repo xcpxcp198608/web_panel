@@ -43,8 +43,6 @@
     <orderEntry type="library" name="Gradle: org.springframework:spring-websocket:4.3.9.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:4.3.9.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-test:4.3.9.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.tomcat:tomcat-servlet-api:8.0.24" level="project" />
-    <orderEntry type="library" name="Gradle: javax.servlet.jsp:javax.servlet.jsp-api:2.3.1" level="project" />
     <orderEntry type="library" name="Gradle: javax:javaee-api:7.0" level="project" />
     <orderEntry type="library" name="Gradle: jstl:jstl:1.2" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.9.0" level="project" />
