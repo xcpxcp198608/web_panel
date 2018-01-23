@@ -50,6 +50,7 @@
                                     <option value="B1">B1</option>
                                     <option value="P1">P1</option>
                                     <option value="P2">P2</option>
+                                    <option value="S1">S1</option>
                                 </select>
                             </td>
                             <td style="color: red">0</td>

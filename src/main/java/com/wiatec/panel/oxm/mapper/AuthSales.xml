@@ -83,5 +83,16 @@
         UPDATE auth_sales SET is_gold=1
         WHERE id=#{id}
     </update>
-
+    
+    
+    <!--<select id="storeProcedure" statementType="CALLABLE">-->
+        <!--CALL create_rent_user(-->
+          <!--#{clientKey, jdbcType=VARCHAR, mode=IN}-->
+          <!--#{firstName, jdbcType=VARCHAR, mode=IN}-->
+          <!--#{lastName, jdbcType=VARCHAR, mode=IN}-->
+          <!--#{email, jdbcType=VARCHAR, mode=IN}-->
+          <!--#{phone, jdbcType=VARCHAR, mode=IN}-->
+          <!--#{result, jdbcType=INTEGER, mode=OUT}-->
+        <!--)-->
+    <!--</select>-->
 </mapper>

@@ -92,6 +92,7 @@ $(function () {
 
     var errorMessage = $('#errorMessage');
     $('#btSubmitCheckIn').click(function () {
+        errorMessage.html('');
         var mac = $('#ipMac').val();
         var salesId = $('#ipSalesId').val();
         if(mac.length !== 17){

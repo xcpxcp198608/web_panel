@@ -142,9 +142,12 @@ public class AuthSalesService {
             }else{
                 throw new XException(ResultMaster.error(5001, "payment method error"));
             }
-        }catch (Exception e){
+        }catch (XException e){
             logger.error("Exception:", e);
             throw new XException(ResultMaster.error(5000, e.getMessage()));
+        }catch (Exception e){
+            logger.error("Exception:", e);
+            throw new XException(ResultMaster.error(5000, "server inner error"));
         }
         return ResultMaster.error(5000, "server error");
     }
