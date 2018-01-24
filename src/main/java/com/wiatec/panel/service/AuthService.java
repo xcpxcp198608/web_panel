@@ -24,6 +24,8 @@ import javax.servlet.http.HttpSession;
 @Service
 public class AuthService {
 
+    private static final String DEVICE_USER = "ldevice";
+
     @Resource
     private AuthManagerDao authManagerDao;
     @Resource
@@ -90,7 +92,7 @@ public class AuthService {
         if(TextUtil.isEmpty(password)){
             throw new XException(EnumResult.ERROR_PASSWORD_FORMAT);
         }
-        if("ldevice".equals(username) && "ldevice".equals(password)) {
+        if(DEVICE_USER.equals(username) && DEVICE_USER.equals(password)) {
             return "redirect:/device/home";
         }else{
             throw new XException(EnumResult.ERROR_UNAUTHORIZED);

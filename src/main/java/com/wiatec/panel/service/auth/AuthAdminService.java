@@ -48,7 +48,7 @@ public class AuthAdminService {
     private DeviceRentDao deviceRentDao;
 
     public String home(){
-        return "admin/home";
+        return "admin/home1";
     }
 
     public String dealer(Model model){

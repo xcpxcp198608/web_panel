@@ -39,12 +39,12 @@ $(function () {
         title:{
             text: 'The number of real time online',
             textStyle:{
-                color: 'rgba(255, 255, 255, 0.8)'
+                color: 'rgba(0, 0, 0, 0.8)'
             }
         },
-        backgroundColor: '#2c343c',
+        backgroundColor: '#eeeeee',
         textStyle: {
-            color: 'rgba(255, 255, 255, 0.8)'
+            color: 'rgba(0, 0, 0, 0.8)'
         },
         itemStyle: {
             normal: {
@@ -58,7 +58,7 @@ $(function () {
             },
             backgroundColor: 'rgba(245, 245, 245, 0.8)',
             borderWidth: 1,
-            borderColor: '#ccc',
+            borderColor: '#333',
             padding: 10,
             textStyle: {
                 color: '#000'
