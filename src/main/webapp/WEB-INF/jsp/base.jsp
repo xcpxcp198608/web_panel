@@ -24,6 +24,7 @@
 
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
@@ -41,7 +42,7 @@
     <div class="container-fluid">
 
         <div class="row" style="height: 100%">
-            <div class="col-2 " style="background-color: #2c343c; box-shadow: 0 0 8px #000000; z-index: 1004; padding: 0">
+            <div class="col-2 " style="background-color: #1a233c; box-shadow: 0 0 8px #000000; z-index: 1004; padding: 0">
                 <br/>
                 <div class="text-center">
                     <div class="col-12" style="padding: 0 35%">
@@ -54,22 +55,22 @@
                     </div>
                 </div>
 
-                <br/>
+                <hr/>
 
                 <rapid:block name="navigation"/>
             </div>
 
 
-            <div class="col-10">
-                <div class="row d-flex" style="background-color: #ffffff; box-shadow: 0 0 8px #000000; z-index: 1003">
+            <div class="col-10" >
+                <div class="row d-flex" style="background-color: #ffffff; box-shadow: 0 0 8px #000000; z-index: 1003;
+                      padding: 10px">
                     <div class="col-11"> </div>
                     <div class="col-1 text-center">
-                        ${username}
+                        <span class="badge badge-dark">${username}</span>
                     </div>
                 </div>
 
-                <div id="content" style="z-index: 1000" >
-
+                <div id="content" >
                     <rapid:block name="content"/>
                 </div>
             </div>
@@ -94,10 +95,5 @@
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace();
-        feather.icons.x.toSvg({ 'width': 16, 'height':16})
-    </script>
 </body>
 </html>

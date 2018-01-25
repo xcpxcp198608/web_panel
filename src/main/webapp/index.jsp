@@ -42,7 +42,7 @@
         <div class="input-group mb-3">
           <div class="input-group-prepend">
              <span class="input-group-text" id="basic-addon1">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span data-feather="user"></span>
              </span>
           </div>
           <input type="text" class="form-control" placeholder="Username" aria-label="Username"
@@ -52,7 +52,7 @@
         <div class="input-group mb-3">
           <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon2">
-                  <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                  <span data-feather="lock"></span>
               </span>
           </div>
           <input type="password" class="form-control" placeholder="Password" aria-label="Password"
@@ -91,6 +91,10 @@
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace();
+    feather.icons.x.toSvg({ 'width': 16, 'height':16})
+</script>
 </body>
 </html>

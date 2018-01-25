@@ -23,6 +23,7 @@ $(function () {
     function addData() {
         var url = baseUrl + "/admin/chart/online";
         $.get(url,function (number, status) {
+            $('#sOnline').html(number);
             var now = new Date();
             var now1 = [now.getHours(), now.getMinutes(), now.getSeconds()+1].join(':');
             date.push(now1);
@@ -37,12 +38,11 @@ $(function () {
 
     var onlineOption = {
         title:{
-            text: 'The number of real time online',
             textStyle:{
                 color: 'rgba(0, 0, 0, 0.8)'
             }
         },
-        backgroundColor: '#eeeeee',
+        backgroundColor: '#ffffff',
         textStyle: {
             color: 'rgba(0, 0, 0, 0.8)'
         },
@@ -170,7 +170,6 @@ $(function () {
         var url = baseUrl + "/admin/chart/volume/" + year + "/" + month;
         $('#btPreviousMonth').attr('disabled', 'disabled');
         $('#btNextMonth').attr('disabled', 'disabled');
-        $('#homeLoading').css('display', 'block');
         $.get(url,{ },function(dayVolumeList, status){
             var length = dayVolumeList.length;
             var rowsLength = tbMonth.rows.length;
@@ -226,13 +225,12 @@ $(function () {
                 totalP2 += p2;
                 totalVolume += b1+p1+p2;
             }
-            tbMonth.rows[0].cells[1].innerHTML = totalVolume;
-            tbMonth.rows[1].cells[1].innerHTML = totalB1;
-            tbMonth.rows[2].cells[1].innerHTML = totalP1;
-            tbMonth.rows[3].cells[1].innerHTML = totalP2;
+            tbMonth.rows[0].cells[1].innerHTML = totalVolume.toString();
+            tbMonth.rows[1].cells[1].innerHTML = totalB1.toString();
+            tbMonth.rows[2].cells[1].innerHTML = totalP1.toString();
+            tbMonth.rows[3].cells[1].innerHTML = totalP2.toString();
             refreshData();
             monthChart.setOption(monthOption);
-            $('#homeLoading').css('display', 'none');
             $('#btPreviousMonth').removeAttr('disabled');
             $('#btNextMonth').removeAttr('disabled');
         })
@@ -269,21 +267,21 @@ $(function () {
 
     var monthOption = {
         title: {
-            text: 'sales',
+            text: '',
             textStyle:{
-                color: 'rgba(255, 255, 255, 0.0)'
+                color: 'rgba(0, 0, 0, 0.8)'
             }
         },
         tooltip: {},
         legend: {
             data:['volume', 'B1', 'P1', 'P2'],
             textStyle:{
-                color: 'rgba(255, 255, 255, 0.8)'
+                color: 'rgba(0, 0, 0, 0.8)'
             }
         },
-        backgroundColor: '#2c343c',
+        backgroundColor: '#ffffff',
         textStyle: {
-            color: 'rgba(255, 255, 255, 0.8)'
+            color: 'rgba(0, 0, 0, 0.8)'
         },
         xAxis: {
             data: xData
@@ -297,8 +295,8 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#F5C334',
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.7)'
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 }
             },
@@ -309,15 +307,15 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#f56107',
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.7)'
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 },
                 lineStyle: {
                     normal: {
                         color: '#fc0a5b',
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.7)'
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 }
             },
@@ -328,15 +326,15 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#12f589',
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.7)'
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 },
                 lineStyle: {
                     normal: {
                         color: '#9efcaa',
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.7)'
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 }
             },
@@ -347,15 +345,15 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#320ef5',
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.7)'
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 },
                 lineStyle: {
                     normal: {
                         color: '#1baefc',
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.7)'
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 }
             }

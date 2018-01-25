@@ -48,13 +48,13 @@ public class AuthAdminService {
     private DeviceRentDao deviceRentDao;
 
     public String home(){
-        return "admin/home1";
+        return "admin/home";
     }
 
     public String dealer(Model model){
         List<AuthDealerInfo> authDealerInfoList = authDealerDao.selectAll();
         model.addAttribute("authDealerInfoList", authDealerInfoList);
-        return "admin/dealer";
+        return "admin/dealer1";
     }
 
     @Transactional(rollbackFor = Exception.class)

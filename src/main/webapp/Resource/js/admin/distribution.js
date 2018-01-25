@@ -2,7 +2,7 @@ $(function () {
 
     var chartDistribution = echarts.init(document.getElementById('chart_distribution'));
     var legendData=['volume'];
-    var legendColor=['#05637a'];
+    var legendColor=['#2f3037'];
     var visColor=["#ff0000", "#e8273b", "#d64830", "#b9621e", "#f09252", "#d3cf22"];
     var distributionData = [];
     var seriesData=[
@@ -12,11 +12,11 @@ $(function () {
             mapType: 'world',
             roam: true,
             textStyle:{
-                color: '#7c9f97'
+                color: '#222222'
             },
             itemStyle:{
                 normal: {
-                    color: '#42eff5',
+                    color: '#22f547',
                     shadowBlur: 200,
                     shadowColor: 'rgba(0, 0, 0, 0.7)'
                 },
@@ -30,15 +30,15 @@ $(function () {
 
 
     var distributionOption = {
-        backgroundColor: '#2c343c',
+        backgroundColor: '#ffffff',
         textStyle: {
             color: '#dcdcdc'
         },
         title: {
-            text: 'sales volume distribution',
+            text: '',
             left: 'left',
             textStyle:{
-                color: '#7c9f97'
+                color: '#2f3037'
             }
         },
         tooltip: {
@@ -47,7 +47,7 @@ $(function () {
         legend: {
             orient: 'vertical',
             textStyle:{
-                color: '#7c9f97'
+                color: '#2f3037'
             },
             right: '3%',
             bottom:'3%',
@@ -63,7 +63,7 @@ $(function () {
             calculable: true,
             color:visColor,
             textStyle:{
-                color: '#7c9f97'
+                color: '#2f3037'
             }
         },
         toolbox: {

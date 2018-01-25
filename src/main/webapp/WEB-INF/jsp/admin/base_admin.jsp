@@ -8,44 +8,37 @@
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link active" href="/panel/admin/">
-                    <span data-feather="home"></span>
-                    Home
+                    <i class="fa fa-home fa-lg"></i>&nbsp;Home
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/admin/dealer">
-                    <span data-feather="briefcase"></span>
-                    Dealer
+                    <i class="fa fa-globe fa-lg"></i>&nbsp;Dealer
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/admin/sales">
-                    <span data-feather="grid"></span>
-                    Sales
+                    <i class="fa fa-bullhorn fa-lg"></i>&nbsp;Sales
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/admin/users">
-                    <span data-feather="users"></span>
-                    Customers
+                    <i class="fa fa-users fa-lg"></i>&nbsp;Customers
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/admin/commission">
-                    <span data-feather="bar-chart-2"></span>
-                    Commission
+                    <i class="fa fa-bar-chart fa-lg"></i>&nbsp;Commission
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/admin/devices">
-                    <span data-feather="layers"></span>
-                    Devices
+                    <i class="fa fa-tasks fa-lg"></i>&nbsp;Devices
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/signout">
-                    <span data-feather="log-out"></span>
-                    Sign out
+                    <i class="fa fa-sign-out fa-lg"></i>&nbsp;Sign out
                 </a>
             </li>
         </ul>

@@ -10,7 +10,9 @@ $(function () {
 
     document.oncontextmenu = function () {
         return false
-    }
+    };
+
+    $('[data-toggle="tooltip"]').tooltip();
 
     dNotice = $('#notice');
     noticeMessage = $('#notice_message');

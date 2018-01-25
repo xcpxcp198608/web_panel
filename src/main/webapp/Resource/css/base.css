@@ -13,43 +13,97 @@ body, a, div, button, span {
     font-size: 16px;
 }
 
+a, button, span {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+table {
+    font-size: 12px;
+}
+
+.ba-strong {
+    font-size: 20px;
+}
+
 @media (max-width: 1000px) {
     body, a, div, button, span{
-        font-size: 12px;
+        font-size: 10px;
+    }
+
+    table {
+        font-size: 10px;
+    }
+
+    .ba-strong {
+        font-size: 16px;
     }
 }
 
 @media (max-width: 800px) {
     body, a, div, button, span{
-        font-size: 10px;
+        font-size: 8px;
+    }
+
+    table {
+        font-size: 8px;
+    }
+
+    .ba-strong {
+        font-size: 14px;
     }
 }
 
 @media (max-width: 600px) {
     body, a, div, button, span {
-        font-size: 8px;
+        font-size: 6px;
+    }
+
+    table {
+        font-size: 6px;
+    }
+
+    .ba-strong {
+        font-size: 12px;
     }
 }
 
 @media (max-width: 400px) {
     body, a, div, button, span {
-        font-size: 6px;
+        font-size: 4px;
+    }
+
+    table {
+        font-size: 4px;
+    }
+
+    .ba-strong {
+        font-size: 10px;
     }
 }
 
-a {
+.nav a {
     color: #888888;
+    cursor: pointer;
 }
 
-a:hover {
+.nav a:hover {
     color: #ffffff;
-    background-color: #3579a4;
+    background-color: #086199;
 }
 
 
-#content { padding: 20px 20px 20px; height: 750px; overflow: scroll; position: relative}
+#content {height: 750px; overflow: scroll; position: relative; z-index: 1000}
 
 #content .table th, .table td {text-align: center; vertical-align: middle!important;}
+
+
+
+
+
+
+
+
 
 
 
