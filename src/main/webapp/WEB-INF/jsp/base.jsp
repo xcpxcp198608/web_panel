@@ -2,6 +2,7 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -40,6 +41,7 @@
 <body>
 
     <div class="container-fluid">
+        <rapid:block name="modal"/>
 
         <div class="row" style="height: 100%">
             <div class="col-2 " style="background-color: #1a233c; box-shadow: 0 0 8px #000000; z-index: 1004; padding: 0">
@@ -62,19 +64,23 @@
 
 
             <div class="col-10" >
-                <div class="row d-flex" style="background-color: #ffffff; box-shadow: 0 0 8px #000000; z-index: 1003;
-                      padding: 10px">
-                    <div class="col-11"> </div>
-                    <div class="col-1 text-center">
+                <div class="row d-flex" style="background-color: #ffffff; box-shadow: 0 0 8px #000000; z-index: 1003;">
+                    <div class="col-11 text-center" style="padding: 10px">
+                        <span class="text-warning">Welcome</span>
+                    </div>
+                    <div class="col-1 text-center" style="padding: 10px">
                         <span class="badge badge-dark">${username}</span>
                     </div>
                 </div>
 
-                <div id="content" >
+                <div id="p-content">
+                    <div class="container-fluid" style="padding:10px">
                     <rapid:block name="content"/>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <div id="loading" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;

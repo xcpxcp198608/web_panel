@@ -25,6 +25,7 @@ public interface AuthorizeTransactionDao {
     List<AllSalesMonthCommissionInfo> selectSalesCommissionByMonthAndDealer(YearOrMonthInfo yearOrMonthInfo);
     List<SalesAmountInfo> selectSaleAmountEveryMonthInYear(YearOrMonthInfo yearOrMonthInfo);
     List<SalesAmountInfo> selectSaleAmountEveryDayInMonth(YearOrMonthInfo yearOrMonthInfo);
+    List<AllDealerMonthCommissionInfo> selectAllDealersCommissionByMonth(YearOrMonthInfo yearOrMonthInfo);
 
     //chart of sales
     List<SalesCommissionOfDaysInfo> getCommissionOfDayBySales(YearOrMonthInfo yearOrMonthInfo);

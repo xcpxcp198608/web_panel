@@ -12,6 +12,7 @@
         <result column="lastName" property="lastName"/>
         <result column="ssn" property="ssn"/>
         <result column="email" property="email"/>
+        <result column="bank_info" property="bankInfo"/>
         <result column="phone" property="phone"/>
         <result column="is_gold" property="isGold"/>
         <result column="createTime" property="createTime"/>
@@ -20,7 +21,7 @@
     <sql id="select">
         SELECT auth_sales.id, auth_sales.username, auth_sales.password, auth_sales.dealerId,
             auth_sales.firstName, auth_sales.lastName, auth_sales.ssn, auth_sales.email,
-            auth_sales.phone, auth_sales.is_gold, auth_sales.createTime,
+            auth_sales.bank_info, auth_sales.phone, auth_sales.is_gold, auth_sales.createTime,
             auth_dealer.username dealerName
         FROM auth_sales JOIN panel.auth_dealer ON auth_dealer.id = auth_sales.dealerId
     </sql>
@@ -50,8 +51,8 @@
     </select>
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
-        INSERT INTO auth_sales (username, password, dealerId, firstName, lastName, ssn, email, phone)
-        VALUES (#{username}, #{password}, #{dealerId}, #{firstName}, #{lastName}, #{ssn}, #{email}, #{phone})
+        INSERT INTO auth_sales (username, password, dealerId, firstName, lastName, ssn, bank_info, email, phone)
+        VALUES (#{username}, #{password}, #{dealerId}, #{firstName}, #{lastName}, #{ssn}, #{bankInfo}, #{email}, #{phone})
     </insert>
 
     <update id="updatePassword" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">

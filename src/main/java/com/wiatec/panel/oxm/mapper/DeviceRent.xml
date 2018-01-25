@@ -33,7 +33,7 @@
     </select>
 
     <select id="selectAll" resultMap="deviceRentInfo" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
-        <include refid="select"/>
+        <include refid="select"/> ORDER BY device_rent.create_time DESC
     </select>
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">

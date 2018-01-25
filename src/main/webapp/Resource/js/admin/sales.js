@@ -17,137 +17,137 @@ $(function () {
         }
     }
 
-    /**
-     * init top5 volume chart
-     */
-    var chartSalesVolume = echarts.init(document.getElementById('chart_sales_volume'));
-    var volumeXData = ['s1', 's2', 's3', 's4', 's5'];
-    var volumeData = [0, 0, 0, 0, 0];
-    var salesVolumeOption = {
-        title: {
-            text: 'Top '+topLimit+' of sales volume',
-            textStyle:{
-                color: 'rgba(255, 255, 255, 0.8)'
-            }
-        },
-        backgroundColor: '#2c343c',
-        textStyle: {
-            color: 'rgba(255, 255, 255, 0.8)'
-        },
-        itemStyle: {
-            normal: {
-                color: function(params) {
-                    var colorList = [
-                        '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
-                    ];
-                    return colorList[params.dataIndex]
-                },
-                shadowBlur: 200,
-                shadowColor: 'rgba(0, 0, 0, 0.7)'
-            }
-        },
-        tooltip: {},
-        xAxis: {
-            data: volumeXData
-        },
-        yAxis: {},
-        series: [{
-            name: 'sales volume',
-            type: 'bar',
-            barWidth: 30,
-            data: volumeData
-        }]
-    };
-    chartSalesVolume.setOption(salesVolumeOption);
-
-    /**
-     * init top5 amount chart
-     */
-    var chartSalesAmount = echarts.init(document.getElementById('chart_sales_amount'));
-    var amountXData = ['s1', 's2', 's3', 's4', 's5'];
-    var amountData = [0, 0, 0, 0, 0];
-    var salesAmountOption = {
-        title: {
-            text: 'Top '+topLimit+' of sales amount',
-            textStyle:{
-                color: 'rgba(255, 255, 255, 0.8)'
-            }
-        },
-        backgroundColor: '#2c343c',
-        textStyle: {
-            color: 'rgba(255, 255, 255, 0.8)'
-        },
-        itemStyle: {
-            normal: {
-                color: function(params) {
-                    var colorList = [
-                        '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
-                    ];
-                    return colorList[params.dataIndex]
-                },
-                shadowBlur: 200,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
-        },
-        tooltip: {},
-        xAxis: {
-            data: amountXData
-        },
-        yAxis: {},
-        series: [{
-            name: 'sales amount',
-            type: 'bar',
-            barWidth: 30,
-            data: amountData
-        }]
-    };
-    chartSalesAmount.setOption(salesAmountOption);
-
-    /**
-     * get volume data
-     */
-    getTopVolume(topLimit);
-    function getTopVolume(limit) {
-        var url = baseUrl + '/admin/chart/sales/volume/' + limit;
-        $.get(url, function (topVolumeList, status) {
-            volumeXData.length = 0;
-            volumeData.length = 0;
-            var length = topVolumeList.length;
-            for(var i = 0; i < topLimit; i ++){
-                if(i >= length){
-                    volumeXData.push(' ');
-                    volumeData.push(0);
-                }else{
-                    volumeXData.push(topVolumeList[i]['salesName']);
-                    volumeData.push(topVolumeList[i]['volume']);
-                }
-            }
-            chartSalesVolume.setOption(salesVolumeOption);
-        })
-    }
-
-    /**
-     * get amount data
-     */
-    getTopAmount(topLimit);
-    function getTopAmount(limit) {
-        var url = baseUrl + '/admin/chart/sales/amount/' + limit;
-        $.get(url, function (topAmountList, status) {
-            amountXData.length = 0;
-            amountData.length = 0;
-            var length = topAmountList.length;
-            for(var i = 0; i < topLimit; i ++){
-                if(i >= length){
-                    amountXData.push(' ');
-                    amountData.push(0);
-                }else{
-                    amountXData.push(topAmountList[i]['salesName']);
-                    amountData.push(topAmountList[i]['amount']);
-                }
-            }
-            chartSalesAmount.setOption(salesAmountOption);
-        })
-    }
+    // /**
+    //  * init top5 volume chart
+    //  */
+    // var chartSalesVolume = echarts.init(document.getElementById('chart_sales_volume'));
+    // var volumeXData = ['s1', 's2', 's3', 's4', 's5'];
+    // var volumeData = [0, 0, 0, 0, 0];
+    // var salesVolumeOption = {
+    //     title: {
+    //         text: 'Top '+topLimit+' of sales volume',
+    //         textStyle:{
+    //             color: 'rgba(255, 255, 255, 0.8)'
+    //         }
+    //     },
+    //     backgroundColor: '#2c343c',
+    //     textStyle: {
+    //         color: 'rgba(255, 255, 255, 0.8)'
+    //     },
+    //     itemStyle: {
+    //         normal: {
+    //             color: function(params) {
+    //                 var colorList = [
+    //                     '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
+    //                 ];
+    //                 return colorList[params.dataIndex]
+    //             },
+    //             shadowBlur: 200,
+    //             shadowColor: 'rgba(0, 0, 0, 0.7)'
+    //         }
+    //     },
+    //     tooltip: {},
+    //     xAxis: {
+    //         data: volumeXData
+    //     },
+    //     yAxis: {},
+    //     series: [{
+    //         name: 'sales volume',
+    //         type: 'bar',
+    //         barWidth: 30,
+    //         data: volumeData
+    //     }]
+    // };
+    // chartSalesVolume.setOption(salesVolumeOption);
+    //
+    // /**
+    //  * init top5 amount chart
+    //  */
+    // var chartSalesAmount = echarts.init(document.getElementById('chart_sales_amount'));
+    // var amountXData = ['s1', 's2', 's3', 's4', 's5'];
+    // var amountData = [0, 0, 0, 0, 0];
+    // var salesAmountOption = {
+    //     title: {
+    //         text: 'Top '+topLimit+' of sales amount',
+    //         textStyle:{
+    //             color: 'rgba(255, 255, 255, 0.8)'
+    //         }
+    //     },
+    //     backgroundColor: '#2c343c',
+    //     textStyle: {
+    //         color: 'rgba(255, 255, 255, 0.8)'
+    //     },
+    //     itemStyle: {
+    //         normal: {
+    //             color: function(params) {
+    //                 var colorList = [
+    //                     '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B'
+    //                 ];
+    //                 return colorList[params.dataIndex]
+    //             },
+    //             shadowBlur: 200,
+    //             shadowColor: 'rgba(0, 0, 0, 0.5)'
+    //         }
+    //     },
+    //     tooltip: {},
+    //     xAxis: {
+    //         data: amountXData
+    //     },
+    //     yAxis: {},
+    //     series: [{
+    //         name: 'sales amount',
+    //         type: 'bar',
+    //         barWidth: 30,
+    //         data: amountData
+    //     }]
+    // };
+    // chartSalesAmount.setOption(salesAmountOption);
+    //
+    // /**
+    //  * get volume data
+    //  */
+    // getTopVolume(topLimit);
+    // function getTopVolume(limit) {
+    //     var url = baseUrl + '/admin/chart/sales/volume/' + limit;
+    //     $.get(url, function (topVolumeList, status) {
+    //         volumeXData.length = 0;
+    //         volumeData.length = 0;
+    //         var length = topVolumeList.length;
+    //         for(var i = 0; i < topLimit; i ++){
+    //             if(i >= length){
+    //                 volumeXData.push(' ');
+    //                 volumeData.push(0);
+    //             }else{
+    //                 volumeXData.push(topVolumeList[i]['salesName']);
+    //                 volumeData.push(topVolumeList[i]['volume']);
+    //             }
+    //         }
+    //         chartSalesVolume.setOption(salesVolumeOption);
+    //     })
+    // }
+    //
+    // /**
+    //  * get amount data
+    //  */
+    // getTopAmount(topLimit);
+    // function getTopAmount(limit) {
+    //     var url = baseUrl + '/admin/chart/sales/amount/' + limit;
+    //     $.get(url, function (topAmountList, status) {
+    //         amountXData.length = 0;
+    //         amountData.length = 0;
+    //         var length = topAmountList.length;
+    //         for(var i = 0; i < topLimit; i ++){
+    //             if(i >= length){
+    //                 amountXData.push(' ');
+    //                 amountData.push(0);
+    //             }else{
+    //                 amountXData.push(topAmountList[i]['salesName']);
+    //                 amountData.push(topAmountList[i]['amount']);
+    //             }
+    //         }
+    //         chartSalesAmount.setOption(salesAmountOption);
+    //     })
+    // }
 
 
     /**
@@ -160,27 +160,50 @@ $(function () {
         $('#btNextMonth').attr('disabled', 'disabled');
         clearTableCommissionByMonth();
         var url = baseUrl + '/admin/chart/sales/commission/' + year + "/" + month;
-        $.get(url, function (allSalesCommissionInfoList, status) {
-            var length = allSalesCommissionInfoList.length;
-            for(var i = 0; i < length; i ++){
-                var commissionInfo = allSalesCommissionInfoList[i];
-                var tdObj = document.createElement('td');
-                tdObj.innerHTML = commissionInfo['salesUsername'];
-                tbCommissionByMonth.rows[0].append(tdObj);
-                var tdObj1 = document.createElement('td');
-                tdObj1.innerHTML = commissionInfo['commission'];
-                tbCommissionByMonth.rows[1].append(tdObj1);
-            }
+        $.get(url, function (list, status) {
             $('#btPreviousMonth').removeAttr('disabled');
             $('#btNextMonth').removeAttr('disabled');
+            $('#maxVolumeSales').html('xxx');
+            $('#maxVolume').html(0);
+            var length = list.length;
+            var totalCommission = 0;
+            for(var i = 0; i < length; i ++){
+                var commissionInfo = list[i];
+                var trObj = document.createElement('tr');
+
+                var tdObj1 = document.createElement('td');
+                tdObj1.innerHTML = (i + 1).toString();
+                trObj.append(tdObj1);
+
+                var tdObj2 = document.createElement('td');
+                tdObj2.innerHTML = commissionInfo['salesUsername'];
+                trObj.append(tdObj2);
+                if(i === 0){
+                    $('#maxVolumeSales').html(commissionInfo['salesUsername'])
+                }
+
+                var tdObj3 = document.createElement('td');
+                tdObj3.innerHTML = commissionInfo['volume'];
+                trObj.append(tdObj3);
+                if(i === 0){
+                    $('#maxVolume').html(commissionInfo['volume'])
+                }
+
+                var tdObj4 = document.createElement('td');
+                tdObj4.innerHTML = commissionInfo['commission'];
+                trObj.append(tdObj4);
+                totalCommission += parseInt(commissionInfo['commission']);
+
+                tbCommissionByMonth.append(trObj);
+            }
+            $('#totalCommission').html(totalCommission);
         })
     }
     
     function clearTableCommissionByMonth() {
-        var length = tbCommissionByMonth.rows[0].cells.length - 2;
+        var length = tbCommissionByMonth.rows.length;
         for(var i = 0; i < length; i ++){
-            tbCommissionByMonth.rows[0].removeChild(tbCommissionByMonth.rows[0].lastChild);
-            tbCommissionByMonth.rows[1].removeChild(tbCommissionByMonth.rows[1].lastChild);
+            tbCommissionByMonth.removeChild(tbCommissionByMonth.rows[i]);
         }
     }
 
@@ -210,56 +233,7 @@ $(function () {
      * button create click event
      */
     $('#btCreate').click(function () {
-        showDetail();
-    });
-
-    /**
-     * radio click event
-     */
-    var currentSalesId = 0;
-    var currentRow = 0;
-    $('input[name=update]').each(function(){
-        $(this).click(function(){
-            currentSalesId = $(this).val();
-            currentRow = $(this).attr('currentRow');
-        });
-    });
-
-    /**
-     * button update click event
-     */
-    $('#btUpdate').click(function () {
-        if(currentSalesId <= 0){
-            showNotice('no sales was choose');
-            return;
-        }
-        var newPassword = tbSales.rows[currentRow].cells[3].firstChild.value;
-        if(newPassword.length < 6){
-            showNotice('password format error, length < 6');
-            return;
-        }
-        $.ajax({
-            type: "PUT",
-            url: baseUrl + "/admin/sale/update",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({"id": currentSalesId, "password": newPassword}),
-            dataType: "json",
-            beforeSend: function () {
-                showLoading()
-            },
-            success: function (response) {
-                hideLoading();
-                if(response.code === 200) {
-                    showNotice(response.message);
-                }else{
-                    errorMessage.html(response.message);
-                }
-            },
-            error: function () {
-                hideLoading();
-                errorMessage.html('communication fail, try again later');
-            }
-        });
+        $('#modalCreate').modal('show');
     });
 
     /**
@@ -274,74 +248,82 @@ $(function () {
         var lastName = $('#ipLastName').val();
         var email = $('#ipEmail').val();
         var phone = $('#ipPhone').val();
+        var bank = $('#ipBank').val();
         var dealerId = $('#ipDealerId').val();
         if(username.length <= 0){
-            errorMessage.html('username no type in');
+            showErrorMessage($('#errorCreate'), 'username no type in');
             return;
         }
         if(ssn.length !== 9){
-            errorMessage.html('ssn type in error');
-            return;
-        }
-        if(password.length < 6){
-            errorMessage.html('password type in error');
-            return;
-        }
-        if(password1.length < 6){
-            errorMessage.html('password type in error');
-            return;
-        }
-        if(password !== password1){
-            errorMessage.html('password type in no match');
+            showErrorMessage($('#errorCreate'), 'ssn type in error');
             return;
         }
         if(firstName.length <= 0){
-            errorMessage.html('first name no type in');
+            showErrorMessage($('#errorCreate'), 'first name no type in');
             return;
         }
         if(lastName.length <= 0){
-            errorMessage.html('last name no type in');
+            showErrorMessage($('#errorCreate'), 'last name no type in');
             return;
         }
         if(email.length <= 0){
-            errorMessage.html('email no type in');
+            showErrorMessage($('#errorCreate'), 'email no type in');
             return;
         }
         if(!validateEmail(email)){
-            errorMessage.html('email format error');
+            showErrorMessage($('#errorCreate'), 'email format error');
             return;
         }
         if(phone.length <= 0){
-            errorMessage.html('phone no type in');
+            showErrorMessage($('#errorCreate'), 'phone no type in');
+            return;
+        }
+        if(bank.length <= 0){
+            showErrorMessage($('#errorCreate'), 'bank info no type in');
+            return;
+        }
+        if(password.length < 6){
+            showErrorMessage($('#errorCreate'), 'password type in error');
+            return;
+        }
+        if(password1.length < 6){
+            showErrorMessage($('#errorCreate'), 'password type in error');
+            return;
+        }
+        if(password !== password1){
+            showErrorMessage($('#errorCreate'), 'password type in no match');
             return;
         }
         if(dealerId <= 0){
-            errorMessage.html('have no choose dealer');
+            showErrorMessage($('#errorCreate'), 'have no choose dealer');
             return;
         }
-        errorMessage.html('');
+        $('#errorCreate').hide();
         $.ajax({
             type: "POST",
             url: baseUrl + "/admin/sale/create",
             data: {"username": username, "password": password, "firstName": firstName,
-                'lastName': lastName, 'ssn': ssn, 'email': email, 'phone': phone, 'dealerId': dealerId},
+                'lastName': lastName, 'ssn': ssn, 'email': email, 'bankInfo': bank,
+                'phone': phone, 'dealerId': dealerId},
             dataType: "json",
             beforeSend: function () {
-                showLoading()
+                $('#modalCreate').modal('hide');
+                showLoading();
             },
             success: function (response) {
                 hideLoading();
                 if(response.code === 200) {
-                    hideDetail();
-                    showNotice(response.message);
+                    $('#modalCreate').modal('hide');
                     insertNewSalesInTable(response.data);
                 }else{
-                    errorMessage.html(response.message);
+                    $('#modalCreate').modal('show');
+                    showErrorMessage($('#errorCreate'), response.message);
                 }
             },
             error: function () {
                 hideLoading();
-                errorMessage.html('communication fail, try again later');
+                $('#modalCreate').modal('show');
+                showErrorMessage($('#errorCreate'), 'communication fail, try again later');
             }
         });
     });
@@ -350,11 +332,9 @@ $(function () {
      * insert create successfully sales into table
      * @type {jQuery}
      */
-    var trSales = $('#trSales').get(0);
     function insertNewSalesInTable(authSalesInfo) {
-        console.log(authSalesInfo);
         var trObj = document.createElement('tr');
-        var length = trSales.cells.length;
+        var length = tbSales.rows[0].cells.length;
         for(var i = 0; i < length; i ++){
             var tdObj = document.createElement('td');
             switch (i){
@@ -377,36 +357,33 @@ $(function () {
                     tdObj.innerHTML = authSalesInfo.username;
                     break;
                 case 3:
-                    var pwdInput = document.createElement('input');
-                    pwdInput.setAttribute('type', 'text');
-                    pwdInput.setAttribute('value', authSalesInfo.password);
-                    pwdInput.setAttribute('title', 'pwd');
-                    pwdInput.setAttribute('size', '12');
-                    tdObj.append(pwdInput);
+                    tdObj.innerHTML = authSalesInfo.password;
                     break;
                 case 4:
                     tdObj.innerHTML = authSalesInfo.dealerName;
                     break;
                 case 5:
-                    tdObj.innerHTML = authSalesInfo.firstName + " " + authSalesInfo.lastName;
-                    break;
-                case 6:
                     var ssn = authSalesInfo.ssn.toString();
                     tdObj.innerHTML = ssn.substring(0, 3) + '-' + ssn.substring(3, 5) + '-'+ ssn.substring(5, 9);
                     break;
-                case 7:
+                case 6:
                     tdObj.innerHTML = authSalesInfo.email;
+                    break;
+                case 7:
+                    tdObj.innerHTML = authSalesInfo.bankInfo;
                     break;
                 case 8:
                     tdObj.innerHTML = authSalesInfo.phone;
                     break;
                 case 9:
-                    tdObj.innerHTML = authSalesInfo.createTime.substring(0, 19);
-                    tdObj.setAttribute('class', 'tdRows12');
+                    tdObj.innerHTML = authSalesInfo.createTime;
                     break;
                 case 10:
-                    tdObj.innerHTML = '<a href="/panel/admin/users/'+ authSalesInfo.id+'">\n' +
-                        '                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>\n' +
+                    tdObj.innerHTML = '<span class="text-inverse"><i class="fa fa-exchange fa-lg"></i></span>';
+                    break;
+                case 11:
+                    tdObj.innerHTML = '<a href="/panel/admin/users/2/'+ authSalesInfo.id+'">\n' +
+                        '                 <i class="fa fa-eye fa-lg"></i>\n' +
                         '              </a>';
                     break;
             }
@@ -414,7 +391,76 @@ $(function () {
         }
         tbSales.append(trObj);
     }
+
+    /**
+     * radio click event
+     */
+    var currentSalesId = 0;
+    var currentRow = 0;
+    $('input[name=update]').each(function(){
+        $(this).click(function(){
+            currentSalesId = $(this).val();
+            currentRow = $(this).attr('currentRow');
+        });
+    });
+
+    /**
+     * button update click event
+     */
+    $('#btUpdate').click(function () {
+        if(currentSalesId <= 0){
+
+            return;
+        }
+        $('#modalUpdate').modal('show');
+    });
     
+    $('#btSubmitUpdate').click(function () {
+        var password = $('#ipPassword3').val();
+        var password1 = $('#ipPassword4').val();
+        if(password.length < 6){
+            showErrorMessage($('#errorUpdate'), 'password type in error');
+            return;
+        }
+        if(password1.length < 6){
+            showErrorMessage($('#errorUpdate'), 'password type in error');
+            return;
+        }
+        if(password !== password1){
+            showErrorMessage($('#errorUpdate'), 'password type in no match');
+            return;
+        }
+        $('#errorUpdate').hide();
+        $('#btSubmitUpdate').attr('disabled');
+        $.ajax({
+            type: "PUT",
+            url: baseUrl + "/admin/sale/update",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({"id": currentSalesId, "password": password}),
+            dataType: "json",
+            beforeSend: function () {
+                $('#modalUpdate').modal('hide');
+                showLoading();
+            },
+            success: function (response) {
+                $('#btSubmitUpdate').removeAttr('disabled');
+                hideLoading();
+                if(response.code === 200) {
+                    $('#modalUpdate').modal('hide');
+                    tbSales.rows[parseInt(currentRow)].cells[3].innerHTML = password;
+                }else{
+                    $('#modalUpdate').modal('show');
+                    showErrorMessage($('#errorUpdate'), response.message);
+                }
+            },
+            error: function () {
+                $('#btSubmitUpdate').removeAttr('disabled');
+                $('#modalUpdate').modal('show');
+                showErrorMessage($('#errorUpdate'), 'communication fail, try again later');
+            }
+        });
+    });
+
 
     $('#ipSearch').keyup(function () {
         var key = $(this).val().toLowerCase();

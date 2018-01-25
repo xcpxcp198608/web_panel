@@ -15,7 +15,7 @@ $(function () {
                 count ++;
             }
         }
-        $('#spTotalCount').html(''+count);
+        $('#totalDevices').html(''+count);
     }
 
     /**
@@ -47,17 +47,13 @@ $(function () {
         showTotalCount();
     });
 
-    var currentMac = '';
-    var currentRow = 0;
-    $('input[name=rdDevice]').each(function(){
-        $(this).click(function(){
-            currentMac = $(this).val();
-            currentRow = $(this).attr('currentRow');
-        });
-    });
-    
+
+
+    /**
+     * check in new device
+     */
     $('#btCheckIn').click(function () {
-        showDetail();
+        $('#modalCheckIn').modal('show');
     });
 
     $('#ipMac').keyup(function (e) {
@@ -90,40 +86,54 @@ $(function () {
         }
     });
 
-    var errorMessage = $('#errorMessage');
     $('#btSubmitCheckIn').click(function () {
-        errorMessage.html('');
         var mac = $('#ipMac').val();
         var salesId = $('#ipSalesId').val();
         if(mac.length !== 17){
-            errorMessage.html('mac input error');
+            showErrorMessage($('#errorCheckIn'), 'mac input error');
             return;
         }
         if(salesId <= 0){
-            errorMessage.html('No sales choose');
+            showErrorMessage($('#errorCheckIn'), 'No sales choose');
             return;
         }
         var url = baseUrl + '/admin/devices/save/';
+        $('#modalCheckIn').modal('hide');
         $.ajax({
             type: 'POST',
             url: url,
             data: {'mac': mac, 'salesId': salesId},
             dataType: 'json',
             beforeSend:function(){
-                showLoading()
+                showLoading();
+                $('#modalCheckIn').modal('hide');
             },
             success:function(response){
                 hideLoading();
                 if(response.code === 200) {
-                    showNotice("Successfully");
+                    $('#modalCheckIn').modal('hide');
                     window.open(baseUrl + "/admin/devices", "_self")
                 }else{
-                    $('#errorMessage').html(response.message);
+                    $('#modalCheckIn').modal('show');
+                    showErrorMessage($('#errorCheckIn'), response.message);
                 }
             },
             error:function(){
-                hideLoading()
+                hideLoading();
+                $('#modalCheckIn').modal('show');
+                showErrorMessage($('#errorCheckIn'), 'network error');
             }
+        });
+    });
+
+
+
+    var currentMac = '';
+    var currentRow = 0;
+    $('input[name=rdDevice]').each(function(){
+        $(this).click(function(){
+            currentMac = $(this).val();
+            currentRow = $(this).attr('currentRow');
         });
     });
 

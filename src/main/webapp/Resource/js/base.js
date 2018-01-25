@@ -8,9 +8,9 @@ var loading;
 
 $(function () {
 
-    document.oncontextmenu = function () {
-        return false
-    };
+    // document.oncontextmenu = function () {
+    //     return false
+    // };
 
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -35,6 +35,10 @@ $(function () {
 
 
 });
+
+function showErrorMessage(node, message) {
+    node.hide().html(message).show(300);
+}
 
 function showLoading() {
     loading.css('display', 'block')

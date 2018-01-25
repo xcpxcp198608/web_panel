@@ -2,140 +2,175 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
 <rapid:override name="title">
     Devices
 </rapid:override>
-<rapid:override name="css_js">
-    <link rel="stylesheet" href="Resource/css/admin/devices.css"/>
-    <script type="application/javascript" src="Resource/js/admin/devices.js"></script>
-</rapid:override>
 
-<rapid:override name="navigation">
-    <ul>
-        <li>
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            <a href="/panel/admin/">Home</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-            <a href="/panel/admin/dealer">Dealer</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            <a href="/panel/admin/sales">Sales</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <a href="/panel/admin/users">Customers</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
-            <a href="/panel/admin/commission">Commission</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
-            <a href="/panel/admin/devices">Devices</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            <a href="/panel/signout">SignOut</a>
-        </li>
-    </ul>
+<rapid:override name="css_js">
+    <script type="text/javascript" src="Resource/js/admin/devices.js"></script>
 </rapid:override>
 
 <rapid:override name="content">
 
-    <div style="width: 100%; height: 40px">
-        <div style="width: 9%; display: block; float: left;">
-            <button type="button" class="btn btn-default" id="btCheckIn" title="create a sales">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Check In
-            </button>
+    <div class="row" style="padding: 10px 10px 0 10px;">
+        <div style="width: 100%; background-color: #ffffff;">
+            <span class="text-center text-muted" style="padding: 10px">
+                <abbr>The detail information of devices:</abbr>
+            </span>
+            <span class="badge badge-success text-center" id="totalDevices"
+                  data-toggle="tooltip" title="total check in devices!">
+                    ${fn:length(deviceRentInfoList)}
+            </span>
         </div>
 
-        <div style="width: 86%; display: block; float: left;">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">Search</span>
-                <input type="text" class="form-control" placeholder="type in keyword"
-                       aria-describedby="basic-addon1" id="ipSearch">
+        <div style="width: 100%; padding: 10px; background-color: white">
+            <div class="row">
+                <div class="col-11">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-search fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="ipSearch">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <a id="btCheckIn" data-toggle="tooltip" title="check in new device">
+                        <span class="badge badge-primary text-center">
+                            <i class="fa fa-plus fa-lg"></i>&nbsp;Check In
+                        </span>
+                    </a>
+                </div>
             </div>
         </div>
 
-        <div style="width: 5%; display: block; float: right; font-size: 18px; font-weight: 500;
-            text-align: right; align-content: center">
-            <span id="spTotalCount" style="height: 34px; line-height: 34px"></span>
-        </div>
-    </div>
-    <br/>
-
-
-    <div>
-        <table class="table table-bordered table-hover table-striped table-condensed"
-               id="tbDevices">
-            <thead style="background-color: #566778;">
-            <tr>
-                <th>#</th>
-                <th>Id</th>
-                <th>Mac</th>
-                <th>Sales</th>
-                <th>CheckInTime</th>
-            </tr>
-            </thead>
-            <tbody style="font-size: 14px">
-            <c:forEach items="${deviceRentInfoList}" var="deviceRentInfo" varStatus="status">
+        <div style="width: 100%; padding: 10px; background-color: white">
+            <table class="table table-sm table-hover table-striped" id="tbDevices">
+                <thead>
                 <tr>
-                    <td><input type="radio" name="rdDevice" value="${deviceRentInfo.mac}"
-                               currentRow="${status.index}"></td>
-                    <td>${status.index+1}</td>
-                    <td>${deviceRentInfo.mac}</td>
-                    <td>${deviceRentInfo.salesName}</td>
-                    <td>${deviceRentInfo.createTime}</td>
+                    <th>#</th>
+                    <th>Id</th>
+                    <th>Mac</th>
+                    <th>Sales</th>
+                    <th>CheckInTime</th>
+                    <th>Rented</th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <c:forEach items="${deviceRentInfoList}" var="deviceRentInfo" varStatus="status">
+                    <tr>
+                        <td><input type="radio" name="rdDevice" value="${deviceRentInfo.mac}"
+                                   currentRow="${status.index}"></td>
+                        <td>${status.index+1}</td>
+                        <td>${deviceRentInfo.mac}</td>
+                        <td>${deviceRentInfo.salesName}</td>
+                        <td>${deviceRentInfo.createTime}</td>
+                        <td>
+                            <c:if test="${deviceRentInfo.rented == true}">
+                                <span class="text-success"><i class="fa fa-check-circle fa-lg"></i></span>
+                            </c:if>
+                            <c:if test="${deviceRentInfo.rented == false}">
+                                <span class="text-secondary"><i class="fa fa-close fa-lg"></i></span>
+                            </c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </rapid:override>
 
-<rapid:override name="details">
-    <div style="margin: 20px">
-        <div id="div_create">
-            <h3 style="width: 100%; text-align: center; color: whitesmoke">CHECK IN DEVICE</h3>
-            <br/>
-
-            <div style="width: 60%; display: block; margin: 20px auto">
-                <div class="input-group">
-                <span class="input-group-addon" id="basic-addon6">
-                  <span class="glyphicon glyphicon-barcode" aria-hidden="true"></span>
-                </span>
-                    <input id="ipMac" type="email" class="form-control" placeholder="Mac"
-                           aria-describedby="basic-addon6" name="mac" maxlength="17">
+<rapid:override name="modal">
+    <div class="modal fade" id="modalCheckIn" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLongTitle">Check in</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <br/>
-                <div class="input-group">
-                <span class="input-group-addon" id="basic-addon7">
-                  <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
-                </span>
-                    <select class="form-control" id="ipSalesId">
-                        <option value="0">Choose Sales</option>
-                        <c:forEach items="${authSalesInfoList}" var="authSalesInfo">
-                            <option value="${authSalesInfo.id}">
-                                    ${authSalesInfo.username}
-                            </option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <br/>
-            </div>
+                <div class="modal-body">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fa fa-shield fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Mac" id="ipMac"
+                               aria-label="Username" aria-describedby="basic-addon1" maxlength="17">
+                    </div>
 
-            <br style="clear: both"/>
-            <div style="width: 60%; margin: 15px auto; clear: both">
-                <button id="btSubmitCheckIn" type="submit" class="btn btn-primary" style="width: 100%; margin: auto">
-                    Check In
-                </button>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon9">
+                                <i class="fa fa-user fa-lg"></i>
+                            </span>
+                        </div>
+                        <select class="custom-select" id="ipSalesId">
+                            <option value="0">Choose Sales</option>
+                            <c:forEach items="${authSalesInfoList}" var="authSalesInfo">
+                                <option value="${authSalesInfo.id}">
+                                        ${authSalesInfo.username}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span id="errorCheckIn" class="badge badge-danger"></span>
+                    <button type="button" class="btn btn-sm btn-primary" id="btSubmitCheckIn">Check In</button>
+                </div>
             </div>
-            <h5 id="errorMessage" style="color: red; width: 100%; text-align: center"></h5>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Update password</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon11">
+                                <i class="fa fa-lock fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Password" id="ipPassword3"
+                               aria-label="Username" aria-describedby="basic-addon11">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon12">
+                                <i class="fa fa-lock fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Password" id="ipPassword4"
+                               aria-label="Username" aria-describedby="basic-addon12">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span id="errorUpdate" class="badge badge-danger"></span>
+                    <button type="button" class="btn btn-sm btn-primary" id="btSubmitUpdate">Update</button>
+                </div>
+            </div>
         </div>
     </div>
 </rapid:override>
-<%@ include file="../base.jsp"%>
+
+<%@ include file="base_admin.jsp"%>
+

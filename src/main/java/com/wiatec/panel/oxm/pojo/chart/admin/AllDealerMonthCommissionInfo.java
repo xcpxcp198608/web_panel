@@ -1,20 +1,23 @@
 package com.wiatec.panel.oxm.pojo.chart.admin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author patrick
  */
-public class AllSalesMonthCommissionInfo {
+public class AllDealerMonthCommissionInfo {
 
-    private String salesUsername;
+    private String dealerUsername;
     private int volume;
     private float commission;
 
-    public String getSalesUsername() {
-        return salesUsername;
+    public String getDealerUsername() {
+        return dealerUsername;
     }
 
-    public void setSalesUsername(String salesUsername) {
-        this.salesUsername = salesUsername;
+    public void setDealerUsername(String dealerUsername) {
+        this.dealerUsername = dealerUsername;
     }
 
     public int getVolume() {
@@ -35,8 +38,8 @@ public class AllSalesMonthCommissionInfo {
 
     @Override
     public String toString() {
-        return "AllSalesMonthCommissionInfo{" +
-                "salesUsername='" + salesUsername + '\'' +
+        return "AllDealerMonthCommissionInfo{" +
+                "dealerUsername='" + dealerUsername + '\'' +
                 ", volume=" + volume +
                 ", commission=" + commission +
                 '}';

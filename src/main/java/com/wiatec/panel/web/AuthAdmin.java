@@ -168,6 +168,17 @@ public class AuthAdmin {
         return authAdminService.updateUserStatus(AuthRentUserInfo.STATUS_ACTIVATE, key);
     }
 
+
+    /**
+     * commission page
+     * @param model    mvc model
+     * @return         commission page
+     */
+    @GetMapping(value = "/distribution")
+    public String distribution(Model model){
+        return authAdminService.distribution(model);
+    }
+
     /**
      * commission page
      * @param model    mvc model
@@ -252,6 +263,18 @@ public class AuthAdmin {
     }
 
     /**
+     * get all dealer commission by specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        AllDealerMonthCommissionInfo list
+     */
+    @GetMapping(value = "/chart/dealer/commission/{year}/{month}")
+    @ResponseBody
+    public List<AllDealerMonthCommissionInfo> getDealerCommissionByMonth(@PathVariable int year, @PathVariable int month){
+        return authAdminService.getAllDealerCommissionByMonth(year, month);
+    }
+
+    /**
      * get all sales commission by specify year and month
      * @param year    specify year
      * @param month   specify month
@@ -259,7 +282,7 @@ public class AuthAdmin {
      */
     @GetMapping(value = "/chart/sales/commission/{year}/{month}")
     @ResponseBody
-    public List<AllSalesMonthCommissionInfo> getSales(@PathVariable int year, @PathVariable int month){
+    public List<AllSalesMonthCommissionInfo> getSalesCommissionByMonth(@PathVariable int year, @PathVariable int month){
         return authAdminService.getAllSalesCommissionByMonth(year, month);
     }
 

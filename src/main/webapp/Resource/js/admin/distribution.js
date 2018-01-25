@@ -17,8 +17,8 @@ $(function () {
             itemStyle:{
                 normal: {
                     color: '#22f547',
-                    shadowBlur: 200,
-                    shadowColor: 'rgba(0, 0, 0, 0.7)'
+                    shadowBlur: 50,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
                 },
                 emphasis:{
                     label:{show:true}

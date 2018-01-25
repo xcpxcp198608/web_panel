@@ -119,6 +119,7 @@ public class AuthSalesService {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
                 authRentUserDao.insertOne(authRentUserInfo);
+                deviceRentDao.updateRented(authRentUserInfo.getMac());
                 AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransaction().charge(AuthorizeTransactionInfo
                         .contractedFromAuthRentInfo(authRentUserInfo), request);
                 if (authorizeTransactionInfo == null) {

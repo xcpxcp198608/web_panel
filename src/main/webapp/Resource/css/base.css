@@ -93,9 +93,17 @@ table {
 }
 
 
-#content {height: 750px; overflow: scroll; position: relative; z-index: 1000}
+#p-content {
+    height: 750px;
+    overflow: scroll;
+    position: relative;
+    z-index: 1000
+}
 
-#content .table th, .table td {text-align: center; vertical-align: middle!important;}
+#p-content .table th, .table td {
+    text-align: center;
+    vertical-align: middle!important;
+}
 
 
 

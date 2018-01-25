@@ -13,7 +13,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/admin/dealer">
-                    <i class="fa fa-globe fa-lg"></i>&nbsp;Dealer
+                    <i class="fa fa-briefcase fa-lg"></i>&nbsp;Dealer
                 </a>
             </li>
             <li class="nav-item">
@@ -22,18 +22,23 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/panel/admin/devices">
+                    <i class="fa fa-tasks fa-lg"></i>&nbsp;Devices
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/panel/admin/users">
                     <i class="fa fa-users fa-lg"></i>&nbsp;Customers
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/panel/admin/commission">
-                    <i class="fa fa-bar-chart fa-lg"></i>&nbsp;Commission
+                <a class="nav-link" href="/panel/admin/distribution">
+                    <i class="fa fa-globe fa-lg"></i>&nbsp;Distribution
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/panel/admin/devices">
-                    <i class="fa fa-tasks fa-lg"></i>&nbsp;Devices
+                <a class="nav-link" href="/panel/admin/commission">
+                    <i class="fa fa-bar-chart fa-lg"></i>&nbsp;Commission
                 </a>
             </li>
             <li class="nav-item">

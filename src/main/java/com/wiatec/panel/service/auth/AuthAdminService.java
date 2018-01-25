@@ -54,7 +54,7 @@ public class AuthAdminService {
     public String dealer(Model model){
         List<AuthDealerInfo> authDealerInfoList = authDealerDao.selectAll();
         model.addAttribute("authDealerInfoList", authDealerInfoList);
-        return "admin/dealer1";
+        return "admin/dealer";
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -214,6 +214,11 @@ public class AuthAdminService {
         }
     }
 
+    public String distribution(Model model){
+        return "admin/distribution";
+    }
+
+
     public String commission(Model model){
         List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
         for(CommissionCategoryInfo commissionCategoryInfo: commissionCategoryInfoList){
@@ -238,11 +243,14 @@ public class AuthAdminService {
         if(deviceRentInfo.getMac().length() != 17){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
         }
-        if(deviceRentDao.countOne(deviceRentInfo) ==1){
+        if(deviceRentDao.countOne(deviceRentInfo) == 1){
             throw new XException(1100, "this mac address already check in");
         }
         deviceRentInfo.setMac(deviceRentInfo.getMac().toUpperCase());
         AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(deviceRentInfo.getSalesId());
+        if(authSalesInfo == null){
+            throw new XException(1100, "sales not exists");
+        }
         deviceRentInfo.setDealerId(authSalesInfo.getDealerId());
         deviceRentInfo.setAdminId(getAdminInfo(request).getId());
         deviceRentDao.insertOne(deviceRentInfo);
@@ -271,6 +279,11 @@ public class AuthAdminService {
 
     public List<TopAmountInfo> getTopAmount(int top){
         return authorizeTransactionDao.selectTopAmount(top);
+    }
+
+    public List<AllDealerMonthCommissionInfo> getAllDealerCommissionByMonth(int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        return authorizeTransactionDao.selectAllDealersCommissionByMonth(yearOrMonthInfo);
     }
 
     public List<AllSalesMonthCommissionInfo> getAllSalesCommissionByMonth(int year, int month){

@@ -1,74 +1,144 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
 <rapid:override name="title">
     Dealer
 </rapid:override>
-<rapid:override name="css_js">
-    <link rel="stylesheet" href="Resource/css/admin/dealer.css"/>
-    <script type="text/javascript" src="Resource/js/admin/dealer.js"></script>
-</rapid:override>
 
-<rapid:override name="navigation">
-    <ul>
-        <li>
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            <a href="/panel/admin/">Home</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-            <a href="/panel/admin/dealer">Dealer</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            <a href="/panel/admin/sales">Sales</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <a href="/panel/admin/users">Customers</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
-            <a href="/panel/admin/commission">Commission</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
-            <a href="/panel/admin/devices">Devices</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            <a href="/panel/signout">SignOut</a>
-        </li>
-    </ul>
+<rapid:override name="css_js">
+    <script type="text/javascript" src="Resource/js/admin/dealer.js"></script>
 </rapid:override>
 
 <rapid:override name="content">
 
-    <div style="width: 100%; height: 40px">
-        <div style="width: 20%; display: block; float: left;">
-            <button type="button" class="btn btn-default" id="btCreate" title="create a sales">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create
-            </button>
-
-            <button type="button" class="btn btn-default" id="btUpdate" title="update password which choose">
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Update
-            </button>
+    <div class="row" style="padding-top: 10px">
+        <div class="col-4" style="padding: 0 0 0 10px">
+            <div style="background-color: #ffffff; padding: 10px">
+                <div class="text-center" style="width: 100%">
+                    <span class="badge badge-warning ba-strong">
+                        ${fn:length(authDealerInfoList)}
+                    </span>
+                </div>
+                <div class="text-center" style="width: 100%">
+                    <span class="text-muted " >total number of dealers</span>
+                </div>
+            </div>
         </div>
-        <div style="width: 80%; display: block; float: left;">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">Search</span>
-                <input type="text" class="form-control" placeholder="type in keyword"
-                       aria-describedby="basic-addon1" id="ipSearch">
+        <div class="col-4" style="padding: 0 10px 0 10px">
+            <div style="background-color: #ffffff; padding: 10px">
+                <div class="text-center" style="width: 100%">
+                    <span class="badge badge-warning ba-strong" id="maxVolumeDealer">
+                            xxx
+                    </span>
+                    <span class="badge badge-success ba-strong" id="maxVolume">
+                            0
+                    </span>
+                </div>
+                <div class="text-center" style="width: 100%">
+                    <span class="text-muted " >the maximum sales volume</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-4" style="padding: 0 10px 0 0">
+            <div style="background-color: #ffffff; padding: 10px">
+                <div class="text-center" style="width: 100%">
+                    <span class="badge badge-danger ba-strong" id="totalCommission">
+                            0
+                    </span>
+                </div>
+                <div class="text-center" style="width: 100%">
+                    <span class="text-muted " >the total commission of current month</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div style="clear: both; margin-top: 5px; box-shadow: 0 0 5px #000;">
-        <table class="table table-bordered table-hover table-striped table-condensed"
-               id="tbSales">
-            <thead style="background-color: #566778;">
-            <tr id="trSales">
+    <div class="row" style="padding: 20px 10px 0 10px">
+        <div class="col-5" style=" background-color: white">
+            <span class="text-center text-muted" style="padding: 0 10px 10px 10px">All dealers commission in month:</span>
+        </div>
+        <div class="col-4 text-left text-darks" style="background-color: white">
+            <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
+        </div>
+        <div class="col-3 text-right" style="background-color: white">
+            <a id="btPreviousMonth" data-toggle="tooltip" title="press this show previous month info!">
+                <span class="badge badge-info text-center">Previous</span>
+            </a>
+            <a id="btNextMonth" data-toggle="tooltip" title="press this next month info!">
+                <span class="badge badge-info text-center">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div style="background-color: white; width: 100%; padding: 10px">
+            <table class="table table-sm table-hover" id="tbDealerCommission">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Username</th>
+                        <th>Volume</th>
+                        <th>Commission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <div class="row" style="padding: 20px 10px 0 10px;">
+        <div style="width: 100%; background-color: #ffffff;">
+            <span class="text-center text-muted" style="padding: 10px">
+                <abbr>The detail information of all dealers:</abbr>
+            </span>
+        </div>
+
+        <div style="width: 100%; padding: 10px; background-color: white">
+            <div class="row">
+                <div class="col-11">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-search fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="ipSearch">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <a id="btCreate" data-toggle="tooltip" title="create new dealer">
+                        <span class="badge badge-primary text-center">
+                            <i class="fa fa-plus fa-lg"></i>&nbsp;Create
+                        </span>
+                    </a>
+                </div>
+                <div class="col-1">
+                    <a id="btUpdate" data-toggle="tooltip" title="update dealer password, choose a radio before click">
+                        <span class="badge badge-warning text-center">
+                            <i class="fa fa-pencil fa-lg"></i>&nbsp;Update
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 100%; padding: 10px; background-color: white">
+            <table class="table table-sm table-hover table-striped table-dark" id="tbDealers">
+            <thead>
+                <tr >
                 <th></th>
                 <th>#</th>
                 <th>Username</th>
@@ -79,124 +149,167 @@
                 <th>Phone</th>
                 <th>Time</th>
                 <th>Users</th>
-            </tr>
+                </tr>
             </thead>
             <tbody>
-
-            <c:forEach items="${authDealerInfoList}" var="authDealerInfo" varStatus="status">
-                <tr>
-                    <td><input type="radio" name="update" value="${authDealerInfo.id}" currentRow="${status.index}"></td>
-                    <td>${status.index+1}</td>
-                    <td>${authDealerInfo.username}</td>
-                    <td><input type="text" value="${authDealerInfo.password}" title="pwd" size="12"/></td>
-                    <td>${authDealerInfo.firstName}&nbsp;${authDealerInfo.lastName}</td>
-                    <td>
+                <c:forEach items="${authDealerInfoList}" var="authDealerInfo" varStatus="status">
+                    <tr>
+                        <td><input type="radio" name="update" value="${authDealerInfo.id}" currentRow="${status.index}"></td>
+                        <td>${status.index+1}</td>
+                        <td>${authDealerInfo.username}</td>
+                        <td>${authDealerInfo.password}</td>
+                        <td>${authDealerInfo.firstName}&nbsp;${authDealerInfo.lastName}</td>
+                        <td>
                         ${fn:substring(authDealerInfo.ssn, 0, 3)}-${fn:substring(authDealerInfo.ssn, 3, 5)}-${fn:substring(authDealerInfo.ssn, 5, 9)}
-                    </td>
-                    <td>${authDealerInfo.email}</td>
-                    <td>${authDealerInfo.phone}</td>
-                    <td class="tdRows12">${fn:substring(authDealerInfo.createTime, 0, 19)}</td>
-                    <td>
+                        </td>
+                        <td>${authDealerInfo.email}</td>
+                        <td>${authDealerInfo.phone}</td>
+                        <td>${fn:substring(authDealerInfo.createTime, 0, 19)}</td>
+                        <td>
                         <a href="/panel/admin/users/1/${authDealerInfo.id}" title="show all users under this sales">
-                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            <i class="fa fa-eye fa-lg"></i>
                         </a>
-                    </td>
-                </tr>
-            </c:forEach>
+                        </td>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
-    </div>
-
-</rapid:override>
-
-<rapid:override name="details">
-    <div style="margin: 20px">
-        <div id="div_create">
-            <h3 style="width: 100%; text-align: center; color: whitesmoke">CREATE SALES ACCOUNT</h3>
-            <br/>
-
-            <div>
-                <div style="width: 47%; height: 200px; display: block; float: left">
-                    <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon3">
-                      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    </span>
-                        <input id="ipUsername" type="text" class="form-control" placeholder="Username"
-                               aria-describedby="basic-addon3" name="username" maxlength="20">
-                    </div>
-                    <br/>
-                    <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon4">
-                      <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-                    </span>
-                        <input id="ipPassword" type="password" class="form-control" placeholder="Password(length >= 6)"
-                               aria-describedby="basic-addon4" name="password" maxlength="30">
-                    </div>
-                    <br/>
-                    <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon5">
-                      <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-                    </span>
-                        <input id="ipFirstName" type="text" class="form-control" placeholder="FirstName"
-                               aria-describedby="basic-addon5" name="firstName" maxlength="30">
-                    </div>
-                    <br/>
-                    <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon6">
-                      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                    </span>
-                        <input id="ipEmail" type="email" class="form-control" placeholder="Email"
-                               aria-describedby="basic-addon6" name="email" maxlength="50">
-                    </div>
-                    <br/>
-                </div>
-
-                <div style="width: 47%; height: 200px; display: block; float: right">
-                    <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon7">
-                      <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                    </span>
-                        <input id="ipSSN" type="number" class="form-control" placeholder="SSN"
-                               aria-describedby="basic-addon7" name="ssn" maxlength="9">
-                    </div>
-                    <br/>
-                    <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon8">
-                      <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
-                    </span>
-                        <input id="ipPassword1" type="password" class="form-control" placeholder="Password(length >= 6)"
-                               aria-describedby="basic-addon8" name="password1" maxlength="30">
-                    </div>
-                    <br/>
-                    <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon9">
-                      <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-                    </span>
-                        <input id="ipLastName" type="text" class="form-control" placeholder="LastName"
-                               aria-describedby="basic-addon9" name="lastName" maxlength="30">
-                    </div>
-                    <br/>
-                    <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon10">
-                      <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-                    </span>
-                        <input id="ipPhone" type="number" class="form-control" placeholder="Phone"
-                               aria-describedby="basic-addon10" name="phone" maxlength="20">
-                    </div>
-                    <br/>
-                </div>
-            </div>
-
-            <br style="clear: both"/>
-            <div style="width: 70%; margin: 20px auto; clear: both">
-                <button id="btSubmitCreate" type="submit" class="btn btn-primary" style="width: 100%; margin: auto">
-                    Create
-                </button>
-            </div>
-            <h4 id="errorMessage" style="color: red; width: 100%; text-align: center"></h4>
         </div>
     </div>
 
 </rapid:override>
 
-<%@ include file="../base.jsp"%>
+<rapid:override name="modal">
+    <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLongTitle">Create Dealer</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fa fa-user fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Username" id="ipUsername"
+                               aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="fa fa-star fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="SSN" id="ipSSN"
+                               aria-label="Username" aria-describedby="basic-addon2">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">
+                                <i class="fa fa-child fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="FirstName" id="ipFirstName"
+                               aria-label="Username" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon4">
+                                <i class="fa fa-flag fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="LastName" id="ipLastName"
+                               aria-label="Username" aria-describedby="basic-addon4">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon5">
+                                <i class="fa fa-envelope-o fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="email" class="form-control" placeholder="Email" id="ipEmail"
+                               aria-label="Username" aria-describedby="basic-addon5">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon6">
+                                <i class="fa fa-phone fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Phone" id="ipPhone"
+                               aria-label="Username" aria-describedby="basic-addon6">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon7">
+                                <i class="fa fa-lock fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Password" id="ipPassword"
+                               aria-label="Username" aria-describedby="basic-addon7">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon8">
+                                <i class="fa fa-lock fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Password" id="ipPassword1"
+                               aria-label="Username" aria-describedby="basic-addon8">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span id="errorCreate" class="badge badge-danger"></span>
+                    <button type="button" class="btn btn-sm btn-primary" id="btSubmitCreate">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Update password</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon11">
+                                <i class="fa fa-lock fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Password" id="ipPassword3"
+                               aria-label="Username" aria-describedby="basic-addon11">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon12">
+                                <i class="fa fa-lock fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Password" id="ipPassword4"
+                               aria-label="Username" aria-describedby="basic-addon12">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span id="errorUpdate" class="badge badge-danger"></span>
+                    <button type="button" class="btn btn-sm btn-primary" id="btSubmitUpdate">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</rapid:override>
+
+<%@ include file="base_admin.jsp"%>
+
