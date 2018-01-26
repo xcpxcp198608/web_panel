@@ -59,10 +59,12 @@
         </div>
     </div>
 
-
-    <div class="row" style="padding: 20px 10px 0 10px">
+    <div class="row" style="padding: 20px 10px 0 10px;">
+        <div style="width: 100%; background-color: #c11021; height: 3px;"></div>
+    </div>
+    <div class="row" style="padding: 0 10px 0 10px">
         <div class="col-5" style=" background-color: white">
-            <span class="text-center text-muted" style="padding: 0 10px 10px 10px">All dealers commission in month:</span>
+            <span class="text-muted" style="padding: 0 0 10px 0">All dealers commission in month:</span>
         </div>
         <div class="col-4 text-left text-darks" style="background-color: white">
             <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
@@ -76,6 +78,7 @@
             </a>
         </div>
     </div>
+
     <div class="row" style="padding: 0 10px 0 10px">
         <div style="background-color: white; width: 100%; padding: 10px">
             <table class="table table-sm table-hover" id="tbDealerCommission">
@@ -102,7 +105,7 @@
 
 
     <div class="row" style="padding: 20px 10px 0 10px;">
-        <div style="width: 100%; background-color: #0da826; height: 3px;"></div>
+        <div style="width: 100%; background-color: #0815a8; height: 3px;"></div>
         <div style="width: 100%; background-color: #ffffff;">
             <span class="text-center text-muted" style="padding: 10px">
                 <abbr>The detail information of all dealers:</abbr>

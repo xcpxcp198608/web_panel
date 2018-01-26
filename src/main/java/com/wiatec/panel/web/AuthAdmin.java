@@ -200,6 +200,16 @@ public class AuthAdmin {
     }
 
     /**
+     * transactions page
+     * @param model    mvc model
+     * @return         transactions page
+     */
+    @GetMapping(value = "/transactions")
+    public String transactions(Model model){
+        return authAdminService.transactions(model);
+    }
+
+    /**
      * save a device rent info
      * @param request  HttpServletRequest
      * @param deviceRentInfo  DeviceRentInfo required: mac, dealerId

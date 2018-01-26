@@ -125,6 +125,7 @@ public class AuthorizeTransaction {
                     authorizeTransactionInfo1.setAmount(authorizeTransactionInfo.getAmount());
                     authorizeTransactionInfo1.setDeposit(authorizeTransactionInfo.getDeposit());
                     authorizeTransactionInfo1.setLdCommission(authorizeTransactionInfo.getLdCommission());
+                    authorizeTransactionInfo1.setLdeCommission(authorizeTransactionInfo.getLdeCommission());
                     authorizeTransactionInfo1.setDealerCommission(authorizeTransactionInfo.getDealerCommission());
                     authorizeTransactionInfo1.setSalesCommission(authorizeTransactionInfo.getSalesCommission());
                     authorizeTransactionInfo1.setExpirationDate(authorizeTransactionInfo.getExpirationDate());

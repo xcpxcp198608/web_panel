@@ -48,7 +48,7 @@ public class AuthDealerService {
     private AuthorizeTransactionDao authorizeTransactionDao;
 
     public String home(){
-        return "dealer/home";
+        return "dealer/home1";
     }
 
     public String sales(HttpServletRequest request, Model model){

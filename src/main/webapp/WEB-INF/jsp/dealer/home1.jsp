@@ -7,7 +7,7 @@
     Home
 </rapid:override>
 <rapid:override name="css_js">
-    <script type="application/javascript" src="Resource/js/admin/home.js"></script>
+    <script type="application/javascript" src="Resource/js/dealer/home.js"></script>
 </rapid:override>
 
 
@@ -63,4 +63,4 @@
     </div>
 
 </rapid:override>
-<%@ include file="base_admin.jsp"%>
+<%@ include file="base_dealer.jsp"%>

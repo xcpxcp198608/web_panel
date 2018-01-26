@@ -7,6 +7,7 @@ public class SalesAmountInfo {
     private float txFee;
     private float deposit;
     private float ldCommission;
+    private float ldeCommission;
     private float dealerCommission;
     private float salesCommission;
     private int date;
@@ -51,6 +52,14 @@ public class SalesAmountInfo {
         this.ldCommission = ldCommission;
     }
 
+    public float getLdeCommission() {
+        return ldeCommission;
+    }
+
+    public void setLdeCommission(float ldeCommission) {
+        this.ldeCommission = ldeCommission;
+    }
+
     public float getDealerCommission() {
         return dealerCommission;
     }
@@ -83,6 +92,7 @@ public class SalesAmountInfo {
                 ", txFee=" + txFee +
                 ", deposit=" + deposit +
                 ", ldCommission=" + ldCommission +
+                ", ldeCommission=" + ldeCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +
                 ", date=" + date +

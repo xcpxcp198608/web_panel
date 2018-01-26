@@ -15,7 +15,7 @@
 <rapid:override name="content">
 
     <div class="row" style="padding: 10px 10px 0 10px;">
-        <div style="width: 100%; background-color: #0da826; height: 3px"></div>
+        <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
         <div style="width: 100%; background-color: #ffffff;">
             <span class="text-center text-muted" style="padding: 10px">
                 <abbr>The detail information of customers:</abbr>
@@ -76,7 +76,7 @@
 
         <div style="width: 100%; padding: 10px; background-color: white">
             <table class="table table-sm table-hover table-striped" id="tbUsers">
-                <thead>
+                <thead style="background-color: #769abb;">
                     <tr>
                         <th>#</th>
                         <th>Item</th>

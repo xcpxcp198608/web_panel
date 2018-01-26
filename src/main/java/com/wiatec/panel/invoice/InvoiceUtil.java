@@ -29,6 +29,7 @@ import com.lowagie.text.pdf.PdfWriter;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.common.utils.UnitUtil;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -668,8 +669,15 @@ public class InvoiceUtil {
             p1.add(ph1);
             doc.add(p1);
 
-
             Runtime.getRuntime().exec("chmod 777 " + path);
+            // copy invoice file
+            try{
+                String copyFilePath = "/home/static/panel/invoice/" + fileName;
+                FileUtils.copyFile(file, new File(copyFilePath));
+                Runtime.getRuntime().exec("chmod 777 " + copyFilePath);
+            }catch (Exception e){
+                logger.error("Exception: ", e);
+            }
             return path;
         }catch (Exception e){
             logger.error(e.getLocalizedMessage());

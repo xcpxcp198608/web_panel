@@ -17,6 +17,7 @@ public class  CommissionCategoryInfo {
     private int expires;
     private int bonus;
     private float ldCommission;
+    private float ldeCommission;
     private float dealerCommission;
     private float salesCommission;
 
@@ -98,6 +99,14 @@ public class  CommissionCategoryInfo {
         this.ldCommission = ldCommission;
     }
 
+    public float getLdeCommission() {
+        return ldeCommission;
+    }
+
+    public void setLdeCommission(float ldeCommission) {
+        this.ldeCommission = ldeCommission;
+    }
+
     public float getDealerCommission() {
         return dealerCommission;
     }
@@ -119,15 +128,16 @@ public class  CommissionCategoryInfo {
         return "CommissionCategoryInfo{" +
                 "id=" + id +
                 ", category='" + category + '\'' +
-                ", price=" + price +
-                ", firstPay=" + firstPay +
-                ", monthPay=" + monthPay +
                 ", deposit=" + deposit +
                 ", expires=" + expires +
                 ", bonus=" + bonus +
                 ", ldCommission=" + ldCommission +
+                ", ldeCommission=" + ldeCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +
+                ", price=" + price +
+                ", firstPay=" + firstPay +
+                ", monthPay=" + monthPay +
                 '}';
     }
 }

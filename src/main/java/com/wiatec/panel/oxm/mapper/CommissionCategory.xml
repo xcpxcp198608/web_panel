@@ -14,7 +14,7 @@
         <result column="salesCommission" property="salesCommission"/>
     </resultMap>
 
-    <sql id="select">SELECT id, category, deposit, monthPay, expires, bonus, ldCommission, dealerCommission,
+    <sql id="select">SELECT id, category, deposit, monthPay, expires, bonus, ldCommission, ldeCommission,  dealerCommission,
                          salesCommission FROM commission_category</sql>
 
     <select id="selectAll" resultMap="commissionCategoryInfo">

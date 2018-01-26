@@ -135,6 +135,7 @@ $(function () {
             var yearTotalTxFee = 0;
             var yearTotalDeposit = 0;
             var yearTotalLdCommission = 0;
+            var yearTotalLdeCommission = 0;
             var yearTotalDealerCommission = 0;
             var yearTotalSalesCommission = 0;
             var length = dataList.length;
@@ -143,6 +144,7 @@ $(function () {
                 var monthTxFee = 0;
                 var monthDeposit = 0;
                 var monthLdCommission = 0;
+                var monthLdeCommission = 0;
                 var monthDealerCommission = 0;
                 var monthSalesCommission = 0;
                 for(var j = 0; j < length; j ++){
@@ -152,6 +154,7 @@ $(function () {
                         monthTxFee = data['txFee'];
                         monthDeposit = data['deposit'];
                         monthLdCommission = data['ldCommission'];
+                        monthLdeCommission = data['ldeCommission'];
                         monthDealerCommission = data['dealerCommission'];
                         monthSalesCommission = data['salesCommission'];
                     }
@@ -161,6 +164,7 @@ $(function () {
                 yearTotalTxFee += monthTxFee;
                 yearTotalDeposit += monthDeposit;
                 yearTotalLdCommission += monthLdCommission;
+                yearTotalLdeCommission += monthLdeCommission;
                 yearTotalDealerCommission += monthDealerCommission;
                 yearTotalSalesCommission += monthSalesCommission;
             }
@@ -168,24 +172,12 @@ $(function () {
             tbYearIncome.rows[1].cells[1].innerHTML = yearTotalTxFee.toFixed(2);
             tbYearIncome.rows[2].cells[1].innerHTML = yearTotalDeposit.toFixed(2);
             tbYearIncome.rows[3].cells[1].innerHTML = yearTotalLdCommission.toFixed(2);
-            tbYearIncome.rows[4].cells[1].innerHTML = yearTotalDealerCommission.toFixed(2);
-            tbYearIncome.rows[5].cells[1].innerHTML = yearTotalSalesCommission.toFixed(2);
+            tbYearIncome.rows[4].cells[1].innerHTML = yearTotalLdeCommission.toFixed(2);
+            tbYearIncome.rows[5].cells[1].innerHTML = yearTotalDealerCommission.toFixed(2);
+            tbYearIncome.rows[6].cells[1].innerHTML = yearTotalSalesCommission.toFixed(2);
             yearIncomeChart.setOption(yearIncomeChartOption);
         })
     }
-
-
-
-    showCurrentTotalInfoOfTableOrders();
-
-
-
-    var tbOrders = $('#tbOrders').get(0).tBodies[0];
-    var trTotal = $('#trTotal').get(0);
-    var rowsLength = tbOrders.rows.length;
-
-
-
 
 
     /**
@@ -227,7 +219,7 @@ $(function () {
     function initIncomeData(days) {
         for (var j = 0; j < days; j++) {
             var tdObj = document.createElement("td");
-            tdObj.innerHTML = j+1;
+            tdObj.innerHTML = (j + 1).toString();
             trIncome.append(tdObj);
             for(var k = 0; k < incomeRowsLength; k ++){
                 var tdObj1 = document.createElement("td");
@@ -247,6 +239,7 @@ $(function () {
     var incomeData = [];
     var depositData = [];
     var ldData = [];
+    var ldeData = [];
     var dealerData = [];
     var salesData = [];
     function refreshData() {
@@ -254,6 +247,7 @@ $(function () {
         incomeData.length = 0;
         depositData.length = 0;
         ldData.length = 0;
+        ldeData.length = 0;
         dealerData.length = 0;
         salesData.length = 0;
         var items = tbIncome.rows[0].cells.length - 2;
@@ -265,16 +259,18 @@ $(function () {
             depositData.push(deposit);
             var ld = tbIncome.rows[2].cells[i+2].innerHTML;
             ldData.push(ld);
-            var dealer = tbIncome.rows[3].cells[i+2].innerHTML;
+            var lde = tbIncome.rows[3].cells[i+2].innerHTML;
+            ldeData.push(lde);
+            var dealer = tbIncome.rows[4].cells[i+2].innerHTML;
             dealerData.push(dealer);
-            var sales = tbIncome.rows[4].cells[i+2].innerHTML;
+            var sales = tbIncome.rows[5].cells[i+2].innerHTML;
             salesData.push(sales);
         }
     }
 
     var monthIncomeChartOption = {
         title: {
-            text: 'Month details',
+            text: '',
             textStyle:{
                 color: '#7c9f97'
             }
@@ -283,10 +279,10 @@ $(function () {
         legend: {
             data:['income', 'deposit', 'ld', 'dealer', 'sales'],
             textStyle:{
-                color: 'rgba(255, 255, 255, 0.8)'
+                color: 'rgba(0, 0, 0, 0.8)'
             }
         },
-        backgroundColor: '#2c343c',
+        backgroundColor: '#ffffff',
         textStyle: {
             color: 'rgba(255, 255, 255, 0.8)'
         },
@@ -382,6 +378,7 @@ $(function () {
             var totalMonthIncome = 0;
             var totalMonthDeposit = 0;
             var totalMonthLdCommission = 0;
+            var totalMonthLdeCommission = 0;
             var totalMonthDealerCommission = 0;
             var totalMonthSalesCommission = 0;
             for(var i = 0; i < days; i ++){
@@ -391,6 +388,7 @@ $(function () {
                 var income = 0;
                 var deposit = 0;
                 var ldCommission = 0 ;
+                var ldeCommission = 0 ;
                 var dealerCommission = 0;
                 var salesCommission = 0;
                 for(var j = 0; j < length; j ++){
@@ -399,6 +397,7 @@ $(function () {
                         income = data['amount'];
                         deposit = data['deposit'];
                         ldCommission = data['ldCommission'];
+                        ldeCommission = data['ldeCommission'];
                         dealerCommission = data['dealerCommission'];
                         salesCommission = data['salesCommission'];
                     }
@@ -417,9 +416,12 @@ $(function () {
                             n = ldCommission;
                             break;
                         case 3:
-                            n = dealerCommission;
+                            n = ldeCommission;
                             break;
                         case 4:
+                            n = dealerCommission;
+                            break;
+                        case 5:
                             n = salesCommission;
                             break;
                         default:
@@ -432,14 +434,16 @@ $(function () {
                 totalMonthIncome += income;
                 totalMonthDeposit += deposit;
                 totalMonthLdCommission += ldCommission;
+                totalMonthLdeCommission += ldeCommission;
                 totalMonthDealerCommission += dealerCommission;
                 totalMonthSalesCommission += salesCommission;
             }
             tbIncome.rows[0].cells[1].innerHTML = totalMonthIncome.toFixed(2);
             tbIncome.rows[1].cells[1].innerHTML = totalMonthDeposit.toFixed(2);
             tbIncome.rows[2].cells[1].innerHTML = totalMonthLdCommission.toFixed(2);
-            tbIncome.rows[3].cells[1].innerHTML = totalMonthDealerCommission.toFixed(2);
-            tbIncome.rows[4].cells[1].innerHTML = totalMonthSalesCommission.toFixed(2);
+            tbIncome.rows[3].cells[1].innerHTML = totalMonthLdeCommission.toFixed(2);
+            tbIncome.rows[4].cells[1].innerHTML = totalMonthDealerCommission.toFixed(2);
+            tbIncome.rows[5].cells[1].innerHTML = totalMonthSalesCommission.toFixed(2);
             refreshData();
             monthIncomeChart.setOption(monthIncomeChartOption);
             $('#btPreviousMonth').removeAttr('disabled');
@@ -458,113 +462,6 @@ $(function () {
                 tbIncome.rows[k].removeChild(tbIncome.rows[k].lastChild);
             }
         }
-    }
-
-    /**
-     * search of table orders & search input key up event listener
-     */
-    $('#ipSearch').keyup(function () {
-        var key = $(this).val().toLowerCase();
-        if(key.length <= 0){
-            showAllRowsOfOrdersTable();
-            return;
-        }
-        for(var i = 0; i < rowsLength; i ++){
-            for(var j = 1; j < 4; j ++){
-                var content = tbOrders.rows[i].cells[j].innerHTML.toLowerCase();
-                if(content.search(key) >= 0){
-                    tbOrders.rows[i].style.display = '';
-                    break;
-                }else{
-                    tbOrders.rows[i].style.display = 'none';
-                }
-            }
-        }
-        showCurrentTotalInfoOfTableOrders();
-    });
-
-    /**
-     * date picker change event
-     */
-    $('#ipDate').change(function () {
-        var key = $(this).val().length >0 ? $(this).val().substring(0, 7) : '';
-        selectChangeListener(key, 10);
-    });
-
-    /**
-     * select of plan change event
-     */
-    $('#sePlan').change(function () {
-        selectChangeListener($(this).val(), 11);
-    });
-
-    /**
-     * select of type change event
-     */
-    $('#seType').change(function () {
-        selectChangeListener($(this).val(), 12);
-    });
-
-    /**
-     * select change event listener
-     * @param key
-     * @param cellIndex
-     */
-    function selectChangeListener(key, cellIndex) {
-        if(key.length >0){
-            for(var i =0 ; i < rowsLength; i ++){
-                var currentStatus = tbOrders.rows[i].style.display;
-                if (tbOrders.rows[i].cells[cellIndex].innerHTML.search(key) >= 0) {
-                    tbOrders.rows[i].style.display = "";
-                } else {
-                    tbOrders.rows[i].style.display = "none";
-                }
-            }
-        }else{
-            showAllRowsOfOrdersTable();
-        }
-        showCurrentTotalInfoOfTableOrders();
-    }
-
-    /**
-     * show all rows of table orders
-     */
-    function showAllRowsOfOrdersTable(){
-        for(var i =0 ; i < rowsLength; i ++){
-            tbOrders.rows[i].style.display = "";
-        }
-    }
-
-    /**
-     * show current visible count of table orders
-     */
-    function showCurrentTotalInfoOfTableOrders() {
-        var count = 0;
-        var totalPrice = 0;
-        var totalDeposit = 0;
-        var totalTxFee = 0;
-        var totalLdCommission = 0;
-        var totalDealerCommission = 0;
-        var totalSalesCommission = 0;
-        for(var i =0 ; i < rowsLength; i ++){
-            var status = tbOrders.rows[i].style.display;
-            if(status !== 'none'){
-                count ++;
-                totalPrice += parseFloat(tbOrders.rows[i].cells[4].innerHTML);
-                totalTxFee += parseFloat(tbOrders.rows[i].cells[5].innerHTML);
-                totalDeposit += parseFloat(tbOrders.rows[i].cells[6].innerHTML);
-                totalLdCommission += parseFloat(tbOrders.rows[i].cells[7].innerHTML);
-                totalDealerCommission += parseFloat(tbOrders.rows[i].cells[8].innerHTML);
-                totalSalesCommission += parseFloat(tbOrders.rows[i].cells[9].innerHTML);
-            }
-        }
-        trTotal.cells[0].innerHTML = count;
-        trTotal.cells[1].innerHTML = totalPrice.toFixed(2);
-        trTotal.cells[2].innerHTML = totalTxFee.toFixed(2);
-        trTotal.cells[3].innerHTML = totalDeposit.toFixed(2);
-        trTotal.cells[4].innerHTML = totalLdCommission.toFixed(2);
-        trTotal.cells[5].innerHTML = totalDealerCommission.toFixed(2);
-        trTotal.cells[6].innerHTML = totalSalesCommission.toFixed(2);
     }
 
 });

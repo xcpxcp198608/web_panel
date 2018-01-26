@@ -110,6 +110,7 @@ public class AuthSalesService {
             }else{
                 authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
             }
+            deviceRentDao.updateRented(authRentUserInfo.getMac());
             if (paymentMethod == PAYMENT_METHOD_CASH) {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CASH);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
@@ -119,7 +120,6 @@ public class AuthSalesService {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
                 authRentUserDao.insertOne(authRentUserInfo);
-                deviceRentDao.updateRented(authRentUserInfo.getMac());
                 AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransaction().charge(AuthorizeTransactionInfo
                         .contractedFromAuthRentInfo(authRentUserInfo), request);
                 if (authorizeTransactionInfo == null) {

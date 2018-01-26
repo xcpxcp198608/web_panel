@@ -42,6 +42,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/panel/admin/transactions">
+                    <i class="fa fa-building-o fa-lg"></i>&nbsp;Transactions
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/panel/signout">
                     <i class="fa fa-sign-out fa-lg"></i>&nbsp;Sign out
                 </a>

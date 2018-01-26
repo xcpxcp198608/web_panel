@@ -66,7 +66,7 @@
             <div class="col-10" >
                 <div class="row d-flex" style="background-color: #ffffff; box-shadow: 0 0 8px #000000; z-index: 1003;">
                     <div class="col-11 text-center" style="padding: 10px">
-                        <span class="text-warning">Welcome</span>
+                        <span class="text-secondary">welcome to preferred customer program!</span>
                     </div>
                     <div class="col-1 text-center" style="padding: 10px">
                         <span class="badge badge-dark">${username}</span>

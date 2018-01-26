@@ -225,9 +225,13 @@ public class AuthAdminService {
             commissionCategoryInfo.setPrice();
         }
         model.addAttribute("commissionCategoryInfoList", commissionCategoryInfoList);
+        return "admin/commission";
+    }
+
+    public String transactions(Model model){
         List<AuthorizeTransactionInfo> authorizeTransactionInfoList = authorizeTransactionDao.selectAll();
         model.addAttribute("authorizeTransactionInfoList", authorizeTransactionInfoList);
-        return "admin/commission1";
+        return "admin/transactions";
     }
 
     public String devices(Model model){

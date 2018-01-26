@@ -27,6 +27,7 @@ public class AuthorizeTransactionInfo {
     private float txFee;
     private float deposit;
     private float ldCommission;
+    private float ldeCommission;
     private float dealerCommission;
     private float salesCommission;
 
@@ -148,6 +149,14 @@ public class AuthorizeTransactionInfo {
         this.ldCommission = ldCommission;
     }
 
+    public float getLdeCommission() {
+        return ldeCommission;
+    }
+
+    public void setLdeCommission(float ldeCommission) {
+        this.ldeCommission = ldeCommission;
+    }
+
     public float getDealerCommission() {
         return dealerCommission;
     }
@@ -221,6 +230,7 @@ public class AuthorizeTransactionInfo {
                 ", txFee=" + txFee +
                 ", deposit=" + deposit +
                 ", ldCommission=" + ldCommission +
+                ", ldeCommission=" + ldeCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +
                 ", transactionId='" + transactionId + '\'' +
@@ -238,6 +248,7 @@ public class AuthorizeTransactionInfo {
         authorizeTransactionInfo.setAmount(authorizeTransactionInfo.getPrice() + authorizeTransactionInfo.getTxFee());
         authorizeTransactionInfo.setDeposit(authRentUserInfo.getDeposit());
         authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
+        authorizeTransactionInfo.setLdeCommission(authRentUserInfo.getLdeCommission());
         authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
         authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
         authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
@@ -265,6 +276,7 @@ public class AuthorizeTransactionInfo {
         authorizeTransactionInfo.setAmount(authorizeTransactionInfo.getPrice() + authorizeTransactionInfo.getTxFee());
         authorizeTransactionInfo.setDeposit(0);
         authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
+        authorizeTransactionInfo.setLdeCommission(authRentUserInfo.getLdeCommission());
         authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
         authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
         authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_MONTHLY);

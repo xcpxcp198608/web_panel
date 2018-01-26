@@ -31,6 +31,7 @@ public class AuthRentUserInfo {
     private float firstPay;
     private float monthPay;
     private float ldCommission;
+    private float ldeCommission;
     private float dealerCommission;
     private float salesCommission;
     private String createTime;
@@ -217,6 +218,14 @@ public class AuthRentUserInfo {
         this.ldCommission = ldCommission;
     }
 
+    public float getLdeCommission() {
+        return ldeCommission;
+    }
+
+    public void setLdeCommission(float ldeCommission) {
+        this.ldeCommission = ldeCommission;
+    }
+
     public float getDealerCommission() {
         return dealerCommission;
     }
@@ -336,6 +345,7 @@ public class AuthRentUserInfo {
                 ", firstPay=" + firstPay +
                 ", monthPay=" + monthPay +
                 ", ldCommission=" + ldCommission +
+                ", ldeCommission=" + ldeCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +
                 ", createTime='" + createTime + '\'' +
