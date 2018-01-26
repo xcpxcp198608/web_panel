@@ -1,25 +1,5 @@
 $(function () {
 
-    var tbOrders = $('#tbOrders').get(0).tBodies[0];
-    var trTotal = $('#trTotal').get(0);
-    var rowsLength = tbOrders.rows.length;
-
-    var now = new Date();
-    var currentYear = now.getFullYear();
-    var currentMonth = now.getMonth() + 1;
-
-    setYearAndMonth();
-    showCurrentTotalInfoOfTableOrders();
-
-    function setYearAndMonth() {
-        $('#aYear').html(currentYear);
-        if(currentMonth < 10){
-            $('#aMonth').html("0" + currentMonth);
-        }else {
-            $('#aMonth').html(currentMonth);
-        }
-    }
-
     /**
      * init category chart
      */
@@ -79,29 +59,21 @@ $(function () {
         ]
     });
 
-    /**
-     * set button event
-     */
-    $('#btPreviousMonth').click(function () {
-        currentMonth --;
-        if(currentMonth < 1){
-            currentYear --;
-            currentMonth = 12;
-            getSalesAmountEveryMonthInYear(currentYear);
+
+    var now = new Date();
+    var currentYear = now.getFullYear();
+    var currentMonth = now.getMonth() + 1;
+
+    setYearAndMonth();
+
+    function setYearAndMonth() {
+        $('#aYear').html(currentYear);
+        if(currentMonth < 10){
+            $('#aMonth').html("0" + currentMonth);
+        }else {
+            $('#aMonth').html(currentMonth);
         }
-        setYearAndMonth();
-        getSalesAmountEveryDayInMonth(currentYear, currentMonth);
-    });
-    $('#btNextMonth').click(function () {
-        currentMonth ++;
-        if(currentMonth > 12){
-            currentYear ++;
-            currentMonth = 1;
-            getSalesAmountEveryMonthInYear(currentYear);
-        }
-        setYearAndMonth();
-        getSalesAmountEveryDayInMonth(currentYear, currentMonth);
-    });
+    }
 
 
     /**
@@ -112,15 +84,15 @@ $(function () {
     var yearIncomeData = [];
     var yearIncomeChartOption = {
         title: {
-            text: 'Year income',
+            text: 'income',
             textStyle:{
-                color: '#7c9f97'
+                color: '#454545'
             }
         },
         tooltip: {},
-        backgroundColor: '#2c343c',
+        backgroundColor: '#ffffff',
         textStyle: {
-            color: 'rgba(255, 255, 255, 0.8)'
+            color: 'rgba(0, 0, 0, 0.8)'
         },
         xAxis: {
             data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
@@ -134,15 +106,15 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#fc0a5b',
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.7)'
+                        shadowBlur: 50,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 },
                 lineStyle: {
                     normal: {
-                        color: '#14f5a1',
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.7)'
+                        color: '#f5d482',
+                        shadowBlur: 50,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 }
             }
@@ -201,6 +173,47 @@ $(function () {
             yearIncomeChart.setOption(yearIncomeChartOption);
         })
     }
+
+
+
+    showCurrentTotalInfoOfTableOrders();
+
+
+
+    var tbOrders = $('#tbOrders').get(0).tBodies[0];
+    var trTotal = $('#trTotal').get(0);
+    var rowsLength = tbOrders.rows.length;
+
+
+
+
+
+    /**
+     * set button event
+     */
+    $('#btPreviousMonth').click(function () {
+        currentMonth --;
+        if(currentMonth < 1){
+            currentYear --;
+            currentMonth = 12;
+            getSalesAmountEveryMonthInYear(currentYear);
+        }
+        setYearAndMonth();
+        getSalesAmountEveryDayInMonth(currentYear, currentMonth);
+    });
+    $('#btNextMonth').click(function () {
+        currentMonth ++;
+        if(currentMonth > 12){
+            currentYear ++;
+            currentMonth = 1;
+            getSalesAmountEveryMonthInYear(currentYear);
+        }
+        setYearAndMonth();
+        getSalesAmountEveryDayInMonth(currentYear, currentMonth);
+    });
+
+
+
 
 
     /**

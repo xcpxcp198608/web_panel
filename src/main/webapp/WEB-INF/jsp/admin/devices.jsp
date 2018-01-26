@@ -15,6 +15,7 @@
 <rapid:override name="content">
 
     <div class="row" style="padding: 10px 10px 0 10px;">
+        <div style="width: 100%; background-color: #0da826; height: 3px"></div>
         <div style="width: 100%; background-color: #ffffff;">
             <span class="text-center text-muted" style="padding: 10px">
                 <abbr>The detail information of devices:</abbr>

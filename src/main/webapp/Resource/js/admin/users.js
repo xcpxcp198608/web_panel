@@ -1,56 +1,12 @@
 $(function () {
 
     var tbUsers = $('#tbUsers').get(0).tBodies[0];
-    var tbUserDetails = $('#tbUserDetails').get(0).tBodies[0];
     var rowsLength = tbUsers.rows.length;
 
     showOnlineAndTotalCount();
-    /**
-     * set more click event to show user details for every rows
-     */
-    for(var i = 0; i < rowsLength; i ++){
-        tbUsers.rows[i].cells[11].onclick = function(){
-            var key = this.parentNode.cells[2].innerHTML;
-            getUserDetailInfoByKey(key)
-        }
-    }
 
-    /**
-     * show user details
-     * @param key
-     */
-    function getUserDetailInfoByKey(key) {
-        var url = baseUrl + "/admin/user/" + key;
-        loading.css('display', 'block');
-        $.get(url,{}, function (response, status) {
-            loading.css('display', 'none');
-            if(status === "success") {
-                tbUserDetails.rows[0].cells[1].innerHTML = response['clientKey'];
-                tbUserDetails.rows[1].cells[1].innerHTML = response['mac'];
-                tbUserDetails.rows[2].cells[1].innerHTML = response['category'];
-                tbUserDetails.rows[3].cells[1].innerHTML = response['firstName'];
-                tbUserDetails.rows[4].cells[1].innerHTML = response['lastName'];
-                tbUserDetails.rows[5].cells[1].innerHTML = response['email'];
-                tbUserDetails.rows[6].cells[1].innerHTML = response['phone'];
-                tbUserDetails.rows[7].cells[1].innerHTML = response['cardNumber'];
-                tbUserDetails.rows[8].cells[1].innerHTML = response['deposit'];
-                tbUserDetails.rows[9].cells[1].innerHTML = response['firstPay'];
-                tbUserDetails.rows[10].cells[1].innerHTML = response['monthPay'];
-                tbUserDetails.rows[11].cells[1].innerHTML = response['createTime'];
-                tbUserDetails.rows[12].cells[1].innerHTML = response['activateTime'];
-                tbUserDetails.rows[13].cells[1].innerHTML = response['expiresTime'];
-                tbUserDetails.rows[14].cells[1].innerHTML = response['status'];
-                tbUserDetails.rows[15].cells[1].innerHTML = response['country'];
-                tbUserDetails.rows[16].cells[1].innerHTML = response['region'];
-                tbUserDetails.rows[17].cells[1].innerHTML = response['city'];
-                tbUserDetails.rows[18].cells[1].innerHTML = response['timeZone'];
-                tbUserDetails.rows[19].cells[1].innerHTML = response['lastOnLineTime'];
-                dDetails.css('display', 'block')
-            }else{
-                showNotice('communication error')
-            }
-        })
-    }
+
+
 
     var currentRow = 0;
     var currentClientKey = '';
@@ -158,13 +114,16 @@ $(function () {
             success: function (response) {
                 hideLoading();
                 if(response.code === 200) {
-                    tbUsers.rows[currentRow].cells[9].children[0].innerHTML = status;
                     if('activate' === status){
-                        tbUsers.rows[currentRow].cells[9].children[0].style.color = '#00b300';
+                        tbUsers.rows[currentRow].cells[9].children[0].innerHTML =
+                            '<span class="text-success">' +status+ '</span>';
                     }else if('canceled' === status){
-                        tbUsers.rows[currentRow].cells[9].children[0].style.color = '#777';
+                        tbUsers.rows[currentRow].cells[9].children[0].innerHTML =
+                            '<span class="text-secondary">' +status+ '</span>';
                     }else{
-                        tbUsers.rows[currentRow].cells[9].children[0].style.color = '#f00';
+
+                        tbUsers.rows[currentRow].cells[9].children[0].innerHTML =
+                            '<span class="text-danger">' +status+ '</span>';
                     }
                     currentStatus = status;
                 }
@@ -233,8 +192,8 @@ $(function () {
                 }
             }
         }
-        $('#spTotalCount').html(''+count);
-        $('#spOnlineCount').html(''+onlineCount);
+        $('#totalUsers').html(''+count);
+        $('#onLineUsers').html(''+onlineCount);
     }
 
     /**
@@ -342,6 +301,56 @@ $(function () {
                 }
             }
         }
+    }
+
+
+
+    /**
+     * set more click event to show user details for every rows
+     */
+    for(var i = 0; i < rowsLength; i ++){
+        tbUsers.rows[i].cells[11].onclick = function(){
+            var key = this.parentNode.cells[2].innerHTML;
+            getUserDetailInfoByKey(key)
+        }
+    }
+
+    var tbUserDetails = $('#tbUserDetails').get(0).tBodies[0];
+    /**
+     * show user details
+     * @param key
+     */
+    function getUserDetailInfoByKey(key) {
+        var url = baseUrl + "/admin/user/" + key;
+        showLoading();
+        $.get(url,{}, function (response, status) {
+            hideLoading();
+            if(status === "success") {
+                tbUserDetails.rows[0].cells[1].innerHTML = response['clientKey'];
+                tbUserDetails.rows[1].cells[1].innerHTML = response['mac'];
+                tbUserDetails.rows[2].cells[1].innerHTML = response['category'];
+                tbUserDetails.rows[3].cells[1].innerHTML = response['firstName'];
+                tbUserDetails.rows[4].cells[1].innerHTML = response['lastName'];
+                tbUserDetails.rows[5].cells[1].innerHTML = response['email'];
+                tbUserDetails.rows[6].cells[1].innerHTML = response['phone'];
+                tbUserDetails.rows[7].cells[1].innerHTML = response['cardNumber'];
+                tbUserDetails.rows[8].cells[1].innerHTML = response['deposit'];
+                tbUserDetails.rows[9].cells[1].innerHTML = response['firstPay'];
+                tbUserDetails.rows[10].cells[1].innerHTML = response['monthPay'];
+                tbUserDetails.rows[11].cells[1].innerHTML = response['createTime'];
+                tbUserDetails.rows[12].cells[1].innerHTML = response['activateTime'];
+                tbUserDetails.rows[13].cells[1].innerHTML = response['expiresTime'];
+                tbUserDetails.rows[14].cells[1].innerHTML = response['status'];
+                tbUserDetails.rows[15].cells[1].innerHTML = response['country'];
+                tbUserDetails.rows[16].cells[1].innerHTML = response['region'];
+                tbUserDetails.rows[17].cells[1].innerHTML = response['city'];
+                tbUserDetails.rows[18].cells[1].innerHTML = response['timeZone'];
+                tbUserDetails.rows[19].cells[1].innerHTML = response['lastOnLineTime'];
+                $('#modalDetail').modal('show');
+            }else{
+                showNotice('communication error')
+            }
+        })
     }
 
 });

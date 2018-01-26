@@ -16,6 +16,7 @@
 
     <div class="row" style="padding-top: 10px">
         <div class="col-4" style="padding: 0 0 0 10px">
+            <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
             <div style="background-color: #ffffff; padding: 10px">
                 <div class="text-center" style="width: 100%">
                     <span class="badge badge-warning ba-strong">
@@ -28,6 +29,7 @@
             </div>
         </div>
         <div class="col-4" style="padding: 0 10px 0 10px">
+            <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
             <div style="background-color: #ffffff; padding: 10px">
                 <div class="text-center" style="width: 100%">
                     <span class="badge badge-warning ba-strong" id="maxVolumeSales">
@@ -43,6 +45,7 @@
             </div>
         </div>
         <div class="col-4" style="padding: 0 10px 0 0">
+            <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
             <div style="background-color: #ffffff; padding: 10px">
                 <div class="text-center" style="width: 100%">
                     <span class="badge badge-danger ba-strong" id="totalCommission">
@@ -98,15 +101,16 @@
 
 
     <div class="row" style="padding: 20px 10px 0 10px;">
+        <div style="width: 100%; background-color: #0da826; height: 3px"></div>
         <div style="width: 100%; background-color: #ffffff;">
             <span class="text-center text-muted" style="padding: 10px">
-                <abbr>The detail information of all dealers:</abbr>
+                <abbr>The detail information of all sales:</abbr>
             </span>
         </div>
 
         <div style="width: 100%; padding: 10px; background-color: white">
             <div class="row">
-                <div class="col-11">
+                <div class="col-12">
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">

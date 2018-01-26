@@ -6,7 +6,6 @@
     Commission
 </rapid:override>
 <rapid:override name="css_js">
-    <link rel="stylesheet" href="Resource/css/admin/commission.css"/>
     <script type="application/javascript" src="Resource/js/admin/commission.js"></script>
 </rapid:override>
 

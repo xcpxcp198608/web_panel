@@ -2,218 +2,196 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
 <rapid:override name="title">
-    Users
-</rapid:override>
-<rapid:override name="css_js">
-    <link rel="stylesheet" href="Resource/css/admin/users.css"/>
-    <script type="application/javascript" src="Resource/js/admin/users.js"></script>
+    Customers
 </rapid:override>
 
-<rapid:override name="navigation">
-    <ul>
-        <li>
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            <a href="/panel/admin/">Home</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-            <a href="/panel/admin/dealer">Dealer</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            <a href="/panel/admin/sales">Sales</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <a href="/panel/admin/users">Customers</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
-            <a href="/panel/admin/commission">Commission</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
-            <a href="/panel/admin/devices">Devices</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            <a href="/panel/signout">SignOut</a>
-        </li>
-    </ul>
+<rapid:override name="css_js">
+    <script type="text/javascript" src="Resource/js/admin/users.js"></script>
 </rapid:override>
 
 <rapid:override name="content">
 
-    <div style="height: 34px">
-        <div style="width: 40%; display: block; float: left;">
-            <button type="button" class="btn btn-default" id="btActivate" title="activate">
-                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Activate
-            </button>
+    <div class="row" style="padding: 10px 10px 0 10px;">
+        <div style="width: 100%; background-color: #0da826; height: 3px"></div>
+        <div style="width: 100%; background-color: #ffffff;">
+            <span class="text-center text-muted" style="padding: 10px">
+                <abbr>The detail information of customers:</abbr>
+            </span>
+            <span class="badge badge-success text-center" id="onLineUsers"
+                  data-toggle="tooltip" title="total online numbers!">
+                    0
+            </span>
 
-            <button type="button" class="btn btn-default" id="btLimited" title="limited">
-                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Limited
-            </button>
+            <span class="text-center" data-toggle="tooltip">
+                    -
+            </span>
 
-            <button type="button" class="btn btn-default" id="btCanceled" title="cancel">
-                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancel
-            </button>
-
-            <button type="button" class="btn btn-default" id="btCashActivate" title="activate cash customer">
-                <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Cash Activate
-            </button>
+            <span class="badge badge-dark text-center" id="totalUsers"
+                  data-toggle="tooltip" title="total customer numbers!">
+                    ${fn:length(authRentUserInfoList)}
+            </span>
         </div>
 
-        <div style="width: 5%; display: block; float: left;">
-            <select id="seUpdateCategory" aria-describedby="basic-addon19" class="form-control"
-                    style="text-align: center;">
-                <option value="">Plan</option>
-                <c:forEach items="${commissionCategoryInfoList}" var="commissionCategoryInfo">
-                    <option value="${commissionCategoryInfo.category}">${commissionCategoryInfo.category}</option>
-                </c:forEach>
-            </select>
-        </div>
-
-        <div style="width: 10%; display: block; float: left;">
-            <button type="button" class="btn btn-default" id="btUpdatePlan" title="update plan">
-                <span class="glyphicon glyphicon-open" aria-hidden="true"></span> UpdatePlan
-            </button>
-        </div>
-    </div>
-    <br/>
-    <div>
-        <div style="width: 90%; display: block; float: left">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">Search</span>
-                <input type="text" class="form-control" placeholder="type in keyword (key, sales, mac, first name, last name, activate date)"
-                       aria-describedby="basic-addon1" id="ipSearch">
+        <div style="width: 100%; padding: 10px; background-color: white">
+            <div class="row">
+                <div class="col-12">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-search fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="ipSearch">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <a id="btActivate" data-toggle="tooltip" title="activate the device">
+                        <span class="badge badge-success text-center" style="padding: 3px">
+                            <i class="fa fa-check fa-lg"></i>&nbsp;Activate
+                        </span>
+                    </a>
+                    <a id="btLimited" data-toggle="tooltip" title="limited the device">
+                        <span class="badge badge-warning text-center" style="padding: 3px">
+                            <i class="fa fa-lock fa-lg"></i>&nbsp;Limited
+                        </span>
+                    </a>
+                    <a id="btCanceled" data-toggle="tooltip" title="cancel the device">
+                        <span class="badge badge-danger text-center" style="padding: 3px">
+                            <i class="fa fa-close fa-lg"></i>&nbsp;Cancel
+                        </span>
+                    </a>
+                    <a id="btCashActivate" data-toggle="tooltip" title="activate the device when pay with cash">
+                        <span class="badge badge-primary text-center" style="padding: 3px">
+                            <i class="fa fa-money fa-lg"></i>&nbsp;Cash Activate
+                        </span>
+                    </a>
+                </div>
             </div>
         </div>
-        <div style="width: 10%; display: block; float: right; font-size: 18px; font-weight: 500;
-            text-align: right; align-content: center">
-            <span id="spOnlineCount" style="color: #008500; height: 34px; line-height: 34px"></span>
-            <span style="height: 34px; line-height: 34px">/</span>
-            <span id="spTotalCount" style="height: 34px; line-height: 34px"></span>
+
+        <div style="width: 100%; padding: 10px; background-color: white">
+            <table class="table table-sm table-hover table-striped" id="tbUsers">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Item</th>
+                        <th>ClientKey</th>
+                        <th>Sales</th>
+                        <th>Dealer</th>
+                        <th>Mac</th>
+                        <th>Name</th>
+                        <th>ActivateTime</th>
+                        <th>Plan</th>
+                        <th>Status</th>
+                        <th>Online</th>
+                        <th>More</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${authRentUserInfoList}" var="authRentUserInfo" varStatus="status">
+                    <tr>
+                        <td><input type="radio" name="rdUser" value="${authRentUserInfo.clientKey}"
+                                   currentRow="${status.index}" currentStatus="${authRentUserInfo.status}"></td>
+                        <td>${status.index+1}</td>
+                        <td>${authRentUserInfo.clientKey}</td>
+                        <td>${authRentUserInfo.salesName}</td>
+                        <td>${authRentUserInfo.dealerName}</td>
+                        <td>${authRentUserInfo.mac}</td>
+                        <td>${authRentUserInfo.firstName}&nbsp;${authRentUserInfo.lastName}</td>
+                        <td>${fn:substring(authRentUserInfo.activateTime, 0, 19)}</td>
+                        <td>${authRentUserInfo.category}</td>
+                        <td>
+                            <c:if test="${authRentUserInfo.status == 'activate'}">
+                                <span class="text-success">${authRentUserInfo.status}</span>
+                            </c:if>
+                            <c:if test="${authRentUserInfo.status == 'deactivate'}">
+                                <span class="text-danger">${authRentUserInfo.status}</span>
+                            </c:if>
+                            <c:if test="${authRentUserInfo.status == 'limited'}">
+                                <span class="text-danger">${authRentUserInfo.status}</span>
+                            </c:if>
+                            <c:if test="${authRentUserInfo.status == 'canceled'}">
+                                <span class="text-secondary">${authRentUserInfo.status}</span>
+                            </c:if>
+                        </td>
+                        <td>
+                            <c:if test="${authRentUserInfo.online == 'true'}">
+                                <span class="text-success">
+                                    <i class="fa fa-circle fa-lg" online="${authRentUserInfo.online}"></i>
+                                </span>
+                            </c:if>
+                            <c:if test="${authRentUserInfo.online == 'false'}">
+                                <span class="text-secondary">
+                                    <i class="fa fa-circle-o fa-lg" online="${authRentUserInfo.online}"></i>
+                                </span>
+                            </c:if>
+                        </td>
+                        <td>
+                            <a title="show user's details">
+                                 <span class="text-info">
+                                    <i class="fa fa-external-link-square fa-lg"></i>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </div>
     </div>
-    <br/>
-    <div>
-        <table class="table table-bordered table-hover table-striped table-condensed"
-               id="tbUsers">
-            <thead style="background-color: #566778;">
-                <tr>
-                    <th></th>
-                    <th>#</th>
-                    <th>ClientKey</th>
-                    <th>Sales</th>
-                    <th>Dealer</th>
-                    <th>Mac</th>
-                    <th>Name</th>
-                    <th>ActivateTime</th>
-                    <th>
-                        <select id="seCategory" style="width: 100%; height: 100%;
-                            background-color: rgba(0,0,0,0); border: none; text-align: center">
-                            <option value="">Plan</option>
-                            <option value="B1">B1</option>
-                            <option value="P1">P1</option>
-                            <option value="P2">P2</option>
-                        </select>
-                    </th>
-                    <th>
-                        <select id="seStatus" style="width: 100%; height: 100%;
-                            background-color: rgba(0,0,0,0); border: none; text-align: center">
-                            <option value="">Status</option>
-                            <option value="activate">activate</option>
-                            <option value="deactivate">deactivate</option>
-                            <option value="limited">limited</option>
-                            <option value="canceled">canceled</option>
-                        </select>
-                    </th>
-                    <th>Online</th>
-                    <th>More</th>
-                </tr>
-            </thead>
-            <tbody style="font-size: 14px">
-                <c:forEach items="${authRentUserInfoList}" var="authRentUserInfo" varStatus="status">
-                <tr>
-                    <td><input type="radio" name="rdUser" value="${authRentUserInfo.clientKey}"
-                               currentRow="${status.index}" currentStatus="${authRentUserInfo.status}"></td>
-                    <td>${status.index+1}</td>
-                    <td>${authRentUserInfo.clientKey}</td>
-                    <td>${authRentUserInfo.salesName}</td>
-                    <td>${authRentUserInfo.dealerName}</td>
-                    <td>${authRentUserInfo.mac}</td>
-                    <td>${authRentUserInfo.firstName}&nbsp;${authRentUserInfo.lastName}</td>
-                    <td>${fn:substring(authRentUserInfo.activateTime, 0, 19)}</td>
-                    <td>${authRentUserInfo.category}</td>
-                    <td>
-                        <c:if test="${authRentUserInfo.status == 'activate'}">
-                            <a style="color: #00b300;">${authRentUserInfo.status}</a>
-                        </c:if>
-                        <c:if test="${authRentUserInfo.status == 'deactivate'}">
-                            <a style="color: #f00;" href="/panel/admin/activate/${authRentUserInfo.clientKey}">
-                                    ${authRentUserInfo.status}
-                            </a>
-                        </c:if>
-                        <c:if test="${authRentUserInfo.status == 'limited'}">
-                            <a style="color: #f00;">${authRentUserInfo.status}</a>
-                        </c:if>
-                        <c:if test="${authRentUserInfo.status == 'canceled'}">
-                            <a style="color: #777;">${authRentUserInfo.status}</a>
-                        </c:if>
-                    </td>
-                    <td>
-                        <c:if test="${authRentUserInfo.online == 'true'}">
-                            <span class="glyphicon glyphicon-link" aria-hidden="true" style="color: #00b300"
-                                  online="${authRentUserInfo.online}"></span>
-                        </c:if>
-                        <c:if test="${authRentUserInfo.online == 'false'}">
-                            <span class="glyphicon glyphicon-link" aria-hidden="true" style="color: #9f9f9f"
-                                  online="${authRentUserInfo.online}"></span>
-                        </c:if>
-                    </td>
-                    <td>
-                        <a style="cursor: pointer" title="show user's details">
-                            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-                        </a>
-                    </td>
-                </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+
+</rapid:override>
+
+<rapid:override name="modal">
+    <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLongTitle">Customer detail</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-sm table-hover" id="tbUserDetails">
+                        <tbody>
+                        <tr><td>ClientKey</td><td></td></tr>
+                        <tr><td>Mac</td><td></td></tr>
+                        <tr><td>Plan</td><td></td></tr>
+                        <tr><td>FirstName</td><td></td></tr>
+                        <tr><td>LastName</td><td></td></tr>
+                        <tr><td>Email</td><td></td></tr>
+                        <tr><td>Phone</td><td></td></tr>
+                        <tr><td>CardNumber</td><td></td></tr>
+                        <tr><td>Deposit</td><td></td></tr>
+                        <tr><td>FirstPay</td><td></td></tr>
+                        <tr><td>MonthPay</td><td></td></tr>
+                        <tr><td>CreateTime</td><td></td></tr>
+                        <tr><td>ActivateTime</td><td></td></tr>
+                        <tr><td>ExpiresTime</td><td></td></tr>
+                        <tr><td>Status</td><td></td></tr>
+                        <tr><td>Country</td><td></td></tr>
+                        <tr><td>Region</td><td></td></tr>
+                        <tr><td>City</td><td></td></tr>
+                        <tr><td>TimeZone</td><td></td></tr>
+                        <tr><td>LastOnLineTime</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <span id="errorDetail" class="badge badge-danger"></span>
+                </div>
+            </div>
+        </div>
     </div>
 
 </rapid:override>
 
-<rapid:override name="details">
-    <table class="table table-condensed" id="tbUserDetails" style="color: #0ab980">
-        <thead>
-            <tr>
-                <td>#</td><td>value</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td>ClientKey</td><td></td></tr>
-            <tr><td>Mac</td><td></td></tr>
-            <tr><td>Plan</td><td></td></tr>
-            <tr><td>FirstName</td><td></td></tr>
-            <tr><td>LastName</td><td></td></tr>
-            <tr><td>Email</td><td></td></tr>
-            <tr><td>Phone</td><td></td></tr>
-            <tr><td>CardNumber</td><td></td></tr>
-            <tr><td>Deposit</td><td></td></tr>
-            <tr><td>FirstPay</td><td></td></tr>
-            <tr><td>MonthPay</td><td></td></tr>
-            <tr><td>CreateTime</td><td></td></tr>
-            <tr><td>ActivateTime</td><td></td></tr>
-            <tr><td>ExpiresTime</td><td></td></tr>
-            <tr><td>Status</td><td></td></tr>
-            <tr><td>Country</td><td></td></tr>
-            <tr><td>Region</td><td></td></tr>
-            <tr><td>City</td><td></td></tr>
-            <tr><td>TimeZone</td><td></td></tr>
-            <tr><td>LastOnLineTime</td><td></td></tr>
-        </tbody>
-    </table>
-</rapid:override>
-<%@ include file="../base.jsp"%>
+<%@ include file="base_admin.jsp"%>
+

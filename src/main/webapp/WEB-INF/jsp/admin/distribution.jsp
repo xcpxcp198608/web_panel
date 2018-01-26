@@ -14,6 +14,7 @@
 
 <rapid:override name="content">
         <div style="padding-top: 10px; width: 100%">
+            <div style="width: 100%; background-color: #0da826; height: 3px"></div>
             <div style="background-color: #ffffff; width: 100%">
                 <div id="chart_distribution" style="width: 100%; height: 680px;"></div>
             </div>

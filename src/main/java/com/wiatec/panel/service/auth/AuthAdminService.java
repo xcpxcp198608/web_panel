@@ -227,7 +227,7 @@ public class AuthAdminService {
         model.addAttribute("commissionCategoryInfoList", commissionCategoryInfoList);
         List<AuthorizeTransactionInfo> authorizeTransactionInfoList = authorizeTransactionDao.selectAll();
         model.addAttribute("authorizeTransactionInfoList", authorizeTransactionInfoList);
-        return "admin/commission";
+        return "admin/commission1";
     }
 
     public String devices(Model model){
