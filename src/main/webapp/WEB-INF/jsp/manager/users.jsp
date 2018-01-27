@@ -7,7 +7,7 @@
 </rapid:override>
 <rapid:override name="css_js">
     <link rel="stylesheet" href="Resource/css/users/users.css" />
-    <script type="application/javascript" src="Resource/js/users/users.js"></script>
+    <script type="application/javascript" src="Resource/js/manager/users.js"></script>
     <script type="application/javascript" src="Resource/js/jquery.jqprint-0.3.js"></script>
     <script type="application/javascript" src="Resource/js/jquery-migrate-1.1.0.js"></script>
 </rapid:override>

@@ -85,6 +85,15 @@
         WHERE auth_rent_user.id > 0
     </select>
 
+    <select id="countTotalVolumeByDealerId" resultType="java.lang.Integer">
+        SELECT COUNT(*) count FROM auth_rent_user
+        WHERE dealerId = #{dealerId}
+    </select>
+
+
+
+
+
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         INSERT INTO auth_rent_user (salesId, dealerId, clientKey, category, mac, firstName, lastName, email,
                     phone, paymentType, cardNumber, expirationDate, securityKey, deposit, first_pay, month_pay,
@@ -147,15 +156,16 @@
         GROUP BY  category, day;
     </select>
 
-    <select id="countSalesUnderDealerVolumeByDayOfMonth"  resultMap="salesVolumeInDayOfMonthInfo"
+    <select id="countDealerVolumeByDayOfMonth"  resultMap="salesVolumeInDayOfMonthInfo"
             parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo">
         SELECT category, COUNT(category) AS count, DAYOFMONTH(activateTime) day
         FROM auth_rent_user
         WHERE activateTime BETWEEN #{start} AND #{end}
-        AND status!='canceled'
+        AND status != 'canceled'
             AND auth_rent_user.dealerId=#{dealerId}
-        GROUP BY  category, day;
+        GROUP BY category, day;
     </select>
+
 
     <resultMap id="topVolumeInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.TopVolumeInfo">
         <id column="salesId" property="salesId"/>

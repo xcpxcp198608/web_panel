@@ -9,7 +9,7 @@
 </rapid:override>
 
 <rapid:override name="css_js">
-    <script type="text/javascript" src="Resource/js/admin/users.js"></script>
+    <script type="text/javascript" src="Resource/js/admin/customers.js"></script>
 </rapid:override>
 
 <rapid:override name="content">

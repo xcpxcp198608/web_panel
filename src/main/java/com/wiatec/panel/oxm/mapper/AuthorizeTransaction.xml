@@ -64,6 +64,11 @@
         AND authorize_transaction.sales_id=#{_parameter}
     </select>
 
+    <select id="countTotalCommissionByDealerId" resultType="java.lang.Float">
+        SELECT SUM(dealer_commission) c FROM authorize_transaction
+        WHERE dealer_id = #{dealerId}
+    </select>
+
 
     <!-- chart of top {top} amount-->
     <resultMap id="topAmountInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.TopAmountInfo">
@@ -168,12 +173,12 @@
     </select>
 
     <!-- chart commission of every day in month-->
-    <resultMap id="salesDaysCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo">
-        <result column="commission" property="commission"/>
-        <result column="day" property="day"/>
-    </resultMap>
+    <!--<resultMap id="salesDaysCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo">-->
+        <!--<result column="commission" property="comission"/>-->
+        <!--<result column="day" property="day"/>-->
+    <!--</resultMap>-->
     <select id="getCommissionOfDayBySales" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
-            resultMap="salesDaysCommissionInfo">
+            resultType="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo">
         SELECT sum(sales_commission) commission, DAYOFMONTH(create_time) day
         FROM authorize_transaction
         WHERE create_time between #{start} and #{end}
@@ -183,16 +188,36 @@
     </select>
 
     <!-- chart commission of every month in year-->
-    <resultMap id="salesMonthCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo">
-        <result column="commission" property="commission"/>
-        <result column="month" property="month"/>
-    </resultMap>
+    <!--<resultMap id="salesMonthCommissionInfo" type="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo">-->
+        <!--<result column="commission" property="commission"/>-->
+        <!--<result column="month" property="month"/>-->
+    <!--</resultMap>-->
     <select id="getCommissionOfMonthBySales" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
-            resultMap="salesMonthCommissionInfo">
+            resultType="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo">
         SELECT sum(sales_commission) commission, MONTH(create_time) month
         FROM authorize_transaction
         WHERE create_time between #{start} and #{end}
         AND sales_id=#{salesId}
+        GROUP BY month
+        ORDER BY month
+    </select>
+
+    <select id="getCommissionOfDayByDealer" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultType="com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionDayOfDaysInfo">
+        SELECT sum(dealer_commission) commission, DAYOFMONTH(create_time) day
+        FROM authorize_transaction
+        WHERE create_time between #{start} and #{end}
+        AND dealer_id=#{dealerId}
+        GROUP BY day
+        ORDER BY day
+    </select>
+
+    <select id="getCommissionOfMonthByDealer" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultType="com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionDayOfMonthInfo">
+        SELECT sum(dealer_commission) commission, MONTH(create_time) month
+        FROM authorize_transaction
+        WHERE create_time between #{start} and #{end}
+        AND dealer_id=#{dealerId}
         GROUP BY month
         ORDER BY month
     </select>

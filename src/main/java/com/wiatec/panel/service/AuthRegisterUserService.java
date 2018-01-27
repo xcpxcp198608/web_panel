@@ -181,7 +181,7 @@ public class AuthRegisterUserService {
         authRegisterUserInfo.setToken(newToken);
         authRegisterUserDao.updateToken(authRegisterUserInfo);
         model.addAttribute("authRegisterUserInfo", authRegisterUserInfo);
-        return "users/reset";
+        return "manager/reset";
     }
 
     @Transactional(rollbackFor = Exception.class)

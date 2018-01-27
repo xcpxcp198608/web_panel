@@ -1,9 +1,12 @@
 package com.wiatec.panel.oxm.pojo.chart.sales;
 
+/**
+ * @author patrick
+ */
 public class SalesCommissionOfDaysInfo {
 
     private int day;
-    private float Commission;
+    private float commission;
 
     public int getDay() {
         return day;
@@ -14,18 +17,18 @@ public class SalesCommissionOfDaysInfo {
     }
 
     public float getCommission() {
-        return Commission;
+        return commission;
     }
 
     public void setCommission(float commission) {
-        Commission = commission;
+        commission = commission;
     }
 
     @Override
     public String toString() {
         return "SalesCommissionOfDaysInfo{" +
                 "day=" + day +
-                ", Commission=" + Commission +
+                ", commission=" + commission +
                 '}';
     }
 }

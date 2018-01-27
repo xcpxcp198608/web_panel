@@ -2,11 +2,11 @@ package com.wiatec.panel.web;
 
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.XException;
-import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
-import com.wiatec.panel.service.auth.AuthAdminService;
+import com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionDayOfDaysInfo;
+import com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionDayOfMonthInfo;
 import com.wiatec.panel.service.auth.AuthDealerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * @author patrick
+ */
 @Controller
 @RequestMapping(value = "/dealer")
 public class AuthDealer {
@@ -30,8 +33,8 @@ public class AuthDealer {
      * @return        home page
      */
     @GetMapping(value = "/")
-    public String home(){
-        return authDealerService.home();
+    public String home(HttpServletRequest request, Model model){
+        return authDealerService.home(request, model);
     }
 
     @GetMapping(value = "/sales")
@@ -54,6 +57,17 @@ public class AuthDealer {
         return authDealerService.createSales(request, authSalesInfo);
     }
 
+    /**
+     * update sales password
+     * @param authSalesInfo   {@link AuthSalesInfo}
+     * @return                {@link ResultInfo}
+     */
+    @PutMapping(value = "/sale/update")
+    @ResponseBody
+    public ResultInfo updateSales(@RequestBody AuthSalesInfo authSalesInfo){
+        return authDealerService.updateSalesPassword(authSalesInfo);
+    }
+
     @GetMapping(value = "/users")
     public String getUsers(HttpServletRequest request, Model model){
         return authDealerService.users(request, model, 1, 0);
@@ -71,7 +85,6 @@ public class AuthDealer {
         return authDealerService.users(request, model, key , value);
     }
 
-
     /**
      * get user details
      * @param key    client key
@@ -84,6 +97,19 @@ public class AuthDealer {
     }
 
     /**
+     * update rental user status [active, limited, canceled]
+     * @param status   target status
+     * @param key      client key
+     * @return         {@link AuthRentUserInfo}
+     */
+    @PutMapping(value = "/user/{status}/{key}")
+    @ResponseBody
+    public ResultInfo updateUserStatus(@PathVariable String status, @PathVariable String key){
+        return authDealerService.updateUserStatus(status, key);
+    }
+
+
+    /**
      * get every day sales volume in specify year and month
      * @param year    specify year
      * @param month   specify month
@@ -91,9 +117,35 @@ public class AuthDealer {
      */
     @GetMapping(value = "/chart/volume/{year}/{month}")
     @ResponseBody
-    public List<SalesVolumeInDayOfMonthInfo> getSaleVolumeEveryDayInMonth(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
-        return authDealerService.countSaleVolumeEveryDayInMonth(request, year, month);
+    public List<SalesVolumeInDayOfMonthInfo> getDealerVolumeEveryDayInMonth(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
+        return authDealerService.countDealerVolumeEveryDayInMonth(request, year, month);
     }
+
+
+    /**
+     * get every day dealer commission in specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        DealerCommissionDayOfDaysInfo list
+     */
+    @GetMapping(value = "/chart/commission/{year}/{month}")
+    @ResponseBody
+    public List<DealerCommissionDayOfDaysInfo> getDealerCommissionEveryDayInMonth(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
+        return authDealerService.selectDealerCommissionEveryDayInMonth(request, year, month);
+    }
+
+    /**
+     * get every month dealer commission in specify year and month
+     * @param year    specify year
+     * @return        DealerCommissionDayOfMonthInfo list
+     */
+    @GetMapping(value = "/chart/commission/{year}")
+    @ResponseBody
+    public List<DealerCommissionDayOfMonthInfo> getDealerCommissionEveryMonthInYear(HttpServletRequest request, @PathVariable int year){
+        return authDealerService.selectDealerCommissionEveryMonthInYear(request, year);
+    }
+
+
 
     /**
      * the top {?} volume

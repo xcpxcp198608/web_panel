@@ -3,6 +3,8 @@ $(function () {
     var now = new Date();
     var currentYear = now.getFullYear();
     var currentMonth = now.getMonth() + 1;
+    var currentDays = getDaysOfCurrentMonth();
+
     setYearAndMont();
     function setYearAndMont() {
         $('#aYear').html(currentYear);
@@ -24,7 +26,8 @@ $(function () {
             currentMonth = 12;
         }
         setYearAndMont();
-        getSaleVolumeEveryDayInMonth(currentYear, currentMonth);
+        getDealerVolumeEveryDayInMonth(currentYear, currentMonth);
+        getDealerCommissionEveryDayInMonth(currentYear, currentMonth);
     });
 
     $('#btNextMonth').click(function () {
@@ -34,57 +37,194 @@ $(function () {
             currentMonth = 1;
         }
         setYearAndMont();
-        getSaleVolumeEveryDayInMonth(currentYear, currentMonth);
+        getDealerVolumeEveryDayInMonth(currentYear, currentMonth);
+        getDealerCommissionEveryDayInMonth(currentYear, currentMonth);
     });
 
+
     /**
-     * init month table data
+     * init commission table data
      */
-    var tbMonth = $('#tb_month').get(0).tBodies[0];
-    var thMonth = $('#trHead').get(0);
-    var rowsLength = tbMonth.rows.length;
-    var currentDays = getDaysOfCurrentMonth();
-    initMonthData(currentDays);
-    function initMonthData(days) {
+    var tbCommission = $('#tbCommission').get(0).tBodies[0];
+    var thCommission = $('#thCommission').get(0);
+    var rowsLengthC = tbCommission.rows.length;
+    initCommissionMonthData(currentDays);
+    function initCommissionMonthData(days) {
         for (var j = 0; j < days; j++) {
             var tdObj = document.createElement("td");
-            tdObj.innerHTML = j+1;
-            thMonth.append(tdObj);
-            for(var k = 0; k < rowsLength; k ++){
+            tdObj.innerHTML = (j + 1).toString();
+            thCommission.append(tdObj);
+            for(var k = 0; k < rowsLengthC; k ++){
                 var tdObj1 = document.createElement("td");
                 tdObj1.innerHTML = "0";
-                tbMonth.rows[k].append(tdObj1);
+                tbCommission.rows[k].append(tdObj1);
             }
         }
     }
 
     /**
-     * clean td of month table 
+     * clean commission table
+     */
+    function cleanMonthCommissionTable() {
+        var length = tbCommission.rows[0].cells.length -2;
+        for(var i = 0; i < length ; i ++){
+            thCommission.removeChild(thCommission.lastChild);
+            for(var k = 0; k < rowsLengthC; k ++){
+                tbCommission.rows[k].removeChild(tbCommission.rows[k].lastChild);
+            }
+        }
+    }
+
+    /**
+     * get dealer month commission
+     */
+    getDealerCommissionEveryDayInMonth(currentYear, currentMonth);
+    function getDealerCommissionEveryDayInMonth(year, month) {
+        var days = getDaysOfYearAndMonth(year, month);
+        var url = baseUrl + "/dealer/chart/commission/" + year + "/" + month;
+        $('#btPreviousMonth').attr('disabled', 'disabled');
+        $('#btNextMonth').attr('disabled', 'disabled');
+        $('#homeLoading').css('display', 'block');
+        $.get(url,{ },function(list, status){
+            console.log(list);
+            var length = list.length;
+            var totalCommission = 0;
+            cleanMonthCommissionTable();
+            for(var i = 0; i < days; i ++){
+                var tdObj = document.createElement("td");
+                tdObj.innerHTML = (i+1).toString();
+                thCommission.append(tdObj);
+                var commission = 0;
+                for(var j = 0; j < length; j ++){
+                    var item = list[j];
+                    if(item['day'] === i + 1){
+                        commission = item['commission'];
+                    }
+                }
+                var tdObj1 = document.createElement("td");
+                tdObj1.innerHTML = commission.toString();
+                tbCommission.rows[0].append(tdObj1);
+                totalCommission += commission;
+            }
+            tbCommission.rows[0].cells[1].innerHTML = totalCommission.toString();
+            $('#currentMonthCommission').html(totalCommission);
+            refreshCommissionData();
+            chartCommission.setOption(chartCommissionOption);
+            $('#btPreviousMonth').removeAttr('disabled');
+            $('#btNextMonth').removeAttr('disabled');
+        })
+    }
+
+    /**
+     * dealer month commission chart
+     */
+    var chartCommission = echarts.init(document.getElementById('chartCommission'));
+    var xCommissionData = [];
+    var commissionData = [];
+    function refreshCommissionData() {
+        xCommissionData.length = 0;
+        commissionData.length = 0;
+        var items = tbCommission.rows[0].cells.length - 2;
+        for(var i = 0; i < items; i ++){
+            xCommissionData.push(i + 1);
+            var vd = tbCommission.rows[0].cells[i+2].innerHTML;
+            commissionData.push(vd);
+        }
+    }
+
+    var chartCommissionOption = {
+        title: {
+            text: '',
+            textStyle:{
+                color: 'rgba(255, 255, 255, 0.0)'
+            }
+        },
+        tooltip: {},
+        legend: {
+            data:['commission'],
+            textStyle:{
+                color: 'rgba(0, 0, 0, 0.8)'
+            }
+        },
+        backgroundColor: '#ffffff',
+        textStyle: {
+            color: 'rgba(0, 0, 0, 0.8)'
+        },
+        xAxis: {
+            data: xCommissionData
+        },
+        yAxis: {},
+        series: [
+            {
+                name: 'commission',
+                type: 'bar',
+                data: commissionData,
+                itemStyle: {
+                    normal: {
+                        color: '#f54be2',
+                        shadowBlur: 50,
+                        shadowColor: 'rgba(0, 0, 0, 0.7)'
+                    }
+                }
+            }
+        ]
+    };
+    refreshCommissionData();
+    chartCommission.setOption(chartCommissionOption);
+
+
+
+
+
+
+
+    /**
+     * init volume table data
+     */
+    var tbVolume = $('#tbVolume').get(0).tBodies[0];
+    var thVolume = $('#thVolume').get(0);
+    var rowsLength = tbVolume.rows.length;
+    initMonthData(currentDays);
+    function initMonthData(days) {
+        for (var j = 0; j < days; j++) {
+            var tdObj = document.createElement("td");
+            tdObj.innerHTML = (j+1).toString();
+            thVolume.append(tdObj);
+            for(var k = 0; k < rowsLength; k ++){
+                var tdObj1 = document.createElement("td");
+                tdObj1.innerHTML = "0";
+                tbVolume.rows[k].append(tdObj1);
+            }
+        }
+    }
+
+    /**
+     * clean volume table
      */
     function cleanMonthTable() {
-        var length = tbMonth.rows[0].cells.length -2;
+        var length = tbVolume.rows[0].cells.length -2;
         for(var i = 0; i < length ; i ++){
-            thMonth.removeChild(thMonth.lastChild);
+            thVolume.removeChild(thVolume.lastChild);
             for(var k = 0; k < rowsLength; k ++){
-                tbMonth.rows[k].removeChild(tbMonth.rows[k].lastChild);
+                tbVolume.rows[k].removeChild(tbVolume.rows[k].lastChild);
             }
         }
     }
     
 
     /**
-     * get month sales volume
+     * get dealer month volume
      */
-    getSaleVolumeEveryDayInMonth(currentYear, currentMonth);
-    function getSaleVolumeEveryDayInMonth(year, month) {
+    getDealerVolumeEveryDayInMonth(currentYear, currentMonth);
+    function getDealerVolumeEveryDayInMonth(year, month) {
         var days = getDaysOfYearAndMonth(year, month);
         var url = baseUrl + "/dealer/chart/volume/" + year + "/" + month;
         $('#btPreviousMonth').attr('disabled', 'disabled');
         $('#btNextMonth').attr('disabled', 'disabled');
         $('#homeLoading').css('display', 'block');
-        $.get(url,{ },function(dayVolumeList, status){
-            var length = dayVolumeList.length;
-            var rowsLength = tbMonth.rows.length;
+        $.get(url,{ },function(list, status){
+            var length = list.length;
+            var rowsLength = tbVolume.rows.length;
             var totalVolume = 0;
             var totalB1 = 0;
             var totalP1 = 0;
@@ -92,13 +232,13 @@ $(function () {
             cleanMonthTable();
             for(var i = 0; i < days; i ++){
                 var tdObj = document.createElement("td");
-                tdObj.innerHTML = i+1;
-                thMonth.append(tdObj);
+                tdObj.innerHTML = (i+1).toString();
+                thVolume.append(tdObj);
                 var b1 = 0;
                 var p1 = 0;
                 var p2 = 0;
                 for(var j = 0; j < length; j ++){
-                    var item = dayVolumeList[j];
+                    var item = list[j];
                     if(item['day'] === i+1){
                         if(item['category'] === 'B1'){
                             b1 = item['count']
@@ -130,29 +270,29 @@ $(function () {
                     }
                     tdObj2.innerHTML = n;
                     tdObj2.setAttribute('class', 'tdRows12');
-                    tbMonth.rows[k].append(tdObj2);
+                    tbVolume.rows[k].append(tdObj2);
                 }
                 totalB1 += b1;
                 totalP1 += p1;
                 totalP2 += p2;
                 totalVolume += b1+p1+p2;
             }
-            tbMonth.rows[0].cells[1].innerHTML = totalVolume;
-            tbMonth.rows[1].cells[1].innerHTML = totalB1;
-            tbMonth.rows[2].cells[1].innerHTML = totalP1;
-            tbMonth.rows[3].cells[1].innerHTML = totalP2;
+            tbVolume.rows[0].cells[1].innerHTML = totalVolume.toString();
+            tbVolume.rows[1].cells[1].innerHTML = totalB1.toString();
+            tbVolume.rows[2].cells[1].innerHTML = totalP1.toString();
+            tbVolume.rows[3].cells[1].innerHTML = totalP2.toString();
+            $('#currentMonthVolume').html(totalVolume);
             refreshData();
-            monthChart.setOption(monthOption);
-            $('#homeLoading').css('display', 'none');
+            chartVolume.setOption(chartVolumeOption);
             $('#btPreviousMonth').removeAttr('disabled');
             $('#btNextMonth').removeAttr('disabled');
         })
     }
 
     /**
-     * month chart
+     * dealer month volume chart
      */
-    var monthChart = echarts.init(document.getElementById('chart_month'));
+    var chartVolume = echarts.init(document.getElementById('chartVolume'));
     var xData = [];
     var volumeData = [];
     var b1Data = [];
@@ -164,23 +304,23 @@ $(function () {
         b1Data.length = 0;
         p1Data.length = 0;
         p2Data.length = 0;
-        var items = tbMonth.rows[0].cells.length - 2;
+        var items = tbVolume.rows[0].cells.length - 2;
         for(var i = 0; i < items; i ++){
             xData.push(i + 1);
-            var vd = tbMonth.rows[0].cells[i+2].innerHTML;
+            var vd = tbVolume.rows[0].cells[i+2].innerHTML;
             volumeData.push(vd);
-            var b1 = tbMonth.rows[1].cells[i+2].innerHTML;
+            var b1 = tbVolume.rows[1].cells[i+2].innerHTML;
             b1Data.push(b1);
-            var p1 = tbMonth.rows[2].cells[i+2].innerHTML;
+            var p1 = tbVolume.rows[2].cells[i+2].innerHTML;
             p1Data.push(p1);
-            var p2 = tbMonth.rows[3].cells[i+2].innerHTML;
+            var p2 = tbVolume.rows[3].cells[i+2].innerHTML;
             p2Data.push(p2);
         }
     }
 
-    var monthOption = {
+    var chartVolumeOption = {
         title: {
-            text: 'sales',
+            text: '',
             textStyle:{
                 color: 'rgba(255, 255, 255, 0.0)'
             }
@@ -189,12 +329,12 @@ $(function () {
         legend: {
             data:['volume', 'B1', 'P1', 'P2'],
             textStyle:{
-                color: 'rgba(255, 255, 255, 0.8)'
+                color: 'rgba(0, 0, 0, 0.8)'
             }
         },
-        backgroundColor: '#2c343c',
+        backgroundColor: '#ffffff',
         textStyle: {
-            color: 'rgba(255, 255, 255, 0.8)'
+            color: 'rgba(0, 0, 0, 0.8)'
         },
         xAxis: {
             data: xData
@@ -208,7 +348,7 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#F5C334',
-                        shadowBlur: 200,
+                        shadowBlur: 50,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 }
@@ -220,14 +360,14 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#f56107',
-                        shadowBlur: 200,
+                        shadowBlur: 50,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 },
                 lineStyle: {
                     normal: {
                         color: '#fc0a5b',
-                        shadowBlur: 200,
+                        shadowBlur: 50,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 }
@@ -239,14 +379,14 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#12f589',
-                        shadowBlur: 200,
+                        shadowBlur: 50,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 },
                 lineStyle: {
                     normal: {
                         color: '#9efcaa',
-                        shadowBlur: 200,
+                        shadowBlur: 50,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 }
@@ -258,14 +398,14 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#320ef5',
-                        shadowBlur: 200,
+                        shadowBlur: 50,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 },
                 lineStyle: {
                     normal: {
                         color: '#1baefc',
-                        shadowBlur: 200,
+                        shadowBlur: 50,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 }
@@ -273,6 +413,6 @@ $(function () {
         ]
     };
     refreshData();
-    monthChart.setOption(monthOption);
+    chartVolume.setOption(chartVolumeOption);
 
 });

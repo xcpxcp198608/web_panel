@@ -110,12 +110,10 @@ public class AuthSalesService {
             }else{
                 authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
             }
-            deviceRentDao.updateRented(authRentUserInfo.getMac());
             if (paymentMethod == PAYMENT_METHOD_CASH) {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CASH);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
                 authRentUserDao.insertOne(authRentUserInfo);
-                return ResultMaster.success(authRentUserInfo.getClientKey());
             } else if (paymentMethod == PAYMENT_METHOD_CREDIT_CARD) {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
@@ -143,6 +141,8 @@ public class AuthSalesService {
             }else{
                 throw new XException(ResultMaster.error(5001, "payment method error"));
             }
+            deviceRentDao.updateRented(authRentUserInfo.getMac());
+            return ResultMaster.success(authRentUserInfo.getClientKey());
         }catch (XException e){
             logger.error("Exception:", e);
             throw new XException(ResultMaster.error(5000, e.getMessage()));
@@ -150,7 +150,6 @@ public class AuthSalesService {
             logger.error("Exception:", e);
             throw new XException(ResultMaster.error(5000, "server inner error"));
         }
-        return ResultMaster.error(5000, "server error");
     }
 
     ////////////////////////////////////////////////////////// chart ///////////////////////////////////////////////////

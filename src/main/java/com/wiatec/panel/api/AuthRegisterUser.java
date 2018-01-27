@@ -45,7 +45,7 @@ public class AuthRegisterUser {
     public String activate(@PathVariable String token, Model model){
         ResultInfo resultInfo = authRegisterUserService.activate(token);
         model.addAttribute("resultInfo", resultInfo);
-        return "users/result";
+        return "manager/result";
     }
 
     /**

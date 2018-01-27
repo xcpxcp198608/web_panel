@@ -29,9 +29,8 @@
             src="https://code.jquery.com/jquery-3.2.1.js"
             integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
             crossorigin="anonymous"></script>
-    <script type="application/javascript" language="JavaScript" src="Resource/js/echarts.min.js"></script>
     <script type="application/javascript" language="JavaScript" src="Resource/js/base.js"></script>
-    <link rel="stylesheet" type="text/css" href="Resource/css/base_manager.css">
+    <link rel="stylesheet" type="text/css" href="Resource/css/manager/base1.css">
     <link rel="shortcut icon" href="Resource/img/btv.ico">
     <rapid:block name="css_js" />
 
@@ -44,30 +43,8 @@
         <a id="username" style="font-size: 16px">${username}</a>
     </div>
 
-    <div id="navigation">
-        <ul>
-            <li>
-                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                <a href="/panel/manager/">Home</a>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                <a href="/panel/manager/users">Customers</a>
-            </li>
-            <li>
-                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                <a href="/panel/signout">SignOut</a>
-            </li>
-        </ul>
-    </div>
-
     <div id="content">
-        <div id="content_header">
-            <rapid:block name="content_header" />
-        </div>
-        <div id="content_body">
-            <rapid:block name="content_body" />
-        </div>
+        <rapid:block name="content" />
     </div>
 
     <div id="loading" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;

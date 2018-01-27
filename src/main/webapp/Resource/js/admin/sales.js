@@ -470,7 +470,7 @@ $(function () {
         }
         var rowsLength = tbSales.rows.length;
         for(var i = 0; i < rowsLength; i ++){
-            var cellsLength = tbSales.rows[i].cells.length - 1;
+            var cellsLength = tbSales.rows[i].cells.length - 2;
             for(var j = 2; j < cellsLength; j ++){
                 var content = tbSales.rows[i].cells[j].innerHTML.toLowerCase();
                 if(content.search(key) >= 0){

@@ -152,7 +152,7 @@ public class AuthAdminService {
         List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
         model.addAttribute("authRentUserInfoList", authRentUserInfoList);
         model.addAttribute("commissionCategoryInfoList", commissionCategoryInfoList);
-        return "admin/users";
+        return "admin/customers";
     }
 
     public AuthRentUserInfo getUserByKey(String key){

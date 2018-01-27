@@ -1,9 +1,12 @@
 package com.wiatec.panel.oxm.pojo.chart.sales;
 
+/**
+ * @author patrick
+ */
 public class SalesCommissionOfMonthInfo {
 
     private int month;
-    private float Commission;
+    private float commission;
 
     public int getMonth() {
         return month;
@@ -14,18 +17,18 @@ public class SalesCommissionOfMonthInfo {
     }
 
     public float getCommission() {
-        return Commission;
+        return commission;
     }
 
     public void setCommission(float commission) {
-        Commission = commission;
+        commission = commission;
     }
 
     @Override
     public String toString() {
         return "SalesCommissionOfMonthInfo{" +
                 "month=" + month +
-                ", Commission=" + Commission +
+                ", commission=" + commission +
                 '}';
     }
 }

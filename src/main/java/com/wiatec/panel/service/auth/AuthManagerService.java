@@ -32,7 +32,7 @@ public class AuthManagerService {
     private AuthRegisterUserDao authRegisterUserDao;
 
     public String home(){
-        return "users/home";
+        return "manager/home";
     }
 
     public String users(HttpSession session, Model model){
@@ -47,7 +47,7 @@ public class AuthManagerService {
             authRegisterUserInfoList = authRegisterUserDao.selectAll(100);
         }
         model.addAttribute("authRegisterUserInfoList", authRegisterUserInfoList);
-        return "users/users";
+        return "manager/users";
     }
 
     public AuthRegisterUserInfo userDetails(int id){

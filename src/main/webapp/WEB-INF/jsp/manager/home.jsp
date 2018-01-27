@@ -7,7 +7,7 @@
 </rapid:override>
 <rapid:override name="css_js">
     <link rel="stylesheet" href="Resource/css/users/home.css" />
-    <script type="application/javascript" src="Resource/js/users/home.js"></script>
+    <script type="application/javascript" src="Resource/js/manager/home.js"></script>
 </rapid:override>
 
 <rapid:override name="content_header">

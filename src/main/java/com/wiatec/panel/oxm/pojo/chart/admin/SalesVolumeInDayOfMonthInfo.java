@@ -1,5 +1,8 @@
 package com.wiatec.panel.oxm.pojo.chart.admin;
 
+/**
+ * @author patrick
+ */
 public class SalesVolumeInDayOfMonthInfo {
 
     private String category;

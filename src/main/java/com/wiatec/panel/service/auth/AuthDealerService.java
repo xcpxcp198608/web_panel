@@ -18,6 +18,8 @@ import com.wiatec.panel.oxm.pojo.chart.admin.AllSalesMonthCommissionInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.TopAmountInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.TopVolumeInfo;
+import com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionDayOfDaysInfo;
+import com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionDayOfMonthInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -47,8 +49,13 @@ public class AuthDealerService {
     @Resource
     private AuthorizeTransactionDao authorizeTransactionDao;
 
-    public String home(){
-        return "dealer/home1";
+    public String home(HttpServletRequest request, Model model){
+        int dealerId = getDealerInfo(request).getId();
+        int totalVolume = authRentUserDao.countTotalVolumeByDealerId(dealerId);
+        float totalCommission = authorizeTransactionDao.countTotalCommissionByDealerId(dealerId);
+        model.addAttribute("totalVolume", totalVolume);
+        model.addAttribute("totalCommission", totalCommission);
+        return "dealer/home";
     }
 
     public String sales(HttpServletRequest request, Model model){
@@ -78,6 +85,12 @@ public class AuthDealerService {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo updateSalesPassword(AuthSalesInfo authSalesInfo){
+        authSalesDao.updatePassword(authSalesInfo);
+        return ResultMaster.success();
+    }
+
     public String users(HttpServletRequest request, Model model, int key, int value){
         List<AuthRentUserInfo> authRentUserInfoList;
         switch (key){
@@ -97,12 +110,22 @@ public class AuthDealerService {
             }
         }
         model.addAttribute("authRentUserInfoList", authRentUserInfoList);
-        return "dealer/users";
+        return "dealer/customers";
     }
 
     public AuthRentUserInfo getUserByKey(String key){
         return authRentUserDao.selectOneByClientKey(key);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo updateUserStatus(String status, String key) {
+        AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo();
+        authRentUserInfo.setStatus(status);
+        authRentUserInfo.setClientKey(key);
+        authRentUserDao.updateUserStatus(authRentUserInfo);
+        return ResultMaster.success();
+    }
+
 
     private AuthDealerInfo getDealerInfo(HttpServletRequest request){
         String username = (String) request.getSession().getAttribute("username");
@@ -113,10 +136,22 @@ public class AuthDealerService {
     }
 
 
-    public List<SalesVolumeInDayOfMonthInfo> countSaleVolumeEveryDayInMonth(HttpServletRequest request, int year, int month){
+    public List<SalesVolumeInDayOfMonthInfo> countDealerVolumeEveryDayInMonth(HttpServletRequest request, int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         yearOrMonthInfo.setDealerId(getDealerInfo(request).getId()+"");
-        return authRentUserDao.countSalesUnderDealerVolumeByDayOfMonth(yearOrMonthInfo);
+        return authRentUserDao.countDealerVolumeByDayOfMonth(yearOrMonthInfo);
+    }
+
+    public List<DealerCommissionDayOfDaysInfo> selectDealerCommissionEveryDayInMonth(HttpServletRequest request, int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        yearOrMonthInfo.setDealerId(getDealerInfo(request).getId()+"");
+        return authorizeTransactionDao.getCommissionOfDayByDealer(yearOrMonthInfo);
+    }
+
+    public List<DealerCommissionDayOfMonthInfo> selectDealerCommissionEveryMonthInYear(HttpServletRequest request, int year){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
+        yearOrMonthInfo.setDealerId(getDealerInfo(request).getId()+"");
+        return authorizeTransactionDao.getCommissionOfMonthByDealer(yearOrMonthInfo);
     }
 
     public List<TopVolumeInfo> getTopVolume(HttpServletRequest request, int top){
