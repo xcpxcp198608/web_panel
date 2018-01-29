@@ -73,21 +73,29 @@
     <select id="selectBySalesId" resultMap="authRentUserInfo" parameterType="int">
         <include refid="select"/>
         WHERE auth_rent_user.salesId=#{_parameter}
+        ORDER BY activateTime DESC
     </select>
 
     <select id="selectByDealerId" resultMap="authRentUserInfo" parameterType="int">
         <include refid="select"/>
         WHERE auth_rent_user.dealerId=#{_parameter}
+        ORDER BY activateTime DESC
     </select>
 
     <select id="selectAll" resultMap="authRentUserInfo">
         <include refid="select"/>
         WHERE auth_rent_user.id > 0
+        ORDER BY activateTime DESC
     </select>
 
     <select id="countTotalVolumeByDealerId" resultType="java.lang.Integer">
         SELECT COUNT(*) count FROM auth_rent_user
         WHERE dealerId = #{dealerId}
+    </select>
+
+    <select id="countTotalVolumeBySalesId" resultType="java.lang.Integer">
+        SELECT COUNT(*) count FROM auth_rent_user
+        WHERE salesId = #{salesId}
     </select>
 
 
@@ -147,12 +155,23 @@
         <result column="count" property="count"/>
         <result column="day" property="day"/>
     </resultMap>
+
+    <select id="countAllSalesVolumeByDayOfMonth"  resultMap="salesVolumeInDayOfMonthInfo"
+            parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo">
+        SELECT category, COUNT(category) AS count, DAYOFMONTH(activateTime) day
+        FROM auth_rent_user
+        WHERE activateTime BETWEEN #{start} AND #{end}
+        AND status!='canceled'
+        GROUP BY  category, day;
+    </select>
+
     <select id="countSalesVolumeByDayOfMonth"  resultMap="salesVolumeInDayOfMonthInfo"
             parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo">
         SELECT category, COUNT(category) AS count, DAYOFMONTH(activateTime) day
         FROM auth_rent_user
         WHERE activateTime BETWEEN #{start} AND #{end}
         AND status!='canceled'
+              AND auth_rent_user.salesId=#{salesId}
         GROUP BY  category, day;
     </select>
 
@@ -194,14 +213,11 @@
         LIMIT #{leaderId};
     </select>
 
-    <resultMap id="volumeDistributionInfo" type="com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo">
-        <result column="name" property="name"/>
-        <result column="value" property="value"/>
-    </resultMap>
-    <select id="getDistributionData" resultMap="volumeDistributionInfo">
+
+    <select id="getDistributionData" resultType="com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo">
         SELECT country AS name, COUNT(clientKey) AS value
         FROM auth_rent_user
-        GROUP BY  name;
+        GROUP BY name;
     </select>
 
 </mapper>

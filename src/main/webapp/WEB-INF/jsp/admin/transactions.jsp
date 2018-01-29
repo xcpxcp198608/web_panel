@@ -77,7 +77,7 @@
             </span>
             <span class="badge badge-dark text-center" id="totalRecorders"
                   data-toggle="tooltip" title="total transaction recorder numbers!">
-                    ${fn:length(authorizeTransactionInfoList)}
+                    ${fn:length(authorizeTransactionRentalInfoList)}
             </span>
         </div>
 
@@ -134,7 +134,7 @@
             </div>
         </div>
 
-        <div style="width: 100%; padding: 10px; background-color: white">
+        <div style="width: 100%; padding: 10px; background-color: white; overflow: scroll">
             <table class="table table-sm table-hover table-striped" id="tbOrders">
                 <thead style="background-color: #769abb;">
                     <tr>
@@ -157,26 +157,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${authorizeTransactionInfoList}" var="authorizeTransactionInfo" varStatus="status">
+                    <c:forEach items="${authorizeTransactionRentalInfoList}" var="authorizeTransactionRentalInfo" varStatus="status">
                         <tr>
-                            <td><input class="radio radio-sm" type="radio" name="rdTransactions" value="${authorizeTransactionInfo.clientKey}"
+                            <td><input class="radio radio-sm" type="radio" name="rdTransactions" value="${authorizeTransactionRentalInfo.clientKey}"
                                        currentRow="${status.index}"></td>
                             <td>${status.index + 1}</td>
-                            <td>${authorizeTransactionInfo.clientKey}</td>
-                            <td>${authorizeTransactionInfo.transactionId}</td>
-                            <td>${authorizeTransactionInfo.createTime}</td>
-                            <td>${authorizeTransactionInfo.salesName}</td>
-                            <td>${authorizeTransactionInfo.category}</td>
-                            <td>${authorizeTransactionInfo.type}</td>
-                            <td>${authorizeTransactionInfo.amount}</td>
-                            <td>${authorizeTransactionInfo.txFee}</td>
-                            <td>${authorizeTransactionInfo.deposit}</td>
-                            <td>${authorizeTransactionInfo.ldCommission}</td>
-                            <td>${authorizeTransactionInfo.ldeCommission}</td>
-                            <td>${authorizeTransactionInfo.dealerCommission}</td>
-                            <td>${authorizeTransactionInfo.salesCommission}</td>
+                            <td>${authorizeTransactionRentalInfo.clientKey}</td>
+                            <td>${authorizeTransactionRentalInfo.transactionId}</td>
+                            <td>${authorizeTransactionRentalInfo.createTime}</td>
+                            <td>${authorizeTransactionRentalInfo.salesName}</td>
+                            <td>${authorizeTransactionRentalInfo.category}</td>
+                            <td>${authorizeTransactionRentalInfo.type}</td>
+                            <td>${authorizeTransactionRentalInfo.amount}</td>
+                            <td>${authorizeTransactionRentalInfo.txFee}</td>
+                            <td>${authorizeTransactionRentalInfo.deposit}</td>
+                            <td>${authorizeTransactionRentalInfo.ldCommission}</td>
+                            <td>${authorizeTransactionRentalInfo.ldeCommission}</td>
+                            <td>${authorizeTransactionRentalInfo.dealerCommission}</td>
+                            <td>${authorizeTransactionRentalInfo.salesCommission}</td>
                             <td>
-                                <a href="http://www.ldlegacy.com:8899/static/panel/invoice/ld_invoice_${authorizeTransactionInfo.transactionId}.pdf"
+                                <a href="http://www.ldlegacy.com:8899/static/panel/invoice/ld_invoice_${authorizeTransactionRentalInfo.transactionId}.pdf"
                                    target="_blank">
                                     <span class="text-secondary">
                                         <i class="fa fa-bookmark-o fa-lg"></i>

@@ -5,8 +5,8 @@ import com.wiatec.panel.common.result.XException;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
-import com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionDayOfDaysInfo;
-import com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionDayOfMonthInfo;
+import com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionOfDaysInfo;
+import com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionOfMonthInfo;
 import com.wiatec.panel.service.auth.AuthDealerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -118,7 +118,7 @@ public class AuthDealer {
     @GetMapping(value = "/chart/volume/{year}/{month}")
     @ResponseBody
     public List<SalesVolumeInDayOfMonthInfo> getDealerVolumeEveryDayInMonth(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
-        return authDealerService.countDealerVolumeEveryDayInMonth(request, year, month);
+        return authDealerService.selectDealerVolumeEveryDayInMonth(request, year, month);
     }
 
 
@@ -126,22 +126,22 @@ public class AuthDealer {
      * get every day dealer commission in specify year and month
      * @param year    specify year
      * @param month   specify month
-     * @return        DealerCommissionDayOfDaysInfo list
+     * @return        DealerCommissionOfDaysInfo list
      */
     @GetMapping(value = "/chart/commission/{year}/{month}")
     @ResponseBody
-    public List<DealerCommissionDayOfDaysInfo> getDealerCommissionEveryDayInMonth(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
+    public List<DealerCommissionOfDaysInfo> getDealerCommissionEveryDayInMonth(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
         return authDealerService.selectDealerCommissionEveryDayInMonth(request, year, month);
     }
 
     /**
      * get every month dealer commission in specify year and month
      * @param year    specify year
-     * @return        DealerCommissionDayOfMonthInfo list
+     * @return        DealerCommissionOfMonthInfo list
      */
     @GetMapping(value = "/chart/commission/{year}")
     @ResponseBody
-    public List<DealerCommissionDayOfMonthInfo> getDealerCommissionEveryMonthInYear(HttpServletRequest request, @PathVariable int year){
+    public List<DealerCommissionOfMonthInfo> getDealerCommissionEveryMonthInYear(HttpServletRequest request, @PathVariable int year){
         return authDealerService.selectDealerCommissionEveryMonthInYear(request, year);
     }
 

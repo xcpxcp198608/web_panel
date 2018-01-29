@@ -10,8 +10,10 @@ import com.wiatec.panel.common.utils.TokenUtil;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
-import com.wiatec.panel.oxm.pojo.chart.users.MonthVolumeInfo;
-import com.wiatec.panel.oxm.pojo.chart.users.YearVolumeInfo;
+import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
+import com.wiatec.panel.oxm.pojo.chart.manager.LevelDistributionInfo;
+import com.wiatec.panel.oxm.pojo.chart.manager.MonthVolumeInfo;
+import com.wiatec.panel.oxm.pojo.chart.manager.YearVolumeInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -47,7 +49,7 @@ public class AuthManagerService {
             authRegisterUserInfoList = authRegisterUserDao.selectAll(100);
         }
         model.addAttribute("authRegisterUserInfoList", authRegisterUserInfoList);
-        return "manager/users";
+        return "manager/customers";
     }
 
     public AuthRegisterUserInfo userDetails(int id){
@@ -88,8 +90,22 @@ public class AuthManagerService {
         return ResultMaster.success(authRegisterUserInfo);
     }
 
-    //chart
+    public String level(Model model){
+        LevelDistributionInfo levelDistributionInfo = authRegisterUserDao.selectAllLevelDistribution();
+        model.addAttribute("levelDistributionInfo", levelDistributionInfo);
+        return "manager/level";
+    }
 
+
+    public String distribution(){
+        return "manager/distribution";
+    }
+
+    public List<VolumeDistributionInfo> getDistributionData(){
+        return authRegisterUserDao.getDistributionData();
+    }
+
+    //chart
     public ResultInfo getYearOrMonthVolume(int year, int month){
         if(month <= 0) {
             List<YearVolumeInfo> yearVolumeInfoList = authRegisterUserDao.selectVolumeOfYear(new YearOrMonthInfo(year));

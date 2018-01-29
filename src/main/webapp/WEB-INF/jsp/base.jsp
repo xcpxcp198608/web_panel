@@ -27,7 +27,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
     <script type="application/javascript" src="https://cdn.bootcss.com/echarts/4.0.2/echarts.min.js" ></script>
 
@@ -91,6 +91,15 @@
                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                 </div>
             </div>
+        </div>
+    </div>
+
+
+    <div id="notice" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(0,0,0,0.3); z-index: 1001; display: none">
+        <div style="width:50%; margin: 300px auto">
+            <h4 id="notice_message" style="color: #ff1268; font-size: 20px; width: 100%;
+            text-align: center;"></h4>
         </div>
     </div>
 

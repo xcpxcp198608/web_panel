@@ -3,10 +3,10 @@ package com.wiatec.panel.oxm.pojo.chart.dealer;
 /**
  * @author patrick
  */
-public class DealerCommissionDayOfDaysInfo {
+public class DealerCommissionOfMonthInfo {
 
     private float commission;
-    private int day;
+    private int month;
 
     public float getCommission() {
         return commission;
@@ -16,19 +16,19 @@ public class DealerCommissionDayOfDaysInfo {
         this.commission = commission;
     }
 
-    public int getDay() {
-        return day;
+    public int getMonth() {
+        return month;
     }
 
-    public void setDay(int day) {
-        this.day = day;
+    public void setMonth(int month) {
+        this.month = month;
     }
 
     @Override
     public String toString() {
-        return "DealerCommissionDayOfDaysInfo{" +
+        return "DealerCommissionOfMonthInfo{" +
                 "commission=" + commission +
-                ", day=" + day +
+                ", month=" + month +
                 '}';
     }
 }

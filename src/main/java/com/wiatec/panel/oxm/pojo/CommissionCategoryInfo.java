@@ -20,8 +20,10 @@ public class  CommissionCategoryInfo {
     private float ldeCommission;
     private float dealerCommission;
     private float salesCommission;
+    private String description;
 
     private float price;
+    private float activatePay;
     private float firstPay;
     private float monthPay;
 
@@ -30,7 +32,7 @@ public class  CommissionCategoryInfo {
     }
 
     public void setPrice() {
-        BigDecimal b = new BigDecimal(this.monthPay * this.expires + this.deposit);
+        BigDecimal b = new BigDecimal(this.monthPay * this.expires + this.deposit + this.activatePay);
         this.price = b.setScale(2,  BigDecimal.ROUND_HALF_UP).floatValue();
     }
 
@@ -39,7 +41,7 @@ public class  CommissionCategoryInfo {
     }
 
     public void setFirstPay() {
-        BigDecimal b = new BigDecimal(this.monthPay + this.deposit);
+        BigDecimal b = new BigDecimal(this.monthPay + this.deposit + this.activatePay);
         this.firstPay = b.setScale(2,  BigDecimal.ROUND_HALF_UP).floatValue();
     }
 
@@ -123,6 +125,22 @@ public class  CommissionCategoryInfo {
         this.salesCommission = salesCommission;
     }
 
+    public float getActivatePay() {
+        return activatePay;
+    }
+
+    public void setActivatePay(float activatePay) {
+        this.activatePay = activatePay;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "CommissionCategoryInfo{" +
@@ -135,7 +153,9 @@ public class  CommissionCategoryInfo {
                 ", ldeCommission=" + ldeCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +
+                ", description='" + description + '\'' +
                 ", price=" + price +
+                ", activatePay=" + activatePay +
                 ", firstPay=" + firstPay +
                 ", monthPay=" + monthPay +
                 '}';

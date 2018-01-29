@@ -21,7 +21,7 @@ public class SalesCommissionOfDaysInfo {
     }
 
     public void setCommission(float commission) {
-        commission = commission;
+        this.commission = commission;
     }
 
     @Override

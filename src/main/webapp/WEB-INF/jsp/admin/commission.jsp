@@ -62,7 +62,7 @@
         <span style="padding: 10px" class="text-muted">The detail of sales amount in year:</span>
         <div class="row">
             <div class="col-3">
-                <div style="padding: 20px 20px 0 20px">
+                <div style="padding: 20px 20px 0 20px ; overflow: scroll">
                     <table class="table table-sm table-hover table-striped table-dark" id="tbYearIncome">
                         <tbody>
                             <tr><td>Income</td><td style="font-style: italic; color: orange">0</td></tr>
@@ -110,7 +110,7 @@
             <div id="monthIncomeChart" style="width: 100%; height: 250px;"></div>
         </div>
 
-        <div style="padding: 0 20px 10px 20px">
+        <div style="padding: 0 20px 10px 20px; overflow: scroll">
             <table  class="table table-sm table-hover table-striped table-dark" id="tbMonthIncome">
                 <thead>
                 <tr id="trIncome">

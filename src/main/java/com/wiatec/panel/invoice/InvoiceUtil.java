@@ -26,9 +26,12 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import com.lowagie.text.pdf.PdfWriter;
+import com.wiatec.panel.common.utils.EmailMaster;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.common.utils.UnitUtil;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
+import com.wiatec.panel.oxm.pojo.SalesActivateCategoryInfo;
+import com.wiatec.panel.oxm.pojo.SalesGoldCategoryInfo;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,18 +48,42 @@ public class InvoiceUtil {
     private static final float SPACE = 8;
 
     public static void main(String[] args) throws Exception {
-        CommissionCategoryInfo commissionCategoryInfo = new CommissionCategoryInfo();
-        commissionCategoryInfo.setCategory(CommissionCategoryInfo.CATEGORY_P1);
-        commissionCategoryInfo.setDeposit(100F);
-        commissionCategoryInfo.setMonthPay(14.99F);
-        commissionCategoryInfo.setExpires(24);
-        String pdf = createInvoice("patrickxu@wiatec.com", "32432432432432",
-                InvoiceInfoMaker.contracted(commissionCategoryInfo));
-        System.out.println(pdf);
+//        CommissionCategoryInfo commissionCategoryInfo = new CommissionCategoryInfo();
+//        commissionCategoryInfo.setCategory(CommissionCategoryInfo.CATEGORY_P1);
+//        commissionCategoryInfo.setDeposit(100F);
+//        commissionCategoryInfo.setMonthPay(14.99F);
+//        commissionCategoryInfo.setExpires(24);
+//        commissionCategoryInfo.setActivatePay(30);
+//        String pdf = createInvoice("patrickxu@wiatec.com", "32432432432432",
+//                InvoiceInfoMaker.rentalContracted(commissionCategoryInfo));
+//        System.out.println(pdf);
 //        EmailMaster emailMaster = new EmailMaster();
 //        emailMaster.setInvoiceContent("sdf");
 //        emailMaster.addAttachment(pdf);
 //        emailMaster.sendMessage("patrickxu@wiatec.com");
+
+        SalesActivateCategoryInfo salesActivateCategoryInfo = new SalesActivateCategoryInfo();
+        SalesGoldCategoryInfo salesGoldCategoryInfo = new SalesGoldCategoryInfo();
+        salesActivateCategoryInfo.setCategory("AM1");
+        salesActivateCategoryInfo.setMonth(12);
+        salesActivateCategoryInfo.setPrice(12F);
+        salesActivateCategoryInfo.setDescription("activate for 12 month");
+
+        salesGoldCategoryInfo.setCategory("S1");
+        salesGoldCategoryInfo.setAmount(1000F);
+        salesGoldCategoryInfo.setPrice(100F);
+        salesGoldCategoryInfo.setQty(10);
+        salesGoldCategoryInfo.setDescription("s1");
+
+        String pdf = createInvoice("patrickxu@wiatec.com", "32432432432432",
+                InvoiceInfoMaker.salesActivateGold(salesActivateCategoryInfo, salesGoldCategoryInfo));
+        System.out.println(pdf);
+        EmailMaster emailMaster = new EmailMaster();
+        emailMaster.setInvoiceContent("sdf");
+        emailMaster.addAttachment(pdf);
+        emailMaster.sendMessage("patrickxu@wiatec.com");
+
+
     }
 
     //本地测试用

@@ -20,6 +20,13 @@ public interface DeviceRentDao {
     int countOne(DeviceRentInfo deviceRentInfo);
 
     /**
+     * get the sales id by mac address
+     * @param mac  mac
+     * @return sales id
+     */
+    int selectSalesIdByMac(String mac);
+
+    /**
      * get the device_rent full information by mac address
      * @param deviceRentInfo  required: mac
      * @return all field

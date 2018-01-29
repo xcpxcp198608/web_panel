@@ -2,6 +2,7 @@ package com.wiatec.panel.web;
 
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
+import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
 import com.wiatec.panel.service.auth.AuthManagerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * register user manager
@@ -24,6 +26,23 @@ public class AuthManager {
     @GetMapping(value = "/")
     public String home(){
         return authManagerService.home();
+    }
+
+    @GetMapping(value = "/level")
+    public String level(Model model){
+        return authManagerService.level(model);
+    }
+
+    @GetMapping(value = "/distribution")
+    public String distribution(){
+
+        return authManagerService.distribution();
+    }
+
+    @GetMapping(value = "/chart/distribution")
+    @ResponseBody
+    public List<VolumeDistributionInfo> getDistributionData(){
+        return authManagerService.getDistributionData();
     }
 
 

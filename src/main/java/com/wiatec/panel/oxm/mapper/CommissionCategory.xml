@@ -9,13 +9,18 @@
         <result column="monthPay" property="monthPay"/>
         <result column="expires" property="expires"/>
         <result column="bonus" property="bonus"/>
+        <result column="activate_pay" property="activatePay"/>
         <result column="ldCommission" property="ldCommission"/>
         <result column="dealerCommission" property="dealerCommission"/>
         <result column="salesCommission" property="salesCommission"/>
+        <result column="description" property="description"/>
     </resultMap>
 
-    <sql id="select">SELECT id, category, deposit, monthPay, expires, bonus, ldCommission, ldeCommission,  dealerCommission,
-                         salesCommission FROM commission_category</sql>
+    <sql id="select">
+        SELECT id, category, deposit, monthPay, expires, bonus, activate_pay, ldCommission,
+            ldeCommission,  dealerCommission, salesCommission, description
+        FROM commission_category
+    </sql>
 
     <select id="selectAll" resultMap="commissionCategoryInfo">
         <include refid="select"/>

@@ -17,4 +17,4 @@
     </div>
 
 </rapid:override>
-<%@ include file="../users/base1.jsp"%>
+<%@ include file="../base.jsp"%>

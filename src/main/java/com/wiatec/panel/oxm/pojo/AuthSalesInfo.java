@@ -26,14 +26,23 @@ public class AuthSalesInfo {
     @Pattern(regexp = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",
             message = "email input format incorrent")
     private String email;
+    /**
+     * 发放销售佣金的账号
+     */
     private String bankInfo;
     @Size(min = 10, max = 12, message = "phone number input format incorrect")
     private String phone;
 
+    private String activateCategory;
+    private String goldCategory;
+    private String cardNumber;
+    private String expirationDate;
+    private String securityKey;
     /**
      * 当销售一次拿货10台或以上时此属性为true，salesCommission + 1;
      */
     private boolean isGold;
+    private Date expiresTime;
     private Date createTime;
 
     public AuthSalesInfo() {
@@ -136,12 +145,60 @@ public class AuthSalesInfo {
         this.phone = phone;
     }
 
+    public String getActivateCategory() {
+        return activateCategory;
+    }
+
+    public void setActivateCategory(String activateCategory) {
+        this.activateCategory = activateCategory;
+    }
+
+    public String getGoldCategory() {
+        return goldCategory;
+    }
+
+    public void setGoldCategory(String goldCategory) {
+        this.goldCategory = goldCategory;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public String getSecurityKey() {
+        return securityKey;
+    }
+
+    public void setSecurityKey(String securityKey) {
+        this.securityKey = securityKey;
+    }
+
     public boolean isGold() {
         return isGold;
     }
 
     public void setGold(boolean gold) {
         isGold = gold;
+    }
+
+    public String getExpiresTime() {
+        return FORMATTER.format(expiresTime);
+    }
+
+    public void setExpiresTime(Date expiresTime) {
+        this.expiresTime = expiresTime;
     }
 
     public String getCreateTime() {
@@ -166,7 +223,13 @@ public class AuthSalesInfo {
                 ", email='" + email + '\'' +
                 ", bankInfo='" + bankInfo + '\'' +
                 ", phone='" + phone + '\'' +
+                ", activateCategory='" + activateCategory + '\'' +
+                ", goldCategory='" + goldCategory + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", expirationDate='" + expirationDate + '\'' +
+                ", securityKey='" + securityKey + '\'' +
                 ", isGold=" + isGold +
+                ", expiresTime=" + expiresTime +
                 ", createTime=" + createTime +
                 '}';
     }

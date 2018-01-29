@@ -7,7 +7,7 @@ import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
 import com.wiatec.panel.invoice.InvoiceUtil;
 import com.wiatec.panel.oxm.dao.AuthRentUserDao;
-import com.wiatec.panel.oxm.dao.AuthorizeTransactionDao;
+import com.wiatec.panel.oxm.dao.AuthorizeTransactionRentalDao;
 import com.wiatec.panel.oxm.dao.CommissionCategoryDao;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
@@ -17,19 +17,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * @author patrick
  */
 @Component
-public class MonthAuthorizeTask {
+public class RentalMonthAuthorizeTask {
 
-    private static final Logger logger = LoggerFactory.getLogger(MonthAuthorizeTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(RentalMonthAuthorizeTask.class);
 
     private AuthRentUserDao authRentUserDao;
-    private AuthorizeTransactionDao authorizeTransactionDao;
+    private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
 
     private static SqlSession sqlSession;
 
@@ -50,7 +49,7 @@ public class MonthAuthorizeTask {
     private void charge(){
         CommissionCategoryDao commissionCategoryDao = sqlSession.getMapper(CommissionCategoryDao.class);
         authRentUserDao = sqlSession.getMapper(AuthRentUserDao.class);
-        authorizeTransactionDao = sqlSession.getMapper(AuthorizeTransactionDao.class);
+        authorizeTransactionRentalDao = sqlSession.getMapper(AuthorizeTransactionRentalDao.class);
         CommissionCategoryInfo b1 = commissionCategoryDao.selectOne("B1");
         CommissionCategoryInfo p1 = commissionCategoryDao.selectOne("P1");
         CommissionCategoryInfo p2 = commissionCategoryDao.selectOne("P2");
@@ -107,20 +106,20 @@ public class MonthAuthorizeTask {
                 logger.debug("= payment method is credit card");
                 logger.debug("= checking check out on this month");
                 //check is already check out on this month
-                AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
+                AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = AuthorizeTransactionRentalInfo
                         .monthlyFromAuthRentInfo(authRentUserInfo, today);
-                if(authorizeTransactionDao.countByKeyAndDate(authorizeTransactionInfo) == 1){
+                if(authorizeTransactionRentalDao.countByKeyAndDate(authorizeTransactionRentalInfo) == 1){
                     logger.debug("= {} already check out on this month", authRentUserInfo.getClientKey());
                     logger.debug("====================================================================");
                     return;
                 }
                 logger.debug("= execute check out on this month");
-                AuthorizeTransactionInfo authorizeTransactionInfo1 = new AuthorizeTransaction().charge(authorizeTransactionInfo);
-                if(authorizeTransactionInfo1 != null && "approved".equals(authorizeTransactionInfo1.getStatus())){
+                AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo1 = new AuthorizeTransactionRental().charge(authorizeTransactionRentalInfo);
+                if(authorizeTransactionRentalInfo1 != null && "approved".equals(authorizeTransactionRentalInfo1.getStatus())){
                     logger.debug("= {} check out month successfully", authRentUserInfo.getClientKey());
                     logger.debug("====================================================================");
-                    authorizeTransactionDao.insertOne(authorizeTransactionInfo1);
-                    handleInvoice(commissionCategoryInfo, authRentUserInfo, authorizeTransactionInfo1, i+1);
+                    authorizeTransactionRentalDao.insertOne(authorizeTransactionRentalInfo1);
+                    handleInvoice(commissionCategoryInfo, authRentUserInfo, authorizeTransactionRentalInfo1, i+1);
                 }else{
                     logger.debug("= check out month failure, deactivate = {}", authRentUserInfo.getClientKey());
                     authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
@@ -134,11 +133,11 @@ public class MonthAuthorizeTask {
     }
 
     private void handleInvoice(CommissionCategoryInfo commissionCategoryInfo, AuthRentUserInfo authRentUserInfo,
-                               AuthorizeTransactionInfo authorizeTransactionInfo, int currentMonth){
+                               AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo, int currentMonth){
         try {
-            List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.monthly(commissionCategoryInfo, currentMonth);
+            List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalMonthly(commissionCategoryInfo, currentMonth);
             String invoicePath = InvoiceUtil.createInvoice(authRentUserInfo.getEmail(),
-                    authorizeTransactionInfo.getTransactionId(), invoiceInfoList);
+                    authorizeTransactionRentalInfo.getTransactionId(), invoiceInfoList);
             logger.debug("invoicePath: {}", invoicePath);
             EmailMaster emailMaster = new EmailMaster();
             emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());

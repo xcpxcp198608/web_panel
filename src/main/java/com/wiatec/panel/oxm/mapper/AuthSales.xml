@@ -14,14 +14,23 @@
         <result column="email" property="email"/>
         <result column="bank_info" property="bankInfo"/>
         <result column="phone" property="phone"/>
+        <result column="activate_category" property="activateCategory"/>
+        <result column="gold_category" property="goldCategory"/>
+        <result column="card_number" property="cardNumber"/>
+        <result column="expiration_date" property="expirationDate"/>
+        <result column="security_key" property="securityKey"/>
         <result column="is_gold" property="isGold"/>
         <result column="createTime" property="createTime"/>
+        <result column="expires_time" property="expiresTime"/>
     </resultMap>
 
     <sql id="select">
         SELECT auth_sales.id, auth_sales.username, auth_sales.password, auth_sales.dealerId,
             auth_sales.firstName, auth_sales.lastName, auth_sales.ssn, auth_sales.email,
-            auth_sales.bank_info, auth_sales.phone, auth_sales.is_gold, auth_sales.createTime,
+            auth_sales.bank_info, auth_sales.phone, auth_sales.activate_category,
+            auth_sales.gold_category, auth_sales.card_number, auth_sales.expiration_date,
+            auth_sales.security_key, auth_sales.is_gold, auth_sales.createTime,
+            auth_sales.expires_time,
             auth_dealer.username dealerName
         FROM auth_sales JOIN panel.auth_dealer ON auth_dealer.id = auth_sales.dealerId
     </sql>
@@ -51,8 +60,12 @@
     </select>
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">
-        INSERT INTO auth_sales (username, password, dealerId, firstName, lastName, ssn, bank_info, email, phone)
-        VALUES (#{username}, #{password}, #{dealerId}, #{firstName}, #{lastName}, #{ssn}, #{bankInfo}, #{email}, #{phone})
+        INSERT INTO auth_sales (username, password, dealerId, firstName, lastName, ssn,
+                                bank_info, email, phone, activate_category, gold_category,
+                                card_number, expiration_date, security_key, expires_time)
+        VALUES (#{username}, #{password}, #{dealerId}, #{firstName}, #{lastName}, #{ssn},
+                #{bankInfo}, #{email}, #{phone}, #{activateCategory}, #{goldCategory},
+                #{cardNumber}, #{expirationDate}, #{securityKey}, #{expiresTime})
     </insert>
 
     <update id="updatePassword" parameterType="com.wiatec.panel.oxm.pojo.AuthSalesInfo">

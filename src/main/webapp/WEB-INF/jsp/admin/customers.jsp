@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <div style="width: 100%; padding: 10px; background-color: white">
+        <div style="width: 100%; padding: 10px; background-color: white; overflow: scroll">
             <table class="table table-sm table-hover table-striped" id="tbUsers">
                 <thead style="background-color: #769abb;">
                     <tr>

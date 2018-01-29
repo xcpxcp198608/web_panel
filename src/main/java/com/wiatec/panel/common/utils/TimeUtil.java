@@ -77,6 +77,14 @@ public class TimeUtil {
         return getStrDate(date.getTime());
     }
 
+    public static Date getExpiresDate(int expires){
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, expires);
+        return calendar.getTime();
+    }
+
     public static boolean isOutExpires(String activateTime, int expires){
         Date date = new Date(TimeUtil.getUnixFromStr(activateTime));
         Calendar calendar = Calendar.getInstance();

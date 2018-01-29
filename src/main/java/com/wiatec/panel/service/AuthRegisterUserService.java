@@ -6,6 +6,7 @@ import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
 import com.wiatec.panel.oxm.dao.AuthRentUserDao;
 import com.wiatec.panel.oxm.dao.AuthUserLogDao;
+import com.wiatec.panel.oxm.dao.DeviceRentDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.common.utils.EmailMaster;
 import com.wiatec.panel.common.utils.TokenUtil;
@@ -15,8 +16,10 @@ import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthUserLogInfo;
+import com.wiatec.panel.oxm.pojo.DeviceRentInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -39,11 +42,16 @@ public class AuthRegisterUserService {
     private AuthRentUserDao authRentUserDao;
     @Resource
     private AuthUserLogDao authUserLogDao;
+    @Autowired
+    private DeviceRentDao deviceRentDao;
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo register(HttpServletRequest request, AuthRegisterUserInfo authRegisterUserInfo, String language){
         if(TextUtil.isEmpty(authRegisterUserInfo.getMac())){
             throw new XException(ResultMaster.error("device s/n error"));
+        }
+        if(deviceRentDao.countOne(new DeviceRentInfo(authRegisterUserInfo.getMac())) >= 1){
+            throw new XException(1001, "the device only for rental");
         }
         if(authRegisterUserDao.countByMac(authRegisterUserInfo) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);

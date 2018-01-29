@@ -36,9 +36,13 @@ $(function () {
         var email = $('#ipEmail').val();
         var phone = $('#ipPhone').val();
         var bank = $('#ipBank').val();
-        var dealerId = $('#ipDealerId').val();
+        var cardNumber = $('#ipCreditCard').val();
+        var expirationDate = $('#ipExpirationDate').val();
+        var securityKey = $('#ipSecurityKey').val();
+        var activateCategory = $('#ipActivateCategory').val();
+        var goldCategory = $('#ipGoldCategory').val();
         if(username.length <= 0){
-            showErrorMessage($('#errorCreate'), 'username no type in');
+            showErrorMessage($('#errorCreate'), 'username type in error');
             return;
         }
         if(ssn.length !== 9){
@@ -46,15 +50,15 @@ $(function () {
             return;
         }
         if(firstName.length <= 0){
-            showErrorMessage($('#errorCreate'), 'first name no type in');
+            showErrorMessage($('#errorCreate'), 'first name type in error');
             return;
         }
         if(lastName.length <= 0){
-            showErrorMessage($('#errorCreate'), 'last name no type in');
+            showErrorMessage($('#errorCreate'), 'last name type in error');
             return;
         }
         if(email.length <= 0){
-            showErrorMessage($('#errorCreate'), 'email no type in');
+            showErrorMessage($('#errorCreate'), 'email type in error');
             return;
         }
         if(!validateEmail(email)){
@@ -62,11 +66,23 @@ $(function () {
             return;
         }
         if(phone.length <= 0){
-            showErrorMessage($('#errorCreate'), 'phone no type in');
+            showErrorMessage($('#errorCreate'), 'phone type in error');
             return;
         }
         if(bank.length <= 0){
-            showErrorMessage($('#errorCreate'), 'bank info no type in');
+            showErrorMessage($('#errorCreate'), 'debit card info type in error');
+            return;
+        }
+        if(cardNumber.length < 16){
+            showErrorMessage($('#errorCreate'), 'card number type in error');
+            return;
+        }
+        if(expirationDate.length !== 4){
+            showErrorMessage($('#errorCreate'), 'expiration date type in error');
+            return;
+        }
+        if(securityKey.length !== 3){
+            showErrorMessage($('#errorCreate'), 'security key type in error');
             return;
         }
         if(password.length < 6){
@@ -81,8 +97,8 @@ $(function () {
             showErrorMessage($('#errorCreate'), 'password type in no match');
             return;
         }
-        if(dealerId <= 0){
-            showErrorMessage($('#errorCreate'), 'have no choose dealer');
+        if(activateCategory.length <= 0){
+            showErrorMessage($('#errorCreate'), 'have no choose activate category');
             return;
         }
         $('#errorCreate').hide();
@@ -91,7 +107,9 @@ $(function () {
             url: baseUrl + "/dealer/sale/create",
             data: {"username": username, "password": password, "firstName": firstName,
                 'lastName': lastName, 'ssn': ssn, 'email': email, 'bankInfo': bank,
-                'phone': phone, 'dealerId': dealerId},
+                'phone': phone, 'cardNumber': cardNumber, 'expirationDate': expirationDate,
+                'securityKey': securityKey, 'activateCategory': activateCategory,
+                'goldCategory': goldCategory},
             dataType: "json",
             beforeSend: function () {
                 $('#modalCreate').modal('hide');

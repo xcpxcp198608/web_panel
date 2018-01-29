@@ -1,7 +1,7 @@
 package com.wiatec.panel.service.auth;
 
-import com.wiatec.panel.authorize.AuthorizeTransaction;
-import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
+import com.wiatec.panel.authorize.AuthorizeTransactionRental;
+import com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo;
 import com.wiatec.panel.common.utils.*;
 import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
@@ -10,6 +10,7 @@ import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
+import com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo;
 import com.wiatec.panel.common.result.EnumResult;
@@ -48,14 +49,17 @@ public class AuthSalesService {
     @Resource
     private CommissionCategoryDao commissionCategoryDao;
     @Resource
-    private AuthorizeTransactionDao authorizeTransactionDao;
+    private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
     @Resource
     private DeviceRentDao deviceRentDao;
 
     public String home(HttpServletRequest request, Model model){
-        model.addAttribute("authorizeTransactionInfoList",
-                authorizeTransactionDao.selectBySalesId(getSalesInfo(request).getId()));
-        return "sales/home";
+        int salesId = getSalesInfo(request).getId();
+        int totalVolume = authRentUserDao.countTotalVolumeBySalesId(salesId);
+        float totalCommission = authorizeTransactionRentalDao.countTotalCommissionBySalesId(salesId);
+        model.addAttribute("totalVolume", totalVolume);
+        model.addAttribute("totalCommission", totalCommission);
+        return "sales/home1";
     }
 
     public String users(HttpServletRequest request, Model model){
@@ -67,7 +71,18 @@ public class AuthSalesService {
             }
         }
         model.addAttribute("authRentUserInfoList", authRentUserInfoList);
-        return "sales/users";
+        return "sales/customers";
+    }
+
+    public String createUsers(HttpServletRequest request, Model model){
+        List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
+        for(CommissionCategoryInfo commissionCategoryInfo: commissionCategoryInfoList){
+            commissionCategoryInfo.setFirstPay();
+            commissionCategoryInfo.setPrice();
+        }
+
+        model.addAttribute("commissionCategoryInfoList", commissionCategoryInfoList);
+        return "sales/create_user";
     }
 
     public AuthRentUserInfo getUserByKey(String key){
@@ -77,6 +92,7 @@ public class AuthSalesService {
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo, int paymentMethod){
         try {
+            AuthSalesInfo authSalesInfo = getSalesInfo(request);
             if (authRentUserDao.countOneByMac(authRentUserInfo) == 1) {
                 if (!AuthRentUserInfo.STATUS_CANCELED.equals(authRentUserDao.selectStatusByMac(authRentUserInfo))) {
                     throw new XException(EnumResult.ERROR_DEVICE_USING);
@@ -88,7 +104,9 @@ public class AuthSalesService {
             if(deviceRentDao.countOne(new DeviceRentInfo(authRentUserInfo.getMac())) != 1){
                 throw new XException(EnumResult.ERROR_DEVICE_NO_CHECK_IN);
             }
-            AuthSalesInfo authSalesInfo = getSalesInfo(request);
+            if(deviceRentDao.selectSalesIdByMac(authRentUserInfo.getMac()) != authSalesInfo.getId()){
+                throw new XException(6000, "the device belongs to other sales");
+            }
             CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
             commissionCategoryInfo.setPrice();
             commissionCategoryInfo.setFirstPay();
@@ -118,16 +136,16 @@ public class AuthSalesService {
                 authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
                 authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
                 authRentUserDao.insertOne(authRentUserInfo);
-                AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransaction().charge(AuthorizeTransactionInfo
+                AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRental().charge(AuthorizeTransactionRentalInfo
                         .contractedFromAuthRentInfo(authRentUserInfo), request);
-                if (authorizeTransactionInfo == null) {
+                if (authorizeTransactionRentalInfo == null) {
                     throw new XException(EnumResult.ERROR_AUTHORIZE);
                 }
-                authorizeTransactionDao.insertOne(authorizeTransactionInfo);
+                authorizeTransactionRentalDao.insertOne(authorizeTransactionRentalInfo);
                 InvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-                List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.contracted(commissionCategoryInfo);
+                List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalContracted(commissionCategoryInfo);
                 String invoicePath = InvoiceUtil.createInvoice(authRentUserInfo.getEmail(),
-                        authorizeTransactionInfo.getTransactionId(), invoiceInfoList);
+                        authorizeTransactionRentalInfo.getTransactionId(), invoiceInfoList);
                 logger.debug("invoicePath: {}", invoicePath);
                 EmailMaster emailMaster = new EmailMaster();
                 emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
@@ -154,11 +172,31 @@ public class AuthSalesService {
 
     ////////////////////////////////////////////////////////// chart ///////////////////////////////////////////////////
 
+    public List<SalesVolumeInDayOfMonthInfo> selectSalesVolumeEveryDayInMonth(HttpServletRequest request, int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
+        return authRentUserDao.countSalesVolumeByDayOfMonth(yearOrMonthInfo);
+    }
+
+    public List<SalesCommissionOfDaysInfo> selectSalesCommissionEveryDayInMonth(HttpServletRequest request, int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
+        return authorizeTransactionRentalDao.getCommissionOfDayBySales(yearOrMonthInfo);
+    }
+
+    public List<SalesCommissionOfMonthInfo> selectSalesCommissionEveryMonthInYear(HttpServletRequest request, int year){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
+        yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
+        return authorizeTransactionRentalDao.getCommissionOfMonthBySales(yearOrMonthInfo);
+    }
+
+
+
     public ResultInfo getCommissionByYear(HttpServletRequest request, int year){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
         yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
         try {
-            List<SalesCommissionOfMonthInfo> salesCommissionOfMonthInfoList = authorizeTransactionDao.getCommissionOfMonthBySales(yearOrMonthInfo);
+            List<SalesCommissionOfMonthInfo> salesCommissionOfMonthInfoList = authorizeTransactionRentalDao.getCommissionOfMonthBySales(yearOrMonthInfo);
             return ResultMaster.success(salesCommissionOfMonthInfoList);
         }catch (Exception e){
             logger.error("Exception:", e);
@@ -170,7 +208,7 @@ public class AuthSalesService {
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
         try {
-            List<SalesCommissionOfDaysInfo> salesCommissionOfDaysInfoList = authorizeTransactionDao.getCommissionOfDayBySales(yearOrMonthInfo);
+            List<SalesCommissionOfDaysInfo> salesCommissionOfDaysInfoList = authorizeTransactionRentalDao.getCommissionOfDayBySales(yearOrMonthInfo);
             return ResultMaster.success(salesCommissionOfDaysInfoList);
         }catch (Exception e){
             logger.error("Exception:", e);

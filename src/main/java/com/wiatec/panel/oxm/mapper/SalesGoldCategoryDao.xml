@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.SalesGoldCategoryDao">
+
+    <sql id="select">
+        SELECT id, category, price, qty, amount, description
+        FROM sales_gold_category
+    </sql>
+
+    <select id="selectAll" resultType="com.wiatec.panel.oxm.pojo.SalesGoldCategoryInfo">
+        <include refid="select"/>
+    </select>
+
+    <select id="selectOneByCategory" resultType="com.wiatec.panel.oxm.pojo.SalesGoldCategoryInfo">
+        <include refid="select"/>
+        WHERE category=#{category}
+    </select>
+
+</mapper>

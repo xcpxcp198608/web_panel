@@ -3,10 +3,13 @@ package com.wiatec.panel.authorize;
 import com.wiatec.panel.common.utils.UnitUtil;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 
-public class AuthorizeTransactionInfo {
+/**
+ * @author patrick
+ */
+public class AuthorizeTransactionRentalInfo {
 
-    public static final String TYPE_CONTRACTED = "contracted";
-    public static final String TYPE_MONTHLY = "monthly";
+    public static final String TYPE_CONTRACTED = "rentalContracted";
+    public static final String TYPE_MONTHLY = "rentalMonthly";
     public static final String TYPE_RENEW = "renew";
 
     public static final float TAX = 0.08F;
@@ -215,7 +218,7 @@ public class AuthorizeTransactionInfo {
 
     @Override
     public String toString() {
-        return "AuthorizeTransactionInfo{" +
+        return "AuthorizeTransactionRentalInfo{" +
                 "id=" + id +
                 ", salesId=" + salesId +
                 ", dealerId=" + dealerId +
@@ -241,46 +244,46 @@ public class AuthorizeTransactionInfo {
                 '}';
     }
 
-    public static AuthorizeTransactionInfo contractedFromAuthRentInfo(AuthRentUserInfo authRentUserInfo){
-        AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
-        authorizeTransactionInfo.setPrice(authRentUserInfo.getFirstPay());
-        authorizeTransactionInfo.setTxFee(Float.parseFloat(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX)));
-        authorizeTransactionInfo.setAmount(authorizeTransactionInfo.getPrice() + authorizeTransactionInfo.getTxFee());
-        authorizeTransactionInfo.setDeposit(authRentUserInfo.getDeposit());
-        authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
-        authorizeTransactionInfo.setLdeCommission(authRentUserInfo.getLdeCommission());
-        authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
-        authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
-        authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
-        authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
-        authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
-        authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
-        authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
-        authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
-        authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-        authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_CONTRACTED);
-        return authorizeTransactionInfo;
+    public static AuthorizeTransactionRentalInfo contractedFromAuthRentInfo(AuthRentUserInfo authRentUserInfo){
+        AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRentalInfo();
+        authorizeTransactionRentalInfo.setPrice(authRentUserInfo.getFirstPay());
+        authorizeTransactionRentalInfo.setTxFee(Float.parseFloat(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX)));
+        authorizeTransactionRentalInfo.setAmount(authorizeTransactionRentalInfo.getPrice() + authorizeTransactionRentalInfo.getTxFee());
+        authorizeTransactionRentalInfo.setDeposit(authRentUserInfo.getDeposit());
+        authorizeTransactionRentalInfo.setLdCommission(authRentUserInfo.getLdCommission());
+        authorizeTransactionRentalInfo.setLdeCommission(authRentUserInfo.getLdeCommission());
+        authorizeTransactionRentalInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
+        authorizeTransactionRentalInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
+        authorizeTransactionRentalInfo.setClientKey(authRentUserInfo.getClientKey());
+        authorizeTransactionRentalInfo.setSalesId(authRentUserInfo.getSalesId());
+        authorizeTransactionRentalInfo.setDealerId(authRentUserInfo.getDealerId());
+        authorizeTransactionRentalInfo.setCategory(authRentUserInfo.getCategory());
+        authorizeTransactionRentalInfo.setCardNumber(authRentUserInfo.getCardNumber());
+        authorizeTransactionRentalInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
+        authorizeTransactionRentalInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+        authorizeTransactionRentalInfo.setType(AuthorizeTransactionRentalInfo.TYPE_CONTRACTED);
+        return authorizeTransactionRentalInfo;
     }
 
-    public static AuthorizeTransactionInfo monthlyFromAuthRentInfo(AuthRentUserInfo authRentUserInfo, String today){
-        AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
-        authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
-        authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
-        authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
-        authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
-        authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
-        authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
-        authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-        authorizeTransactionInfo.setPrice(authRentUserInfo.getMonthPay());
-        authorizeTransactionInfo.setTxFee(Float.parseFloat(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX)));
-        authorizeTransactionInfo.setAmount(authorizeTransactionInfo.getPrice() + authorizeTransactionInfo.getTxFee());
-        authorizeTransactionInfo.setDeposit(0);
-        authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
-        authorizeTransactionInfo.setLdeCommission(authRentUserInfo.getLdeCommission());
-        authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
-        authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
-        authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_MONTHLY);
-        authorizeTransactionInfo.setCreateTime(today.substring(0, 7));
-        return authorizeTransactionInfo;
+    public static AuthorizeTransactionRentalInfo monthlyFromAuthRentInfo(AuthRentUserInfo authRentUserInfo, String today){
+        AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRentalInfo();
+        authorizeTransactionRentalInfo.setSalesId(authRentUserInfo.getSalesId());
+        authorizeTransactionRentalInfo.setDealerId(authRentUserInfo.getDealerId());
+        authorizeTransactionRentalInfo.setClientKey(authRentUserInfo.getClientKey());
+        authorizeTransactionRentalInfo.setCategory(authRentUserInfo.getCategory());
+        authorizeTransactionRentalInfo.setCardNumber(authRentUserInfo.getCardNumber());
+        authorizeTransactionRentalInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
+        authorizeTransactionRentalInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+        authorizeTransactionRentalInfo.setPrice(authRentUserInfo.getMonthPay());
+        authorizeTransactionRentalInfo.setTxFee(Float.parseFloat(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX)));
+        authorizeTransactionRentalInfo.setAmount(authorizeTransactionRentalInfo.getPrice() + authorizeTransactionRentalInfo.getTxFee());
+        authorizeTransactionRentalInfo.setDeposit(0);
+        authorizeTransactionRentalInfo.setLdCommission(authRentUserInfo.getLdCommission());
+        authorizeTransactionRentalInfo.setLdeCommission(authRentUserInfo.getLdeCommission());
+        authorizeTransactionRentalInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
+        authorizeTransactionRentalInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
+        authorizeTransactionRentalInfo.setType(AuthorizeTransactionRentalInfo.TYPE_MONTHLY);
+        authorizeTransactionRentalInfo.setCreateTime(today.substring(0, 7));
+        return authorizeTransactionRentalInfo;
     }
 }

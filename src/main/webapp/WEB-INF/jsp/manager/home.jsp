@@ -1,180 +1,83 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <rapid:override name="title">
     Home
 </rapid:override>
 <rapid:override name="css_js">
-    <link rel="stylesheet" href="Resource/css/users/home.css" />
     <script type="application/javascript" src="Resource/js/manager/home.js"></script>
 </rapid:override>
 
-<rapid:override name="content_header">
-    <div style="width: 100%; height: 34px;">
-        <div style="width: 84%; display: block; float: left">
-            <span style="height: 35px; line-height: 34px; font-size: 20px">Month information</span>
-        </div>
 
-        <div style="width: 8%; display: block; float: left; align-content: center;">
-            <div style="margin: auto; height: 34px">
-                <a style="display: block; float: left; height: 34px; line-height: 34px;
-                    font-size: 20px" id="aYear">2017</a>
-                <a style="display: block; float: left; height: 34px; line-height: 34px;
-                    font-size: 20px">-</a>
-                <a style="display: block; float: left; height: 34px; line-height: 34px;
-                    font-size: 20px" id="aMonth">11</a>
-            </div>
-        </div>
+<rapid:override name="content">
 
-        <div style="width: 8%; display: block; float: left">
-            <div style="display: block; float: right; align-content: center; margin-top: 3px;">
-                <button type="button" class="btn btn-default" aria-label="Left Align" id="btPreviousMonth"
-                        title="previous month" disabled="disabled">
-                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-default" aria-label="Left Align" id="btNextMonth"
-                        title="next month" disabled="disabled">
-                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                </button>
-            </div>
+    <div class="row" style="padding: 10px 10px 0 10px">
+        <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
+        <div class="col-5" style="padding: 10px; background-color: white">
+            <span class="text-center text-muted" style="padding: 10px">The detail of activate volume in month:</span>
+        </div>
+        <div class="col-4 text-left text-darks" style="background-color: white; padding: 10px">
+            <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
+        </div>
+        <div class="col-3 text-right" style="padding: 10px; background-color: white">
+            <a id="btPreviousMonth" data-toggle="tooltip" title="press this show previous month info!">
+                <span class="badge badge-info text-center">Previous</span>
+            </a>
+            <a id="btNextMonth" data-toggle="tooltip" title="press this next month info!">
+                <span class="badge badge-info text-center">Next</span>
+            </a>
         </div>
     </div>
 
-</rapid:override>
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div style="background-color: #ffffff; padding: 10px 20px 0 20px; width: 100%; overflow: scroll">
+            <table class="table table-sm table-hover table-striped table-dark" id="tbMonthVolume" style="overflow: scroll">
+                <thead>
+                <tr><th>MONTH</th></tr>
+                </thead>
+                <tbody>
+                <td>0</td>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<rapid:override name="content_body">
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div id="chartMonthVolume" style="width: 100%; height: 250px; background-color: white"></div>
+    </div>
 
-    <div id="chartYearVolume" style="width: 100%; height: 200px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div>
-    <div>
-        <table id="tbYearVolume" class="table table-bordered table-hover table-striped table-condensed"
-               style="box-shadow: 0 0 5px #000; overflow: scroll">
-            <thead style="background-color: #566778;">
+
+    <div class="row" style="padding: 10px 10px 0 10px">
+        <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
+        <div class="col-12" style="padding: 10px; background-color: white">
+            <span class="text-center text-muted" style="padding: 10px">The detail of activate volume in year:</span>
+        </div>
+    </div>
+
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div style="background-color: #ffffff; padding: 10px 20px 0 20px; width: 100%; overflow: scroll">
+            <table class="table table-sm table-hover table-striped table-dark" id="tbYearVolume" style="overflow: scroll">
+                <thead>
                 <tr>
                     <th>YEAR</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
                     <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr>
                     <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
                     <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div id="chartMonthVolume" style="width: 100%; height: 300px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div>
-    <div>
-        <table id="tbMonthVolume" class="table table-bordered table-hover table-striped table-condensed"
-               style="box-shadow: 0 0 5px #000;">
-            <thead style="background-color: #566778;">
-                <tr><th>MONTH</th></tr>
-            </thead>
-            <tbody>
-                <td>0</td>
-            </tbody>
-        </table>
-    </div>
-
-    <div id="chartLevel5" style="width: 100%; height: 200px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div>
-    <div>
-        <table id="tbLevel5" class="table table-bordered table-hover table-striped table-condensed"
-               style="box-shadow: 0 0 5px #000; overflow: scroll">
-            <thead style="background-color: #566778;">
-            <tr>
-                <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
-                <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div id="chartLevel4" style="width: 100%; height: 200px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div>
-    <div>
-        <table id="tbLevel4" class="table table-bordered table-hover table-striped table-condensed"
-               style="box-shadow: 0 0 5px #000; overflow: scroll">
-            <thead style="background-color: #566778;">
-            <tr>
-                <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
-                <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div id="chartLevel3" style="width: 100%; height: 200px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div>
-    <div>
-        <table id="tbLevel3" class="table table-bordered table-hover table-striped table-condensed"
-               style="box-shadow: 0 0 5px #000; overflow: scroll">
-            <thead style="background-color: #566778;">
-            <tr>
-                <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
-                <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-
-    <div id="chartLevel2" style="width: 100%; height: 200px; background-color: #2c343c;
-        box-shadow: 0 0 5px #0a148f; clear: both"></div>
-    <div>
-        <table id="tbLevel2" class="table table-bordered table-hover table-striped table-condensed"
-               style="box-shadow: 0 0 5px #000; overflow: scroll">
-            <thead style="background-color: #566778;">
-            <tr>
-                <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
-                <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-                <td class="col-md-1">0</td><td class="col-md-1">0</td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div id="chartYearVolume" style="width: 100%; height: 250px; background-color: white"></div>
     </div>
 
 </rapid:override>
-<%@ include file="base_manger.jsp"%>
+<%@ include file="base_manager.jsp"%>

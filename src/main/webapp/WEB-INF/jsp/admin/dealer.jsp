@@ -80,7 +80,7 @@
     </div>
 
     <div class="row" style="padding: 0 10px 0 10px">
-        <div style="background-color: white; width: 100%; padding: 10px">
+        <div style="background-color: white; width: 100%; padding: 10px; overflow: scroll">
             <table class="table table-sm table-hover" id="tbDealerCommission">
                 <thead>
                     <tr>
@@ -143,20 +143,20 @@
             </div>
         </div>
 
-        <div style="width: 100%; padding: 10px; background-color: white">
+        <div style="width: 100%; padding: 10px; background-color: white; overflow: scroll">
             <table class="table table-sm table-hover table-striped table-dark" id="tbDealers">
             <thead>
                 <tr >
-                <th></th>
-                <th>#</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Name</th>
-                <th>SSN</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Time</th>
-                <th>Users</th>
+                    <th>#</th>
+                    <th>Item</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Name</th>
+                    <th>SSN</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Time</th>
+                    <th>Users</th>
                 </tr>
             </thead>
             <tbody>

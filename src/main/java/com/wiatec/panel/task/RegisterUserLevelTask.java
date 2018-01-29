@@ -1,6 +1,6 @@
 package com.wiatec.panel.task;
 
-import com.wiatec.panel.authorize.MonthAuthorizeTask;
+import com.wiatec.panel.authorize.RentalMonthAuthorizeTask;
 import com.wiatec.panel.common.utils.ApplicationContextHelper;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 public class RegisterUserLevelTask {
 
-    private static final Logger logger = LoggerFactory.getLogger(MonthAuthorizeTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(RentalMonthAuthorizeTask.class);
 
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;

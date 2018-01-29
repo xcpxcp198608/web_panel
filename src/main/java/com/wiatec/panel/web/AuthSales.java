@@ -1,6 +1,9 @@
 package com.wiatec.panel.web;
 
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
+import com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo;
+import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
+import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo;
 import com.wiatec.panel.service.auth.AuthSalesService;
 import com.wiatec.panel.common.result.ResultInfo;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * manage information after sales sign in
@@ -55,12 +59,12 @@ public class AuthSales {
     }
 
     /**
-     * go to create_user page to fill in information
+     * go to create_user page
      * @return sales create user page
      */
-    @GetMapping(value = "/go")
-    public String goCreate(){
-        return "sales/create_user";
+    @GetMapping(value = "/create")
+    public String createUser(HttpServletRequest request, Model model){
+        return authSalesService.createUsers(request, model);
     }
 
     /**
@@ -74,6 +78,48 @@ public class AuthSales {
     public ResultInfo create(HttpServletRequest request, AuthRentUserInfo authRentUserInfo, @PathVariable int paymentMethod){
         return authSalesService.createUser(request, authRentUserInfo, paymentMethod);
     }
+
+
+
+    /**
+     * get every day sales volume in specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        SalesVolumeInDayOfMonthInfo list
+     */
+    @GetMapping(value = "/chart/volume/{year}/{month}")
+    @ResponseBody
+    public List<SalesVolumeInDayOfMonthInfo> getSalesVolumeEveryDayInMonth(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
+        return authSalesService.selectSalesVolumeEveryDayInMonth(request, year, month);
+    }
+
+
+    /**
+     * get every day dealer commission in specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        DealerCommissionOfDaysInfo list
+     */
+    @GetMapping(value = "/chart/commission/{year}/{month}")
+    @ResponseBody
+    public List<SalesCommissionOfDaysInfo> getSalesCommissionEveryDayInMonth(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
+        return authSalesService.selectSalesCommissionEveryDayInMonth(request, year, month);
+    }
+
+    /**
+     * get every month dealer commission in specify year and month
+     * @param year    specify year
+     * @return        DealerCommissionOfMonthInfo list
+     */
+    @GetMapping(value = "/chart/commission/{year}")
+    @ResponseBody
+    public List<SalesCommissionOfMonthInfo> getSalesCommissionEveryMonthInYear(HttpServletRequest request, @PathVariable int year){
+        return authSalesService.selectSalesCommissionEveryMonthInYear(request, year);
+    }
+
+
+
+
 
     /**
      * response year commission chart

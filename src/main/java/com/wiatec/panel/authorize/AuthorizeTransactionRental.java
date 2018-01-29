@@ -15,21 +15,21 @@ import java.math.RoundingMode;
 /**
  * @author patrick
  */
-public class AuthorizeTransaction {
+public class AuthorizeTransactionRental {
 
-    private static Logger logger = LoggerFactory.getLogger(AuthorizeTransaction.class);
+    private static Logger logger = LoggerFactory.getLogger(AuthorizeTransactionRental.class);
     private String path = this.getClass().getClassLoader().getResource("/").getPath() + "authorize.xml";
 
-    public AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo){
-        return charge(authorizeTransactionInfo, null);
+    public AuthorizeTransactionRentalInfo charge(AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo){
+        return charge(authorizeTransactionRentalInfo, null);
     }
 
     /**
      * charge a transaction
-     * @param authorizeTransactionInfo {@link AuthorizeTransactionInfo}
-     * @return {@link AuthorizeTransactionInfo} include all transaction information
+     * @param authorizeTransactionRentalInfo {@link AuthorizeTransactionRentalInfo}
+     * @return {@link AuthorizeTransactionRentalInfo} include all transaction information
      */
-    public AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo, HttpServletRequest request){
+    public AuthorizeTransactionRentalInfo charge(AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo, HttpServletRequest request){
         if(request == null){
             AuthorizeConfig.init(path);
         }else {
@@ -37,14 +37,14 @@ public class AuthorizeTransaction {
         }
         PaymentType paymentType = new PaymentType();
         CreditCardType creditCard = new CreditCardType();
-        creditCard.setCardNumber(authorizeTransactionInfo.getCardNumber());
-        creditCard.setExpirationDate(authorizeTransactionInfo.getExpirationDate()+"");
+        creditCard.setCardNumber(authorizeTransactionRentalInfo.getCardNumber());
+        creditCard.setExpirationDate(authorizeTransactionRentalInfo.getExpirationDate()+"");
         paymentType.setCreditCard(creditCard);
 
         TransactionRequestType requestType = new TransactionRequestType();
         requestType.setTransactionType(TransactionTypeEnum.AUTH_CAPTURE_TRANSACTION.value());
         requestType.setPayment(paymentType);
-        requestType.setAmount(new BigDecimal(authorizeTransactionInfo.getAmount()).setScale(2, RoundingMode.CEILING));
+        requestType.setAmount(new BigDecimal(authorizeTransactionRentalInfo.getAmount()).setScale(2, RoundingMode.CEILING));
 
         CreateTransactionRequest apiRequest = new CreateTransactionRequest();
         apiRequest.setTransactionRequest(requestType);
@@ -52,26 +52,26 @@ public class AuthorizeTransaction {
         CreateTransactionController controller = new CreateTransactionController(apiRequest);
         controller.execute();
         CreateTransactionResponse response = controller.getApiResponse();
-        return handleResponse(response, authorizeTransactionInfo);
+        return handleResponse(response, authorizeTransactionRentalInfo);
     }
 
     /**
      * auth a transaction
-     * @param authorizeTransactionInfo {@link AuthorizeTransactionInfo}
-     * @return {@link AuthorizeTransactionInfo} include all transaction information
+     * @param authorizeTransactionRentalInfo {@link AuthorizeTransactionRentalInfo}
+     * @return {@link AuthorizeTransactionRentalInfo} include all transaction information
      */
-    public AuthorizeTransactionInfo authorize(AuthorizeTransactionInfo authorizeTransactionInfo){
+    public AuthorizeTransactionRentalInfo authorize(AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo){
         AuthorizeConfig.init(path);
         PaymentType paymentType = new PaymentType();
         CreditCardType creditCard = new CreditCardType();
-        creditCard.setCardNumber(authorizeTransactionInfo.getCardNumber());
-        creditCard.setExpirationDate(authorizeTransactionInfo.getExpirationDate()+"");
+        creditCard.setCardNumber(authorizeTransactionRentalInfo.getCardNumber());
+        creditCard.setExpirationDate(authorizeTransactionRentalInfo.getExpirationDate()+"");
         paymentType.setCreditCard(creditCard);
 
         TransactionRequestType requestType = new TransactionRequestType();
         requestType.setTransactionType(TransactionTypeEnum.AUTH_ONLY_TRANSACTION.value());
         requestType.setPayment(paymentType);
-        requestType.setAmount(new BigDecimal(authorizeTransactionInfo.getAmount()).setScale(2, RoundingMode.CEILING));
+        requestType.setAmount(new BigDecimal(authorizeTransactionRentalInfo.getAmount()).setScale(2, RoundingMode.CEILING));
 
         CreateTransactionRequest apiRequest = new CreateTransactionRequest();
         apiRequest.setTransactionRequest(requestType);
@@ -79,26 +79,26 @@ public class AuthorizeTransaction {
         CreateTransactionController controller = new CreateTransactionController(apiRequest);
         controller.execute();
         CreateTransactionResponse response = controller.getApiResponse();
-        return handleResponse(response, authorizeTransactionInfo);
+        return handleResponse(response, authorizeTransactionRentalInfo);
     }
 
     /**
      * refund a transaction
-     * @param authorizeTransactionInfo {@link AuthorizeTransactionInfo}
-     * @return {@link AuthorizeTransactionInfo} include all transaction information
+     * @param authorizeTransactionRentalInfo {@link AuthorizeTransactionRentalInfo}
+     * @return {@link AuthorizeTransactionRentalInfo} include all transaction information
      */
-    public AuthorizeTransactionInfo refund(AuthorizeTransactionInfo authorizeTransactionInfo){
+    public AuthorizeTransactionRentalInfo refund(AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo){
         AuthorizeConfig.init(path);
         PaymentType paymentType = new PaymentType();
         CreditCardType creditCard = new CreditCardType();
-        creditCard.setCardNumber(authorizeTransactionInfo.getCardNumber());
-        creditCard.setExpirationDate(authorizeTransactionInfo.getExpirationDate()+"");
+        creditCard.setCardNumber(authorizeTransactionRentalInfo.getCardNumber());
+        creditCard.setExpirationDate(authorizeTransactionRentalInfo.getExpirationDate()+"");
         paymentType.setCreditCard(creditCard);
 
         TransactionRequestType requestType = new TransactionRequestType();
         requestType.setTransactionType(TransactionTypeEnum.REFUND_TRANSACTION.value());
-        requestType.setRefTransId(authorizeTransactionInfo.getTransactionId());
-        requestType.setAmount(new BigDecimal(authorizeTransactionInfo.getAmount()).setScale(2, RoundingMode.CEILING));
+        requestType.setRefTransId(authorizeTransactionRentalInfo.getTransactionId());
+        requestType.setAmount(new BigDecimal(authorizeTransactionRentalInfo.getAmount()).setScale(2, RoundingMode.CEILING));
         requestType.setPayment(paymentType);
 
         CreateTransactionRequest apiRequest = new CreateTransactionRequest();
@@ -108,10 +108,10 @@ public class AuthorizeTransaction {
         controller.execute();
         CreateTransactionResponse response = controller.getApiResponse();
 
-        return handleResponse(response, authorizeTransactionInfo);
+        return handleResponse(response, authorizeTransactionRentalInfo);
     }
 
-    private AuthorizeTransactionInfo handleResponse(CreateTransactionResponse response, AuthorizeTransactionInfo authorizeTransactionInfo){
+    private AuthorizeTransactionRentalInfo handleResponse(CreateTransactionResponse response, AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo){
         if (response!=null) {
             if (response.getMessages().getResultCode() == MessageTypeEnum.OK) {
                 TransactionResponse result = response.getTransactionResponse();
@@ -121,27 +121,27 @@ public class AuthorizeTransaction {
                     logger.debug("Message Code: " + result.getMessages().getMessage().get(0).getCode());
                     logger.debug("Description: " + result.getMessages().getMessage().get(0).getDescription());
                     logger.debug("Auth Code: " + result.getAuthCode());
-                    AuthorizeTransactionInfo authorizeTransactionInfo1 = new AuthorizeTransactionInfo();
-                    authorizeTransactionInfo1.setAmount(authorizeTransactionInfo.getAmount());
-                    authorizeTransactionInfo1.setDeposit(authorizeTransactionInfo.getDeposit());
-                    authorizeTransactionInfo1.setLdCommission(authorizeTransactionInfo.getLdCommission());
-                    authorizeTransactionInfo1.setLdeCommission(authorizeTransactionInfo.getLdeCommission());
-                    authorizeTransactionInfo1.setDealerCommission(authorizeTransactionInfo.getDealerCommission());
-                    authorizeTransactionInfo1.setSalesCommission(authorizeTransactionInfo.getSalesCommission());
-                    authorizeTransactionInfo1.setExpirationDate(authorizeTransactionInfo.getExpirationDate());
-                    authorizeTransactionInfo1.setCardNumber(authorizeTransactionInfo.getCardNumber());
-                    authorizeTransactionInfo1.setSecurityKey(authorizeTransactionInfo.getSecurityKey());
-                    authorizeTransactionInfo1.setCategory(authorizeTransactionInfo.getCategory());
-                    authorizeTransactionInfo1.setSalesId(authorizeTransactionInfo.getSalesId());
-                    authorizeTransactionInfo1.setDealerId(authorizeTransactionInfo.getDealerId());
-                    authorizeTransactionInfo1.setClientKey(authorizeTransactionInfo.getClientKey());
-                    authorizeTransactionInfo1.setType(authorizeTransactionInfo.getType());
-                    authorizeTransactionInfo1.setTransactionId(result.getTransId());
-                    authorizeTransactionInfo1.setAuthCode(result.getAuthCode());
-                    authorizeTransactionInfo1.setStatus("approved");
-                    authorizeTransactionInfo1.setPrice(authorizeTransactionInfo.getPrice());
-                    authorizeTransactionInfo1.setTxFee(authorizeTransactionInfo.getTxFee());
-                    return authorizeTransactionInfo1;
+                    AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo1 = new AuthorizeTransactionRentalInfo();
+                    authorizeTransactionRentalInfo1.setAmount(authorizeTransactionRentalInfo.getAmount());
+                    authorizeTransactionRentalInfo1.setDeposit(authorizeTransactionRentalInfo.getDeposit());
+                    authorizeTransactionRentalInfo1.setLdCommission(authorizeTransactionRentalInfo.getLdCommission());
+                    authorizeTransactionRentalInfo1.setLdeCommission(authorizeTransactionRentalInfo.getLdeCommission());
+                    authorizeTransactionRentalInfo1.setDealerCommission(authorizeTransactionRentalInfo.getDealerCommission());
+                    authorizeTransactionRentalInfo1.setSalesCommission(authorizeTransactionRentalInfo.getSalesCommission());
+                    authorizeTransactionRentalInfo1.setExpirationDate(authorizeTransactionRentalInfo.getExpirationDate());
+                    authorizeTransactionRentalInfo1.setCardNumber(authorizeTransactionRentalInfo.getCardNumber());
+                    authorizeTransactionRentalInfo1.setSecurityKey(authorizeTransactionRentalInfo.getSecurityKey());
+                    authorizeTransactionRentalInfo1.setCategory(authorizeTransactionRentalInfo.getCategory());
+                    authorizeTransactionRentalInfo1.setSalesId(authorizeTransactionRentalInfo.getSalesId());
+                    authorizeTransactionRentalInfo1.setDealerId(authorizeTransactionRentalInfo.getDealerId());
+                    authorizeTransactionRentalInfo1.setClientKey(authorizeTransactionRentalInfo.getClientKey());
+                    authorizeTransactionRentalInfo1.setType(authorizeTransactionRentalInfo.getType());
+                    authorizeTransactionRentalInfo1.setTransactionId(result.getTransId());
+                    authorizeTransactionRentalInfo1.setAuthCode(result.getAuthCode());
+                    authorizeTransactionRentalInfo1.setStatus("approved");
+                    authorizeTransactionRentalInfo1.setPrice(authorizeTransactionRentalInfo.getPrice());
+                    authorizeTransactionRentalInfo1.setTxFee(authorizeTransactionRentalInfo.getTxFee());
+                    return authorizeTransactionRentalInfo1;
                 } else {
                     logger.debug("Failed Transaction.");
                     if (response.getTransactionResponse().getErrors() != null) {

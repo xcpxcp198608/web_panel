@@ -27,6 +27,11 @@
         WHERE mac=#{mac}
     </select>
 
+    <select id="selectSalesIdByMac" resultType="java.lang.Integer">
+      SELECT sales_id FROM device_rent
+      WHERE mac=#{mac}
+    </select>
+
     <select id="selectOneByMac" resultMap="deviceRentInfo" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
       <include refid="select"/>
       AND mac=#{mac}

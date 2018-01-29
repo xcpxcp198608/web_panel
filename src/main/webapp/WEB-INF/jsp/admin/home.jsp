@@ -47,7 +47,7 @@
     </div>
 
     <div class="row" style="padding: 0 10px 0 10px">
-        <div style="background-color: #ffffff; padding: 10px 20px 0 20px; width: 100%">
+        <div style="background-color: #ffffff; padding: 10px 20px 0 20px; width: 100%; overflow: scroll">
             <table class="table table-sm table-hover table-striped table-dark" id="tb_month" style="overflow: scroll">
             <thead>
                 <tr id="trHead"><td>Item</td><td>Total</td></tr>

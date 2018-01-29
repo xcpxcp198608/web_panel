@@ -88,16 +88,19 @@ public class AuthAdmin {
     /**
      * create user
      * @param authSalesInfo  {@link AuthSalesInfo}
+     *        required: dealer id, username, password, ssn, first name, last name, email, phone,
+     *        bank info, credit card number, expiration date, security key, activate category,
+     *        gold category
      * @return               {@link ResultInfo}
      */
     @PostMapping(value = "/sale/create")
     @ResponseBody
-    public ResultInfo createSales(@Valid AuthSalesInfo authSalesInfo,
+    public ResultInfo createSales(HttpServletRequest request, @Valid AuthSalesInfo authSalesInfo,
                                   BindingResult bindingResult) throws Exception {
         if(bindingResult.hasErrors()){
             throw new XException(3001, bindingResult.getFieldError().getDefaultMessage());
         }
-        return authAdminService.createSales(authSalesInfo);
+        return authAdminService.createSales(request, authSalesInfo);
     }
 
     /**

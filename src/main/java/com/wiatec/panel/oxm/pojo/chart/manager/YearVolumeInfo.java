@@ -1,7 +1,4 @@
-package com.wiatec.panel.oxm.pojo.chart.users;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.wiatec.panel.oxm.pojo.chart.manager;
 
 /**
  * @author patrick

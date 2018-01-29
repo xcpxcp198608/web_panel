@@ -1,8 +1,16 @@
 package com.wiatec.panel.service.auth;
 
-import com.wiatec.panel.authorize.AuthorizeTransaction;
-import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
+import com.wiatec.panel.authorize.AuthorizeTransactionRental;
+import com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo;
+import com.wiatec.panel.authorize.AuthorizeTransactionSales;
+import com.wiatec.panel.authorize.AuthorizeTransactionSalesInfo;
+import com.wiatec.panel.common.utils.EmailMaster;
+import com.wiatec.panel.common.utils.PathUtil;
 import com.wiatec.panel.common.utils.TextUtil;
+import com.wiatec.panel.common.utils.TimeUtil;
+import com.wiatec.panel.invoice.InvoiceInfo;
+import com.wiatec.panel.invoice.InvoiceInfoMaker;
+import com.wiatec.panel.invoice.InvoiceUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
@@ -14,13 +22,14 @@ import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,20 +41,26 @@ public class AuthAdminService {
 
     private Logger logger = LoggerFactory.getLogger(AuthAdminService.class);
 
-    @Resource
+    @Autowired
     private AuthAdminDao authAdminDao;
-    @Resource
+    @Autowired
     private AuthDealerDao authDealerDao;
-    @Resource
+    @Autowired
     private AuthSalesDao authSalesDao;
-    @Resource
+    @Autowired
     private AuthRentUserDao authRentUserDao;
-    @Resource
+    @Autowired
     private CommissionCategoryDao commissionCategoryDao;
-    @Resource
-    private AuthorizeTransactionDao authorizeTransactionDao;
-    @Resource
+    @Autowired
+    private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
+    @Autowired
+    private AuthorizeTransactionSalesDao authorizeTransactionSalesDao;
+    @Autowired
     private DeviceRentDao deviceRentDao;
+    @Autowired
+    private SalesActivateCategoryDao salesActivateCategoryDao;
+    @Autowired
+    private SalesGoldCategoryDao salesGoldCategoryDao;
 
     public String home(){
         return "admin/home";
@@ -94,11 +109,15 @@ public class AuthAdminService {
         model.addAttribute("authSalesInfoList", authSalesInfoList);
         List<AuthDealerInfo> authDealerInfoList = authDealerDao.selectAll();
         model.addAttribute("authDealerInfoList", authDealerInfoList);
+        List<SalesActivateCategoryInfo> salesActivateCategoryInfoList = salesActivateCategoryDao.selectAll();
+        model.addAttribute("salesActivateCategoryInfoList", salesActivateCategoryInfoList);
+        List<SalesGoldCategoryInfo> salesGoldCategoryInfoList = salesGoldCategoryDao.selectAll();
+        model.addAttribute("salesGoldCategoryInfoList", salesGoldCategoryInfoList);
         return "admin/sales";
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo createSales(AuthSalesInfo authSalesInfo) {
+    public ResultInfo createSales(HttpServletRequest request, AuthSalesInfo authSalesInfo) {
         if(authSalesDao.countUsername(authSalesInfo) == 1){
             throw new XException(EnumResult.ERROR_USERNAME_EXISTS);
         }
@@ -108,13 +127,48 @@ public class AuthAdminService {
         if(authSalesDao.countEmail(authSalesInfo) == 1){
             throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
         }
-        try {
-            authSalesDao.insertOne(authSalesInfo);
-            return ResultMaster.success(authSalesDao.selectOneByUsername(authSalesInfo));
-        }catch (Exception e){
-            logger.error("Exception:", e);
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+        //1. create transaction info
+        SalesActivateCategoryInfo salesActivateCategoryInfo = salesActivateCategoryDao
+                .selectOneByCategory(authSalesInfo.getActivateCategory());
+        SalesGoldCategoryInfo salesGoldCategoryInfo = salesGoldCategoryDao
+                .selectOneByCategory(authSalesInfo.getGoldCategory());
+        AuthorizeTransactionSalesInfo authorizeTransactionSalesInfo;
+        if(salesGoldCategoryInfo != null){
+            authorizeTransactionSalesInfo = AuthorizeTransactionSalesInfo.createGold(authSalesInfo,
+                    salesActivateCategoryInfo, salesGoldCategoryInfo);
+        }else{
+            authorizeTransactionSalesInfo = AuthorizeTransactionSalesInfo.createNormal(authSalesInfo,
+                    salesActivateCategoryInfo);
         }
+        //2. process transaction and save transaction info
+        AuthorizeTransactionSalesInfo authorizeTransactionSalesInfo1 = new AuthorizeTransactionSales()
+                .charge(authorizeTransactionSalesInfo);
+        if(authorizeTransactionSalesInfo1 == null){
+            throw new XException(1001, "pay failure");
+        }
+        authorizeTransactionSalesDao.insertOne(authorizeTransactionSalesInfo1);
+        //3. send invoice
+        try {
+            List<InvoiceInfo> invoiceInfoList;
+            if(salesGoldCategoryInfo != null) {
+                invoiceInfoList = InvoiceInfoMaker.salesActivateGold(salesActivateCategoryInfo, salesGoldCategoryInfo);
+            }else{
+                invoiceInfoList = InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo);
+            }
+            InvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
+            String invoice = InvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionSalesInfo1
+                    .getTransactionId(), invoiceInfoList);
+            EmailMaster emailMaster = new EmailMaster();
+            emailMaster.setInvoiceContent(authSalesInfo.getUsername());
+            emailMaster.addAttachment(invoice);
+            emailMaster.sendMessage(authSalesInfo.getEmail());
+        } catch (Exception e) {
+            logger.error("invoice send error", e);
+        }
+        //4. store sales info
+        authSalesInfo.setExpiresTime(TimeUtil.getExpiresDate(salesActivateCategoryInfo.getMonth()));
+        authSalesDao.insertOne(authSalesInfo);
+        return ResultMaster.success(authSalesDao.selectOneByUsername(authSalesInfo));
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -186,26 +240,26 @@ public class AuthAdminService {
             authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
             authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
             authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
-            AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
-            authorizeTransactionInfo.setSalesId(authRentUserInfo.getSalesId());
-            authorizeTransactionInfo.setDealerId(authRentUserInfo.getDealerId());
-            authorizeTransactionInfo.setSalesName(authRentUserInfo.getSalesName());
-            authorizeTransactionInfo.setCategory(authRentUserInfo.getCategory());
-            authorizeTransactionInfo.setClientKey(authRentUserInfo.getClientKey());
-            authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
-            authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
-            authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-            authorizeTransactionInfo.setAmount(authRentUserInfo.getFirstPay());
-            authorizeTransactionInfo.setDeposit(authRentUserInfo.getDeposit());
-            authorizeTransactionInfo.setLdCommission(authRentUserInfo.getLdCommission());
-            authorizeTransactionInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
-            authorizeTransactionInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
-            authorizeTransactionInfo.setType(AuthorizeTransactionInfo.TYPE_CONTRACTED);
-            AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request);
+            AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRentalInfo();
+            authorizeTransactionRentalInfo.setSalesId(authRentUserInfo.getSalesId());
+            authorizeTransactionRentalInfo.setDealerId(authRentUserInfo.getDealerId());
+            authorizeTransactionRentalInfo.setSalesName(authRentUserInfo.getSalesName());
+            authorizeTransactionRentalInfo.setCategory(authRentUserInfo.getCategory());
+            authorizeTransactionRentalInfo.setClientKey(authRentUserInfo.getClientKey());
+            authorizeTransactionRentalInfo.setCardNumber(authRentUserInfo.getCardNumber());
+            authorizeTransactionRentalInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
+            authorizeTransactionRentalInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+            authorizeTransactionRentalInfo.setAmount(authRentUserInfo.getFirstPay());
+            authorizeTransactionRentalInfo.setDeposit(authRentUserInfo.getDeposit());
+            authorizeTransactionRentalInfo.setLdCommission(authRentUserInfo.getLdCommission());
+            authorizeTransactionRentalInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
+            authorizeTransactionRentalInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
+            authorizeTransactionRentalInfo.setType(AuthorizeTransactionRentalInfo.TYPE_CONTRACTED);
+            AuthorizeTransactionRentalInfo charge = new AuthorizeTransactionRental().charge(authorizeTransactionRentalInfo, request);
             if(charge == null){
                 throw new XException(EnumResult.ERROR_AUTHORIZE);
             }
-            authorizeTransactionDao.insertOne(charge);
+            authorizeTransactionRentalDao.insertOne(charge);
             authRentUserDao.updateUserCategory(authRentUserInfo);
             return ResultMaster.success(authRentUserInfo);
         }catch (Exception e){
@@ -229,8 +283,8 @@ public class AuthAdminService {
     }
 
     public String transactions(Model model){
-        List<AuthorizeTransactionInfo> authorizeTransactionInfoList = authorizeTransactionDao.selectAll();
-        model.addAttribute("authorizeTransactionInfoList", authorizeTransactionInfoList);
+        List<AuthorizeTransactionRentalInfo> authorizeTransactionRentalInfoList = authorizeTransactionRentalDao.selectAll();
+        model.addAttribute("authorizeTransactionInfoList", authorizeTransactionRentalInfoList);
         return "admin/transactions";
     }
 
@@ -274,7 +328,7 @@ public class AuthAdminService {
 
     public List<SalesVolumeInDayOfMonthInfo> countSaleVolumeEveryDayInMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
-        return authRentUserDao.countSalesVolumeByDayOfMonth(yearOrMonthInfo);
+        return authRentUserDao.countAllSalesVolumeByDayOfMonth(yearOrMonthInfo);
     }
 
     public List<TopVolumeInfo> getTopVolume(int top){
@@ -282,27 +336,27 @@ public class AuthAdminService {
     }
 
     public List<TopAmountInfo> getTopAmount(int top){
-        return authorizeTransactionDao.selectTopAmount(top);
+        return authorizeTransactionRentalDao.selectTopAmount(top);
     }
 
     public List<AllDealerMonthCommissionInfo> getAllDealerCommissionByMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
-        return authorizeTransactionDao.selectAllDealersCommissionByMonth(yearOrMonthInfo);
+        return authorizeTransactionRentalDao.selectAllDealersCommissionByMonth(yearOrMonthInfo);
     }
 
     public List<AllSalesMonthCommissionInfo> getAllSalesCommissionByMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
-        return authorizeTransactionDao.selectAllSalesCommissionByMonth(yearOrMonthInfo);
+        return authorizeTransactionRentalDao.selectAllSalesCommissionByMonth(yearOrMonthInfo);
     }
 
     public List<SalesAmountInfo> selectSaleAmountEveryMonthInYear(int year){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
-        return authorizeTransactionDao.selectSaleAmountEveryMonthInYear(yearOrMonthInfo);
+        return authorizeTransactionRentalDao.selectSaleAmountEveryMonthInYear(yearOrMonthInfo);
     }
 
     public List<SalesAmountInfo> selectSaleAmountEveryDayInMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
-        return authorizeTransactionDao.selectSaleAmountEveryDayInMonth(yearOrMonthInfo);
+        return authorizeTransactionRentalDao.selectSaleAmountEveryDayInMonth(yearOrMonthInfo);
     }
 
     private AuthAdminInfo getAdminInfo(HttpServletRequest request){

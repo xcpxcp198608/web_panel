@@ -28,9 +28,11 @@ public interface AuthRentUserDao {
     List<AuthRentUserInfo> selectAll();
 
     int countTotalVolumeByDealerId(int dealerId);
+    int countTotalVolumeBySalesId(int salesId);
 
     //chart
     List<VolumeDistributionInfo> getDistributionData();
+    List<SalesVolumeInDayOfMonthInfo> countAllSalesVolumeByDayOfMonth(YearOrMonthInfo yearOrMonthInfo);
     List<SalesVolumeInDayOfMonthInfo> countSalesVolumeByDayOfMonth(YearOrMonthInfo yearOrMonthInfo);
     List<SalesVolumeInDayOfMonthInfo> countDealerVolumeByDayOfMonth(YearOrMonthInfo yearOrMonthInfo);
     List<TopVolumeInfo> selectTopVolume(int top);

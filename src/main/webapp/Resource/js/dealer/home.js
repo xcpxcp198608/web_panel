@@ -268,8 +268,7 @@ $(function () {
                             n = p2;
                             break;
                     }
-                    tdObj2.innerHTML = n;
-                    tdObj2.setAttribute('class', 'tdRows12');
+                    tdObj2.innerHTML = n.toString();
                     tbVolume.rows[k].append(tdObj2);
                 }
                 totalB1 += b1;

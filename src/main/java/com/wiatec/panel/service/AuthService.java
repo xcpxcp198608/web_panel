@@ -1,5 +1,6 @@
 package com.wiatec.panel.service;
 
+import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthAdminDao;
 import com.wiatec.panel.oxm.dao.AuthDealerDao;
@@ -64,7 +65,12 @@ public class AuthService {
                 }
             case 3:
                 if(authSalesDao.countOne(new AuthSalesInfo(username, password)) == 1) {
-                    return "redirect:/sales/";
+                    AuthSalesInfo authSalesInfo = authSalesDao.selectOneByUsername(new AuthSalesInfo(username));
+                    if(TimeUtil.isOutExpires(authSalesInfo.getExpiresTime())){
+                        throw new XException(1001, "your account is out expiration");
+                    }else {
+                        return "redirect:/sales/";
+                    }
                 }else{
                     throw new XException(EnumResult.ERROR_UNAUTHORIZED);
                 }

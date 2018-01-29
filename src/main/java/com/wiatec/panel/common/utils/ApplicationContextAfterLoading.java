@@ -1,6 +1,5 @@
 package com.wiatec.panel.common.utils;
 
-import com.wiatec.panel.authorize.MonthAuthorizeTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;

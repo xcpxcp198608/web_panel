@@ -2,8 +2,10 @@ package com.wiatec.panel.oxm.dao;
 
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
-import com.wiatec.panel.oxm.pojo.chart.users.MonthVolumeInfo;
-import com.wiatec.panel.oxm.pojo.chart.users.YearVolumeInfo;
+import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
+import com.wiatec.panel.oxm.pojo.chart.manager.LevelDistributionInfo;
+import com.wiatec.panel.oxm.pojo.chart.manager.MonthVolumeInfo;
+import com.wiatec.panel.oxm.pojo.chart.manager.YearVolumeInfo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -36,6 +38,9 @@ public interface AuthRegisterUserDao {
     String selectExpiresTimeById(int id);
     AuthRegisterUserInfo selectOneById(int id);
     void updateLevelById(AuthRegisterUserInfo authRegisterUserInfo);
+
+    LevelDistributionInfo selectAllLevelDistribution();
+    List<VolumeDistributionInfo> getDistributionData();
 
     //chart
 

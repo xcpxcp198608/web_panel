@@ -150,7 +150,16 @@
         WHERE id=#{id}
     </update>
 
-    <resultMap type="com.wiatec.panel.oxm.pojo.chart.users.LevelInfo" id="levelInfo">
+
+    <select id="selectAllLevelDistribution" resultType="com.wiatec.panel.oxm.pojo.chart.manager.LevelDistributionInfo">
+        SELECT SUM(level = 5) level5, SUM(level = 4) level4, SUM(level = 3) level3,
+            SUM(level = 2) level2, SUM(level = 1) level1, SUM(level = 0) level0
+        FROM auth_register_user
+        WHERE id > 100;
+    </select>
+
+
+    <resultMap type="com.wiatec.panel.oxm.pojo.chart.manager.LevelInfo" id="levelInfo">
         <result column="count" property="count"/>
         <result column="month" property="month"/>
     </resultMap>
@@ -165,7 +174,7 @@
         GROUP BY month;
     </select>
 
-    <resultMap type="com.wiatec.panel.oxm.pojo.chart.users.YearVolumeInfo" id="yearVolumeInfo">
+    <resultMap type="com.wiatec.panel.oxm.pojo.chart.manager.YearVolumeInfo" id="yearVolumeInfo">
         <result column="month" property="month"/>
         <result column="volume" property="volume"/>
     </resultMap>
@@ -175,10 +184,11 @@
         SELECT count(*) volume, month(create_time) month
         FROM auth_register_user
         WHERE create_time BETWEEN #{start} AND #{end}
+            AND id > 100
         GROUP BY month;
     </select>
 
-    <resultMap type="com.wiatec.panel.oxm.pojo.chart.users.MonthVolumeInfo" id="monthVolumeInfo">
+    <resultMap type="com.wiatec.panel.oxm.pojo.chart.manager.MonthVolumeInfo" id="monthVolumeInfo">
         <result column="day" property="day"/>
         <result column="volume" property="volume"/>
     </resultMap>
@@ -188,7 +198,15 @@
         SELECT count(*) volume, dayofmonth(create_time) day
         FROM auth_register_user
         WHERE create_time BETWEEN #{start} AND #{end}
+            AND id > 100
         GROUP BY day;
+    </select>
+
+    <select id="getDistributionData" resultType="com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo">
+        SELECT country AS name, COUNT(country) AS value
+        FROM auth_register_user
+        WHERE id > 100
+        GROUP BY name;
     </select>
 
 </mapper>

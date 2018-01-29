@@ -1,4 +1,4 @@
-package com.wiatec.panel.oxm.pojo.chart.users;
+package com.wiatec.panel.oxm.pojo.chart.manager;
 
 /**
  * @author patrick

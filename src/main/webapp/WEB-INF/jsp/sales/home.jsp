@@ -160,17 +160,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${authorizeTransactionInfoList}" var="authorizeTransactionInfo" varStatus="status">
+                <c:forEach items="${authorizeTransactionRentalInfoList}" var="authorizeTransactionRentalInfo" varStatus="status">
                     <tr style="font-size: 14px">
                         <td>${status.index + 1}</td>
-                        <td>${authorizeTransactionInfo.clientKey}</td>
-                        <td style="font-size: 12px">${authorizeTransactionInfo.transactionId}</td>
-                        <td>${authorizeTransactionInfo.amount}</td>
-                        <td>${authorizeTransactionInfo.deposit}</td>
-                        <td style="color: orange">${authorizeTransactionInfo.salesCommission}</td>
-                        <td style="font-size: 12px">${fn:substring(authorizeTransactionInfo.createTime, 0, 19)}</td>
-                        <td>${authorizeTransactionInfo.category}</td>
-                        <td>${authorizeTransactionInfo.type}</td>
+                        <td>${authorizeTransactionRentalInfo.clientKey}</td>
+                        <td style="font-size: 12px">${authorizeTransactionRentalInfo.transactionId}</td>
+                        <td>${authorizeTransactionRentalInfo.amount}</td>
+                        <td>${authorizeTransactionRentalInfo.deposit}</td>
+                        <td style="color: orange">${authorizeTransactionRentalInfo.salesCommission}</td>
+                        <td style="font-size: 12px">${fn:substring(authorizeTransactionRentalInfo.createTime, 0, 19)}</td>
+                        <td>${authorizeTransactionRentalInfo.category}</td>
+                        <td>${authorizeTransactionRentalInfo.type}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

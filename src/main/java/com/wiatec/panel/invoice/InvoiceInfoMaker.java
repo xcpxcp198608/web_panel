@@ -1,6 +1,8 @@
 package com.wiatec.panel.invoice;
 
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
+import com.wiatec.panel.oxm.pojo.SalesActivateCategoryInfo;
+import com.wiatec.panel.oxm.pojo.SalesGoldCategoryInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -13,11 +15,11 @@ public class InvoiceInfoMaker {
 
     private Logger logger = LoggerFactory.getLogger(InvoiceInfoMaker.class);
 
-    public static List<InvoiceInfo> contracted(CommissionCategoryInfo commissionCategoryInfo){
+    public static List<InvoiceInfo> rentalContracted(CommissionCategoryInfo commissionCategoryInfo){
         return realCreate(commissionCategoryInfo, true, 1);
     }
 
-    public static List<InvoiceInfo> monthly(CommissionCategoryInfo commissionCategoryInfo, int currentMonth){
+    public static List<InvoiceInfo> rentalMonthly(CommissionCategoryInfo commissionCategoryInfo, int currentMonth){
         return realCreate(commissionCategoryInfo, false, currentMonth);
     }
 
@@ -31,12 +33,23 @@ public class InvoiceInfoMaker {
         return invoiceInfo;
     }
 
+    private static InvoiceInfo createActivate(CommissionCategoryInfo commissionCategoryInfo){
+        InvoiceInfo invoiceInfo = new InvoiceInfo();
+        invoiceInfo.setItem("Activate");
+        invoiceInfo.setDescription("Activate device");
+        invoiceInfo.setQty(1);
+        invoiceInfo.setPrice(commissionCategoryInfo.getActivatePay());
+        invoiceInfo.setAmount(commissionCategoryInfo.getActivatePay());
+        return invoiceInfo;
+    }
+
 
     private static List<InvoiceInfo> realCreate(CommissionCategoryInfo commissionCategoryInfo, boolean isContract,
                                                 int currentMonth){
         List<InvoiceInfo> invoiceInfoList = new ArrayList<>();
         if(isContract) {
             invoiceInfoList.add(createDeposit(commissionCategoryInfo));
+            invoiceInfoList.add(createActivate(commissionCategoryInfo));
         }
         InvoiceInfo invoiceInfo = new InvoiceInfo();
         invoiceInfo.setQty(1);
@@ -65,6 +78,39 @@ public class InvoiceInfoMaker {
         }
         invoiceInfoList.add(invoiceInfo);
         return invoiceInfoList;
+    }
+
+    public static List<InvoiceInfo> salesActivateNormal(SalesActivateCategoryInfo salesActivateCategoryInfo){
+        List<InvoiceInfo> invoiceInfoList = new ArrayList<>();
+        invoiceInfoList.add(createSalesActivate(salesActivateCategoryInfo));
+        return invoiceInfoList;
+    }
+
+    public static List<InvoiceInfo> salesActivateGold(SalesActivateCategoryInfo salesActivateCategoryInfo, SalesGoldCategoryInfo salesGoldCategoryInfo){
+        List<InvoiceInfo> invoiceInfoList = new ArrayList<>();
+        invoiceInfoList.add(createSalesActivate(salesActivateCategoryInfo));
+        invoiceInfoList.add(createSalesGold(salesGoldCategoryInfo));
+        return invoiceInfoList;
+    }
+
+    private static InvoiceInfo createSalesActivate(SalesActivateCategoryInfo salesActivateCategoryInfo){
+        InvoiceInfo invoiceInfo = new InvoiceInfo();
+        invoiceInfo.setItem(salesActivateCategoryInfo.getCategory());
+        invoiceInfo.setDescription(salesActivateCategoryInfo.getDescription());
+        invoiceInfo.setQty(1);
+        invoiceInfo.setPrice(salesActivateCategoryInfo.getPrice());
+        invoiceInfo.setAmount(salesActivateCategoryInfo.getPrice());
+        return invoiceInfo;
+    }
+
+    private static InvoiceInfo createSalesGold(SalesGoldCategoryInfo salesGoldCategoryInfo){
+        InvoiceInfo invoiceInfo = new InvoiceInfo();
+        invoiceInfo.setItem(salesGoldCategoryInfo.getCategory());
+        invoiceInfo.setDescription(salesGoldCategoryInfo.getDescription());
+        invoiceInfo.setQty(salesGoldCategoryInfo.getQty());
+        invoiceInfo.setPrice(salesGoldCategoryInfo.getPrice());
+        invoiceInfo.setAmount(salesGoldCategoryInfo.getAmount());
+        return invoiceInfo;
     }
 
 }
