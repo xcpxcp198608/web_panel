@@ -13,7 +13,7 @@
 
 <rapid:override name="content">
 
-    <div class="row" style="padding-top: 10px">
+    <div class="row">
         <div class="col-3" style="padding: 0 0 0 10px">
             <div style="width: 100%; background-color: #c11021; height: 3px"></div>
             <div style="background-color: #ffffff; padding: 10px">

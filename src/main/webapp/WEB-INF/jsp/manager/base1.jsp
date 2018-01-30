@@ -39,7 +39,7 @@
 <body>
 
     <div id="header">
-        <a id="header_title" href="/panel/">PREFERRED CUSTOMER PROGRAM</a>
+        <a id="header_title">LD</a>
         <a id="username" style="font-size: 16px">${username}</a>
     </div>
 

@@ -10,14 +10,12 @@
 
 <rapid:override name="css_js">
     <script type="text/javascript" src="Resource/js/manager/customers.js"></script>
-    <script type="text/javascript" src="Resource/js/jquery.jqprint-0.3.js"></script>
-    <script type="text/javascript" src="Resource/js/jquery-migrate-1.1.0.js"></script>
-    <%--<script type="text/javascript" src="https://cdn.bootcss.com/jquery-migrate/3.0.1/jquery-migrate.min.js"></script>--%>
+    <script type="text/javascript" src="https://cdn.bootcss.com/printThis/1.12.2/printThis.min.js"></script>
 </rapid:override>
 
 <rapid:override name="content">
 
-    <div class="row" style="padding: 10px 10px 0 10px;">
+    <div class="row" style="padding: 0 10px 0 10px;">
         <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
         <div style="width: 100%; background-color: #ffffff;">
             <span class="text-center text-muted" style="padding: 10px">
@@ -40,6 +38,67 @@
 
         <div style="width: 100%; padding: 10px; background-color: white">
             <div class="row">
+                <div class="col-3">
+                    <a><span class="badge badge-info text-center">search index</span></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" checked value="0">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search customer without index, match all column" >none</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value="1">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search customer with index id">id</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value="2">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search customer with index username">username</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value="3">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search customer with index mac">mac</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value="4">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search customer with index email">email</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value="5">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search customer with index name">name</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value="6">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search customer with index expires time">expires time</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value=7>
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search customer with index level(0,1,2,3,4,fto)">level</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value="8">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search customer with index status(1, 0)">status</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value="9">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search customer with index online(true, false)">online</span>
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="row">
                 <div class="col-12">
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
@@ -55,31 +114,32 @@
                 <div class="col-6">
                     <a id="btActivate" data-toggle="tooltip" title="activate the device">
                         <span class="badge badge-success text-center" style="padding: 3px">
-                            <i class="fa fa-check fa-lg"></i>&nbsp;Activate
+                            <i class="fa fa-check"></i>&nbsp;Activate
                         </span>
                     </a>
                     <a id="btLimited" data-toggle="tooltip" title="limited the device">
                         <span class="badge badge-warning text-center" style="padding: 3px">
-                            <i class="fa fa-lock fa-lg"></i>&nbsp;Limited
+                            <i class="fa fa-lock"></i>&nbsp;Limited
                         </span>
                     </a>
                     <a id="btDelete" data-toggle="tooltip" title="delete the device">
                         <span class="badge badge-danger text-center" style="padding: 3px">
-                            <i class="fa fa-close fa-lg"></i>&nbsp;Delete
+                            <i class="fa fa-close"></i>&nbsp;Delete
                         </span>
                     </a>
                     <a id="btPrint" data-toggle="tooltip" title="print customer information that display in current">
                         <span class="badge badge-primary text-center" style="padding: 3px">
-                            <i class="fa fa-print fa-lg"></i>&nbsp;Print
+                            <i class="fa fa-print"></i>&nbsp;Print&PDF
                         </span>
                     </a>
                 </div>
             </div>
             <c:if test="${'wiatec' eq username}">
-            <div class="row">
-                <div class="col-4" style="height: 25px">
-                    <div class="input-group input-group-sm">
-                        <select class="custom-select" id="seUpdateLevel">
+            <div class="row" style="margin-top: 5px">
+                <div class="col-6" style="height: 25px">
+                    <div class="input-group input-group-sm" style="height: 30px!important;">
+                        <select class="custom-select" id="seUpdateLevel" style="height: 30px!important;
+                        font-size: 12px!important;">
                             <option value="0">Level</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -87,7 +147,8 @@
                             <option value="4">4</option>
                             <option value="5">fto</option>
                         </select>
-                        <select class="custom-select" id="seDays">
+                        <select class="custom-select" id="seDays" style="height: 30px!important;
+                        font-size: 12px!important;">
                             <option value="-1">Days</option>
                             <option value="0">0</option>
                             <option value="1">1</option>
@@ -118,8 +179,8 @@
                     <th>Email</th>
                     <th>Name</th>
                     <th>ExpiresTime</th>
-                    <th>Status</th>
                     <th>Level</th>
+                    <th>Status</th>
                     <th>Online</th>
                     <th>More</th>
                 </tr>
@@ -136,14 +197,6 @@
                         <td>${authRegisterUserInfo.firstName}&nbsp;${authRegisterUserInfo.lastName} </td>
                         <td>${authRegisterUserInfo.expiresTime}</td>
                         <td>
-                            <c:if test="${authRegisterUserInfo.emailStatus == 1}">
-                                <i class="fa fa-check fa-lg text-muted" status="${authRegisterUserInfo.emailStatus}"></i>
-                            </c:if>
-                            <c:if test="${authRegisterUserInfo.emailStatus == 0}">
-                                <i class="fa fa-close fa-lg text-danger" status="${authRegisterUserInfo.emailStatus}"></i>
-                            </c:if>
-                        </td>
-                        <td>
                             <c:if test="${authRegisterUserInfo.level == 0}">
                                 <span style="color: #a01c34">
                                     <i class="fa fa-lock text-danger"></i>
@@ -157,19 +210,27 @@
                             </c:if>
                         </td>
                         <td>
+                            <c:if test="${authRegisterUserInfo.emailStatus == 1}">
+                                <i class="fa fa-check text-muted" status="${authRegisterUserInfo.emailStatus}"></i>
+                            </c:if>
+                            <c:if test="${authRegisterUserInfo.emailStatus == 0}">
+                                <i class="fa fa-close text-danger" status="${authRegisterUserInfo.emailStatus}"></i>
+                            </c:if>
+                        </td>
+                        <td>
                             <c:if test="${authRegisterUserInfo.online == 'true'}">
-                                <i class="fa fa-circle fa-lg text-success"
+                                <i class="fa fa-circle text-success"
                                    online="${authRegisterUserInfo.online}"></i>
                             </c:if>
                             <c:if test="${authRegisterUserInfo.online == 'false'}">
-                                <i class="fa fa-circle-o fa-lg text-muted"
+                                <i class="fa fa-circle-o text-muted"
                                    online="${authRegisterUserInfo.online}"></i>
                             </c:if>
                         </td>
                         <td>
                             <a  title="show details">
                                  <span class="text-info">
-                                    <i class="fa fa-external-link-square fa-lg"></i>
+                                    <i class="fa fa-external-link-square"></i>
                                 </span>
                             </a>
                         </td>

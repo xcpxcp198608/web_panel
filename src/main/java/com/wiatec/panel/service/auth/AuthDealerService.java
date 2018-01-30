@@ -12,7 +12,7 @@ import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
-import com.wiatec.panel.invoice.InvoiceUtil;
+import com.wiatec.panel.invoice.SalesInvoiceUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
@@ -114,8 +114,8 @@ public class AuthDealerService {
             List<InvoiceInfo> invoiceInfoList = salesGoldCategoryInfo != null ?
                     InvoiceInfoMaker.salesActivateGold(salesActivateCategoryInfo, salesGoldCategoryInfo):
                     InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo);
-            InvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-            String invoice = InvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionSalesInfo1
+            SalesInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
+            String invoice = SalesInvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionSalesInfo1
                     .getTransactionId(), invoiceInfoList);
             EmailMaster emailMaster = new EmailMaster();
             emailMaster.setInvoiceContent(authSalesInfo.getUsername());

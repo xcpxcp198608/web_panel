@@ -124,30 +124,25 @@ public class AuthRegisterUserService {
         if (authRegisterUserInfo == null) {
             throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
         }
-        try {
-            session.setAttribute(SessionListener.KEY_USER_NAME, authRegisterUserInfo.getUsername());
-            authRegisterUserDao.updateLocation(userInfo);
-            if(authRegisterUserInfo.getLevel() == 0){
-                return ResultMaster.success(authRegisterUserInfo);
-            }
-            String activateTime = authRegisterUserInfo.getActiveTime();
-            if(TextUtil.isEmpty(activateTime)){
-                activateTime = "2017-01-01 00:00:00";
-            }
-            String e = TimeUtil.getExpiresTimeByDay(activateTime, 7);
-            if (!TimeUtil.isOutExpires(e)) {
-                authRegisterUserInfo.setExperience(true);
-            }
-            if(authRegisterUserInfo.getLevel() > 1 && TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())) {
-                authRegisterUserInfo.setLevel(1);
-                authRegisterUserInfo.setExpiresTime("");
-                authRegisterUserDao.updateLevelById(authRegisterUserInfo);
-            }
+        session.setAttribute(SessionListener.KEY_USER_NAME, authRegisterUserInfo.getUsername());
+        authRegisterUserDao.updateLocation(userInfo);
+        if(authRegisterUserInfo.getLevel() == 0){
             return ResultMaster.success(authRegisterUserInfo);
-        }catch (Exception e){
-            logger.error("Exception:", e);
-            return ResultMaster.success("Error when validate on server");
         }
+        String activateTime = authRegisterUserInfo.getActiveTime();
+        if(TextUtil.isEmpty(activateTime)){
+            activateTime = "2017-01-01 00:00:00";
+        }
+        String e = TimeUtil.getExpiresTimeByDay(activateTime, 7);
+        if (!TimeUtil.isOutExpires(e)) {
+            authRegisterUserInfo.setExperience(true);
+        }
+        if(authRegisterUserInfo.getLevel() > 1 && TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())) {
+            authRegisterUserInfo.setLevel(1);
+            authRegisterUserInfo.setExpiresTime("");
+            authRegisterUserDao.updateLevelById(authRegisterUserInfo);
+        }
+        return ResultMaster.success(authRegisterUserInfo);
     }
 
     public ResultInfo goReset(HttpServletRequest request, AuthRegisterUserInfo userInfo){

@@ -5,7 +5,7 @@ import com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo;
 import com.wiatec.panel.common.utils.*;
 import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
-import com.wiatec.panel.invoice.InvoiceUtil;
+import com.wiatec.panel.invoice.RentalInvoiceUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
@@ -59,7 +59,7 @@ public class AuthSalesService {
         float totalCommission = authorizeTransactionRentalDao.countTotalCommissionBySalesId(salesId);
         model.addAttribute("totalVolume", totalVolume);
         model.addAttribute("totalCommission", totalCommission);
-        return "sales/home1";
+        return "sales/home";
     }
 
     public String users(HttpServletRequest request, Model model){
@@ -91,83 +91,78 @@ public class AuthSalesService {
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo, int paymentMethod){
-        try {
-            AuthSalesInfo authSalesInfo = getSalesInfo(request);
-            if (authRentUserDao.countOneByMac(authRentUserInfo) == 1) {
-                if (!AuthRentUserInfo.STATUS_CANCELED.equals(authRentUserDao.selectStatusByMac(authRentUserInfo))) {
-                    throw new XException(EnumResult.ERROR_DEVICE_USING);
-                }
+        AuthSalesInfo authSalesInfo = getSalesInfo(request);
+        if (authRentUserDao.countOneByMac(authRentUserInfo) == 1) {
+            if (!AuthRentUserInfo.STATUS_CANCELED.equals(authRentUserDao.selectStatusByMac(authRentUserInfo))) {
+                throw new XException(EnumResult.ERROR_DEVICE_USING);
             }
-            if(authRegisterUserDao.countByMac(new AuthRegisterUserInfo(authRentUserInfo.getMac())) == 1){
-                throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
-            }
-            if(deviceRentDao.countOne(new DeviceRentInfo(authRentUserInfo.getMac())) != 1){
-                throw new XException(EnumResult.ERROR_DEVICE_NO_CHECK_IN);
-            }
-            if(deviceRentDao.selectSalesIdByMac(authRentUserInfo.getMac()) != authSalesInfo.getId()){
-                throw new XException(6000, "the device belongs to other sales");
-            }
-            CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
-            commissionCategoryInfo.setPrice();
-            commissionCategoryInfo.setFirstPay();
-            authRentUserInfo.setMac(authRentUserInfo.getMac().toUpperCase());
-            authRentUserInfo.setSalesId(authSalesInfo.getId());
-            authRentUserInfo.setDealerId(authSalesInfo.getDealerId());
-            authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
-            String activateTime = TimeUtil.getStrTime();
-            authRentUserInfo.setActivateTime(activateTime);
-            authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime,
-                    commissionCategoryInfo.getExpires() + commissionCategoryInfo.getBonus()));
-            authRentUserInfo.setDeposit(commissionCategoryInfo.getDeposit());
-            authRentUserInfo.setFirstPay(commissionCategoryInfo.getFirstPay());
-            authRentUserInfo.setMonthPay(commissionCategoryInfo.getMonthPay());
-            authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
-            authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
-            if(authSalesInfo.isGold()) {
-                authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission() + 1);
-            }else{
-                authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
-            }
-            if (paymentMethod == PAYMENT_METHOD_CASH) {
-                authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CASH);
-                authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
-                authRentUserDao.insertOne(authRentUserInfo);
-            } else if (paymentMethod == PAYMENT_METHOD_CREDIT_CARD) {
-                authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
-                authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
-                authRentUserDao.insertOne(authRentUserInfo);
-                AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRental().charge(AuthorizeTransactionRentalInfo
-                        .contractedFromAuthRentInfo(authRentUserInfo), request);
-                if (authorizeTransactionRentalInfo == null) {
-                    throw new XException(EnumResult.ERROR_AUTHORIZE);
-                }
-                authorizeTransactionRentalDao.insertOne(authorizeTransactionRentalInfo);
-                InvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-                List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalContracted(commissionCategoryInfo);
-                String invoicePath = InvoiceUtil.createInvoice(authRentUserInfo.getEmail(),
-                        authorizeTransactionRentalInfo.getTransactionId(), invoiceInfoList);
-                logger.debug("invoicePath: {}", invoicePath);
-                EmailMaster emailMaster = new EmailMaster();
-                emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
-                emailMaster.addAttachment(invoicePath);
-                emailMaster.sendMessage(authRentUserInfo.getEmail());
-                return ResultMaster.success(authRentUserInfo.getClientKey());
-            }else if (paymentMethod == PAYMENT_METHOD_PAYPAL) {
-                authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_PAYPAL);
-                authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
-                authRentUserDao.insertOne(authRentUserInfo);
-            }else{
-                throw new XException(ResultMaster.error(5001, "payment method error"));
-            }
-            deviceRentDao.updateRented(authRentUserInfo.getMac());
-            return ResultMaster.success(authRentUserInfo.getClientKey());
-        }catch (XException e){
-            logger.error("Exception:", e);
-            throw new XException(ResultMaster.error(5000, e.getMessage()));
-        }catch (Exception e){
-            logger.error("Exception:", e);
-            throw new XException(ResultMaster.error(5000, "server inner error"));
         }
+        if(authRegisterUserDao.countByMac(new AuthRegisterUserInfo(authRentUserInfo.getMac())) == 1){
+            throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
+        }
+        if(deviceRentDao.countOne(new DeviceRentInfo(authRentUserInfo.getMac())) != 1){
+            throw new XException(EnumResult.ERROR_DEVICE_NO_CHECK_IN);
+        }
+        if(deviceRentDao.selectSalesIdByMac(authRentUserInfo.getMac()) != authSalesInfo.getId()){
+            throw new XException(6000, "the device belongs to other sales");
+        }
+        CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
+        commissionCategoryInfo.setPrice();
+        commissionCategoryInfo.setFirstPay();
+        authRentUserInfo.setMac(authRentUserInfo.getMac().toUpperCase());
+        authRentUserInfo.setSalesId(authSalesInfo.getId());
+        authRentUserInfo.setSalesName(authSalesInfo.getUsername());
+        authRentUserInfo.setDealerName(authSalesInfo.getDealerName());
+        authRentUserInfo.setDealerId(authSalesInfo.getDealerId());
+        authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
+        String activateTime = TimeUtil.getStrTime();
+        authRentUserInfo.setActivateTime(activateTime);
+        authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime,
+                commissionCategoryInfo.getExpires() + commissionCategoryInfo.getBonus()));
+        authRentUserInfo.setDeposit(commissionCategoryInfo.getDeposit());
+        authRentUserInfo.setFirstPay(commissionCategoryInfo.getFirstPay());
+        authRentUserInfo.setMonthPay(commissionCategoryInfo.getMonthPay());
+        authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
+        authRentUserInfo.setLdeCommission(commissionCategoryInfo.getLdeCommission());
+        authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
+        if(authSalesInfo.isGold()) {
+            authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission() + 1);
+        }else{
+            authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
+        }
+        if (paymentMethod == PAYMENT_METHOD_CASH) {
+            authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CASH);
+            authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
+            authRentUserDao.insertOne(authRentUserInfo);
+        } else if (paymentMethod == PAYMENT_METHOD_CREDIT_CARD) {
+            authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
+            authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
+            authRentUserDao.insertOne(authRentUserInfo);
+            AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRental().charge(AuthorizeTransactionRentalInfo
+                    .contractedFromAuthRentInfo(authRentUserInfo), request);
+            if (authorizeTransactionRentalInfo == null) {
+                throw new XException(EnumResult.ERROR_AUTHORIZE);
+            }
+            authorizeTransactionRentalDao.insertOne(authorizeTransactionRentalInfo);
+            RentalInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
+            List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalContracted(commissionCategoryInfo);
+            String invoicePath = RentalInvoiceUtil.createInvoice(authRentUserInfo,
+                    authorizeTransactionRentalInfo.getTransactionId(), invoiceInfoList);
+            logger.debug("invoicePath: {}", invoicePath);
+            EmailMaster emailMaster = new EmailMaster();
+            emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
+            emailMaster.addAttachment(invoicePath);
+            emailMaster.sendMessage(authRentUserInfo.getEmail());
+            return ResultMaster.success(authRentUserInfo.getClientKey());
+        }else if (paymentMethod == PAYMENT_METHOD_PAYPAL) {
+            authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_PAYPAL);
+            authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
+            authRentUserDao.insertOne(authRentUserInfo);
+        }else{
+            throw new XException(ResultMaster.error(5001, "payment method error"));
+        }
+        deviceRentDao.updateRented(authRentUserInfo.getMac());
+        return ResultMaster.success(authRentUserInfo.getClientKey());
     }
 
     ////////////////////////////////////////////////////////// chart ///////////////////////////////////////////////////

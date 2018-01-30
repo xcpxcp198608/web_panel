@@ -3,6 +3,13 @@ $(function () {
     var tbOrders = $('#tbOrders').get(0).tBodies[0];
     var rowsLength = tbOrders.rows.length;
 
+    var currentSearchIndex = 0;
+    $('input[name=searchRadio]').each(function(){
+        $(this).click(function(){
+            currentSearchIndex = parseInt($(this).val());
+        });
+    });
+
     /**
      * search of table orders & search input key up event listener
      */
@@ -13,15 +20,27 @@ $(function () {
             return;
         }
         var count = 0;
-        for(var i = 0; i < rowsLength; i ++){
-            for(var j = 1; j < 8; j ++){
-                var content = tbOrders.rows[i].cells[j].innerHTML.toLowerCase();
-                if(content.search(key) >= 0){
-                    tbOrders.rows[i].style.display = '';
-                    count ++;
-                    break;
-                }else{
-                    tbOrders.rows[i].style.display = 'none';
+        if(currentSearchIndex > 0) {
+            for (var m = 0; m < rowsLength; m ++) {
+                var content1 = tbOrders.rows[m].cells[currentSearchIndex].innerHTML.toLowerCase();
+                if (content1.search(key) >= 0) {
+                    tbOrders.rows[m].style.display = "";
+                    count++;
+                } else {
+                    tbOrders.rows[m].style.display = "none";
+                }
+            }
+        }else{
+            for (var i = 0; i < rowsLength; i++) {
+                for (var j = 1; j < 8; j++) {
+                    var content = tbOrders.rows[i].cells[j].innerHTML.toLowerCase();
+                    if (content.search(key) >= 0) {
+                        tbOrders.rows[i].style.display = '';
+                        count++;
+                        break;
+                    } else {
+                        tbOrders.rows[i].style.display = 'none';
+                    }
                 }
             }
         }

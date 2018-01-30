@@ -13,7 +13,7 @@
 
 <rapid:override name="content">
 
-    <div class="row" style="padding: 10px 10px 0 10px">
+    <div class="row" style="padding: 0 10px 0 10px">
         <div style="width: 100%; background-color: #c11021; height: 3px"></div>
         <div class="col-12" style="background-color: #ffffff; padding: 10px 10px 0 10px">
             <div>
@@ -54,7 +54,7 @@
                 <label class="radio-inline">
                     <input type="radio" name="payMethod" checked value="0">
                     <span class="badge badge-secondary">cash</span>
-                </label>
+                </label>&nbsp;
                 <label class="radio-inline">
                     <input type="radio" name="payMethod" value="1">
                     <span class="badge badge-secondary">credit card</span>
@@ -81,7 +81,7 @@
                         </span>
                 </div>
                 <input type="text" class="form-control" placeholder="mac" id="ipMac"
-                       aria-label="Username" aria-describedby="basic-addon11" maxlength="17">
+                       aria-label="mac" aria-describedby="basic-addon11" maxlength="17">
             </div>
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
@@ -90,7 +90,7 @@
                         </span>
                 </div>
                 <input type="text" class="form-control" placeholder="first name" id="ipFirstName"
-                       aria-label="Username" aria-describedby="basic-addon13">
+                       aria-label="first name" aria-describedby="basic-addon13">
             </div>
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
@@ -99,7 +99,7 @@
                         </span>
                 </div>
                 <input type="text" class="form-control" placeholder="last name" id="ipLastName"
-                       aria-label="Username" aria-describedby="basic-addon14">
+                       aria-label="last name" aria-describedby="basic-addon14">
             </div>
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
@@ -108,7 +108,7 @@
                         </span>
                 </div>
                 <input type="email" class="form-control" placeholder="email address" id="ipEmail"
-                       aria-label="Username" aria-describedby="basic-addon15">
+                       aria-label="email address" aria-describedby="basic-addon15">
             </div>
             <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
@@ -117,9 +117,37 @@
                         </span>
                 </div>
                 <input type="number" class="form-control" placeholder="phone number" id="ipPhone"
-                       aria-label="Username" aria-describedby="basic-addon16">
+                       aria-label="phone number" aria-describedby="basic-addon16">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon160">
+                            <i class="fa fa-globe fa-lg"></i>
+                        </span>
+                </div>
+                <input type="number" class="form-control" placeholder="post code" id="ipPostCode"
+                       aria-label="postCode" aria-describedby="basic-addon160">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon161">
+                            <i class="fa fa-university fa-lg"></i>
+                        </span>
+                </div>
+                <input type="text" class="form-control" placeholder="post address" id="ipPostAddress"
+                       aria-label="post address" aria-describedby="basic-addon161">
             </div>
 
+            <div class="input-group input-group-sm mb-3">
+                <label class="radio-inline">
+                    <input type="radio" name="express" checked value="0">
+                    <span class="badge badge-secondary">pick up</span>
+                </label>&nbsp;
+                <label class="radio-inline">
+                    <input type="radio" name="express" value="1">
+                    <span class="badge badge-secondary">express</span>
+                </label>
+            </div>
 
 
 

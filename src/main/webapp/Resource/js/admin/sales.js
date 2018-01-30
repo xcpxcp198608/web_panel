@@ -402,11 +402,11 @@ $(function () {
                     tdObj.innerHTML = authSalesInfo.createTime;
                     break;
                 case 10:
-                    tdObj.innerHTML = '<span class="text-inverse"><i class="fa fa-exchange fa-lg"></i></span>';
+                    tdObj.innerHTML = '<span class="text-inverse"><i class="fa fa-exchange"></i></span>';
                     break;
                 case 11:
-                    tdObj.innerHTML = '<a href="/panel/admin/users/2/'+ authSalesInfo.id+'">\n' +
-                        '                 <i class="fa fa-eye fa-lg"></i>\n' +
+                    tdObj.innerHTML = '<a href="/panel/admin/users/2/'+ authSalesInfo.id+'" target="_blank">\n' +
+                        '                 <i class="fa fa-eye"></i>\n' +
                         '              </a>';
                     break;
             }

@@ -61,14 +61,14 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#83fc1a',
-                        shadowBlur: 50,
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 },
                 lineStyle: {
                     normal: {
                         color: '#68d4fc',
-                        shadowBlur: 50,
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 }
@@ -181,7 +181,7 @@ $(function () {
                 name: 'volume',
                 type: 'bar',
                 data: yearVolume,
-                barWidth: 30,
+                barWidth: 20,
                 itemStyle: {
                     normal: {
                         color: '#fc3ba8',

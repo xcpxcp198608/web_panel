@@ -54,6 +54,13 @@ $(function () {
             }
         });
     });
+
+    var express = false;
+    $('input[name=express]').each(function(){
+        $(this).click(function(){
+            express = $(this).val();
+        });
+    });
    
    $('#btSubmitCreate').click(function () {
        var mac = $('#ipMac').val();
@@ -61,6 +68,8 @@ $(function () {
        var lastName = $('#ipLastName').val();
        var email = $('#ipEmail').val();
        var phone = $('#ipPhone').val();
+       var postCode = $('#ipPostCode').val();
+       var postAddress = $('#ipPostAddress').val();
        var cardNumber = $('#ipCardNumber').val();
        var expirationDate = $('#ipExpirationDate').val();
        var securityKey = $('#ipSecurityKey').val();
@@ -92,6 +101,14 @@ $(function () {
            showErrorMessage($('#errorCreate'), 'phone input error');
            return;
        }
+       if(postCode.length <= 0){
+           showErrorMessage($('#errorCreate'), 'post code input error');
+           return;
+       }
+       if(postAddress.length <= 0){
+           showErrorMessage($('#errorCreate'), 'post address input error');
+           return;
+       }
        if(currentPaymentMethod === '1') {
            if (cardNumber.length !== 16) {
                showErrorMessage($('#errorCreate'), 'card number input error');
@@ -112,7 +129,8 @@ $(function () {
            type: 'POST',
            url: url,
            data: {'category': currentCategory, 'mac': mac, 'firstName': firstName,
-               'lastName': lastName, 'email': email, 'phone': phone, 'cardNumber': cardNumber,
+               'lastName': lastName, 'email': email, 'phone': phone, 'postCode': postCode,
+               'postAddress': postAddress, 'express': express, 'cardNumber': cardNumber,
                'expirationDate': expirationDate, 'securityKey': securityKey},
            dataType: 'json',
            beforeSend:function(){

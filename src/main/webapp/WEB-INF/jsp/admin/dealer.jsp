@@ -14,7 +14,7 @@
 
 <rapid:override name="content">
 
-    <div class="row" style="padding-top: 10px">
+    <div class="row">
         <div class="col-4" style="padding: 0 0 0 10px">
             <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
             <div style="background-color: #ffffff; padding: 10px">
@@ -175,7 +175,7 @@
                         <td>${fn:substring(authDealerInfo.createTime, 0, 19)}</td>
                         <td>
                         <a href="/panel/admin/users/1/${authDealerInfo.id}" title="show all users under this sales">
-                            <i class="fa fa-eye fa-lg"></i>
+                            <i class="fa fa-eye"></i>
                         </a>
                         </td>
                     </tr>

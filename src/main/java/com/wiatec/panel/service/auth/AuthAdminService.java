@@ -10,7 +10,7 @@ import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
-import com.wiatec.panel.invoice.InvoiceUtil;
+import com.wiatec.panel.invoice.SalesInvoiceUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
@@ -29,7 +29,6 @@ import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -155,8 +154,8 @@ public class AuthAdminService {
             }else{
                 invoiceInfoList = InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo);
             }
-            InvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-            String invoice = InvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionSalesInfo1
+            SalesInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
+            String invoice = SalesInvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionSalesInfo1
                     .getTransactionId(), invoiceInfoList);
             EmailMaster emailMaster = new EmailMaster();
             emailMaster.setInvoiceContent(authSalesInfo.getUsername());
@@ -283,8 +282,9 @@ public class AuthAdminService {
     }
 
     public String transactions(Model model){
-        List<AuthorizeTransactionRentalInfo> authorizeTransactionRentalInfoList = authorizeTransactionRentalDao.selectAll();
-        model.addAttribute("authorizeTransactionInfoList", authorizeTransactionRentalInfoList);
+        List<AuthorizeTransactionRentalInfo> authorizeTransactionRentalInfoList =
+                authorizeTransactionRentalDao.selectAll();
+        model.addAttribute("authorizeTransactionRentalInfoList", authorizeTransactionRentalInfoList);
         return "admin/transactions";
     }
 

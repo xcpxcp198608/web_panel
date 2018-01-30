@@ -7,6 +7,7 @@ import com.wiatec.panel.common.result.XException;
 import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.common.utils.TokenUtil;
+import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
@@ -48,6 +49,11 @@ public class AuthManagerService {
         }else{
             authRegisterUserInfoList = authRegisterUserDao.selectAll(100);
         }
+        for(AuthRegisterUserInfo authRegisterUserInfo: authRegisterUserInfoList){
+            if(SessionListener.userSessionMap.containsKey(authRegisterUserInfo.getUsername())){
+                authRegisterUserInfo.setOnline(true);
+            }
+        }
         model.addAttribute("authRegisterUserInfoList", authRegisterUserInfoList);
         return "manager/customers";
     }
@@ -84,6 +90,9 @@ public class AuthManagerService {
             newExpiresTime = TimeUtil.getExpiresTimeByDay(TimeUtil.getStrTime(), days);
         }else{
             newExpiresTime = TimeUtil.getExpiresTimeByDay(expiresTime, days);
+        }
+        if(level == 1){
+            newExpiresTime = "";
         }
         authRegisterUserInfo.setExpiresTime(newExpiresTime);
         authRegisterUserDao.updateLevelById(authRegisterUserInfo);

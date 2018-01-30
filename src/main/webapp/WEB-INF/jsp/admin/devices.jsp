@@ -14,7 +14,7 @@
 
 <rapid:override name="content">
 
-    <div class="row" style="padding: 10px 10px 0 10px;">
+    <div class="row" style="padding: 0 10px 0 10px;">
         <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
         <div style="width: 100%; background-color: #ffffff;">
             <span class="text-center text-muted" style="padding: 10px">
@@ -73,10 +73,10 @@
                         <td>${deviceRentInfo.createTime}</td>
                         <td>
                             <c:if test="${deviceRentInfo.rented == true}">
-                                <span class="text-success"><i class="fa fa-check-circle fa-lg"></i></span>
+                                <span class="text-success"><i class="fa fa-check-circle"></i></span>
                             </c:if>
                             <c:if test="${deviceRentInfo.rented == false}">
-                                <span class="text-secondary"><i class="fa fa-close fa-lg"></i></span>
+                                <span class="text-secondary"><i class="fa fa-close"></i></span>
                             </c:if>
                         </td>
                     </tr>

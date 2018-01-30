@@ -14,7 +14,7 @@
 
 <rapid:override name="content">
 
-    <div class="row" style="padding-top: 10px">
+    <div class="row">
         <div class="col-4" style="padding: 0 0 0 10px">
             <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
             <div style="background-color: #ffffff; padding: 10px">
@@ -177,15 +177,15 @@
                             <td>${authSalesInfo.createTime}</td>
                             <td>
                                 <c:if test="${authSalesInfo.gold == true}">
-                                    <span class="text-success"><i class="fa fa-exchange fa-lg"></i></span>
+                                    <span class="text-success"><i class="fa fa-exchange"></i></span>
                                 </c:if>
                                 <c:if test="${authSalesInfo.gold == false}">
-                                    <span class="text-inverse"><i class="fa fa-exchange fa-lg"></i></span>
+                                    <span class="text-inverse"><i class="fa fa-exchange"></i></span>
                                 </c:if>
                             </td>
                             <td>
                                 <a href="/panel/admin/users/2/${authSalesInfo.id}" title="show all users under this sales">
-                                    <i class="fa fa-eye fa-lg"></i>
+                                    <i class="fa fa-eye"></i>
                                 </a>
                             </td>
                         </tr>

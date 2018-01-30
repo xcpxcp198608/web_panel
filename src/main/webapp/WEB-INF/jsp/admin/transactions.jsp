@@ -14,7 +14,7 @@
 
 <rapid:override name="content">
 
-    <div class="row" style="padding-top: 10px">
+    <div class="row">
         <div class="col-3" style="padding: 0 0 0 10px">
             <div style="width: 100%; background-color: #1b740a; height: 3px"></div>
             <div style="background-color: #ffffff; padding: 10px">
@@ -88,26 +88,41 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-5">
+                <div class="col-12">
                     <label class="radio-inline">
-                        <input type="radio" name="searchRadio" data-toggle="tooltip"
-                               title="search transaction without index" checked>
-                        <span class="badge badge-secondary">none</span>
+                        <input type="radio" name="searchRadio" checked value="0">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search transaction without index" >none</span>
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="searchRadio" data-toggle="tooltip"
-                               title="search transaction with index sales">
-                        <span class="badge badge-secondary">sales</span>
+                        <input type="radio" name="searchRadio" value="2">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search transaction with index client key">client key</span>
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="searchRadio" data-toggle="tooltip"
-                               title="search transaction with index plan">
-                        <span class="badge badge-secondary">plan</span>
+                        <input type="radio" name="searchRadio" value="3">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search transaction with index transaction id">transaction id</span>
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="searchRadio" data-toggle="tooltip"
-                               title="search transaction with index type">
-                        <span class="badge badge-secondary">type</span>
+                        <input type="radio" name="searchRadio" value="4">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search transaction with index trading time">trading time</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value="5">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search transaction with index sales">sales</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value="6">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search transaction with index plan">plan</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="searchRadio" value="7">
+                        <span class="badge badge-secondary" data-toggle="tooltip"
+                              title="search transaction with index type">type</span>
                     </label>
                 </div>
             </div>
@@ -179,7 +194,7 @@
                                 <a href="http://www.ldlegacy.com:8899/static/panel/invoice/ld_invoice_${authorizeTransactionRentalInfo.transactionId}.pdf"
                                    target="_blank">
                                     <span class="text-secondary">
-                                        <i class="fa fa-bookmark-o fa-lg"></i>
+                                        <i class="fa fa-bookmark-o"></i>
                                     </span>
                                 </a>
                             </td>

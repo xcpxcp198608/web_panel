@@ -8,32 +8,16 @@ var loading;
 
 $(function () {
 
-    // document.oncontextmenu = function () {
-    //     return false
-    // };
+    document.oncontextmenu = function () {
+        return false
+    };
 
     $('[data-toggle="tooltip"]').tooltip();
 
     dNotice = $('#notice');
     noticeMessage = $('#notice_message');
-    dDetails = $('#details');
-    btCloseDetails = $('#closeDetails');
+
     loading = $('#loading');
-
-    btCloseDetails.click(function () {
-        dDetails.css('display', 'none');
-    });
-
-    $('#navigation').find('> ul >li > a').each(function (index, value) {
-        $(this).mouseover(function () {
-            $(this).prev().css('color', '#2377b9')
-        })
-        $(this).mouseout(function () {
-            $(this).prev().css('color', '#000')
-        })
-    })
-
-
 });
 
 function showErrorMessage(node, message) {
@@ -48,13 +32,6 @@ function hideLoading() {
     loading.css('display', 'none')
 }
 
-function showDetail() {
-    dDetails.css('display', 'block')
-}
-
-function hideDetail() {
-    dDetails.css('display', 'none');
-}
 
 function showNotice(message) {
     noticeMessage.html(message);

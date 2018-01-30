@@ -65,12 +65,12 @@
     </select>
 
     <select id="countTotalCommissionByDealerId" resultType="java.lang.Float">
-        SELECT SUM(dealer_commission) c FROM authorize_transaction_rental
+        SELECT COALESCE (SUM(dealer_commission), 0) FROM authorize_transaction_rental
         WHERE dealer_id = #{dealerId}
     </select>
 
     <select id="countTotalCommissionBySalesId" resultType="java.lang.Float">
-        SELECT SUM(sales_commission) c FROM authorize_transaction_rental
+        SELECT COALESCE (SUM(sales_commission), 0) FROM authorize_transaction_rental
         WHERE sales_id = #{salesId}
     </select>
 

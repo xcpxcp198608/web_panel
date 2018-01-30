@@ -14,7 +14,7 @@
 
 <rapid:override name="content">
 
-    <div class="row" style="padding: 10px 10px 0 10px;">
+    <div class="row" style="padding: 0 10px 0 10px;">
         <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
         <div style="width: 100%; background-color: #ffffff;">
             <span class="text-center text-muted" style="padding: 10px">
@@ -93,12 +93,12 @@
                         <td>
                             <c:if test="${authRentUserInfo.online == 'true'}">
                                 <span class="text-success">
-                                    <i class="fa fa-circle fa-lg" online="${authRentUserInfo.online}"></i>
+                                    <i class="fa fa-circle" online="${authRentUserInfo.online}"></i>
                                 </span>
                             </c:if>
                             <c:if test="${authRentUserInfo.online == 'false'}">
                                 <span class="text-secondary">
-                                    <i class="fa fa-circle-o fa-lg" online="${authRentUserInfo.online}"></i>
+                                    <i class="fa fa-circle-o" online="${authRentUserInfo.online}"></i>
                                 </span>
                             </c:if>
                         </td>

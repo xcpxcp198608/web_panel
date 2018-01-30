@@ -13,7 +13,7 @@
 
 <rapid:override name="content">
 
-    <div class="row" style="padding: 10px 10px 0 10px">
+    <div class="row" style="padding: 0 10px 0 10px">
         <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
         <div class="col-5" style="padding: 10px; background-color: white">
             <span class="text-center text-muted" style="padding: 10px">The detail of activate volume in month:</span>

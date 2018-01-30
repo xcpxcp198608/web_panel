@@ -2,14 +2,8 @@ package com.wiatec.panel.service;
 
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.listener.SessionListener;
-import com.wiatec.panel.oxm.dao.AuthAdminDao;
-import com.wiatec.panel.oxm.dao.AuthDealerDao;
-import com.wiatec.panel.oxm.dao.AuthManagerDao;
-import com.wiatec.panel.oxm.dao.AuthSalesDao;
-import com.wiatec.panel.oxm.pojo.AuthAdminInfo;
-import com.wiatec.panel.oxm.pojo.AuthDealerInfo;
-import com.wiatec.panel.oxm.pojo.AuthManagerInfo;
-import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
+import com.wiatec.panel.oxm.dao.*;
+import com.wiatec.panel.oxm.pojo.*;
 import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.XException;
@@ -35,6 +29,8 @@ public class AuthService {
     private AuthDealerDao authDealerDao;
     @Resource
     private AuthSalesDao authSalesDao;
+    @Resource
+    private AuthDeviceDao authDeviceDao;
 
     public String signIn(HttpSession session, String username, String password, int type){
         session.setAttribute("username", username);
@@ -47,7 +43,7 @@ public class AuthService {
         switch (type){
             case 0:
                 if(authManagerDao.countOne(new AuthManagerInfo(username, password)) == 1) {
-                    return "redirect:/manager/";
+                    return "redirect:/manager/home";
                 }else{
                     throw new XException(EnumResult.ERROR_UNAUTHORIZED);
                 }
@@ -98,7 +94,7 @@ public class AuthService {
         if(TextUtil.isEmpty(password)){
             throw new XException(EnumResult.ERROR_PASSWORD_FORMAT);
         }
-        if(DEVICE_USER.equals(username) && DEVICE_USER.equals(password)) {
+        if(authDeviceDao.countOne(new AuthDeviceInfo(username, password)) == 1){
             return "redirect:/device/home";
         }else{
             throw new XException(EnumResult.ERROR_UNAUTHORIZED);

@@ -5,7 +5,7 @@ import com.wiatec.panel.common.utils.EmailMaster;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
-import com.wiatec.panel.invoice.InvoiceUtil;
+import com.wiatec.panel.invoice.RentalInvoiceUtil;
 import com.wiatec.panel.oxm.dao.AuthRentUserDao;
 import com.wiatec.panel.oxm.dao.AuthorizeTransactionRentalDao;
 import com.wiatec.panel.oxm.dao.CommissionCategoryDao;
@@ -136,7 +136,7 @@ public class RentalMonthAuthorizeTask {
                                AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo, int currentMonth){
         try {
             List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalMonthly(commissionCategoryInfo, currentMonth);
-            String invoicePath = InvoiceUtil.createInvoice(authRentUserInfo.getEmail(),
+            String invoicePath = RentalInvoiceUtil.createInvoice(authRentUserInfo,
                     authorizeTransactionRentalInfo.getTransactionId(), invoiceInfoList);
             logger.debug("invoicePath: {}", invoicePath);
             EmailMaster emailMaster = new EmailMaster();

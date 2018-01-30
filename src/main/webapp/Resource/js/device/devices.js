@@ -1,5 +1,6 @@
 $(function () {
 
+    var baseUrl = "http://"+location.host+"/panel";
     var tbDevices = $('#tbDevices').get(0).tBodies[0];
     var rowsLength = tbDevices.rows.length;
 
@@ -55,6 +56,42 @@ $(function () {
             currentRow = $(this).attr('currentRow');
         });
     });
+
+    dDetails = $('#details');
+    btCloseDetails = $('#closeDetails');
+    dNotice = $('#notice');
+    noticeMessage = $('#notice_message');
+    loading = $('#loading');
+
+    btCloseDetails.click(function () {
+        hideDetail();
+    });
+
+
+    function showDetail() {
+        dDetails.show()
+    }
+
+    function hideDetail() {
+        dDetails.hide();
+    }
+
+    function showLoading() {
+        loading.css('display', 'block')
+    }
+
+    function hideLoading() {
+        loading.css('display', 'none')
+    }
+
+    function showNotice(message) {
+        noticeMessage.html(message);
+        dNotice.css('display', 'block');
+        setTimeout(function(){
+            noticeMessage.html("");
+            dNotice.css('display', 'none');
+        }, 1500);
+    }
     
     $('#btCheckIn').click(function () {
         showDetail();
@@ -126,5 +163,8 @@ $(function () {
             }
         });
     });
+
+
+
 
 });

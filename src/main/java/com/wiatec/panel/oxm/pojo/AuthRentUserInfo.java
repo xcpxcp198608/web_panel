@@ -23,6 +23,9 @@ public class AuthRentUserInfo {
     private String lastName;
     private String email;
     private String phone;
+    private String postCode;
+    private String postAddress;
+    private boolean express;
     private String cardNumber;
     private String expirationDate;
     private String securityKey;
@@ -152,6 +155,30 @@ public class AuthRentUserInfo {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public String getPostAddress() {
+        return postAddress;
+    }
+
+    public void setPostAddress(String postAddress) {
+        this.postAddress = postAddress;
+    }
+
+    public boolean isExpress() {
+        return express;
+    }
+
+    public void setExpress(boolean express) {
+        this.express = express;
     }
 
     public String getCardNumber() {
@@ -337,6 +364,9 @@ public class AuthRentUserInfo {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", postCode='" + postCode + '\'' +
+                ", postAddress='" + postAddress + '\'' +
+                ", express=" + express +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", expirationDate='" + expirationDate + '\'' +
                 ", securityKey='" + securityKey + '\'' +

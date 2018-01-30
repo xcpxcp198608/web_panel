@@ -36,9 +36,61 @@
     <link rel="shortcut icon" href="Resource/img/btv.ico">
     <rapid:block name="css_js" />
 
+    <style>
+        .loading{
+            width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: 2000; background: #dddddd;
+        }
+        .loading .pic{
+            width: 60px; height: 50px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto;
+        }
+        .loading .pic i{
+            display: block; float: left; width: 6px; height: 50px; background: #1a233c; margin: 0 2px;
+            -webkit-transform: scaleY(0.3);
+            -ms-transform: scaleY(0.3);
+            transform: scaleY(0.3); -webkit-animation: loading 1.2s infinite; animation: loading 1.2s infinite;
+        }
+        .loading .pic i:nth-child(2){-webkit-animation-delay: 0.1s;animation-delay: 0.1s}
+        .loading .pic i:nth-child(3){-webkit-animation-delay: 0.2s;animation-delay: 0.2s}
+        .loading .pic i:nth-child(4){-webkit-animation-delay: 0.3s;animation-delay: 0.3s}
+        .loading .pic i:nth-child(5){-webkit-animation-delay: 0.4s;animation-delay: 0.4s}
+        .loading .pic i:nth-child(6){-webkit-animation-delay: 0.5s;animation-delay: 0.5s}
+
+        @-webkit-keyframes loading {
+            0%, 40%, 100%{-webkit-transform: scaleY(0.4);transform: scaleY(0.4)}
+            20%{-webkit-transform: scaleY(1);transform: scaleY(1)}
+        }
+
+        @keyframes loading {
+            0%, 40%, 100%{-webkit-transform: scaleY(0.4);transform: scaleY(0.4)}
+            20%{-webkit-transform: scaleY(1);transform: scaleY(1)}
+        }
+
+    </style>
+
+    <script>
+        $(function () {
+            document.onreadystatechange = function(){
+                if(document.readyState === 'complete'){
+                    $('.loading').fadeOut();
+                }
+            }
+        });
+    </script>
+
 </head>
 
 <body>
+
+    <div class="loading">
+        <div class="pic">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+        </div>
+    </div>
 
     <div class="container-fluid">
         <rapid:block name="modal"/>
@@ -73,7 +125,7 @@
                     </div>
                 </div>
 
-                <div id="p-content">
+                <div id="p-content" style="margin-top: 10px">
                     <div class="container-fluid" style="padding:10px">
                     <rapid:block name="content"/>
                     </div>

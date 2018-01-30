@@ -24,6 +24,9 @@ public class AuthInterceptor implements HandlerInterceptor {
         logger.info("= ");
         String ref = request.getHeader("Referer");
         logger.info("= ref = {}", ref);
+        if(request.getRequestURI().equals("/panel/manager/")){
+            return true;
+        }
         if(ref == null || !ref.contains("/panel")){
             throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
@@ -38,6 +41,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if(request.getRequestURI().equals("/panel/manager/")){
+            return;
+        }
         String username = (String) request.getSession().getAttribute("username");
         if(TextUtil.isEmpty(username)){
             throw new XException(EnumResult.ERROR_RE_LOGIN);

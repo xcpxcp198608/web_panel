@@ -8,8 +8,8 @@ import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
  */
 public class AuthorizeTransactionRentalInfo {
 
-    public static final String TYPE_CONTRACTED = "rentalContracted";
-    public static final String TYPE_MONTHLY = "rentalMonthly";
+    public static final String TYPE_CONTRACTED = "contracted";
+    public static final String TYPE_MONTHLY = "monthly";
     public static final String TYPE_RENEW = "renew";
 
     public static final float TAX = 0.08F;

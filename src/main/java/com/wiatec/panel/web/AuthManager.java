@@ -24,6 +24,11 @@ public class AuthManager {
     private AuthManagerService authManagerService;
 
     @GetMapping(value = "/")
+    public String index(){
+        return "manager/index";
+    }
+
+    @GetMapping(value = "/home")
     public String home(){
         return authManagerService.home();
     }

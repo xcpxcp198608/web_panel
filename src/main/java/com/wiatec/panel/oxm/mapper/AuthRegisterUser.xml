@@ -139,9 +139,9 @@
         WHERE id=#{id}
     </delete>
 
-    <select id="selectAll" resultMap="authRegisterUserInfo" parameterType="java.lang.Integer">
+    <select id="selectAll" resultMap="authRegisterUserInfo">
         <include refid="select"/>
-        WHERE id>#{_parameter}
+        WHERE id > #{start}
     </select>
 
     <update id="updateLevelById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">

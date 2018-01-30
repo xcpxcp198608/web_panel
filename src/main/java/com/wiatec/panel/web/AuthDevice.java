@@ -36,7 +36,7 @@ public class AuthDevice {
      */
     @GetMapping(value = "/")
     public String index(Model model){
-        return "devices/index_device";
+        return "devices/index";
     }
 
     /**

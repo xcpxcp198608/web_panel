@@ -101,24 +101,7 @@
       <span class="text-light" style="padding: 20px;">Preferred Customer Program</span>
     </div>
 
-    <form class="form-signIn" action="/panel/signin" method="post">
-
-      <div class="form-row text-center" style="margin-bottom: 20px">
-        <div class="col-12">
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadioInline1" name="type" class="custom-control-input" value="3" checked>
-            <label class="custom-control-label text-light" for="customRadioInline1">S &nbsp;&nbsp;</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadioInline2" name="type" class="custom-control-input" value="2">
-            <label class="custom-control-label text-light" for="customRadioInline2">D &nbsp;&nbsp;</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadioInline3" name="type" class="custom-control-input" value="1">
-            <label class="custom-control-label text-light" for="customRadioInline3">A &nbsp;&nbsp;</label>
-          </div>
-        </div>
-      </div>
+    <form class="form-signIn" action="/panel/signin_device" method="post">
 
       <div class="form-row">
         <div class="col-5">

@@ -6,8 +6,6 @@ $(function () {
     showOnlineAndTotalCount();
 
 
-
-
     var currentRow = 0;
     var currentId = 0;
     var updateLevel = 0;
@@ -166,7 +164,7 @@ $(function () {
         var onlineCount = 0;
         for(var x =0 ; x < rowsLength; x ++){
             var status = tbUsers.rows[x].style.display;
-            var online = tbUsers.rows[x].cells[10].childNodes[1].getAttribute("online");
+            var online = tbUsers.rows[x].cells[9].childNodes[1].getAttribute("online");
             if(status !== 'none'){
                 count ++;
                 if(online === "true"){
@@ -187,19 +185,37 @@ $(function () {
         }
     }
 
+    var currentSearchIndex = 0;
+    $('input[name=searchRadio]').each(function(){
+        $(this).click(function(){
+            currentSearchIndex = parseInt($(this).val());
+        });
+    });
+
     $('#ipSearch').keyup(function () {
         var key = $(this).val().toLowerCase();
         if(key.length <= 0){
             showAllRows();
         }else{
-            for(var k = 0; k < rowsLength; k ++){
-                for(var j = 2; j < 8; j ++){
-                    var content = tbUsers.rows[k].cells[j].innerHTML.toLowerCase();
-                    if(content.search(key) >= 0){
-                        tbUsers.rows[k].style.display = "";
-                        break
-                    }else{
-                        tbUsers.rows[k].style.display = "none";
+            if(currentSearchIndex > 0) {
+                for (var m = 0; m < rowsLength; m ++) {
+                    var content = tbUsers.rows[m].cells[currentSearchIndex].innerHTML.toLowerCase();
+                    if (content.search(key) >= 0) {
+                        tbUsers.rows[m].style.display = "";
+                    } else {
+                        tbUsers.rows[m].style.display = "none";
+                    }
+                }
+            }else if(currentSearchIndex === 0){
+                for (var k = 0; k < rowsLength; k++) {
+                    for (var j = 1; j < 8; j++) {
+                        var content1 = tbUsers.rows[k].cells[j].innerHTML.toLowerCase();
+                        if (content1.search(key) >= 0) {
+                            tbUsers.rows[k].style.display = "";
+                            break
+                        } else {
+                            tbUsers.rows[k].style.display = "none";
+                        }
                     }
                 }
             }
@@ -254,7 +270,7 @@ $(function () {
     }
 
     $('#btPrint').click(function () {
-        $('#dTable').jqprint();
+        $('#dTable').printThis();
     });
 
 });

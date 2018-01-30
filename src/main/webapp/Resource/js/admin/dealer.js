@@ -268,8 +268,8 @@ $(function () {
                     tdObj.setAttribute('class', 'tdRows12');
                     break;
                 case 9:
-                    tdObj.innerHTML = '<a href="/panel/admin/users/1/'+ authSalesInfo.id+'">\n' +
-                        '                 <i class="fa fa-eye fa-lg"></i>\n' +
+                    tdObj.innerHTML = '<a href="/panel/admin/users/1/'+ authSalesInfo.id+'" target="_blank">\n' +
+                        '                 <i class="fa fa-eye"></i>\n' +
                         '              </a>';
                     break;
             }

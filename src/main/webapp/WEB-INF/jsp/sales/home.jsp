@@ -1,184 +1,135 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <rapid:override name="title">
-    Panel
+    Home
 </rapid:override>
 <rapid:override name="css_js">
-    <link rel="stylesheet" href="Resource/css/sales/home.css"/>
-    <script src="Resource/js/sales/home.js"></script>
+    <script type="application/javascript" src="Resource/js/sales/home.js"></script>
 </rapid:override>
 
-<rapid:override name="navigation">
-    <ul>
-        <li>
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            <a href="/panel/sales/">My</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <a href="/panel/sales/users">Customers</a>
-        </li>
-        <li>
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-            <a href="/panel/signout">SignOut</a>
-        </li>
-    </ul>
-</rapid:override>
 
 <rapid:override name="content">
-    <div style="width: 100%;">
 
-        <div style="width: 100%; height: 34px; ">
-            <div style="width: 10%; display: block; float: left;">
-                <div style="margin: auto; height: 34px">
-                    <a style="display: block; float: left; height: 34px; line-height: 34px;
-                    font-size: 20px" id="aYear">2017</a>
-                    <a style="display: block; float: left; height: 34px; line-height: 34px;
-                    font-size: 20px">-</a>
-                    <a style="display: block; float: left; height: 34px; line-height: 34px;
-                    font-size: 20px" id="aMonth">11</a>
+    <div class="row">
+        <div class="col-3" style="padding: 0 0 0 10px">
+            <div style="width: 100%; background-color: #c11021; height: 3px"></div>
+            <div style="background-color: #ffffff; padding: 10px">
+                <div class="text-center" style="width: 100%">
+                    <span class="badge badge-success ba-strong" id="totalCommission">
+                            ${totalCommission}
+                    </span>
                 </div>
-            </div>
-
-            <div style="width: 80%; display: block; float: left">
-                <a style="width:100%; height: 34px; line-height: 34px; font-size: 20px; text-align: center; display: block">
-                    My Commission
-                </a>
-            </div>
-
-            <div style="width: 10%; display: block; float: left">
-                <div style="display: block; float: right; align-content: center; margin-top: 3px">
-                    <button type="button" class="btn btn-default" aria-label="Left Align" id="btPreviousMonth"
-                            disabled="disabled" title="previous month">
-                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-                    </button>
-                    <button type="button" class="btn btn-default" aria-label="Left Align" id="btNextMonth"
-                            disabled="disabled" title="next month">
-                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                    </button>
+                <div class="text-center" style="width: 100%">
+                    <span class="text-muted " >total commission</span>
                 </div>
             </div>
         </div>
-
-        <div style="width: 100%; height: 166px; box-shadow: 0 0 5px #000;">
-            <div style="width: 20%; height:166px; display: block; float: left; background-color: #2c343c;">
-                <table class="table table-bordered table-condensed" id="tbYearCommission"
-                       style="background-color: #2c343c; color: whitesmoke">
-                    <tbody>
-                    <tr><td>Commission</td><td style="font-style: italic; color: orange">0</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="chartYearCommission" style="width: 80%; height:166px; display: block; float: right; background-color: #2c343c">
-
+        <div class="col-3" style="padding: 0 5px 0 10px">
+            <div style="width: 100%; background-color: #c11021; height: 3px"></div>
+            <div style="background-color: #ffffff; padding: 10px">
+                <div class="text-center" style="width: 100%">
+                    <span class="badge badge-warning ba-strong" id="totalVolume">
+                            ${totalVolume}
+                    </span>
+                </div>
+                <div class="text-center" style="width: 100%">
+                    <span class="text-muted " >total volume</span>
+                </div>
             </div>
         </div>
-        <div style="width: 100%; height: 5px"></div>
-
-        <div style="width: 100%; height: 300px; background-color: #2c343c; box-shadow: 0 0 5px #000;">
-            <div id="chartMonthCommission" style="width: 100%; height: 300px;"></div>
+        <div class="col-3" style="padding: 0 10px 0 5px">
+            <div style="width: 100%; background-color: #c11021; height: 3px"></div>
+            <div style="background-color: #ffffff; padding: 10px">
+                <div class="text-center" style="width: 100%">
+                    <span class="badge badge-success ba-strong" id="currentMonthCommission">
+                            0
+                    </span>
+                </div>
+                <div class="text-center" style="width: 100%">
+                    <span class="text-muted " >month commission</span>
+                </div>
+            </div>
         </div>
-
-        <div style="width: 100%; box-shadow: 0 0 5px #000; overflow: scroll">
-            <table  class="table table-bordered table-hover table-striped" id="tbMonthCommission">
-                <thead style="background-color: #566778;" >
-                <tr id="trMonthCommission">
-                    <td>#</td><td>Total</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr><td>Commission</td><td class="tdRows14 redFont">0</td></tr>
-                </tbody>
-            </table>
+        <div class="col-3" style="padding: 0 10px 0 0">
+            <div style="width: 100%; background-color: #c11021; height: 3px"></div>
+            <div style="background-color: #ffffff; padding: 10px">
+                <div class="text-center" style="width: 100%">
+                    <span class="badge badge-warning ba-strong" id="currentMonthVolume">
+                            0
+                    </span>
+                </div>
+                <div class="text-center" style="width: 100%">
+                    <span class="text-muted " >month volume</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div style="margin-top: 10px;">
-        <div style="width: 100%; clear: both; box-shadow: 0 0 5px #000;">
-            <table id="tbTotal" class="table table-striped table-bordered">
+
+    <div class="row" style="padding: 10px 10px 0 10px">
+        <div style="width: 100%; background-color: #1b740a; height: 3px"></div>
+        <div class="col-5" style="padding: 10px; background-color: white">
+            <span class="text-center text-muted" style="padding: 10px">The detail of commission and volume:</span>
+        </div>
+        <div class="col-4 text-left text-darks" style="background-color: white; padding: 10px">
+            <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
+        </div>
+        <div class="col-3 text-right" style="padding: 10px; background-color: white">
+            <a id="btPreviousMonth" data-toggle="tooltip" title="press this show previous month info!">
+                <span class="badge badge-info text-center">Previous</span>
+            </a>
+            <a id="btNextMonth" data-toggle="tooltip" title="press this show next month info!">
+                <span class="badge badge-info text-center">Next</span>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div style="background-color: #ffffff; padding: 0 10px 0 10px; width: 100%; overflow: scroll">
+            <table class="table table-sm table-hover table-striped table-dark" id="tbCommission">
                 <thead>
-                    <tr>
-                        <th>Count</th>
-                        <th>Amount</th>
-                        <th>Deposit</th>
-                        <th>Commission</th>
-                    </tr>
+                <tr id="thCommission"><td>#</td><td>Total</td></tr>
                 </thead>
                 <tbody>
-                    <tr id="trTotal">
-                        <td class="tdTotal">0</td>
-                        <td class="tdTotal">0</td>
-                        <td class="tdTotal">0</td>
-                        <td class="tdTotal">0</td>
-                    </tr>
+                <tr><td>commission</td><td>0</td></tr>
                 </tbody>
             </table>
         </div>
-
-        <div style="width: 100%; margin-top: 10px">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">Search</span>
-                <input type="text" class="form-control" placeholder="type in keyword (client key, transaction id)"
-                       aria-describedby="basic-addon1" id="ipSearch">
-            </div>
-        </div>
-
-        <div style="width: 100%; box-shadow: 0 0 5px #000; margin-top: 8px">
-            <table class="table table-bordered table-hover table-striped" id="tbOrders">
-                <thead style="background-color: #566778;">
-                <tr>
-                    <td>#</td>
-                    <td>ClientKey</td>
-                    <td>TransactionId</td>
-                    <td>Amount</td>
-                    <td>Deposit</td>
-                    <td>Commission</td>
-                    <td>
-                        <input type="date" id="ipDate" placeholder="TradingTime" style="width: 100%; height: 100%;
-                            background-color: rgba(0,0,0,0); border: none; text-align: center">
-                    </td>
-                    <td>
-                        <select id="sePlan" style="width: 100%; height: 100%;
-                            background-color: rgba(0,0,0,0); border: none; text-align: center">
-                            <option value="">Plan</option>
-                            <option value="B1">B1</option>
-                            <option value="P1">P1</option>
-                            <option value="P2">P2</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select id="seType" style="width: 100%; height: 100%;
-                            background-color: rgba(0,0,0,0); border: none; text-align: center">
-                            <option value="">Type</option>
-                            <option value="contracted">contracted</option>
-                            <option value="monthly">monthly</option>
-                            <option value="renew">renew</option>
-                        </select>
-                    </td>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${authorizeTransactionRentalInfoList}" var="authorizeTransactionRentalInfo" varStatus="status">
-                    <tr style="font-size: 14px">
-                        <td>${status.index + 1}</td>
-                        <td>${authorizeTransactionRentalInfo.clientKey}</td>
-                        <td style="font-size: 12px">${authorizeTransactionRentalInfo.transactionId}</td>
-                        <td>${authorizeTransactionRentalInfo.amount}</td>
-                        <td>${authorizeTransactionRentalInfo.deposit}</td>
-                        <td style="color: orange">${authorizeTransactionRentalInfo.salesCommission}</td>
-                        <td style="font-size: 12px">${fn:substring(authorizeTransactionRentalInfo.createTime, 0, 19)}</td>
-                        <td>${authorizeTransactionRentalInfo.category}</td>
-                        <td>${authorizeTransactionRentalInfo.type}</td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
-
     </div>
+
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div style="background-color: #ffffff; width: 100%">
+            <div id="chartCommission" class="d-flex" style="width: 100%; height: 200px"></div>
+        </div>
+    </div>
+
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div style="background-color: #ffffff; padding: 0 10px 0 10px; width: 100%; overflow: scroll">
+            <table class="table table-sm table-hover table-striped table-dark" id="tbVolume">
+                <thead>
+                <tr id="thVolume"><td>#</td><td>Total</td></tr>
+                </thead>
+                <tbody>
+                <tr><td>volume</td><td>0</td></tr>
+                <tr><td>B1</td><td>0</td></tr>
+                <tr><td>P1</td><td>0</td></tr>
+                <tr><td>P2</td><td>0</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div style="background-color: #ffffff; width: 100%">
+            <div id="chartVolume" class="d-flex" style="width: 100%; height: 200px"></div>
+        </div>
+    </div>
+
 
 
 </rapid:override>
-<%@ include file="../base.jsp"%>
+<%@ include file="base_sales.jsp"%>

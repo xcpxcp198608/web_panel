@@ -29,7 +29,6 @@ import com.lowagie.text.pdf.PdfWriter;
 import com.wiatec.panel.common.utils.EmailMaster;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.common.utils.UnitUtil;
-import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 import com.wiatec.panel.oxm.pojo.SalesActivateCategoryInfo;
 import com.wiatec.panel.oxm.pojo.SalesGoldCategoryInfo;
 import org.apache.commons.io.FileUtils;
@@ -40,27 +39,14 @@ import org.slf4j.LoggerFactory;
 /**
  * @author patrick
  */
-public class InvoiceUtil {
+public class SalesInvoiceUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(InvoiceUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(SalesInvoiceUtil.class);
 
     private static final float RATE_TAX = 0.08F;
     private static final float SPACE = 8;
 
     public static void main(String[] args) throws Exception {
-//        CommissionCategoryInfo commissionCategoryInfo = new CommissionCategoryInfo();
-//        commissionCategoryInfo.setCategory(CommissionCategoryInfo.CATEGORY_P1);
-//        commissionCategoryInfo.setDeposit(100F);
-//        commissionCategoryInfo.setMonthPay(14.99F);
-//        commissionCategoryInfo.setExpires(24);
-//        commissionCategoryInfo.setActivatePay(30);
-//        String pdf = createInvoice("patrickxu@wiatec.com", "32432432432432",
-//                InvoiceInfoMaker.rentalContracted(commissionCategoryInfo));
-//        System.out.println(pdf);
-//        EmailMaster emailMaster = new EmailMaster();
-//        emailMaster.setInvoiceContent("sdf");
-//        emailMaster.addAttachment(pdf);
-//        emailMaster.sendMessage("patrickxu@wiatec.com");
 
         SalesActivateCategoryInfo salesActivateCategoryInfo = new SalesActivateCategoryInfo();
         SalesGoldCategoryInfo salesGoldCategoryInfo = new SalesGoldCategoryInfo();
@@ -210,23 +196,23 @@ public class InvoiceUtil {
             p1.add(ph1);
             doc.add(p1);
 
-            p1 = new Paragraph();
-            p1.setLeading(10);
-            ph1 = new Phrase();
-            Chunk c144 = new Chunk("Payment "+amountInfo.getCurrentMonth()+" of "+amountInfo.getTotalMonth()+" has been applied to " +
-                    "your account.", littleTextFont1);
-            ph1.add(c144);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(10);
-            ph1 = new Phrase();
-            Chunk c145 = new Chunk("Your next payment of "+amountInfo.getNextPay()+" is due on " + amountInfo.getNextPayDate()+ ".",
-                    littleTextFont1);
-            ph1.add(c145);
-            p1.add(ph1);
-            doc.add(p1);
+//            p1 = new Paragraph();
+//            p1.setLeading(10);
+//            ph1 = new Phrase();
+//            Chunk c144 = new Chunk("Payment "+amountInfo.getCurrentMonth()+" of "+amountInfo.getTotalMonth()+" has been applied to " +
+//                    "your account.", littleTextFont1);
+//            ph1.add(c144);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(10);
+//            ph1 = new Phrase();
+//            Chunk c145 = new Chunk("Your next payment of "+amountInfo.getNextPay()+" is due on " + amountInfo.getNextPayDate()+ ".",
+//                    littleTextFont1);
+//            ph1.add(c145);
+//            p1.add(ph1);
+//            doc.add(p1);
 
             p1 = new Paragraph();
             p1.setLeading(10);
@@ -472,229 +458,229 @@ public class InvoiceUtil {
 
             doc.add(table);
 
-            p1 = new Paragraph();
-            p1.setLeading(20);
-            ph1 = new Phrase();
-            Chunk c181 = new Chunk("*On "+TimeUtil.getStrDate()+" you agreed to all policies and procedures.", redBoldFont);
-            ph1.add(c181);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(10);
-            ph1 = new Phrase();
-            Chunk c183 = new Chunk("1.  Cancel:", littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("Leasee has 30 days from the date of account activation to cancel the PC Program. " +
-                    "The $100 security deposit shall be refunded upon timely delivery of the Box.  The Box must be " +
-                    "in good condition.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("2. Failure to pay: ",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("The leases will be given one 7-day grace period for failure to pay.  " +
-                    "The leasee will be considered in breech of contract on the 8th day or any consecutive " +
-                    "failures to pay thereafter.  ",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("Breach of contract:  Leasee forfeits the security deposit.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("3. Box return:  The Box must be returned within ___ days at the end of the contract " +
-                    "period. If we do not receive the Box, Leasee forfeits the right of return of the security deposit.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("4.  Damages: ",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("The Box must be returned in good condition.  We have the right to withhold all, " +
-                    "or a  portion thereof, to cover the cost of damages.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("Good condition is as follows:",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("a. The Box must be able to power on.  The  Box home screen must appear when turned on.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("b. The unit must be able to connect to an HDMI cable to display onto TV/Monitor.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("c. The bluetooth must be working.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("d. The wi fi must be working.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("e. The ethernet must be working.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("f. The blue/red LED light must be working.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("g.  The Box shall be free of dents and scratches.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("5.  Warranty:  ",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("During the contract period the Box is under warranty.  We will repair the box free " +
-                    "of charge or Leasee can exchange the Box.  If exchanged, the Box must be in good condition and " +
-                    "damage free.  Leases must pay the shipping costs.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("6.  Upgrade:  ",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("Leasee has the right to return the Box for an upgrade.  Leasee will not be " +
-                    "charged the extra cost of the upgrade.  However, leasee must sign a new contract.  " +
-                    "The exchanged Box must be in good condition and free of damages.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("7. Term and conditions:",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("Please refer to website www.ldeufonico.com for details.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
-
-            p1 = new Paragraph();
-            p1.setLeading(SPACE);
-            ph1 = new Phrase();
-            c183 = new Chunk("Terms and conditions can be changed at anytime without prior notice.",
-                    littleTextFont);
-            ph1.add(c183);
-            p1.add(ph1);
-            doc.add(p1);
+//            p1 = new Paragraph();
+//            p1.setLeading(20);
+//            ph1 = new Phrase();
+//            Chunk c181 = new Chunk("*On "+TimeUtil.getStrDate()+" you agreed to all policies and procedures.", redBoldFont);
+//            ph1.add(c181);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(10);
+//            ph1 = new Phrase();
+//            Chunk c183 = new Chunk("1.  Cancel:", littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("Leasee has 30 days from the date of account activation to cancel the PC Program. " +
+//                    "The $100 security deposit shall be refunded upon timely delivery of the Box.  The Box must be " +
+//                    "in good condition.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("2. Failure to pay: ",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("The leases will be given one 7-day grace period for failure to pay.  " +
+//                    "The leasee will be considered in breech of contract on the 8th day or any consecutive " +
+//                    "failures to pay thereafter.  ",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("Breach of contract:  Leasee forfeits the security deposit.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("3. Box return:  The Box must be returned within ___ days at the end of the contract " +
+//                    "period. If we do not receive the Box, Leasee forfeits the right of return of the security deposit.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("4.  Damages: ",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("The Box must be returned in good condition.  We have the right to withhold all, " +
+//                    "or a  portion thereof, to cover the cost of damages.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("Good condition is as follows:",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("a. The Box must be able to power on.  The  Box home screen must appear when turned on.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("b. The unit must be able to connect to an HDMI cable to display onto TV/Monitor.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("c. The bluetooth must be working.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("d. The wi fi must be working.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("e. The ethernet must be working.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("f. The blue/red LED light must be working.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("g.  The Box shall be free of dents and scratches.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("5.  Warranty:  ",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("During the contract period the Box is under warranty.  We will repair the box free " +
+//                    "of charge or Leasee can exchange the Box.  If exchanged, the Box must be in good condition and " +
+//                    "damage free.  Leases must pay the shipping costs.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("6.  Upgrade:  ",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("Leasee has the right to return the Box for an upgrade.  Leasee will not be " +
+//                    "charged the extra cost of the upgrade.  However, leasee must sign a new contract.  " +
+//                    "The exchanged Box must be in good condition and free of damages.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("7. Term and conditions:",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("Please refer to website www.ldeufonico.com for details.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
+//
+//            p1 = new Paragraph();
+//            p1.setLeading(SPACE);
+//            ph1 = new Phrase();
+//            c183 = new Chunk("Terms and conditions can be changed at anytime without prior notice.",
+//                    littleTextFont);
+//            ph1.add(c183);
+//            p1.add(ph1);
+//            doc.add(p1);
 
             Runtime.getRuntime().exec("chmod 777 " + path);
             // copy invoice file
