@@ -74,10 +74,11 @@ public class AuthManager {
         return authManagerService.delete(id);
     }
 
-    @PutMapping(value = "/update/level/{id}/{level}/{days}")
+    @PutMapping(value = "/update/level/{id}/{level}")
     @ResponseBody
-    public ResultInfo updateLevel(@PathVariable int id, @PathVariable int level, @PathVariable int days){
-        return authManagerService.updateLevel(id, level, days);
+    public ResultInfo updateLevel(@PathVariable int id, @PathVariable int level,
+                                  @RequestBody AuthRegisterUserInfo authRegisterUserInfo){
+        return authManagerService.updateLevel(id, level, authRegisterUserInfo.getExpiresTime());
     }
 
     @GetMapping(value = "/chart/volume/{year}/{month}")

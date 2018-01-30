@@ -135,32 +135,26 @@
                 </div>
             </div>
             <c:if test="${'wiatec' eq username}">
-            <div class="row" style="margin-top: 5px">
-                <div class="col-6" style="height: 25px">
-                    <div class="input-group input-group-sm" style="height: 30px!important;">
-                        <select class="custom-select" id="seUpdateLevel" style="height: 30px!important;
-                        font-size: 12px!important;">
-                            <option value="0">Level</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">fto</option>
-                        </select>
-                        <select class="custom-select" id="seDays" style="height: 30px!important;
-                        font-size: 12px!important;">
-                            <option value="-1">Days</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="7">7</option>
-                            <option value="28">28</option>
-                            <option value="30">30</option>
-                            <option value="92">92</option>
-                            <option value="183">183</option>
-                            <option value="365">365</option>
-                        </select>
-                        <button type="button" class="btn btn-primary btn-sm" id="btUpdateLevel">Update</button>
-                    </div>
+            <div class="row" style="margin-top: 5px; height: 30px; font-size: 12px">
+                <div class="col-1">
+                    <select id="seUpdateLevel" style="height: 30px;">
+                        <option value="0">Level</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">fto</option>
+                    </select>
+                </div>
+                <div class="col-2" style="height: 30px">
+                    <input type="date" class="date" id="ipExpiresTime">
+                </div>
+                <div class="col-1">
+                    <a id="btUpdateLevel" data-toggle="tooltip" title="update customer level">
+                        <span class="badge badge-primary text-center" style="height: 30px; line-height: 30px; text-align: center">
+                            <i class="fa fa-upload"></i>&nbsp;Update
+                        </span>
+                    </a>
                 </div>
             </div>
             </c:if>
@@ -280,6 +274,27 @@
                 </div>
                 <div class="modal-footer">
                     <span id="errorDetail" class="badge badge-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" >Warning</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    do you confirm to delete this customer?
+                </div>
+                <div class="modal-footer">
+                    <span id="errorDelete" class="badge badge-danger"></span>
+                    <button type="button" class="btn btn-sm btn-primary" id="btSubmitDelete">Delete</button>
                 </div>
             </div>
         </div>

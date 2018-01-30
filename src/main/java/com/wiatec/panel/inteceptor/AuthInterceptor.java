@@ -3,6 +3,7 @@ package com.wiatec.panel.inteceptor;
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.XException;
 import com.wiatec.panel.common.utils.TextUtil;
+import com.wiatec.panel.listener.SessionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -30,7 +31,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         if(ref == null || !ref.contains("/panel")){
             throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
-        String username = (String) request.getSession().getAttribute("username");
+        String username = (String) request.getSession().getAttribute(SessionListener.KEY_AUTH_USER_NAME);
         logger.info("= username = {}", username);
         if(username == null){
             throw new XException(EnumResult.ERROR_RE_LOGIN);
@@ -44,7 +45,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         if(request.getRequestURI().equals("/panel/manager/")){
             return;
         }
-        String username = (String) request.getSession().getAttribute("username");
+        String username = (String) request.getSession().getAttribute(SessionListener.KEY_AUTH_USER_NAME);
         if(TextUtil.isEmpty(username)){
             throw new XException(EnumResult.ERROR_RE_LOGIN);
         }

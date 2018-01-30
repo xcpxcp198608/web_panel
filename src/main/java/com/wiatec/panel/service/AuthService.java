@@ -33,7 +33,7 @@ public class AuthService {
     private AuthDeviceDao authDeviceDao;
 
     public String signIn(HttpSession session, String username, String password, int type){
-        session.setAttribute("username", username);
+        session.setAttribute(SessionListener.KEY_AUTH_USER_NAME, username);
         if(TextUtil.isEmpty(username)){
             throw new XException(EnumResult.ERROR_USERNAME_FORMAT);
         }
@@ -78,16 +78,16 @@ public class AuthService {
     public String signOut(HttpServletRequest request){
         String sessionId = request.getCookies()[0].getValue();
         HttpSession session = SessionListener.idSessionMap.get(sessionId);
-        String username = (String) session.getAttribute("username");
+        String username = (String) session.getAttribute(SessionListener.KEY_AUTH_USER_NAME);
         SessionListener.idSessionMap.remove(sessionId);
-        SessionListener.userSessionMap.remove(username);
+        SessionListener.authUserSessionMap.remove(username);
         session.invalidate();
         return "redirect:/";
     }
 
 
     public String signInDevice(HttpSession session, String username, String password){
-        session.setAttribute("username", username);
+        session.setAttribute(SessionListener.KEY_AUTH_USER_NAME, username);
         if(TextUtil.isEmpty(username)){
             throw new XException(EnumResult.ERROR_USERNAME_FORMAT);
         }

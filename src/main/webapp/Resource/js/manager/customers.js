@@ -9,7 +9,6 @@ $(function () {
     var currentRow = 0;
     var currentId = 0;
     var updateLevel = 0;
-    var updateDays = -1;
     var currentStatus = 0;
     $('input[name=rdUser]').each(function(){
         $(this).click(function(){
@@ -25,7 +24,6 @@ $(function () {
             showNotice('No user choose');
             return;
         }
-        console.log(currentStatus);
         if(currentStatus === '1'){
             showNotice('the user already activate');
             return;
@@ -43,9 +41,8 @@ $(function () {
                 if(response.code === 200) {
                     tbUsers = $('#tbUsers').get(0).tBodies[0];
                     var tr = tbUsers.rows[currentRow];
-                    tr.cells[7].removeChild(tr.cells[7].children[0]);
-                    tr.cells[7].innerHTML = "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\" style=\"color: #9f9f9f\"\n" +
-                        "                                  status=\"1\"></span>";
+                    tr.cells[8].removeChild(tr.cells[8].children[0]);
+                    tr.cells[8].innerHTML = '<i class="fa fa-check text-muted" status="1"></i>';
                     tr.cells[0].children[0].setAttribute("currentStatus", "1");
                     currentStatus = "1";
                 }
@@ -63,15 +60,16 @@ $(function () {
             showNotice('have no choose user');
             return;
         }
-        updateUserLevel(currentId, 0, 0);
+        updateUserLevel(currentId, 0, "");
     });
 
     $('#seUpdateLevel').change(function () {
         updateLevel = $(this).val();
     });
 
-    $('#seDays').change(function () {
-        updateDays = $(this).val();
+    var expiresTime = "";
+    $('#ipExpiresTime').change(function () {
+        expiresTime = $(this).val();
     });
 
     $('#btUpdateLevel').click(function () {
@@ -83,18 +81,19 @@ $(function () {
             showNotice('have no choose level');
             return;
         }
-        if(updateDays < 0 ){
-            showNotice('have no choose days');
+        if(expiresTime.length <= 0 ){
+            showNotice('have no choose expires date');
             return;
         }
-        updateUserLevel(currentId, updateLevel, updateDays)
+        updateUserLevel(currentId, updateLevel, expiresTime)
     });
 
-    function updateUserLevel(userId, level, days) {
+    function updateUserLevel(userId, level, expiresTime) {
         $.ajax({
             type: "PUT",
-            url: baseUrl + "/manager/update/level/" + userId + "/" + level + "/" + days,
+            url: baseUrl + "/manager/update/level/" + userId + "/" + level,
             contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({'expiresTime': expiresTime + ' 00:00:00'}),
             dataType: "json",
             beforeSend: function () {
                 showLoading()
@@ -103,7 +102,7 @@ $(function () {
                 hideLoading();
                 if(response.code === 200) {
                     tbUsers = $('#tbUsers').get(0).tBodies[0];
-                    var td = tbUsers.rows[currentRow].cells[8];
+                    var td = tbUsers.rows[currentRow].cells[7];
                     td.removeChild(td.children[0]);
                     if(level === 0){
                         td.innerHTML = "<span style=\"color: #a01c34\"><i class=\"fa fa-lock text-danger\"></i></span>"
@@ -127,7 +126,19 @@ $(function () {
 
 
     $('#btDelete').click(function () {
-        if(currentId < 0){
+        if(currentId <= 0){
+            showNotice('have no choose user');
+            return;
+        }
+        $('#modalDelete').modal('show');
+    });
+
+    $('#btSubmitDelete').click(function () {
+        deleteUser();
+    });
+
+    function deleteUser() {
+        if(currentId <= 0){
             showNotice('have no choose user');
             return;
         }
@@ -137,23 +148,28 @@ $(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function () {
-                showLoading()
+                showLoading();
+                $('#modalDelete').modal('hide');
             },
             success: function (response) {
                 hideLoading();
                 if(response.code === 200) {
+                    $('#modalDelete').modal('hide');
                     tbUsers = $('#tbUsers').get(0).tBodies[0];
                     var tr = tbUsers.rows[currentRow];
                     tbUsers.removeChild(tr);
+                }else{
+                    $('#modalDelete').modal('show');
+                    showErrorMessage($('#errorDelete'), response.message);
                 }
-                showNotice(response.message);
             },
             error: function () {
                 hideLoading();
-                showNotice('communication fail, try again later');
+                $('#modalDelete').modal('show');
+                showErrorMessage($('#errorDelete'), 'communication fail, try again later');
             }
         });
-    });
+    }
 
 
     /**

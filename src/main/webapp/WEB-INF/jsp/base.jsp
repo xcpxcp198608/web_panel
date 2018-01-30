@@ -109,7 +109,7 @@
                     </div>
                 </div>
 
-                <hr/>
+                <hr style="background-color: #769abb; height: 1px; border: none"/>
 
                 <rapid:block name="navigation"/>
             </div>

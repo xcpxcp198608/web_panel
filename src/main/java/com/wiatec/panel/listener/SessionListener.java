@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * monitor session
+ * @author patrick
  */
 public class SessionListener implements HttpSessionListener,HttpSessionAttributeListener {
 
@@ -16,9 +17,11 @@ public class SessionListener implements HttpSessionListener,HttpSessionAttribute
 
     public static Map<String ,HttpSession> sessionMap = new HashMap<>();
     public static Map<String ,HttpSession> userSessionMap = new HashMap<>();
+    public static Map<String ,HttpSession> authUserSessionMap = new HashMap<>();
     public static Map<String, HttpSession> idSessionMap = new HashMap<>();
     public static final String KEY = "key";
     public static final String KEY_USER_NAME = "username";
+    public static final String KEY_AUTH_USER_NAME = "auth_username";
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
@@ -50,6 +53,14 @@ public class SessionListener implements HttpSessionListener,HttpSessionAttribute
             }
             userSessionMap.put(username, httpSessionBindingEvent.getSession());
         }
+        if(KEY_AUTH_USER_NAME.equals(httpSessionBindingEvent.getName())){
+            String username = (String) httpSessionBindingEvent.getValue();
+            HttpSession httpSession = authUserSessionMap.remove(username);
+            if(httpSession != null){
+                httpSession.removeAttribute(KEY_USER_NAME);
+            }
+            authUserSessionMap.put(username, httpSessionBindingEvent.getSession());
+        }
     }
 
     @Override
@@ -70,6 +81,14 @@ public class SessionListener implements HttpSessionListener,HttpSessionAttribute
                 e.printStackTrace();
             }
         }
+        if(KEY_AUTH_USER_NAME.equals(httpSessionBindingEvent.getName())){
+            try {
+                String username = (String) httpSessionBindingEvent.getValue();
+                authUserSessionMap.remove(username);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -83,6 +102,11 @@ public class SessionListener implements HttpSessionListener,HttpSessionAttribute
             String username = (String) httpSessionBindingEvent.getValue();
             userSessionMap.remove(username);
             userSessionMap.put(username, httpSessionBindingEvent.getSession());
+        }
+        if(KEY_AUTH_USER_NAME.equals(httpSessionBindingEvent.getName())){
+            String username = (String) httpSessionBindingEvent.getValue();
+            authUserSessionMap.remove(username);
+            authUserSessionMap.put(username, httpSessionBindingEvent.getSession());
         }
     }
 

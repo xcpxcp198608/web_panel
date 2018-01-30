@@ -39,7 +39,7 @@ public class AuthManagerService {
     }
 
     public String users(HttpSession session, Model model){
-        String username = (String) session.getAttribute("username");
+        String username = (String) session.getAttribute(SessionListener.KEY_AUTH_USER_NAME);
         if(username == null){
             throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
@@ -75,26 +75,25 @@ public class AuthManagerService {
     public ResultInfo delete(int id){
         AuthRegisterUserInfo authRegisterUserInfo = new AuthRegisterUserInfo();
         authRegisterUserInfo.setId(id);
-        authRegisterUserDao.deleteOneById(authRegisterUserInfo);
+        int i = authRegisterUserDao.deleteOneById(authRegisterUserInfo);
+        if(i != 1){
+            throw new XException(1001, "delete failure");
+        }
         return ResultMaster.success();
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo updateLevel(int id, int level, int days){
+    public ResultInfo updateLevel(int id, int level, String expiresTime){
         AuthRegisterUserInfo authRegisterUserInfo = new AuthRegisterUserInfo();
         authRegisterUserInfo.setId(id);
         authRegisterUserInfo.setLevel(level);
-        String expiresTime = authRegisterUserDao.selectExpiresTimeById(id);
-        String newExpiresTime;
-        if(TextUtil.isEmpty(expiresTime)){
-            newExpiresTime = TimeUtil.getExpiresTimeByDay(TimeUtil.getStrTime(), days);
-        }else{
-            newExpiresTime = TimeUtil.getExpiresTimeByDay(expiresTime, days);
-        }
         if(level == 1){
-            newExpiresTime = "";
+            authRegisterUserInfo.setExpiresTime("");
+        }else if(level == 0){
+            authRegisterUserInfo.setExpiresTime(authRegisterUserDao.selectExpiresTimeById(id));
+        }else {
+            authRegisterUserInfo.setExpiresTime(expiresTime);
         }
-        authRegisterUserInfo.setExpiresTime(newExpiresTime);
         authRegisterUserDao.updateLevelById(authRegisterUserInfo);
         return ResultMaster.success(authRegisterUserInfo);
     }

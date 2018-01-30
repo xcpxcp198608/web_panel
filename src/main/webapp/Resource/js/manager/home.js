@@ -60,7 +60,7 @@ $(function () {
                 data: monthVolume,
                 itemStyle: {
                     normal: {
-                        color: '#83fc1a',
+                        color: '#0f19fc',
                         shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }

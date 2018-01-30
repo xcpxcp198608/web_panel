@@ -34,7 +34,7 @@ public interface AuthRegisterUserDao {
     List<AuthRegisterUserInfo> selectAll(int start);
     void updateEmailStatusById(AuthRegisterUserInfo authRegisterUserInfo);
     void updateStatusById(AuthRegisterUserInfo authRegisterUserInfo);
-    void deleteOneById(AuthRegisterUserInfo authRegisterUserInfo);
+    int deleteOneById(AuthRegisterUserInfo authRegisterUserInfo);
     String selectExpiresTimeById(int id);
     AuthRegisterUserInfo selectOneById(int id);
     void updateLevelById(AuthRegisterUserInfo authRegisterUserInfo);

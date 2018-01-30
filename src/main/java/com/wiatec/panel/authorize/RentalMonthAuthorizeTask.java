@@ -36,7 +36,7 @@ public class RentalMonthAuthorizeTask {
         sqlSession = (SqlSession) ApplicationContextHelper.getApplicationContext().getBean("sqlSessionTemplate");
     }
 
-    @Scheduled(cron="0 0 2 1-31 1-12 1-7")
+    @Scheduled(cron="0 0 4 1-31 1-12 1-7")
     public void executeUploadBackTask() {
         logger.debug("MonthAuthorizeTask started");
         try {
