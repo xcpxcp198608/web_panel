@@ -346,6 +346,9 @@ $(function () {
                 tbUserDetails.rows[17].cells[1].innerHTML = response['city'];
                 tbUserDetails.rows[18].cells[1].innerHTML = response['timeZone'];
                 tbUserDetails.rows[19].cells[1].innerHTML = response['lastOnLineTime'];
+                tbUserDetails.rows[20].cells[1].innerHTML = response['postCode'];
+                tbUserDetails.rows[21].cells[1].innerHTML = response['postAddress'];
+                tbUserDetails.rows[22].cells[1].innerHTML = response['express'];
                 $('#modalDetail').modal('show');
             }else{
                 showNotice('communication error')

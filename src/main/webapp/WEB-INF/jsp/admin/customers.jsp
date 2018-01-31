@@ -181,6 +181,9 @@
                         <tr><td>City</td><td></td></tr>
                         <tr><td>TimeZone</td><td></td></tr>
                         <tr><td>LastOnLineTime</td><td></td></tr>
+                        <tr><td>PostCode</td><td></td></tr>
+                        <tr><td>PostAddress</td><td></td></tr>
+                        <tr><td>Express</td><td></td></tr>
                         </tbody>
                     </table>
                 </div>

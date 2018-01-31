@@ -8,13 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="fcbb8162-7201-4f40-a409-92e2db470717" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthDealerService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthDealerService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/dealer.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/dealer.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/home.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/home.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/sales.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/sales.js" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/customers.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/customers.js" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/customers.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/customers.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -56,98 +51,7 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="home.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/home.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="219" column="0" lean-forward="false" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthSalesService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="216" column="64" lean-forward="true" selection-start-line="216" selection-start-column="18" selection-end-line="216" selection-end-column="64" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthDealerService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthDealerService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="177" column="103" lean-forward="false" selection-start-line="177" selection-start-column="103" selection-end-line="177" selection-end-column="103" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sales.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/sales.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="219" column="47" lean-forward="false" selection-start-line="219" selection-start-column="47" selection-end-line="219" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dealer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/dealer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="297" column="48" lean-forward="false" selection-start-line="297" selection-start-column="48" selection-end-line="297" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sales.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="434" column="47" lean-forward="false" selection-start-line="434" selection-start-column="47" selection-end-line="434" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SalesInvoiceUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/SalesInvoiceUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="77" column="0" lean-forward="true" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RentalInvoiceUtil.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/RentalInvoiceUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="69" column="5" lean-forward="true" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="home.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/home.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="56" column="35" lean-forward="false" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -475,7 +379,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/home.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manager/base_manager.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthRentUserInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml" />
@@ -493,7 +396,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransactionRentalDao.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/sales.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/customers.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/customers.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/dealer.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/SalesInvoiceUtil.java" />
@@ -526,6 +428,8 @@
         <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/sales.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/dealer.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/customers.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/customers.js" />
       </list>
     </option>
   </component>
@@ -679,6 +583,25 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="panel" type="462c0819:PsiDirectoryNode" />
               <item name="listener" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="panel" type="462c0819:PsiDirectoryNode" />
+              <item name="oxm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="panel" type="462c0819:PsiDirectoryNode" />
+              <item name="oxm" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="panel" type="b2602c69:ProjectViewProjectNode" />
@@ -1301,14 +1224,7 @@
       <workItem from="1517275157816" duration="17540000" />
       <workItem from="1517294923341" duration="10441000" />
       <workItem from="1517316674366" duration="7169000" />
-      <workItem from="1517361875478" duration="1347000" />
-    </task>
-    <task id="LOCAL-00014" summary="201711211130">
-      <created>1511235023318</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1511235023320</updated>
+      <workItem from="1517361875478" duration="1842000" />
     </task>
     <task id="LOCAL-00015" summary="201711221700">
       <created>1511341450907</created>
@@ -1646,7 +1562,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517323859810</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="201801310950">
+      <created>1517363570722</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1517363570723</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1682,7 +1605,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="905194000" />
+    <option name="totallyTimeSpent" value="905689000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1695,7 +1618,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="878" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.50287354" order="7" side_tool="true" content_ui="tabs" />
@@ -1722,7 +1644,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32802126" sideWeight="0.49712643" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.4928161" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32802126" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18893678" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18893678" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1814,7 +1736,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="201801091740" />
     <MESSAGE value="201801091805" />
     <MESSAGE value="201801092300" />
     <MESSAGE value="201801101040" />
@@ -1839,7 +1760,8 @@
     <MESSAGE value="201801291725" />
     <MESSAGE value="201801301750" />
     <MESSAGE value="201801302250" />
-    <option name="LAST_COMMIT_MESSAGE" value="201801302250" />
+    <MESSAGE value="201801310950" />
+    <option name="LAST_COMMIT_MESSAGE" value="201801310950" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1852,43 +1774,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/customers.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="91" column="29" lean-forward="true" selection-start-line="91" selection-start-column="29" selection-end-line="91" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/customers.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="124" column="58" lean-forward="true" selection-start-line="124" selection-start-column="58" selection-end-line="124" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/dealer.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-740">
-          <caret line="177" column="47" lean-forward="false" selection-start-line="177" selection-start-column="47" selection-end-line="177" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/sales/customers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-199">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/sales/create_user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1157">
-          <caret line="63" column="3" lean-forward="true" selection-start-line="63" selection-start-column="3" selection-end-line="63" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/customers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2140,14 +2025,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/home.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="56" column="35" lean-forward="false" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/home.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="117">
@@ -2177,10 +2054,10 @@
         <state relative-caret-position="-168">
           <caret line="79" column="54" lean-forward="false" selection-start-line="79" selection-start-column="54" selection-end-line="79" selection-end-column="54" />
           <folding>
-            <element signature="e#4227#4228#0" expanded="true" />
-            <element signature="e#4272#4273#0" expanded="true" />
-            <element signature="e#4336#4337#0" expanded="true" />
-            <element signature="e#4400#4401#0" expanded="true" />
+            <element signature="e#4227#4228#0" expanded="false" />
+            <element signature="e#4272#4273#0" expanded="false" />
+            <element signature="e#4336#4337#0" expanded="false" />
+            <element signature="e#4400#4401#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2217,9 +2094,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/build/libs/exploded/panel-1.0-SNAPSHOT.war/WEB-INF/classes/authorize.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/home.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="56" column="35" lean-forward="false" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/transactions.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3124">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/SalesInvoiceUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
+        <state relative-caret-position="-10114">
           <caret line="77" column="0" lean-forward="true" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding />
         </state>
@@ -2227,8 +2128,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/RentalInvoiceUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
+        <state relative-caret-position="-13630">
           <caret line="69" column="5" lean-forward="true" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-432">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1517287548429" expanded="true" signature="2284:3507" ph="SELECT auth_... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="3636:3694" ph="SELECT COUNT... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="3828:3890" ph="SELECT COUNT... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="4039:4089" ph="SELECT statu... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="5008:5086" ph="SELECT COUNT... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="5185:5261" ph="SELECT COUNT... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="5374:6215" ph="INSERT INTO auth_rent_user... " />
+            <marker date="1517287548429" expanded="true" signature="6556:6657" ph="SELECT COUNT... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="6976:7101" ph="UPDATE auth_rent_user... " />
+            <marker date="1517287548429" expanded="true" signature="7222:7558" ph="UPDATE auth_rent_user... " />
+            <marker date="1517287548429" expanded="true" signature="7674:7839" ph="UPDATE auth_rent_user... " />
+            <marker date="1517287548429" expanded="true" signature="8323:8540" ph="SELECT categ... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="8729:8998" ph="SELECT categ... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="9188:9458" ph="SELECT categ... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="9835:10100" ph="SELECT s.sal... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="10262:10558" ph="SELECT s.sal... auth_rent_user" />
+            <marker date="1517287548429" expanded="true" signature="10696:10795" ph="SELECT count... auth_rent_user" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/customers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="355" column="10" lean-forward="true" selection-start-line="355" selection-start-column="10" selection-end-line="355" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/customers.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="185" column="39" lean-forward="false" selection-start-line="185" selection-start-column="39" selection-end-line="185" selection-end-column="39" />
           <folding />
         </state>
       </provider>
