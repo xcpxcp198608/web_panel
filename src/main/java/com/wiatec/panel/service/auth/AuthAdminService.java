@@ -320,6 +320,30 @@ public class AuthAdminService {
         return ResultMaster.success(deviceRentDao.selectOneByMac(deviceRentInfo));
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo updateDeviceToSpecialSales(HttpServletRequest request, DeviceRentInfo deviceRentInfo){
+        if(deviceRentInfo.getMac().length() != 17){
+            throw new XException(EnumResult.ERROR_MAC_FORMAT);
+        }
+        AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(deviceRentInfo.getSalesId());
+        if(authSalesInfo == null){
+            throw new XException(1100, "sales not exists");
+        }
+        deviceRentInfo.setMac(deviceRentInfo.getMac().toUpperCase());
+        deviceRentInfo.setSalesId(authSalesInfo.getId());
+        deviceRentInfo.setDealerId(authSalesInfo.getDealerId());
+        deviceRentInfo.setAdminId(getAdminInfo(request).getId());
+        int i = deviceRentDao.updateDeviceToSpecialSales(deviceRentInfo);
+        if(i != 1){
+            throw new XException(1001, "update failure");
+        }
+        int salesStoreCount = deviceRentDao.countNoRentedBySalesId(authSalesInfo.getId());
+        if(salesStoreCount >= 10){
+            authSalesDao.updateGoldById(authSalesInfo.getId());
+        }
+        return ResultMaster.success(deviceRentDao.selectOneByMac(deviceRentInfo));
+    }
+
     /////////////////////////////////////////////////// chart //////////////////////////////////////////////////////////
 
     public List<VolumeDistributionInfo> getDistributionData(){

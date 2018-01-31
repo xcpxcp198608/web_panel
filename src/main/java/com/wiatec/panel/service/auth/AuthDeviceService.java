@@ -21,13 +21,10 @@ import java.util.List;
 @Service
 public class AuthDeviceService {
 
-    private Logger logger = LoggerFactory.getLogger(AuthDeviceService.class);
-
     @Resource
     private AuthSalesDao authSalesDao;
     @Resource
     private DeviceRentDao deviceRentDao;
-
 
     public String devices(Model model){
         List<DeviceRentInfo> deviceRentInfoList = deviceRentDao.selectAll();
@@ -46,15 +43,8 @@ public class AuthDeviceService {
             throw new XException(1100, "this mac address already check in");
         }
         deviceRentInfo.setMac(deviceRentInfo.getMac().toUpperCase());
-        AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(deviceRentInfo.getSalesId());
-        deviceRentInfo.setDealerId(authSalesInfo.getDealerId());
         deviceRentDao.insertOne(deviceRentInfo);
-        int salesStoreCount = deviceRentDao.countNoRentedBySalesId(authSalesInfo.getId());
-        if(salesStoreCount >= 10){
-            authSalesDao.updateGoldById(authSalesInfo.getId());
-        }
         return ResultMaster.success(deviceRentDao.selectOneByMac(deviceRentInfo));
     }
-
 
 }

@@ -126,13 +126,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-1">
-                    <a id="btCreate" data-toggle="tooltip" title="create new dealer">
-                        <span class="badge badge-primary text-center">
-                            <i class="fa fa-plus fa-lg"></i>&nbsp;Create
-                        </span>
-                    </a>
-                </div>
+                <c:if test="${'wiatec' eq username}">
+                    <div class="col-1">
+                        <a id="btCreate" data-toggle="tooltip" title="create new dealer">
+                            <span class="badge badge-primary text-center">
+                                <i class="fa fa-plus fa-lg"></i>&nbsp;Create
+                            </span>
+                        </a>
+                    </div>
+                </c:if>
                 <div class="col-1">
                     <a id="btUpdate" data-toggle="tooltip" title="update dealer password, choose a radio before click">
                         <span class="badge badge-warning text-center">

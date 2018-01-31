@@ -131,20 +131,15 @@ $(function () {
     $('#btSubmitCheckIn').click(function () {
         errorMessage.html('');
         var mac = $('#ipMac').val();
-        var salesId = $('#ipSalesId').val();
         if(mac.length !== 17){
             errorMessage.html('mac input error');
-            return;
-        }
-        if(salesId <= 0){
-            errorMessage.html('No sales choose');
             return;
         }
         var url = baseUrl + '/device/save/';
         $.ajax({
             type: 'POST',
             url: url,
-            data: {'mac': mac, 'salesId': salesId},
+            data: {'mac': mac},
             dataType: 'json',
             beforeSend:function(){
                 showLoading()
@@ -164,7 +159,5 @@ $(function () {
         });
     });
 
-
-
-
+    
 });

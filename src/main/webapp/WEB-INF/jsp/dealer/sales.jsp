@@ -182,7 +182,7 @@
                                     </span>
                                 </div>
                                 <select class="custom-select" id="ipGoldCategory">
-                                    <option value="">Choose Gold Category</option>
+                                    <option value="normal">Choose Gold Category</option>
                                     <c:forEach items="${salesGoldCategoryInfoList}" var="salesGoldCategoryInfo">
                                         <option value="${salesGoldCategoryInfo.category}">${salesGoldCategoryInfo.category}</option>
                                     </c:forEach>

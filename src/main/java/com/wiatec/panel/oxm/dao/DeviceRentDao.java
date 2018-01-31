@@ -45,6 +45,8 @@ public interface DeviceRentDao {
      */
     void insertOne(DeviceRentInfo deviceRentInfo);
 
+    int updateDeviceToSpecialSales(DeviceRentInfo deviceRentInfo);
+
     int updateRented(String mac);
 
     int countNoRentedBySalesId(int salesId);

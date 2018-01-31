@@ -91,7 +91,7 @@
     </select>
 
     <select id="selectAll" resultMap="authSalesInfo">
-        <include refid="select"/>
+        <include refid="select"/> WHERE auth_sales.id > 0
     </select>
 
     <update id="updateGoldById">

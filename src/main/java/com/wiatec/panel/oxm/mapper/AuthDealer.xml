@@ -22,7 +22,7 @@
     </sql>
 
     <select id="selectAll" resultMap="authDealerInfo">
-        <include refid="select"/>
+        <include refid="select"/> WHERE id > 0
     </select>
 
     <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthDealerInfo">

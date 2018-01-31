@@ -45,7 +45,7 @@ public class AuthManagerService {
         }
         List<AuthRegisterUserInfo> authRegisterUserInfoList;
         if(ADMIN.equals(username)) {
-            authRegisterUserInfoList = authRegisterUserDao.selectAll(0);
+            authRegisterUserInfoList = authRegisterUserDao.selectAll(100);
         }else{
             authRegisterUserInfoList = authRegisterUserDao.selectAll(100);
         }

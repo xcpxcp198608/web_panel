@@ -129,12 +129,58 @@ $(function () {
 
 
     var currentMac = '';
-    var currentRow = 0;
+    var currentRow = -1;
     $('input[name=rdDevice]').each(function(){
         $(this).click(function(){
             currentMac = $(this).val();
-            currentRow = $(this).attr('currentRow');
+            currentRow = parseInt($(this).attr('currentRow'));
         });
     });
+
+    $('#btUpdate').click(function () {
+        if(currentRow < 0){
+            showNotice('have no choose device');
+            return;
+        }
+        $('#modalUpdate').modal('show');
+    });
+
+    $('#btSubmitUpdate').click(function () {
+        var salesId = $('#ipUpdateSalesId').val();
+        if(salesId <= 0){
+            showNotice('have no choose sales');
+            return;
+        }
+        $.ajax({
+            type: "PUT",
+            url: baseUrl + "/admin/devices/update",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({"mac": currentMac, "salesId": salesId}),
+            dataType: "json",
+            beforeSend: function () {
+                $('#modalUpdate').modal('hide');
+                showLoading();
+            },
+            success: function (response) {
+                $('#btSubmitUpdate').removeAttr('disabled');
+                hideLoading();
+                if(response.code === 200) {
+                    $('#modalUpdate').modal('hide');
+                    showNotice("successfully");
+                    tbDevices.rows[parseInt(currentRow)].cells[3].innerHTML = response.data['salesName'];
+                }else{
+                    $('#modalUpdate').modal('show');
+                    showErrorMessage($('#errorUpdate'), response.message);
+                }
+            },
+            error: function () {
+                $('#btSubmitUpdate').removeAttr('disabled');
+                $('#modalUpdate').modal('show');
+                showErrorMessage($('#errorUpdate'), 'communication fail, try again later');
+            }
+        });
+    })
+
+
 
 });

@@ -40,10 +40,17 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-2">
+                <div class="col-1">
                     <a id="btCheckIn" data-toggle="tooltip" title="check in new device">
                         <span class="badge badge-primary text-center">
                             <i class="fa fa-plus fa-lg"></i>&nbsp;Check In
+                        </span>
+                    </a>
+                </div>
+                <div class="col-1">
+                    <a id="btUpdate" data-toggle="tooltip" title="update device binding to special sales">
+                        <span class="badge badge-warning text-center">
+                            <i class="fa fa-pencil fa-lg"></i>&nbsp;Update
                         </span>
                     </a>
                 </div>
@@ -139,7 +146,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title">Update password</h6>
+                    <h6 class="modal-title">Update sales</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -147,21 +154,18 @@
                 <div class="modal-body">
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon11">
-                                <i class="fa fa-lock fa-lg"></i>
-                            </span>
-                        </div>
-                        <input type="password" class="form-control" placeholder="Password" id="ipPassword3"
-                               aria-label="Username" aria-describedby="basic-addon11">
-                    </div>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon12">
                                 <i class="fa fa-lock fa-lg"></i>
                             </span>
                         </div>
-                        <input type="password" class="form-control" placeholder="Password" id="ipPassword4"
-                               aria-label="Username" aria-describedby="basic-addon12">
+                        <select class="custom-select" id="ipUpdateSalesId">
+                            <option value="0">Choose Sales</option>
+                            <c:forEach items="${authSalesInfoList}" var="authSalesInfo">
+                                <option value="${authSalesInfo.id}">
+                                        ${authSalesInfo.username}
+                                </option>
+                            </c:forEach>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

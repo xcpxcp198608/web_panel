@@ -110,11 +110,9 @@
             top: 0; background-color: rgba(0,0,0,0.3); display: none; ">
         <div style="width: 50%; height: 460px; margin: 150px auto; background-color: #2c343c;
                 box-shadow: 0 0 5px #000">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true" id="closeDetails"
-                      style="float: right; color: whitesmoke; margin: 10px; font-size: 20px; cursor: pointer"></span>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" id="closeDetails"
+                  style="float: right; color: whitesmoke; margin: 10px; font-size: 20px; cursor: pointer"></span>
             <div style="margin: 30px; height: 400px; overflow: scroll; clear: both">
-
-
                 <div style="margin: 20px">
                     <div id="div_create">
                         <h3 style="width: 100%; text-align: center; color: whitesmoke">CHECK IN DEVICE</h3>
@@ -122,27 +120,13 @@
 
                         <div style="width: 60%; display: block; margin: 20px auto">
                             <div class="input-group">
-                <span class="input-group-addon" id="basic-addon6">
-                  <span class="glyphicon glyphicon-barcode" aria-hidden="true"></span>
-                </span>
+                                <span class="input-group-addon" id="basic-addon6">
+                                    <span class="glyphicon glyphicon-barcode" aria-hidden="true"></span>
+                                </span>
                                 <input id="ipMac" type="email" class="form-control" placeholder="Mac"
-                                       aria-describedby="basic-addon6" name="mac" maxlength="17">
+                                                   aria-describedby="basic-addon6" name="mac" maxlength="17">
                             </div>
-                            <br/>
-                            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon7">
-                  <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
-                </span>
-                                <select class="form-control" id="ipSalesId">
-                                    <option value="0">Choose Sales</option>
-                                    <c:forEach items="${authSalesInfoList}" var="authSalesInfo">
-                                        <option value="${authSalesInfo.id}">
-                                                ${authSalesInfo.username}
-                                        </option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <br/>
+                             <br/>
                         </div>
 
                         <br style="clear: both"/>

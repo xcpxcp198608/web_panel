@@ -46,6 +46,11 @@
                 VALUES (#{mac}, #{salesId}, #{dealerId}, #{adminId})
     </insert>
 
+    <update id="updateDeviceToSpecialSales" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+      UPDATE device_rent SET sales_id = #{salesId}, dealer_id = #{dealerId}, admin_id = #{adminId}
+      WHERE mac = #{mac}
+    </update>
+
     <update id="updateRented">
         UPDATE device_rent SET is_rented=1
         WHERE mac=#{mac}
