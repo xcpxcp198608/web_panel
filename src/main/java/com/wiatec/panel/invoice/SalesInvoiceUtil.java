@@ -683,14 +683,6 @@ public class SalesInvoiceUtil {
 //            doc.add(p1);
 
             Runtime.getRuntime().exec("chmod 777 " + path);
-            // copy invoice file
-            try{
-                String copyFilePath = "/home/static/panel/invoice/" + fileName;
-                FileUtils.copyFile(file, new File(copyFilePath));
-                Runtime.getRuntime().exec("chmod 777 " + copyFilePath);
-            }catch (Exception e){
-                logger.error("Exception: ", e);
-            }
             return path;
         }catch (Exception e){
             logger.error(e.getLocalizedMessage());
@@ -702,6 +694,18 @@ public class SalesInvoiceUtil {
             if(fileOutputStream != null){
                 fileOutputStream.close();
             }
+        }
+    }
+
+    public static void copyInvoice(String filePath){
+        // copy invoice file
+        try{
+            File file = new File(filePath);
+            String copyFilePath = "/home/static/panel/invoice/";
+            FileUtils.copyFileToDirectory(file, new File(copyFilePath));
+            Runtime.getRuntime().exec("chmod -R 777 " + copyFilePath);
+        }catch (Exception e){
+            logger.error("Exception: ", e);
         }
     }
 

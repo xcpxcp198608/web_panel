@@ -148,6 +148,7 @@ public class AuthSalesService {
             List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalContracted(commissionCategoryInfo);
             String invoicePath = RentalInvoiceUtil.createInvoice(authRentUserInfo,
                     authorizeTransactionRentalInfo.getTransactionId(), invoiceInfoList);
+            RentalInvoiceUtil.copyInvoice(invoicePath);
             logger.debug("invoicePath: {}", invoicePath);
             EmailMaster emailMaster = new EmailMaster();
             emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());

@@ -19,8 +19,6 @@ import javax.servlet.http.HttpSession;
 @Service
 public class AuthService {
 
-    private static final String DEVICE_USER = "ldevice";
-
     @Resource
     private AuthManagerDao authManagerDao;
     @Resource

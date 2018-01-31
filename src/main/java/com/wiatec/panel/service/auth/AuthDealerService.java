@@ -117,6 +117,7 @@ public class AuthDealerService {
             SalesInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
             String invoice = SalesInvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionSalesInfo1
                     .getTransactionId(), invoiceInfoList);
+            SalesInvoiceUtil.copyInvoice(invoice);
             EmailMaster emailMaster = new EmailMaster();
             emailMaster.setInvoiceContent(authSalesInfo.getUsername());
             emailMaster.addAttachment(invoice);

@@ -54,6 +54,7 @@ public class RentalInvoiceUtil {
         authRentUserInfo.setPostAddress("12522 Adler Dr Unit E whittier, CA 90606");
         String pdf = createInvoice(authRentUserInfo,"3243243243dd2432",
                 InvoiceInfoMaker.rentalContracted(commissionCategoryInfo));
+        copyInvoice(pdf);
         System.out.println(pdf);
 //        EmailMaster emailMaster = new EmailMaster();
 //        emailMaster.setInvoiceContent("sdf");
@@ -62,8 +63,8 @@ public class RentalInvoiceUtil {
     }
 
     //本地测试用
-//    private static String outPath = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/invoice/";
-    private static String outPath = "/home/java_app/panel/web/invoice/";
+    private static String outPath = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/invoice/";
+//    private static String outPath = "/home/java_app/panel/web/invoice/";
 
     public static void setPath(String path){
         outPath = path;
@@ -97,7 +98,6 @@ public class RentalInvoiceUtil {
             Font underlineFont = new Font(bfChinese, 11, Font.UNDERLINE);
             Font underlineRedFont = new Font(bfChinese, 11, Font.UNDERLINE, Color.RED);
             Font BlueFont = new Font(bfChinese, 11, Font.NORMAL, Color.BLUE);
-
 
             String fileName = "ld_invoice_" + transactionId + ".pdf";
             String path = outPath + fileName;
@@ -876,14 +876,7 @@ public class RentalInvoiceUtil {
             doc.add(p1);
 
             Runtime.getRuntime().exec("chmod 777 " + path);
-            // copy invoice file
-            try{
-                String copyFilePath = "/home/static/panel/invoice/" + fileName;
-                FileUtils.copyFile(file, new File(copyFilePath));
-                Runtime.getRuntime().exec("chmod 777 " + copyFilePath);
-            }catch (Exception e){
-                logger.error("Exception: ", e);
-            }
+
             return path;
         }catch (Exception e){
             logger.error(e.getLocalizedMessage());
@@ -899,6 +892,18 @@ public class RentalInvoiceUtil {
             }catch (Exception e){
                 logger.error("exception", e);
             }
+        }
+    }
+
+    public static void copyInvoice(String filePath){
+        // copy invoice file
+        try{
+            File file = new File(filePath);
+                String copyFilePath = "/home/static/panel/invoice/";
+            FileUtils.copyFileToDirectory(file, new File(copyFilePath));
+            Runtime.getRuntime().exec("chmod -R 777 " + copyFilePath);
+        }catch (Exception e){
+            logger.error("Exception: ", e);
         }
     }
 

@@ -138,6 +138,7 @@ public class RentalMonthAuthorizeTask {
             List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalMonthly(commissionCategoryInfo, currentMonth);
             String invoicePath = RentalInvoiceUtil.createInvoice(authRentUserInfo,
                     authorizeTransactionRentalInfo.getTransactionId(), invoiceInfoList);
+            RentalInvoiceUtil.copyInvoice(invoicePath);
             logger.debug("invoicePath: {}", invoicePath);
             EmailMaster emailMaster = new EmailMaster();
             emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
