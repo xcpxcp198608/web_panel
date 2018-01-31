@@ -21,5 +21,9 @@ public interface AuthSalesDao {
     List<AuthSalesInfo> selectSales(int leaderId);
 
     int updateGoldById(int id);
+    int updateNoGoldById(int id);
+
+    int updateExchangeById(int id);
+    int updateNoExchangeById(int id);
 
 }

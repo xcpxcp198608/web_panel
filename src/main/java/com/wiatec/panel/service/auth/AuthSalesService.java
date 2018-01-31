@@ -162,6 +162,10 @@ public class AuthSalesService {
             throw new XException(ResultMaster.error(5001, "payment method error"));
         }
         deviceRentDao.updateRented(authRentUserInfo.getMac());
+        int salesStoreCount = deviceRentDao.countNoRentedBySalesId(authSalesInfo.getId());
+        if(salesStoreCount <= 0){
+            authSalesDao.updateNoGoldById(authSalesInfo.getId());
+        }
         return ResultMaster.success(authRentUserInfo.getClientKey());
     }
 

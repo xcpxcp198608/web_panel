@@ -64,7 +64,7 @@
     </div>
     <div class="row" style="padding: 0px 10px 0 10px">
         <div class="col-5" style=" background-color: white">
-            <span class="text-muted" style="padding: 0 10px 10px 10px">All dealers commission in month:</span>
+            <span class="text-muted" style="padding: 0 10px 10px 10px">All sales commission in month:</span>
         </div>
         <div class="col-4 text-left text-darks" style="background-color: white">
             <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
@@ -177,10 +177,10 @@
                             <td>${authSalesInfo.createTime}</td>
                             <td>
                                 <c:if test="${authSalesInfo.gold == true}">
-                                    <span class="text-success"><i class="fa fa-exchange"></i></span>
+                                    <span class="text-warning"><i class="fa fa-star"></i></span>
                                 </c:if>
                                 <c:if test="${authSalesInfo.gold == false}">
-                                    <span class="text-inverse"><i class="fa fa-exchange"></i></span>
+                                    <span class="text-muted"><i class="fa fa-star-o"></i></span>
                                 </c:if>
                             </td>
                             <td>

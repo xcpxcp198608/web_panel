@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author patrick
+ */
 @Controller
 @RequestMapping(value = "/rent")
 public class AuthRentUser {

@@ -13,28 +13,41 @@ public class AuthSalesInfo {
     private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private int id;
+
     @Size(min = 6, max = 20, message = "username input format incorrect")
     private String username;
+
     @Size(min = 6, max = 20, message = "password input format incorrect")
     private String password;
     private int dealerId;
     private String dealerName;
     private String firstName;
     private String lastName;
+
     @Size(min = 9, max = 9, message = "ssn input format incorrect")
     private String ssn;
+
     @Pattern(regexp = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",
-            message = "email input format incorrent")
+            message = "email input format incorrect")
     private String email;
     /**
      * 发放销售佣金的账号
      */
     private String bankInfo;
+
     @Size(min = 10, max = 12, message = "phone number input format incorrect")
     private String phone;
 
+    /**
+     * 销售激活账号的收费类型 AM1 AM2
+     */
     private String activateCategory;
+
+    /**
+     * 销售类型：拿货10台 S1
+     */
     private String goldCategory;
+
     private String cardNumber;
     private String expirationDate;
     private String securityKey;
@@ -42,6 +55,10 @@ public class AuthSalesInfo {
      * 当销售一次拿货10台或以上时此属性为true，salesCommission + 1;
      */
     private boolean isGold;
+    /**
+     * 当销售5台以后，可以进行退已销售台数的押金或继续补货已销售台数
+     */
+    private boolean exchange;
     private Date expiresTime;
     private Date createTime;
 
@@ -193,6 +210,14 @@ public class AuthSalesInfo {
         isGold = gold;
     }
 
+    public boolean isExchange() {
+        return exchange;
+    }
+
+    public void setExchange(boolean exchange) {
+        this.exchange = exchange;
+    }
+
     public String getExpiresTime() {
         return FORMATTER.format(expiresTime);
     }
@@ -229,6 +254,7 @@ public class AuthSalesInfo {
                 ", expirationDate='" + expirationDate + '\'' +
                 ", securityKey='" + securityKey + '\'' +
                 ", isGold=" + isGold +
+                ", exchange=" + exchange +
                 ", expiresTime=" + expiresTime +
                 ", createTime=" + createTime +
                 '}';
