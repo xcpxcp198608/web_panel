@@ -23,11 +23,11 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/manager/distribution">
-                    <i class="fa fa-globe fa-lg"></i>&nbsp;Distribution
+                    <i class="fa fa-globe fa-lg"></i>&nbsp;Geographic
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/panel/signout">
+                <a class="nav-link" href="/panel/signout1">
                     <i class="fa fa-sign-out fa-lg"></i>&nbsp;Sign out
                 </a>
             </li>
@@ -36,4 +36,4 @@
     </div>
 </rapid:override>
 
-<%@ include file="../base.jsp"%>
+<%@ include file="base.jsp"%>

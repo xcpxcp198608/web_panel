@@ -20,7 +20,7 @@
         <result column="expiration_date" property="expirationDate"/>
         <result column="security_key" property="securityKey"/>
         <result column="is_gold" property="isGold"/>
-        <result column="exchange" property="exchange"/>
+        <result column="sdcn" property="sdcn"/>
         <result column="createTime" property="createTime"/>
         <result column="expires_time" property="expiresTime"/>
     </resultMap>
@@ -30,7 +30,7 @@
             auth_sales.firstName, auth_sales.lastName, auth_sales.ssn, auth_sales.email,
             auth_sales.bank_info, auth_sales.phone, auth_sales.activate_category,
             auth_sales.gold_category, auth_sales.card_number, auth_sales.expiration_date,
-            auth_sales.security_key, auth_sales.is_gold, auth_sales.createTime,
+            auth_sales.security_key, auth_sales.is_gold, auth_sales.sdcn, auth_sales.createTime,
             auth_sales.expires_time,
             auth_dealer.username dealerName
         FROM auth_sales JOIN panel.auth_dealer ON auth_dealer.id = auth_sales.dealerId

@@ -25,7 +25,7 @@
                     </span>
                 </div>
                 <div class="text-center" style="width: 100%">
-                    <span class="text-muted " >Level5</span>
+                    <span class="text-muted " >FTO</span>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
                     </span>
                 </div>
                 <div class="text-center" style="width: 100%">
-                    <span class="text-muted " >Limited</span>
+                    <span class="text-muted " >Level0</span>
                 </div>
             </div>
         </div>

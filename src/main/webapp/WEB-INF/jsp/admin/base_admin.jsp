@@ -33,7 +33,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/admin/distribution">
-                    <i class="fa fa-globe fa-lg"></i>&nbsp;Distribution
+                    <i class="fa fa-globe fa-lg"></i>&nbsp;Geographic
                 </a>
             </li>
             <li class="nav-item">

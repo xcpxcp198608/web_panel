@@ -15,6 +15,14 @@ public class DeviceRentInfo {
     private int adminId;
     private String createTime;
     private boolean isRented;
+    /**
+     * security deposit credite note
+     */
+    private boolean sdcn;
+    /**
+     * the deposit is returned?
+     */
+    private boolean returned;
 
     public DeviceRentInfo() {
     }
@@ -95,6 +103,22 @@ public class DeviceRentInfo {
         isRented = rented;
     }
 
+    public boolean isSdcn() {
+        return sdcn;
+    }
+
+    public void setSdcn(boolean sdcn) {
+        this.sdcn = sdcn;
+    }
+
+    public boolean isReturned() {
+        return returned;
+    }
+
+    public void setReturned(boolean returned) {
+        this.returned = returned;
+    }
+
     @Override
     public String toString() {
         return "DeviceRentInfo{" +
@@ -107,6 +131,8 @@ public class DeviceRentInfo {
                 ", adminId=" + adminId +
                 ", createTime='" + createTime + '\'' +
                 ", isRented=" + isRented +
+                ", sdcn=" + sdcn +
+                ", returned=" + returned +
                 '}';
     }
 }

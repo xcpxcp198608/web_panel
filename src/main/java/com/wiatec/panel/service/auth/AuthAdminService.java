@@ -173,13 +173,16 @@ public class AuthAdminService {
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo updateSalesPassword(AuthSalesInfo authSalesInfo){
-        try {
-            authSalesDao.updatePassword(authSalesInfo);
-            return ResultMaster.success();
-        }catch (Exception e){
-            logger.error("Exception: ", e);
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
-        }
+        authSalesDao.updatePassword(authSalesInfo);
+        return ResultMaster.success();
+    }
+
+    public String showSalesDetail(int salesId, Model model){
+        AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(salesId);
+        model.addAttribute("authSalesInfo", authSalesInfo);
+        List<DeviceRentInfo> rentedDeviceRentInfoList = deviceRentDao.selectRentedBySalesId(salesId);
+        model.addAttribute("rentedDeviceRentInfoList", rentedDeviceRentInfoList);
+        return "admin/sales_detail";
     }
 
     public String users(Model model, int key, int value){

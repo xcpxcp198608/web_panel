@@ -5,11 +5,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 
 <rapid:override name="title">
-    Sales
+    Sales Detail
 </rapid:override>
 
 <rapid:override name="css_js">
-    <script type="text/javascript" src="Resource/js/admin/sales.js"></script>
+    <script type="text/javascript" src="Resource/js/admin/sales_detail.js"></script>
 </rapid:override>
 
 <rapid:override name="content">
@@ -61,147 +61,65 @@
 
     <div class="row" style="padding: 20px 10px 0 10px;">
         <div style="width: 100%; background-color: #c11021; height: 3px;"></div>
+        <div style="width: 100%; background-color: #ffffff;">
+            <span class="text-center text-muted" style="padding: 10px">
+                <abbr>Security deposit credit note:</abbr>
+            </span>
+        </div>
     </div>
-    <div class="row" style="padding: 0px 10px 0 10px">
-        <div class="col-5" style=" background-color: white">
-            <span class="text-muted" style="padding: 0 10px 10px 10px">All sales commission in month:</span>
-        </div>
-        <div class="col-4 text-left text-darks" style="background-color: white">
-            <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
-        </div>
-        <div class="col-3 text-right" style="background-color: white">
-            <a id="btPreviousMonth" data-toggle="tooltip" title="press this show previous month info!">
-                <span class="badge badge-info text-center">Previous</span>
-            </a>
-            <a id="btNextMonth" data-toggle="tooltip" title="press this next month info!">
-                <span class="badge badge-info text-center">Next</span>
+
+    <div class="row" style="padding: 0 10px">
+        <div class="col-12" style="background-color: #ffffff">
+            <a id="btCheck" data-toggle="tooltip" title="check means security deposit has already return">
+                <span class="badge badge-primary text-center">
+                    <i class="fa fa-check fa-lg"></i>&nbsp;Check
+                </span>
             </a>
         </div>
     </div>
     <div class="row" style="padding: 0 10px 0 10px">
-        <div style="background-color: white; width: 100%; padding: 10px; overflow: scroll">
-            <table class="table table-sm table-hover" id="tbCommissionByMonth">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Username</th>
-                        <th>Volume</th>
-                        <th>Commission</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-
-
-    <div class="row" style="padding: 20px 10px 0 10px;">
-        <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
-        <div style="width: 100%; background-color: #ffffff;">
-            <span class="text-center text-muted" style="padding: 10px">
-                <abbr>The detail information of all sales:</abbr>
-            </span>
-        </div>
-
-        <div style="width: 100%; padding: 10px; background-color: white">
-            <div class="row">
-                <div class="col-12">
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fa fa-search fa-lg"></i>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control" id="ipSearch">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1">
-                    <a id="btCreate" data-toggle="tooltip" title="create new sales">
-                        <span class="badge badge-primary text-center">
-                            <i class="fa fa-plus fa-lg"></i>&nbsp;Create
-                        </span>
-                    </a>
-                </div>
-                <div class="col-1">
-                    <a id="btUpdate" data-toggle="tooltip" title="update sales password, choose a radio before click">
-                        <span class="badge badge-warning text-center">
-                            <i class="fa fa-pencil fa-lg"></i>&nbsp;Update
-                        </span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div style="width: 100%; padding: 10px; background-color: white; overflow: scroll">
-            <table class="table table-sm table-hover table-striped table-dark" id="tbSales">
+        <div style="background-color: white; width: 100%; padding: 10px;">
+            <table class="table table-sm table-hover" id="tbDevices">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Item</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>Dealer</th>
-                        <th>SSN</th>
-                        <th>Email</th>
-                        <th>BankInfo</th>
-                        <th>Phone</th>
-                        <th>Time</th>
-                        <th>Gold</th>
-                        <th data-toggle="tooltip" title="Security Deposit Credit Note" >SDCN</th>
-                        <th data-toggle="tooltip" title="show all users under this sales" >Users</th>
-                        <th data-toggle="tooltip" title="show sales detail information" >More</th>
+                        <th>Mac</th>
+                        <th>Rented</th>
+                        <th data-toggle="tooltip" title="Security Deposit Credit Note">SD CN</th>
+                        <th data-toggle="tooltip" title="security deposit is returned">Returned</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${authSalesInfoList}" var="authSalesInfo" varStatus="status">
+                    <c:forEach items="${rentedDeviceRentInfoList}" var="deviceRentInfo" varStatus="status">
                         <tr>
-                            <td><input type="radio" name="update" value="${authSalesInfo.id}" currentRow="${status.index}"></td>
+                            <td><input type="radio" name="rdDevice" value="${deviceRentInfo.salesId}"
+                                       currentRow="${status.index}"></td>
                             <td>${status.index+1}</td>
-                            <td>${authSalesInfo.username}</td>
-                            <td>${authSalesInfo.password}</td>
-                            <td>${authSalesInfo.dealerName}</td>
+                            <td>${deviceRentInfo.mac}</td>
                             <td>
-                                ${fn:substring(authSalesInfo.ssn, 0, 3)}-${fn:substring(authSalesInfo.ssn, 3, 5)}-${fn:substring(authSalesInfo.ssn, 5, 9)}
-                            </td>
-                            <td>${authSalesInfo.email}</td>
-                            <td>${authSalesInfo.bankInfo}</td>
-                            <td>${authSalesInfo.phone}</td>
-                            <td>${authSalesInfo.createTime}</td>
-                            <td>
-                                <c:if test="${authSalesInfo.gold == true}">
-                                    <span class="text-warning"><i class="fa fa-star"></i></span>
+                                <c:if test="${deviceRentInfo.rented == true}">
+                                    <span class="text-success"><i class="fa fa-check-circle"></i></span>
                                 </c:if>
-                                <c:if test="${authSalesInfo.gold == false}">
-                                    <span class="text-muted"><i class="fa fa-star-o"></i></span>
+                                <c:if test="${deviceRentInfo.rented == false}">
+                                    <span class="text-secondary"><i class="fa fa-close"></i></span>
                                 </c:if>
                             </td>
                             <td>
-                                <c:if test="${authSalesInfo.sdcn == true}">
-                                    <span class="text-danger"><i class="fa fa-fire"></i></span>
+                                <c:if test="${deviceRentInfo.rented == true}">
+                                    <span class="text-success"><i class="fa fa-check-circle"></i></span>
                                 </c:if>
-                                <c:if test="${authSalesInfo.sdcn == false}">
-                                    <span class="text-muted"><i class="fa fa-fire"></i></span>
+                                <c:if test="${deviceRentInfo.rented == false}">
+                                    <span class="text-secondary"><i class="fa fa-close"></i></span>
                                 </c:if>
                             </td>
                             <td>
-                                <a href="/panel/admin/users/2/${authSalesInfo.id}" target="_blank">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="/panel/admin/sales/detail/${authSalesInfo.id}" target="_blank">
-                                    <i class="fa fa-share"></i>
-                                </a>
+                                <c:if test="${deviceRentInfo.rented == true}">
+                                    <span class="text-success"><i class="fa fa-check-circle"></i></span>
+                                </c:if>
+                                <c:if test="${deviceRentInfo.rented == false}">
+                                    <span class="text-secondary"><i class="fa fa-close"></i></span>
+                                </c:if>
                             </td>
                         </tr>
                     </c:forEach>
@@ -209,6 +127,7 @@
             </table>
         </div>
     </div>
+
 
 </rapid:override>
 

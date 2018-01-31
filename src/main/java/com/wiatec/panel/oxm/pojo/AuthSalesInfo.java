@@ -57,8 +57,9 @@ public class AuthSalesInfo {
     private boolean isGold;
     /**
      * 当销售5台以后，可以进行退已销售台数的押金或继续补货已销售台数
+     * security deposit credit note
      */
-    private boolean exchange;
+    private boolean sdcn;
     private Date expiresTime;
     private Date createTime;
 
@@ -210,12 +211,12 @@ public class AuthSalesInfo {
         isGold = gold;
     }
 
-    public boolean isExchange() {
-        return exchange;
+    public boolean isSdcn() {
+        return sdcn;
     }
 
-    public void setExchange(boolean exchange) {
-        this.exchange = exchange;
+    public void setSdcn(boolean sdcn) {
+        this.sdcn = sdcn;
     }
 
     public String getExpiresTime() {
@@ -254,7 +255,7 @@ public class AuthSalesInfo {
                 ", expirationDate='" + expirationDate + '\'' +
                 ", securityKey='" + securityKey + '\'' +
                 ", isGold=" + isGold +
-                ", exchange=" + exchange +
+                ", sdcn=" + sdcn +
                 ", expiresTime=" + expiresTime +
                 ", createTime=" + createTime +
                 '}';

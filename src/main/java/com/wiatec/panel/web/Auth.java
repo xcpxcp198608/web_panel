@@ -40,6 +40,17 @@ public class Auth {
     }
 
 
+    /**
+     * sign out
+     * @param request  HttpServletRequest
+     * @return         manager sign in page
+     */
+    @GetMapping(value = "/signout1")
+    public String signOut1(HttpServletRequest request){
+        return authService.signOut1(request);
+    }
+
+
 
     /**
      * sign in

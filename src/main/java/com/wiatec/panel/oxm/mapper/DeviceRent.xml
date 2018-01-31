@@ -11,11 +11,15 @@
         <result column="dealerName" property="dealerName"/>
         <result column="adminId" property="adminId"/>
         <result column="createTime" property="createTime"/>
+        <result column="is_rented" property="isRented"/>
+        <result column="sdcn" property="sdcn"/>
+        <result column="returned" property="returned"/>
     </resultMap>
 
     <sql id="select">
         SELECT device_rent.id, device_rent.mac, device_rent.sales_id, device_rent.dealer_id,
-            device_rent.admin_id, device_rent.create_time,
+            device_rent.admin_id, device_rent.create_time, device_rent.is_rented, device_rent.sdcn,
+            device_rent.returned,
             auth_sales.username salesName
         FROM device_rent, auth_sales
         WHERE device_rent.sales_id = auth_sales.id
@@ -39,6 +43,19 @@
 
     <select id="selectAll" resultMap="deviceRentInfo" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
         <include refid="select"/> ORDER BY device_rent.create_time DESC
+    </select>
+
+    <select id="selectBySalesId" resultMap="deviceRentInfo">
+        <include refid="select"/>
+        AND device_rent.sales_id= #{salesId}
+        ORDER BY device_rent.create_time DESC
+    </select>
+
+    <select id="selectRentedBySalesId" resultMap="deviceRentInfo">
+        <include refid="select"/>
+        AND device_rent.sales_id = #{salesId}
+        AND device_rent.is_rented = 1
+        ORDER BY device_rent.create_time DESC
     </select>
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">

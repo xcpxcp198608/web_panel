@@ -115,6 +115,16 @@ public class AuthAdmin {
     }
 
     /**
+     * show sales detail page
+     * @param salesId salesId
+     * @return sales detail page
+     */
+    @GetMapping(value = "/sales/detail/{salesId}")
+    public String salesDetail(@PathVariable int salesId, Model model){
+        return authAdminService.showSalesDetail(salesId, model);
+    }
+
+    /**
      * users page
      * @param model   mvc model
      * @return        users page

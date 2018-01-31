@@ -83,6 +83,16 @@ public class AuthService {
         return "redirect:/";
     }
 
+    public String signOut1(HttpServletRequest request){
+        String sessionId = request.getCookies()[0].getValue();
+        HttpSession session = SessionListener.idSessionMap.get(sessionId);
+        String username = (String) session.getAttribute(SessionListener.KEY_AUTH_USER_NAME);
+        SessionListener.idSessionMap.remove(sessionId);
+        SessionListener.authUserSessionMap.remove(username);
+        session.invalidate();
+        return "redirect:/manager/";
+    }
+
 
     public String signInDevice(HttpSession session, String username, String password){
         session.setAttribute(SessionListener.KEY_AUTH_USER_NAME, username);

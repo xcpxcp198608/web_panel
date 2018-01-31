@@ -39,6 +39,10 @@ public interface DeviceRentDao {
      */
     List<DeviceRentInfo> selectAll();
 
+    List<DeviceRentInfo> selectBySalesId(int salesId);
+
+    List<DeviceRentInfo> selectRentedBySalesId(int salesId);
+
     /**
      * insert a new device rent info
      * @param deviceRentInfo required: mac, sales_id, dealer_id, admin_id
