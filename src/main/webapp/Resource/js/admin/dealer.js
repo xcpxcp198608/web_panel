@@ -3,7 +3,6 @@ $(function () {
     var now = new Date();
     var currentYear = now.getFullYear();
     var currentMonth = now.getMonth() + 1;
-    var errorMessage = $('#errorMessage');
 
     setYearAndMonth();
     function setYearAndMonth() {
@@ -296,6 +295,7 @@ $(function () {
      */
     $('#btUpdate').click(function () {
         if(currentSalesId <= 0){
+            showNotice('have no choose dealer');
             return;
         }
         $('#modalUpdate').modal('show');

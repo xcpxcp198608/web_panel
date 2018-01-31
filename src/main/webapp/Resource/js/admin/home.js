@@ -217,7 +217,6 @@ $(function () {
                             break;
                     }
                     tdObj2.innerHTML = n;
-                    tdObj2.setAttribute('class', 'tdRows12');
                     tbMonth.rows[k].append(tdObj2);
                 }
                 totalB1 += b1;

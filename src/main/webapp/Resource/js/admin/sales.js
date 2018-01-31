@@ -432,7 +432,7 @@ $(function () {
      */
     $('#btUpdate').click(function () {
         if(currentSalesId <= 0){
-
+            showNotice('have no choose sales');
             return;
         }
         $('#modalUpdate').modal('show');

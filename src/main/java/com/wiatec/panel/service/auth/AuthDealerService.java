@@ -175,9 +175,9 @@ public class AuthDealerService {
 
 
     private AuthDealerInfo getDealerInfo(HttpServletRequest request){
-        String username = (String) request.getSession().getAttribute("username");
+        String username = (String) request.getSession().getAttribute(SessionListener.KEY_AUTH_USER_NAME);
         if(TextUtil.isEmpty(username)){
-            throw new RuntimeException("sign info error");
+            throw new XException(EnumResult.ERROR_UNAUTHORIZED);
         }
         return authDealerDao.selectOne(new AuthDealerInfo(username));
     }
