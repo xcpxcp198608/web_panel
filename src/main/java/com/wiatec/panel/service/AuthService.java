@@ -45,7 +45,7 @@ public class AuthService {
         switch (type){
             case 0:
                 if(authManagerDao.countOne(new AuthManagerInfo(username, password)) == 1) {
-                    return "redirect:/manager/users";
+                    return "redirect:/manager/home";
                 }else{
                     throw new XException(EnumResult.ERROR_UNAUTHORIZED);
                 }

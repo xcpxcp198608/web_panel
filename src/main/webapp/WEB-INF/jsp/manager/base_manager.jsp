@@ -12,13 +12,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/panel/manager/level">
-                    <i class="fa fa-sort-amount-desc fa-lg"></i>&nbsp;Level
+                <a class="nav-link" href="/panel/manager/users">
+                    <i class="fa fa-users fa-lg"></i>&nbsp;Customers
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/panel/manager/users">
-                    <i class="fa fa-users fa-lg"></i>&nbsp;Customers
+                <a class="nav-link" href="/panel/manager/level">
+                    <i class="fa fa-sort-amount-desc fa-lg"></i>&nbsp;Level
                 </a>
             </li>
             <li class="nav-item">
