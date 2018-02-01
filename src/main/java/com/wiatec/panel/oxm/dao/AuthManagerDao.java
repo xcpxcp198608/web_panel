@@ -10,5 +10,5 @@ import java.util.List;
 public interface AuthManagerDao {
 
     int countOne(AuthManagerInfo authManagerInfo);
-
+    AuthManagerInfo selectOneByUsername(String username);
 }
