@@ -192,7 +192,7 @@ public class AuthRegisterUserService {
         try{
             authRegisterUserDao.updatePassword(userInfo);
             model.addAttribute("resultInfo", ResultMaster.success("Password reset successfully"));
-            return "users/result";
+            return "manager/result";
         }catch (Exception e){
             logger.error("Exception:", e);
             throw new XException(ResultMaster.error(e.getLocalizedMessage()));

@@ -147,7 +147,7 @@
                     </select>
                 </div>
                 <div class="col-2" style="height: 30px">
-                    <input type="date" class="date" id="ipExpiresTime">
+                    <input type="date" placeholder="Date(yyyy-mm-dd)" id="ipExpiresTime">
                 </div>
                 <div class="col-1">
                     <a id="btUpdateLevel" data-toggle="tooltip" title="update customer level">

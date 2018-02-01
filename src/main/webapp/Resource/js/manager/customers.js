@@ -85,6 +85,10 @@ $(function () {
             showNotice('have no choose expires date');
             return;
         }
+        if(!validateDateFormat(expiresTime)){
+            showNotice('expires date format error');
+            return;
+        }
         updateUserLevel(currentId, updateLevel, expiresTime)
     });
 

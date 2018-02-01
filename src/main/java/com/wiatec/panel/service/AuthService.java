@@ -31,13 +31,13 @@ public class AuthService {
     private AuthDeviceDao authDeviceDao;
 
     public String signIn(HttpSession session, String username, String password, int type){
-        session.setAttribute(SessionListener.KEY_AUTH_USER_NAME, username);
         if(TextUtil.isEmpty(username)){
             throw new XException(EnumResult.ERROR_USERNAME_FORMAT);
         }
         if(TextUtil.isEmpty(password)){
             throw new XException(EnumResult.ERROR_PASSWORD_FORMAT);
         }
+        session.setAttribute(SessionListener.KEY_AUTH_USER_NAME, username);
         switch (type){
             case 0:
                 if(authManagerDao.countOne(new AuthManagerInfo(username, password)) == 1) {

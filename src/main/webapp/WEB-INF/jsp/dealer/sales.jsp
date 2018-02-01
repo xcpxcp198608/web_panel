@@ -87,10 +87,10 @@
                         <td>${authSalesInfo.createTime}</td>
                         <td>
                             <c:if test="${authSalesInfo.gold == true}">
-                                <span class="text-success"><i class="fa fa-exchange"></i></span>
+                                <span class="text-warning"><i class="fa fa-star"></i></span>
                             </c:if>
                             <c:if test="${authSalesInfo.gold == false}">
-                                <span class="text-inverse"><i class="fa fa-exchange"></i></span>
+                                <span class="text-muted"><i class="fa fa-star-o"></i></span>
                             </c:if>
                         </td>
                         <td>

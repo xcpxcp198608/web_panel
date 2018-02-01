@@ -104,17 +104,17 @@
         WHERE id=#{id}
     </update>
 
-    <update id="updateExchangeById">
-        UPDATE auth_sales SET exchange=1
+    <update id="updateSDCNById">
+        UPDATE auth_sales SET sdcn = 1
         WHERE id=#{id}
     </update>
 
-    <update id="updateNoExchangeById">
-        UPDATE auth_sales SET exchange=0
+    <update id="updateNoSDCNById">
+        UPDATE auth_sales SET sdcn = 0
         WHERE id=#{id}
     </update>
 
-    
+
     <!--<select id="storeProcedure" statementType="CALLABLE">-->
         <!--CALL create_rent_user(-->
           <!--#{clientKey, jdbcType=VARCHAR, mode=IN}-->

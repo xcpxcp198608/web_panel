@@ -225,15 +225,27 @@ public class AuthAdmin {
     }
 
     /**
-     * save a device rent info
+     * update a device to special sales
      * @param request  HttpServletRequest
-     * @param deviceRentInfo  DeviceRentInfo required: mac, dealerId
+     * @param deviceRentInfo  DeviceRentInfo required: mac, sales id
      * @return         ResultInfo
      */
     @PutMapping(value = "/devices/update")
     @ResponseBody
     public ResultInfo updateDeviceToSpecialSales(HttpServletRequest request, @RequestBody DeviceRentInfo deviceRentInfo){
         return authAdminService.updateDeviceToSpecialSales(request, deviceRentInfo);
+    }
+
+    /**
+     * check device when returned the sales deposit
+     * @param request  HttpServletRequest
+     * @param deviceRentInfo  DeviceRentInfo required: mac
+     * @return         ResultInfo
+     */
+    @PutMapping(value = "/devices/check")
+    @ResponseBody
+    public ResultInfo checkReturned(HttpServletRequest request, @RequestBody DeviceRentInfo deviceRentInfo){
+        return authAdminService.checkReturned(request, deviceRentInfo);
     }
 
     /**

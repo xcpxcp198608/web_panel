@@ -223,6 +223,14 @@ public class AuthAdminService {
             authRentUserInfo.setStatus(status);
             authRentUserInfo.setClientKey(key);
             authRentUserDao.updateUserStatus(authRentUserInfo);
+            if(AuthRentUserInfo.STATUS_ACTIVATE.equals(status)){
+                AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectOneByClientKey(key);
+                deviceRentDao.updateDeviceToRented(authRentUserInfo1.getMac());
+                int sdcnCount = deviceRentDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
+                if(sdcnCount >= 5){
+                    authSalesDao.updateSDCNById(authRentUserInfo1.getSalesId());
+                }
+            }
             return ResultMaster.success();
         }catch (Exception e){
             logger.error("Exception:", e);
@@ -345,6 +353,22 @@ public class AuthAdminService {
             authSalesDao.updateGoldById(authSalesInfo.getId());
         }
         return ResultMaster.success(deviceRentDao.selectOneByMac(deviceRentInfo));
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo checkReturned(HttpServletRequest request, DeviceRentInfo deviceRentInfo){
+        if(deviceRentInfo.getMac().length() != 17){
+            throw new XException(EnumResult.ERROR_MAC_FORMAT);
+        }
+        int i = deviceRentDao.updateDeviceToReturned(deviceRentInfo);
+        if(i != 1){
+            throw new XException(1001, "update failure");
+        }
+        int sdcnCount = deviceRentDao.countSDCNBySalesId(deviceRentInfo.getSalesId());
+        if(sdcnCount <= 0){
+            authSalesDao.updateNoSDCNById(deviceRentInfo.getSalesId());
+        }
+        return ResultMaster.success();
     }
 
     /////////////////////////////////////////////////// chart //////////////////////////////////////////////////////////

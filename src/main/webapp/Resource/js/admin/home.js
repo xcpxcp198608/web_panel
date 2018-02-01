@@ -291,6 +291,7 @@ $(function () {
                 name: 'volume',
                 type: 'bar',
                 data: volumeData,
+                barWidth: 20,
                 itemStyle: {
                     normal: {
                         color: '#F5C334',

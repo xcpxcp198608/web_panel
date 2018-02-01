@@ -67,6 +67,9 @@
                     <th>Sales</th>
                     <th>CheckInTime</th>
                     <th>Rented</th>
+                    <th>RentedTime</th>
+                    <th>Checked</th>
+                    <th>CheckedTime</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -83,9 +86,19 @@
                                 <span class="text-success"><i class="fa fa-check-circle"></i></span>
                             </c:if>
                             <c:if test="${deviceRentInfo.rented == false}">
-                                <span class="text-secondary"><i class="fa fa-close"></i></span>
+                                <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
                             </c:if>
                         </td>
+                        <td>${deviceRentInfo.rentTime}</td>
+                        <td>
+                            <c:if test="${deviceRentInfo.returned == true}">
+                                <span class="text-success"><i class="fa fa-check-circle"></i></span>
+                            </c:if>
+                            <c:if test="${deviceRentInfo.returned == false}">
+                                <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
+                            </c:if>
+                        </td>
+                        <td>${deviceRentInfo.checkTime}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

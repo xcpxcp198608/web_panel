@@ -97,6 +97,9 @@ public class AuthSalesService {
                 throw new XException(EnumResult.ERROR_DEVICE_USING);
             }
         }
+        if(authRentUserDao.countOneByEmail(authRentUserInfo) == 1){
+            throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
+        }
         if(authRegisterUserDao.countByMac(new AuthRegisterUserInfo(authRentUserInfo.getMac())) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
         }
@@ -154,6 +157,7 @@ public class AuthSalesService {
             emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
             emailMaster.addAttachment(invoicePath);
             emailMaster.sendMessage(authRentUserInfo.getEmail());
+            deviceRentDao.updateDeviceToRented(authRentUserInfo.getMac());
             return ResultMaster.success(authRentUserInfo.getClientKey());
         }else if (paymentMethod == PAYMENT_METHOD_PAYPAL) {
             authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_PAYPAL);
@@ -162,10 +166,13 @@ public class AuthSalesService {
         }else{
             throw new XException(ResultMaster.error(5001, "payment method error"));
         }
-        deviceRentDao.updateRented(authRentUserInfo.getMac());
         int salesStoreCount = deviceRentDao.countNoRentedBySalesId(authSalesInfo.getId());
         if(salesStoreCount <= 0){
             authSalesDao.updateNoGoldById(authSalesInfo.getId());
+        }
+        int sdcnCount = deviceRentDao.countSDCNBySalesId(authSalesInfo.getId());
+        if(sdcnCount >= 5){
+            authSalesDao.updateSDCNById(authSalesInfo.getId());
         }
         return ResultMaster.success(authRentUserInfo.getClientKey());
     }

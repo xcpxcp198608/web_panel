@@ -10,14 +10,16 @@ import java.util.Date;
  */
 public class TimeUtil {
 
+    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
     public static long getUnixFromStr(String time){
         if(TextUtil.isEmpty(time)){
             return 0;
         }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date;
         try {
-            date = simpleDateFormat.parse(time);
+            date = FORMATTER.parse(time);
         } catch (ParseException e) {
             return 0;
         }
@@ -30,8 +32,7 @@ public class TimeUtil {
 
     public static String getStrTime(long time){
         try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            return simpleDateFormat.format(new Date(time));
+            return FORMATTER.format(new Date(time));
         } catch (Exception e) {
             return "";
         }
@@ -43,8 +44,7 @@ public class TimeUtil {
 
     public static String getStrDate(long time){
         try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            return simpleDateFormat.format(new Date(time));
+            return FORMATTER.format(new Date(time));
         } catch (Exception e) {
             return "";
         }

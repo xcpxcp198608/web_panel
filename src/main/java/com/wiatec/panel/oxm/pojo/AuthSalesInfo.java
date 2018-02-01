@@ -1,5 +1,8 @@
 package com.wiatec.panel.oxm.pojo;
 
+import com.wiatec.panel.common.utils.TextUtil;
+import com.wiatec.panel.common.utils.TimeUtil;
+
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.text.SimpleDateFormat;
@@ -10,7 +13,6 @@ import java.util.Date;
  */
 public class AuthSalesInfo {
 
-    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private int id;
 
@@ -220,7 +222,11 @@ public class AuthSalesInfo {
     }
 
     public String getExpiresTime() {
-        return FORMATTER.format(expiresTime);
+        if(expiresTime == null){
+            return "";
+        }else {
+            return TimeUtil.FORMATTER.format(expiresTime);
+        }
     }
 
     public void setExpiresTime(Date expiresTime) {
@@ -228,7 +234,11 @@ public class AuthSalesInfo {
     }
 
     public String getCreateTime() {
-        return FORMATTER.format(createTime);
+        if(createTime == null){
+            return "";
+        }else {
+            return TimeUtil.FORMATTER.format(createTime);
+        }
     }
 
     public void setCreateTime(Date createTime) {

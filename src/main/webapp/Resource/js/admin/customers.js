@@ -6,8 +6,6 @@ $(function () {
     showOnlineAndTotalCount();
 
 
-
-
     var currentRow = 0;
     var currentClientKey = '';
     var currentStatus = '';

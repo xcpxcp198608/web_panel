@@ -22,8 +22,8 @@ public interface AuthSalesDao {
 
     int updateGoldById(int id);
     int updateNoGoldById(int id);
+    int updateSDCNById(int id);
+    int updateNoSDCNById(int id);
 
-    int updateExchangeById(int id);
-    int updateNoExchangeById(int id);
 
 }

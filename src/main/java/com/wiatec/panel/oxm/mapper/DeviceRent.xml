@@ -10,16 +10,18 @@
         <result column="dealerId" property="dealerId"/>
         <result column="dealerName" property="dealerName"/>
         <result column="adminId" property="adminId"/>
-        <result column="createTime" property="createTime"/>
-        <result column="is_rented" property="isRented"/>
+        <result column="is_rented" property="rented"/>
         <result column="sdcn" property="sdcn"/>
         <result column="returned" property="returned"/>
+        <result column="create_time" property="createTime"/>
+        <result column="rent_time" property="rentTime"/>
+        <result column="check_time" property="checkTime"/>
     </resultMap>
 
     <sql id="select">
         SELECT device_rent.id, device_rent.mac, device_rent.sales_id, device_rent.dealer_id,
-            device_rent.admin_id, device_rent.create_time, device_rent.is_rented, device_rent.sdcn,
-            device_rent.returned,
+            device_rent.admin_id, device_rent.is_rented, device_rent.sdcn, device_rent.returned,
+            device_rent.create_time, device_rent.rent_time, device_rent.check_time,
             auth_sales.username salesName
         FROM device_rent, auth_sales
         WHERE device_rent.sales_id = auth_sales.id
@@ -68,8 +70,13 @@
       WHERE mac = #{mac}
     </update>
 
-    <update id="updateRented">
-        UPDATE device_rent SET is_rented=1
+    <update id="updateDeviceToReturned" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+      UPDATE device_rent SET returned = 1, sdcn = 0, check_time=now()
+      WHERE mac = #{mac}
+    </update>
+
+    <update id="updateDeviceToRented">
+        UPDATE device_rent SET is_rented = 1, sdcn = 1, rent_time=now()
         WHERE mac=#{mac}
     </update>
 
@@ -77,6 +84,13 @@
         SELECT COUNT(*) count
         FROM device_rent
         WHERE is_rented=0
+        AND sales_id=#{salesId}
+    </select>
+
+    <select id="countSDCNBySalesId" resultType="java.lang.Integer">
+        SELECT COUNT(*) count
+        FROM device_rent
+        WHERE sdcn = 1
         AND sales_id=#{salesId}
     </select>
 

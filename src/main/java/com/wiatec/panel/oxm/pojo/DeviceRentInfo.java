@@ -1,6 +1,10 @@
 package com.wiatec.panel.oxm.pojo;
 
 
+import com.wiatec.panel.common.utils.TimeUtil;
+
+import java.util.Date;
+
 /**
  * @author patrick
  */
@@ -13,8 +17,7 @@ public class DeviceRentInfo {
     private int dealerId;
     private String dealerName;
     private int adminId;
-    private String createTime;
-    private boolean isRented;
+    private boolean rented;
     /**
      * security deposit credite note
      */
@@ -23,6 +26,9 @@ public class DeviceRentInfo {
      * the deposit is returned?
      */
     private boolean returned;
+    private Date createTime;
+    private Date rentTime;
+    private Date checkTime;
 
     public DeviceRentInfo() {
     }
@@ -87,20 +93,12 @@ public class DeviceRentInfo {
         this.adminId = adminId;
     }
 
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
     public boolean isRented() {
-        return isRented;
+        return rented;
     }
 
     public void setRented(boolean rented) {
-        isRented = rented;
+        this.rented = rented;
     }
 
     public boolean isSdcn() {
@@ -119,6 +117,42 @@ public class DeviceRentInfo {
         this.returned = returned;
     }
 
+    public String getCreateTime() {
+        if(createTime == null){
+            return "";
+        }else {
+            return TimeUtil.FORMATTER.format(createTime);
+        }
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getRentTime() {
+        if(rentTime == null){
+            return "";
+        }else {
+            return TimeUtil.FORMATTER.format(rentTime);
+        }
+    }
+
+    public void setRentTime(Date rentTime) {
+        this.rentTime = rentTime;
+    }
+
+    public String getCheckTime() {
+        if(checkTime == null){
+            return "";
+        }else {
+            return TimeUtil.FORMATTER.format(checkTime);
+        }
+    }
+
+    public void setCheckTime(Date checkTime) {
+        this.checkTime = checkTime;
+    }
+
     @Override
     public String toString() {
         return "DeviceRentInfo{" +
@@ -129,10 +163,12 @@ public class DeviceRentInfo {
                 ", dealerId=" + dealerId +
                 ", dealerName='" + dealerName + '\'' +
                 ", adminId=" + adminId +
-                ", createTime='" + createTime + '\'' +
-                ", isRented=" + isRented +
+                ", rented=" + rented +
                 ", sdcn=" + sdcn +
                 ", returned=" + returned +
+                ", createTime=" + createTime +
+                ", rentTime=" + rentTime +
+                ", checkTime=" + checkTime +
                 '}';
     }
 }
