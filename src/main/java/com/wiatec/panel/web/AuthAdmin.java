@@ -238,14 +238,13 @@ public class AuthAdmin {
 
     /**
      * check device when returned the sales deposit
-     * @param request  HttpServletRequest
      * @param deviceRentInfo  DeviceRentInfo required: mac
      * @return         ResultInfo
      */
     @PutMapping(value = "/devices/check")
     @ResponseBody
-    public ResultInfo checkReturned(HttpServletRequest request, @RequestBody DeviceRentInfo deviceRentInfo){
-        return authAdminService.checkReturned(request, deviceRentInfo);
+    public ResultInfo checkReturned(@RequestBody DeviceRentInfo deviceRentInfo){
+        return authAdminService.checkReturned(deviceRentInfo);
     }
 
     /**

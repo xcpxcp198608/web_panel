@@ -51,7 +51,7 @@
     background-position-y: center; position: absolute; left: 0; top: 0">
 
     <div style="padding: 20px">
-      <span class="text-light" style="padding: 20px;">btvi panel</span>
+      <span class="text-light" style="padding: 20px;">BTVi control panel</span>
     </div>
 
     <form class="form-signIn" action="/panel/signin" method="post">

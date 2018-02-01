@@ -35,7 +35,7 @@ CREATE PROCEDURE `create_rent_user`
       SET v_result = -1;
     ELSE
       UPDATE device_rent
-        SET is_rented = 1
+        SET rented = 1
         WHERE mac = v_mac;
       SELECT row_count() INTO insert_count;
       IF (insert_count = 0) THEN

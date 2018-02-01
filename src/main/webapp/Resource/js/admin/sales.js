@@ -408,12 +408,12 @@ $(function () {
                     tdObj.innerHTML = '<span class="text-muted"><i class="fa fa-fire"></i></span>';
                     break;
                 case 12:
-                    tdObj.innerHTML = '<a href="/panel/admin/users/2/'+ authSalesInfo.id+'" target="_blank">\n' +
+                    tdObj.innerHTML = '<a href="/panel/admin/users/2/'+ authSalesInfo.id+'">\n' +
                         '                 <i class="fa fa-eye"></i>\n' +
                         '              </a>';
                     break;
                 case 13:
-                    tdObj.innerHTML = '<a href="/panel/admin/sales/detail/' + authSalesInfo.id + '" title="show sales detail information" target="_blank">\n' +
+                    tdObj.innerHTML = '<a href="/panel/admin/sales/detail/' + authSalesInfo.id + '" title="show sales detail information">\n' +
                         '                                    <i class="fa fa-share"></i>\n' +
                         '                                </a>';
                     break;

@@ -273,7 +273,7 @@ $(function () {
                 tbUserDetails.rows[5].cells[1].innerHTML = response['email'];
                 tbUserDetails.rows[6].cells[1].innerHTML = response['phone'];
                 tbUserDetails.rows[7].cells[1].innerHTML = response['createTime'];
-                tbUserDetails.rows[8].cells[1].innerHTML = response['activateTime'];
+                tbUserDetails.rows[8].cells[1].innerHTML = response['activeTime'];
                 tbUserDetails.rows[9].cells[1].innerHTML = response['level'];
                 tbUserDetails.rows[10].cells[1].innerHTML = response['expiresTime'];
                 tbUserDetails.rows[11].cells[1].innerHTML = response['status'];

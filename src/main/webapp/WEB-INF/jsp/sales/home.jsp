@@ -78,10 +78,10 @@
             <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
         </div>
         <div class="col-3 text-right" style="padding: 10px; background-color: white">
-            <a id="btPreviousMonth" data-toggle="tooltip" title="press this show previous month info!">
+            <a id="btPreviousMonth" data-toggle="tooltip" title="previous month">
                 <span class="badge badge-info text-center">Previous</span>
             </a>
-            <a id="btNextMonth" data-toggle="tooltip" title="press this show next month info!">
+            <a id="btNextMonth" data-toggle="tooltip" title="next month">
                 <span class="badge badge-info text-center">Next</span>
             </a>
         </div>

@@ -55,19 +55,19 @@
                             <i class="fa fa-check fa-lg"></i>&nbsp;Activate
                         </span>
                     </a>
-                    <a id="btLimited" data-toggle="tooltip" title="limited the device">
+                    <a id="btLimited" data-toggle="tooltip" title="manually block the device">
                         <span class="badge badge-warning text-center" style="padding: 3px">
-                            <i class="fa fa-lock fa-lg"></i>&nbsp;Limited
+                            <i class="fa fa-lock fa-lg"></i>&nbsp;Block
                         </span>
                     </a>
-                    <a id="btCanceled" data-toggle="tooltip" title="cancel the device">
+                    <a id="btCanceled" data-toggle="tooltip" title="Reset the device">
                         <span class="badge badge-danger text-center" style="padding: 3px">
                             <i class="fa fa-close fa-lg"></i>&nbsp;Cancel
                         </span>
                     </a>
-                    <a id="btCashActivate" data-toggle="tooltip" title="activate the device when pay with cash">
+                    <a id="btCashActivate" data-toggle="tooltip" title="To manually activate the device when pay by cash">
                         <span class="badge badge-primary text-center" style="padding: 3px">
-                            <i class="fa fa-money fa-lg"></i>&nbsp;Cash Activate
+                            <i class="fa fa-money fa-lg"></i>&nbsp;Cash Activation
                         </span>
                     </a>
                 </div>
@@ -181,8 +181,8 @@
                         <tr><td>City</td><td></td></tr>
                         <tr><td>TimeZone</td><td></td></tr>
                         <tr><td>LastOnLineTime</td><td></td></tr>
-                        <tr><td>PostCode</td><td></td></tr>
-                        <tr><td>PostAddress</td><td></td></tr>
+                        <tr><td>Postal</td><td></td></tr>
+                        <tr><td>ShippingAddress</td><td></td></tr>
                         <tr><td>Express</td><td></td></tr>
                         </tbody>
                     </table>

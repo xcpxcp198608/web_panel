@@ -10,18 +10,20 @@
         <result column="dealerId" property="dealerId"/>
         <result column="dealerName" property="dealerName"/>
         <result column="adminId" property="adminId"/>
-        <result column="is_rented" property="rented"/>
-        <result column="sdcn" property="sdcn"/>
-        <result column="returned" property="returned"/>
         <result column="create_time" property="createTime"/>
+        <result column="is_rented" property="rented"/>
         <result column="rent_time" property="rentTime"/>
+        <result column="sdcn" property="sdcn"/>
+        <result column="checked" property="checked"/>
+        <result column="check_number" property="checkNumber"/>
         <result column="check_time" property="checkTime"/>
     </resultMap>
 
     <sql id="select">
         SELECT device_rent.id, device_rent.mac, device_rent.sales_id, device_rent.dealer_id,
-            device_rent.admin_id, device_rent.is_rented, device_rent.sdcn, device_rent.returned,
-            device_rent.create_time, device_rent.rent_time, device_rent.check_time,
+            device_rent.admin_id, device_rent.create_time, device_rent.rented,
+            device_rent.rent_time, device_rent.sdcn, device_rent.checked,
+            device_rent.check_number, device_rent.check_time,
             auth_sales.username salesName
         FROM device_rent, auth_sales
         WHERE device_rent.sales_id = auth_sales.id
@@ -56,7 +58,7 @@
     <select id="selectRentedBySalesId" resultMap="deviceRentInfo">
         <include refid="select"/>
         AND device_rent.sales_id = #{salesId}
-        AND device_rent.is_rented = 1
+        AND device_rent.rented = 1
         ORDER BY device_rent.create_time DESC
     </select>
 
@@ -70,20 +72,20 @@
       WHERE mac = #{mac}
     </update>
 
-    <update id="updateDeviceToReturned" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
-      UPDATE device_rent SET returned = 1, sdcn = 0, check_time=now()
+    <update id="updateDeviceToChecked" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+      UPDATE device_rent SET  checked= 1, sdcn = 0, check_number= #{checkNumber}, check_time=now()
       WHERE mac = #{mac}
     </update>
 
     <update id="updateDeviceToRented">
-        UPDATE device_rent SET is_rented = 1, sdcn = 1, rent_time=now()
+        UPDATE device_rent SET rented = 1, sdcn = 1, rent_time=now()
         WHERE mac=#{mac}
     </update>
 
     <select id="countNoRentedBySalesId" resultType="java.lang.Integer">
         SELECT COUNT(*) count
         FROM device_rent
-        WHERE is_rented=0
+        WHERE rented=0
         AND sales_id=#{salesId}
     </select>
 

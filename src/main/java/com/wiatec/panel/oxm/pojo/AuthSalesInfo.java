@@ -1,17 +1,18 @@
 package com.wiatec.panel.oxm.pojo;
 
-import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * @author patrick
  */
 public class AuthSalesInfo {
+
+    public static final int SDCN_NOTICE_COUNT = 5;
+    public static final int GOLD_COUNT = 10;
 
 
     private int id;

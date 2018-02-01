@@ -7,6 +7,8 @@ import com.wiatec.panel.oxm.pojo.*;
 import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.XException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpSession;
  */
 @Service
 public class AuthService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
     private AuthManagerDao authManagerDao;
@@ -41,7 +45,7 @@ public class AuthService {
         switch (type){
             case 0:
                 if(authManagerDao.countOne(new AuthManagerInfo(username, password)) == 1) {
-                    return "redirect:/manager/home";
+                    return "redirect:/manager/users";
                 }else{
                     throw new XException(EnumResult.ERROR_UNAUTHORIZED);
                 }
@@ -74,23 +78,26 @@ public class AuthService {
     }
 
     public String signOut(HttpServletRequest request){
-        String sessionId = request.getCookies()[0].getValue();
-        HttpSession session = SessionListener.idSessionMap.get(sessionId);
-        String username = (String) session.getAttribute(SessionListener.KEY_AUTH_USER_NAME);
-        SessionListener.idSessionMap.remove(sessionId);
-        SessionListener.authUserSessionMap.remove(username);
-        session.invalidate();
+        releaseSession(request);
         return "redirect:/";
     }
 
     public String signOut1(HttpServletRequest request){
-        String sessionId = request.getCookies()[0].getValue();
-        HttpSession session = SessionListener.idSessionMap.get(sessionId);
-        String username = (String) session.getAttribute(SessionListener.KEY_AUTH_USER_NAME);
-        SessionListener.idSessionMap.remove(sessionId);
-        SessionListener.authUserSessionMap.remove(username);
-        session.invalidate();
+        releaseSession(request);
         return "redirect:/manager/";
+    }
+
+    private void releaseSession(HttpServletRequest request){
+        try{
+            String sessionId = request.getCookies()[0].getValue();
+            HttpSession session = SessionListener.idSessionMap.get(sessionId);
+            String username = (String) session.getAttribute(SessionListener.KEY_AUTH_USER_NAME);
+            SessionListener.idSessionMap.remove(sessionId);
+            SessionListener.authUserSessionMap.remove(username);
+            session.invalidate();
+        }catch (Exception e) {
+            logger.error("Exception", e);
+        }
     }
 
 

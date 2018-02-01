@@ -18,7 +18,7 @@
         <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
         <div style="width: 100%; background-color: #ffffff;">
             <span class="text-center text-muted" style="padding: 10px">
-                <abbr>The detail information of devices:</abbr>
+                <abbr>Choose device(s) to update to selected sales:</abbr>
             </span>
             <span class="badge badge-success text-center" id="totalDevices"
                   data-toggle="tooltip" title="total check in devices!">
@@ -91,10 +91,10 @@
                         </td>
                         <td>${deviceRentInfo.rentTime}</td>
                         <td>
-                            <c:if test="${deviceRentInfo.returned == true}">
+                            <c:if test="${deviceRentInfo.checked == true}">
                                 <span class="text-success"><i class="fa fa-check-circle"></i></span>
                             </c:if>
-                            <c:if test="${deviceRentInfo.returned == false}">
+                            <c:if test="${deviceRentInfo.checked == false}">
                                 <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
                             </c:if>
                         </td>

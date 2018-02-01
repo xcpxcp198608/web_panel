@@ -74,21 +74,41 @@ public class AuthSalesService {
         return "sales/customers";
     }
 
-    public String createUsers(HttpServletRequest request, Model model){
+    /**
+     * select commissionCategoryInfo list and show create user jsp page
+     * @param model  view model
+     * @return  create_user jsp page
+     */
+    public String createUsers(Model model){
         List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
         for(CommissionCategoryInfo commissionCategoryInfo: commissionCategoryInfoList){
             commissionCategoryInfo.setFirstPay();
             commissionCategoryInfo.setPrice();
         }
-
         model.addAttribute("commissionCategoryInfoList", commissionCategoryInfoList);
         return "sales/create_user";
     }
 
+    /**
+     * select rental user all information by client key
+     * @param key  client key
+     * @return  AuthRentUserInfo
+     */
     public AuthRentUserInfo getUserByKey(String key){
         return authRentUserDao.selectOneByClientKey(key);
     }
 
+    /**
+     * create rental user
+     * @param request  HttpServletRequest
+     * @param authRentUserInfo
+     *        required: commission category, mac, email, first name, last name,
+     *        phone, post code, post address,
+     *        if pay method is credit card, must provide: credit card number,
+     *        expiration date, security key
+     * @param paymentMethod   pay method: option: cash, credit card, paypal
+     * @return
+     */
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo createUser(HttpServletRequest request, AuthRentUserInfo authRentUserInfo, int paymentMethod){
         AuthSalesInfo authSalesInfo = getSalesInfo(request);
@@ -171,11 +191,13 @@ public class AuthSalesService {
             authSalesDao.updateNoGoldById(authSalesInfo.getId());
         }
         int sdcnCount = deviceRentDao.countSDCNBySalesId(authSalesInfo.getId());
-        if(sdcnCount >= 5){
+        if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
             authSalesDao.updateSDCNById(authSalesInfo.getId());
         }
         return ResultMaster.success(authRentUserInfo.getClientKey());
     }
+
+
 
     ////////////////////////////////////////////////////////// chart ///////////////////////////////////////////////////
 

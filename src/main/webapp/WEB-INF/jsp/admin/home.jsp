@@ -16,9 +16,8 @@
     <div class="row" style="padding: 0 10px 10px 10px">
         <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
         <div style="background-color: #ffffff; width: 100%">
-            <span class="text-center text-muted" style="padding: 10px"><abbr>The number of real time online:</abbr>
-                <span class="badge badge-success text-center" id="sOnline"
-                      data-toggle="tooltip" title="current online number!"></span>
+            <span class="text-center text-success" style="padding: 10px"><i class="fa fa-eye fa-lg"></i>
+                <span class="badge badge-success text-center" id="sOnline"></span>
             </span>
             <div id="chart_online" class="d-flex" style="width: 100%; height: 200px"></div>
         </div>
@@ -33,10 +32,10 @@
             <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
         </div>
         <div class="col-3 text-right" style="padding: 10px; background-color: white">
-            <a id="btPreviousMonth" data-toggle="tooltip" title="press this show previous month info!">
+            <a id="btPreviousMonth" data-toggle="tooltip" title="previous month">
                 <span class="badge badge-info text-center">Previous</span>
             </a>
-            <a id="btNextMonth" data-toggle="tooltip" title="press this next month info!">
+            <a id="btNextMonth" data-toggle="tooltip" title="next month">
                 <span class="badge badge-info text-center">Next</span>
             </a>
         </div>

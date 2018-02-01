@@ -92,7 +92,7 @@
                     <label class="radio-inline">
                         <input type="radio" name="searchRadio" checked value="0">
                         <span class="badge badge-secondary" data-toggle="tooltip"
-                              title="search transaction without index" >none</span>
+                              title="search transaction without index" >all</span>
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="searchRadio" value="2">

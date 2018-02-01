@@ -59,7 +59,7 @@
 
     <div style="width: 100%; margin-top: 10px; background-color: white">
         <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
-        <span style="padding: 10px" class="text-muted">The detail of sales amount in year:</span>
+        <span style="padding: 10px" class="text-muted">Details of confirmed sales amount by month in year:</span>
         <div class="row">
             <div class="col-3">
                 <div style="padding: 20px 20px 0 20px ; overflow: scroll">
@@ -88,16 +88,16 @@
         <div>
             <div class="row">
                 <div class="col-5">
-                    <span class="text-center text-muted" style="padding: 0 10px 10px 10px">The detail of sales amount in month:</span>
+                    <span class="text-center text-muted" style="padding: 0 10px 10px 10px">Details of confirmed sales amount by day in a month:</span>
                 </div>
                 <div class="col-4 text-left text-dark">
                     <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
                 </div>
                 <div class="col-3 text-right">
-                    <a id="btPreviousMonth" data-toggle="tooltip" title="press this show previous month info!">
+                    <a id="btPreviousMonth" data-toggle="tooltip" title="Previous month">
                         <span class="badge badge-info text-center">Previous</span>
                     </a>
-                    <a id="btNextMonth" data-toggle="tooltip" title="press this next month info!">
+                    <a id="btNextMonth" data-toggle="tooltip" title="Next month">
                         <span class="badge badge-info text-center">Next</span>
                     </a>
                     <span>&nbsp;&nbsp;</span>
@@ -123,7 +123,7 @@
                     <tr><td>LD</td><td class="text-danger">0</td></tr>
                     <tr><td>LDE</td><td class="text-danger">0</td></tr>
                     <tr><td>Dealer</td><td class="text-danger">0</td></tr>
-                    <tr><td>Sales</td><td class="text-danger">0</td></tr>
+                    <tr><td>Rep</td><td class="text-danger">0</td></tr>
                 </tbody>
             </table>
         </div>

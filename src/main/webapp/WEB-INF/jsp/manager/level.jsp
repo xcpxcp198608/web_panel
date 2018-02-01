@@ -98,7 +98,7 @@
     <div class="row" style="padding: 10px 10px 0 10px">
         <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
         <div class="col-5" style="padding: 10px; background-color: white">
-            <span class="text-center text-muted" style="padding: 10px">The expires date of every level in year:</span>
+            <span class="text-center text-muted" style="padding: 10px">Each level’s monthly expiration numbers in a year summary:</span>
         </div>
         <div class="col-4 text-left text-darks" style="background-color: white; padding: 10px">
             <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>

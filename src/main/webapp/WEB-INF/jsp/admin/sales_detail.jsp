@@ -70,7 +70,7 @@
 
     <div class="row" style="padding: 0 10px">
         <div class="col-12" style="background-color: #ffffff">
-            <a id="btCheck" data-toggle="tooltip" title="check means security deposit has already return">
+            <a id="btCheck" data-toggle="tooltip" title=" Click “Check” to confirm security deposit has been returned">
                 <span class="badge badge-primary text-center">
                     <i class="fa fa-check fa-lg"></i>&nbsp;Check
                 </span>
@@ -118,10 +118,10 @@
                                 </c:if>
                             </td>
                             <td>
-                                <c:if test="${deviceRentInfo.returned == true}">
+                                <c:if test="${deviceRentInfo.checked == true}">
                                     <span class="text-success"><i class="fa fa-check-circle"></i></span>
                                 </c:if>
-                                <c:if test="${deviceRentInfo.returned == false}">
+                                <c:if test="${deviceRentInfo.checked == false}">
                                     <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
                                 </c:if>
                             </td>
@@ -147,11 +147,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    confirm the deposit of this device already returned?
+                    Confirm to return the security deposit to Rep.
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon234">
+                                <i class="fa fa-lock fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Input bank check number for record" id="ipCheckNumber"
+                               aria-label="Username" aria-describedby="basic-addon234">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <span id="errorCheck" class="badge badge-danger"></span>
-                    <button type="button" class="btn btn-sm btn-primary" id="btSubmitCheck">Create</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="btSubmitCheck">Confirm</button>
                 </div>
             </div>
         </div>

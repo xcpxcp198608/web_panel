@@ -227,7 +227,7 @@ public class AuthAdminService {
                 AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectOneByClientKey(key);
                 deviceRentDao.updateDeviceToRented(authRentUserInfo1.getMac());
                 int sdcnCount = deviceRentDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
-                if(sdcnCount >= 5){
+                if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
                     authSalesDao.updateSDCNById(authRentUserInfo1.getSalesId());
                 }
             }
@@ -325,7 +325,7 @@ public class AuthAdminService {
         deviceRentInfo.setAdminId(getAdminInfo(request).getId());
         deviceRentDao.insertOne(deviceRentInfo);
         int salesStoreCount = deviceRentDao.countNoRentedBySalesId(authSalesInfo.getId());
-        if(salesStoreCount >= 10){
+        if(salesStoreCount >= AuthSalesInfo.GOLD_COUNT){
             authSalesDao.updateGoldById(authSalesInfo.getId());
         }
         return ResultMaster.success(deviceRentDao.selectOneByMac(deviceRentInfo));
@@ -346,7 +346,7 @@ public class AuthAdminService {
         deviceRentInfo.setAdminId(getAdminInfo(request).getId());
         int i = deviceRentDao.updateDeviceToSpecialSales(deviceRentInfo);
         if(i != 1){
-            throw new XException(1001, "update failure");
+            throw new XException(EnumResult.ERROR_UPDATE_FAILURE);
         }
         int salesStoreCount = deviceRentDao.countNoRentedBySalesId(authSalesInfo.getId());
         if(salesStoreCount >= 10){
@@ -356,13 +356,16 @@ public class AuthAdminService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo checkReturned(HttpServletRequest request, DeviceRentInfo deviceRentInfo){
+    public ResultInfo checkReturned(DeviceRentInfo deviceRentInfo){
         if(deviceRentInfo.getMac().length() != 17){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
         }
-        int i = deviceRentDao.updateDeviceToReturned(deviceRentInfo);
+        if(TextUtil.isEmpty(deviceRentInfo.getCheckNumber())){
+            throw new XException(1001, "check number type in error");
+        }
+        int i = deviceRentDao.updateDeviceToChecked(deviceRentInfo);
         if(i != 1){
-            throw new XException(1001, "update failure");
+            throw new XException(EnumResult.ERROR_UPDATE_FAILURE);
         }
         int sdcnCount = deviceRentDao.countSDCNBySalesId(deviceRentInfo.getSalesId());
         if(sdcnCount <= 0){

@@ -64,16 +64,16 @@
     </div>
     <div class="row" style="padding: 0px 10px 0 10px">
         <div class="col-5" style=" background-color: white">
-            <span class="text-muted" style="padding: 0 10px 10px 10px">All sales commission in month:</span>
+            <span class="text-muted" style="padding: 0 10px 10px 10px">Total sales commission in a month</span>
         </div>
         <div class="col-4 text-left text-darks" style="background-color: white">
             <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
         </div>
         <div class="col-3 text-right" style="background-color: white">
-            <a id="btPreviousMonth" data-toggle="tooltip" title="press this show previous month info!">
+            <a id="btPreviousMonth" data-toggle="tooltip" title="previous month">
                 <span class="badge badge-info text-center">Previous</span>
             </a>
-            <a id="btNextMonth" data-toggle="tooltip" title="press this next month info!">
+            <a id="btNextMonth" data-toggle="tooltip" title="next month">
                 <span class="badge badge-info text-center">Next</span>
             </a>
         </div>
@@ -126,14 +126,14 @@
             </div>
             <div class="row">
                 <div class="col-1">
-                    <a id="btCreate" data-toggle="tooltip" title="create new sales">
+                    <a id="btCreate" data-toggle="tooltip" title="create new account">
                         <span class="badge badge-primary text-center">
                             <i class="fa fa-plus fa-lg"></i>&nbsp;Create
                         </span>
                     </a>
                 </div>
                 <div class="col-1">
-                    <a id="btUpdate" data-toggle="tooltip" title="update sales password, choose a radio before click">
+                    <a id="btUpdate" data-toggle="tooltip" title="Choose a sales first from the list to update his password">
                         <span class="badge badge-warning text-center">
                             <i class="fa fa-pencil fa-lg"></i>&nbsp;Update
                         </span>
@@ -194,12 +194,12 @@
                                 </c:if>
                             </td>
                             <td>
-                                <a href="/panel/admin/users/2/${authSalesInfo.id}" target="_blank">
+                                <a href="/panel/admin/users/2/${authSalesInfo.id}">
                                     <i class="fa fa-eye"></i>
                                 </a>
                             </td>
                             <td>
-                                <a href="/panel/admin/sales/detail/${authSalesInfo.id}" target="_blank">
+                                <a href="/panel/admin/sales/detail/${authSalesInfo.id}">
                                     <i class="fa fa-share"></i>
                                 </a>
                             </td>

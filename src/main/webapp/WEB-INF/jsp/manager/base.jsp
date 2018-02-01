@@ -36,61 +36,9 @@
     <link rel="shortcut icon" href="Resource/img/btv.ico">
     <rapid:block name="css_js" />
 
-    <%--<style>--%>
-        <%--.loading{--%>
-            <%--width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: 2000; background: #dddddd;--%>
-        <%--}--%>
-        <%--.loading .pic{--%>
-            <%--width: 60px; height: 50px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto;--%>
-        <%--}--%>
-        <%--.loading .pic i{--%>
-            <%--display: block; float: left; width: 6px; height: 50px; background: #1a233c; margin: 0 2px;--%>
-            <%---webkit-transform: scaleY(0.3);--%>
-            <%---ms-transform: scaleY(0.3);--%>
-            <%--transform: scaleY(0.3); -webkit-animation: loading 1.2s infinite; animation: loading 1.2s infinite;--%>
-        <%--}--%>
-        <%--.loading .pic i:nth-child(2){-webkit-animation-delay: 0.1s;animation-delay: 0.1s}--%>
-        <%--.loading .pic i:nth-child(3){-webkit-animation-delay: 0.2s;animation-delay: 0.2s}--%>
-        <%--.loading .pic i:nth-child(4){-webkit-animation-delay: 0.3s;animation-delay: 0.3s}--%>
-        <%--.loading .pic i:nth-child(5){-webkit-animation-delay: 0.4s;animation-delay: 0.4s}--%>
-        <%--.loading .pic i:nth-child(6){-webkit-animation-delay: 0.5s;animation-delay: 0.5s}--%>
-
-        <%--@-webkit-keyframes loading {--%>
-            <%--0%, 40%, 100%{-webkit-transform: scaleY(0.4);transform: scaleY(0.4)}--%>
-            <%--20%{-webkit-transform: scaleY(1);transform: scaleY(1)}--%>
-        <%--}--%>
-
-        <%--@keyframes loading {--%>
-            <%--0%, 40%, 100%{-webkit-transform: scaleY(0.4);transform: scaleY(0.4)}--%>
-            <%--20%{-webkit-transform: scaleY(1);transform: scaleY(1)}--%>
-        <%--}--%>
-
-    <%--</style>--%>
-
-    <%--<script>--%>
-        <%--$(function () {--%>
-            <%--document.onreadystatechange = function(){--%>
-                <%--if(document.readyState === 'complete'){--%>
-                    <%--$('.loading').hide();--%>
-                <%--}--%>
-            <%--}--%>
-        <%--});--%>
-    <%--</script>--%>
-
 </head>
 
 <body>
-
-    <%--<div class="loading">--%>
-        <%--<div class="pic">--%>
-            <%--<i></i>--%>
-            <%--<i></i>--%>
-            <%--<i></i>--%>
-            <%--<i></i>--%>
-            <%--<i></i>--%>
-            <%--<i></i>--%>
-        <%--</div>--%>
-    <%--</div>--%>
 
     <div class="container-fluid">
         <rapid:block name="modal"/>
@@ -105,7 +53,7 @@
                 </div>
                 <div class="text-center">
                     <div class="col-12" style="padding: 0">
-                        <span style="color: #dddddd" ><small>btvi panel</small></span>
+                        <span style="color: #dddddd" ><small>BTVi control panel</small></span>
                     </div>
                 </div>
 
@@ -118,7 +66,7 @@
             <div class="col-10" >
                 <div class="row d-flex" style="background-color: #ffffff; box-shadow: 0 0 8px #000000; z-index: 1003;">
                     <div class="col-11 text-center" style="padding: 10px">
-                        <span class="text-secondary">welcome to preferred customer program!</span>
+                        <span class="text-secondary">welcome to BTVi control panel!</span>
                     </div>
                     <div class="col-1 text-center" style="padding: 10px">
                         <span class="badge badge-dark">${username}</span>

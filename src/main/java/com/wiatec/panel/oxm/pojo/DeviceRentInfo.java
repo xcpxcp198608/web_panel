@@ -17,7 +17,10 @@ public class DeviceRentInfo {
     private int dealerId;
     private String dealerName;
     private int adminId;
+    private Date createTime;
+
     private boolean rented;
+    private Date rentTime;
     /**
      * security deposit credite note
      */
@@ -25,9 +28,8 @@ public class DeviceRentInfo {
     /**
      * the deposit is returned?
      */
-    private boolean returned;
-    private Date createTime;
-    private Date rentTime;
+    private boolean checked;
+    private String checkNumber;
     private Date checkTime;
 
     public DeviceRentInfo() {
@@ -109,14 +111,6 @@ public class DeviceRentInfo {
         this.sdcn = sdcn;
     }
 
-    public boolean isReturned() {
-        return returned;
-    }
-
-    public void setReturned(boolean returned) {
-        this.returned = returned;
-    }
-
     public String getCreateTime() {
         if(createTime == null){
             return "";
@@ -141,6 +135,22 @@ public class DeviceRentInfo {
         this.rentTime = rentTime;
     }
 
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public String getCheckNumber() {
+        return checkNumber;
+    }
+
+    public void setCheckNumber(String checkNumber) {
+        this.checkNumber = checkNumber;
+    }
+
     public String getCheckTime() {
         if(checkTime == null){
             return "";
@@ -163,11 +173,12 @@ public class DeviceRentInfo {
                 ", dealerId=" + dealerId +
                 ", dealerName='" + dealerName + '\'' +
                 ", adminId=" + adminId +
-                ", rented=" + rented +
-                ", sdcn=" + sdcn +
-                ", returned=" + returned +
                 ", createTime=" + createTime +
+                ", rented=" + rented +
                 ", rentTime=" + rentTime +
+                ", sdcn=" + sdcn +
+                ", checked=" + checked +
+                ", checkNumber='" + checkNumber + '\'' +
                 ", checkTime=" + checkTime +
                 '}';
     }

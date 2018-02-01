@@ -63,8 +63,8 @@ public class AuthSales {
      * @return sales create user page
      */
     @GetMapping(value = "/create")
-    public String createUser(HttpServletRequest request, Model model){
-        return authSalesService.createUsers(request, model);
+    public String createUser(Model model){
+        return authSalesService.createUsers(model);
     }
 
     /**

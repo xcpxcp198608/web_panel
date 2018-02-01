@@ -47,7 +47,7 @@
                     <label class="radio-inline">
                         <input type="radio" name="searchRadio" checked value="0">
                         <span class="badge badge-secondary" data-toggle="tooltip"
-                              title="search customer without index, match all column" >none</span>
+                              title="search customer without index, match all column" >all</span>
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="searchRadio" value="1">
@@ -77,7 +77,7 @@
                     <label class="radio-inline">
                         <input type="radio" name="searchRadio" value="6">
                         <span class="badge badge-secondary" data-toggle="tooltip"
-                              title="search customer with index expires time">expires time</span>
+                              title="search customer with index expires date">expiration date</span>
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="searchRadio" value=7>
@@ -119,7 +119,7 @@
                     </a>
                     <a id="btLimited" data-toggle="tooltip" title="limited the device">
                         <span class="badge badge-warning text-center" style="padding: 3px">
-                            <i class="fa fa-lock"></i>&nbsp;Limited
+                            <i class="fa fa-lock"></i>&nbsp;Block
                         </span>
                     </a>
                     <a id="btDelete" data-toggle="tooltip" title="delete the device">
@@ -172,7 +172,7 @@
                     <th>Mac</th>
                     <th>Email</th>
                     <th>Name</th>
-                    <th>ExpiresTime</th>
+                    <th>Expiration</th>
                     <th>Level</th>
                     <th>Status</th>
                     <th>Online</th>
