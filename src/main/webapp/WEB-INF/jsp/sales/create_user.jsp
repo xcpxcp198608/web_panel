@@ -18,6 +18,7 @@
         <div class="col-12" style="background-color: #ffffff; padding: 10px 10px 0 10px">
             <div>
                 <span class="text-muted">Step1.choose the plan:</span>
+                <span class="text-danger">(TAX & SHIPPING COST NOT INCLUDED)</span>
                 <table class="table table-sm table-hover table-striped table-dark" id="tbCategory">
                     <thead>
                     <tr><td>#</td><td>Category</td><td>Price</td><td>Deposit</td><td>Expires</td>
@@ -52,12 +53,12 @@
             <span class="text-muted">Step2.choose payment method:</span>
             <div>
                 <label class="radio-inline">
-                    <input type="radio" name="payMethod" checked value="0">
-                    <span class="badge badge-secondary">cash</span>
+                    <input type="radio" name="payMethod" checked value="1">
+                    <span class="badge badge-secondary">credit card</span>
                 </label>&nbsp;
                 <label class="radio-inline">
-                    <input type="radio" name="payMethod" value="1">
-                    <span class="badge badge-secondary">credit card</span>
+                    <input type="radio" name="payMethod" value="0">
+                    <span class="badge badge-secondary">cash</span>
                 </label>
             </div>
         </div>
@@ -80,7 +81,7 @@
                             <i class="fa fa-user fa-lg"></i>
                         </span>
                 </div>
-                <input type="text" class="form-control" placeholder="mac" id="ipMac"
+                <input type="text" class="form-control" placeholder="ethernet mac" id="ipMac"
                        aria-label="mac" aria-describedby="basic-addon11" maxlength="17">
             </div>
             <div class="input-group input-group-sm mb-3">
@@ -125,7 +126,7 @@
                             <i class="fa fa-globe fa-lg"></i>
                         </span>
                 </div>
-                <input type="number" class="form-control" placeholder="post code" id="ipPostCode"
+                <input type="number" class="form-control" placeholder="postal code" id="ipPostCode"
                        aria-label="postCode" aria-describedby="basic-addon160">
             </div>
             <div class="input-group input-group-sm mb-3">
@@ -134,7 +135,7 @@
                             <i class="fa fa-university fa-lg"></i>
                         </span>
                 </div>
-                <input type="text" class="form-control" placeholder="post address" id="ipPostAddress"
+                <input type="text" class="form-control" placeholder="shipping address" id="ipPostAddress"
                        aria-label="post address" aria-describedby="basic-addon161">
             </div>
 
@@ -145,13 +146,13 @@
                 </label>&nbsp;
                 <label class="radio-inline">
                     <input type="radio" name="express" value="1">
-                    <span class="badge badge-secondary">express</span>
+                    <span class="badge badge-secondary">shipping</span>
                 </label>
             </div>
 
 
 
-            <div style="display: none" id="dCardInfo">
+            <div id="dCardInfo">
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon17">

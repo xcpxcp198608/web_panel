@@ -39,9 +39,9 @@ import org.slf4j.LoggerFactory;
 /**
  * @author patrick
  */
-public class SalesInvoiceUtil {
+public class SalesMemberInvoiceUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(SalesInvoiceUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(SalesMemberInvoiceUtil.class);
 
     private static final float RATE_TAX = 0.08F;
     private static final float SPACE = 8;
@@ -55,16 +55,10 @@ public class SalesInvoiceUtil {
         salesActivateCategoryInfo.setPrice(12F);
         salesActivateCategoryInfo.setDescription("activate for 12 month");
 
-        salesGoldCategoryInfo.setCategory("S1");
-        salesGoldCategoryInfo.setAmount(1000F);
-        salesGoldCategoryInfo.setPrice(100F);
-        salesGoldCategoryInfo.setQty(10);
-        salesGoldCategoryInfo.setDescription("s1");
-
         String pdf = createInvoice("patrickxu@wiatec.com", "32432432432432",
-                InvoiceInfoMaker.salesActivateGold(salesActivateCategoryInfo, salesGoldCategoryInfo));
+                InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo));
         System.out.println(pdf);
-        EmailMaster emailMaster = new EmailMaster();
+        EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LDE);
         emailMaster.setInvoiceContent("sdf");
         emailMaster.addAttachment(pdf);
         emailMaster.sendMessage("patrickxu@wiatec.com");

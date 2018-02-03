@@ -72,7 +72,6 @@
                         <th>Item</th>
                         <th>ClientKey</th>
                         <th>Sales</th>
-                        <th>Dealer</th>
                         <th>Mac</th>
                         <th>Name</th>
                         <th>ActivateTime</th>
@@ -90,7 +89,6 @@
                         <td>${status.index+1}</td>
                         <td>${authRentUserInfo.clientKey}</td>
                         <td>${authRentUserInfo.salesName}</td>
-                        <td>${authRentUserInfo.dealerName}</td>
                         <td>${authRentUserInfo.mac}</td>
                         <td>${authRentUserInfo.firstName}&nbsp;${authRentUserInfo.lastName}</td>
                         <td>${fn:substring(authRentUserInfo.activateTime, 0, 19)}</td>

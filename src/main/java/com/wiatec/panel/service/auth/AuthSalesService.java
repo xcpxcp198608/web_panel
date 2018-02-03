@@ -1,6 +1,7 @@
 package com.wiatec.panel.service.auth;
 
-import com.wiatec.panel.authorize.AuthorizeTransactionRental;
+import com.wiatec.panel.authorize.AuthorizeTransaction;
+import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
 import com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo;
 import com.wiatec.panel.common.utils.*;
 import com.wiatec.panel.invoice.InvoiceInfo;
@@ -148,6 +149,7 @@ public class AuthSalesService {
         authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
         authRentUserInfo.setLdeCommission(commissionCategoryInfo.getLdeCommission());
         authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
+        authRentUserInfo.setSvcCharge(commissionCategoryInfo.getSvcCharge());
         if(authSalesInfo.isGold()) {
             authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission() + 1);
         }else{
@@ -161,19 +163,22 @@ public class AuthSalesService {
             authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
             authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
             authRentUserDao.insertOne(authRentUserInfo);
-            AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRental().charge(AuthorizeTransactionRentalInfo
-                    .contractedFromAuthRentInfo(authRentUserInfo), request);
-            if (authorizeTransactionRentalInfo == null) {
-                throw new XException(EnumResult.ERROR_AUTHORIZE);
+            AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
+                    .createFromAuthRentUser(authRentUserInfo, authRentUserInfo.getFirstPay() +
+                            authRentUserInfo.getFirstPay() * AuthorizeTransactionInfo.TAX);
+            AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request);
+            if (charge == null) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
-            authorizeTransactionRentalDao.insertOne(authorizeTransactionRentalInfo);
+            authorizeTransactionRentalDao.insertOne(AuthorizeTransactionRentalInfo
+                    .contractedFromAuthRentInfo(authRentUserInfo, commissionCategoryInfo, charge));
             RentalInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
             List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalContracted(commissionCategoryInfo);
             String invoicePath = RentalInvoiceUtil.createInvoice(authRentUserInfo,
-                    authorizeTransactionRentalInfo.getTransactionId(), invoiceInfoList);
+                    charge.getTransactionId(), invoiceInfoList);
             RentalInvoiceUtil.copyInvoice(invoicePath);
             logger.debug("invoicePath: {}", invoicePath);
-            EmailMaster emailMaster = new EmailMaster();
+            EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LDE);
             emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
             emailMaster.addAttachment(invoicePath);
             emailMaster.sendMessage(authRentUserInfo.getEmail());

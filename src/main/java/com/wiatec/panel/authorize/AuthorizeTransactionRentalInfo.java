@@ -2,11 +2,12 @@ package com.wiatec.panel.authorize;
 
 import com.wiatec.panel.common.utils.UnitUtil;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
+import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 
 /**
  * @author patrick
  */
-public class AuthorizeTransactionRentalInfo {
+public class AuthorizeTransactionRentalInfo extends AuthorizeTransactionInfo {
 
     public static final String TYPE_CONTRACTED = "contracted";
     public static final String TYPE_MONTHLY = "monthly";
@@ -14,18 +15,13 @@ public class AuthorizeTransactionRentalInfo {
 
     public static final float TAX = 0.08F;
 
-
-    private int id;
     private int salesId;
     private int dealerId;
     private String salesName;
+    private String dealerName;
     private String category;
     private String clientKey;
-    private String cardNumber;
-    private String expirationDate;
-    private String securityKey;
-
-    private float amount;
+    private String type;
     private float price;
     private float txFee;
     private float deposit;
@@ -33,20 +29,13 @@ public class AuthorizeTransactionRentalInfo {
     private float ldeCommission;
     private float dealerCommission;
     private float salesCommission;
+    private float svcCharge;
+    private float activatePay;
+    private float ldActivationComm;
+    private float ldeActivationComm;
+    private float dealerActivationComm;
+    private float salesActivationComm;
 
-    private String transactionId;
-    private String status;
-    private String authCode;
-    private String type;
-    private String createTime;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getSalesId() {
         return salesId;
@@ -72,6 +61,14 @@ public class AuthorizeTransactionRentalInfo {
         this.salesName = salesName;
     }
 
+    public String getDealerName() {
+        return dealerName;
+    }
+
+    public void setDealerName(String dealerName) {
+        this.dealerName = dealerName;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -86,38 +83,6 @@ public class AuthorizeTransactionRentalInfo {
 
     public void setClientKey(String clientKey) {
         this.clientKey = clientKey;
-    }
-
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
-    public String getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(String expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public String getSecurityKey() {
-        return securityKey;
-    }
-
-    public void setSecurityKey(String securityKey) {
-        this.securityKey = securityKey;
-    }
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
     }
 
     public float getPrice() {
@@ -176,29 +141,6 @@ public class AuthorizeTransactionRentalInfo {
         this.salesCommission = salesCommission;
     }
 
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getAuthCode() {
-        return authCode;
-    }
-
-    public void setAuthCode(String authCode) {
-        this.authCode = authCode;
-    }
 
     public String getType() {
         return type;
@@ -208,27 +150,62 @@ public class AuthorizeTransactionRentalInfo {
         this.type = type;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public float getSvcCharge() {
+        return svcCharge;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setSvcCharge(float svcCharge) {
+        this.svcCharge = svcCharge;
+    }
+
+    public float getActivatePay() {
+        return activatePay;
+    }
+
+    public void setActivatePay(float activatePay) {
+        this.activatePay = activatePay;
+    }
+
+    public float getLdActivationComm() {
+        return ldActivationComm;
+    }
+
+    public void setLdActivationComm(float ldActivationComm) {
+        this.ldActivationComm = ldActivationComm;
+    }
+
+    public float getLdeActivationComm() {
+        return ldeActivationComm;
+    }
+
+    public void setLdeActivationComm(float ldeActivationComm) {
+        this.ldeActivationComm = ldeActivationComm;
+    }
+
+    public float getDealerActivationComm() {
+        return dealerActivationComm;
+    }
+
+    public void setDealerActivationComm(float dealerActivationComm) {
+        this.dealerActivationComm = dealerActivationComm;
+    }
+
+    public float getSalesActivationComm() {
+        return salesActivationComm;
+    }
+
+    public void setSalesActivationComm(float salesActivationComm) {
+        this.salesActivationComm = salesActivationComm;
     }
 
     @Override
     public String toString() {
         return "AuthorizeTransactionRentalInfo{" +
-                "id=" + id +
-                ", salesId=" + salesId +
+                "salesId=" + salesId +
                 ", dealerId=" + dealerId +
                 ", salesName='" + salesName + '\'' +
                 ", category='" + category + '\'' +
                 ", clientKey='" + clientKey + '\'' +
-                ", cardNumber='" + cardNumber + '\'' +
-                ", expirationDate='" + expirationDate + '\'' +
-                ", securityKey='" + securityKey + '\'' +
-                ", amount=" + amount +
                 ", price=" + price +
                 ", txFee=" + txFee +
                 ", deposit=" + deposit +
@@ -236,54 +213,71 @@ public class AuthorizeTransactionRentalInfo {
                 ", ldeCommission=" + ldeCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +
-                ", transactionId='" + transactionId + '\'' +
-                ", status='" + status + '\'' +
-                ", authCode='" + authCode + '\'' +
                 ", type='" + type + '\'' +
-                ", createTime='" + createTime + '\'' +
                 '}';
     }
 
-    public static AuthorizeTransactionRentalInfo contractedFromAuthRentInfo(AuthRentUserInfo authRentUserInfo){
+    public static AuthorizeTransactionRentalInfo contractedFromAuthRentInfo(AuthRentUserInfo authRentUserInfo,
+                                                                            CommissionCategoryInfo commissionCategoryInfo,
+                                                                            AuthorizeTransactionInfo authorizeTransactionInfo){
         AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRentalInfo();
-        authorizeTransactionRentalInfo.setPrice(authRentUserInfo.getFirstPay());
-        authorizeTransactionRentalInfo.setTxFee(Float.parseFloat(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX)));
-        authorizeTransactionRentalInfo.setAmount(authorizeTransactionRentalInfo.getPrice() + authorizeTransactionRentalInfo.getTxFee());
+
+        authorizeTransactionRentalInfo.setClientKey(authRentUserInfo.getClientKey());
+        authorizeTransactionRentalInfo.setSalesId(authRentUserInfo.getSalesId());
+        authorizeTransactionRentalInfo.setDealerId(authRentUserInfo.getDealerId());
+        authorizeTransactionRentalInfo.setCategory(authRentUserInfo.getCategory());
         authorizeTransactionRentalInfo.setDeposit(authRentUserInfo.getDeposit());
         authorizeTransactionRentalInfo.setLdCommission(authRentUserInfo.getLdCommission());
         authorizeTransactionRentalInfo.setLdeCommission(authRentUserInfo.getLdeCommission());
         authorizeTransactionRentalInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
         authorizeTransactionRentalInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
-        authorizeTransactionRentalInfo.setClientKey(authRentUserInfo.getClientKey());
-        authorizeTransactionRentalInfo.setSalesId(authRentUserInfo.getSalesId());
-        authorizeTransactionRentalInfo.setDealerId(authRentUserInfo.getDealerId());
-        authorizeTransactionRentalInfo.setCategory(authRentUserInfo.getCategory());
+        authorizeTransactionRentalInfo.setSvcCharge(authRentUserInfo.getSvcCharge());
+
+        authorizeTransactionRentalInfo.setPrice(commissionCategoryInfo.getFirstPay());
+        authorizeTransactionRentalInfo.setTxFee(Float.parseFloat(UnitUtil
+                .round(commissionCategoryInfo.getFirstPay() * TAX)));
+        authorizeTransactionRentalInfo.setActivatePay(commissionCategoryInfo.getActivatePay());
+        authorizeTransactionRentalInfo.setLdActivationComm(commissionCategoryInfo.getLdActivationComm());
+        authorizeTransactionRentalInfo.setLdeActivationComm(commissionCategoryInfo.getLdeActivationComm());
+        authorizeTransactionRentalInfo.setDealerActivationComm(commissionCategoryInfo.getDealerActivationComm());
+        authorizeTransactionRentalInfo.setSalesActivationComm(commissionCategoryInfo.getSalesActivationComm());
+        authorizeTransactionRentalInfo.setType(AuthorizeTransactionRentalInfo.TYPE_CONTRACTED);
+
         authorizeTransactionRentalInfo.setCardNumber(authRentUserInfo.getCardNumber());
         authorizeTransactionRentalInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
         authorizeTransactionRentalInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-        authorizeTransactionRentalInfo.setType(AuthorizeTransactionRentalInfo.TYPE_CONTRACTED);
+        authorizeTransactionRentalInfo.setAmount(authorizeTransactionInfo.getAmount());
+        authorizeTransactionRentalInfo.setTransactionId(authorizeTransactionInfo.getTransactionId());
+        authorizeTransactionRentalInfo.setAuthCode(authorizeTransactionInfo.getAuthCode());
+        authorizeTransactionRentalInfo.setStatus(authorizeTransactionInfo.getStatus());
         return authorizeTransactionRentalInfo;
     }
 
-    public static AuthorizeTransactionRentalInfo monthlyFromAuthRentInfo(AuthRentUserInfo authRentUserInfo, String today){
+    public static AuthorizeTransactionRentalInfo monthlyFromAuthRentInfo(AuthRentUserInfo authRentUserInfo,
+                                                                         AuthorizeTransactionInfo authorizeTransactionInfo){
         AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRentalInfo();
+
+        authorizeTransactionRentalInfo.setClientKey(authRentUserInfo.getClientKey());
         authorizeTransactionRentalInfo.setSalesId(authRentUserInfo.getSalesId());
         authorizeTransactionRentalInfo.setDealerId(authRentUserInfo.getDealerId());
-        authorizeTransactionRentalInfo.setClientKey(authRentUserInfo.getClientKey());
         authorizeTransactionRentalInfo.setCategory(authRentUserInfo.getCategory());
-        authorizeTransactionRentalInfo.setCardNumber(authRentUserInfo.getCardNumber());
-        authorizeTransactionRentalInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
-        authorizeTransactionRentalInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-        authorizeTransactionRentalInfo.setPrice(authRentUserInfo.getMonthPay());
-        authorizeTransactionRentalInfo.setTxFee(Float.parseFloat(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX)));
-        authorizeTransactionRentalInfo.setAmount(authorizeTransactionRentalInfo.getPrice() + authorizeTransactionRentalInfo.getTxFee());
         authorizeTransactionRentalInfo.setDeposit(0);
         authorizeTransactionRentalInfo.setLdCommission(authRentUserInfo.getLdCommission());
         authorizeTransactionRentalInfo.setLdeCommission(authRentUserInfo.getLdeCommission());
         authorizeTransactionRentalInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
         authorizeTransactionRentalInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
+        authorizeTransactionRentalInfo.setSvcCharge(authRentUserInfo.getSvcCharge());
+        authorizeTransactionRentalInfo.setPrice(authRentUserInfo.getMonthPay());
+        authorizeTransactionRentalInfo.setTxFee(Float.parseFloat(UnitUtil.round(authRentUserInfo.getMonthPay() * TAX)));
         authorizeTransactionRentalInfo.setType(AuthorizeTransactionRentalInfo.TYPE_MONTHLY);
-        authorizeTransactionRentalInfo.setCreateTime(today.substring(0, 7));
+
+        authorizeTransactionRentalInfo.setCardNumber(authRentUserInfo.getCardNumber());
+        authorizeTransactionRentalInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
+        authorizeTransactionRentalInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+        authorizeTransactionRentalInfo.setAmount(authorizeTransactionInfo.getAmount());
+        authorizeTransactionRentalInfo.setTransactionId(authorizeTransactionInfo.getTransactionId());
+        authorizeTransactionRentalInfo.setAuthCode(authorizeTransactionInfo.getAuthCode());
+        authorizeTransactionRentalInfo.setStatus(authorizeTransactionInfo.getStatus());
         return authorizeTransactionRentalInfo;
     }
 }

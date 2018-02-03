@@ -8,6 +8,7 @@ import com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionOfDaysInfo;
 import com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionOfMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo;
 import com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfMonthInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -44,5 +45,5 @@ public interface AuthorizeTransactionRentalDao {
     List<DealerCommissionOfMonthInfo> getCommissionOfMonthByDealer(YearOrMonthInfo yearOrMonthInfo);
 
     //check is already check out on this month
-    int countByKeyAndDate(AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo);
+    int countByKeyAndDate(@Param("clientKey") String clientKey , @Param("createTime") String createTime);
 }

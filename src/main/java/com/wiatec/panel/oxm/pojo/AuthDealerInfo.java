@@ -3,6 +3,9 @@ package com.wiatec.panel.oxm.pojo;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * @author patrick
+ */
 public class AuthDealerInfo {
 
 

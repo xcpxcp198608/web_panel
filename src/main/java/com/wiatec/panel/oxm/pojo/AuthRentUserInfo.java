@@ -1,5 +1,8 @@
 package com.wiatec.panel.oxm.pojo;
 
+/**
+ * @author patrick
+ */
 public class AuthRentUserInfo {
 
     public static final String STATUS_ACTIVATE = "activate";
@@ -33,6 +36,7 @@ public class AuthRentUserInfo {
     private float deposit;
     private float firstPay;
     private float monthPay;
+    private float svcCharge;
     private float ldCommission;
     private float ldeCommission;
     private float dealerCommission;
@@ -45,6 +49,9 @@ public class AuthRentUserInfo {
     private String region;
     private String city;
     private String timeZone;
+    private String deviceModel;
+    private String romVersion;
+    private String uiVersion;
     private String lastOnLineTime;
 
     private boolean online;
@@ -237,6 +244,14 @@ public class AuthRentUserInfo {
         this.monthPay = monthPay;
     }
 
+    public float getSvcCharge() {
+        return svcCharge;
+    }
+
+    public void setSvcCharge(float svcCharge) {
+        this.svcCharge = svcCharge;
+    }
+
     public float getLdCommission() {
         return ldCommission;
     }
@@ -333,6 +348,30 @@ public class AuthRentUserInfo {
         this.timeZone = timeZone;
     }
 
+    public String getDeviceModel() {
+        return deviceModel;
+    }
+
+    public void setDeviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
+    }
+
+    public String getRomVersion() {
+        return romVersion;
+    }
+
+    public void setRomVersion(String romVersion) {
+        this.romVersion = romVersion;
+    }
+
+    public String getUiVersion() {
+        return uiVersion;
+    }
+
+    public void setUiVersion(String uiVersion) {
+        this.uiVersion = uiVersion;
+    }
+
     public String getLastOnLineTime() {
         return lastOnLineTime;
     }
@@ -374,6 +413,7 @@ public class AuthRentUserInfo {
                 ", deposit=" + deposit +
                 ", firstPay=" + firstPay +
                 ", monthPay=" + monthPay +
+                ", svcCharge=" + svcCharge +
                 ", ldCommission=" + ldCommission +
                 ", ldeCommission=" + ldeCommission +
                 ", dealerCommission=" + dealerCommission +
@@ -386,6 +426,9 @@ public class AuthRentUserInfo {
                 ", region='" + region + '\'' +
                 ", city='" + city + '\'' +
                 ", timeZone='" + timeZone + '\'' +
+                ", deviceModel='" + deviceModel + '\'' +
+                ", romVersion='" + romVersion + '\'' +
+                ", uiVersion='" + uiVersion + '\'' +
                 ", lastOnLineTime='" + lastOnLineTime + '\'' +
                 ", online=" + online +
                 '}';

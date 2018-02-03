@@ -157,6 +157,7 @@ $(function () {
                 name: 'commission',
                 type: 'bar',
                 data: commissionData,
+                barWidth: 20,
                 itemStyle: {
                     normal: {
                         color: '#f54be2',

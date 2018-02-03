@@ -4,8 +4,6 @@ $(function () {
     var currentYear = now.getFullYear();
     var currentMonth = now.getMonth() + 1;
     var tbSales = $('#tbSales').get(0).tBodies[0];
-    var errorMessage = $('#errorMessage');
-    var topLimit = 5;
 
     setYearAndMonth();
     function setYearAndMonth() {
@@ -254,7 +252,6 @@ $(function () {
         var securityKey = $('#ipSecurityKey').val();
         var dealerId = $('#ipDealerId').val();
         var activateCategory = $('#ipActivateCategory').val();
-        var goldCategory = $('#ipGoldCategory').val();
         if(username.length <= 0){
             showErrorMessage($('#errorCreate'), 'username type in error');
             return;
@@ -326,8 +323,7 @@ $(function () {
             data: {"username": username, "password": password, "firstName": firstName,
                 'lastName': lastName, 'ssn': ssn, 'email': email, 'bankInfo': bank,
                 'phone': phone, 'cardNumber': cardNumber, 'expirationDate': expirationDate,
-                'securityKey': securityKey, 'dealerId': dealerId, 'activateCategory': activateCategory,
-                'goldCategory': goldCategory},
+                'securityKey': securityKey, 'dealerId': dealerId, 'activateCategory': activateCategory},
             dataType: "json",
             beforeSend: function () {
                 $('#modalCreate').modal('hide');
@@ -402,7 +398,7 @@ $(function () {
                     tdObj.innerHTML = authSalesInfo.createTime;
                     break;
                 case 10:
-                    tdObj.innerHTML = '<span class="text-muted"><i class="fa fa-star"></i></span>';
+                    tdObj.innerHTML = '<span class="text-muted"><i class="fa fa-star-o"></i></span>';
                     break;
                 case 11:
                     tdObj.innerHTML = '<span class="text-muted"><i class="fa fa-fire"></i></span>';

@@ -11,4 +11,13 @@ public class TimeUtilTest {
         System.out.println(day);
     }
 
+    @Test
+    public void isOutExpires() {
+    }
+
+    @Test
+    public void isOutExpires1() {
+        boolean day = TimeUtil.isOutExpires("2019-01-02 00:00:00");
+        System.out.println(day);
+    }
 }

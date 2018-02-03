@@ -26,6 +26,9 @@ public class AuthRegisterUserInfo {
     private String createTime;
     private String modifyTime;
     private String status;
+    private String deviceModel;
+    private String romVersion;
+    private String uiVersion;
 
     private boolean experience;
     private boolean online;
@@ -205,6 +208,30 @@ public class AuthRegisterUserInfo {
         this.status = status;
     }
 
+    public String getDeviceModel() {
+        return deviceModel;
+    }
+
+    public void setDeviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
+    }
+
+    public String getRomVersion() {
+        return romVersion;
+    }
+
+    public void setRomVersion(String romVersion) {
+        this.romVersion = romVersion;
+    }
+
+    public String getUiVersion() {
+        return uiVersion;
+    }
+
+    public void setUiVersion(String uiVersion) {
+        this.uiVersion = uiVersion;
+    }
+
     public boolean isExperience() {
         return experience;
     }
@@ -245,6 +272,9 @@ public class AuthRegisterUserInfo {
                 ", createTime='" + createTime + '\'' +
                 ", modifyTime='" + modifyTime + '\'' +
                 ", status='" + status + '\'' +
+                ", deviceModel='" + deviceModel + '\'' +
+                ", romVersion='" + romVersion + '\'' +
+                ", uiVersion='" + uiVersion + '\'' +
                 ", experience=" + experience +
                 ", online=" + online +
                 '}';

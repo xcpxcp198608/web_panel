@@ -19,7 +19,9 @@
             <table class="table table-sm table-hover table-striped table-dark" id="tbCategory">
                 <thead>
                     <tr><td>#</td><td>Price</td><td>Deposit</td><td>Expires</td>
-                        <td>Bonus</td><td>LD</td><td>LDE</td><td>Dealer</td><td>Sales</td>
+                        <td>Bonus</td><td>Activation</td>
+                        <td>LD</td><td>LDE</td><td>Dealer</td><td>Sales</td>
+                        <td>LD-A</td><td>LDE-A</td><td>Dealer-A</td><td>Sales-A</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,10 +32,15 @@
                             <td>${commissionCategoryInfo.deposit}</td>
                             <td>${commissionCategoryInfo.expires}</td>
                             <td>${commissionCategoryInfo.bonus}</td>
+                            <td>${commissionCategoryInfo.activatePay}</td>
                             <td>${commissionCategoryInfo.ldCommission}</td>
                             <td>${commissionCategoryInfo.ldeCommission}</td>
                             <td>${commissionCategoryInfo.dealerCommission}</td>
                             <td>${commissionCategoryInfo.salesCommission}</td>
+                            <td>${commissionCategoryInfo.ldActivationComm}</td>
+                            <td>${commissionCategoryInfo.ldeActivationComm}</td>
+                            <td>${commissionCategoryInfo.dealerActivationComm}</td>
+                            <td>${commissionCategoryInfo.salesActivationComm}</td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -66,18 +73,24 @@
                     <table class="table table-sm table-hover table-striped table-dark" id="tbYearIncome">
                         <tbody>
                             <tr><td>Income</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>TxFee</td><td style="font-style: italic; color: orange">0</td></tr>
                             <tr><td>Deposit</td><td style="font-style: italic; color: orange">0</td></tr>
                             <tr><td>LD</td><td style="font-style: italic; color: orange">0</td></tr>
                             <tr><td>LDE</td><td style="font-style: italic; color: orange">0</td></tr>
                             <tr><td>Dealer</td><td style="font-style: italic; color: orange">0</td></tr>
                             <tr><td>Sales</td><td style="font-style: italic; color: orange">0</td></tr>
+                            <tr><td>SvcCharge</td><td style="font-style: italic; color: orange">0</td></tr>
+                            <tr><td>TxFee</td><td style="font-style: italic; color: orange">0</td></tr>
+                            <tr><td>Activation</td><td style="font-style: italic; color: orange">0</td></tr>
+                            <tr><td>LD-A</td><td style="font-style: italic; color: orange">0</td></tr>
+                            <tr><td>LDE-A</td><td style="font-style: italic; color: orange">0</td></tr>
+                            <tr><td>Dealer-A</td><td style="font-style: italic; color: orange">0</td></tr>
+                            <tr><td>Sales-A</td><td style="font-style: italic; color: orange">0</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="col-9">
-                <div id="yearIncomeChart" style="width: 100%; height: 160px"></div>
+                <div id="yearIncomeChart" style="width: 100%; height: 320px"></div>
             </div>
         </div>
     </div>
@@ -113,17 +126,24 @@
         <div style="padding: 0 20px 10px 20px; overflow: scroll">
             <table  class="table table-sm table-hover table-striped table-dark" id="tbMonthIncome">
                 <thead>
-                <tr id="trIncome">
-                    <td>#</td><td>Total</td>
-                </tr>
+                    <tr id="trMonthIncome">
+                        <td>#</td><td>Total</td>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr><td>Income</td><td class="text-danger">0</td></tr>
-                    <tr><td>Deposit</td><td class="text-danger">0</td></tr>
-                    <tr><td>LD</td><td class="text-danger">0</td></tr>
-                    <tr><td>LDE</td><td class="text-danger">0</td></tr>
-                    <tr><td>Dealer</td><td class="text-danger">0</td></tr>
-                    <tr><td>Rep</td><td class="text-danger">0</td></tr>
+                    <tr><td>Deposit</td><td class="text-warning">0</td></tr>
+                    <tr><td>LD</td><td class="text-warning">0</td></tr>
+                    <tr><td>LDE</td><td class="text-warning">0</td></tr>
+                    <tr><td>Dealer</td><td class="text-warning">0</td></tr>
+                    <tr><td>Rep</td><td class="text-warning">0</td></tr>
+                    <tr><td>SVC</td><td class="text-warning">0</td></tr>
+                    <tr><td>Tx-Fee</td><td class="text-warning">0</td></tr>
+                    <tr><td>Activation</td><td class="text-primary">0</td></tr>
+                    <tr><td>LD-A</td><td class="text-primary">0</td></tr>
+                    <tr><td>LDE-A</td><td class="text-primary">0</td></tr>
+                    <tr><td>Dealer-A</td><td class="text-primary">0</td></tr>
+                    <tr><td>Rep-A</td><td class="text-primary">0</td></tr>
                 </tbody>
             </table>
         </div>

@@ -13,7 +13,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/dealer/sales">
-                    <i class="fa fa-bullhorn fa-lg"></i>&nbsp;Sales
+                    <i class="fa fa-bullhorn fa-lg"></i>&nbsp;Reps
                 </a>
             </li>
             <li class="nav-item">

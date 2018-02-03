@@ -106,20 +106,23 @@ public class RentalMonthAuthorizeTask {
                 logger.debug("= payment method is credit card");
                 logger.debug("= checking check out on this month");
                 //check is already check out on this month
-                AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = AuthorizeTransactionRentalInfo
-                        .monthlyFromAuthRentInfo(authRentUserInfo, today);
-                if(authorizeTransactionRentalDao.countByKeyAndDate(authorizeTransactionRentalInfo) == 1){
+                if(authorizeTransactionRentalDao.countByKeyAndDate(authRentUserInfo.getClientKey(), today) == 1){
                     logger.debug("= {} already check out on this month", authRentUserInfo.getClientKey());
                     logger.debug("====================================================================");
                     return;
                 }
                 logger.debug("= execute check out on this month");
-                AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo1 = new AuthorizeTransactionRental().charge(authorizeTransactionRentalInfo);
-                if(authorizeTransactionRentalInfo1 != null && "approved".equals(authorizeTransactionRentalInfo1.getStatus())){
+                AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
+                        .createFromAuthRentUser(authRentUserInfo, authRentUserInfo.getMonthPay() +
+                                authRentUserInfo.getMonthPay() * AuthorizeTransactionInfo.TAX);
+                AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo);
+                if(charge != null && "approved".equals(charge.getStatus())){
                     logger.debug("= {} check out month successfully", authRentUserInfo.getClientKey());
                     logger.debug("====================================================================");
-                    authorizeTransactionRentalDao.insertOne(authorizeTransactionRentalInfo1);
-                    handleInvoice(commissionCategoryInfo, authRentUserInfo, authorizeTransactionRentalInfo1, i+1);
+                    AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = AuthorizeTransactionRentalInfo
+                            .monthlyFromAuthRentInfo(authRentUserInfo, charge);
+                    authorizeTransactionRentalDao.insertOne(authorizeTransactionRentalInfo);
+                    handleInvoice(authRentUserInfo, authorizeTransactionRentalInfo, i+1, commissionCategoryInfo.getExpires());
                 }else{
                     logger.debug("= check out month failure, deactivate = {}", authRentUserInfo.getClientKey());
                     authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);
@@ -132,15 +135,15 @@ public class RentalMonthAuthorizeTask {
         logger.debug("====================================================================");
     }
 
-    private void handleInvoice(CommissionCategoryInfo commissionCategoryInfo, AuthRentUserInfo authRentUserInfo,
-                               AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo, int currentMonth){
+    private void handleInvoice(AuthRentUserInfo authRentUserInfo,
+                               AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo, int currentMonth, int totalMonth){
         try {
-            List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalMonthly(commissionCategoryInfo, currentMonth);
+            List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalMonthly(authorizeTransactionRentalInfo, currentMonth, totalMonth);
             String invoicePath = RentalInvoiceUtil.createInvoice(authRentUserInfo,
                     authorizeTransactionRentalInfo.getTransactionId(), invoiceInfoList);
             RentalInvoiceUtil.copyInvoice(invoicePath);
             logger.debug("invoicePath: {}", invoicePath);
-            EmailMaster emailMaster = new EmailMaster();
+            EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LDE);
             emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
             emailMaster.addAttachment(invoicePath);
             emailMaster.sendMessage(authRentUserInfo.getEmail());

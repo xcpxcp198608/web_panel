@@ -81,8 +81,8 @@ public class AuthAdmin {
      * @return        sales page
      */
     @GetMapping(value = "/sales")
-    public String getSales(Model model){
-        return authAdminService.sales(model);
+    public String getSales(HttpServletRequest request, Model model){
+        return authAdminService.sales(request, model);
     }
 
     /**
@@ -226,25 +226,26 @@ public class AuthAdmin {
 
     /**
      * update a device to special sales
-     * @param request  HttpServletRequest
-     * @param deviceRentInfo  DeviceRentInfo required: mac, sales id
      * @return         ResultInfo
      */
     @PutMapping(value = "/devices/update")
     @ResponseBody
-    public ResultInfo updateDeviceToSpecialSales(HttpServletRequest request, @RequestBody DeviceRentInfo deviceRentInfo){
-        return authAdminService.updateDeviceToSpecialSales(request, deviceRentInfo);
+    public ResultInfo updateDeviceToSpecialSales(HttpServletRequest request,
+                                                 @RequestParam(value = "macs[]") String [] macs,
+                                                 int salesId){
+        return authAdminService.bathUpdateDeviceToSpecialSales(request, macs, salesId);
     }
 
     /**
      * check device when returned the sales deposit
-     * @param deviceRentInfo  DeviceRentInfo required: mac
      * @return         ResultInfo
      */
     @PutMapping(value = "/devices/check")
     @ResponseBody
-    public ResultInfo checkReturned(@RequestBody DeviceRentInfo deviceRentInfo){
-        return authAdminService.checkReturned(deviceRentInfo);
+    public ResultInfo checkReturned(HttpServletRequest request,
+                                    @RequestParam(value = "macs[]") String [] macs,
+                                    int salesId, String checkNumber){
+        return authAdminService.checkReturned(request, macs, salesId, checkNumber);
     }
 
     /**

@@ -29,6 +29,30 @@ public class YearOrMonthInfo {
         }
     }
 
+    public YearOrMonthInfo(int year, int month, boolean is) {
+        month += 1;
+        if(month > 12){
+            month = 1;
+            this.end = (year+1) + "-0" + month + "-01";
+        }else {
+            if (month < 10) {
+                this.end = year + "-0" + month + "-01";
+            } else {
+                this.end = year + "-" + month + "-01";
+            }
+        }
+        if(month >= 12){
+            this.start = year + "-01-01";
+        }else{
+            int startMonth = month - 12 + 13;
+            if(startMonth < 10){
+                this.start = (year-1) + "-0" + startMonth + "-01";
+            }else {
+                this.start = (year-1) + "-" + startMonth + "-01";
+            }
+        }
+    }
+
     public String getStart() {
         return start;
     }

@@ -1,16 +1,13 @@
 package com.wiatec.panel.service.auth;
 
-import com.wiatec.panel.authorize.AuthorizeTransactionRental;
-import com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo;
-import com.wiatec.panel.authorize.AuthorizeTransactionSales;
-import com.wiatec.panel.authorize.AuthorizeTransactionSalesInfo;
+import com.wiatec.panel.authorize.*;
 import com.wiatec.panel.common.utils.EmailMaster;
 import com.wiatec.panel.common.utils.PathUtil;
 import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
-import com.wiatec.panel.invoice.SalesInvoiceUtil;
+import com.wiatec.panel.invoice.SalesMemberInvoiceUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
@@ -53,7 +50,9 @@ public class AuthAdminService {
     @Autowired
     private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
     @Autowired
-    private AuthorizeTransactionSalesDao authorizeTransactionSalesDao;
+    private AuthorizeTransactionSalesMemberDao authorizeTransactionSalesMemberDao;
+    @Autowired
+    private AuthorizeTransactionSalesDepositDao authorizeTransactionSalesDepositDao;
     @Autowired
     private DeviceRentDao deviceRentDao;
     @Autowired
@@ -103,12 +102,17 @@ public class AuthAdminService {
         }
     }
 
-    public String sales(Model model){
+    public String sales(HttpServletRequest request, Model model){
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectAll();
         model.addAttribute("authSalesInfoList", authSalesInfoList);
         List<AuthDealerInfo> authDealerInfoList = authDealerDao.selectAll();
         model.addAttribute("authDealerInfoList", authDealerInfoList);
-        List<SalesActivateCategoryInfo> salesActivateCategoryInfoList = salesActivateCategoryDao.selectAll();
+        List<SalesActivateCategoryInfo> salesActivateCategoryInfoList;
+        if(AuthAdminInfo.LEVEL_HIGH == getAdminInfo(request).getPermission()){
+            salesActivateCategoryInfoList = salesActivateCategoryDao.selectAllWithLimit(0);
+        }else{
+            salesActivateCategoryInfoList = salesActivateCategoryDao.selectAllWithLimit(1);
+        }
         model.addAttribute("salesActivateCategoryInfoList", salesActivateCategoryInfoList);
         List<SalesGoldCategoryInfo> salesGoldCategoryInfoList = salesGoldCategoryDao.selectAll();
         model.addAttribute("salesGoldCategoryInfoList", salesGoldCategoryInfoList);
@@ -126,44 +130,39 @@ public class AuthAdminService {
         if(authSalesDao.countEmail(authSalesInfo) == 1){
             throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
         }
-        //1. create transaction info
+
         SalesActivateCategoryInfo salesActivateCategoryInfo = salesActivateCategoryDao
                 .selectOneByCategory(authSalesInfo.getActivateCategory());
-        SalesGoldCategoryInfo salesGoldCategoryInfo = salesGoldCategoryDao
-                .selectOneByCategory(authSalesInfo.getGoldCategory());
-        AuthorizeTransactionSalesInfo authorizeTransactionSalesInfo;
-        if(salesGoldCategoryInfo != null){
-            authorizeTransactionSalesInfo = AuthorizeTransactionSalesInfo.createGold(authSalesInfo,
-                    salesActivateCategoryInfo, salesGoldCategoryInfo);
-        }else{
-            authorizeTransactionSalesInfo = AuthorizeTransactionSalesInfo.createNormal(authSalesInfo,
-                    salesActivateCategoryInfo);
-        }
-        //2. process transaction and save transaction info
-        AuthorizeTransactionSalesInfo authorizeTransactionSalesInfo1 = new AuthorizeTransactionSales()
-                .charge(authorizeTransactionSalesInfo);
-        if(authorizeTransactionSalesInfo1 == null){
-            throw new XException(1001, "pay failure");
-        }
-        authorizeTransactionSalesDao.insertOne(authorizeTransactionSalesInfo1);
-        //3. send invoice
-        try {
-            List<InvoiceInfo> invoiceInfoList;
-            if(salesGoldCategoryInfo != null) {
-                invoiceInfoList = InvoiceInfoMaker.salesActivateGold(salesActivateCategoryInfo, salesGoldCategoryInfo);
-            }else{
-                invoiceInfoList = InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo);
+        if(salesActivateCategoryInfo.getPrice() > 0) {
+            //1. create transaction info
+            AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
+                    .createFromAuthSales(authSalesInfo,
+                            salesActivateCategoryInfo.getPrice() + salesActivateCategoryInfo.getPrice() * AuthorizeTransactionInfo.TAX);
+
+            //2. process transaction and save transaction info
+            AuthorizeTransactionInfo authorizeTransactionInfo1 = new AuthorizeTransaction()
+                    .charge(authorizeTransactionInfo);
+            if (authorizeTransactionInfo1 == null) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
-            SalesInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-            String invoice = SalesInvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionSalesInfo1
-                    .getTransactionId(), invoiceInfoList);
-            SalesInvoiceUtil.copyInvoice(invoice);
-            EmailMaster emailMaster = new EmailMaster();
-            emailMaster.setInvoiceContent(authSalesInfo.getUsername());
-            emailMaster.addAttachment(invoice);
-            emailMaster.sendMessage(authSalesInfo.getEmail());
-        } catch (Exception e) {
-            logger.error("invoice send error", e);
+            AuthorizeTransactionSalesMemberInfo authorizeTransactionSalesMemberInfo = AuthorizeTransactionSalesMemberInfo
+                    .create(authSalesInfo, salesActivateCategoryInfo, authorizeTransactionInfo1);
+
+            authorizeTransactionSalesMemberDao.insertOne(authorizeTransactionSalesMemberInfo);
+            //3. send invoice
+            try {
+                List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo);
+                SalesMemberInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
+                String invoice = SalesMemberInvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionSalesMemberInfo
+                        .getTransactionId(), invoiceInfoList);
+                SalesMemberInvoiceUtil.copyInvoice(invoice);
+                EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LDE);
+                emailMaster.setInvoiceContent(authSalesInfo.getUsername());
+                emailMaster.addAttachment(invoice);
+                emailMaster.sendMessage(authSalesInfo.getEmail());
+            } catch (Exception e) {
+                logger.error("invoice send error", e);
+            }
         }
         //4. store sales info
         authSalesInfo.setExpiresTime(TimeUtil.getExpiresDate(salesActivateCategoryInfo.getMonth()));
@@ -251,26 +250,6 @@ public class AuthAdminService {
             authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
             authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
             authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
-            AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRentalInfo();
-            authorizeTransactionRentalInfo.setSalesId(authRentUserInfo.getSalesId());
-            authorizeTransactionRentalInfo.setDealerId(authRentUserInfo.getDealerId());
-            authorizeTransactionRentalInfo.setSalesName(authRentUserInfo.getSalesName());
-            authorizeTransactionRentalInfo.setCategory(authRentUserInfo.getCategory());
-            authorizeTransactionRentalInfo.setClientKey(authRentUserInfo.getClientKey());
-            authorizeTransactionRentalInfo.setCardNumber(authRentUserInfo.getCardNumber());
-            authorizeTransactionRentalInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
-            authorizeTransactionRentalInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
-            authorizeTransactionRentalInfo.setAmount(authRentUserInfo.getFirstPay());
-            authorizeTransactionRentalInfo.setDeposit(authRentUserInfo.getDeposit());
-            authorizeTransactionRentalInfo.setLdCommission(authRentUserInfo.getLdCommission());
-            authorizeTransactionRentalInfo.setDealerCommission(authRentUserInfo.getDealerCommission());
-            authorizeTransactionRentalInfo.setSalesCommission(authRentUserInfo.getSalesCommission());
-            authorizeTransactionRentalInfo.setType(AuthorizeTransactionRentalInfo.TYPE_CONTRACTED);
-            AuthorizeTransactionRentalInfo charge = new AuthorizeTransactionRental().charge(authorizeTransactionRentalInfo, request);
-            if(charge == null){
-                throw new XException(EnumResult.ERROR_AUTHORIZE);
-            }
-            authorizeTransactionRentalDao.insertOne(charge);
             authRentUserDao.updateUserCategory(authRentUserInfo);
             return ResultMaster.success(authRentUserInfo);
         }catch (Exception e){
@@ -332,44 +311,49 @@ public class AuthAdminService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo updateDeviceToSpecialSales(HttpServletRequest request, DeviceRentInfo deviceRentInfo){
-        if(deviceRentInfo.getMac().length() != 17){
+    public ResultInfo bathUpdateDeviceToSpecialSales(HttpServletRequest request, String [] macs, int salesId){
+        if(macs.length <= 0 ){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
         }
-        AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(deviceRentInfo.getSalesId());
+        AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(salesId);
         if(authSalesInfo == null){
-            throw new XException(1100, "sales not exists");
+            throw new XException(1100, "rep not exists");
         }
-        deviceRentInfo.setMac(deviceRentInfo.getMac().toUpperCase());
-        deviceRentInfo.setSalesId(authSalesInfo.getId());
-        deviceRentInfo.setDealerId(authSalesInfo.getDealerId());
-        deviceRentInfo.setAdminId(getAdminInfo(request).getId());
-        int i = deviceRentDao.updateDeviceToSpecialSales(deviceRentInfo);
-        if(i != 1){
-            throw new XException(EnumResult.ERROR_UPDATE_FAILURE);
+        if(authSalesInfo.getCardNumber() == null || authSalesInfo.getCardNumber().length() < 16){
+            throw new XException(1001, "rep credit card information error");
         }
-        int salesStoreCount = deviceRentDao.countNoRentedBySalesId(authSalesInfo.getId());
-        if(salesStoreCount >= 10){
-            authSalesDao.updateGoldById(authSalesInfo.getId());
+        deviceRentDao.bathUpdateDeviceToSpecialSales(macs, salesId, authSalesInfo.getDealerId(), getAdminInfo(request).getId());
+        int salesStoreCount = deviceRentDao.countNoRentedBySalesId(salesId);
+        if(salesStoreCount >= AuthSalesInfo.GOLD_COUNT){
+            authSalesDao.updateGoldById(salesId);
         }
-        return ResultMaster.success(deviceRentDao.selectOneByMac(deviceRentInfo));
+        AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
+                .createFromAuthSales(authSalesInfo, CommissionCategoryInfo.DEPOSIT * macs.length);
+        AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request);
+        if(charge == null){
+            throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+        }
+        authorizeTransactionSalesDepositDao.insertOne(AuthorizeTransactionSalesDepositInfo
+                .createDepositForRepStore(authSalesInfo, charge));
+        return ResultMaster.success(authSalesInfo);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo checkReturned(DeviceRentInfo deviceRentInfo){
-        if(deviceRentInfo.getMac().length() != 17){
+    public ResultInfo checkReturned(HttpServletRequest request, String[] macs, int salesId, String checkNumber){
+        if(macs.length <= 0 ){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
         }
-        if(TextUtil.isEmpty(deviceRentInfo.getCheckNumber())){
-            throw new XException(1001, "check number type in error");
+        if(TextUtil.isEmpty(checkNumber)){
+            throw new XException(1001, "check number error");
         }
-        int i = deviceRentDao.updateDeviceToChecked(deviceRentInfo);
-        if(i != 1){
-            throw new XException(EnumResult.ERROR_UPDATE_FAILURE);
+        AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(salesId);
+        if(authSalesInfo == null){
+            throw new XException(1100, "rep not exists");
         }
-        int sdcnCount = deviceRentDao.countSDCNBySalesId(deviceRentInfo.getSalesId());
+        deviceRentDao.bathUpdateDeviceToChecked(macs, salesId, checkNumber);
+        int sdcnCount = deviceRentDao.countSDCNBySalesId(salesId);
         if(sdcnCount <= 0){
-            authSalesDao.updateNoSDCNById(deviceRentInfo.getSalesId());
+            authSalesDao.updateNoSDCNById(salesId);
         }
         return ResultMaster.success();
     }

@@ -17,7 +17,7 @@
         <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
         <div style="width: 100%; background-color: #ffffff;">
             <span class="text-center text-muted" style="padding: 10px">
-                <abbr>The detail information of all sales:</abbr>
+                <abbr>The detail information of all reps:</abbr>
             </span>
         </div>
 
@@ -60,7 +60,6 @@
                     <th>#</th>
                     <th>Username</th>
                     <th>Password</th>
-                    <th>Dealer</th>
                     <th>SSN</th>
                     <th>Email</th>
                     <th>BankInfo</th>
@@ -77,7 +76,6 @@
                         <td>${status.index+1}</td>
                         <td>${authSalesInfo.username}</td>
                         <td>${authSalesInfo.password}</td>
-                        <td>${authSalesInfo.dealerName}</td>
                         <td>
                                 ${fn:substring(authSalesInfo.ssn, 0, 3)}-${fn:substring(authSalesInfo.ssn, 3, 5)}-${fn:substring(authSalesInfo.ssn, 5, 9)}
                         </td>
@@ -94,7 +92,7 @@
                             </c:if>
                         </td>
                         <td>
-                            <a href="/panel/dealer/users/2/${authSalesInfo.id}" title="show all users under this sales" target="_blank">
+                            <a href="/panel/dealer/users/2/${authSalesInfo.id}" title="show all users under this sales">
                                 <i class="fa fa-eye"></i>
                             </a>
                         </td>
@@ -177,14 +175,14 @@
                             </div>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon23">
-                                        <i class="fa fa-asterisk fa-lg"></i>
-                                    </span>
+                                <span class="input-group-text" id="basic-addon13">
+                                    <i class="fa fa-tags fa-lg"></i>
+                                </span>
                                 </div>
-                                <select class="custom-select" id="ipGoldCategory">
-                                    <option value="normal">Choose Gold Category</option>
-                                    <c:forEach items="${salesGoldCategoryInfoList}" var="salesGoldCategoryInfo">
-                                        <option value="${salesGoldCategoryInfo.category}">${salesGoldCategoryInfo.category}</option>
+                                <select class="custom-select" id="ipActivateCategory">
+                                    <option value="">Choose Activate Category</option>
+                                    <c:forEach items="${salesActivateCategoryInfoList}" var="salesActivateCategoryInfo">
+                                        <option value="${salesActivateCategoryInfo.category}">${salesActivateCategoryInfo.category}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -246,19 +244,6 @@
                                 </div>
                                 <input type="number" class="form-control" placeholder="Security Key" id="ipSecurityKey"
                                        aria-label="Username" aria-describedby="basic-addon111">
-                            </div>
-                            <div class="input-group input-group-sm mb-3">
-                                <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon13">
-                                    <i class="fa fa-tags fa-lg"></i>
-                                </span>
-                                </div>
-                                <select class="custom-select" id="ipActivateCategory">
-                                    <option value="">Choose Activate Category</option>
-                                    <c:forEach items="${salesActivateCategoryInfoList}" var="salesActivateCategoryInfo">
-                                        <option value="${salesActivateCategoryInfo.category}">${salesActivateCategoryInfo.category}</option>
-                                    </c:forEach>
-                                </select>
                             </div>
                         </div>
                     </div>

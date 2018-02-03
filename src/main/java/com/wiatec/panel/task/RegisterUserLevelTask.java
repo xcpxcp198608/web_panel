@@ -39,9 +39,9 @@ public class RegisterUserLevelTask {
 
     private void execute(){
         authRegisterUserDao = sqlSession.getMapper(AuthRegisterUserDao.class);
-        List<AuthRegisterUserInfo> authRegisterUserInfoList = authRegisterUserDao.selectAll(0);
+        List<AuthRegisterUserInfo> authRegisterUserInfoList = authRegisterUserDao.selectAllExpiresUsers(0);
         for(AuthRegisterUserInfo authRegisterUserInfo: authRegisterUserInfoList){
-            if(TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())){
+            if(authRegisterUserInfo.getLevel() > 1 && TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())) {
                 authRegisterUserInfo.setLevel(1);
                 authRegisterUserInfo.setExpiresTime("");
                 authRegisterUserDao.updateLevelById(authRegisterUserInfo);

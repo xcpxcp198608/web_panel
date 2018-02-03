@@ -20,7 +20,7 @@ public class SalesActivateCategoryDaoTest {
 
     @Test
     public void selectAll() {
-        List<SalesActivateCategoryInfo> salesActivateCategoryInfoList = salesActivateCategoryDao.selectAll();
+        List<SalesActivateCategoryInfo> salesActivateCategoryInfoList = salesActivateCategoryDao.selectAllWithLimit(1);
         System.out.println(salesActivateCategoryInfoList);
     }
 

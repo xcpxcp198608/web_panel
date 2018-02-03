@@ -293,19 +293,6 @@
                                     </c:forEach>
                                 </select>
                             </div>
-                            <div class="input-group input-group-sm mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon23">
-                                        <i class="fa fa-asterisk fa-lg"></i>
-                                    </span>
-                                </div>
-                                <select class="custom-select" id="ipGoldCategory">
-                                    <option value="normal">Choose Gold Category</option>
-                                    <c:forEach items="${salesGoldCategoryInfoList}" var="salesGoldCategoryInfo">
-                                        <option value="${salesGoldCategoryInfo.category}">${salesGoldCategoryInfo.category}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
                         </div>
 
 

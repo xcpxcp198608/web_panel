@@ -83,8 +83,14 @@ public class AuthManager {
 
     @GetMapping(value = "/chart/volume/{year}/{month}")
     @ResponseBody
+    public ResultInfo getMonthVolume(@PathVariable int year, @PathVariable int month){
+        return authManagerService.getMonthVolume(year, month);
+    }
+
+    @GetMapping(value = "/chart/volume/year/{year}/{month}")
+    @ResponseBody
     public ResultInfo getYearVolume(@PathVariable int year, @PathVariable int month){
-        return authManagerService.getYearOrMonthVolume(year, month);
+        return authManagerService.getYearVolume(year, month);
     }
 
     @GetMapping(value = "/chart/level/{level}/{year}")

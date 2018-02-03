@@ -1,5 +1,8 @@
 package com.wiatec.panel.oxm.pojo.chart.admin;
 
+/**
+ * @author patrick
+ */
 public class SalesAmountInfo {
 
     private float amount;
@@ -10,6 +13,14 @@ public class SalesAmountInfo {
     private float ldeCommission;
     private float dealerCommission;
     private float salesCommission;
+
+    private float svcCharge;
+    private float activatePay;
+    private float ldActivationComm;
+    private float ldeActivationComm;
+    private float dealerActivationComm;
+    private float salesActivationComm;
+
     private int date;
 
     public float getAmount() {
@@ -76,6 +87,54 @@ public class SalesAmountInfo {
         this.salesCommission = salesCommission;
     }
 
+    public float getSvcCharge() {
+        return svcCharge;
+    }
+
+    public void setSvcCharge(float svcCharge) {
+        this.svcCharge = svcCharge;
+    }
+
+    public float getActivatePay() {
+        return activatePay;
+    }
+
+    public void setActivatePay(float activatePay) {
+        this.activatePay = activatePay;
+    }
+
+    public float getLdActivationComm() {
+        return ldActivationComm;
+    }
+
+    public void setLdActivationComm(float ldActivationComm) {
+        this.ldActivationComm = ldActivationComm;
+    }
+
+    public float getLdeActivationComm() {
+        return ldeActivationComm;
+    }
+
+    public void setLdeActivationComm(float ldeActivationComm) {
+        this.ldeActivationComm = ldeActivationComm;
+    }
+
+    public float getDealerActivationComm() {
+        return dealerActivationComm;
+    }
+
+    public void setDealerActivationComm(float dealerActivationComm) {
+        this.dealerActivationComm = dealerActivationComm;
+    }
+
+    public float getSalesActivationComm() {
+        return salesActivationComm;
+    }
+
+    public void setSalesActivationComm(float salesActivationComm) {
+        this.salesActivationComm = salesActivationComm;
+    }
+
     public int getDate() {
         return date;
     }
@@ -95,6 +154,12 @@ public class SalesAmountInfo {
                 ", ldeCommission=" + ldeCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +
+                ", svcCharge=" + svcCharge +
+                ", activatePay=" + activatePay +
+                ", ldActivationComm=" + ldActivationComm +
+                ", ldeActivationComm=" + ldeActivationComm +
+                ", dealerActivationComm=" + dealerActivationComm +
+                ", salesActivationComm=" + salesActivationComm +
                 ", date=" + date +
                 '}';
     }

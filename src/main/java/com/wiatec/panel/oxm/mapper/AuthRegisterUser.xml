@@ -17,6 +17,9 @@
         <result column="region" property="region"/>
         <result column="city" property="city"/>
         <result column="time_zone" property="timeZone"/>
+        <result column="device_model" property="deviceModel"/>
+        <result column="rom_version" property="romVersion"/>
+        <result column="ui_version" property="uiVersion"/>
         <result column="token" property="token"/>
         <result column="active_time" property="activeTime"/>
         <result column="expires_time" property="expiresTime"/>
@@ -28,7 +31,7 @@
     <sql id="select">
         SELECT id, username, password, email, phone, first_name, last_name, level, email_status,
             mac, country, region, city, time_zone, token, active_time, expires_time, last_online_time,
-            create_time, modify_time, status
+            create_time, modify_time, status, device_model, rom_version, ui_version
         FROM auth_register_user
     </sql>
 
@@ -112,6 +115,7 @@
     <update id="updateLocation" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
         UPDATE auth_register_user
         SET country=#{country}, region=#{region}, city=#{city}, time_zone=#{timeZone},
+            device_model = #{deviceModel}, rom_version=#{romVersion}, ui_version=#{uiVersion},
             last_online_time=current_timestamp
         WHERE username=#{username}
     </update>
@@ -142,6 +146,13 @@
     <select id="selectAll" resultMap="authRegisterUserInfo">
         <include refid="select"/>
         WHERE id > #{start}
+    </select>
+
+    <select id="selectAllExpiresUsers" resultMap="authRegisterUserInfo">
+        <include refid="select"/>
+        WHERE id > #{start}
+        AND level > 1
+        AND expires_time <![CDATA[ < ]]> now();
     </select>
 
     <update id="updateLevelById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">

@@ -134,7 +134,7 @@
                     </a>
                 </div>
             </div>
-            <c:if test="${'wiatec' eq username}">
+            <c:if test="${username eq 'wiatec' || username eq 'james'}">
             <div class="row" style="margin-top: 5px; height: 30px; font-size: 12px">
                 <div class="col-1">
                     <select id="seUpdateLevel" style="height: 30px;">

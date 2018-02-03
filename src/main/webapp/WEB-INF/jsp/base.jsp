@@ -48,7 +48,7 @@
                 <br/>
                 <div class="text-center">
                     <div class="col-12" style="padding: 0 35%">
-                        <img src="Resource/img/logo_legacy_white.png" alt="logo" style="width: 100%">
+                        <img src="Resource/img/lde.png" alt="logo" style="width: 100%">
                     </div>
                 </div>
                 <div class="text-center">
@@ -97,7 +97,7 @@
 
     <div id="notice" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         background-color: rgba(0,0,0,0.3); z-index: 1001; display: none">
-        <div style="width:50%; margin: 50px auto">
+        <div style="width:50%; margin: 80px auto">
             <h4 id="notice_message" style="color: #ff1268; font-size: 20px; width: 100%;
             text-align: center;"></h4>
         </div>

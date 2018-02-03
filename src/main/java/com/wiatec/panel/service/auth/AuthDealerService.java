@@ -1,7 +1,8 @@
 package com.wiatec.panel.service.auth;
 
-import com.wiatec.panel.authorize.AuthorizeTransactionSales;
-import com.wiatec.panel.authorize.AuthorizeTransactionSalesInfo;
+import com.wiatec.panel.authorize.AuthorizeTransaction;
+import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
+import com.wiatec.panel.authorize.AuthorizeTransactionSalesMemberInfo;
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
@@ -12,7 +13,7 @@ import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
-import com.wiatec.panel.invoice.SalesInvoiceUtil;
+import com.wiatec.panel.invoice.SalesMemberInvoiceUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
@@ -53,7 +54,7 @@ public class AuthDealerService {
     @Resource
     private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
     @Autowired
-    private AuthorizeTransactionSalesDao authorizeTransactionSalesDao;
+    private AuthorizeTransactionSalesMemberDao authorizeTransactionSalesMemberDao;
     @Autowired
     private SalesActivateCategoryDao salesActivateCategoryDao;
     @Autowired
@@ -71,7 +72,7 @@ public class AuthDealerService {
     public String sales(HttpServletRequest request, Model model){
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectSales(getDealerInfo(request).getId());
         model.addAttribute("authSalesInfoList", authSalesInfoList);
-        List<SalesActivateCategoryInfo> salesActivateCategoryInfoList = salesActivateCategoryDao.selectAll();
+        List<SalesActivateCategoryInfo> salesActivateCategoryInfoList = salesActivateCategoryDao.selectAllWithLimit(1);
         model.addAttribute("salesActivateCategoryInfoList", salesActivateCategoryInfoList);
         List<SalesGoldCategoryInfo> salesGoldCategoryInfoList = salesGoldCategoryDao.selectAll();
         model.addAttribute("salesGoldCategoryInfoList", salesGoldCategoryInfoList);
@@ -89,43 +90,38 @@ public class AuthDealerService {
         if(authSalesDao.countEmail(authSalesInfo) == 1){
             throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
         }
-        //1. create transaction info
+
         SalesActivateCategoryInfo salesActivateCategoryInfo = salesActivateCategoryDao
                 .selectOneByCategory(authSalesInfo.getActivateCategory());
-        SalesGoldCategoryInfo salesGoldCategoryInfo = salesGoldCategoryDao
-                .selectOneByCategory(authSalesInfo.getGoldCategory());
-        AuthorizeTransactionSalesInfo authorizeTransactionSalesInfo;
-        if(salesGoldCategoryInfo != null){
-            authorizeTransactionSalesInfo = AuthorizeTransactionSalesInfo.createGold(authSalesInfo,
-                    salesActivateCategoryInfo, salesGoldCategoryInfo);
-        }else{
-            authorizeTransactionSalesInfo = AuthorizeTransactionSalesInfo.createNormal(authSalesInfo,
-                    salesActivateCategoryInfo);
+        if(salesActivateCategoryInfo.getPrice() > 0) {
+            //1. create transaction info
+            AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
+                    .createFromAuthSales(authSalesInfo,
+                            salesActivateCategoryInfo.getPrice() + salesActivateCategoryInfo.getPrice() * AuthorizeTransactionInfo.TAX);
+            //2. process transaction and save transaction info
+            AuthorizeTransactionInfo authorizeTransactionInfo1 = new AuthorizeTransaction()
+                    .charge(authorizeTransactionInfo);
+            if (authorizeTransactionInfo1 == null) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+            }
+            AuthorizeTransactionSalesMemberInfo authorizeTransactionSalesMemberInfo = AuthorizeTransactionSalesMemberInfo
+                    .create(authSalesInfo, salesActivateCategoryInfo, authorizeTransactionInfo1);
+            authorizeTransactionSalesMemberDao.insertOne(authorizeTransactionSalesMemberInfo);
+            //3. send invoice
+            try {
+                List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo);
+                SalesMemberInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
+                String invoice = SalesMemberInvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionInfo1
+                        .getTransactionId(), invoiceInfoList);
+                SalesMemberInvoiceUtil.copyInvoice(invoice);
+                EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LDE);
+                emailMaster.setInvoiceContent(authSalesInfo.getUsername());
+                emailMaster.addAttachment(invoice);
+                emailMaster.sendMessage(authSalesInfo.getEmail());
+            } catch (Exception e) {
+                logger.error("invoice error", e);
+            }
         }
-        //2. process transaction and save transaction info
-        AuthorizeTransactionSalesInfo authorizeTransactionSalesInfo1 = new AuthorizeTransactionSales()
-                .charge(authorizeTransactionSalesInfo);
-        if(authorizeTransactionSalesInfo1 == null){
-            throw new XException(1001, "pay failure");
-        }
-        authorizeTransactionSalesDao.insertOne(authorizeTransactionSalesInfo1);
-        //3. send invoice
-        try {
-            List<InvoiceInfo> invoiceInfoList = salesGoldCategoryInfo != null ?
-                    InvoiceInfoMaker.salesActivateGold(salesActivateCategoryInfo, salesGoldCategoryInfo):
-                    InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo);
-            SalesInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-            String invoice = SalesInvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionSalesInfo1
-                    .getTransactionId(), invoiceInfoList);
-            SalesInvoiceUtil.copyInvoice(invoice);
-            EmailMaster emailMaster = new EmailMaster();
-            emailMaster.setInvoiceContent(authSalesInfo.getUsername());
-            emailMaster.addAttachment(invoice);
-            emailMaster.sendMessage(authSalesInfo.getEmail());
-        } catch (Exception e) {
-            logger.error("invoice error", e);
-        }
-
         //4. store sales info
         authSalesInfo.setExpiresTime(TimeUtil.getExpiresDate(salesActivateCategoryInfo.getMonth()));
         authSalesInfo.setDealerId(getDealerInfo(request).getId());

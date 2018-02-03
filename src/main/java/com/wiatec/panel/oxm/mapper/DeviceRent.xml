@@ -72,6 +72,25 @@
       WHERE mac = #{mac}
     </update>
 
+    <update id="bathUpdateDeviceToSpecialSales">
+      UPDATE device_rent
+      SET sales_id = #{salesId}, dealer_id = #{dealerId}, admin_id = #{adminId}
+      WHERE mac IN
+        <foreach collection="macs" item="mac" separator="," open="(" close=")">
+            #{mac}
+        </foreach>
+    </update>
+
+    <update id="bathUpdateDeviceToChecked">
+      UPDATE device_rent
+      SET checked = 1, sdcn = 0, check_number= #{checkNumber}, check_time=now()
+      WHERE sales_id = #{salesId}
+      AND mac IN
+        <foreach collection="macs" item="mac" separator="," open="(" close=")">
+            #{mac}
+        </foreach>
+    </update>
+
     <update id="updateDeviceToChecked" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
       UPDATE device_rent SET  checked= 1, sdcn = 0, check_number= #{checkNumber}, check_time=now()
       WHERE mac = #{mac}

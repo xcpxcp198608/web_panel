@@ -76,14 +76,14 @@ $(function () {
                 hideLoading();
                 if(response.code === 200) {
                     if('activate' === status){
-                        tbUsers.rows[currentRow].cells[9].children[0].innerHTML =
+                        tbUsers.rows[currentRow].cells[8].children[0].innerHTML =
                             '<span class="text-success">' +status+ '</span>';
                     }else if('canceled' === status){
-                        tbUsers.rows[currentRow].cells[9].children[0].innerHTML =
+                        tbUsers.rows[currentRow].cells[8].children[0].innerHTML =
                             '<span class="text-secondary">' +status+ '</span>';
                     }else{
 
-                        tbUsers.rows[currentRow].cells[9].children[0].innerHTML =
+                        tbUsers.rows[currentRow].cells[8].children[0].innerHTML =
                             '<span class="text-danger">' +status+ '</span>';
                     }
                     currentStatus = status;
@@ -106,7 +106,7 @@ $(function () {
         var onlineCount = 0;
         for(var x =0 ; x < rowsLength; x ++){
             var status = tbUsers.rows[x].style.display;
-            var online = tbUsers.rows[x].cells[10].childNodes[1].getAttribute("online");
+            var online = tbUsers.rows[x].cells[9].childNodes[1].getAttribute("online");
             if(status !== 'none'){
                 count ++;
                 if(online === "true"){
@@ -152,7 +152,7 @@ $(function () {
      * set more click event to show user details for every rows
      */
     for(var i = 0; i < rowsLength; i ++){
-        tbUsers.rows[i].cells[11].onclick = function(){
+        tbUsers.rows[i].cells[10].onclick = function(){
             var key = this.parentNode.cells[2].innerHTML;
             getUserDetailInfoByKey(key)
         }

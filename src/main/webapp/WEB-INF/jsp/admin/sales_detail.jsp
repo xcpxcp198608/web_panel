@@ -59,16 +59,20 @@
         <%--</div>--%>
     <%--</div>--%>
 
-    <div class="row" style="padding: 0 10px;">
+    <div class="row" style="padding: 0 10px">
         <div style="width: 100%; background-color: #c11021; height: 3px;"></div>
-        <div style="width: 100%; background-color: #ffffff;">
+        <div style="width: 100%; background-color: #ffffff; padding-bottom: 5px">
             <span class="text-center text-muted" style="padding: 10px">
-                <abbr>Security deposit credit note:</abbr>
+                <abbr>security deposit credit note: </abbr>
             </span>
+            <span class="text-danger">
+                ${authSalesInfo.username}
+            </span>
+            <input type="hidden" id="ipCurrentSalesId" value="${authSalesInfo.id}">
         </div>
     </div>
 
-    <div class="row" style="padding: 0 10px">
+    <div class="row" style="padding: 0 10px;">
         <div class="col-12" style="background-color: #ffffff">
             <a id="btCheck" data-toggle="tooltip" title=" Click “Check” to confirm security deposit has been returned">
                 <span class="badge badge-primary text-center">
@@ -95,7 +99,7 @@
                 <tbody>
                     <c:forEach items="${rentedDeviceRentInfoList}" var="deviceRentInfo" varStatus="status">
                         <tr>
-                            <td><input type="radio" name="rdDevice" value="${deviceRentInfo.salesId}"
+                            <td><input type="checkbox" name="cbDevice" value="${deviceRentInfo.salesId}"
                                        currentRow="${status.index}" currentSDCN="${deviceRentInfo.sdcn}"></td>
                             <td>${status.index+1}</td>
                             <td>${deviceRentInfo.mac}</td>
@@ -147,11 +151,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Confirm to return the security deposit to Rep.
+                    Confirm to return the security deposit to Rep.<br/>
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon234">
-                                <i class="fa fa-lock fa-lg"></i>
+                                <i class="fa fa-star"></i>
                             </span>
                         </div>
                         <input type="password" class="form-control" placeholder="Input bank check number for record" id="ipCheckNumber"

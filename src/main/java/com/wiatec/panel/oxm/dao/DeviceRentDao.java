@@ -1,7 +1,9 @@
 package com.wiatec.panel.oxm.dao;
 
 import com.wiatec.panel.oxm.pojo.AuthAdminInfo;
+import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.DeviceRentInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -50,6 +52,13 @@ public interface DeviceRentDao {
     void insertOne(DeviceRentInfo deviceRentInfo);
 
     int updateDeviceToSpecialSales(DeviceRentInfo deviceRentInfo);
+
+    int bathUpdateDeviceToSpecialSales(@Param("macs") String[] macs, @Param("salesId") int salesId,
+                                       @Param("dealerId") int dealerId, @Param("adminId") int adminId);
+
+    int bathUpdateDeviceToChecked(@Param("macs") String[] macs, @Param("salesId") int salesId,
+                                  @Param("checkNumber") String checkNumber);
+
     int updateDeviceToChecked(DeviceRentInfo deviceRentInfo);
     int updateDeviceToRented(String mac);
 

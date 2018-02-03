@@ -8,7 +8,9 @@ import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.common.utils.TokenUtil;
 import com.wiatec.panel.listener.SessionListener;
+import com.wiatec.panel.oxm.dao.AuthManagerDao;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
+import com.wiatec.panel.oxm.pojo.AuthManagerInfo;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
@@ -33,6 +35,8 @@ public class AuthManagerService {
 
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
+    @Resource
+    private AuthManagerDao authManagerDao;
 
     public String home(){
         return "manager/home";
@@ -43,9 +47,10 @@ public class AuthManagerService {
         if(username == null){
             throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
+        AuthManagerInfo authManagerInfo = authManagerDao.selectOneByUsername(username);
         List<AuthRegisterUserInfo> authRegisterUserInfoList;
-        if(ADMIN.equals(username)) {
-            authRegisterUserInfoList = authRegisterUserDao.selectAll(100);
+        if(authManagerInfo.getPermission() >= AuthManagerInfo.LEVEL_HIGHEST ) {
+            authRegisterUserInfoList = authRegisterUserDao.selectAll(0);
         }else{
             authRegisterUserInfoList = authRegisterUserDao.selectAll(100);
         }
@@ -113,15 +118,16 @@ public class AuthManagerService {
         return authRegisterUserDao.getDistributionData();
     }
 
-    //chart
-    public ResultInfo getYearOrMonthVolume(int year, int month){
-        if(month <= 0) {
-            List<YearVolumeInfo> yearVolumeInfoList = authRegisterUserDao.selectVolumeOfYear(new YearOrMonthInfo(year));
-            return ResultMaster.success(yearVolumeInfoList);
-        }else{
-            List<MonthVolumeInfo> monthVolumeInfoList = authRegisterUserDao.selectVolumeOfMonth(new YearOrMonthInfo(year, month));
-            return ResultMaster.success(monthVolumeInfoList);
-        }
+
+    public ResultInfo getMonthVolume(int year, int month){
+        List<MonthVolumeInfo> monthVolumeInfoList = authRegisterUserDao.selectVolumeOfMonth(new YearOrMonthInfo(year, month));
+        return ResultMaster.success(monthVolumeInfoList);
+    }
+
+    public ResultInfo getYearVolume(int year, int month){
+        List<YearVolumeInfo> yearVolumeInfoList = authRegisterUserDao
+                .selectVolumeOfYear(new YearOrMonthInfo(year, month, true));
+        return ResultMaster.success(yearVolumeInfoList);
     }
 
     public ResultInfo<Integer> getLevelChart(int level, int year){

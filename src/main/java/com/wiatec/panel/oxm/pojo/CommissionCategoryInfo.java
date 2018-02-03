@@ -10,6 +10,7 @@ public class  CommissionCategoryInfo {
     public static final String CATEGORY_B1 = "B1";
     public static final String CATEGORY_P1 = "P1";
     public static final String CATEGORY_P2 = "P2";
+    public static final float DEPOSIT = 100F;
 
     private int id;
     private String category;
@@ -20,12 +21,21 @@ public class  CommissionCategoryInfo {
     private float ldeCommission;
     private float dealerCommission;
     private float salesCommission;
-    private String description;
+
+    /**
+     * Credit Card banking service charge
+     */
+    private float svcCharge;
+    private float activatePay;
+    private float ldActivationComm;
+    private float ldeActivationComm;
+    private float dealerActivationComm;
+    private float salesActivationComm;
 
     private float price;
-    private float activatePay;
     private float firstPay;
     private float monthPay;
+    private String description;
 
     public float getPrice() {
         return price;
@@ -141,6 +151,46 @@ public class  CommissionCategoryInfo {
         this.description = description;
     }
 
+    public float getSvcCharge() {
+        return svcCharge;
+    }
+
+    public void setSvcCharge(float svcCharge) {
+        this.svcCharge = svcCharge;
+    }
+
+    public float getLdActivationComm() {
+        return ldActivationComm;
+    }
+
+    public void setLdActivationComm(float ldActivationComm) {
+        this.ldActivationComm = ldActivationComm;
+    }
+
+    public float getLdeActivationComm() {
+        return ldeActivationComm;
+    }
+
+    public void setLdeActivationComm(float ldeActivationComm) {
+        this.ldeActivationComm = ldeActivationComm;
+    }
+
+    public float getDealerActivationComm() {
+        return dealerActivationComm;
+    }
+
+    public void setDealerActivationComm(float dealerActivationComm) {
+        this.dealerActivationComm = dealerActivationComm;
+    }
+
+    public float getSalesActivationComm() {
+        return salesActivationComm;
+    }
+
+    public void setSalesActivationComm(float salesActivationComm) {
+        this.salesActivationComm = salesActivationComm;
+    }
+
     @Override
     public String toString() {
         return "CommissionCategoryInfo{" +
@@ -153,11 +203,16 @@ public class  CommissionCategoryInfo {
                 ", ldeCommission=" + ldeCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +
-                ", description='" + description + '\'' +
-                ", price=" + price +
+                ", svcCharge=" + svcCharge +
                 ", activatePay=" + activatePay +
+                ", ldActivationComm=" + ldActivationComm +
+                ", ldeActivationComm=" + ldeActivationComm +
+                ", dealerActivationComm=" + dealerActivationComm +
+                ", salesActivationComm=" + salesActivationComm +
+                ", price=" + price +
                 ", firstPay=" + firstPay +
                 ", monthPay=" + monthPay +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

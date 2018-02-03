@@ -18,7 +18,7 @@
         <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
         <div style="width: 100%; background-color: #ffffff;">
             <span class="text-center text-muted" style="padding: 10px">
-                <abbr>Choose device(s) to update to selected sales:</abbr>
+                <abbr>Choose device(s) to update to selected rep:</abbr>
             </span>
             <span class="badge badge-success text-center" id="totalDevices"
                   data-toggle="tooltip" title="total check in devices!">
@@ -69,17 +69,26 @@
                     <th>Rented</th>
                     <th>RentedTime</th>
                     <th>Checked</th>
+                    <th>CheckNumber</th>
                     <th>CheckedTime</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${deviceRentInfoList}" var="deviceRentInfo" varStatus="status">
                     <tr>
-                        <td><input type="radio" name="rdDevice" value="${deviceRentInfo.mac}"
+                        <td><input type="checkbox" name="cbDevice" value="${deviceRentInfo.mac}"
                                    currentRow="${status.index}"></td>
                         <td>${status.index+1}</td>
                         <td>${deviceRentInfo.mac}</td>
-                        <td>${deviceRentInfo.salesName}</td>
+                        <td>
+                            <c:if test="${deviceRentInfo.salesName eq 'pcp'}">
+                                ${deviceRentInfo.salesName}
+                            </c:if>
+                            <c:if test="${deviceRentInfo.salesName ne 'pcp'}">
+                                <span class="text-warning">${deviceRentInfo.salesName}</span>
+                            </c:if>
+
+                        </td>
                         <td>${deviceRentInfo.createTime}</td>
                         <td>
                             <c:if test="${deviceRentInfo.rented == true}">
@@ -98,6 +107,7 @@
                                 <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
                             </c:if>
                         </td>
+                        <td>${deviceRentInfo.checkNumber}</td>
                         <td>${deviceRentInfo.checkTime}</td>
                     </tr>
                 </c:forEach>
@@ -172,13 +182,18 @@
                             </span>
                         </div>
                         <select class="custom-select" id="ipUpdateSalesId">
-                            <option value="0">Choose Sales</option>
+                            <option value="0">Choose Rep</option>
                             <c:forEach items="${authSalesInfoList}" var="authSalesInfo">
                                 <option value="${authSalesInfo.id}">
                                         ${authSalesInfo.username}
                                 </option>
                             </c:forEach>
                         </select>
+                    </div>
+                    <div>
+                        <span>this will deduct $</span>
+                        <span id="spAmount" class="text-danger"></span>
+                        <span>from rep credit card</span>
                     </div>
                 </div>
                 <div class="modal-footer">

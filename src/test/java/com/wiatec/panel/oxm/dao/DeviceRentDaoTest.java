@@ -47,4 +47,10 @@ public class DeviceRentDaoTest {
     @Test
     public void countNoRentedBySalesId() {
     }
+
+    @Test
+    public void bathUpdateDeviceToSpecialSales() {
+        String[] macs = {"5C:41:E7:00:9A:E2", "5C:41:E7:00:98:1C"};
+        deviceRentDao.bathUpdateDeviceToSpecialSales(macs, 1, 1, 1);
+    }
 }

@@ -27,15 +27,19 @@
     </resultMap>
 
     <sql id="select">
-        SELECT authorize_transaction_rental.id, authorize_transaction_rental.client_key, authorize_transaction_rental.category,
-            authorize_transaction_rental.sales_id, authorize_transaction_rental.amount, authorize_transaction_rental.price,
-            authorize_transaction_rental.deposit, authorize_transaction_rental.ld_commission, authorize_transaction_rental.lde_commission,
-            authorize_transaction_rental.dealer_commission,
-            authorize_transaction_rental.sales_commission, authorize_transaction_rental.tx_fee,
+        SELECT authorize_transaction_rental.id, authorize_transaction_rental.client_key,
+            authorize_transaction_rental.category, authorize_transaction_rental.sales_id,
             authorize_transaction_rental.card_number, authorize_transaction_rental.expiration_date,
-            authorize_transaction_rental.security_key, authorize_transaction_rental.transaction_id,
-            authorize_transaction_rental.status, authorize_transaction_rental.auth_code,
-            authorize_transaction_rental.type, authorize_transaction_rental.create_time,
+            authorize_transaction_rental.security_key, authorize_transaction_rental.tx_fee,
+            authorize_transaction_rental.transaction_id, authorize_transaction_rental.status,
+            authorize_transaction_rental.auth_code, authorize_transaction_rental.type,
+            authorize_transaction_rental.amount, authorize_transaction_rental.price,
+            authorize_transaction_rental.deposit, authorize_transaction_rental.ld_commission,
+            authorize_transaction_rental.lde_commission, authorize_transaction_rental.dealer_commission,
+            authorize_transaction_rental.sales_commission, authorize_transaction_rental.svc_charge,
+            authorize_transaction_rental.activate_pay, authorize_transaction_rental.ld_activation_comm,
+            authorize_transaction_rental.lde_activation_comm, authorize_transaction_rental.dealer_activation_comm,
+            authorize_transaction_rental.sales_activation_comm, authorize_transaction_rental.create_time,
             auth_sales.username sales_name
         FROM authorize_transaction_rental JOIN auth_sales ON authorize_transaction_rental.sales_id = auth_sales.id
     </sql>
@@ -43,13 +47,16 @@
     <insert id="insertOne" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo">
       INSERT INTO authorize_transaction_rental (sales_id, dealer_id, category, client_key, card_number,expiration_date,
              security_key, amount, price, deposit, ld_commission, lde_commission, dealer_commission, sales_commission,
-             tx_fee, transaction_id, status, auth_code, type)
+             tx_fee, transaction_id, status, auth_code, type, svc_charge, activate_pay, ld_activation_comm,
+             lde_activation_comm, dealer_activation_comm, sales_activation_comm)
       VALUES (#{salesId}, #{dealerId}, #{category}, #{clientKey}, #{cardNumber}, #{expirationDate},
               #{securityKey}, #{amount}, #{price}, #{deposit}, #{ldCommission}, #{ldeCommission}, #{dealerCommission},
-              #{salesCommission}, #{txFee}, #{transactionId}, #{status}, #{authCode}, #{type})
+              #{salesCommission}, #{txFee}, #{transactionId}, #{status}, #{authCode}, #{type}, #{svcCharge},
+              #{activatePay}, #{ldActivationComm}, #{ldeActivationComm}, #{dealerActivationComm},
+              #{salesActivationComm})
     </insert>
 
-    <select id="countByKeyAndDate" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo" resultType="int">
+    <select id="countByKeyAndDate" resultType="int">
         SELECT COUNT(*) count
         FROM authorize_transaction_rental
         WHERE client_key=#{clientKey} AND create_time LIKE concat(#{createTime},'%')
@@ -149,6 +156,9 @@
         SELECT sum(amount) amount, sum(price), sum(tx_fee) txFee, sum(deposit) deposit,
         sum(ld_commission) ldCommission, sum(lde_commission) ldeCommission,
         sum(dealer_commission) dealerCommission, sum(sales_commission) salesCommission,
+            sum(svc_charge) svcCharge, sum(activate_pay) activatePay,
+            sum(ld_activation_comm) ldActivationComm, sum(lde_activation_comm) ldeActivationComm,
+            sum(dealer_activation_comm) dealerActivationComm, sum(sales_activation_comm) salesActivationComm,
         MONTH(create_time) date
         FROM authorize_transaction_rental
         WHERE create_time BETWEEN #{start} AND #{end}
@@ -160,13 +170,14 @@
         SELECT sum(amount) amount, sum(price), sum(tx_fee) txFee, sum(deposit) deposit,
         sum(ld_commission) ldCommission, sum(lde_commission) ldeCommission,
         sum(dealer_commission) dealerCommission, sum(sales_commission) salesCommission,
+        sum(svc_charge) svcCharge, sum(activate_pay) activatePay,
+        sum(ld_activation_comm) ldActivationComm, sum(lde_activation_comm) ldeActivationComm,
+        sum(dealer_activation_comm) dealerActivationComm, sum(sales_activation_comm) salesActivationComm,
         DAYOFMONTH(create_time) date
         FROM authorize_transaction_rental
         WHERE create_time BETWEEN #{start} AND #{end}
         GROUP BY date;
     </select>
-
-
 
 
 

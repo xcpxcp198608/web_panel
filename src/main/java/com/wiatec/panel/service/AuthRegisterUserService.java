@@ -68,7 +68,7 @@ public class AuthRegisterUserService {
         String token = TokenUtil.create32(authRegisterUserInfo.getUsername(), authRegisterUserInfo.getEmail());
         authRegisterUserInfo.setToken(token);
         authRegisterUserDao.saveOneUser(authRegisterUserInfo);
-        EmailMaster emailMaster = new EmailMaster();
+        EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LD);
         String url = request.getRequestURL().toString();
         String path = url.substring(0, url.lastIndexOf("/"));
         emailMaster.setEmailContent(path, authRegisterUserInfo.getUsername(), token, language);
@@ -160,7 +160,7 @@ public class AuthRegisterUserService {
             throw new XException(EnumResult.ERROR_EMAIL_NOT_MATCH);
         }
         try{
-            EmailMaster emailMaster = new EmailMaster();
+            EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LD);
             String url = request.getRequestURL().toString();
             String path = url.substring(0, url.lastIndexOf("/"));
             emailMaster.setResetPasswordContent(path, authRegisterUserInfo.getUsername(), authRegisterUserInfo.getToken());

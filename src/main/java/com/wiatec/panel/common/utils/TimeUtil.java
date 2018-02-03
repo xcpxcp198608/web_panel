@@ -11,6 +11,7 @@ import java.util.Date;
 public class TimeUtil {
 
     public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
 
 
     public static long getUnixFromStr(String time){
@@ -44,7 +45,7 @@ public class TimeUtil {
 
     public static String getStrDate(long time){
         try {
-            return FORMATTER.format(new Date(time));
+            return DATE_FORMATTER.format(new Date(time));
         } catch (Exception e) {
             return "";
         }
@@ -94,8 +95,9 @@ public class TimeUtil {
         return System.currentTimeMillis() > date.getTime();
     }
 
-    public static boolean isOutExpires(String expiresTime){
-        return System.currentTimeMillis() > TimeUtil.getUnixFromStr(expiresTime);
+    public static boolean isOutExpires(String expiresTime) {
+        long uTime = TimeUtil.getUnixFromStr(expiresTime);
+        return uTime > 0 && System.currentTimeMillis() > uTime;
     }
 
 }

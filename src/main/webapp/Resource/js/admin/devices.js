@@ -127,25 +127,47 @@ $(function () {
     });
 
 
+    //
+    // var currentMac = [];
+    // var currentRow = [];
+    // var currentIndex = 0;
+    // $('input[name=cbDevice]').each(function(index){
+    //     $(this).click(function(){
+    //         if($(this).is(":checked")) {
+    //             currentMac[currentIndex] = $(this).val();
+    //             currentRow[currentIndex] = parseInt($(this).attr('currentRow'));
+    //             currentIndex ++;
+    //         }else{
+    //             currentIndex --;
+    //         }
+    //     });
+    // });
 
-    var currentMac = '';
-    var currentRow = -1;
-    $('input[name=rdDevice]').each(function(){
-        $(this).click(function(){
-            currentMac = $(this).val();
-            currentRow = parseInt($(this).attr('currentRow'));
-        });
-    });
 
     $('#btUpdate').click(function () {
-        if(currentRow < 0){
+        var currentMacs = [];
+        var currentRows = [];
+        $('input[name=cbDevice]:checked').each(function(index){
+            currentMacs[index] = $(this).val();
+            currentRows[index] = parseInt($(this).attr('currentRow'));
+        });
+        if(currentRows.length <= 0){
             showNotice('have no choose device');
             return;
         }
+        if(currentMacs.length <= 0){
+            showNotice('have no choose device');
+            return;
+        }
+        $('#spAmount').html(currentMacs.length * 100 + '.00');
         $('#modalUpdate').modal('show');
+        $('#btSubmitUpdate').click(function () {
+            updateSales(currentMacs, currentRows)
+        });
     });
 
-    $('#btSubmitUpdate').click(function () {
+
+    function updateSales(currentMacs, currentRows) {
         var salesId = $('#ipUpdateSalesId').val();
         if(salesId <= 0){
             showNotice('have no choose sales');
@@ -154,8 +176,7 @@ $(function () {
         $.ajax({
             type: "PUT",
             url: baseUrl + "/admin/devices/update",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({"mac": currentMac, "salesId": salesId}),
+            data: {"macs": currentMacs, "salesId": salesId},
             dataType: "json",
             beforeSend: function () {
                 $('#modalUpdate').modal('hide');
@@ -167,7 +188,14 @@ $(function () {
                 if(response.code === 200) {
                     $('#modalUpdate').modal('hide');
                     showNotice("successfully");
-                    tbDevices.rows[parseInt(currentRow)].cells[3].innerHTML = response.data['salesName'];
+                    var salesName = response.data['username'];
+                    var length = currentRows.length;
+                    if(length > 0){
+                        for(var i = 0; i < length; i ++){
+                            var row = currentRows[i];
+                            tbDevices.rows[parseInt(row)].cells[3].innerHTML = '<span class="text-warning">' + salesName + '</span>';
+                        }
+                    }
                 }else{
                     $('#modalUpdate').modal('show');
                     showErrorMessage($('#errorUpdate'), response.message);
@@ -179,7 +207,7 @@ $(function () {
                 showErrorMessage($('#errorUpdate'), 'communication fail, try again later');
             }
         });
-    })
+    }
 
 
 

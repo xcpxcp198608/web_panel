@@ -38,6 +38,7 @@ public enum  EnumResult {
     ERROR_TOKEN_NOT_EXISTS(6021, "Token not exists"),
     ERROR_MAC_FORMAT(6022, "Mac address format error"),
     ERROR_UPDATE_FAILURE(6023, "Update failure"),
+    ERROR_TRANSACTION_FAILURE(6024, "transaction failure"),
 
 
     ERROR_AUTHORIZE(9001, "Authorize communication exception"),

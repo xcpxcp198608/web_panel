@@ -84,5 +84,8 @@ dependencies {
     compile group: 'com.lowagie', name: 'itext', version: '2.1.7'
     //xml
     compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
+    // https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl
+    compile group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6.12'
+
 
 }

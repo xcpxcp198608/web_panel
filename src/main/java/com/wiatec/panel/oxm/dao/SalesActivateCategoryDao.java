@@ -16,7 +16,7 @@ public interface SalesActivateCategoryDao {
      * select all category
      * @return list of SalesActivateCategoryInfo
      */
-    List<SalesActivateCategoryInfo> selectAll();
+    List<SalesActivateCategoryInfo> selectAllWithLimit(int limit);
 
     /**
      * select SalesActivateCategoryInfo by special category
