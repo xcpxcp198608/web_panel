@@ -82,7 +82,7 @@
                         <td>${deviceRentInfo.mac}</td>
                         <td>
                             <c:if test="${deviceRentInfo.salesName eq 'pcp'}">
-                                ${deviceRentInfo.salesName}
+                                <span class="text-muted">${deviceRentInfo.salesName}</span>
                             </c:if>
                             <c:if test="${deviceRentInfo.salesName ne 'pcp'}">
                                 <span class="text-warning">${deviceRentInfo.salesName}</span>
@@ -137,7 +137,7 @@
                             </span>
                         </div>
                         <input type="text" class="form-control" placeholder="Mac" id="ipMac"
-                               aria-label="Username" aria-describedby="basic-addon1" maxlength="17">
+                               aria-label="mac" aria-describedby="basic-addon1" maxlength="17">
                     </div>
 
                     <div class="input-group input-group-sm mb-3">
@@ -175,10 +175,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div>
+                        <span>this will deduct $</span>
+                        <span id="spAmount" class="text-danger"></span>
+                        <span>from rep credit card</span>
+                    </div><br/>
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon12">
-                                <i class="fa fa-lock fa-lg"></i>
+                                <i class="fa fa-bullhorn fa-lg"></i>
                             </span>
                         </div>
                         <select class="custom-select" id="ipUpdateSalesId">
@@ -190,10 +195,17 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <div>
-                        <span>this will deduct $</span>
-                        <span id="spAmount" class="text-danger"></span>
-                        <span>from rep credit card</span>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon16">
+                                <i class="fa fa-lock fa-lg"></i>
+                            </span>
+                        </div>
+                        <input style="display:none" type="text" name="fakeusernameremembered"/>
+                        <input style="display:none" type="password" name="fakepasswordremembered"/>
+                        <input type="password" class="form-control" placeholder="password" id="ipAdminPassword"
+                               value="">
                     </div>
                 </div>
                 <div class="modal-footer">

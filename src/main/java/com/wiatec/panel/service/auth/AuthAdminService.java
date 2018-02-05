@@ -311,7 +311,12 @@ public class AuthAdminService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo bathUpdateDeviceToSpecialSales(HttpServletRequest request, String [] macs, int salesId){
+    public ResultInfo bathUpdateDeviceToSpecialSales(HttpServletRequest request, String [] macs,
+                                                     int salesId, String password){
+        AuthAdminInfo authAdminInfo = getAdminInfo(request);
+        if(!authAdminInfo.getPassword().equals(password)){
+            throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
+        }
         if(macs.length <= 0 ){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
         }
@@ -322,7 +327,8 @@ public class AuthAdminService {
         if(authSalesInfo.getCardNumber() == null || authSalesInfo.getCardNumber().length() < 16){
             throw new XException(1001, "rep credit card information error");
         }
-        deviceRentDao.bathUpdateDeviceToSpecialSales(macs, salesId, authSalesInfo.getDealerId(), getAdminInfo(request).getId());
+        deviceRentDao.bathUpdateDeviceToSpecialSales(macs, salesId, authSalesInfo.getDealerId(),
+                authAdminInfo.getId());
         int salesStoreCount = deviceRentDao.countNoRentedBySalesId(salesId);
         if(salesStoreCount >= AuthSalesInfo.GOLD_COUNT){
             authSalesDao.updateGoldById(salesId);

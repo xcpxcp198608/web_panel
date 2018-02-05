@@ -127,22 +127,6 @@ $(function () {
     });
 
 
-    //
-    // var currentMac = [];
-    // var currentRow = [];
-    // var currentIndex = 0;
-    // $('input[name=cbDevice]').each(function(index){
-    //     $(this).click(function(){
-    //         if($(this).is(":checked")) {
-    //             currentMac[currentIndex] = $(this).val();
-    //             currentRow[currentIndex] = parseInt($(this).attr('currentRow'));
-    //             currentIndex ++;
-    //         }else{
-    //             currentIndex --;
-    //         }
-    //     });
-    // });
-
 
     $('#btUpdate').click(function () {
         var currentMacs = [];
@@ -159,24 +143,39 @@ $(function () {
             showNotice('have no choose device');
             return;
         }
+        for(var i = 0; i < currentRows.length; i ++){
+            var row = currentRows[i];
+            var sales = tbDevices.rows[row].cells[3].children[0].innerHTML;
+            if(sales !== 'pcp'){
+                showNotice(tbDevices.rows[row].cells[2].innerHTML + ' can not update');
+                return;
+            }
+        }
+
         $('#spAmount').html(currentMacs.length * 100 + '.00');
         $('#modalUpdate').modal('show');
         $('#btSubmitUpdate').click(function () {
-            updateSales(currentMacs, currentRows)
+            var salesId = $('#ipUpdateSalesId').val();
+            if(salesId <= 0){
+                showErrorMessage($('#errorUpdate'), 'have no choose sales');
+                return;
+            }
+            var password = $('#ipAdminPassword').val();
+            if(password.length <= 0){
+                showErrorMessage($('#errorUpdate'), 'password input error');
+                return;
+            }
+            $('#errorUpdate').hide();
+            updateSales(currentMacs, currentRows, salesId, password)
         });
     });
 
 
-    function updateSales(currentMacs, currentRows) {
-        var salesId = $('#ipUpdateSalesId').val();
-        if(salesId <= 0){
-            showNotice('have no choose sales');
-            return;
-        }
+    function updateSales(currentMacs, currentRows, salesId, password) {
         $.ajax({
             type: "PUT",
             url: baseUrl + "/admin/devices/update",
-            data: {"macs": currentMacs, "salesId": salesId},
+            data: {"macs": currentMacs, "salesId": salesId, 'password': password},
             dataType: "json",
             beforeSend: function () {
                 $('#modalUpdate').modal('hide');

@@ -232,8 +232,8 @@ public class AuthAdmin {
     @ResponseBody
     public ResultInfo updateDeviceToSpecialSales(HttpServletRequest request,
                                                  @RequestParam(value = "macs[]") String [] macs,
-                                                 int salesId){
-        return authAdminService.bathUpdateDeviceToSpecialSales(request, macs, salesId);
+                                                 int salesId, String password){
+        return authAdminService.bathUpdateDeviceToSpecialSales(request, macs, salesId, password);
     }
 
     /**

@@ -74,6 +74,8 @@
 
       <div class="form-row">
         <div class="col-5">
+          <input style="display:none" type="text" name="fakeusernameremembered"/>
+          <input style="display:none" type="password" name="fakepasswordremembered"/>
           <input type="text" class="form-control" placeholder="Username" name="username">
         </div>
         <div class="col-5">
