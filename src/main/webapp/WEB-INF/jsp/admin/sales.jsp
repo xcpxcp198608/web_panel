@@ -380,7 +380,7 @@
                                 <select class="custom-select" id="ipActivateCategory">
                                     <option value="">Choose Activate Category</option>
                                     <c:forEach items="${salesActivateCategoryInfoList}" var="salesActivateCategoryInfo">
-                                        <option value="${salesActivateCategoryInfo.category}">${salesActivateCategoryInfo.category}</option>
+                                        <option value="${salesActivateCategoryInfo.category}">${salesActivateCategoryInfo.description}</option>
                                     </c:forEach>
                                 </select>
                             </div>

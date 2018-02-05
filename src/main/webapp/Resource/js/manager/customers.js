@@ -215,9 +215,54 @@ $(function () {
 
     $('#ipSearch').keyup(function () {
         var key = $(this).val().toLowerCase();
+        filterSearch(key, currentSearchIndex);
+    });
+
+    $('#ipLevelFto').click(function () {
+        filterSearch('fto', 7);
+    });
+    $('#ipLevel4').click(function () {
+        filterSearch('4', 7);
+    });
+    $('#ipLevel3').click(function () {
+        filterSearch('3', 7);
+    });
+    $('#ipLevel2').click(function () {
+        filterSearch('2', 7);
+    });
+    $('#ipLevel1').click(function () {
+        filterSearch('1', 7);
+    });
+    $('#ipLevel0').click(function () {
+        filterSearch('0', 7);
+    });
+
+    $('#ipStatusActivate').click(function () {
+        filterSearch('1', 8);
+    });
+
+    $('#ipStatusDeactivate').click(function () {
+        filterSearch('0', 8);
+    });
+
+    $('#ipStatusAll').click(function () {
+        showAllRows();
+        showOnlineAndTotalCount();
+    });
+
+    $('#ipStatusOnline').click(function () {
+        filterSearch('true', 9);
+    });
+
+    $('#ipStatusOffline').click(function () {
+        filterSearch('false', 9);
+    });
+    
+    function filterSearch(key, currentSearchIndex) {
         if(key.length <= 0){
             showAllRows();
         }else{
+            console.log(key);
             if(currentSearchIndex > 0) {
                 for (var m = 0; m < rowsLength; m ++) {
                     var content = tbUsers.rows[m].cells[currentSearchIndex].innerHTML.toLowerCase();
@@ -242,7 +287,7 @@ $(function () {
             }
         }
         showOnlineAndTotalCount();
-    });
+    }
 
 
     /**

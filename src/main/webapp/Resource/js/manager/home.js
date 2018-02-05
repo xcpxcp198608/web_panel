@@ -224,7 +224,6 @@ $(function () {
                 var length = dataList.length;
             }
             var totalVolume = 0;
-            console.log(yearXData);
             for(var i = 0; i < yearXData.length; i ++){
                 var volume = 0;
                 var currentM = yearXData[i];

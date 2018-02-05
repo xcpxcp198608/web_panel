@@ -135,9 +135,10 @@ public class AuthAdminService {
                 .selectOneByCategory(authSalesInfo.getActivateCategory());
         if(salesActivateCategoryInfo.getPrice() > 0) {
             //1. create transaction info
+            float amount = salesActivateCategoryInfo.getPrice() *
+                    (1 + AuthorizeTransactionInfo.TAX);
             AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
-                    .createFromAuthSales(authSalesInfo,
-                            salesActivateCategoryInfo.getPrice() + salesActivateCategoryInfo.getPrice() * AuthorizeTransactionInfo.TAX);
+                    .createFromAuthSales(authSalesInfo, amount);
 
             //2. process transaction and save transaction info
             AuthorizeTransactionInfo charge = new AuthorizeTransaction()

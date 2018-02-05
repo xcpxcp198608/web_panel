@@ -17,10 +17,10 @@ $(function () {
                 type: 'pie',
                 radius: '60%',
                 data:[
-                    {value:tbCategory.rows[0].cells[6].innerHTML, name:'LD'},
-                    {value:tbCategory.rows[0].cells[7].innerHTML, name:'LDE'},
-                    {value:tbCategory.rows[0].cells[8].innerHTML, name:'Dealer'},
-                    {value:tbCategory.rows[0].cells[9].innerHTML, name:'Sales'}
+                    {value:tbCategory.rows[0].cells[7].innerHTML, name:'LD'},
+                    {value:tbCategory.rows[0].cells[8].innerHTML, name:'LDE'},
+                    {value:tbCategory.rows[0].cells[9].innerHTML, name:'Dealer'},
+                    {value:tbCategory.rows[0].cells[10].innerHTML, name:'Sales'}
                 ]
             }
         ]
@@ -35,10 +35,10 @@ $(function () {
                 type: 'pie',
                 radius: '60%',
                 data:[
-                    {value:tbCategory.rows[1].cells[6].innerHTML, name:'LD'},
-                    {value:tbCategory.rows[1].cells[7].innerHTML, name:'LDE'},
-                    {value:tbCategory.rows[1].cells[8].innerHTML, name:'Dealer'},
-                    {value:tbCategory.rows[1].cells[9].innerHTML, name:'Sales'}
+                    {value:tbCategory.rows[1].cells[7].innerHTML, name:'LD'},
+                    {value:tbCategory.rows[1].cells[8].innerHTML, name:'LDE'},
+                    {value:tbCategory.rows[1].cells[9].innerHTML, name:'Dealer'},
+                    {value:tbCategory.rows[1].cells[10].innerHTML, name:'Sales'}
                 ]
             }
         ]
@@ -53,10 +53,10 @@ $(function () {
                 type: 'pie',
                 radius: '60%',
                 data:[
-                    {value:tbCategory.rows[2].cells[6].innerHTML, name:'LD'},
-                    {value:tbCategory.rows[2].cells[7].innerHTML, name:'LDE'},
-                    {value:tbCategory.rows[2].cells[8].innerHTML, name:'Dealer'},
-                    {value:tbCategory.rows[2].cells[9].innerHTML, name:'Sales'}
+                    {value:tbCategory.rows[2].cells[7].innerHTML, name:'LD'},
+                    {value:tbCategory.rows[2].cells[8].innerHTML, name:'LDE'},
+                    {value:tbCategory.rows[2].cells[9].innerHTML, name:'Dealer'},
+                    {value:tbCategory.rows[2].cells[10].innerHTML, name:'Sales'}
                 ]
             }
         ]

@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-6">
                     <label class="radio-inline">
                         <input type="radio" name="searchRadio" checked value="0">
                         <span class="badge badge-secondary" data-toggle="tooltip"
@@ -79,21 +79,42 @@
                         <span class="badge badge-secondary" data-toggle="tooltip"
                               title="search customer with index expires date">expiration date</span>
                     </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="searchRadio" value=7>
-                        <span class="badge badge-secondary" data-toggle="tooltip"
-                              title="search customer with index level(0,1,2,3,4,fto)">level</span>
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="searchRadio" value="8">
-                        <span class="badge badge-secondary" data-toggle="tooltip"
-                              title="search customer with index status(1, 0)">status</span>
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="searchRadio" value="9">
-                        <span class="badge badge-secondary" data-toggle="tooltip"
-                              title="search customer with index online(true, false)">online</span>
-                    </label>
+                </div>
+
+                <div class="col-1">
+                    <span class="badge badge-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                              title="search customer with index level" id="level">level</span>&nbsp;
+                    <div class="dropdown-menu" aria-labelledby="level">
+                        <span class="dropdown-item" id="ipLevelFto">fto</span>
+                        <span class="dropdown-item" id="ipLevel4">4</span>
+                        <span class="dropdown-item" id="ipLevel3">3</span>
+                        <span class="dropdown-item" id="ipLevel2">2</span>
+                        <span class="dropdown-item" id="ipLevel1">1</span>
+                        <span class="dropdown-item" id="ipLevel0">0</span>
+                    </div>
+                </div>
+
+                <div class="col-1">
+                    <span class="badge badge-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                          title="search customer with index status" id="status">status</span>&nbsp;
+                    <div class="dropdown-menu" aria-labelledby="status">
+                        <span class="dropdown-item" id="ipStatusActivate">
+                            <i class="fa fa-check text-muted"></i>
+                        </span>
+                        <span class="dropdown-item" id="ipStatusDeactivate">
+                            <i class="fa fa-close text-muted"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-1">
+                    <span class="badge badge-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                          title="search customer with index online" id="online">online</span>&nbsp;
+                    <div class="dropdown-menu" aria-labelledby="online">
+                        <span class="dropdown-item" id="ipStatusAll">All</span>
+                        <span class="dropdown-item" id="ipStatusOnline">Online</span>
+                        <span class="dropdown-item" id="ipStatusOffline">Offline</span>
+                    </div>
                 </div>
             </div>
 
@@ -110,6 +131,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-6">
                     <a id="btActivate" data-toggle="tooltip" title="activate the device">
@@ -134,31 +156,30 @@
                     </a>
                 </div>
             </div>
-            <c:if test="${username eq 'wiatec' || username eq 'james'}">
-            <div class="row" style="margin-top: 5px; height: 30px; font-size: 12px">
-                <div class="col-1">
-                    <select id="seUpdateLevel" style="height: 30px;">
-                        <option value="0">Level</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">fto</option>
-                    </select>
-                </div>
-                <div class="col-2" style="height: 30px">
-                    <input type="date" placeholder="Date(yyyy-mm-dd)" id="ipExpiresTime">
-                </div>
-                <div class="col-1">
-                    <a id="btUpdateLevel" data-toggle="tooltip" title="update customer level">
-                        <span class="badge badge-primary text-center" style="height: 30px; line-height: 30px; text-align: center">
-                            <i class="fa fa-upload"></i>&nbsp;Update
-                        </span>
-                    </a>
-                </div>
-            </div>
-            </c:if>
 
+            <c:if test="${username eq 'wiatec' || username eq 'james'}">
+                <div class="row" style="margin-top: 5px; height: 30px; font-size: 12px">
+                    <div class="col-1">
+                        <select id="seUpdateLevel" style="height: 30px;">
+                            <option value="0">Level</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">fto</option>
+                        </select>
+                    </div>
+                    <div class="col-2" style="height: 30px">
+                        <input type="date" placeholder="Date(yyyy-mm-dd)" id="ipExpiresTime">
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip"
+                                title="update customer level" id="btUpdateLevel">
+                                <i class="fa fa-upload"></i>&nbsp;Update
+                        </button>
+                    </div>
+                </div>
+            </c:if>
         </div>
 
         <div style="width: 100%; padding: 10px; background-color: white; overflow: scroll" >

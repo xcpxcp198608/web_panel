@@ -26,7 +26,9 @@ public class SalesActivateCategoryDaoTest {
 
     @Test
     public void selectOneByCategory() {
-        SalesActivateCategoryInfo salesActivateCategoryInfo = salesActivateCategoryDao.selectOneByCategory("AM1");
+        SalesActivateCategoryInfo salesActivateCategoryInfo = salesActivateCategoryDao
+                .selectOneByCategory("AM2");
         System.out.println(salesActivateCategoryInfo);
     }
+
 }

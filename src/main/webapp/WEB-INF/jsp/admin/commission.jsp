@@ -33,17 +33,17 @@
                             <td>${commissionCategoryInfo.deposit}</td>
                             <td>${commissionCategoryInfo.expires}</td>
                             <td>${commissionCategoryInfo.bonus}</td>
-                            <td>${commissionCategoryInfo.monthPay}</td>
-                            <td>${commissionCategoryInfo.svcCharge}</td>
-                            <td>${commissionCategoryInfo.ldCommission}</td>
-                            <td>${commissionCategoryInfo.ldeCommission}</td>
-                            <td>${commissionCategoryInfo.dealerCommission}</td>
-                            <td>${commissionCategoryInfo.salesCommission}</td>
-                            <td>${commissionCategoryInfo.activatePay}</td>
-                            <td>${commissionCategoryInfo.ldActivationComm}</td>
-                            <td>${commissionCategoryInfo.ldeActivationComm}</td>
-                            <td>${commissionCategoryInfo.dealerActivationComm}</td>
-                            <td>${commissionCategoryInfo.salesActivationComm}</td>
+                            <td style="color: greenyellow">${commissionCategoryInfo.monthPay}</td>
+                            <td style="color: greenyellow">${commissionCategoryInfo.svcCharge}</td>
+                            <td style="color: greenyellow">${commissionCategoryInfo.ldCommission}</td>
+                            <td style="color: greenyellow">${commissionCategoryInfo.ldeCommission}</td>
+                            <td style="color: greenyellow">${commissionCategoryInfo.dealerCommission}</td>
+                            <td style="color: greenyellow">${commissionCategoryInfo.salesCommission}</td>
+                            <td style="color: #0676f1">${commissionCategoryInfo.activatePay}</td>
+                            <td style="color: #0676f1">${commissionCategoryInfo.ldActivationComm}</td>
+                            <td style="color: #0676f1">${commissionCategoryInfo.ldeActivationComm}</td>
+                            <td style="color: #0676f1">${commissionCategoryInfo.dealerActivationComm}</td>
+                            <td style="color: #0676f1">${commissionCategoryInfo.salesActivationComm}</td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -80,7 +80,7 @@
                             <tr><td>LD</td><td style="font-style: italic; color: greenyellow">0</td></tr>
                             <tr><td>LDE</td><td style="font-style: italic; color: greenyellow">0</td></tr>
                             <tr><td>Dealer</td><td style="font-style: italic; color: greenyellow">0</td></tr>
-                            <tr><td>Sales</td><td style="font-style: italic; color: greenyellow">0</td></tr>
+                            <tr><td>Reps</td><td style="font-style: italic; color: greenyellow">0</td></tr>
                             <tr><td>SvcCharge</td><td style="font-style: italic; color: greenyellow">0</td></tr>
                             <tr><td>TxFee</td><td style="font-style: italic; color: greenyellow">0</td></tr>
                             <tr><td>Activation</td><td style="font-style: italic; color: #0676f1">0</td></tr>
@@ -139,8 +139,8 @@
                     <tr><td>LD</td><td class="text-warning">0</td></tr>
                     <tr><td>LDE</td><td class="text-warning">0</td></tr>
                     <tr><td>Dealer</td><td class="text-warning">0</td></tr>
-                    <tr><td>Rep</td><td class="text-warning">0</td></tr>
-                    <tr><td>SVC</td><td class="text-warning">0</td></tr>
+                    <tr><td>Reps</td><td class="text-warning">0</td></tr>
+                    <tr><td>SvcCharge</td><td class="text-warning">0</td></tr>
                     <tr><td>Tx-Fee</td><td class="text-warning">0</td></tr>
                     <tr><td>Activation</td><td class="text-primary">0</td></tr>
                     <tr><td>LD-A</td><td class="text-primary">0</td></tr>

@@ -39,7 +39,7 @@ public class AuthorizeTransactionSalesMemberInfo extends AuthorizeTransactionInf
     }
 
     public float getActivatePay() {
-        return activatePay * 0.08F;
+        return activatePay;
     }
 
     public void setActivatePay(float activatePay) {
