@@ -72,12 +72,12 @@
     </select>
 
     <select id="countTotalCommissionByDealerId" resultType="java.lang.Float">
-        SELECT COALESCE (SUM(dealer_commission), 0) FROM authorize_transaction_rental
+        SELECT COALESCE (SUM(dealer_commission + dealer_activation_comm), 0) FROM authorize_transaction_rental
         WHERE dealer_id = #{dealerId}
     </select>
 
     <select id="countTotalCommissionBySalesId" resultType="java.lang.Float">
-        SELECT COALESCE (SUM(sales_commission), 0) FROM authorize_transaction_rental
+        SELECT COALESCE (SUM(sales_commission + sales_activation_comm), 0) FROM authorize_transaction_rental
         WHERE sales_id = #{salesId}
     </select>
 
@@ -124,6 +124,16 @@
         GROUP BY salesUsername
         ORDER BY volume;
     </select>
+    <select id="selectAllSalesActivationCommByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultMap="allSalesMonthCommissionInfo">
+        SELECT sum(sales_activation_comm) commission, auth_sales.username salesUsername, COUNT(*) volume
+        FROM authorize_transaction_rental
+        JOIN auth_sales
+        ON authorize_transaction_rental.sales_id=auth_sales.id
+        WHERE create_time BETWEEN #{start} AND #{end}
+        GROUP BY salesUsername
+        ORDER BY volume;
+    </select>
     <select id="selectSalesCommissionByMonthAndDealer" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
             resultMap="allSalesMonthCommissionInfo">
         SELECT sum(sales_commission) commission, auth_sales.username salesUsername, COUNT(*) volume
@@ -140,6 +150,17 @@
     <select id="selectAllDealersCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
             resultType="com.wiatec.panel.oxm.pojo.chart.admin.AllDealerMonthCommissionInfo">
         SELECT sum(dealer_commission) commission, auth_dealer.username dealerUsername, COUNT(*) volume
+        FROM authorize_transaction_rental
+        JOIN auth_dealer
+        ON authorize_transaction_rental.dealer_id = auth_dealer.id
+        WHERE authorize_transaction_rental.create_time BETWEEN #{start} AND #{end}
+        GROUP BY dealerUsername
+        ORDER BY volume;
+    </select>
+
+    <select id="selectAllDealersActivationCommByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultType="com.wiatec.panel.oxm.pojo.chart.admin.AllDealerMonthCommissionInfo">
+        SELECT sum(dealer_activation_comm) commission, auth_dealer.username dealerUsername, COUNT(*) volume
         FROM authorize_transaction_rental
         JOIN auth_dealer
         ON authorize_transaction_rental.dealer_id = auth_dealer.id
@@ -191,6 +212,16 @@
         ORDER BY day
     </select>
 
+    <select id="getActivationCommissionOfDayByDealer" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultType="com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionOfDaysInfo">
+        SELECT sum(dealer_activation_comm) commission, DAYOFMONTH(create_time) day
+        FROM authorize_transaction_rental
+        WHERE create_time between #{start} and #{end}
+        AND dealer_id=#{dealerId}
+        GROUP BY day
+        ORDER BY day
+    </select>
+
     <select id="getCommissionOfMonthByDealer" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
             resultType="com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionOfMonthInfo">
         SELECT sum(dealer_commission) commission, MONTH(create_time) month
@@ -208,6 +239,16 @@
     <select id="getCommissionOfDayBySales" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
             resultType="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo">
         SELECT SUM(sales_commission) commission, DAYOFMONTH(create_time) day
+        FROM authorize_transaction_rental
+        WHERE create_time between #{start} and #{end}
+        AND sales_id=#{salesId}
+        GROUP BY day
+        ORDER BY day
+    </select>
+
+    <select id="getActivationCommissionOfDayBySales" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultType="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo">
+        SELECT SUM(sales_activation_comm) commission, DAYOFMONTH(create_time) day
         FROM authorize_transaction_rental
         WHERE create_time between #{start} and #{end}
         AND sales_id=#{salesId}

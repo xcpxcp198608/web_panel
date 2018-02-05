@@ -93,7 +93,7 @@
                         <th>RentedTime</th>
                         <th>Rented</th>
                         <th data-toggle="tooltip" title="Security Deposit Credit Note">SD CN</th>
-                        <th data-toggle="tooltip" title="security deposit is returned">Returned</th>
+                        <th data-toggle="tooltip" title="security deposit is returned">Checked</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -151,7 +151,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Confirm to return the security deposit to Rep.<br/>
+                    Confirm to return the security deposit to Rep.<br/><br/>
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon234">

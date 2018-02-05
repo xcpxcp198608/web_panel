@@ -118,9 +118,6 @@ public class AuthSalesService {
                 throw new XException(EnumResult.ERROR_DEVICE_USING);
             }
         }
-        if(authRentUserDao.countOneByEmail(authRentUserInfo) == 1){
-            throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
-        }
         if(authRegisterUserDao.countByMac(new AuthRegisterUserInfo(authRentUserInfo.getMac())) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
         }
@@ -146,14 +143,15 @@ public class AuthSalesService {
         authRentUserInfo.setDeposit(commissionCategoryInfo.getDeposit());
         authRentUserInfo.setFirstPay(commissionCategoryInfo.getFirstPay());
         authRentUserInfo.setMonthPay(commissionCategoryInfo.getMonthPay());
-        authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
         authRentUserInfo.setLdeCommission(commissionCategoryInfo.getLdeCommission());
         authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
         authRentUserInfo.setSvcCharge(commissionCategoryInfo.getSvcCharge());
         if(authSalesInfo.isGold()) {
             authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission() + 1);
+            authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission() -1);
         }else{
             authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
+            authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
         }
         if (paymentMethod == PAYMENT_METHOD_CASH) {
             authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CASH);
@@ -216,6 +214,12 @@ public class AuthSalesService {
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
         return authorizeTransactionRentalDao.getCommissionOfDayBySales(yearOrMonthInfo);
+    }
+
+    public List<SalesCommissionOfDaysInfo> selectSalesActivationCommissionEveryDayInMonth(HttpServletRequest request, int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
+        return authorizeTransactionRentalDao.getActivationCommissionOfDayBySales(yearOrMonthInfo);
     }
 
     public List<SalesCommissionOfMonthInfo> selectSalesCommissionEveryMonthInYear(HttpServletRequest request, int year){

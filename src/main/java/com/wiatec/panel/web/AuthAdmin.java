@@ -321,6 +321,18 @@ public class AuthAdmin {
     }
 
     /**
+     * get all dealer activation commission by specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        AllDealerMonthCommissionInfo list
+     */
+    @GetMapping(value = "/chart/dealer/commission/activation/{year}/{month}")
+    @ResponseBody
+    public List<AllDealerMonthCommissionInfo> getDealerActivationCommByMonth(@PathVariable int year, @PathVariable int month){
+        return authAdminService.getAllDealerActivationCommByMonth(year, month);
+    }
+
+    /**
      * get all sales commission by specify year and month
      * @param year    specify year
      * @param month   specify month
@@ -330,6 +342,19 @@ public class AuthAdmin {
     @ResponseBody
     public List<AllSalesMonthCommissionInfo> getSalesCommissionByMonth(@PathVariable int year, @PathVariable int month){
         return authAdminService.getAllSalesCommissionByMonth(year, month);
+    }
+
+
+    /**
+     * get all sales activation commission by specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        AllSalesMonthCommissionInfo list
+     */
+    @GetMapping(value = "/chart/sales/commission/activation/{year}/{month}")
+    @ResponseBody
+    public List<AllSalesMonthCommissionInfo> getSalesActivationCommByMonth(@PathVariable int year, @PathVariable int month){
+        return authAdminService.getAllSalesActivationCommByMonth(year, month);
     }
 
     /**

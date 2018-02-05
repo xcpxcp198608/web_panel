@@ -81,6 +81,7 @@ $(function () {
             showNotice('have no choose level');
             return;
         }
+        console.log(expiresTime);
         if(expiresTime.length <= 0 ){
             showNotice('have no choose expires date');
             return;

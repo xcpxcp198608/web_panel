@@ -31,7 +31,7 @@
             <div style="width: 100%; background-color: #c11021; height: 3px"></div>
             <div style="background-color: #ffffff; padding: 10px">
                 <div class="text-center" style="width: 100%">
-                    <span class="badge badge-warning ba-strong" id="totalVolume">
+                    <span class="badge badge-primary ba-strong" id="totalVolume">
                             ${totalVolume}
                     </span>
                 </div>
@@ -44,12 +44,12 @@
             <div style="width: 100%; background-color: #c11021; height: 3px"></div>
             <div style="background-color: #ffffff; padding: 10px">
                 <div class="text-center" style="width: 100%">
-                    <span class="badge badge-success ba-strong" id="currentMonthCommission">
+                    <span class="badge badge-danger ba-strong" id="currentMonthCommission">
                             0
                     </span>
                 </div>
                 <div class="text-center" style="width: 100%">
-                    <span class="text-muted " >month commission</span>
+                    <span class="text-muted " >month sales commission</span>
                 </div>
             </div>
         </div>
@@ -57,12 +57,12 @@
             <div style="width: 100%; background-color: #c11021; height: 3px"></div>
             <div style="background-color: #ffffff; padding: 10px">
                 <div class="text-center" style="width: 100%">
-                    <span class="badge badge-warning ba-strong" id="currentMonthVolume">
+                    <span class="badge badge-warning ba-strong" id="currentMonthActivationCommission">
                             0
                     </span>
                 </div>
                 <div class="text-center" style="width: 100%">
-                    <span class="text-muted " >month volume</span>
+                    <span class="text-muted " >month activation commission</span>
                 </div>
             </div>
         </div>
@@ -89,21 +89,48 @@
 
 
     <div class="row" style="padding: 0 10px 0 10px">
+        <div style="background-color: #ffffff; width: 100%">
+            <div id="chartCommission" class="d-flex" style="width: 100%; height: 200px"></div>
+        </div>
+    </div>
+
+    <div class="row" style="padding: 0 10px 0 10px">
         <div style="background-color: #ffffff; padding: 0 10px 0 10px; width: 100%; overflow: scroll">
             <table class="table table-sm table-hover table-striped table-dark" id="tbCommission">
                 <thead>
                 <tr id="thCommission"><td>#</td><td>Total</td></tr>
                 </thead>
                 <tbody>
-                <tr><td>commission</td><td>0</td></tr>
+                <tr><td>sales commission</td><td>0</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
+
     <div class="row" style="padding: 0 10px 0 10px">
         <div style="background-color: #ffffff; width: 100%">
-            <div id="chartCommission" class="d-flex" style="width: 100%; height: 200px"></div>
+            <div id="chartActivationCommission" class="d-flex" style="width: 100%; height: 200px"></div>
+        </div>
+    </div>
+
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div style="background-color: #ffffff; padding: 0 10px 0 10px; width: 100%; overflow: scroll">
+            <table class="table table-sm table-hover table-striped table-dark" id="tbActivationCommission">
+                <thead>
+                <tr id="thActivationCommission"><td>#</td><td>Total</td></tr>
+                </thead>
+                <tbody>
+                <tr><td>activation commission</td><td>0</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div style="background-color: #ffffff; width: 100%">
+            <div id="chartVolume" class="d-flex" style="width: 100%; height: 200px"></div>
         </div>
     </div>
 
@@ -123,11 +150,6 @@
         </div>
     </div>
 
-    <div class="row" style="padding: 0 10px 0 10px">
-        <div style="background-color: #ffffff; width: 100%">
-            <div id="chartVolume" class="d-flex" style="width: 100%; height: 200px"></div>
-        </div>
-    </div>
 
 
 

@@ -140,21 +140,20 @@ public class AuthAdminService {
                             salesActivateCategoryInfo.getPrice() + salesActivateCategoryInfo.getPrice() * AuthorizeTransactionInfo.TAX);
 
             //2. process transaction and save transaction info
-            AuthorizeTransactionInfo authorizeTransactionInfo1 = new AuthorizeTransaction()
+            AuthorizeTransactionInfo charge = new AuthorizeTransaction()
                     .charge(authorizeTransactionInfo);
-            if (authorizeTransactionInfo1 == null) {
+            if (charge == null) {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
             AuthorizeTransactionSalesMemberInfo authorizeTransactionSalesMemberInfo = AuthorizeTransactionSalesMemberInfo
-                    .create(authSalesInfo, salesActivateCategoryInfo, authorizeTransactionInfo1);
+                    .create(authSalesInfo, salesActivateCategoryInfo, charge);
 
             authorizeTransactionSalesMemberDao.insertOne(authorizeTransactionSalesMemberInfo);
             //3. send invoice
             try {
                 List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo);
                 SalesMemberInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-                String invoice = SalesMemberInvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionSalesMemberInfo
-                        .getTransactionId(), invoiceInfoList);
+                String invoice = SalesMemberInvoiceUtil.createInvoice(authSalesInfo.getEmail(), charge.getTransactionId(), invoiceInfoList);
                 SalesMemberInvoiceUtil.copyInvoice(invoice);
                 EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LDE);
                 emailMaster.setInvoiceContent(authSalesInfo.getUsername());
@@ -350,6 +349,18 @@ public class AuthAdminService {
         if(authSalesInfo == null){
             throw new XException(1100, "rep not exists");
         }
+        if(authSalesInfo.isGold() && !authSalesInfo.isSdcn()){
+            throw new XException(1100, "sales volume less than 5");
+        }
+        for(String mac: macs){
+            DeviceRentInfo deviceRentInfo = deviceRentDao.selectOneByMac(new DeviceRentInfo(mac));
+            if(deviceRentInfo.isChecked()){
+                throw new XException(1100, mac + " already checked");
+            }
+            if(!deviceRentInfo.isRented() || !deviceRentInfo.isSdcn()){
+                throw new XException(1100, mac + " can not check");
+            }
+        }
         deviceRentDao.bathUpdateDeviceToChecked(macs, salesId, checkNumber);
         int sdcnCount = deviceRentDao.countSDCNBySalesId(salesId);
         if(sdcnCount <= 0){
@@ -383,9 +394,19 @@ public class AuthAdminService {
         return authorizeTransactionRentalDao.selectAllDealersCommissionByMonth(yearOrMonthInfo);
     }
 
+    public List<AllDealerMonthCommissionInfo> getAllDealerActivationCommByMonth(int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        return authorizeTransactionRentalDao.selectAllDealersActivationCommByMonth(yearOrMonthInfo);
+    }
+
     public List<AllSalesMonthCommissionInfo> getAllSalesCommissionByMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         return authorizeTransactionRentalDao.selectAllSalesCommissionByMonth(yearOrMonthInfo);
+    }
+
+    public List<AllSalesMonthCommissionInfo> getAllSalesActivationCommByMonth(int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        return authorizeTransactionRentalDao.selectAllSalesActivationCommByMonth(yearOrMonthInfo);
     }
 
     public List<SalesAmountInfo> selectSaleAmountEveryMonthInYear(int year){

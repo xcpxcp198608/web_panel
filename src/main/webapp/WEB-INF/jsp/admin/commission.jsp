@@ -19,9 +19,10 @@
             <table class="table table-sm table-hover table-striped table-dark" id="tbCategory">
                 <thead>
                     <tr><td>#</td><td>Price</td><td>Deposit</td><td>Expires</td>
-                        <td>Bonus</td><td>Activation</td>
+                        <td>Bonus</td><td>MonthPay</td><td>SVCCharge</td>
                         <td>LD</td><td>LDE</td><td>Dealer</td><td>Sales</td>
-                        <td>LD-A</td><td>LDE-A</td><td>Dealer-A</td><td>Sales-A</td>
+                        <td>Activation</td><td>LD-A</td><td>LDE-A</td>
+                        <td>Dealer-A</td><td>Sales-A</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,11 +33,13 @@
                             <td>${commissionCategoryInfo.deposit}</td>
                             <td>${commissionCategoryInfo.expires}</td>
                             <td>${commissionCategoryInfo.bonus}</td>
-                            <td>${commissionCategoryInfo.activatePay}</td>
+                            <td>${commissionCategoryInfo.monthPay}</td>
+                            <td>${commissionCategoryInfo.svcCharge}</td>
                             <td>${commissionCategoryInfo.ldCommission}</td>
                             <td>${commissionCategoryInfo.ldeCommission}</td>
                             <td>${commissionCategoryInfo.dealerCommission}</td>
                             <td>${commissionCategoryInfo.salesCommission}</td>
+                            <td>${commissionCategoryInfo.activatePay}</td>
                             <td>${commissionCategoryInfo.ldActivationComm}</td>
                             <td>${commissionCategoryInfo.ldeActivationComm}</td>
                             <td>${commissionCategoryInfo.dealerActivationComm}</td>
@@ -73,18 +76,18 @@
                     <table class="table table-sm table-hover table-striped table-dark" id="tbYearIncome">
                         <tbody>
                             <tr><td>Income</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>Deposit</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>LD</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>LDE</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>Dealer</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>Sales</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>SvcCharge</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>TxFee</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>Activation</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>LD-A</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>LDE-A</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>Dealer-A</td><td style="font-style: italic; color: orange">0</td></tr>
-                            <tr><td>Sales-A</td><td style="font-style: italic; color: orange">0</td></tr>
+                            <tr><td>Deposit</td><td style="font-style: italic; color: greenyellow">0</td></tr>
+                            <tr><td>LD</td><td style="font-style: italic; color: greenyellow">0</td></tr>
+                            <tr><td>LDE</td><td style="font-style: italic; color: greenyellow">0</td></tr>
+                            <tr><td>Dealer</td><td style="font-style: italic; color: greenyellow">0</td></tr>
+                            <tr><td>Sales</td><td style="font-style: italic; color: greenyellow">0</td></tr>
+                            <tr><td>SvcCharge</td><td style="font-style: italic; color: greenyellow">0</td></tr>
+                            <tr><td>TxFee</td><td style="font-style: italic; color: greenyellow">0</td></tr>
+                            <tr><td>Activation</td><td style="font-style: italic; color: #0676f1">0</td></tr>
+                            <tr><td>LD-A</td><td style="font-style: italic; color: #0676f1">0</td></tr>
+                            <tr><td>LDE-A</td><td style="font-style: italic; color: #0676f1">0</td></tr>
+                            <tr><td>Dealer-A</td><td style="font-style: italic; color: #0676f1">0</td></tr>
+                            <tr><td>Sales-A</td><td style="font-style: italic; color: #0676f1">0</td></tr>
                         </tbody>
                     </table>
                 </div>

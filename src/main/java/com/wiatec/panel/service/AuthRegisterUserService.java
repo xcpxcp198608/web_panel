@@ -133,14 +133,14 @@ public class AuthRegisterUserService {
         if(TextUtil.isEmpty(activateTime)){
             activateTime = "2017-01-01 00:00:00";
         }
-        String e = TimeUtil.getExpiresTimeByDay(activateTime, 7);
-        if (!TimeUtil.isOutExpires(e)) {
-            authRegisterUserInfo.setExperience(true);
-        }
         if(authRegisterUserInfo.getLevel() > 1 && TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())) {
             authRegisterUserInfo.setLevel(1);
             authRegisterUserInfo.setExpiresTime("");
             authRegisterUserDao.updateLevelById(authRegisterUserInfo);
+        }
+        String e = TimeUtil.getExpiresTimeByDay(activateTime, 7);
+        if (!TimeUtil.isOutExpires(e)) {
+            authRegisterUserInfo.setExperience(true);
         }
         return ResultMaster.success(authRegisterUserInfo);
     }

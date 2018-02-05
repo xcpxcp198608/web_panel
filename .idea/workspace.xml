@@ -7,90 +7,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcbb8162-7201-4f40-a409-92e2db470717" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_jexcelapi_jxl_2_6_12.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransactionInfo.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransactionSalesMemberInfo.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthorizeTransactionSalesMemberDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransactionSalesMemberDao.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/task/UserDataBackUpTask.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/img/lde.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/authorize/AuthorizeTransactionTest.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/authorize/RentalMonthAuthorizeTaskTest.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/oxm/pojo/chart/YearOrMonthInfoTest.java" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Gradle___com_wiatec___panel_1_0_SNAPSHOT_war__exploded_.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Gradle___com_wiatec___panel_1_0_SNAPSHOT_war__exploded_.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/panel_main.iml" afterPath="$PROJECT_DIR$/.idea/modules/panel_main.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/panel_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/panel_test.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransactionRental.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransaction.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransactionRentalInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransactionRentalInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransactionSales.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransactionSalesInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransactionSalesDepositInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/RentalMonthAuthorizeTask.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/RentalMonthAuthorizeTask.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/EnumResult.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/result/EnumResult.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/EmailMaster.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/EmailMaster.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/TimeUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/TimeUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceInfoMaker.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceInfoMaker.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/SalesInvoiceUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/SalesMemberInvoiceUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRegisterUserDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRegisterUserDao.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthorizeTransactionRentalDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthorizeTransactionRentalDao.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthorizeTransactionSalesDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthorizeTransactionSalesDepositDao.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/CommissionCategoryDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/CommissionCategoryDao.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/DeviceRentDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/DeviceRentDao.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/SalesActivateCategoryDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/SalesActivateCategoryDao.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRegisterUser.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRegisterUser.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransactionRentalDao.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransactionRentalDao.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransactionSalesDao.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransactionSalesDepositDao.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/CommissionCategory.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/CommissionCategory.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/DeviceRent.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/DeviceRent.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/SalesActivateCategoryDao.xml" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/SalesActivateCategoryDao.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthDealerInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthDealerInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthManagerInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthManagerInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthRegisterUserInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthRegisterUserInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthRentUserInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthRentUserInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/CommissionCategoryInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/CommissionCategoryInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/SalesGoldCategoryInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/SalesGoldCategoryInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/chart/YearOrMonthInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/chart/YearOrMonthInfo.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/chart/admin/SalesAmountInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/chart/admin/SalesAmountInfo.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRegisterUserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRegisterUserService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRentUserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRentUserService.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthDealerService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthDealerService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthManagerService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthManagerService.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/task/RegisterUserLevelTask.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/task/RegisterUserLevelTask.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthAdmin.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthAdmin.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/css/base.css" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/css/base.css" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/commission.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/commission.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/devices.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/devices.js" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthDealer.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthDealer.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthSales.java" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthSales.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/dealer.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/dealer.js" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales_detail.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales_detail.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/customers.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/customers.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/sales.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/sales.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/manager/home.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/manager/home.js" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/manager/level.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/manager/level.js" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/home.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/home.js" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/manager/customers.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/manager/customers.js" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/Resource/js/sales/home.js" afterPath="$PROJECT_DIR$/src/main/webapp/Resource/js/sales/home.js" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/commission.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/commission.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/devices.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/devices.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/dealer.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/dealer.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales_detail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales_detail.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/base.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/base.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/base_dealer.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/base_dealer.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/customers.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/customers.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/sales.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/sales.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manager/customers.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manager/customers.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manager/home.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manager/home.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/create_user.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/create_user.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/authorize/AuthorizeTransactionRentalTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/authorize/AuthorizeTransactionRentalTest.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/home.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/home.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/home.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/home.jsp" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/common/utils/TimeUtilTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/common/utils/TimeUtilTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/oxm/dao/AuthRegisterUserDaoTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/oxm/dao/AuthRegisterUserDaoTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/oxm/dao/AuthorizeTransactionSalesDaoTest.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/oxm/dao/DeviceRentDaoTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/oxm/dao/DeviceRentDaoTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/oxm/dao/SalesActivateCategoryDaoTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/wiatec/panel/oxm/dao/SalesActivateCategoryDaoTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -127,13 +66,6 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="panel: schema" type="c314c289:MysqlImplModel$Schema" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="panel@www.ldlegacy.com" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="panel: schema" type="c314c289:MysqlImplModel$Schema" />
-        <item name="auth_manager: table" type="98d5ac3d:MysqlImplModel$Table" />
-      </path>
     </expand>
     <select />
   </component>
@@ -150,7 +82,7 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -478,26 +410,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/customers.js" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransactionInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthorizeTransactionRentalDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/CommissionCategoryInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/CommissionCategoryDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/CommissionCategory.xml" />
-        <option value="$PROJECT_DIR$/src/test/java/com/wiatec/panel/authorize/RentalMonthAuthorizeTaskTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/wiatec/panel/oxm/dao/SalesActivateCategoryDaoTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/wiatec/panel/authorize/AuthorizeTransactionRentalTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransactionRentalInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/InvoiceInfoMaker.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRegisterUserDao.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/wiatec/panel/oxm/dao/AuthRegisterUserDaoTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/chart/admin/SalesAmountInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransactionRentalDao.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransaction.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/commission.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/commission.jsp" />
-        <option value="$PROJECT_DIR$/src/test/java/com/wiatec/panel/common/utils/TimeUtilTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/TimeUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/task/RegisterUserLevelTask.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthRegisterUserInfo.java" />
@@ -506,18 +424,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/task/UserDataBackUpTask.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/sales/home.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/create_user.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/DeviceRentDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/DeviceRent.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthAdmin.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales_detail.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales_detail.js" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRegisterUserService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthDealerService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/SalesMemberInvoiceUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/RentalMonthAuthorizeTask.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/EmailMaster.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthManager.java" />
@@ -526,9 +436,31 @@
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthManagerInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthManagerService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/manager/home.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manager/customers.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manager/home.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/Resource/css/base.css" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthAdmin.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/commission.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/dealer.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/dealer.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js" />
+        <option value="$PROJECT_DIR$/src/test/java/com/wiatec/panel/common/utils/TimeUtilTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRegisterUserService.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/manager/customers.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manager/customers.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthSales.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/home.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/sales/home.js" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthDealer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthDealerService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthorizeTransactionRentalDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransactionRentalDao.xml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/home.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/home.js" />
+        <option value="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales_detail.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales_detail.js" />
       </list>
     </option>
   </component>
@@ -584,8 +516,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -626,7 +556,45 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="panel" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="authorize" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="panel" type="462c0819:PsiDirectoryNode" />
+              <item name="oxm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="panel" type="462c0819:PsiDirectoryNode" />
+              <item name="oxm" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="panel" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="panel" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="auth" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="panel" type="b2602c69:ProjectViewProjectNode" />
@@ -636,6 +604,13 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="panel" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="panel" type="b2602c69:ProjectViewProjectNode" />
@@ -678,7 +653,17 @@
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="Resource" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="Resource" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="dealer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="panel" type="b2602c69:ProjectViewProjectNode" />
@@ -705,7 +690,17 @@
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
               <item name="jsp" type="462c0819:PsiDirectoryNode" />
-              <item name="manager" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+              <item name="dealer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="panel" type="b2602c69:ProjectViewProjectNode" />
@@ -727,6 +722,15 @@
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="panel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="panel" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="panel" type="b2602c69:ProjectViewProjectNode" />
@@ -736,29 +740,14 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="panel" type="462c0819:PsiDirectoryNode" />
               <item name="oxm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="panel" type="462c0819:PsiDirectoryNode" />
-              <item name="oxm" type="462c0819:PsiDirectoryNode" />
-              <item name="chart" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="panel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="panel" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -826,7 +815,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.YearOrMonthInfoTest.test">
+  <component name="RunManager" selected="Tomcat Server.8.5.24">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
@@ -866,31 +855,6 @@
       <module name="" />
       <envs />
     </configuration>
-    <configuration name="AuthRegisterUserDaoTest.selectAllExpiresUsers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.wiatec.panel.oxm.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="panel_test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.wiatec.panel.oxm.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.wiatec.panel.oxm.dao.AuthRegisterUserDaoTest" />
-      <option name="METHOD_NAME" value="selectAllExpiresUsers" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
     <configuration name="RentalMonthAuthorizeTaskTest.executeUploadBackTask" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -904,6 +868,31 @@
       <option name="PACKAGE_NAME" value="com.wiatec.panel.authorize" />
       <option name="MAIN_CLASS_NAME" value="com.wiatec.panel.authorize.RentalMonthAuthorizeTaskTest" />
       <option name="METHOD_NAME" value="executeUploadBackTask" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="TimeUtilTest.getExpiresTimeByDay" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.wiatec.panel.common.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="panel_test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.wiatec.panel.common.utils" />
+      <option name="MAIN_CLASS_NAME" value="com.wiatec.panel.common.utils.TimeUtilTest" />
+      <option name="METHOD_NAME" value="getExpiresTimeByDay" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -1102,18 +1091,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Tomcat Server.8.5.24" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.RentalMonthAuthorizeTaskTest.executeUploadBackTask" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.AuthRegisterUserDaoTest.selectAllExpiresUsers" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.TimeUtilTest.isOutExpires1" />
-      <item index="4" class="java.lang.String" itemvalue="Application.EmailMaster" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.YearOrMonthInfoTest.test" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.TimeUtilTest.isOutExpires1" />
+      <item index="3" class="java.lang.String" itemvalue="Application.EmailMaster" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.YearOrMonthInfoTest.test" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.TimeUtilTest.getExpiresTimeByDay" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.YearOrMonthInfoTest.test" />
-        <item index="1" class="java.lang.String" itemvalue="Application.EmailMaster" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.TimeUtilTest.isOutExpires1" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.RentalMonthAuthorizeTaskTest.executeUploadBackTask" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.AuthRegisterUserDaoTest.selectAllExpiresUsers" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.TimeUtilTest.isOutExpires1" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.TimeUtilTest.getExpiresTimeByDay" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.YearOrMonthInfoTest.test" />
+        <item index="3" class="java.lang.String" itemvalue="Application.EmailMaster" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.RentalMonthAuthorizeTaskTest.executeUploadBackTask" />
       </list>
     </recent_temporary>
   </component>
@@ -1258,14 +1247,9 @@
       <workItem from="1517459814770" duration="13824000" />
       <workItem from="1517534801169" duration="31037000" />
       <workItem from="1517620700007" duration="12604000" />
-      <workItem from="1517644763759" duration="7013000" />
-    </task>
-    <task id="LOCAL-00025" summary="201712221815">
-      <created>1513937762483</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1513937762483</updated>
+      <workItem from="1517644763759" duration="8953000" />
+      <workItem from="1517710739866" duration="1895000" />
+      <workItem from="1517794297518" duration="16607000" />
     </task>
     <task id="LOCAL-00026" summary="201712231205">
       <created>1514001891660</created>
@@ -1603,15 +1587,22 @@
       <option name="project" value="LOCAL" />
       <updated>1517479691986</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="201802031800">
+      <created>1517652373279</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1517652373284</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="YearOrMonthInfoTest_test - 2018.02.03 at 16h 53m 44s.xml">
-      <configuration name="YearOrMonthInfoTest.test" configurationId="JUnit" />
+    <history-entry file="TimeUtilTest_getExpiresTimeByDay - 2018.02.05 at 13h 18m 06s.xml">
+      <configuration name="TimeUtilTest.getExpiresTimeByDay" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="YearOrMonthInfoTest_test - 2018.02.03 at 16h 54m 00s.xml">
-      <configuration name="YearOrMonthInfoTest.test" configurationId="JUnit" />
+    <history-entry file="TimeUtilTest_isOutExpires1 - 2018.02.05 at 13h 18m 20s.xml">
+      <configuration name="TimeUtilTest.isOutExpires1" configurationId="JUnit" />
     </history-entry>
     <history-entry file="YearOrMonthInfoTest_test - 2018.02.03 at 16h 54m 33s.xml">
       <configuration name="YearOrMonthInfoTest.test" configurationId="JUnit" />
@@ -1639,7 +1630,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1003451000" />
+    <option name="totallyTimeSpent" value="1023893000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1674,11 +1665,11 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.49712643" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3612218" sideWeight="0.49137932" order="5" side_tool="false" content_ui="tabs" x="0" y="0" width="1440" height="900" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3612218" sideWeight="0.49137932" order="5" side_tool="false" content_ui="tabs" x="0" y="0" width="1440" height="900" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31341302" sideWeight="0.49712643" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.4928161" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32802126" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18462643" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17816092" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1771,7 +1762,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="201801151750" />
     <MESSAGE value="201801151757" />
     <MESSAGE value="201801231100" />
     <MESSAGE value="201801231150" />
@@ -1796,11 +1786,12 @@
     <MESSAGE value="201802011735" />
     <MESSAGE value="201802011750" />
     <MESSAGE value="201802011805" />
-    <option name="LAST_COMMIT_MESSAGE" value="201802011805" />
+    <MESSAGE value="201802031800" />
+    <option name="LAST_COMMIT_MESSAGE" value="201802031800" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="18" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1809,306 +1800,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/customers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5589">
-          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/dealer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5759">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/manager/customers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4688">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/manager/level.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4501">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/manager/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4382">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/distribution.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/transactions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1526">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="6720" column="4" lean-forward="false" selection-start-line="6720" selection-start-column="4" selection-end-line="6720" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/commission.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="128" column="41" lean-forward="false" selection-start-line="128" selection-start-column="41" selection-end-line="128" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/commission.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="247" column="36" lean-forward="false" selection-start-line="247" selection-start-column="23" selection-end-line="247" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRentUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="65" column="28" lean-forward="false" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/TimeUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="97" column="26" lean-forward="false" selection-start-line="97" selection-start-column="26" selection-end-line="97" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthRegisterUserInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-200">
-          <caret line="251" column="18" lean-forward="false" selection-start-line="251" selection-start-column="18" selection-end-line="251" selection-end-column="18" />
-          <folding>
-            <element signature="e#4135#4136#0" expanded="false" />
-            <element signature="e#4169#4170#0" expanded="false" />
-            <element signature="e#4223#4224#0" expanded="false" />
-            <element signature="e#4269#4270#0" expanded="false" />
-            <element signature="e#4306#4307#0" expanded="false" />
-            <element signature="e#4339#4340#0" expanded="false" />
-            <element signature="e#4391#4392#0" expanded="false" />
-            <element signature="e#4435#4436#0" expanded="false" />
-            <element signature="e#4471#4472#0" expanded="false" />
-            <element signature="e#4503#4504#0" expanded="false" />
-            <element signature="e#4553#4554#0" expanded="false" />
-            <element signature="e#4595#4596#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthRentUserInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="391" column="18" lean-forward="false" selection-start-line="391" selection-start-column="18" selection-end-line="391" selection-end-column="18" />
-          <folding>
-            <element signature="e#7501#7502#0" expanded="false" />
-            <element signature="e#7535#7536#0" expanded="false" />
-            <element signature="e#7589#7590#0" expanded="false" />
-            <element signature="e#7635#7636#0" expanded="false" />
-            <element signature="e#7672#7673#0" expanded="false" />
-            <element signature="e#7705#7706#0" expanded="false" />
-            <element signature="e#7757#7758#0" expanded="false" />
-            <element signature="e#7801#7802#0" expanded="false" />
-            <element signature="e#7837#7838#0" expanded="false" />
-            <element signature="e#7869#7870#0" expanded="false" />
-            <element signature="e#7919#7920#0" expanded="false" />
-            <element signature="e#7961#7962#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRentUser.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="163" column="13" lean-forward="true" selection-start-line="163" selection-start-column="13" selection-end-line="163" selection-end-column="13" />
-          <folding>
-            <marker date="1517623796652" expanded="true" signature="2526:3896" ph="SELECT auth_... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="4025:4083" ph="SELECT COUNT... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="4217:4279" ph="SELECT COUNT... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="4428:4478" ph="SELECT statu... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="5397:5475" ph="SELECT COUNT... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="5574:5650" ph="SELECT COUNT... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="5763:6630" ph="INSERT INTO auth_rent_user... " />
-            <marker date="1517623796652" expanded="true" signature="6971:7072" ph="SELECT COUNT... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="7391:7516" ph="UPDATE auth_rent_user... " />
-            <marker date="1517623796652" expanded="true" signature="7637:7998" ph="UPDATE auth_rent_user... " />
-            <marker date="1517623796652" expanded="true" signature="8114:8389" ph="UPDATE auth_rent_user... " />
-            <marker date="1517623796652" expanded="true" signature="8873:9090" ph="SELECT categ... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="9279:9548" ph="SELECT categ... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="9738:10008" ph="SELECT categ... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="10385:10650" ph="SELECT s.sal... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="10812:11108" ph="SELECT s.sal... auth_rent_user" />
-            <marker date="1517623796652" expanded="true" signature="11246:11345" ph="SELECT count... auth_rent_user" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="88" column="0" lean-forward="true" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/task/UserDataBackUpTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="18" column="33" lean-forward="true" selection-start-line="18" selection-start-column="33" selection-end-line="18" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/task/RegisterUserLevelTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="33" column="4" lean-forward="false" selection-start-line="33" selection-start-column="4" selection-end-line="37" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2904">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/home.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-147">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/sales/home.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="155" column="13" lean-forward="true" selection-start-line="155" selection-start-column="13" selection-end-line="155" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/create_user.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="134" column="66" lean-forward="true" selection-start-line="134" selection-start-column="66" selection-end-line="134" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/sales/create_user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="55" column="7" lean-forward="true" selection-start-line="55" selection-start-column="7" selection-end-line="55" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/DeviceRent.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="90" column="18" lean-forward="true" selection-start-line="90" selection-start-column="18" selection-end-line="90" selection-end-column="18" />
-          <folding>
-            <marker date="1517632142999" expanded="true" signature="1081:1510" ph="SELECT devic... device_rent" />
-            <marker date="1517632142999" expanded="true" signature="1646:1717" ph="SELECT COUNT... device_rent" />
-            <marker date="1517632142999" expanded="true" signature="1807:1862" ph="SELECT sales... device_rent" />
-            <marker date="1517632142999" expanded="true" signature="2799:2928" ph="INSERT INTO device_rent... " />
-            <marker date="1517632142999" expanded="true" signature="3052:3169" ph="UPDATE device_rent... " />
-            <marker date="1517632142999" expanded="true" signature="3541:3683" ph="UPDATE device_rent... " />
-            <marker date="1517632142999" expanded="true" signature="3927:4044" ph="UPDATE device_rent... " />
-            <marker date="1517632142999" expanded="true" signature="4107:4192" ph="UPDATE device_rent... " />
-            <marker date="1517632142999" expanded="true" signature="4288:4389" ph="SELECT COUNT... device_rent" />
-            <marker date="1517632142999" expanded="true" signature="4481:4582" ph="SELECT COUNT... device_rent" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/DeviceRentDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthAdmin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="241" column="7" lean-forward="true" selection-start-line="241" selection-start-column="7" selection-end-line="241" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales_detail.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="158" column="35" lean-forward="true" selection-start-line="158" selection-start-column="35" selection-end-line="158" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/49917121/0aa6f387-5a57-419b-b01e-9927dd066fc4/panel.device_rent">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales_detail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="39" column="47" lean-forward="false" selection-start-line="39" selection-start-column="47" selection-end-line="39" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRegisterUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="162" column="78" lean-forward="false" selection-start-line="162" selection-start-column="78" selection-end-line="162" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1176">
-          <caret line="158" column="83" lean-forward="false" selection-start-line="158" selection-start-column="58" selection-end-line="158" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthDealerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="121" column="49" lean-forward="true" selection-start-line="121" selection-start-column="49" selection-end-line="121" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/invoice/SalesMemberInvoiceUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -2117,26 +1808,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="180" column="79" lean-forward="false" selection-start-line="180" selection-start-column="79" selection-end-line="180" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/RentalMonthAuthorizeTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="245">
           <caret line="145" column="79" lean-forward="false" selection-start-line="145" selection-start-column="79" selection-end-line="145" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/EmailMaster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="264" column="0" lean-forward="true" selection-start-line="264" selection-start-column="0" selection-end-line="264" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2151,19 +1826,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/wiatec/panel/common/utils/TimeUtilTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthRegisterUserDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
           <caret line="48" column="41" lean-forward="false" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2171,24 +1837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
           <caret line="37" column="29" lean-forward="true" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
-          <folding>
-            <element signature="e#1490#1491#0" expanded="false" />
-            <element signature="e#1518#1519#0" expanded="false" />
-            <element signature="e#1560#1561#0" expanded="false" />
-            <element signature="e#1594#1595#0" expanded="false" />
-            <element signature="e#1624#1625#0" expanded="false" />
-            <element signature="e#1650#1651#0" expanded="false" />
-            <element signature="e#1688#1689#0" expanded="false" />
-            <element signature="e#1718#1719#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="false" />
-            <element signature="e#1782#1783#0" expanded="false" />
-            <element signature="e#1828#1829#0" expanded="false" />
-            <element signature="e#1866#1867#0" expanded="false" />
-            <element signature="e#1901#1902#0" expanded="false" />
-            <element signature="e#1932#1933#0" expanded="false" />
-            <element signature="e#1980#1981#0" expanded="false" />
-            <element signature="e#2020#2021#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2232,7 +1880,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="52" column="72" lean-forward="true" selection-start-line="52" selection-start-column="72" selection-end-line="52" selection-end-column="72" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2240,7 +1887,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="55" column="36" lean-forward="true" selection-start-line="55" selection-start-column="36" selection-end-line="55" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2248,7 +1894,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="41" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2256,15 +1901,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="333">
           <caret line="208" column="37" lean-forward="false" selection-start-line="208" selection-start-column="37" selection-end-line="208" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manager/customers.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="135" column="18" lean-forward="true" selection-start-line="135" selection-start-column="18" selection-end-line="135" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2280,8 +1916,8 @@
         <state relative-caret-position="49">
           <caret line="66" column="52" lean-forward="true" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
           <folding>
-            <element signature="e#2719#2749#0#HTML" expanded="true" />
-            <element signature="e#2764#2855#0#HTML" expanded="true" />
+            <element signature="e#2719#2749#0#HTML" expanded="false" />
+            <element signature="e#2764#2855#0#HTML" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2290,6 +1926,338 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
           <caret line="95" column="12" lean-forward="true" selection-start-line="95" selection-start-column="12" selection-end-line="95" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/inteceptor/AuthInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="46" column="9" lean-forward="true" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="86" column="36" lean-forward="true" selection-start-line="86" selection-start-column="36" selection-end-line="86" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/Auth.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="28" column="31" lean-forward="true" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/EmailMaster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/SalesActivateCategoryInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-316">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/SalesActivateCategoryDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="16" lean-forward="false" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+          <folding>
+            <marker date="1517551708814" expanded="true" signature="226:309" ph="SELECT id, c... sales_activate_category" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/SalesActivateCategoryDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="25" column="39" lean-forward="false" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/49917121/0aa6f387-5a57-419b-b01e-9927dd066fc4/panel.sales_activate_category">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransactionSalesMemberInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="64" column="84" lean-forward="false" selection-start-line="64" selection-start-column="59" selection-end-line="64" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/authorize/AuthorizeTransaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="159" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/AuthSalesInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-659">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthAdmin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="319" column="44" lean-forward="false" selection-start-line="319" selection-start-column="44" selection-end-line="319" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/commission.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="92" column="22" lean-forward="true" selection-start-line="92" selection-start-column="22" selection-end-line="92" selection-end-column="22" />
+          <folding>
+            <element signature="e#4771#4813#0#HTML" expanded="false" />
+            <element signature="e#4875#4917#0#HTML" expanded="false" />
+            <element signature="e#4980#5022#0#HTML" expanded="false" />
+            <element signature="e#5088#5130#0#HTML" expanded="false" />
+            <element signature="e#5195#5237#0#HTML" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/dealer.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="116" column="23" lean-forward="false" selection-start-line="116" selection-start-column="23" selection-end-line="116" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="91" column="23" lean-forward="false" selection-start-line="91" selection-start-column="23" selection-end-line="91" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/dealer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="717">
+          <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="219" column="0" lean-forward="false" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/sales/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2026">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/common/utils/TimeUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/wiatec/panel/common/utils/TimeUtilTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="19" column="63" lean-forward="false" selection-start-line="19" selection-start-column="63" selection-end-line="19" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/AuthRegisterUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="144" column="58" lean-forward="true" selection-start-line="144" selection-start-column="58" selection-end-line="144" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/manager/customers.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="145" column="54" lean-forward="true" selection-start-line="145" selection-start-column="54" selection-end-line="145" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/manager/customers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="70" column="21" lean-forward="false" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="21" />
+          <folding>
+            <marker date="1517808253372" expanded="true" signature="3642:3656" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthSales.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthSalesService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="59" column="70" lean-forward="false" selection-start-line="59" selection-start-column="70" selection-end-line="59" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/sales/home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="246" column="10" lean-forward="true" selection-start-line="246" selection-start-column="10" selection-end-line="246" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/sales/home.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="59" column="100" lean-forward="false" selection-start-line="59" selection-start-column="68" selection-end-line="59" selection-end-column="100" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/web/AuthDealer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="133" column="49" lean-forward="false" selection-start-line="133" selection-start-column="49" selection-end-line="133" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthorizeTransactionRentalDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="216" column="41" lean-forward="false" selection-start-line="216" selection-start-column="41" selection-end-line="216" selection-end-column="41" />
+          <folding>
+            <marker date="1517810819991" expanded="true" signature="1577:2987" ph="SELECT autho... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="3108:3993" ph="INSERT INTO authorize_transaction_rental... " />
+            <marker date="1517810819991" expanded="true" signature="4070:4218" ph="SELECT COUNT... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="4664:4804" ph="SELECT COALE... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="4905:5041" ph="SELECT COALE... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="5455:5726" ph="SELECT sales... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="5888:6218" ph="SELECT sales... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="6777:7106" ph="SELECT sum(s... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="7300:7634" ph="SELECT sum(s... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="7830:8226" ph="SELECT sum(s... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="8460:8827" ph="SELECT sum(d... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="9064:9436" ph="SELECT sum(d... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="9658:10329" ph="SELECT sum(a... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="10547:11211" ph="SELECT sum(a... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="11438:11679" ph="SELECT sum(d... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="11913:12159" ph="SELECT sum(d... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="12386:12628" ph="SELECT sum(d... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="12853:13091" ph="SELECT SUM(s... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="13322:13565" ph="SELECT SUM(s... authorize_transaction_rental" />
+            <marker date="1517810819991" expanded="true" signature="13789:14028" ph="SELECT sum(s... authorize_transaction_rental" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/dao/AuthorizeTransactionRentalDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="46" column="44" lean-forward="false" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthDealerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="191" column="58" lean-forward="false" selection-start-line="191" selection-start-column="58" selection-end-line="191" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/dealer/home.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="62" column="22" lean-forward="true" selection-start-line="62" selection-start-column="22" selection-end-line="62" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/dealer/home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="296" column="46" lean-forward="false" selection-start-line="296" selection-start-column="46" selection-end-line="296" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/auth/AuthAdminService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="368" column="38" lean-forward="true" selection-start-line="368" selection-start-column="38" selection-end-line="368" selection-end-column="38" />
+          <folding>
+            <element signature="e#17472#17473#0" expanded="true" />
+            <element signature="e#17532#17533#0" expanded="true" />
+            <element signature="e#17850#17851#0" expanded="true" />
+            <element signature="e#17909#17910#0" expanded="true" />
+            <element signature="e#17964#17965#0" expanded="true" />
+            <element signature="e#18037#18038#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/devices.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2789">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/Resource/js/admin/sales_detail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="67" column="48" lean-forward="false" selection-start-line="67" selection-start-column="48" selection-end-line="67" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/sales_detail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="153" column="76" lean-forward="false" selection-start-line="153" selection-start-column="76" selection-end-line="153" selection-end-column="76" />
           <folding />
         </state>
       </provider>

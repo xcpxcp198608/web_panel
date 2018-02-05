@@ -91,17 +91,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
+
+    <div class="row" style="padding: 20px 10px 0 10px;">
+        <div style="width: 100%; background-color: #c11021; height: 3px;"></div>
+        <span class="text-muted" style="width: 100%; padding: 0 10px 10px 10px; background-color: white">
+            Total activation commission in a month
+        </span>
+    </div>
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div style="background-color: white; width: 100%; padding: 10px; overflow: scroll">
+            <table class="table table-sm table-hover" id="tbActivationCommByMonth">
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Username</th>
+                    <th>Volume</th>
+                    <th>ActivationComm</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
     <div class="row" style="padding: 20px 10px 0 10px;">

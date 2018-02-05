@@ -190,7 +190,7 @@ $(function () {
                 var tdObj4 = document.createElement('td');
                 tdObj4.innerHTML = commissionInfo['commission'];
                 trObj.append(tdObj4);
-                totalCommission += parseInt(commissionInfo['commission']);
+                totalCommission += parseFloat(commissionInfo['commission']);
 
                 tbCommissionByMonth.append(trObj);
             }
@@ -201,9 +201,59 @@ $(function () {
     function clearTableCommissionByMonth() {
         var length = tbCommissionByMonth.rows.length;
         for(var i = 0; i < length; i ++){
-            tbCommissionByMonth.removeChild(tbCommissionByMonth.rows[i]);
+            tbCommissionByMonth.removeChild(tbCommissionByMonth.lastChild);
         }
     }
+
+
+    /**
+     * get all sales activation commission by month
+     */
+    var tbActivationCommByMonth = $('#tbActivationCommByMonth').get(0).tBodies[0];
+    getAllActivationCommByMonth(currentYear, currentMonth);
+    function getAllActivationCommByMonth(year, month) {
+        $('#btPreviousMonth').attr('disabled', 'disabled');
+        $('#btNextMonth').attr('disabled', 'disabled');
+        clearTableActivationCommByMonth();
+        var url = baseUrl + '/admin/chart/sales/commission/activation/' + year + "/" + month;
+        $.get(url, function (list) {
+            $('#btPreviousMonth').removeAttr('disabled');
+            $('#btNextMonth').removeAttr('disabled');
+            var length = list.length;
+            var totalActivationComm = 0;
+            for(var i = 0; i < length; i ++){
+                var commissionInfo = list[i];
+                var trObj = document.createElement('tr');
+
+                var tdObj1 = document.createElement('td');
+                tdObj1.innerHTML = (i + 1).toString();
+                trObj.append(tdObj1);
+
+                var tdObj2 = document.createElement('td');
+                tdObj2.innerHTML = commissionInfo['salesUsername'];
+                trObj.append(tdObj2);
+
+                var tdObj3 = document.createElement('td');
+                tdObj3.innerHTML = commissionInfo['volume'];
+                trObj.append(tdObj3);
+
+                var tdObj4 = document.createElement('td');
+                tdObj4.innerHTML = commissionInfo['commission'];
+                trObj.append(tdObj4);
+
+                tbActivationCommByMonth.append(trObj);
+                totalActivationComm += parseFloat(commissionInfo['commission']);
+            }
+        })
+    }
+
+    function clearTableActivationCommByMonth() {
+        var length = tbActivationCommByMonth.rows.length;
+        for(var i = 0; i < length; i ++){
+            tbActivationCommByMonth.removeChild(tbActivationCommByMonth.lastChild);
+        }
+    }
+
 
     /**
      * set button event
@@ -216,6 +266,7 @@ $(function () {
         }
         setYearAndMonth();
         getAllSalesCommissionByMonth(currentYear, currentMonth);
+        getAllActivationCommByMonth(currentYear, currentMonth);
     });
     $('#btNextMonth').click(function () {
         currentMonth ++;
@@ -225,6 +276,7 @@ $(function () {
         }
         setYearAndMonth();
         getAllSalesCommissionByMonth(currentYear, currentMonth);
+        getAllActivationCommByMonth(currentYear, currentMonth);
     });
 
     /**

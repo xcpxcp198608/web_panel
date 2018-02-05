@@ -99,19 +99,19 @@ public class AuthDealerService {
                     .createFromAuthSales(authSalesInfo,
                             salesActivateCategoryInfo.getPrice() + salesActivateCategoryInfo.getPrice() * AuthorizeTransactionInfo.TAX);
             //2. process transaction and save transaction info
-            AuthorizeTransactionInfo authorizeTransactionInfo1 = new AuthorizeTransaction()
+            AuthorizeTransactionInfo charge = new AuthorizeTransaction()
                     .charge(authorizeTransactionInfo);
-            if (authorizeTransactionInfo1 == null) {
+            if (charge == null) {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
             AuthorizeTransactionSalesMemberInfo authorizeTransactionSalesMemberInfo = AuthorizeTransactionSalesMemberInfo
-                    .create(authSalesInfo, salesActivateCategoryInfo, authorizeTransactionInfo1);
+                    .create(authSalesInfo, salesActivateCategoryInfo, charge);
             authorizeTransactionSalesMemberDao.insertOne(authorizeTransactionSalesMemberInfo);
             //3. send invoice
             try {
                 List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo);
                 SalesMemberInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-                String invoice = SalesMemberInvoiceUtil.createInvoice(authSalesInfo.getEmail(), authorizeTransactionInfo1
+                String invoice = SalesMemberInvoiceUtil.createInvoice(authSalesInfo.getEmail(), charge
                         .getTransactionId(), invoiceInfoList);
                 SalesMemberInvoiceUtil.copyInvoice(invoice);
                 EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LDE);
@@ -190,6 +190,12 @@ public class AuthDealerService {
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         yearOrMonthInfo.setDealerId(getDealerInfo(request).getId()+"");
         return authorizeTransactionRentalDao.getCommissionOfDayByDealer(yearOrMonthInfo);
+    }
+
+    public List<DealerCommissionOfDaysInfo> selectDealerActivationCommissionEveryDayInMonth(HttpServletRequest request, int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        yearOrMonthInfo.setDealerId(getDealerInfo(request).getId()+"");
+        return authorizeTransactionRentalDao.getActivationCommissionOfDayByDealer(yearOrMonthInfo);
     }
 
     public List<DealerCommissionOfMonthInfo> selectDealerCommissionEveryMonthInYear(HttpServletRequest request, int year){

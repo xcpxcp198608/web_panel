@@ -24,9 +24,6 @@ $(function () {
             currentRows[index] = parseInt($(this).attr('currentRow'));
             currentMacs[index] = tbDevices.rows[parseInt($(this).attr('currentRow'))].cells[2].innerHTML;
         });
-        console.log(currentSalesId);
-        console.log(currentRows);
-        console.log(currentMacs);
         if(currentRows.length <= 0){
             showNotice('have no choose device');
             return;
@@ -40,7 +37,7 @@ $(function () {
         $('#btSubmitCheck').click(function () {
             var checkNumber = $('#ipCheckNumber').val();
             if(checkNumber.length <= 0){
-                showNotice('check number error');
+                showErrorMessage($('#errorCheck'), 'check number error');
                 return;
             }
             checkDevice(currentMacs, currentSalesId, checkNumber, currentRows);
@@ -68,6 +65,7 @@ $(function () {
                         tbDevices.rows[parseInt(row)].cells[6].innerHTML = '<span class="text-secondary"><i class="fa fa-times-circle"></i></span>';
                         tbDevices.rows[parseInt(row)].cells[7].innerHTML = '<span class="text-success"><i class="fa fa-check-circle"></i></span>';
                     }
+                    $('#ipCheckNumber').val('');
                 }else{
                     $('#modalCheck').modal('show');
                     showErrorMessage($('#errorCheck'), response.message);
