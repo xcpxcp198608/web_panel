@@ -85,6 +85,7 @@
                     <span class="badge badge-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                               title="search customer with index level" id="level">level</span>&nbsp;
                     <div class="dropdown-menu" aria-labelledby="level">
+                        <span class="dropdown-item" id="ipLevelAll">all</span>
                         <span class="dropdown-item" id="ipLevelFto">fto</span>
                         <span class="dropdown-item" id="ipLevel4">4</span>
                         <span class="dropdown-item" id="ipLevel3">3</span>
@@ -98,6 +99,9 @@
                     <span class="badge badge-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                           title="search customer with index status" id="status">status</span>&nbsp;
                     <div class="dropdown-menu" aria-labelledby="status">
+                        <span class="dropdown-item" id="ipStatusAll1">
+                            all
+                        </span>
                         <span class="dropdown-item" id="ipStatusActivate">
                             <i class="fa fa-check text-muted"></i>
                         </span>
@@ -111,9 +115,9 @@
                     <span class="badge badge-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                           title="search customer with index online" id="online">online</span>&nbsp;
                     <div class="dropdown-menu" aria-labelledby="online">
-                        <span class="dropdown-item" id="ipStatusAll">All</span>
-                        <span class="dropdown-item" id="ipStatusOnline">Online</span>
-                        <span class="dropdown-item" id="ipStatusOffline">Offline</span>
+                        <span class="dropdown-item" id="ipStatusAll">all</span>
+                        <span class="dropdown-item" id="ipStatusOnline">online</span>
+                        <span class="dropdown-item" id="ipStatusOffline">offline</span>
                     </div>
                 </div>
             </div>

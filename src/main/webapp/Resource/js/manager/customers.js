@@ -218,6 +218,9 @@ $(function () {
         filterSearch(key, currentSearchIndex);
     });
 
+    $('#ipLevelAll').click(function () {
+        showAllRows();
+    });
     $('#ipLevelFto').click(function () {
         filterSearch('fto', 7);
     });
@@ -237,10 +240,12 @@ $(function () {
         filterSearch('0', 7);
     });
 
+    $('#ipStatusAll1').click(function () {
+        showAllRows();
+    });
     $('#ipStatusActivate').click(function () {
         filterSearch('1', 8);
     });
-
     $('#ipStatusDeactivate').click(function () {
         filterSearch('0', 8);
     });
@@ -249,11 +254,9 @@ $(function () {
         showAllRows();
         showOnlineAndTotalCount();
     });
-
     $('#ipStatusOnline').click(function () {
         filterSearch('true', 9);
     });
-
     $('#ipStatusOffline').click(function () {
         filterSearch('false', 9);
     });
