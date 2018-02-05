@@ -100,11 +100,11 @@ $(function () {
         });
     });
 
-    $('#btResendInvoice').click(function () {
-        if(currentRow <= 0){
-            return;
-        }
-        console.log(currentClientKey);
-    });
+    // $('#btResendInvoice').click(function () {
+    //     if(currentRow <= 0){
+    //         return;
+    //     }
+    //     console.log(currentClientKey);
+    // });
 
 });

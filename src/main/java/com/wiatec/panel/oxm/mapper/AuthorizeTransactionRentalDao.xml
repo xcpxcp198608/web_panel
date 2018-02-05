@@ -114,6 +114,16 @@
         <result column="volume" property="volume"/>
         <result column="commission" property="commission"/>
     </resultMap>
+    <select id="selectAllSalesTotalCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultMap="allSalesMonthCommissionInfo">
+        SELECT sum(sales_commission + sales_activation_comm) commission, auth_sales.username salesUsername, COUNT(*) volume
+        FROM authorize_transaction_rental
+        JOIN auth_sales
+        ON authorize_transaction_rental.sales_id=auth_sales.id
+        WHERE create_time BETWEEN #{start} AND #{end}
+        GROUP BY salesUsername
+        ORDER BY volume;
+    </select>
     <select id="selectAllSalesCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
             resultMap="allSalesMonthCommissionInfo">
         SELECT sum(sales_commission) commission, auth_sales.username salesUsername, COUNT(*) volume
@@ -150,6 +160,17 @@
     <select id="selectAllDealersCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
             resultType="com.wiatec.panel.oxm.pojo.chart.admin.AllDealerMonthCommissionInfo">
         SELECT sum(dealer_commission) commission, auth_dealer.username dealerUsername, COUNT(*) volume
+        FROM authorize_transaction_rental
+        JOIN auth_dealer
+        ON authorize_transaction_rental.dealer_id = auth_dealer.id
+        WHERE authorize_transaction_rental.create_time BETWEEN #{start} AND #{end}
+        GROUP BY dealerUsername
+        ORDER BY volume;
+    </select>
+
+    <select id="selectAllDealersTotalCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultType="com.wiatec.panel.oxm.pojo.chart.admin.AllDealerMonthCommissionInfo">
+        SELECT sum(dealer_commission + dealer_activation_comm) commission, auth_dealer.username dealerUsername, COUNT(*) volume
         FROM authorize_transaction_rental
         JOIN auth_dealer
         ON authorize_transaction_rental.dealer_id = auth_dealer.id

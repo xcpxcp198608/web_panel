@@ -204,6 +204,7 @@ $(function () {
         for(var i =0 ; i < rowsLength; i ++){
             tbUsers.rows[i].style.display = "";
         }
+        showOnlineAndTotalCount();
     }
 
     var currentSearchIndex = 0;

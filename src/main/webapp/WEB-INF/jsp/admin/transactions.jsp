@@ -138,15 +138,15 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <a id="btResendInvoice" data-toggle="tooltip" title="resend the invoice to customer">
-                        <span class="badge badge-warning text-center" style="padding: 3px">
-                            <i class="fa fa-send fa-lg"></i>&nbsp;Resend Invoice
-                        </span>
-                    </a>
-                </div>
-            </div>
+            <%--<div class="row">--%>
+                <%--<div class="col-6">--%>
+                    <%--<a id="btResendInvoice" data-toggle="tooltip" title="resend the invoice to customer">--%>
+                        <%--<span class="badge badge-warning text-center" style="padding: 3px">--%>
+                            <%--<i class="fa fa-send fa-lg"></i>&nbsp;Resend Invoice--%>
+                        <%--</span>--%>
+                    <%--</a>--%>
+                <%--</div>--%>
+            <%--</div>--%>
         </div>
 
         <div style="width: 100%; padding: 10px; background-color: white; overflow: scroll">

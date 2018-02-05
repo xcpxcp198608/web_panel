@@ -395,6 +395,11 @@ public class AuthAdminService {
         return authorizeTransactionRentalDao.selectAllDealersCommissionByMonth(yearOrMonthInfo);
     }
 
+    public List<AllDealerMonthCommissionInfo> getAllDealerTotalCommissionByMonth(int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        return authorizeTransactionRentalDao.selectAllDealersTotalCommissionByMonth(yearOrMonthInfo);
+    }
+
     public List<AllDealerMonthCommissionInfo> getAllDealerActivationCommByMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         return authorizeTransactionRentalDao.selectAllDealersActivationCommByMonth(yearOrMonthInfo);
@@ -403,6 +408,11 @@ public class AuthAdminService {
     public List<AllSalesMonthCommissionInfo> getAllSalesCommissionByMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
         return authorizeTransactionRentalDao.selectAllSalesCommissionByMonth(yearOrMonthInfo);
+    }
+
+    public List<AllSalesMonthCommissionInfo> getAllSalesTotalCommissionByMonth(int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        return authorizeTransactionRentalDao.selectAllSalesTotalCommissionByMonth(yearOrMonthInfo);
     }
 
     public List<AllSalesMonthCommissionInfo> getAllSalesActivationCommByMonth(int year, int month){

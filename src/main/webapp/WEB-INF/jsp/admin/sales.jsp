@@ -32,7 +32,7 @@
             <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
             <div style="background-color: #ffffff; padding: 10px">
                 <div class="text-center" style="width: 100%">
-                    <span class="badge badge-warning ba-strong" id="maxVolumeSales">
+                    <span class="badge badge-primary ba-strong" id="maxVolumeSales">
                             xxx
                     </span>
                     <span class="badge badge-success ba-strong" id="maxVolume">
@@ -64,7 +64,7 @@
     </div>
     <div class="row" style="padding: 0px 10px 0 10px">
         <div class="col-5" style=" background-color: white">
-            <span class="text-muted" style="padding: 0 10px 10px 10px">Total sales commission in a month</span>
+            <span class="text-muted" style="padding: 0 10px 10px 10px"></span>
         </div>
         <div class="col-4 text-left text-darks" style="background-color: white">
             <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
@@ -78,45 +78,60 @@
             </a>
         </div>
     </div>
+
     <div class="row" style="padding: 0 10px 0 10px">
-        <div style="background-color: white; width: 100%; padding: 10px; overflow: scroll">
-            <table class="table table-sm table-hover" id="tbCommissionByMonth">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Username</th>
-                        <th>Volume</th>
-                        <th>Commission</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-
-
-    <div class="row" style="padding: 20px 10px 0 10px;">
-        <div style="width: 100%; background-color: #c11021; height: 3px;"></div>
-        <span class="text-muted" style="width: 100%; padding: 0 10px 10px 10px; background-color: white">
-            Total activation commission in a month
-        </span>
-    </div>
-    <div class="row" style="padding: 0 10px 0 10px">
-        <div style="background-color: white; width: 100%; padding: 10px; overflow: scroll">
-            <table class="table table-sm table-hover" id="tbActivationCommByMonth">
-                <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Username</th>
-                    <th>Volume</th>
-                    <th>ActivationComm</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+        <div class="col-12" style="background-color: white">
+            <nav>
+                <div class="nav nav-tabs nav-dark" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Total Commission</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Sales Commission</a>
+                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Activation Commission</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent" style="margin-top: 10px">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <table class="table table-sm table-hover table-dark" id="tbTotalCommissionByMonth">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Username</th>
+                            <th>Volume</th>
+                            <th>TotalCommission</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <table class="table table-sm table-hover table-dark" id="tbCommissionByMonth">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Username</th>
+                            <th>Volume</th>
+                            <th>Commission</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <table class="table table-sm table-hover table-dark" id="tbActivationCommByMonth">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Username</th>
+                            <th>Volume</th>
+                            <th>ActivationComm</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -380,7 +395,7 @@
                                 <select class="custom-select" id="ipActivateCategory">
                                     <option value="">Choose Activate Category</option>
                                     <c:forEach items="${salesActivateCategoryInfoList}" var="salesActivateCategoryInfo">
-                                        <option value="${salesActivateCategoryInfo.category}">${salesActivateCategoryInfo.description}</option>
+                                            <option value="${salesActivateCategoryInfo.category}">${salesActivateCategoryInfo.description}</option>
                                     </c:forEach>
                                 </select>
                             </div>

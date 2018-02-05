@@ -31,11 +31,13 @@ public interface AuthorizeTransactionRentalDao {
     List<TopAmountInfo> selectTopAmount(int top);
     List<TopAmountInfo> selectTopAmountByDealer(AuthDealerInfo authDealerInfo);
     List<AllSalesMonthCommissionInfo> selectAllSalesCommissionByMonth(YearOrMonthInfo yearOrMonthInfo);
+    List<AllSalesMonthCommissionInfo> selectAllSalesTotalCommissionByMonth(YearOrMonthInfo yearOrMonthInfo);
     List<AllSalesMonthCommissionInfo> selectAllSalesActivationCommByMonth(YearOrMonthInfo yearOrMonthInfo);
     List<AllSalesMonthCommissionInfo> selectSalesCommissionByMonthAndDealer(YearOrMonthInfo yearOrMonthInfo);
     List<SalesAmountInfo> selectSaleAmountEveryMonthInYear(YearOrMonthInfo yearOrMonthInfo);
     List<SalesAmountInfo> selectSaleAmountEveryDayInMonth(YearOrMonthInfo yearOrMonthInfo);
     List<AllDealerMonthCommissionInfo> selectAllDealersCommissionByMonth(YearOrMonthInfo yearOrMonthInfo);
+    List<AllDealerMonthCommissionInfo> selectAllDealersTotalCommissionByMonth(YearOrMonthInfo yearOrMonthInfo);
     List<AllDealerMonthCommissionInfo> selectAllDealersActivationCommByMonth(YearOrMonthInfo yearOrMonthInfo);
 
     //chart of sales
