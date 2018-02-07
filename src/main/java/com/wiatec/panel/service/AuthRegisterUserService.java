@@ -27,6 +27,7 @@ import org.springframework.ui.Model;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 /**
  * @author patrick
@@ -131,11 +132,12 @@ public class AuthRegisterUserService {
         }
         String activateTime = authRegisterUserInfo.getActiveTime();
         if(TextUtil.isEmpty(activateTime)){
-            activateTime = "2017-01-01 00:00:00";
+            activateTime = TimeUtil.getStrTime(TimeUtil.DEFAULT_TIME);
         }
         if(authRegisterUserInfo.getLevel() > 1 && TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())) {
+            logger.debug("user level reset");
             authRegisterUserInfo.setLevel(1);
-            authRegisterUserInfo.setExpiresTime("");
+            authRegisterUserInfo.setExpiresTime(new Date(TimeUtil.DEFAULT_TIME));
             authRegisterUserDao.updateLevelById(authRegisterUserInfo);
         }
         String e = TimeUtil.getExpiresTimeByDay(activateTime, 7);

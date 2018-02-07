@@ -122,7 +122,7 @@
         ON authorize_transaction_rental.sales_id=auth_sales.id
         WHERE create_time BETWEEN #{start} AND #{end}
         GROUP BY salesUsername
-        ORDER BY volume;
+        ORDER BY volume DESC;
     </select>
     <select id="selectAllSalesCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
             resultMap="allSalesMonthCommissionInfo">
@@ -132,7 +132,7 @@
         ON authorize_transaction_rental.sales_id=auth_sales.id
         WHERE create_time BETWEEN #{start} AND #{end}
         GROUP BY salesUsername
-        ORDER BY volume;
+        ORDER BY volume DESC;
     </select>
     <select id="selectAllSalesActivationCommByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
             resultMap="allSalesMonthCommissionInfo">
@@ -142,7 +142,7 @@
         ON authorize_transaction_rental.sales_id=auth_sales.id
         WHERE create_time BETWEEN #{start} AND #{end}
         GROUP BY salesUsername
-        ORDER BY volume;
+        ORDER BY volume DESC;
     </select>
     <select id="selectSalesCommissionByMonthAndDealer" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
             resultMap="allSalesMonthCommissionInfo">
@@ -153,7 +153,7 @@
         WHERE create_time BETWEEN #{start} AND #{end}
             AND authorize_transaction_rental.dealer_id=#{dealerId}
         GROUP BY salesUsername
-        ORDER BY volume;
+        ORDER BY volume DESC;
     </select>
 
 
@@ -165,7 +165,7 @@
         ON authorize_transaction_rental.dealer_id = auth_dealer.id
         WHERE authorize_transaction_rental.create_time BETWEEN #{start} AND #{end}
         GROUP BY dealerUsername
-        ORDER BY volume;
+        ORDER BY volume DESC;
     </select>
 
     <select id="selectAllDealersTotalCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
@@ -176,7 +176,7 @@
         ON authorize_transaction_rental.dealer_id = auth_dealer.id
         WHERE authorize_transaction_rental.create_time BETWEEN #{start} AND #{end}
         GROUP BY dealerUsername
-        ORDER BY volume;
+        ORDER BY volume DESC;
     </select>
 
     <select id="selectAllDealersActivationCommByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
@@ -187,7 +187,7 @@
         ON authorize_transaction_rental.dealer_id = auth_dealer.id
         WHERE authorize_transaction_rental.create_time BETWEEN #{start} AND #{end}
         GROUP BY dealerUsername
-        ORDER BY volume;
+        ORDER BY volume DESC;
     </select>
 
 

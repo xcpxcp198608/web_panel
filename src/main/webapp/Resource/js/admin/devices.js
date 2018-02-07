@@ -126,7 +126,15 @@ $(function () {
         });
     });
 
-
+    var free = false;
+    $('#cbFree').click(function () {
+        if(this.checked){
+            free = true;
+        }else{
+            free = false;
+        }
+        console.log(free)
+    });
 
     $('#btUpdate').click(function () {
         var currentMacs = [];
@@ -166,16 +174,16 @@ $(function () {
                 return;
             }
             $('#errorUpdate').hide();
-            updateSales(currentMacs, currentRows, salesId, password)
+            updateSales(currentMacs, currentRows, salesId, password, free)
         });
     });
 
 
-    function updateSales(currentMacs, currentRows, salesId, password) {
+    function updateSales(currentMacs, currentRows, salesId, password, free) {
         $.ajax({
             type: "PUT",
             url: baseUrl + "/admin/devices/update",
-            data: {"macs": currentMacs, "salesId": salesId, 'password': password},
+            data: {"macs": currentMacs, "salesId": salesId, 'password': password, 'free': free},
             dataType: "json",
             beforeSend: function () {
                 $('#modalUpdate').modal('hide');

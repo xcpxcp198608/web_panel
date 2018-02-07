@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class TimeUtilTest {
     @Test
     public void getExpiresTimeByDay() throws Exception {
-        String day = TimeUtil.getExpiresTimeByDay("2018-01-30 00:00:00", 7);
+        String day = TimeUtil.getExpiresTimeByDay("2018-01-31 00:00:00", 7);
         System.out.println(day);
     }
 

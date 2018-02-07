@@ -44,19 +44,22 @@ public class AuthService {
         session.setAttribute(SessionListener.KEY_AUTH_USER_NAME, username);
         switch (type){
             case 0:
-                if(authManagerDao.countOne(new AuthManagerInfo(username, password)) == 1) {
-                    return "redirect:/manager/home";
-                }else{
+                AuthManagerInfo authManagerInfo = authManagerDao.selectOne(new AuthManagerInfo(username, password));
+                if(authManagerInfo == null){
                     throw new XException(EnumResult.ERROR_UNAUTHORIZED);
                 }
+                session.setAttribute("permission", authManagerInfo.getPermission());
+                return "redirect:/manager/home";
             case 1:
-                if(authAdminDao.countOne(new AuthAdminInfo(username, password)) == 1) {
-                    return "redirect:/admin/";
-                }else{
+                AuthAdminInfo authAdminInfo = authAdminDao.selectOne(new AuthAdminInfo(username, password));
+                if(authAdminInfo == null){
                     throw new XException(EnumResult.ERROR_UNAUTHORIZED);
                 }
+                session.setAttribute("permission", authAdminInfo.getPermission());
+                return "redirect:/admin/";
             case 2:
                 if(authDealerDao.countOne(new AuthDealerInfo(username, password)) == 1) {
+                    session.setAttribute("permission", 0);
                     return "redirect:/dealer/";
                 }else{
                     throw new XException(EnumResult.ERROR_UNAUTHORIZED);
@@ -67,6 +70,7 @@ public class AuthService {
                     if(TimeUtil.isOutExpires(authSalesInfo.getExpiresTime())){
                         throw new XException(1001, "your account is out expiration");
                     }else {
+                        session.setAttribute("permission", 0);
                         return "redirect:/sales/";
                     }
                 }else{
@@ -76,6 +80,24 @@ public class AuthService {
                 throw new XException(EnumResult.ERROR_UNAUTHORIZED);
         }
     }
+
+
+    public String signInDevice(HttpSession session, String username, String password){
+        session.setAttribute(SessionListener.KEY_AUTH_USER_NAME, username);
+        if(TextUtil.isEmpty(username)){
+            throw new XException(EnumResult.ERROR_USERNAME_FORMAT);
+        }
+        if(TextUtil.isEmpty(password)){
+            throw new XException(EnumResult.ERROR_PASSWORD_FORMAT);
+        }
+        AuthDeviceInfo authDeviceInfo = authDeviceDao.selectOne(new AuthDeviceInfo(username, password));
+        if(authDeviceInfo == null){
+            throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+        }
+        session.setAttribute("permission", authDeviceInfo.getPermission());
+        return "redirect:/device/home";
+    }
+
 
     public String signOut(HttpServletRequest request){
         releaseSession(request);
@@ -98,22 +120,5 @@ public class AuthService {
         }catch (Exception e) {
             logger.error("Exception", e);
         }
-    }
-
-
-    public String signInDevice(HttpSession session, String username, String password){
-        session.setAttribute(SessionListener.KEY_AUTH_USER_NAME, username);
-        if(TextUtil.isEmpty(username)){
-            throw new XException(EnumResult.ERROR_USERNAME_FORMAT);
-        }
-        if(TextUtil.isEmpty(password)){
-            throw new XException(EnumResult.ERROR_PASSWORD_FORMAT);
-        }
-        if(authDeviceDao.countOne(new AuthDeviceInfo(username, password)) == 1){
-            return "redirect:/device/home";
-        }else{
-            throw new XException(EnumResult.ERROR_UNAUTHORIZED);
-        }
-
     }
 }

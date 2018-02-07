@@ -74,29 +74,11 @@ $(function () {
             showNotice('this user in activate, can not cancel');
             return;
         }
-        console.log('go to cancel');
-        changeUserStatus('canceled', currentClientKey);
-    });
-
-    $('#btCashActivate').click(function () {
-        if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
-            showNotice('No user chosen');
-            return;
-        }
-        if(currentStatus === 'canceled'){
-            showNotice('this user already canceled');
-            return;
-        }
-        if(currentStatus === 'activate'){
-            showNotice('this user already activated');
-            return;
-        }
-        if(currentStatus === 'limited'){
-            showNotice('this user already limited');
-            return;
-        }
-        console.log('go to cash activate');
-        changeUserStatus('activate', currentClientKey);
+        $('#modalCancel').modal('show');
+        $('#btSubmitCancel').click(function () {
+            $('#modalCancel').modal('hide');
+            changeUserStatus('canceled', currentClientKey);
+        });
     });
 
     function changeUserStatus(status, key) {
@@ -133,6 +115,66 @@ $(function () {
             }
         });
     }
+
+    $('#btCashActivate').click(function () {
+        if(currentRow === 0 || currentClientKey.length <= 0 || currentStatus.length <= 0){
+            showNotice('No user chosen');
+            return;
+        }
+        if(currentStatus === 'canceled'){
+            showNotice('this user already canceled');
+            return;
+        }
+        if(currentStatus === 'activate'){
+            showNotice('this user already activated');
+            return;
+        }
+        if(currentStatus === 'limited'){
+            showNotice('this user already limited');
+            return;
+        }
+        $('#modalCashActivate').modal('show');
+        $('#btSubmitCashActivate').click(function () {
+            var password = $('#ipAdminPassword').val();
+            if(password.length <= 0){
+                showErrorMessage($('#errorCashActivate'), 'password input error');
+                return;
+            }
+            activateWithCash(currentClientKey, password);
+        });
+    });
+    
+    function activateWithCash(currentClientKey, password) {
+        $.ajax({
+            type: "PUT",
+            url: baseUrl + "/admin/user/cash_activate",
+            data: {"password": password, "key": currentClientKey},
+            dataType: "json",
+            beforeSend: function () {
+                showLoading();
+                $('#modalCashActivate').modal('hide');
+            },
+            success: function (response) {
+                hideLoading();
+                if(response.code === 200) {
+                    $('#modalCashActivate').modal('hide');
+                    tbUsers.rows[currentRow].cells[9].children[0].innerHTML =
+                        '<span class="text-success">activate</span>';
+                    currentStatus = status;
+                }else{
+                    $('#modalCashActivate').modal('show');
+                    showErrorMessage($('#errorCashActivate'), response.message);
+                }
+            },
+            error: function () {
+                hideLoading();
+                $('#modalCashActivate').modal('show');
+                showErrorMessage($('#errorCashActivate'), 'communication fail, try again later');
+            }
+        });
+    }
+
+
     
     var updateCategory = "";
     $('#seUpdateCategory').change(function () {
@@ -174,25 +216,11 @@ $(function () {
     });
 
 
-    /**
-     * show current online and total user count in table of users
-     */
-    function showOnlineAndTotalCount() {
-        var count = 0;
-        var onlineCount = 0;
-        for(var x =0 ; x < rowsLength; x ++){
-            var status = tbUsers.rows[x].style.display;
-            var online = tbUsers.rows[x].cells[10].childNodes[1].getAttribute("online");
-            if(status !== 'none'){
-                count ++;
-                if(online === "true"){
-                    onlineCount ++;
-                }
-            }
-        }
-        $('#totalUsers').html(''+count);
-        $('#onLineUsers').html(''+onlineCount);
-    }
+
+
+
+
+
 
     /**
      * display all rows in table of users
@@ -201,6 +229,7 @@ $(function () {
         for(var i =0 ; i < rowsLength; i ++){
             tbUsers.rows[i].style.display = "";
         }
+        showOnlineAndTotalCount();
     }
 
     $('#ipSearch').keyup(function () {
@@ -223,83 +252,27 @@ $(function () {
         showOnlineAndTotalCount();
     });
 
-
     /**
-     * plan and status select change listener
+     * show current online and total user count in table of users
      */
-    var currentSePlan = "";
-    var currentSeStatus = "";
-    $('#seCategory').change(function () {
-        currentSePlan = $(this).val();
-        var key = $(this).val();
-        if(key.length >0){
-            for(var i =0 ; i < rowsLength; i ++){
-                var content = tbUsers.rows[i].cells[8].innerHTML;
-                if(currentSeStatus.length > 0){
-                    var statusContent = tbUsers.rows[i].cells[9].children[0].innerHTML;
-                    if(content === key && statusContent === currentSeStatus){
-                        tbUsers.rows[i].style.display = "";
-                    }else{
-                        tbUsers.rows[i].style.display = "none";
-                    }
-                }else {
-                    if (content === key) {
-                        tbUsers.rows[i].style.display = "";
-                    } else {
-                        tbUsers.rows[i].style.display = "none";
-                    }
-                }
-            }
-        }else{
-            showDisplayRows();
-        }
-        showOnlineAndTotalCount();
-    });
-
-    $('#seStatus').change(function () {
-        currentSeStatus = $(this).val();
-        var key = $(this).val();
-        if(key.length >0){
-            for(var i =0 ; i < rowsLength; i ++){
-                var content = tbUsers.rows[i].cells[9].children[0].innerHTML;
-                if(currentSePlan.length > 0){
-                    var planContent = tbUsers.rows[i].cells[8].innerHTML;
-                    if (content === key && planContent === currentSePlan) {
-                        tbUsers.rows[i].style.display = "";
-                    } else {
-                        tbUsers.rows[i].style.display = "none";
-                    }
-                }else {
-                    if (content === key) {
-                        tbUsers.rows[i].style.display = "";
-                    } else {
-                        tbUsers.rows[i].style.display = "none";
-                    }
-                }
-            }
-        }else{
-            showDisplayRows();
-        }
-        showOnlineAndTotalCount();
-    });
-
-    function showDisplayRows() {
-        for(var i =0 ; i < rowsLength; i ++){
-            tbUsers.rows[i].style.display = "";
-            if(currentSePlan.length > 0){
-                var content1 = tbUsers.rows[i].cells[8].innerHTML;
-                if (content1 !== currentSePlan) {
-                    tbUsers.rows[i].style.display = "none";
-                }
-            }
-            if(currentSeStatus.length > 0) {
-                var content2 = tbUsers.rows[i].cells[9].children[0].innerHTML;
-                if (content2 !== currentSeStatus) {
-                    tbUsers.rows[i].style.display = "none";
+    function showOnlineAndTotalCount() {
+        var count = 0;
+        var onlineCount = 0;
+        for(var x =0 ; x < rowsLength; x ++){
+            var status = tbUsers.rows[x].style.display;
+            var online = tbUsers.rows[x].cells[10].childNodes[1].getAttribute("online");
+            if(status !== 'none'){
+                count ++;
+                if(online === "true"){
+                    onlineCount ++;
                 }
             }
         }
+        $('#totalUsers').html(''+count);
+        $('#onLineUsers').html(''+onlineCount);
     }
+
+
 
 
 

@@ -1,5 +1,9 @@
 package com.wiatec.panel.oxm.pojo;
 
+import com.wiatec.panel.common.utils.TimeUtil;
+
+import java.util.Date;
+
 /**
  * @author patrick
  */
@@ -20,15 +24,16 @@ public class AuthRegisterUserInfo {
     private String city;
     private String timeZone;
     private String token;
-    private String activeTime;
-    private String expiresTime;
-    private String lastOnLineTime;
-    private String createTime;
-    private String modifyTime;
     private String status;
     private String deviceModel;
     private String romVersion;
     private String uiVersion;
+
+    private Date activeTime;
+    private Date expiresTime;
+    private Date lastOnLineTime;
+    private Date createTime;
+    private Date modifyTime;
 
     private boolean experience;
     private boolean online;
@@ -161,42 +166,42 @@ public class AuthRegisterUserInfo {
     }
 
     public String getActiveTime() {
-        return activeTime;
+        return TimeUtil.FORMATTER.format(activeTime);
     }
 
-    public void setActiveTime(String activeTime) {
+    public void setActiveTime(Date activeTime) {
         this.activeTime = activeTime;
     }
 
     public String getExpiresTime() {
-        return expiresTime;
+        return TimeUtil.FORMATTER.format(expiresTime);
     }
 
-    public void setExpiresTime(String expiresTime) {
+    public void setExpiresTime(Date expiresTime) {
         this.expiresTime = expiresTime;
     }
 
     public String getLastOnLineTime() {
-        return lastOnLineTime;
+        return TimeUtil.FORMATTER.format(lastOnLineTime);
     }
 
-    public void setLastOnLineTime(String lastOnLineTime) {
+    public void setLastOnLineTime(Date lastOnLineTime) {
         this.lastOnLineTime = lastOnLineTime;
     }
 
     public String getCreateTime() {
-        return createTime;
+        return TimeUtil.FORMATTER.format(createTime);
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     public String getModifyTime() {
-        return modifyTime;
+        return TimeUtil.FORMATTER.format(modifyTime);
     }
 
-    public void setModifyTime(String modifyTime) {
+    public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
     }
 

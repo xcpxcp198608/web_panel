@@ -158,7 +158,7 @@ public class AuthAdmin {
     }
 
     /**
-     * update rental user status [active, limited, canceled]
+     * update rental user status [activate, limited, canceled]
      * @param status   target status
      * @param key      client key
      * @return         {@link AuthRentUserInfo}
@@ -167,6 +167,18 @@ public class AuthAdmin {
     @ResponseBody
     public ResultInfo updateUserStatus(@PathVariable String status, @PathVariable String key){
         return authAdminService.updateUserStatus(status, key);
+    }
+
+    /**
+     * update rental user status to activate after admin got cash
+     * @param password   admin password
+     * @param key      client key
+     * @return         {@link AuthRentUserInfo}
+     */
+    @PutMapping(value = "/user/cash_activate")
+    @ResponseBody
+    public ResultInfo updateUserActivateWithCash(HttpServletRequest request, String key, String password){
+        return authAdminService.updateUserActivateWithCash(request, key, password);
     }
 
     @PutMapping(value = "/user/category/{key}/{category}")
@@ -232,8 +244,8 @@ public class AuthAdmin {
     @ResponseBody
     public ResultInfo updateDeviceToSpecialSales(HttpServletRequest request,
                                                  @RequestParam(value = "macs[]") String [] macs,
-                                                 int salesId, String password){
-        return authAdminService.bathUpdateDeviceToSpecialSales(request, macs, salesId, password);
+                                                 int salesId, String password, boolean free){
+        return authAdminService.bathUpdateDeviceToSpecialSales(request, macs, salesId, password, free);
     }
 
     /**

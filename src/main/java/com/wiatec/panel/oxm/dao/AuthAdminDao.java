@@ -12,5 +12,6 @@ public interface AuthAdminDao {
 
     int countOne(AuthAdminInfo authAdminInfo);
     AuthAdminInfo selectOne(AuthAdminInfo authAdminInfo);
+    AuthAdminInfo selectOneByUsername(AuthAdminInfo authAdminInfo);
 
 }

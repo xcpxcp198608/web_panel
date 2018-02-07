@@ -12,6 +12,18 @@ public class TimeUtil {
 
     public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
+    public static final long DEFAULT_TIME = 1483200000000L;
+
+    public static void main (String [] args){
+        long unixFromStr = getUnixFromStr("2018-02-06 00:00:00");
+        System.out.println(unixFromStr);
+
+        boolean outExpires = isOutExpires("2018-02-08 00:00:00");
+        System.out.println(outExpires);
+
+        String strTime = getStrTime(DEFAULT_TIME);
+        System.out.println(strTime);
+    }
 
 
     public static long getUnixFromStr(String time){

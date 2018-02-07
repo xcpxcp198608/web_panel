@@ -39,7 +39,7 @@ public class AuthorizeTransaction {
         PaymentType paymentType = new PaymentType();
         CreditCardType creditCard = new CreditCardType();
         creditCard.setCardNumber(authorizeTransactionInfo.getCardNumber());
-        creditCard.setExpirationDate(authorizeTransactionInfo.getExpirationDate()+"");
+        creditCard.setExpirationDate(authorizeTransactionInfo.getExpirationDate() + "");
         paymentType.setCreditCard(creditCard);
 
         TransactionRequestType requestType = new TransactionRequestType();

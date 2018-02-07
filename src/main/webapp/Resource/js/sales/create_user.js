@@ -38,7 +38,7 @@ $(function () {
        }
    });
 
-    var currentPaymentMethod = 0;
+    var currentPaymentMethod = '1';
     $('input[name=payMethod]').each(function(){
         $(this).click(function(){
             currentPaymentMethod = $(this).val();

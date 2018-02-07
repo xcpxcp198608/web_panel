@@ -159,7 +159,7 @@
                 </div>
             </div>
             <div class="row">
-                <c:if test="${'wiatec' eq username}">
+                <c:if test="${permission > 100}">
                     <div class="col-1">
                         <a id="btCreate" data-toggle="tooltip" title="create new dealer">
                             <span class="badge badge-primary text-center">

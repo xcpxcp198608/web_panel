@@ -18,8 +18,8 @@
             <span class="text-muted">The detail of rental plan:</span>
             <table class="table table-sm table-hover table-striped table-dark" id="tbCategory">
                 <thead>
-                    <tr><td>#</td><td>Price</td><td>Deposit</td><td>Expires</td>
-                        <td>Bonus</td><td>MonthPay</td><td>SVCCharge</td>
+                    <tr><td>#</td><td>Price</td><td>Expires</td><td>Bonus</td>
+                        <td>Deposit</td><td>MonthPay</td><td>SVCCharge</td>
                         <td>LD</td><td>LDE</td><td>Dealer</td><td>Sales</td>
                         <td>Activation</td><td>LD-A</td><td>LDE-A</td>
                         <td>Dealer-A</td><td>Sales-A</td>
@@ -30,9 +30,9 @@
                         <tr>
                             <td>${commissionCategoryInfo.category}</td>
                             <td>${commissionCategoryInfo.price}</td>
-                            <td>${commissionCategoryInfo.deposit}</td>
                             <td>${commissionCategoryInfo.expires}</td>
                             <td>${commissionCategoryInfo.bonus}</td>
+                            <td style="color: greenyellow">${commissionCategoryInfo.deposit}</td>
                             <td style="color: greenyellow">${commissionCategoryInfo.monthPay}</td>
                             <td style="color: greenyellow">${commissionCategoryInfo.svcCharge}</td>
                             <td style="color: greenyellow">${commissionCategoryInfo.ldCommission}</td>

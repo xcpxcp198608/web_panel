@@ -49,8 +49,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         if(TextUtil.isEmpty(username)){
             throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
+        int permission = (Integer) request.getSession().getAttribute("permission");
         if(modelAndView != null) {
             modelAndView.getModel().put("username", username);
+            modelAndView.getModel().put("permission", permission);
         }
     }
 

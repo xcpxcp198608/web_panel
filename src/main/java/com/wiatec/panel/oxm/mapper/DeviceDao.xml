@@ -1,0 +1,36 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.DeviceDao">
+
+    <select id="selectAllWithEnable" resultType="com.wiatec.panel.oxm.pojo.DeviceInfo">
+        SELECT * FROM device WHERE enable = #{enable}
+    </select>
+
+    <select id="selectOneByMac" resultType="com.wiatec.panel.oxm.pojo.DeviceInfo">
+        SELECT * FROM device WHERE mac = #{mac}
+    </select>
+
+    <select id="countOne" resultType="java.lang.Integer">
+        SELECT COUNT(*) count FROM device WHERE mac = #{mac}
+    </select>
+
+    <insert id="insertOne">
+        INSERT IGNORE INTO device (mac, modify_time)
+        VALUES (#{mac}, now())
+    </insert>
+
+    <insert id="bathInsert">
+        INSERT IGNORE INTO device (mac, modify_time)
+        VALUES
+            <foreach collection="macs" item="mac" separator=",">
+                (#{mac}, now())
+            </foreach>
+    </insert>
+
+    <update id="updateOneToEnable">
+        UPDATE device SET enable = 1, enable_name = #{enableName}, enable_time = now()
+        WHERE mac = #{mac}
+    </update>
+
+</mapper>

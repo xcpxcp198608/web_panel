@@ -194,6 +194,61 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="modalCashActivate" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modalCashActivateTitle">Cash Activate</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Confirm receive the activation pay<br/><br/>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon234">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                        </div>
+                        <input style="display:none" type="text" name="fakeusernameremembered"/>
+                        <input style="display:none" type="password" name="fakepasswordremembered"/>
+                        <input type="password" class="form-control" placeholder="password" id="ipAdminPassword"
+                               value="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span id="errorCashActivate" class="badge badge-danger"></span>
+                    <button type="button" class="btn btn-sm btn-primary" id="btSubmitCashActivate">Activate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modalCancel" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modalCancelTitle">Cancel</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Confirm cancel this customer?
+                </div>
+                <div class="modal-footer">
+                    <span id="errorCancel" class="badge badge-danger"></span>
+                    <button type="button" class="btn btn-sm btn-primary" id="btSubmitCancel">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </rapid:override>
 
 <%@ include file="base_admin.jsp"%>

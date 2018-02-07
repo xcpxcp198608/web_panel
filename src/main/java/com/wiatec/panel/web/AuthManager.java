@@ -40,8 +40,30 @@ public class AuthManager {
 
     @GetMapping(value = "/distribution")
     public String distribution(){
-
         return authManagerService.distribution();
+    }
+
+    @GetMapping(value = "/devices")
+    public String devices(Model model){
+        return authManagerService.devices(model);
+    }
+
+    @PostMapping(value = "/device/save")
+    @ResponseBody
+    public ResultInfo insertDevice(String mac){
+        return authManagerService.insertDevice(mac);
+    }
+
+    @PostMapping(value = "/devices/save")
+    @ResponseBody
+    public ResultInfo bathInsertDevices(String startMac, String endMac){
+        return authManagerService.bathInsertDevices(startMac, endMac);
+    }
+
+    @PutMapping(value = "/device/enable")
+    @ResponseBody
+    public ResultInfo enableDevice(String mac, String username){
+        return authManagerService.enableDevice(mac, username);
     }
 
     @GetMapping(value = "/chart/distribution")

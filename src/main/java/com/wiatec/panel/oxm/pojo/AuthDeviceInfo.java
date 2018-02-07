@@ -10,6 +10,7 @@ public class AuthDeviceInfo {
     private String username;
     @Size(min = 6, max = 20, message = "password input format incorrect")
     private String password;
+    private int permission;
 
     public AuthDeviceInfo() {
     }
@@ -47,7 +48,13 @@ public class AuthDeviceInfo {
         this.password = password;
     }
 
+    public int getPermission() {
+        return permission;
+    }
 
+    public void setPermission(int permission) {
+        this.permission = permission;
+    }
 
     @Override
     public String toString() {
@@ -55,6 +62,7 @@ public class AuthDeviceInfo {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", permission=" + permission +
                 '}';
     }
 }

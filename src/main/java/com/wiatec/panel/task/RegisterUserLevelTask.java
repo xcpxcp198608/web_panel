@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,8 +44,9 @@ public class RegisterUserLevelTask {
         for(AuthRegisterUserInfo authRegisterUserInfo: authRegisterUserInfoList){
             if(authRegisterUserInfo.getLevel() > 1 && TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())) {
                 authRegisterUserInfo.setLevel(1);
-                authRegisterUserInfo.setExpiresTime("");
+                authRegisterUserInfo.setExpiresTime(new Date(TimeUtil.DEFAULT_TIME));
                 authRegisterUserDao.updateLevelById(authRegisterUserInfo);
+                logger.debug("user level reset");
             }
         }
     }

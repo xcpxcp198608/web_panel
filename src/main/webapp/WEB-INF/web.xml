@@ -56,10 +56,10 @@
     <servlet>
         <servlet-name>DruidStatView</servlet-name>
         <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
-        <init-param>
-            <param-name>allow</param-name>
-            <param-value>163.125.148.243,127.0.0.1,61.141.157.189,163.125.252.199</param-value>
-        </init-param>
+        <!--<init-param>-->
+            <!--<param-name>allow</param-name>-->
+            <!--<param-value>163.125.148.243,127.0.0.1,61.141.157.189,163.125.252.199</param-value>-->
+        <!--</init-param>-->
         <init-param>
             <param-name>resetEnable</param-name>
             <param-value>true</param-value>
@@ -95,6 +95,6 @@
     </error-page>
 
     <session-config>
-        <session-timeout>10</session-timeout>
+        <session-timeout>20</session-timeout>
     </session-config>
 </web-app>

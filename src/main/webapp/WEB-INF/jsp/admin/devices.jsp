@@ -40,13 +40,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-1">
-                    <a id="btCheckIn" data-toggle="tooltip" title="check in new device">
-                        <span class="badge badge-primary text-center">
-                            <i class="fa fa-plus fa-lg"></i>&nbsp;Check In
-                        </span>
-                    </a>
-                </div>
+                <c:if test="${permission > 100}">
+                    <div class="col-1">
+                        <a id="btCheckIn" data-toggle="tooltip" title="check in new device">
+                            <span class="badge badge-primary text-center">
+                                <i class="fa fa-plus fa-lg"></i>&nbsp;Check In
+                            </span>
+                        </a>
+                    </div>
+                </c:if>
                 <div class="col-1">
                     <a id="btUpdate" data-toggle="tooltip" title="update device binding to special sales">
                         <span class="badge badge-warning text-center">
@@ -204,9 +206,18 @@
                         </div>
                         <input style="display:none" type="text" name="fakeusernameremembered"/>
                         <input style="display:none" type="password" name="fakepasswordremembered"/>
-                        <input type="password" class="form-control" placeholder="password" id="ipAdminPassword"
-                               value="">
+                        <input type="password" class="form-control" placeholder="Double confirm with your password"
+                               id="ipAdminPassword" value="">
                     </div>
+
+                    <c:if test="${permission > 100}">
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="cbFree">
+                                <label class="form-check-label" for="cbFree">access no deposit</label>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
                 <div class="modal-footer">
                     <span id="errorUpdate" class="badge badge-danger"></span>

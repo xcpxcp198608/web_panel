@@ -133,12 +133,16 @@ public class AuthAdminService {
 
         SalesActivateCategoryInfo salesActivateCategoryInfo = salesActivateCategoryDao
                 .selectOneByCategory(authSalesInfo.getActivateCategory());
+        authSalesInfo.setExpiresTime(TimeUtil.getExpiresDate(salesActivateCategoryInfo.getMonth()));
+        authSalesDao.insertOne(authSalesInfo);
+
         if(salesActivateCategoryInfo.getPrice() > 0) {
+            AuthSalesInfo authSalesInfo1 = authSalesDao.selectOneByUsername(authSalesInfo);
             //1. create transaction info
             float amount = salesActivateCategoryInfo.getPrice() *
                     (1 + AuthorizeTransactionInfo.TAX);
             AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
-                    .createFromAuthSales(authSalesInfo, amount);
+                    .createFromAuthSales(authSalesInfo1, amount);
 
             //2. process transaction and save transaction info
             AuthorizeTransactionInfo charge = new AuthorizeTransaction()
@@ -147,26 +151,24 @@ public class AuthAdminService {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
             AuthorizeTransactionSalesMemberInfo authorizeTransactionSalesMemberInfo = AuthorizeTransactionSalesMemberInfo
-                    .create(authSalesInfo, salesActivateCategoryInfo, charge);
+                    .create(authSalesInfo1, salesActivateCategoryInfo, charge);
 
             authorizeTransactionSalesMemberDao.insertOne(authorizeTransactionSalesMemberInfo);
             //3. send invoice
             try {
                 List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo);
                 SalesMemberInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-                String invoice = SalesMemberInvoiceUtil.createInvoice(authSalesInfo.getEmail(), charge.getTransactionId(), invoiceInfoList);
+                String invoice = SalesMemberInvoiceUtil.createInvoice(authSalesInfo1.getEmail(),
+                        charge.getTransactionId(), invoiceInfoList);
                 SalesMemberInvoiceUtil.copyInvoice(invoice);
                 EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LDE);
-                emailMaster.setInvoiceContent(authSalesInfo.getUsername());
+                emailMaster.setInvoiceContent(authSalesInfo1.getUsername());
                 emailMaster.addAttachment(invoice);
-                emailMaster.sendMessage(authSalesInfo.getEmail());
+                emailMaster.sendMessage(authSalesInfo1.getEmail());
             } catch (Exception e) {
                 logger.error("invoice send error", e);
             }
         }
-        //4. store sales info
-        authSalesInfo.setExpiresTime(TimeUtil.getExpiresDate(salesActivateCategoryInfo.getMonth()));
-        authSalesDao.insertOne(authSalesInfo);
         return ResultMaster.success(authSalesDao.selectOneByUsername(authSalesInfo));
     }
 
@@ -217,24 +219,40 @@ public class AuthAdminService {
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo updateUserStatus(String status, String key){
-        try {
-            AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo();
-            authRentUserInfo.setStatus(status);
-            authRentUserInfo.setClientKey(key);
-            authRentUserDao.updateUserStatus(authRentUserInfo);
-            if(AuthRentUserInfo.STATUS_ACTIVATE.equals(status)){
-                AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectOneByClientKey(key);
-                deviceRentDao.updateDeviceToRented(authRentUserInfo1.getMac());
-                int sdcnCount = deviceRentDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
-                if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
-                    authSalesDao.updateSDCNById(authRentUserInfo1.getSalesId());
-                }
+        AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo();
+        authRentUserInfo.setStatus(status);
+        authRentUserInfo.setClientKey(key);
+        authRentUserDao.updateUserStatus(authRentUserInfo);
+        if(AuthRentUserInfo.STATUS_ACTIVATE.equals(status)){
+            AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectOneByClientKey(key);
+            deviceRentDao.updateDeviceToRented(authRentUserInfo1.getMac());
+            int sdcnCount = deviceRentDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
+            if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
+                authSalesDao.updateSDCNById(authRentUserInfo1.getSalesId());
             }
-            return ResultMaster.success();
-        }catch (Exception e){
-            logger.error("Exception:", e);
-            return ResultMaster.error(EnumResult.ERROR_SERVER_EXCEPTION);
         }
+        return ResultMaster.success();
+    }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo updateUserActivateWithCash(HttpServletRequest request,
+                                                 String key, String password){
+        AuthAdminInfo authAdminInfo = getAdminInfo(request);
+        if(!password.equals(authAdminInfo.getPassword())){
+            throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
+        }
+        AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo();
+        authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
+        authRentUserInfo.setClientKey(key);
+        authRentUserDao.updateUserStatus(authRentUserInfo);
+        AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectOneByClientKey(key);
+        deviceRentDao.updateDeviceToRented(authRentUserInfo1.getMac());
+        int sdcnCount = deviceRentDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
+        if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
+            authSalesDao.updateSDCNById(authRentUserInfo1.getSalesId());
+        }
+        return ResultMaster.success();
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -312,7 +330,7 @@ public class AuthAdminService {
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo bathUpdateDeviceToSpecialSales(HttpServletRequest request, String [] macs,
-                                                     int salesId, String password){
+                                                     int salesId, String password, boolean free){
         AuthAdminInfo authAdminInfo = getAdminInfo(request);
         if(!authAdminInfo.getPassword().equals(password)){
             throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
@@ -333,14 +351,16 @@ public class AuthAdminService {
         if(salesStoreCount >= AuthSalesInfo.GOLD_COUNT){
             authSalesDao.updateGoldById(salesId);
         }
-        AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
-                .createFromAuthSales(authSalesInfo, CommissionCategoryInfo.DEPOSIT * macs.length);
-        AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request);
-        if(charge == null){
-            throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+        if(!free) {
+            AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
+                    .createFromAuthSales(authSalesInfo, CommissionCategoryInfo.DEPOSIT * macs.length);
+            AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request);
+            if (charge == null) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+            }
+            authorizeTransactionSalesDepositDao.insertOne(AuthorizeTransactionSalesDepositInfo
+                    .createDepositForRepStore(authSalesInfo, charge));
         }
-        authorizeTransactionSalesDepositDao.insertOne(AuthorizeTransactionSalesDepositInfo
-                .createDepositForRepStore(authSalesInfo, charge));
         return ResultMaster.success(authSalesInfo);
     }
 
@@ -441,7 +461,7 @@ public class AuthAdminService {
         if(TextUtil.isEmpty(username)){
             throw new XException(EnumResult.ERROR_UNAUTHORIZED);
         }
-        return authAdminDao.selectOne(new AuthAdminInfo(username));
+        return authAdminDao.selectOneByUsername(new AuthAdminInfo(username));
     }
 
 }

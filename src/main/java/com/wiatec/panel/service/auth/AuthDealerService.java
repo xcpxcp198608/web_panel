@@ -93,11 +93,16 @@ public class AuthDealerService {
 
         SalesActivateCategoryInfo salesActivateCategoryInfo = salesActivateCategoryDao
                 .selectOneByCategory(authSalesInfo.getActivateCategory());
+        authSalesInfo.setExpiresTime(TimeUtil.getExpiresDate(salesActivateCategoryInfo.getMonth()));
+        authSalesInfo.setDealerId(getDealerInfo(request).getId());
+
         if(salesActivateCategoryInfo.getPrice() > 0) {
+            AuthSalesInfo authSalesInfo1 = authSalesDao.selectOneByUsername(authSalesInfo);
             //1. create transaction info
             AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
                     .createFromAuthSales(authSalesInfo,
-                            salesActivateCategoryInfo.getPrice() + salesActivateCategoryInfo.getPrice() * AuthorizeTransactionInfo.TAX);
+                            salesActivateCategoryInfo.getPrice() +
+                                    salesActivateCategoryInfo.getPrice() * AuthorizeTransactionInfo.TAX);
             //2. process transaction and save transaction info
             AuthorizeTransactionInfo charge = new AuthorizeTransaction()
                     .charge(authorizeTransactionInfo);
@@ -105,26 +110,23 @@ public class AuthDealerService {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
             AuthorizeTransactionSalesMemberInfo authorizeTransactionSalesMemberInfo = AuthorizeTransactionSalesMemberInfo
-                    .create(authSalesInfo, salesActivateCategoryInfo, charge);
+                    .create(authSalesInfo1, salesActivateCategoryInfo, charge);
             authorizeTransactionSalesMemberDao.insertOne(authorizeTransactionSalesMemberInfo);
             //3. send invoice
             try {
                 List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.salesActivateNormal(salesActivateCategoryInfo);
                 SalesMemberInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
-                String invoice = SalesMemberInvoiceUtil.createInvoice(authSalesInfo.getEmail(), charge
+                String invoice = SalesMemberInvoiceUtil.createInvoice(authSalesInfo1.getEmail(), charge
                         .getTransactionId(), invoiceInfoList);
                 SalesMemberInvoiceUtil.copyInvoice(invoice);
                 EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LDE);
-                emailMaster.setInvoiceContent(authSalesInfo.getUsername());
+                emailMaster.setInvoiceContent(authSalesInfo1.getUsername());
                 emailMaster.addAttachment(invoice);
-                emailMaster.sendMessage(authSalesInfo.getEmail());
+                emailMaster.sendMessage(authSalesInfo1.getEmail());
             } catch (Exception e) {
                 logger.error("invoice error", e);
             }
         }
-        //4. store sales info
-        authSalesInfo.setExpiresTime(TimeUtil.getExpiresDate(salesActivateCategoryInfo.getMonth()));
-        authSalesInfo.setDealerId(getDealerInfo(request).getId());
         authSalesDao.insertOne(authSalesInfo);
         return ResultMaster.success(authSalesDao.selectOneByUsername(authSalesInfo));
     }

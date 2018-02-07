@@ -10,7 +10,7 @@
 <head>
     <base href="<%=basePath%>">
 
-    <title><rapid:block name="title"/>--Preferred customer program</title>
+    <title><rapid:block name="title"/>--BTVi control panel</title>
 
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">

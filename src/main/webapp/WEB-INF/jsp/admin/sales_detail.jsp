@@ -14,51 +14,6 @@
 
 <rapid:override name="content">
 
-    <%--<div class="row">--%>
-        <%--<div class="col-4" style="padding: 0 0 0 10px">--%>
-            <%--<div style="width: 100%; background-color: #0815a8; height: 3px"></div>--%>
-            <%--<div style="background-color: #ffffff; padding: 10px">--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="badge badge-warning ba-strong">--%>
-                        <%--0--%>
-                    <%--</span>--%>
-                <%--</div>--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="text-muted " ></span>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="col-4" style="padding: 0 10px 0 10px">--%>
-            <%--<div style="width: 100%; background-color: #0815a8; height: 3px"></div>--%>
-            <%--<div style="background-color: #ffffff; padding: 10px">--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="badge badge-warning ba-strong" id="maxVolumeSales">--%>
-                            <%--xxx--%>
-                    <%--</span>--%>
-                    <%--<span class="badge badge-success ba-strong" id="maxVolume">--%>
-                            <%--0--%>
-                    <%--</span>--%>
-                <%--</div>--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="text-muted " ></span>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="col-4" style="padding: 0 10px 0 0">--%>
-            <%--<div style="width: 100%; background-color: #0815a8; height: 3px"></div>--%>
-            <%--<div style="background-color: #ffffff; padding: 10px">--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="badge badge-danger ba-strong" id="totalCommission">--%>
-                            <%--0--%>
-                    <%--</span>--%>
-                <%--</div>--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="text-muted " ></span>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-
     <div class="row" style="padding: 0 10px">
         <div style="width: 100%; background-color: #c11021; height: 3px;"></div>
         <div style="width: 100%; background-color: #ffffff; padding-bottom: 5px">
@@ -71,16 +26,17 @@
             <input type="hidden" id="ipCurrentSalesId" value="${authSalesInfo.id}">
         </div>
     </div>
-
-    <div class="row" style="padding: 0 10px;">
-        <div class="col-12" style="background-color: #ffffff">
-            <a id="btCheck" data-toggle="tooltip" title=" Click “Check” to confirm security deposit has been returned">
-                <span class="badge badge-primary text-center">
-                    <i class="fa fa-check fa-lg"></i>&nbsp;Check
-                </span>
-            </a>
+    <c:if test="${permission >= 100}">
+        <div class="row" style="padding: 0 10px;">
+            <div class="col-12" style="background-color: #ffffff">
+                <a id="btCheck" data-toggle="tooltip" title=" Click “Check” to confirm security deposit has been returned">
+                    <span class="badge badge-primary text-center">
+                        <i class="fa fa-check fa-lg"></i>&nbsp;Check
+                    </span>
+                </a>
+            </div>
         </div>
-    </div>
+    </c:if>
     <div class="row" style="padding: 0 10px 0 10px">
         <div style="background-color: white; width: 100%; padding: 10px;">
             <table class="table table-sm table-hover" id="tbDevices">

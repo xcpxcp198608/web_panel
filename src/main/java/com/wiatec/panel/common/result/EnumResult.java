@@ -37,8 +37,9 @@ public enum  EnumResult {
     ERROR_OUT_EXPIRATION(6020, "Out expiration date"),
     ERROR_TOKEN_NOT_EXISTS(6021, "Token not exists"),
     ERROR_MAC_FORMAT(6022, "Mac address format error"),
-    ERROR_UPDATE_FAILURE(6023, "Update failure"),
-    ERROR_TRANSACTION_FAILURE(6024, "transaction failure"),
+    ERROR_MAC_NOT_EXISTS(6023, "Mac address not exists"),
+    ERROR_UPDATE_FAILURE(6024, "Update failure"),
+    ERROR_TRANSACTION_FAILURE(6025, "transaction failure"),
 
 
     ERROR_AUTHORIZE(9001, "Authorize communication exception"),
