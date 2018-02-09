@@ -300,7 +300,7 @@ public class AuthAdminService {
     public String devices(Model model){
         List<DevicePCPInfo> devicePCPInfoList = devicePCPDao.selectAll();
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectAll();
-        model.addAttribute("deviceRentInfoList", devicePCPInfoList);
+        model.addAttribute("devicePCPInfoList", devicePCPInfoList);
         model.addAttribute("authSalesInfoList", authSalesInfoList);
         return "admin/devices";
     }
