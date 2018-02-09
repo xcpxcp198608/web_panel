@@ -2,12 +2,13 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <rapid:override name="title">
-    Home
+    PCP
 </rapid:override>
 <rapid:override name="css_js">
-    <script type="application/javascript" src="Resource/js/manager/devices.js"></script>
+    <script type="application/javascript" src="Resource/js/devices/devices_pcp.js"></script>
 </rapid:override>
 
 
@@ -17,79 +18,37 @@
         <div style="width: 100%; background-color: #ffffff; padding: 10px">
             <nav>
                 <div class="nav nav-tabs nav-dark" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Disable Devices</a>
-                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Enable Devices</a>
+                    <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">PCP Devices</a>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent" style="margin-top: 10px">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <div class="row">
                         <div class="col-6">
-                            <a id="btCheckIn" data-toggle="tooltip" title="check in new device">
+                            <a id="btCheckIn" data-toggle="tooltip" title="enable the device">
                                 <span class="badge badge-primary text-center" style="padding: 3px">
                                     <i class="fa fa-plus-square fa-lg"></i>&nbsp;CheckIn
                                 </span>
                             </a>&nbsp;
-                            <a id="btBathCheckIn" data-toggle="tooltip" title="check in new device">
-                                <span class="badge badge-warning text-center" style="padding: 3px">
-                                    <i class="fa fa-plus-square fa-lg"></i>&nbsp;BathCheckIn
-                                </span>
-                            </a>
                         </div>
-                    </div><br/>
-                    <table class="table table-sm table-hover table-dark" id="tbDisableDevices">
-                        <thead>
+                    </div>
+
+                    <table class="table table-sm table-hover table-striped" id="tbPCPDevices" style="margin-top: 5px">
+                        <thead style="background-color: #566778;">
                         <tr>
-                            <th>Item</th>
+                            <th>Id</th>
                             <th>Mac</th>
-                            <th>Enable</th>
+                            <th>Sales</th>
                             <th>CheckInTime</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${disableDeviceInfoList}" var="deviceInfo" varStatus="status">
+                        <c:forEach items="${devicePCPInfoList}" var="devicePCPInfo" varStatus="status">
                             <tr>
-                                <td>${status.index + 1}</td>
-                                <td>${deviceInfo.mac}</td>
-                                <td>
-                                    <span class="text-muted"><i class="fa fa-times-circle"></i></span>
-                                </td>
-                                <td>${deviceInfo.createTime}</td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <div class="row">
-                        <div class="col-6">
-                            <a id="btEnable" data-toggle="tooltip" title="enable the device">
-                                <span class="badge badge-danger text-center" style="padding: 3px">
-                                    <i class="fa fa-plus-square fa-lg"></i>&nbsp;Enable
-                                </span>
-                            </a>&nbsp;
-                        </div>
-                    </div><br/>
-                    <table class="table table-sm table-hover table-dark" id="tbEnableDevices">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Mac</th>
-                            <th>Enable</th>
-                            <th>User</th>
-                            <th>EnableTime</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${enableDeviceInfoList}" var="deviceInfo" varStatus="status">
-                            <tr>
-                                <td>${status.index + 1}</td>
-                                <td>${deviceInfo.mac}</td>
-                                <td>
-                                    <span class="text-muted"><i class="fa fa-check-circle"></i></span>
-                                </td>
-                                <td>${deviceInfo.enableName}</td>
-                                <td>${deviceInfo.enableTime}</td>
+                                <td>${devicePCPInfo.id}</td>
+                                <td>${devicePCPInfo.mac}</td>
+                                <td>${devicePCPInfo.salesName}</td>
+                                <td>${devicePCPInfo.createTime}</td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -97,9 +56,9 @@
                 </div>
             </div>
 
-
         </div>
     </div>
+
 
 </rapid:override>
 
@@ -216,4 +175,4 @@
 
 </rapid:override>
 
-<%@ include file="base_manager.jsp"%>
+<%@ include file="base_devices.jsp"%>

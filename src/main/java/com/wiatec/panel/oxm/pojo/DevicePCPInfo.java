@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author patrick
  */
-public class DeviceRentInfo {
+public class DevicePCPInfo {
 
     private int id;
     private String mac;
@@ -32,10 +32,10 @@ public class DeviceRentInfo {
     private String checkNumber;
     private Date checkTime;
 
-    public DeviceRentInfo() {
+    public DevicePCPInfo() {
     }
 
-    public DeviceRentInfo(String mac) {
+    public DevicePCPInfo(String mac) {
         this.mac = mac;
     }
 
@@ -165,7 +165,7 @@ public class DeviceRentInfo {
 
     @Override
     public String toString() {
-        return "DeviceRentInfo{" +
+        return "DevicePCPInfo{" +
                 "id=" + id +
                 ", mac='" + mac + '\'' +
                 ", salesId=" + salesId +

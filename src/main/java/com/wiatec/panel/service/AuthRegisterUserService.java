@@ -6,7 +6,7 @@ import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
 import com.wiatec.panel.oxm.dao.AuthRentUserDao;
 import com.wiatec.panel.oxm.dao.AuthUserLogDao;
-import com.wiatec.panel.oxm.dao.DeviceRentDao;
+import com.wiatec.panel.oxm.dao.DevicePCPDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.common.utils.EmailMaster;
 import com.wiatec.panel.common.utils.TokenUtil;
@@ -16,7 +16,7 @@ import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthUserLogInfo;
-import com.wiatec.panel.oxm.pojo.DeviceRentInfo;
+import com.wiatec.panel.oxm.pojo.DevicePCPInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +44,14 @@ public class AuthRegisterUserService {
     @Resource
     private AuthUserLogDao authUserLogDao;
     @Autowired
-    private DeviceRentDao deviceRentDao;
+    private DevicePCPDao devicePCPDao;
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo register(HttpServletRequest request, AuthRegisterUserInfo authRegisterUserInfo, String language){
         if(TextUtil.isEmpty(authRegisterUserInfo.getMac())){
             throw new XException(ResultMaster.error("device s/n error"));
         }
-        if(deviceRentDao.countOne(new DeviceRentInfo(authRegisterUserInfo.getMac())) >= 1){
+        if(devicePCPDao.countOne(new DevicePCPInfo(authRegisterUserInfo.getMac())) >= 1){
             throw new XException(1001, "the device only for rental");
         }
         if(authRegisterUserDao.countByMac(authRegisterUserInfo) == 1){
@@ -121,9 +121,12 @@ public class AuthRegisterUserService {
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo validate(HttpSession session, AuthRegisterUserInfo userInfo){
+        if(authRegisterUserDao.countByUsername(userInfo) != 1){
+            throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
+        }
         AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByUsername(userInfo);
         if (authRegisterUserInfo == null) {
-            throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
+            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
         session.setAttribute(SessionListener.KEY_USER_NAME, authRegisterUserInfo.getUsername());
         authRegisterUserDao.updateLocation(userInfo);
@@ -134,12 +137,19 @@ public class AuthRegisterUserService {
         if(TextUtil.isEmpty(activateTime)){
             activateTime = TimeUtil.getStrTime(TimeUtil.DEFAULT_TIME);
         }
-        if(authRegisterUserInfo.getLevel() > 1 && TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())) {
-            logger.debug("user level reset");
-            authRegisterUserInfo.setLevel(1);
-            authRegisterUserInfo.setExpiresTime(new Date(TimeUtil.DEFAULT_TIME));
-            authRegisterUserDao.updateLevelById(authRegisterUserInfo);
+        if(authRegisterUserInfo.getLevel() > 1) {
+            Date expiration = authRegisterUserInfo.getExpiration();
+            if(expiration != null && expiration.before(new Date())) {
+                logger.error("id: " + authRegisterUserInfo.getId() +
+                        " level: " + authRegisterUserInfo.getLevel() +
+                        " expiration: " + expiration +
+                        " expires time: " + authRegisterUserInfo.getExpiresTime());
+                authRegisterUserInfo.setLevel(1);
+                authRegisterUserInfo.setExpiresTime(new Date(TimeUtil.DEFAULT_TIME));
+                authRegisterUserDao.updateLevelById(authRegisterUserInfo);
+            }
         }
+        authRegisterUserInfo = authRegisterUserDao.selectOneByUsername(userInfo);
         String e = TimeUtil.getExpiresTimeByDay(activateTime, 7);
         if (!TimeUtil.isOutExpires(e)) {
             authRegisterUserInfo.setExperience(true);

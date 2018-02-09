@@ -1,6 +1,7 @@
 package com.wiatec.panel.web;
 
 import com.wiatec.panel.common.result.ResultInfo;
+import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
 import com.wiatec.panel.service.auth.AuthManagerService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,28 +45,6 @@ public class AuthManager {
         return authManagerService.distribution();
     }
 
-    @GetMapping(value = "/devices")
-    public String devices(Model model){
-        return authManagerService.devices(model);
-    }
-
-    @PostMapping(value = "/device/save")
-    @ResponseBody
-    public ResultInfo insertDevice(String mac){
-        return authManagerService.insertDevice(mac);
-    }
-
-    @PostMapping(value = "/devices/save")
-    @ResponseBody
-    public ResultInfo bathInsertDevices(String startMac, String endMac){
-        return authManagerService.bathInsertDevices(startMac, endMac);
-    }
-
-    @PutMapping(value = "/device/enable")
-    @ResponseBody
-    public ResultInfo enableDevice(String mac, String username){
-        return authManagerService.enableDevice(mac, username);
-    }
 
     @GetMapping(value = "/chart/distribution")
     @ResponseBody
@@ -100,7 +80,8 @@ public class AuthManager {
     @ResponseBody
     public ResultInfo updateLevel(@PathVariable int id, @PathVariable int level,
                                   @RequestBody AuthRegisterUserInfo authRegisterUserInfo){
-        return authManagerService.updateLevel(id, level, authRegisterUserInfo.getExpiresTime());
+        return authManagerService.updateLevel(id, level,
+                new Date(TimeUtil.getUnixFromStr(authRegisterUserInfo.getExpiresTime())));
     }
 
     @GetMapping(value = "/chart/volume/{year}/{month}")

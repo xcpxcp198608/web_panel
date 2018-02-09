@@ -1,6 +1,6 @@
 package com.wiatec.panel.oxm.dao;
 
-import com.wiatec.panel.oxm.pojo.DeviceRentInfo;
+import com.wiatec.panel.oxm.pojo.DevicePCPInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +9,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:applicationContext.xml"})
-public class DeviceRentDaoTest {
+public class DevicePCPDaoTest {
 
     @Autowired
-    private DeviceRentDao deviceRentDao;
+    private DevicePCPDao devicePCPDao;
 
     @Test
     public void countOne() {
@@ -32,8 +30,8 @@ public class DeviceRentDaoTest {
 
     @Test
     public void selectAll() {
-        List<DeviceRentInfo> deviceRentInfoList = deviceRentDao.selectAll();
-        System.out.println(deviceRentInfoList);
+        List<DevicePCPInfo> devicePCPInfoList = devicePCPDao.selectAll();
+        System.out.println(devicePCPInfoList);
     }
 
     @Test
@@ -51,6 +49,6 @@ public class DeviceRentDaoTest {
     @Test
     public void bathUpdateDeviceToSpecialSales() {
         String[] macs = {"5C:41:E7:00:9A:E2", "5C:41:E7:00:98:1C"};
-        deviceRentDao.bathUpdateDeviceToSpecialSales(macs, 1, 1, 1);
+        devicePCPDao.bathUpdateDeviceToSpecialSales(macs, 1, 1, 1);
     }
 }

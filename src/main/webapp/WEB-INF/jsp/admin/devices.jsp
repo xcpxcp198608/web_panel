@@ -22,7 +22,7 @@
             </span>
             <span class="badge badge-success text-center" id="totalDevices"
                   data-toggle="tooltip" title="total check in devices!">
-                    ${fn:length(deviceRentInfoList)}
+                    ${fn:length(devicePCPInfoList)}
             </span>
         </div>
 
@@ -76,41 +76,41 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${deviceRentInfoList}" var="deviceRentInfo" varStatus="status">
+                <c:forEach items="${devicePCPInfoList}" var="devicePCPInfo" varStatus="status">
                     <tr>
-                        <td><input type="checkbox" name="cbDevice" value="${deviceRentInfo.mac}"
+                        <td><input type="checkbox" name="cbDevice" value="${devicePCPInfo.mac}"
                                    currentRow="${status.index}"></td>
                         <td>${status.index+1}</td>
-                        <td>${deviceRentInfo.mac}</td>
+                        <td>${devicePCPInfo.mac}</td>
                         <td>
-                            <c:if test="${deviceRentInfo.salesName eq 'pcp'}">
-                                <span class="text-muted">${deviceRentInfo.salesName}</span>
+                            <c:if test="${devicePCPInfo.salesName eq 'pcp'}">
+                                <span class="text-muted">${devicePCPInfo.salesName}</span>
                             </c:if>
-                            <c:if test="${deviceRentInfo.salesName ne 'pcp'}">
-                                <span class="text-warning">${deviceRentInfo.salesName}</span>
+                            <c:if test="${devicePCPInfo.salesName ne 'pcp'}">
+                                <span class="text-warning">${devicePCPInfo.salesName}</span>
                             </c:if>
 
                         </td>
-                        <td>${deviceRentInfo.createTime}</td>
+                        <td>${devicePCPInfo.createTime}</td>
                         <td>
-                            <c:if test="${deviceRentInfo.rented == true}">
+                            <c:if test="${devicePCPInfo.rented == true}">
                                 <span class="text-success"><i class="fa fa-check-circle"></i></span>
                             </c:if>
-                            <c:if test="${deviceRentInfo.rented == false}">
+                            <c:if test="${devicePCPInfo.rented == false}">
                                 <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
                             </c:if>
                         </td>
-                        <td>${deviceRentInfo.rentTime}</td>
+                        <td>${devicePCPInfo.rentTime}</td>
                         <td>
-                            <c:if test="${deviceRentInfo.checked == true}">
+                            <c:if test="${devicePCPInfo.checked == true}">
                                 <span class="text-success"><i class="fa fa-check-circle"></i></span>
                             </c:if>
-                            <c:if test="${deviceRentInfo.checked == false}">
+                            <c:if test="${devicePCPInfo.checked == false}">
                                 <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
                             </c:if>
                         </td>
-                        <td>${deviceRentInfo.checkNumber}</td>
-                        <td>${deviceRentInfo.checkTime}</td>
+                        <td>${devicePCPInfo.checkNumber}</td>
+                        <td>${devicePCPInfo.checkTime}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

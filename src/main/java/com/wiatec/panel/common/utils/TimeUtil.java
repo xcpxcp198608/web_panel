@@ -4,14 +4,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author patrick
  */
 public class TimeUtil {
 
-    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
+    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+    public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
     public static final long DEFAULT_TIME = 1483200000000L;
 
     public static void main (String [] args){
@@ -23,6 +24,14 @@ public class TimeUtil {
 
         String strTime = getStrTime(DEFAULT_TIME);
         System.out.println(strTime);
+
+//        Date date = new Date(1519200000000L);
+        Date date = new Date(1519200000000L);
+        boolean b = date.after(new Date());
+        System.out.println(b);
+
+        Date d = new Date("2018-02-28 00:00:00");
+        System.out.println(d);
     }
 
 
@@ -108,8 +117,12 @@ public class TimeUtil {
     }
 
     public static boolean isOutExpires(String expiresTime) {
+        System.out.println(expiresTime);
         long uTime = TimeUtil.getUnixFromStr(expiresTime);
-        return uTime > 0 && System.currentTimeMillis() > uTime;
+        long sys = System.currentTimeMillis();
+        System.out.println("ex: " + uTime);
+        System.out.println("sys: " + sys);
+        return uTime > 0 && sys > uTime;
     }
 
 }

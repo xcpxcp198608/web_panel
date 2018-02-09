@@ -52,7 +52,7 @@ public class AuthSalesService {
     @Resource
     private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
     @Resource
-    private DeviceRentDao deviceRentDao;
+    private DevicePCPDao devicePCPDao;
 
     public String home(HttpServletRequest request, Model model){
         int salesId = getSalesInfo(request).getId();
@@ -121,10 +121,10 @@ public class AuthSalesService {
         if(authRegisterUserDao.countByMac(new AuthRegisterUserInfo(authRentUserInfo.getMac())) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
         }
-        if(deviceRentDao.countOne(new DeviceRentInfo(authRentUserInfo.getMac())) != 1){
+        if(devicePCPDao.countOne(new DevicePCPInfo(authRentUserInfo.getMac())) != 1){
             throw new XException(EnumResult.ERROR_DEVICE_NO_CHECK_IN);
         }
-        if(deviceRentDao.selectSalesIdByMac(authRentUserInfo.getMac()) != authSalesInfo.getId()){
+        if(devicePCPDao.selectSalesIdByMac(authRentUserInfo.getMac()) != authSalesInfo.getId()){
             throw new XException(6000, "the device belongs to other sales");
         }
         CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
@@ -180,7 +180,7 @@ public class AuthSalesService {
             emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
             emailMaster.addAttachment(invoicePath);
             emailMaster.sendMessage(authRentUserInfo.getEmail());
-            deviceRentDao.updateDeviceToRented(authRentUserInfo.getMac());
+            devicePCPDao.updateDeviceToRented(authRentUserInfo.getMac());
             return ResultMaster.success(authRentUserInfo.getClientKey());
         }else if (paymentMethod == PAYMENT_METHOD_PAYPAL) {
             authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_PAYPAL);
@@ -189,11 +189,11 @@ public class AuthSalesService {
         }else{
             throw new XException(ResultMaster.error(5001, "payment method error"));
         }
-        int salesStoreCount = deviceRentDao.countNoRentedBySalesId(authSalesInfo.getId());
+        int salesStoreCount = devicePCPDao.countNoRentedBySalesId(authSalesInfo.getId());
         if(salesStoreCount <= 0){
             authSalesDao.updateNoGoldById(authSalesInfo.getId());
         }
-        int sdcnCount = deviceRentDao.countSDCNBySalesId(authSalesInfo.getId());
+        int sdcnCount = devicePCPDao.countSDCNBySalesId(authSalesInfo.getId());
         if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
             authSalesDao.updateSDCNById(authSalesInfo.getId());
         }

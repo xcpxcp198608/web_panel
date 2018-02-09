@@ -14,8 +14,10 @@ public enum  EnumResult {
     ERROR_UNAUTHORIZED(400, "Unauthorized"),
     ERROR_NO_FOUND(404, "Resource not exists"),
     ERROR_SERVER_EXCEPTION(500, "Server exception"),
+    ERROR_WRONG_PARAM_FORMAT(600, "Request param format incorrect"),
+    ERROR_OPERATION_FAILURE(700, "Operation failure"),
 
-    ERROR_WRONG_PARAM_FORMAT(6001, "Request param format incorrect"),
+
     ERROR_USERNAME_EXISTS(6002, "Username already exists"),
     ERROR_USERNAME_FORMAT(6003, "Username format error"),
     ERROR_PASSWORD_FORMAT(6004, "Password format error"),
@@ -37,9 +39,10 @@ public enum  EnumResult {
     ERROR_OUT_EXPIRATION(6020, "Out expiration date"),
     ERROR_TOKEN_NOT_EXISTS(6021, "Token not exists"),
     ERROR_MAC_FORMAT(6022, "Mac address format error"),
-    ERROR_MAC_NOT_EXISTS(6023, "Mac address not exists"),
-    ERROR_UPDATE_FAILURE(6024, "Update failure"),
-    ERROR_TRANSACTION_FAILURE(6025, "transaction failure"),
+    ERROR_MAC_EXISTS(6023, "Mac address already error"),
+    ERROR_MAC_NOT_EXISTS(6024, "Mac address not exists"),
+    ERROR_UPDATE_FAILURE(6025, "Update failure"),
+    ERROR_TRANSACTION_FAILURE(6026, "transaction failure"),
 
 
     ERROR_AUTHORIZE(9001, "Authorize communication exception"),

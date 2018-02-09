@@ -1,8 +1,6 @@
 package com.wiatec.panel.oxm.dao;
 
-import com.wiatec.panel.oxm.pojo.AuthAdminInfo;
-import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
-import com.wiatec.panel.oxm.pojo.DeviceRentInfo;
+import com.wiatec.panel.oxm.pojo.DevicePCPInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -12,14 +10,15 @@ import java.util.List;
  * @author patrick
  */
 @Repository
-public interface DeviceRentDao {
+public interface DevicePCPDao {
 
     /**
      * check the device is exist by device mac address
-     * @param deviceRentInfo required: mac
+     * @param devicePCPInfo required: mac
      * @return int, 1 = exist
      */
-    int countOne(DeviceRentInfo deviceRentInfo);
+    int countOne(DevicePCPInfo devicePCPInfo);
+    int countOneByMac(String mac);
 
     /**
      * get the sales id by mac address
@@ -30,28 +29,26 @@ public interface DeviceRentDao {
 
     /**
      * get the device_rent full information by mac address
-     * @param deviceRentInfo  required: mac
      * @return all field
      */
-    DeviceRentInfo selectOneByMac(DeviceRentInfo deviceRentInfo);
+    DevicePCPInfo selectOneByMac(String mac);
 
     /**
      * get all device_rent info
      * @return all device_rent list
      */
-    List<DeviceRentInfo> selectAll();
+    List<DevicePCPInfo> selectAll();
 
-    List<DeviceRentInfo> selectBySalesId(int salesId);
+    List<DevicePCPInfo> selectBySalesId(int salesId);
 
-    List<DeviceRentInfo> selectRentedBySalesId(int salesId);
+    List<DevicePCPInfo> selectRentedBySalesId(int salesId);
 
     /**
      * insert a new device rent info
-     * @param deviceRentInfo required: mac, sales_id, dealer_id, admin_id
      */
-    void insertOne(DeviceRentInfo deviceRentInfo);
+    int insertOne(String mac);
 
-    int updateDeviceToSpecialSales(DeviceRentInfo deviceRentInfo);
+    int updateDeviceToSpecialSales(DevicePCPInfo devicePCPInfo);
 
     int bathUpdateDeviceToSpecialSales(@Param("macs") String[] macs, @Param("salesId") int salesId,
                                        @Param("dealerId") int dealerId, @Param("adminId") int adminId);
@@ -59,7 +56,7 @@ public interface DeviceRentDao {
     int bathUpdateDeviceToChecked(@Param("macs") String[] macs, @Param("salesId") int salesId,
                                   @Param("checkNumber") String checkNumber);
 
-    int updateDeviceToChecked(DeviceRentInfo deviceRentInfo);
+    int updateDeviceToChecked(DevicePCPInfo devicePCPInfo);
     int updateDeviceToRented(String mac);
 
     int countNoRentedBySalesId(int salesId);

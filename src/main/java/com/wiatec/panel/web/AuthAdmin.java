@@ -4,7 +4,7 @@ import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.pojo.AuthDealerInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
-import com.wiatec.panel.oxm.pojo.DeviceRentInfo;
+import com.wiatec.panel.oxm.pojo.DevicePCPInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.service.auth.AuthAdminService;
 import com.wiatec.panel.common.result.ResultInfo;
@@ -227,13 +227,13 @@ public class AuthAdmin {
     /**
      * save a device rent info
      * @param request  HttpServletRequest
-     * @param deviceRentInfo  DeviceRentInfo required: mac, dealerId
+     * @param devicePCPInfo  DevicePCPInfo required: mac, dealerId
      * @return         ResultInfo
      */
     @PostMapping(value = "/devices/save")
     @ResponseBody
-    public ResultInfo saveDevice(HttpServletRequest request, DeviceRentInfo deviceRentInfo){
-        return authAdminService.saveDevice(request, deviceRentInfo);
+    public ResultInfo saveDevice(HttpServletRequest request, DevicePCPInfo devicePCPInfo){
+        return authAdminService.saveDevice(request, devicePCPInfo);
     }
 
     /**

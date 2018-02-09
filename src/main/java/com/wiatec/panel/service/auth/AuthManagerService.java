@@ -4,17 +4,13 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
-import com.wiatec.panel.common.utils.MacUtil;
-import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.common.utils.TokenUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthManagerDao;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
-import com.wiatec.panel.oxm.dao.DeviceDao;
 import com.wiatec.panel.oxm.pojo.AuthManagerInfo;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
-import com.wiatec.panel.oxm.pojo.DeviceInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.LevelDistributionInfo;
@@ -39,8 +35,6 @@ public class AuthManagerService {
     private AuthRegisterUserDao authRegisterUserDao;
     @Autowired
     private AuthManagerDao authManagerDao;
-    @Autowired
-    private DeviceDao deviceDao;
 
     public String home(){
         return "manager/home";
@@ -92,19 +86,17 @@ public class AuthManagerService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo updateLevel(int id, int level, String expiresTime){
+    public ResultInfo updateLevel(int id, int level, Date expiresTime){
         AuthRegisterUserInfo authRegisterUserInfo = new AuthRegisterUserInfo();
         authRegisterUserInfo.setId(id);
         authRegisterUserInfo.setLevel(level);
-        expiresTime = expiresTime + " 00:00:00";
-        if(level == 1){
+        if(level <= 1){
             authRegisterUserInfo.setExpiresTime(new Date(TimeUtil.DEFAULT_TIME));
-        }else if(level == 0){
-            authRegisterUserInfo.setExpiresTime(new Date(TimeUtil.getUnixFromStr(authRegisterUserDao.selectExpiresTimeById(id))));
         }else {
-            authRegisterUserInfo.setExpiresTime(new Date(TimeUtil.getUnixFromStr(expiresTime)));
+            authRegisterUserInfo.setExpiresTime(expiresTime);
         }
         authRegisterUserDao.updateLevelById(authRegisterUserInfo);
+        authRegisterUserInfo = authRegisterUserDao.selectOneById(id);
         return ResultMaster.success(authRegisterUserInfo);
     }
 
@@ -118,64 +110,6 @@ public class AuthManagerService {
         return "manager/distribution";
     }
 
-    public String devices(Model model){
-        List<DeviceInfo> enableDeviceInfoList = deviceDao.selectAllWithEnable(1);
-        List<DeviceInfo> disableDeviceInfoList = deviceDao.selectAllWithEnable(0);
-        model.addAttribute("enableDeviceInfoList", enableDeviceInfoList);
-        model.addAttribute("disableDeviceInfoList", disableDeviceInfoList);
-        return "manager/devices";
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public ResultInfo insertDevice(String mac){
-        if(!MacUtil.validateMac(mac)){
-            throw new XException(EnumResult.ERROR_MAC_FORMAT);
-        }
-        String newMac = mac.toUpperCase();
-        int i = deviceDao.insertOne(new DeviceInfo(newMac));
-        if(i != 1){
-            throw new XException(1001, "mac address duplicate");
-        }
-        return ResultMaster.success(deviceDao.selectOneByMac(newMac));
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public ResultInfo bathInsertDevices(String startMac, String endMac){
-        if(!MacUtil.validateMac(startMac) || !MacUtil.validateMac(endMac)){
-            throw new XException(EnumResult.ERROR_MAC_FORMAT);
-        }
-        if(!MacUtil.compare(startMac, endMac, 5)){
-            throw new XException(1001, "start mac less than end mac");
-        }
-        String[] macs = MacUtil.createMacs(startMac, endMac, 5);
-        int i = deviceDao.bathInsert(macs);
-        if(i != macs.length){
-            throw new XException(1001, "mac add failure, check duplicate");
-        }
-        return ResultMaster.success();
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public ResultInfo enableDevice(String mac, String username){
-        if(!MacUtil.validateMac(mac)){
-            throw new XException(EnumResult.ERROR_MAC_FORMAT);
-        }
-        if(TextUtil.isEmpty(username)){
-            username = "unknown";
-        }
-        DeviceInfo deviceInfo = deviceDao.selectOneByMac(mac);
-        if(deviceInfo == null){
-            throw new XException(EnumResult.ERROR_MAC_NOT_EXISTS);
-        }
-        if(deviceInfo.isEnable()){
-            throw new XException(1001, "the device has already enable");
-        }
-        int i = deviceDao.updateOneToEnable(mac, username);
-        if(i != 1){
-            throw new XException(EnumResult.ERROR_UPDATE_FAILURE);
-        }
-        return ResultMaster.success(deviceDao.selectOneByMac(mac));
-    }
 
     public List<VolumeDistributionInfo> getDistributionData(){
         return authRegisterUserDao.getDistributionData();

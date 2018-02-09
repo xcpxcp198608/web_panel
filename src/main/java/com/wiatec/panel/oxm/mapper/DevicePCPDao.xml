@@ -1,8 +1,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wiatec.panel.oxm.dao.DeviceRentDao">
-    <resultMap type="com.wiatec.panel.oxm.pojo.DeviceRentInfo" id="deviceRentInfo">
+<mapper namespace="com.wiatec.panel.oxm.dao.DevicePCPDao">
+    <resultMap type="com.wiatec.panel.oxm.pojo.DevicePCPInfo" id="devicePCPInfo">
         <id column="id" property="id"/>
         <result column="mac" property="mac"/>
         <result column="salesId" property="salesId"/>
@@ -29,7 +29,13 @@
         WHERE device_rent.sales_id = auth_sales.id
     </sql>
 
-    <select id="countOne" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+    <select id="countOne" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.DevicePCPInfo">
+        SELECT COUNT(*) count
+        FROM device_rent
+        WHERE mac=#{mac}
+    </select>
+
+    <select id="countOneByMac" resultType="java.lang.Integer">
         SELECT COUNT(*) count
         FROM device_rent
         WHERE mac=#{mac}
@@ -40,34 +46,34 @@
       WHERE mac=#{mac}
     </select>
 
-    <select id="selectOneByMac" resultMap="deviceRentInfo" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+    <select id="selectOneByMac" resultType="com.wiatec.panel.oxm.pojo.DevicePCPInfo">
       <include refid="select"/>
       AND mac=#{mac}
     </select>
 
-    <select id="selectAll" resultMap="deviceRentInfo" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+    <select id="selectAll" resultMap="devicePCPInfo" parameterType="com.wiatec.panel.oxm.pojo.DevicePCPInfo">
         <include refid="select"/> ORDER BY device_rent.create_time DESC
     </select>
 
-    <select id="selectBySalesId" resultMap="deviceRentInfo">
+    <select id="selectBySalesId" resultMap="devicePCPInfo">
         <include refid="select"/>
         AND device_rent.sales_id= #{salesId}
         ORDER BY device_rent.create_time DESC
     </select>
 
-    <select id="selectRentedBySalesId" resultMap="deviceRentInfo">
+    <select id="selectRentedBySalesId" resultMap="devicePCPInfo">
         <include refid="select"/>
         AND device_rent.sales_id = #{salesId}
         AND device_rent.rented = 1
         ORDER BY device_rent.create_time DESC
     </select>
 
-    <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
-        INSERT INTO device_rent (mac, sales_id, dealer_id, admin_id)
-                VALUES (#{mac}, #{salesId}, #{dealerId}, #{adminId})
+    <insert id="insertOne">
+        INSERT IGNORE INTO device_rent (mac)
+                VALUES (#{mac})
     </insert>
 
-    <update id="updateDeviceToSpecialSales" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+    <update id="updateDeviceToSpecialSales" parameterType="com.wiatec.panel.oxm.pojo.DevicePCPInfo">
       UPDATE device_rent SET sales_id = #{salesId}, dealer_id = #{dealerId}, admin_id = #{adminId}
       WHERE mac = #{mac}
     </update>
@@ -91,7 +97,7 @@
         </foreach>
     </update>
 
-    <update id="updateDeviceToChecked" parameterType="com.wiatec.panel.oxm.pojo.DeviceRentInfo">
+    <update id="updateDeviceToChecked" parameterType="com.wiatec.panel.oxm.pojo.DevicePCPInfo">
       UPDATE device_rent SET  checked= 1, sdcn = 0, check_number= #{checkNumber}, check_time=now()
       WHERE mac = #{mac}
     </update>

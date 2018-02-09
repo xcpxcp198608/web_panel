@@ -54,7 +54,7 @@ public class AuthAdminService {
     @Autowired
     private AuthorizeTransactionSalesDepositDao authorizeTransactionSalesDepositDao;
     @Autowired
-    private DeviceRentDao deviceRentDao;
+    private DevicePCPDao devicePCPDao;
     @Autowired
     private SalesActivateCategoryDao salesActivateCategoryDao;
     @Autowired
@@ -181,8 +181,8 @@ public class AuthAdminService {
     public String showSalesDetail(int salesId, Model model){
         AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(salesId);
         model.addAttribute("authSalesInfo", authSalesInfo);
-        List<DeviceRentInfo> rentedDeviceRentInfoList = deviceRentDao.selectRentedBySalesId(salesId);
-        model.addAttribute("rentedDeviceRentInfoList", rentedDeviceRentInfoList);
+        List<DevicePCPInfo> rentedDevicePCPInfoList = devicePCPDao.selectRentedBySalesId(salesId);
+        model.addAttribute("rentedDeviceRentInfoList", rentedDevicePCPInfoList);
         return "admin/sales_detail";
     }
 
@@ -225,8 +225,8 @@ public class AuthAdminService {
         authRentUserDao.updateUserStatus(authRentUserInfo);
         if(AuthRentUserInfo.STATUS_ACTIVATE.equals(status)){
             AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectOneByClientKey(key);
-            deviceRentDao.updateDeviceToRented(authRentUserInfo1.getMac());
-            int sdcnCount = deviceRentDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
+            devicePCPDao.updateDeviceToRented(authRentUserInfo1.getMac());
+            int sdcnCount = devicePCPDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
             if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
                 authSalesDao.updateSDCNById(authRentUserInfo1.getSalesId());
             }
@@ -247,8 +247,8 @@ public class AuthAdminService {
         authRentUserInfo.setClientKey(key);
         authRentUserDao.updateUserStatus(authRentUserInfo);
         AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectOneByClientKey(key);
-        deviceRentDao.updateDeviceToRented(authRentUserInfo1.getMac());
-        int sdcnCount = deviceRentDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
+        devicePCPDao.updateDeviceToRented(authRentUserInfo1.getMac());
+        int sdcnCount = devicePCPDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
         if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
             authSalesDao.updateSDCNById(authRentUserInfo1.getSalesId());
         }
@@ -298,34 +298,34 @@ public class AuthAdminService {
     }
 
     public String devices(Model model){
-        List<DeviceRentInfo> deviceRentInfoList = deviceRentDao.selectAll();
+        List<DevicePCPInfo> devicePCPInfoList = devicePCPDao.selectAll();
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectAll();
-        model.addAttribute("deviceRentInfoList", deviceRentInfoList);
+        model.addAttribute("deviceRentInfoList", devicePCPInfoList);
         model.addAttribute("authSalesInfoList", authSalesInfoList);
         return "admin/devices";
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo saveDevice(HttpServletRequest request, DeviceRentInfo deviceRentInfo){
-        if(deviceRentInfo.getMac().length() != 17){
+    public ResultInfo saveDevice(HttpServletRequest request, DevicePCPInfo devicePCPInfo){
+        if(devicePCPInfo.getMac().length() != 17){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
         }
-        if(deviceRentDao.countOne(deviceRentInfo) == 1){
+        if(devicePCPDao.countOne(devicePCPInfo) == 1){
             throw new XException(1100, "this mac address already check in");
         }
-        deviceRentInfo.setMac(deviceRentInfo.getMac().toUpperCase());
-        AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(deviceRentInfo.getSalesId());
+        devicePCPInfo.setMac(devicePCPInfo.getMac().toUpperCase());
+        AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(devicePCPInfo.getSalesId());
         if(authSalesInfo == null){
             throw new XException(1100, "sales not exists");
         }
-        deviceRentInfo.setDealerId(authSalesInfo.getDealerId());
-        deviceRentInfo.setAdminId(getAdminInfo(request).getId());
-        deviceRentDao.insertOne(deviceRentInfo);
-        int salesStoreCount = deviceRentDao.countNoRentedBySalesId(authSalesInfo.getId());
+        devicePCPInfo.setDealerId(authSalesInfo.getDealerId());
+        devicePCPInfo.setAdminId(getAdminInfo(request).getId());
+        devicePCPDao.insertOne(devicePCPInfo.getMac());
+        int salesStoreCount = devicePCPDao.countNoRentedBySalesId(authSalesInfo.getId());
         if(salesStoreCount >= AuthSalesInfo.GOLD_COUNT){
             authSalesDao.updateGoldById(authSalesInfo.getId());
         }
-        return ResultMaster.success(deviceRentDao.selectOneByMac(deviceRentInfo));
+        return ResultMaster.success(devicePCPDao.selectOneByMac(devicePCPInfo.getMac()));
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -345,9 +345,9 @@ public class AuthAdminService {
         if(authSalesInfo.getCardNumber() == null || authSalesInfo.getCardNumber().length() < 16){
             throw new XException(1001, "rep credit card information error");
         }
-        deviceRentDao.bathUpdateDeviceToSpecialSales(macs, salesId, authSalesInfo.getDealerId(),
+        devicePCPDao.bathUpdateDeviceToSpecialSales(macs, salesId, authSalesInfo.getDealerId(),
                 authAdminInfo.getId());
-        int salesStoreCount = deviceRentDao.countNoRentedBySalesId(salesId);
+        int salesStoreCount = devicePCPDao.countNoRentedBySalesId(salesId);
         if(salesStoreCount >= AuthSalesInfo.GOLD_COUNT){
             authSalesDao.updateGoldById(salesId);
         }
@@ -380,16 +380,16 @@ public class AuthAdminService {
             throw new XException(1100, "sales volume less than 5");
         }
         for(String mac: macs){
-            DeviceRentInfo deviceRentInfo = deviceRentDao.selectOneByMac(new DeviceRentInfo(mac));
-            if(deviceRentInfo.isChecked()){
+            DevicePCPInfo devicePCPInfo = devicePCPDao.selectOneByMac(mac);
+            if(devicePCPInfo.isChecked()){
                 throw new XException(1100, mac + " already checked");
             }
-            if(!deviceRentInfo.isRented() || !deviceRentInfo.isSdcn()){
+            if(!devicePCPInfo.isRented() || !devicePCPInfo.isSdcn()){
                 throw new XException(1100, mac + " can not check");
             }
         }
-        deviceRentDao.bathUpdateDeviceToChecked(macs, salesId, checkNumber);
-        int sdcnCount = deviceRentDao.countSDCNBySalesId(salesId);
+        devicePCPDao.bathUpdateDeviceToChecked(macs, salesId, checkNumber);
+        int sdcnCount = devicePCPDao.countSDCNBySalesId(salesId);
         if(sdcnCount <= 0){
             authSalesDao.updateNoSDCNById(salesId);
         }

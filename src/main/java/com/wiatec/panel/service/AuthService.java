@@ -94,6 +94,7 @@ public class AuthService {
         if(authDeviceInfo == null){
             throw new XException(EnumResult.ERROR_UNAUTHORIZED);
         }
+        session.setAttribute(SessionListener.KEY_AUTH_USER_NAME, username);
         session.setAttribute("permission", authDeviceInfo.getPermission());
         return "redirect:/device/home";
     }
@@ -107,6 +108,11 @@ public class AuthService {
     public String signOut1(HttpServletRequest request){
         releaseSession(request);
         return "redirect:/manager/";
+    }
+
+    public String signOut2(HttpServletRequest request){
+        releaseSession(request);
+        return "redirect:/device/";
     }
 
     private void releaseSession(HttpServletRequest request){

@@ -50,6 +50,16 @@ public class Auth {
         return authService.signOut1(request);
     }
 
+    /**
+     * sign out
+     * @param request  HttpServletRequest
+     * @return         manager sign in page
+     */
+    @GetMapping(value = "/signout2")
+    public String signOut2(HttpServletRequest request){
+        return authService.signOut2(request);
+    }
+
 
 
     /**

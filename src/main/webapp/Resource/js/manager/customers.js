@@ -81,11 +81,12 @@ $(function () {
             showNotice('have no choose level');
             return;
         }
-        console.log(expiresTime);
         if(expiresTime.length <= 0 ){
             showNotice('have no choose expires date');
             return;
         }
+        expiresTime = expiresTime + ' 00:00:00';
+        console.log(expiresTime);
         if(!validateDateFormat(expiresTime)){
             showNotice('expires date format error');
             return;
@@ -98,7 +99,7 @@ $(function () {
             type: "PUT",
             url: baseUrl + "/manager/update/level/" + userId + "/" + level,
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({'expiresTime': expiresTime + ' 00:00:00'}),
+            data: JSON.stringify({'expiresTime': expiresTime}),
             dataType: "json",
             beforeSend: function () {
                 showLoading()

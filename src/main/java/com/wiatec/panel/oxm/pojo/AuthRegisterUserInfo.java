@@ -1,5 +1,6 @@
 package com.wiatec.panel.oxm.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wiatec.panel.common.utils.TimeUtil;
 
 import java.util.Date;
@@ -29,10 +30,16 @@ public class AuthRegisterUserInfo {
     private String romVersion;
     private String uiVersion;
 
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date activeTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date expiresTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastOnLineTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modifyTime;
 
     private boolean experience;
@@ -175,6 +182,10 @@ public class AuthRegisterUserInfo {
 
     public String getExpiresTime() {
         return TimeUtil.FORMATTER.format(expiresTime);
+    }
+
+    public Date getExpiration(){
+        return expiresTime;
     }
 
     public void setExpiresTime(Date expiresTime) {

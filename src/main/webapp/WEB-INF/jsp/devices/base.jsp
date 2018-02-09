@@ -13,7 +13,7 @@
 <head>
     <base href="<%=basePath%>">
 
-    <title><rapid:block name="title"/>--Preferred customer program</title>
+    <title><rapid:block name="title"/> -- Devices</title>
 
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
@@ -48,12 +48,12 @@
                 <br/>
                 <div class="text-center">
                     <div class="col-12" style="padding: 0 35%">
-                        <img src="Resource/img/lde.png" alt="logo" style="width: 100%">
+                        <img src="Resource/img/logo_legacy_white.png" alt="logo" style="width: 100%">
                     </div>
                 </div>
                 <div class="text-center">
                     <div class="col-12" style="padding: 0">
-                        <span style="color: #dddddd" ><small>preferred customer program</small></span>
+                        <span style="color: #dddddd" ><small>BTVi control panel</small></span>
                     </div>
                 </div>
 
@@ -66,7 +66,7 @@
             <div class="col-10" >
                 <div class="row d-flex" style="background-color: #ffffff; box-shadow: 0 0 8px #000000; z-index: 1003;">
                     <div class="col-11 text-center" style="padding: 10px">
-                        <span class="text-secondary">welcome to preferred customer program!</span>
+                        <span class="text-secondary">welcome to BTVi control panel!</span>
                     </div>
                     <div class="col-1 text-center" style="padding: 10px">
                         <span class="badge badge-dark">${username}</span>
@@ -97,7 +97,7 @@
 
     <div id="notice" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         background-color: rgba(0,0,0,0.3); z-index: 1001; display: none">
-        <div style="width:50%; margin: 80px auto">
+        <div style="width:50%; margin: 300px auto">
             <h4 id="notice_message" style="color: #ff1268; font-size: 20px; width: 100%;
             text-align: center;"></h4>
         </div>
