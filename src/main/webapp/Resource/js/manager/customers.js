@@ -70,6 +70,7 @@ $(function () {
     var expiresTime = "";
     $('#ipExpiresTime').change(function () {
         expiresTime = $(this).val();
+        expiresTime = expiresTime + ' 00:00:00';
     });
 
     $('#btUpdateLevel').click(function () {
@@ -81,11 +82,10 @@ $(function () {
             showNotice('have no choose level');
             return;
         }
-        if(expiresTime.length <= 0 ){
+        if(expiresTime.length < 19 ){
             showNotice('have no choose expires date');
             return;
         }
-        expiresTime = expiresTime + ' 00:00:00';
         console.log(expiresTime);
         if(!validateDateFormat(expiresTime)){
             showNotice('expires date format error');

@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <rapid:override name="title">
-    MCM
+    MLM
 </rapid:override>
 <rapid:override name="css_js">
     <script type="application/javascript" src="Resource/js/devices/devices_mcm.js"></script>
@@ -27,7 +27,7 @@
                         <div class="col-6">
                             <a id="btCheckIn" data-toggle="tooltip" title="enable the device">
                                 <span class="badge badge-primary text-center" style="padding: 3px">
-                                    <i class="fa fa-plus-square fa-lg"></i>&nbsp;CheckIn
+                                    <i class="fa fa-plus-square fa-lg"></i>&nbsp;OutGoing
                                 </span>
                             </a>&nbsp;
                         </div>
@@ -44,7 +44,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${deviceMCMInfoList}" var="deviceInfo" varStatus="status">
+                        <c:forEach items="${deviceMLMInfoList}" var="deviceInfo" varStatus="status">
                             <tr>
                                 <td>${status.index + 1}</td>
                                 <td>${deviceInfo.mac}</td>
@@ -75,7 +75,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" >Check In</h6>
+                    <h6 class="modal-title" >OutGoing</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -99,7 +99,7 @@
                         </div>
                         <input style="display:none" type="text" name="fakeusernameremembered"/>
                         <input style="display:none" type="password" name="fakepasswordremembered"/>
-                        <input type="text" class="form-control" placeholder="username" id="ipUsername"
+                        <input type="text" class="form-control" placeholder="customer name" id="ipUsername"
                                aria-label="username" aria-describedby="basic-addon124" maxlength="17">
                     </div>
 

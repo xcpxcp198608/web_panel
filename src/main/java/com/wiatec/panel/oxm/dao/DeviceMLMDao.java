@@ -1,7 +1,6 @@
 package com.wiatec.panel.oxm.dao;
 
-import com.wiatec.panel.oxm.pojo.DeviceAllInfo;
-import com.wiatec.panel.oxm.pojo.DeviceMCMInfo;
+import com.wiatec.panel.oxm.pojo.DeviceMLMInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -11,16 +10,16 @@ import java.util.List;
  * @author patrick
  */
 @Repository
-public interface DeviceMCMDao {
+public interface DeviceMLMDao {
 
     /**
      * select DeviceAllInfo list from special id (exclude start id)
      * @param start start id
      * @return list of DeviceAllInfo
      */
-    List<DeviceMCMInfo> selectAll(int start);
+    List<DeviceMLMInfo> selectAll(int start);
 
-    DeviceMCMInfo selectOneByMac(String mac);
+    DeviceMLMInfo selectOneByMac(String mac);
 
     int countOneByMac(String mac);
 

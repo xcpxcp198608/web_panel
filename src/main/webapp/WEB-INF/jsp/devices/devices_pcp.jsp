@@ -27,7 +27,7 @@
                         <div class="col-6">
                             <a id="btCheckIn" data-toggle="tooltip" title="enable the device">
                                 <span class="badge badge-primary text-center" style="padding: 3px">
-                                    <i class="fa fa-plus-square fa-lg"></i>&nbsp;CheckIn
+                                    <i class="fa fa-plus-square fa-lg"></i>&nbsp;OutGoing
                                 </span>
                             </a>&nbsp;
                         </div>
@@ -70,7 +70,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" >CheckIn</h6>
+                    <h6 class="modal-title" >OutGoing</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

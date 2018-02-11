@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * @author patrick
  */
-public class DeviceMCMInfo {
+public class DeviceMLMInfo {
 
     private int id;
     private String mac;
@@ -87,7 +87,7 @@ public class DeviceMCMInfo {
 
     @Override
     public String toString() {
-        return "DeviceMCMInfo{" +
+        return "DeviceMLMInfo{" +
                 "id=" + id +
                 ", mac='" + mac + '\'' +
                 ", status=" + status +

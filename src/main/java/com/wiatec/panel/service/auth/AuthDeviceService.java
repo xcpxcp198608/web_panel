@@ -10,7 +10,6 @@ import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,41 +21,34 @@ import java.util.List;
 public class AuthDeviceService {
 
     @Resource
-    private AuthSalesDao authSalesDao;
-    @Resource
     private AuthEmployeeDao authEmployeeDao;
     @Resource
     private DeviceAllDao deviceAllDao;
     @Resource
-    private DeviceMCMDao deviceMCMDao;
+    private DeviceMLMDao deviceMLMDao;
     @Resource
     private DevicePCPDao devicePCPDao;
 
-    /**
-     * show devices home page
-     * @param model ui model
-     * @return devices -> home.jsp
-     */
-    public String home(Model model){
-        return "devices/home";
-    }
-
 
 
     /**
-     * show all devices page
-     * @param model ui model
-     * @return devices -> devices_all.jsp
+     * get all devices info from special start id
+     * @return list of DeviceAllInfo
      */
-    public String allDevices(Model model){
-        List<DeviceAllInfo> deviceAllInfoList = deviceAllDao.selectAll(10000);
-        model.addAttribute("deviceAllInfoList", deviceAllInfoList);
-        return "devices/devices_all";
+    public List<DeviceAllInfo> selectAllDevices(){
+        return deviceAllDao.selectAll(4000);
     }
 
 
+    /**
+     * insert new device into table of device_all
+     * 1. check mac address format
+     * 2. insert into table
+     * @param mac mac address
+     * @return ResultInfo with DeviceAllInfo if insert successfully
+     */
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo insertDevice(String mac){
+    public ResultInfo insertDeviceIntoAllDevices(String mac){
         String newMac = mac.toUpperCase();
         if(!MacUtil.validateMac(newMac)){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
@@ -68,6 +60,16 @@ public class AuthDeviceService {
         return ResultMaster.success(deviceAllDao.selectOneByMac(newMac));
     }
 
+
+    /**
+     * bath insert new devices into table of device_all
+     * 1.validate mac address format
+     * 2.check end mac great than start mac
+     * 3.bath insert mac into table of device_all
+     * @param startMac start mac
+     * @param endMac end mac, must great than start mac
+     * @return ResultInfo
+     */
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo bathInsertDevices(String startMac, String endMac){
         if(!MacUtil.validateMac(startMac) || !MacUtil.validateMac(endMac)){
@@ -88,61 +90,75 @@ public class AuthDeviceService {
 
 
     /**
-     * show MCM devices page
-     * @param model ui model
-     * @return devices -> devices_rent.jsp
+     * select all MCM devices
+     * @return all mcm devices information
      */
-    public String mcmDevices(Model model){
-        List<DeviceMCMInfo> deviceMCMInfoList = deviceMCMDao.selectAll(0);
-        model.addAttribute("deviceMCMInfoList", deviceMCMInfoList);
-        return "devices/devices_mcm";
+    public List<DeviceMLMInfo> selectAllMCMDevices(){
+        return deviceMLMDao.selectAll(0);
     }
 
+    /**
+     * check in the MCM device
+     * 1. validate mac address format
+     * 2. check username, can't empty
+     * 3. check the employee authorization code
+     * 4. does the mac address exists?
+     * 5. does the mac address check in the table of devices_all
+     * 6. insert the mac, username, employee name(check_in_user), check in time into device_mcm
+     * 7. update device status to MCM in table of device_all
+     * @param mac device mac address
+     * @param username target username
+     * @param checkInCode employee authorization code when check in
+     * @return ResultInfo with DeviceMLMInfo if check in successfully
+     */
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo mcmCheckIn(String mac, String username, String checkInCode){
+        mac = mac.toUpperCase();
         if(!MacUtil.validateMac(mac)){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
         }
         if(TextUtil.isEmpty(username)){
             throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
         }
-        if(deviceMCMDao.countOneByMac(mac) == 1){
-            throw new XException(EnumResult.ERROR_MAC_EXISTS);
-        }
         AuthEmployeeInfo authEmployeeInfo = authEmployeeDao.selectOneByCode(checkInCode);
         if(authEmployeeInfo == null){
             throw new XException(1001, "authorization code error");
         }
-        int i = deviceMCMDao.insertOne(mac, username, authEmployeeInfo.getUsername());
+        if(deviceAllDao.countOneByMac(mac) != 1){
+            throw new XException(1001, "mac address no check in");
+        }
+        if(deviceMLMDao.countOneByMac(mac) == 1){
+            throw new XException(1001, "the device already out going");
+        }
+        int i = deviceMLMDao.insertOne(mac, username, authEmployeeInfo.getUsername());
         if(i != 1){
             throw new XException(EnumResult.ERROR_OPERATION_FAILURE);
         }
-        deviceAllDao.updateStatusByMac(mac, DeviceAllInfo.STATUS_MCM);
-        return ResultMaster.success(deviceMCMDao.selectOneByMac(mac));
+        deviceAllDao.updateStatusByMac(mac, DeviceAllInfo.STATUS_MLM);
+        return ResultMaster.success(deviceMLMDao.selectOneByMac(mac));
     }
 
 
-
-
-
     /**
-     * show rent devices page
-     * @param model ui model
-     * @return devices -> devices_rent.jsp
+     * select all PCP devices information
+     * @return list of DevicePCPInfo
      */
-    public String pcpDevices(Model model){
-        List<DevicePCPInfo> devicePCPInfoList = devicePCPDao.selectAll();
-        model.addAttribute("devicePCPInfoList", devicePCPInfoList);
-        return "devices/devices_pcp";
+    public List<DevicePCPInfo> pcpDevices(){
+        return devicePCPDao.selectAll();
     }
 
     /**
-     * save a device in table of device_rent and delete the device from table of device
-     * @param mac  mac
-     * @return ResultInfo with DevicePCPInfo
+     * check in the PCP device
+     * 1. check the mac address format
+     * 2. does the mac address already check in device_pcp
+     * 3. insert the device in device_pcp
+     * 4. update the device status to PCP in device_all
+     * @param mac mac address
+     * @return ResultInfo with DevicePCPInfo if successfully
      */
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo pcpCheckIn(String mac){
+        mac = mac.toUpperCase();
         if(!MacUtil.validateMac(mac)){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
         }

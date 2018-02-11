@@ -48,7 +48,7 @@ public class RegisterUserLevelTask {
                     logger.error("id: " + authRegisterUserInfo.getId() +
                             " level: " + authRegisterUserInfo.getLevel() +
                             " expiration: " + expiration +
-                            " expires time: " + authRegisterUserInfo.getExpiresTime());
+                            " Expires time: " + authRegisterUserInfo.getExpiresTime());
                     authRegisterUserInfo.setLevel(1);
                     authRegisterUserInfo.setExpiresTime(new Date(TimeUtil.DEFAULT_TIME));
                     authRegisterUserDao.updateLevelById(authRegisterUserInfo);

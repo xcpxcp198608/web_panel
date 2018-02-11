@@ -60,7 +60,7 @@
                                         <span class="text-muted">PENDING</span>
                                     </c:if>
                                     <c:if test="${deviceAllInfo.status == 1}">
-                                        <span class="text-primary">MCM</span>
+                                        <span class="text-primary">MLM</span>
                                     </c:if>
                                     <c:if test="${deviceAllInfo.status == 2}">
                                          <span class="text-warning">PCP</span>

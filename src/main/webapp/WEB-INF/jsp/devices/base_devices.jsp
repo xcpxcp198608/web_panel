@@ -21,7 +21,7 @@
             </c:if>
             <li class="nav-item">
                 <a class="nav-link active" href="/panel/device/mcm">
-                    <i class="fa fa-database fa-lg"></i>&nbsp;MCMDevices
+                    <i class="fa fa-database fa-lg"></i>&nbsp;MLMDevices
                 </a>
             </li>
             <li class="nav-item">

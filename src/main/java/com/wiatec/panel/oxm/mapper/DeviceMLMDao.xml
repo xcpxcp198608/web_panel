@@ -1,13 +1,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wiatec.panel.oxm.dao.DeviceMCMDao">
+<mapper namespace="com.wiatec.panel.oxm.dao.DeviceMLMDao">
 
-    <select id="selectAll" resultType="com.wiatec.panel.oxm.pojo.DeviceMCMInfo">
+    <select id="selectAll" resultType="com.wiatec.panel.oxm.pojo.DeviceMLMInfo">
         SELECT * FROM device_mcm WHERE id > #{start}
     </select>
 
-    <select id="selectOneByMac" resultType="com.wiatec.panel.oxm.pojo.DeviceMCMInfo">
+    <select id="selectOneByMac" resultType="com.wiatec.panel.oxm.pojo.DeviceMLMInfo">
         SELECT * FROM device_mcm WHERE mac = #{mac}
     </select>
 

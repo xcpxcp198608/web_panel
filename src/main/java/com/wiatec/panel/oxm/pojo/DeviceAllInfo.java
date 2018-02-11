@@ -11,7 +11,7 @@ import java.util.Date;
 public class DeviceAllInfo {
 
     public static final int STATUS_PENDING = 0;
-    public static final int STATUS_MCM = 1;
+    public static final int STATUS_MLM = 1;
     public static final int STATUS_PCP = 2;
     public static final int STATUS_CANCEL = -1;
 
