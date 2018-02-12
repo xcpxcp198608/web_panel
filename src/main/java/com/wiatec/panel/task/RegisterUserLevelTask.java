@@ -21,7 +21,7 @@ import java.util.List;
 @Component
 public class RegisterUserLevelTask {
 
-    private static final Logger logger = LoggerFactory.getLogger(RentalMonthAuthorizeTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(RegisterUserLevelTask.class);
 
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
