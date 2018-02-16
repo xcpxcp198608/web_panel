@@ -4,11 +4,13 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.common.utils.TokenUtil;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthManagerDao;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
+import com.wiatec.panel.oxm.dao.LogUserLevelDao;
 import com.wiatec.panel.oxm.pojo.AuthManagerInfo;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
@@ -16,11 +18,13 @@ import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.LevelDistributionInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.MonthVolumeInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.YearVolumeInfo;
+import com.wiatec.panel.oxm.pojo.log.LogUserLevelInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +39,8 @@ public class AuthManagerService {
     private AuthRegisterUserDao authRegisterUserDao;
     @Autowired
     private AuthManagerDao authManagerDao;
+    @Autowired
+    private LogUserLevelDao logUserLevelDao;
 
     public String home(){
         return "manager/home";
@@ -86,7 +92,7 @@ public class AuthManagerService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo updateLevel(int id, int level, Date expiresTime){
+    public ResultInfo updateLevel(HttpServletRequest request, int id, int level, Date expiresTime){
         AuthRegisterUserInfo authRegisterUserInfo = new AuthRegisterUserInfo();
         authRegisterUserInfo.setId(id);
         authRegisterUserInfo.setLevel(level);
@@ -97,6 +103,9 @@ public class AuthManagerService {
         }
         authRegisterUserDao.updateLevelById(authRegisterUserInfo);
         authRegisterUserInfo = authRegisterUserDao.selectOneById(id);
+        LogUserLevelInfo logUserLevelInfo = LogUserLevelInfo.createFromRegisterUser(authRegisterUserInfo);
+        logUserLevelInfo.setExecutorId(getManager(request).getId());
+        logUserLevelDao.insertOne(logUserLevelInfo);
         return ResultMaster.success(authRegisterUserInfo);
     }
 
@@ -115,6 +124,9 @@ public class AuthManagerService {
         return authRegisterUserDao.getDistributionData();
     }
 
+    public List<LogUserLevelInfo> selectUserLevelLogs(){
+        return logUserLevelDao.selectAll();
+    }
 
     public ResultInfo getMonthVolume(int year, int month){
         List<MonthVolumeInfo> monthVolumeInfoList = authRegisterUserDao.selectVolumeOfMonth(new YearOrMonthInfo(year, month));
@@ -132,6 +144,14 @@ public class AuthManagerService {
         //sale id replace level
         yearOrMonthInfo.setSalesId(level + "");
         return ResultMaster.success(authRegisterUserDao.selectLevelOfYear(yearOrMonthInfo));
+    }
+
+    private AuthManagerInfo getManager(HttpServletRequest request){
+        String username = (String) request.getSession().getAttribute(SessionListener.KEY_AUTH_USER_NAME);
+        if(TextUtil.isEmpty(username)){
+            throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+        }
+        return authManagerDao.selectOneByUsername(username);
     }
 
 }

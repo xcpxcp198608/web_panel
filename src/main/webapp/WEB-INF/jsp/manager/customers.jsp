@@ -289,6 +289,9 @@
                         <tr><td>Level</td><td></td></tr>
                         <tr><td>ExpiresTime</td><td></td></tr>
                         <tr><td>Status</td><td></td></tr>
+                        <tr><td>Model</td><td></td></tr>
+                        <tr><td>ROM</td><td></td></tr>
+                        <tr><td>UI</td><td></td></tr>
                         <tr><td>Country</td><td></td></tr>
                         <tr><td>Region</td><td></td></tr>
                         <tr><td>City</td><td></td></tr>

@@ -63,8 +63,8 @@ public class RentalInvoiceUtil {
     }
 
     //本地测试用
-    private static String outPath = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/invoice/";
-//    private static String outPath = "/home/java_app/panel/web/invoice/";
+//    private static String outPath = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/invoice/";
+    private static String outPath = "/home/java_app/panel/web/invoice/";
 
     public static void setPath(String path){
         outPath = path;

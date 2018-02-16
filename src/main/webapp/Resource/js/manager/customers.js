@@ -328,11 +328,14 @@ $(function () {
                 tbUserDetails.rows[9].cells[1].innerHTML = response['level'];
                 tbUserDetails.rows[10].cells[1].innerHTML = response['expiresTime'];
                 tbUserDetails.rows[11].cells[1].innerHTML = response['status'];
-                tbUserDetails.rows[12].cells[1].innerHTML = response['country'];
-                tbUserDetails.rows[13].cells[1].innerHTML = response['region'];
-                tbUserDetails.rows[14].cells[1].innerHTML = response['city'];
-                tbUserDetails.rows[15].cells[1].innerHTML = response['timeZone'];
-                tbUserDetails.rows[16].cells[1].innerHTML = response['lastOnLineTime'];
+                tbUserDetails.rows[12].cells[1].innerHTML = response['deviceModel'];
+                tbUserDetails.rows[13].cells[1].innerHTML = response['romVersion'];
+                tbUserDetails.rows[14].cells[1].innerHTML = response['uiVersion'];
+                tbUserDetails.rows[15].cells[1].innerHTML = response['country'];
+                tbUserDetails.rows[16].cells[1].innerHTML = response['region'];
+                tbUserDetails.rows[17].cells[1].innerHTML = response['city'];
+                tbUserDetails.rows[18].cells[1].innerHTML = response['timeZone'];
+                tbUserDetails.rows[19].cells[1].innerHTML = response['lastOnLineTime'];
                 $('#modalDetail').modal('show');
             }else{
                 showNotice('communication error')

@@ -4,10 +4,13 @@ import com.wiatec.panel.authorize.RentalMonthAuthorizeTask;
 import com.wiatec.panel.common.utils.ApplicationContextHelper;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
+import com.wiatec.panel.oxm.dao.LogUserLevelDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
+import com.wiatec.panel.oxm.pojo.log.LogUserLevelInfo;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +26,10 @@ public class RegisterUserLevelTask {
 
     private static final Logger logger = LoggerFactory.getLogger(RegisterUserLevelTask.class);
 
-    @Resource
+    @Autowired
     private AuthRegisterUserDao authRegisterUserDao;
+    @Autowired
+    private LogUserLevelDao logUserLevelDao;
 
     private static SqlSession sqlSession;
 
@@ -40,6 +45,7 @@ public class RegisterUserLevelTask {
 
     private void execute(){
         authRegisterUserDao = sqlSession.getMapper(AuthRegisterUserDao.class);
+        logUserLevelDao = sqlSession.getMapper(LogUserLevelDao.class);
         List<AuthRegisterUserInfo> authRegisterUserInfoList = authRegisterUserDao.selectAllExpiresUsers(0);
         for(AuthRegisterUserInfo authRegisterUserInfo: authRegisterUserInfoList){
             if(authRegisterUserInfo.getLevel() > 1) {
@@ -52,6 +58,8 @@ public class RegisterUserLevelTask {
                     authRegisterUserInfo.setLevel(1);
                     authRegisterUserInfo.setExpiresTime(new Date(TimeUtil.DEFAULT_TIME));
                     authRegisterUserDao.updateLevelById(authRegisterUserInfo);
+                    LogUserLevelInfo logUserLevelInfo = LogUserLevelInfo.createFromRegisterUser(authRegisterUserInfo);
+                    logUserLevelDao.insertOne(logUserLevelInfo);
                 }
             }
         }

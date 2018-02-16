@@ -4,12 +4,14 @@ import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
+import com.wiatec.panel.oxm.pojo.log.LogUserLevelInfo;
 import com.wiatec.panel.service.auth.AuthManagerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -45,13 +47,18 @@ public class AuthManager {
         return authManagerService.distribution();
     }
 
-
     @GetMapping(value = "/chart/distribution")
     @ResponseBody
     public List<VolumeDistributionInfo> getDistributionData(){
         return authManagerService.getDistributionData();
     }
 
+    @GetMapping(value = "/logs")
+    public String userLevelLogs(Model model){
+        List<LogUserLevelInfo> logUserLevelInfoList = authManagerService.selectUserLevelLogs();
+        model.addAttribute("logUserLevelInfoList", logUserLevelInfoList);
+        return "manager/logs";
+    }
 
     @GetMapping(value = "/users")
     public String users(HttpSession session, Model model){
@@ -78,9 +85,9 @@ public class AuthManager {
 
     @PutMapping(value = "/update/level/{id}/{level}")
     @ResponseBody
-    public ResultInfo updateLevel(@PathVariable int id, @PathVariable int level,
+    public ResultInfo updateLevel(HttpServletRequest request, @PathVariable int id, @PathVariable int level,
                                   @RequestBody AuthRegisterUserInfo authRegisterUserInfo){
-        return authManagerService.updateLevel(id, level,
+        return authManagerService.updateLevel(request, id, level,
                 new Date(TimeUtil.getUnixFromStr(authRegisterUserInfo.getExpiresTime())));
     }
 

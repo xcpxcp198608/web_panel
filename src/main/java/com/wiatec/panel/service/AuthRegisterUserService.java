@@ -3,10 +3,7 @@ package com.wiatec.panel.service;
 import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.listener.SessionListener;
-import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
-import com.wiatec.panel.oxm.dao.AuthRentUserDao;
-import com.wiatec.panel.oxm.dao.AuthUserLogDao;
-import com.wiatec.panel.oxm.dao.DevicePCPDao;
+import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.common.utils.EmailMaster;
 import com.wiatec.panel.common.utils.TokenUtil;
@@ -17,6 +14,7 @@ import com.wiatec.panel.common.result.XException;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthUserLogInfo;
 import com.wiatec.panel.oxm.pojo.DevicePCPInfo;
+import com.wiatec.panel.oxm.pojo.log.LogUserLevelInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +43,8 @@ public class AuthRegisterUserService {
     private AuthUserLogDao authUserLogDao;
     @Autowired
     private DevicePCPDao devicePCPDao;
+    @Autowired
+    private LogUserLevelDao logUserLevelDao;
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo register(HttpServletRequest request, AuthRegisterUserInfo authRegisterUserInfo, String language){
@@ -88,7 +88,7 @@ public class AuthRegisterUserService {
         String newToken = TokenUtil.create32(token, System.currentTimeMillis()+"");
         authRegisterUserInfo.setToken(newToken);
         authRegisterUserDao.updateEmailStatus(authRegisterUserInfo);
-        return ResultMaster.success("Activation successfully");
+        return ResultMaster.success("Activation successful");
     }
 
     public ResultInfo login(AuthRegisterUserInfo authRegisterUserInfo){
@@ -147,6 +147,8 @@ public class AuthRegisterUserService {
                 authRegisterUserInfo.setLevel(1);
                 authRegisterUserInfo.setExpiresTime(new Date(TimeUtil.DEFAULT_TIME));
                 authRegisterUserDao.updateLevelById(authRegisterUserInfo);
+                LogUserLevelInfo logUserLevelInfo = LogUserLevelInfo.createFromRegisterUser(authRegisterUserInfo);
+                logUserLevelDao.insertOne(logUserLevelInfo);
             }
         }
         authRegisterUserInfo = authRegisterUserDao.selectOneByUsername(userInfo);
