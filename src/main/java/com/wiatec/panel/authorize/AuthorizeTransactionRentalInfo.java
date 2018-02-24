@@ -246,6 +246,8 @@ public class AuthorizeTransactionRentalInfo extends AuthorizeTransactionInfo {
         authorizeTransactionRentalInfo.setCardNumber(authRentUserInfo.getCardNumber());
         authorizeTransactionRentalInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
         authorizeTransactionRentalInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+        authorizeTransactionRentalInfo.setZipCode(authRentUserInfo.getZipCode());
+        authorizeTransactionRentalInfo.setBillingAddress(authRentUserInfo.getBillingAddress());
         authorizeTransactionRentalInfo.setAmount(authorizeTransactionInfo.getAmount());
         authorizeTransactionRentalInfo.setTransactionId(authorizeTransactionInfo.getTransactionId());
         authorizeTransactionRentalInfo.setAuthCode(authorizeTransactionInfo.getAuthCode());
@@ -274,6 +276,8 @@ public class AuthorizeTransactionRentalInfo extends AuthorizeTransactionInfo {
         authorizeTransactionRentalInfo.setCardNumber(authRentUserInfo.getCardNumber());
         authorizeTransactionRentalInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
         authorizeTransactionRentalInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+        authorizeTransactionRentalInfo.setZipCode(authRentUserInfo.getZipCode());
+        authorizeTransactionRentalInfo.setBillingAddress(authRentUserInfo.getBillingAddress());
         authorizeTransactionRentalInfo.setAmount(authorizeTransactionInfo.getAmount());
         authorizeTransactionRentalInfo.setTransactionId(authorizeTransactionInfo.getTransactionId());
         authorizeTransactionRentalInfo.setAuthCode(authorizeTransactionInfo.getAuthCode());

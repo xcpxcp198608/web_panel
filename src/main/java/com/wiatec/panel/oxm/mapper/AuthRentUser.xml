@@ -22,6 +22,9 @@
         <result column="cardNumber" property="cardNumber"/>
         <result column="expirationDate" property="expirationDate"/>
         <result column="securityKey" property="securityKey"/>
+        <result column="zip_code" property="zipCode"/>
+        <result column="billing_address" property="billingAddress"/>
+        <result column="securityKey" property="securityKey"/>
         <result column="deposit" property="deposit"/>
         <result column="first_pay" property="firstPay"/>
         <result column="month_pay" property="monthPay"/>
@@ -45,11 +48,13 @@
     </resultMap>
 
     <sql id="select">
-        SELECT auth_rent_user.id , auth_rent_user.salesId, auth_rent_user.dealerId, auth_rent_user.clientKey,
-            auth_rent_user.category, auth_rent_user.mac, auth_rent_user.firstName,
-            auth_rent_user.lastName, auth_rent_user.email, auth_rent_user.phone, auth_rent_user.post_code,
-            auth_rent_user.post_address, auth_rent_user.express, auth_rent_user.paymentType, auth_rent_user.cardNumber,
+        SELECT auth_rent_user.id , auth_rent_user.salesId, auth_rent_user.dealerId,
+            auth_rent_user.clientKey, auth_rent_user.category, auth_rent_user.mac,
+            auth_rent_user.firstName, auth_rent_user.lastName, auth_rent_user.email,
+            auth_rent_user.phone, auth_rent_user.post_code, auth_rent_user.post_address,
+            auth_rent_user.express, auth_rent_user.paymentType, auth_rent_user.cardNumber,
             auth_rent_user.expirationDate, auth_rent_user.securityKey, auth_rent_user.deposit,
+            auth_rent_user.zip_code, auth_rent_user.billing_address,
             auth_rent_user.first_pay, auth_rent_user.month_pay, auth_rent_user.svc_charge,
             auth_rent_user.ld_commission,
             auth_rent_user.lde_commission, auth_rent_user.dealer_commission,
@@ -116,12 +121,12 @@
         INSERT INTO auth_rent_user (salesId, dealerId, clientKey, category, mac, firstName, lastName, email,
                     phone, post_code, post_address, express, paymentType, cardNumber, expirationDate, securityKey,
                     deposit, first_pay, month_pay, svc_charge, ld_commission, lde_commission, dealer_commission,
-                    sales_commission, activateTime, expiresTime, status)
+                    sales_commission, activateTime, expiresTime, status, zip_code, billing_address)
         VALUES (#{salesId}, #{dealerId}, #{clientKey}, #{category}, #{mac}, #{firstName}, #{lastName},
                 #{email}, #{phone}, #{postCode}, #{postAddress}, #{express}, #{paymentType}, #{cardNumber},
                 #{expirationDate}, #{securityKey}, #{deposit}, #{firstPay}, #{monthPay}, #{svcCharge}, #{ldCommission},
                 #{ldeCommission}, #{dealerCommission}, #{salesCommission}, #{activateTime}, #{expiresTime},
-                #{status})
+                #{status}, #{zipCode}, #{billingAddress})
     </insert>
 
     <select id="selectOneByMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo"

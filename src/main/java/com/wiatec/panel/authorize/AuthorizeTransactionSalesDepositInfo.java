@@ -16,6 +16,8 @@ public class AuthorizeTransactionSalesDepositInfo {
     private String cardNumber;
     private String expirationDate;
     private String securityKey;
+    private String zipCode;
+    private String billingAddress;
 
     private float amount;
     private String transactionId;
@@ -71,6 +73,22 @@ public class AuthorizeTransactionSalesDepositInfo {
         this.securityKey = securityKey;
     }
 
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(String billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
     public float getAmount() {
         return amount;
     }
@@ -114,13 +132,15 @@ public class AuthorizeTransactionSalesDepositInfo {
 
     @Override
     public String toString() {
-        return "AuthorizeTransactionSalesInfo{" +
+        return "AuthorizeTransactionSalesDepositInfo{" +
                 "id=" + id +
                 ", salesId=" + salesId +
                 ", salesName='" + salesName + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", expirationDate='" + expirationDate + '\'' +
                 ", securityKey='" + securityKey + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", billingAddress='" + billingAddress + '\'' +
                 ", amount=" + amount +
                 ", transactionId='" + transactionId + '\'' +
                 ", status='" + status + '\'' +
@@ -136,6 +156,8 @@ public class AuthorizeTransactionSalesDepositInfo {
         authorizeTransactionSalesDepositInfo.setCardNumber(authorizeTransactionInfo.getCardNumber());
         authorizeTransactionSalesDepositInfo.setExpirationDate(authorizeTransactionInfo.getExpirationDate());
         authorizeTransactionSalesDepositInfo.setSecurityKey(authorizeTransactionInfo.getSecurityKey());
+        authorizeTransactionSalesDepositInfo.setZipCode(authorizeTransactionInfo.getZipCode());
+        authorizeTransactionSalesDepositInfo.setBillingAddress(authorizeTransactionInfo.getBillingAddress());
         authorizeTransactionSalesDepositInfo.setAmount(authorizeTransactionInfo.getAmount());
         authorizeTransactionSalesDepositInfo.setTransactionId(authorizeTransactionInfo.getTransactionId());
         authorizeTransactionSalesDepositInfo.setAuthCode(authorizeTransactionInfo.getAuthCode());

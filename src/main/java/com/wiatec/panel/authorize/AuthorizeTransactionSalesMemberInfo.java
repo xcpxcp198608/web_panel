@@ -67,6 +67,8 @@ public class AuthorizeTransactionSalesMemberInfo extends AuthorizeTransactionInf
         authorizeTransactionSalesMemberInfo.setCardNumber(authorizeTransactionInfo.getCardNumber());
         authorizeTransactionSalesMemberInfo.setExpirationDate(authorizeTransactionInfo.getExpirationDate());
         authorizeTransactionSalesMemberInfo.setSecurityKey(authorizeTransactionInfo.getSecurityKey());
+        authorizeTransactionSalesMemberInfo.setZipCode(authorizeTransactionInfo.getZipCode());
+        authorizeTransactionSalesMemberInfo.setBillingAddress(authorizeTransactionInfo.getBillingAddress());
         authorizeTransactionSalesMemberInfo.setAmount(authorizeTransactionInfo.getAmount());
         authorizeTransactionSalesMemberInfo.setTransactionId(authorizeTransactionInfo.getTransactionId());
         authorizeTransactionSalesMemberInfo.setAuthCode(authorizeTransactionInfo.getAuthCode());

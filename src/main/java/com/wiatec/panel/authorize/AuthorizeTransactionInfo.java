@@ -14,6 +14,8 @@ public class AuthorizeTransactionInfo {
     private String cardNumber;
     private String expirationDate;
     private String securityKey;
+    private String zipCode;
+    private String billingAddress;
     private float amount;
 
     private String transactionId;
@@ -51,6 +53,22 @@ public class AuthorizeTransactionInfo {
 
     public void setSecurityKey(String securityKey) {
         this.securityKey = securityKey;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(String billingAddress) {
+        this.billingAddress = billingAddress;
     }
 
     public float getAmount() {
@@ -100,6 +118,8 @@ public class AuthorizeTransactionInfo {
                 ", cardNumber='" + cardNumber + '\'' +
                 ", expirationDate='" + expirationDate + '\'' +
                 ", securityKey='" + securityKey + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", billingAddress='" + billingAddress + '\'' +
                 ", amount=" + amount +
                 ", transactionId='" + transactionId + '\'' +
                 ", status='" + status + '\'' +
@@ -113,6 +133,8 @@ public class AuthorizeTransactionInfo {
         authorizeTransactionInfo.setCardNumber(authSalesInfo.getCardNumber());
         authorizeTransactionInfo.setExpirationDate(authSalesInfo.getExpirationDate());
         authorizeTransactionInfo.setSecurityKey(authSalesInfo.getSecurityKey());
+        authorizeTransactionInfo.setZipCode(authSalesInfo.getZipCode());
+        authorizeTransactionInfo.setBillingAddress(authSalesInfo.getBillingAddress());
         authorizeTransactionInfo.setAmount(amount);
         return authorizeTransactionInfo;
     }
@@ -122,6 +144,8 @@ public class AuthorizeTransactionInfo {
         authorizeTransactionInfo.setCardNumber(authRentUserInfo.getCardNumber());
         authorizeTransactionInfo.setExpirationDate(authRentUserInfo.getExpirationDate());
         authorizeTransactionInfo.setSecurityKey(authRentUserInfo.getSecurityKey());
+        authorizeTransactionInfo.setZipCode(authRentUserInfo.getZipCode());
+        authorizeTransactionInfo.setBillingAddress(authRentUserInfo.getBillingAddress());
         authorizeTransactionInfo.setAmount(amount);
         return authorizeTransactionInfo;
     }

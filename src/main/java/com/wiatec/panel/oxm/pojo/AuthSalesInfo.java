@@ -11,7 +11,13 @@ import java.util.Date;
  */
 public class AuthSalesInfo {
 
+    /**
+     * 当gold销售卖出指定台数机器时才可以发放佣金
+     */
     public static final int SDCN_NOTICE_COUNT = 5;
+    /**
+     * 当销售屯货达到此数量时自动成为gold
+     */
     public static final int GOLD_COUNT = 10;
 
 
@@ -33,27 +39,25 @@ public class AuthSalesInfo {
     @Pattern(regexp = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",
             message = "email input format incorrect")
     private String email;
-    /**
-     * 发放销售佣金的账号
-     */
-    private String bankInfo;
 
     @Size(min = 10, max = 12, message = "phone number input format incorrect")
     private String phone;
+    /**
+     * 发放销售佣金的银行账号
+     */
+    private String bankInfo;
 
     /**
      * 销售激活账号的收费类型 AM1 AM2
      */
     private String activateCategory;
 
-    /**
-     * 销售类型：拿货10台 S1
-     */
-    private String goldCategory;
-
     private String cardNumber;
     private String expirationDate;
     private String securityKey;
+    private String zipCode;
+    private String billingAddress;
+
     /**
      * 当销售一次拿货10台或以上时此属性为true，salesCommission + 1;
      */
@@ -63,8 +67,13 @@ public class AuthSalesInfo {
      * security deposit credit note
      */
     private boolean sdcn;
+    /**
+     * 销售账号有效日期
+     */
     private Date expiresTime;
     private Date createTime;
+
+
 
     public AuthSalesInfo() {
     }
@@ -174,14 +183,6 @@ public class AuthSalesInfo {
         this.activateCategory = activateCategory;
     }
 
-    public String getGoldCategory() {
-        return goldCategory;
-    }
-
-    public void setGoldCategory(String goldCategory) {
-        this.goldCategory = goldCategory;
-    }
-
     public String getCardNumber() {
         return cardNumber;
     }
@@ -204,6 +205,22 @@ public class AuthSalesInfo {
 
     public void setSecurityKey(String securityKey) {
         this.securityKey = securityKey;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(String billingAddress) {
+        this.billingAddress = billingAddress;
     }
 
     public boolean isGold() {
@@ -261,10 +278,11 @@ public class AuthSalesInfo {
                 ", bankInfo='" + bankInfo + '\'' +
                 ", phone='" + phone + '\'' +
                 ", activateCategory='" + activateCategory + '\'' +
-                ", goldCategory='" + goldCategory + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", expirationDate='" + expirationDate + '\'' +
                 ", securityKey='" + securityKey + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", billingAddress='" + billingAddress + '\'' +
                 ", isGold=" + isGold +
                 ", sdcn=" + sdcn +
                 ", expiresTime=" + expiresTime +

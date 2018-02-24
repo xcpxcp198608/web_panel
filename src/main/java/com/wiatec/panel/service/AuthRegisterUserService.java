@@ -45,6 +45,8 @@ public class AuthRegisterUserService {
     private DevicePCPDao devicePCPDao;
     @Autowired
     private LogUserLevelDao logUserLevelDao;
+    @Autowired
+    private DeviceMLMDao deviceMLMDao;
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo register(HttpServletRequest request, AuthRegisterUserInfo authRegisterUserInfo, String language){
@@ -52,7 +54,10 @@ public class AuthRegisterUserService {
             throw new XException(ResultMaster.error("device s/n error"));
         }
         if(devicePCPDao.countOne(new DevicePCPInfo(authRegisterUserInfo.getMac())) >= 1){
-            throw new XException(1001, "the device only for rental");
+            throw new XException(1001, "the device only for PCP");
+        }
+        if(deviceMLMDao.countOneByMac(authRegisterUserInfo.getMac()) != 1){
+            throw new XException(1001, "Please contact support for registation with reference code BMT.");
         }
         if(authRegisterUserDao.countByMac(authRegisterUserInfo) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);

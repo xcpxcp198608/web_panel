@@ -127,6 +127,8 @@ public class AuthorizeTransaction {
                     authorizeTransactionInfo1.setCardNumber(authorizeTransactionInfo.getCardNumber());
                     authorizeTransactionInfo1.setExpirationDate(authorizeTransactionInfo.getExpirationDate());
                     authorizeTransactionInfo1.setSecurityKey(authorizeTransactionInfo.getSecurityKey());
+                    authorizeTransactionInfo1.setZipCode(authorizeTransactionInfo.getZipCode());
+                    authorizeTransactionInfo1.setBillingAddress(authorizeTransactionInfo.getBillingAddress());
                     authorizeTransactionInfo1.setTransactionId(result.getTransId());
                     authorizeTransactionInfo1.setAuthCode(result.getAuthCode());
                     authorizeTransactionInfo1.setStatus("approved");

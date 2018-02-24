@@ -32,6 +32,9 @@ public class AuthRentUserInfo {
     private String cardNumber;
     private String expirationDate;
     private String securityKey;
+    private String zipCode;
+    private String billingAddress;
+
     private String paymentType;
     private float deposit;
     private float firstPay;
@@ -210,6 +213,22 @@ public class AuthRentUserInfo {
 
     public void setSecurityKey(String securityKey) {
         this.securityKey = securityKey;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(String billingAddress) {
+        this.billingAddress = billingAddress;
     }
 
     public String getPaymentType() {
@@ -409,6 +428,8 @@ public class AuthRentUserInfo {
                 ", cardNumber='" + cardNumber + '\'' +
                 ", expirationDate='" + expirationDate + '\'' +
                 ", securityKey='" + securityKey + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", billingAddress='" + billingAddress + '\'' +
                 ", paymentType='" + paymentType + '\'' +
                 ", deposit=" + deposit +
                 ", firstPay=" + firstPay +

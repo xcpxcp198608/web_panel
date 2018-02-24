@@ -96,7 +96,7 @@ public class AuthAdmin {
     @PostMapping(value = "/sale/create")
     @ResponseBody
     public ResultInfo createSales(HttpServletRequest request, @Valid AuthSalesInfo authSalesInfo,
-                                  BindingResult bindingResult) throws Exception {
+                                  BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             throw new XException(3001, bindingResult.getFieldError().getDefaultMessage());
         }

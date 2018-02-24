@@ -18,7 +18,7 @@
         <div style="width: 100%; background-color: #ffffff; padding: 10px">
             <nav>
                 <div class="nav nav-tabs nav-dark" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">MCM Devices</a>
+                    <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">MLM Devices</a>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent" style="margin-top: 10px">
@@ -38,8 +38,8 @@
                         <tr>
                             <th>Item</th>
                             <th>Mac</th>
-                            <th>User</th>
-                            <th>CheckIn</th>
+                            <th>SoldTo</th>
+                            <th>CheckOutBy</th>
                             <th>CheckInTime</th>
                         </tr>
                         </thead>

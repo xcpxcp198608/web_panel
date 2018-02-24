@@ -95,6 +95,7 @@ public class AuthDealerService {
                 .selectOneByCategory(authSalesInfo.getActivateCategory());
         authSalesInfo.setExpiresTime(TimeUtil.getExpiresDate(salesActivateCategoryInfo.getMonth()));
         authSalesInfo.setDealerId(getDealerInfo(request).getId());
+        authSalesDao.insertOne(authSalesInfo);
 
         if(salesActivateCategoryInfo.getPrice() > 0) {
             AuthSalesInfo authSalesInfo1 = authSalesDao.selectOneByUsername(authSalesInfo);
@@ -127,7 +128,6 @@ public class AuthDealerService {
                 logger.error("invoice error", e);
             }
         }
-        authSalesDao.insertOne(authSalesInfo);
         return ResultMaster.success(authSalesDao.selectOneByUsername(authSalesInfo));
     }
 

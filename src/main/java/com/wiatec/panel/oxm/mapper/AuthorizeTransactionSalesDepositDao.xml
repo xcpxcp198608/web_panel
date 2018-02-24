@@ -6,7 +6,8 @@
     <sql id="select">
         SELECT authorize_transaction_sales_deposit.id, authorize_transaction_sales_deposit.sales_id,
             authorize_transaction_sales_deposit.card_number, authorize_transaction_sales_deposit.expiration_date,
-            authorize_transaction_sales_deposit.security_key, authorize_transaction_sales_deposit.amount,
+            authorize_transaction_sales_deposit.security_key, authorize_transaction_sales_deposit.zip_code,
+            authorize_transaction_sales_deposit.billing_address, authorize_transaction_sales_deposit.amount,
             authorize_transaction_sales_deposit.transaction_id, authorize_transaction_sales_deposit.status,
             authorize_transaction_sales_deposit.auth_code, authorize_transaction_sales_deposit.create_time,
             auth_sales.username salesName
@@ -17,9 +18,9 @@
 
     <insert id="insertOne" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionSalesDepositInfo">
       INSERT INTO authorize_transaction_sales_deposit (sales_id, card_number,expiration_date,
-             security_key, amount, transaction_id, status, auth_code)
-      VALUES (#{salesId}, #{cardNumber}, #{expirationDate}, #{securityKey}, #{amount},
-              #{transactionId}, #{status}, #{authCode})
+             security_key, zip_code, billing_address, amount, transaction_id, status, auth_code)
+      VALUES (#{salesId}, #{cardNumber}, #{expirationDate}, #{securityKey}, #{zipCode},
+              #{billingAddress}, #{amount}, #{transactionId}, #{status}, #{authCode})
     </insert>
 
 

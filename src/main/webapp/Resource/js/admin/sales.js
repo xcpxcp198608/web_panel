@@ -355,6 +355,8 @@ $(function () {
         var cardNumber = $('#ipCreditCard').val();
         var expirationDate = $('#ipExpirationDate').val();
         var securityKey = $('#ipSecurityKey').val();
+        var zipCode = $('#ipZipCode').val();
+        var billingAddress = $('#ipBillingAddress').val();
         var dealerId = $('#ipDealerId').val();
         var activateCategory = $('#ipActivateCategory').val();
         if(username.length <= 0){
@@ -401,6 +403,14 @@ $(function () {
             showErrorMessage($('#errorCreate'), 'security key type in error');
             return;
         }
+        if(zipCode.length <= 0){
+            showErrorMessage($('#errorCreate'), 'zip code type in error');
+            return;
+        }
+        if(billingAddress.length <= 0){
+            showErrorMessage($('#errorCreate'), 'billing address type in error');
+            return;
+        }
         if(password.length < 6){
             showErrorMessage($('#errorCreate'), 'password type in error');
             return;
@@ -428,7 +438,8 @@ $(function () {
             data: {"username": username, "password": password, "firstName": firstName,
                 'lastName': lastName, 'ssn': ssn, 'email': email, 'bankInfo': bank,
                 'phone': phone, 'cardNumber': cardNumber, 'expirationDate': expirationDate,
-                'securityKey': securityKey, 'dealerId': dealerId, 'activateCategory': activateCategory},
+                'securityKey': securityKey, 'zipCode': zipCode, 'billingAddress': billingAddress,
+                'dealerId': dealerId, 'activateCategory': activateCategory},
             dataType: "json",
             beforeSend: function () {
                 $('#modalCreate').modal('hide');

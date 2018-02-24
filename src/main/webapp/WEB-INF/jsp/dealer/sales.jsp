@@ -117,6 +117,138 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <%--<div class="modal-body">--%>
+                    <%--<div class="row">--%>
+                        <%--<div class="col-6">--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                                    <%--<span class="input-group-text" id="basic-addon1">--%>
+                                        <%--<i class="fa fa-user fa-lg"></i>--%>
+                                    <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="text" class="form-control" placeholder="Username" id="ipUsername"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon1">--%>
+                            <%--</div>--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                                    <%--<span class="input-group-text" id="basic-addon3">--%>
+                                        <%--<i class="fa fa-child fa-lg"></i>--%>
+                                    <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="text" class="form-control" placeholder="FirstName" id="ipFirstName"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon3">--%>
+                            <%--</div>--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                                    <%--<span class="input-group-text" id="basic-addon5">--%>
+                                        <%--<i class="fa fa-envelope-o fa-lg"></i>--%>
+                                    <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="email" class="form-control" placeholder="Email" id="ipEmail"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon5">--%>
+                            <%--</div>--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                            <%--<span class="input-group-text" id="basic-addon26">--%>
+                                <%--<i class="fa fa-credit-card fa-lg"></i>--%>
+                            <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="number" class="form-control" placeholder="Debit card number" id="ipBank"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon26">--%>
+                            <%--</div>--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                            <%--<span class="input-group-text" id="basic-addon7">--%>
+                                <%--<i class="fa fa-lock fa-lg"></i>--%>
+                            <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="password" class="form-control" placeholder="Password" id="ipPassword"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon7">--%>
+                            <%--</div>--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                                    <%--<span class="input-group-text" id="basic-addon8">--%>
+                                        <%--<i class="fa fa-lock fa-lg"></i>--%>
+                                    <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="password" class="form-control" placeholder="Password" id="ipPassword1"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon8">--%>
+                            <%--</div>--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                                <%--<span class="input-group-text" id="basic-addon13">--%>
+                                    <%--<i class="fa fa-tags fa-lg"></i>--%>
+                                <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<select class="custom-select" id="ipActivateCategory">--%>
+                                    <%--<option value="">Choose Activate Category</option>--%>
+                                    <%--<c:forEach items="${salesActivateCategoryInfoList}" var="salesActivateCategoryInfo">--%>
+                                        <%--<option value="${salesActivateCategoryInfo.category}">${salesActivateCategoryInfo.description}</option>--%>
+                                    <%--</c:forEach>--%>
+                                <%--</select>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+
+
+
+                        <%--<div class="col-6">--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                                    <%--<span class="input-group-text" id="basic-addon2">--%>
+                                        <%--<i class="fa fa-bookmark fa-lg"></i>--%>
+                                    <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="number" class="form-control" placeholder="SSN" id="ipSSN"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon2">--%>
+                            <%--</div>--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                                    <%--<span class="input-group-text" id="basic-addon4">--%>
+                                        <%--<i class="fa fa-flag fa-lg"></i>--%>
+                                    <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="text" class="form-control" placeholder="LastName" id="ipLastName"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon4">--%>
+                            <%--</div>--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                                    <%--<span class="input-group-text" id="basic-addon6">--%>
+                                        <%--<i class="fa fa-phone fa-lg"></i>--%>
+                                    <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="number" class="form-control" placeholder="Phone" id="ipPhone"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon6">--%>
+                            <%--</div>--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                                    <%--<span class="input-group-text" id="basic-addon9">--%>
+                                        <%--<i class="fa fa-credit-card fa-lg"></i>--%>
+                                    <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="number" class="form-control" placeholder="Credit card number" id="ipCreditCard"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon9">--%>
+                            <%--</div>--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                                    <%--<span class="input-group-text" id="basic-addon10">--%>
+                                        <%--<i class="fa fa-calendar fa-lg"></i>--%>
+                                    <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="number" class="form-control" placeholder="Expires date" id="ipExpirationDate"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon10">--%>
+                            <%--</div>--%>
+                            <%--<div class="input-group input-group-sm mb-3">--%>
+                                <%--<div class="input-group-prepend">--%>
+                                    <%--<span class="input-group-text" id="basic-addon111">--%>
+                                        <%--<i class="fa fa-star fa-lg"></i>--%>
+                                    <%--</span>--%>
+                                <%--</div>--%>
+                                <%--<input type="number" class="form-control" placeholder="Security Key" id="ipSecurityKey"--%>
+                                       <%--aria-label="Username" aria-describedby="basic-addon111">--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6">
@@ -129,6 +261,22 @@
                                 <input type="text" class="form-control" placeholder="Username" id="ipUsername"
                                        aria-label="Username" aria-describedby="basic-addon1">
                             </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2">
+                                        <i class="fa fa-bookmark fa-lg"></i>
+                                    </span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="SSN" id="ipSSN"
+                                       aria-label="Username" aria-describedby="basic-addon2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon3">
@@ -138,6 +286,22 @@
                                 <input type="text" class="form-control" placeholder="FirstName" id="ipFirstName"
                                        aria-label="Username" aria-describedby="basic-addon3">
                             </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon4">
+                                        <i class="fa fa-flag fa-lg"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="LastName" id="ipLastName"
+                                       aria-label="Username" aria-describedby="basic-addon4">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon5">
@@ -147,24 +311,33 @@
                                 <input type="email" class="form-control" placeholder="Email" id="ipEmail"
                                        aria-label="Username" aria-describedby="basic-addon5">
                             </div>
+                        </div>
+                        <div class="col-6">
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon26">
-                                <i class="fa fa-credit-card fa-lg"></i>
-                            </span>
+                                    <span class="input-group-text" id="basic-addon6">
+                                        <i class="fa fa-phone fa-lg"></i>
+                                    </span>
                                 </div>
-                                <input type="number" class="form-control" placeholder="Debit card number" id="ipBank"
-                                       aria-label="Username" aria-describedby="basic-addon26">
+                                <input type="number" class="form-control" placeholder="Phone" id="ipPhone"
+                                       aria-label="Username" aria-describedby="basic-addon6">
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon7">
-                                <i class="fa fa-lock fa-lg"></i>
-                            </span>
+                                <span class="input-group-text" id="basic-addon7">
+                                    <i class="fa fa-lock fa-lg"></i>
+                                </span>
                                 </div>
                                 <input type="password" class="form-control" placeholder="Password" id="ipPassword"
                                        aria-label="Username" aria-describedby="basic-addon7">
                             </div>
+                        </div>
+                        <div class="col-6">
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon8">
@@ -174,9 +347,14 @@
                                 <input type="password" class="form-control" placeholder="Password" id="ipPassword1"
                                        aria-label="Username" aria-describedby="basic-addon8">
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon13">
+                                <span class="input-group-text" id="basic-addon133">
                                     <i class="fa fa-tags fa-lg"></i>
                                 </span>
                                 </div>
@@ -188,37 +366,24 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
 
-
-
-                        <div class="col-6">
+                    <div class="row">
+                        <div class="col-12">
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon2">
-                                        <i class="fa fa-bookmark fa-lg"></i>
-                                    </span>
+                                <span class="input-group-text" id="basic-addon26">
+                                    <i class="fa fa-credit-card fa-lg"></i>
+                                </span>
                                 </div>
-                                <input type="number" class="form-control" placeholder="SSN" id="ipSSN"
-                                       aria-label="Username" aria-describedby="basic-addon2">
+                                <input type="number" class="form-control" placeholder="Debit card number" id="ipBank"
+                                       aria-label="Username" aria-describedby="basic-addon26">
                             </div>
-                            <div class="input-group input-group-sm mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon4">
-                                        <i class="fa fa-flag fa-lg"></i>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control" placeholder="LastName" id="ipLastName"
-                                       aria-label="Username" aria-describedby="basic-addon4">
-                            </div>
-                            <div class="input-group input-group-sm mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon6">
-                                        <i class="fa fa-phone fa-lg"></i>
-                                    </span>
-                                </div>
-                                <input type="number" class="form-control" placeholder="Phone" id="ipPhone"
-                                       aria-label="Username" aria-describedby="basic-addon6">
-                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon9">
@@ -228,6 +393,11 @@
                                 <input type="number" class="form-control" placeholder="Credit card number" id="ipCreditCard"
                                        aria-label="Username" aria-describedby="basic-addon9">
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon10">
@@ -237,6 +407,8 @@
                                 <input type="number" class="form-control" placeholder="Expires date" id="ipExpirationDate"
                                        aria-label="Username" aria-describedby="basic-addon10">
                             </div>
+                        </div>
+                        <div class="col-6">
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon111">
@@ -248,6 +420,36 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon222">
+                                <i class="fa fa-asterisk fa-lg"></i>
+                            </span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="zip code" id="ipZipCode"
+                                       aria-label="zipcode" aria-describedby="basic-addon222">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon223">
+                                    <i class="fa fa-home fa-lg"></i>
+                                </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="billing address" id="ipBillingAddress"
+                                       aria-label="billingaddress" aria-describedby="basic-addon223">
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <span id="errorCreate" class="badge badge-danger"></span>

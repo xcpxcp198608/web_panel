@@ -32,7 +32,7 @@
                             </a>&nbsp;
                             <a id="btBathCheckIn" data-toggle="tooltip" title="check in new device">
                                 <span class="badge badge-warning text-center" style="padding: 3px">
-                                    <i class="fa fa-plus-square fa-lg"></i>&nbsp;BathCheckIn
+                                    <i class="fa fa-plus-square fa-lg"></i>&nbsp;BatchCheckIn
                                 </span>
                             </a>
                         </div>

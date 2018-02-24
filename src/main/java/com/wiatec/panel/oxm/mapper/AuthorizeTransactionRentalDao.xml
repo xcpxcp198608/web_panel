@@ -20,6 +20,8 @@
         <result column="card_number" property="cardNumber"/>
         <result column="expiration_date" property="expirationDate"/>
         <result column="security_key" property="securityKey"/>
+        <result column="zip_code" property="zipCode"/>
+        <result column="billing_address" property="billingAddress"/>
         <result column="status" property="status"/>
         <result column="auth_code" property="authCode"/>
         <result column="type" property="type"/>
@@ -30,7 +32,8 @@
         SELECT authorize_transaction_rental.id, authorize_transaction_rental.client_key,
             authorize_transaction_rental.category, authorize_transaction_rental.sales_id,
             authorize_transaction_rental.card_number, authorize_transaction_rental.expiration_date,
-            authorize_transaction_rental.security_key, authorize_transaction_rental.tx_fee,
+            authorize_transaction_rental.security_key, authorize_transaction_rental.zip_code,
+            authorize_transaction_rental.billing_address, authorize_transaction_rental.tx_fee,
             authorize_transaction_rental.transaction_id, authorize_transaction_rental.status,
             authorize_transaction_rental.auth_code, authorize_transaction_rental.type,
             authorize_transaction_rental.amount, authorize_transaction_rental.price,
@@ -46,11 +49,12 @@
 
     <insert id="insertOne" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo">
       INSERT INTO authorize_transaction_rental (sales_id, dealer_id, category, client_key, card_number,expiration_date,
-             security_key, amount, price, deposit, ld_commission, lde_commission, dealer_commission, sales_commission,
+             security_key, zip_code, billing_address, amount, price, deposit, ld_commission, lde_commission,
+             dealer_commission, sales_commission,
              tx_fee, transaction_id, status, auth_code, type, svc_charge, activate_pay, ld_activation_comm,
              lde_activation_comm, dealer_activation_comm, sales_activation_comm)
       VALUES (#{salesId}, #{dealerId}, #{category}, #{clientKey}, #{cardNumber}, #{expirationDate},
-              #{securityKey}, #{amount}, #{price}, #{deposit}, #{ldCommission}, #{ldeCommission}, #{dealerCommission},
+              #{securityKey}, #{zipCode}, #{billingAddress}, #{amount}, #{price}, #{deposit}, #{ldCommission}, #{ldeCommission}, #{dealerCommission},
               #{salesCommission}, #{txFee}, #{transactionId}, #{status}, #{authCode}, #{type}, #{svcCharge},
               #{activatePay}, #{ldActivationComm}, #{ldeActivationComm}, #{dealerActivationComm},
               #{salesActivationComm})
