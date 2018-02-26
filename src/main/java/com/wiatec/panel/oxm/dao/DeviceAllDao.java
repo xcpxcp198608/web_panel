@@ -18,14 +18,15 @@ public interface DeviceAllDao {
      * @return list of DeviceAllInfo
      */
     List<DeviceAllInfo> selectAll(int start);
+    List<DeviceAllInfo> selectAllByDis(@Param("distributor") String distributor, @Param("start") int start);
 
     DeviceAllInfo selectOneByMac(String mac);
 
     int countOneByMac(String mac);
 
-    int insertOne(String mac);
+    int insertOne(@Param("mac") String mac, @Param("distributor") String distributor);
 
-    int bathInsert(@Param("macs") String[] macs);
+    int bathInsert(@Param("macs") String[] macs, @Param("distributor") String distributor);
 
     int updateStatusByMac(@Param("mac") String mac, @Param("status") int status);
 }

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -48,8 +49,8 @@ public class AuthDevice {
      * @return  jsp/devices/devices_all.jsp
      */
     @GetMapping(value = "/all")
-    public String allDevices(Model model){
-        List<DeviceAllInfo> deviceAllInfoList = authDeviceService.selectAllDevices();
+    public String allDevices(Model model, HttpServletRequest request){
+        List<DeviceAllInfo> deviceAllInfoList = authDeviceService.selectAllDevices(request);
         model.addAttribute("deviceAllInfoList", deviceAllInfoList);
         return "devices/devices_all";
     }
@@ -61,8 +62,8 @@ public class AuthDevice {
      */
     @PostMapping(value = "/all/save")
     @ResponseBody
-    public ResultInfo insertDeviceIntoAllDevices(String mac){
-        return authDeviceService.insertDeviceIntoAllDevices(mac);
+    public ResultInfo insertDeviceIntoAllDevices(HttpServletRequest request, String mac){
+        return authDeviceService.insertDeviceIntoAllDevices(request, mac);
     }
 
     /**
@@ -73,8 +74,8 @@ public class AuthDevice {
      */
     @PostMapping(value = "/all/saves")
     @ResponseBody
-    public ResultInfo bathInsertDevices(String startMac, String endMac){
-        return authDeviceService.bathInsertDevices(startMac, endMac);
+    public ResultInfo bathInsertDevices(HttpServletRequest request, String startMac, String endMac){
+        return authDeviceService.bathInsertDevices(request, startMac, endMac);
     }
 
 
@@ -84,8 +85,8 @@ public class AuthDevice {
      * @return jsp/devices/devices_mcm.jsp
      */
     @GetMapping(value = "/mcm")
-    public String mcmDevices(Model model){
-        List<DeviceMLMInfo> deviceMLMInfoList = authDeviceService.selectAllMCMDevices();
+    public String mcmDevices(Model model, HttpServletRequest request){
+        List<DeviceMLMInfo> deviceMLMInfoList = authDeviceService.selectAllMCMDevices(request);
         model.addAttribute("deviceMLMInfoList", deviceMLMInfoList);
         return "devices/devices_mcm";
     }
@@ -99,8 +100,8 @@ public class AuthDevice {
      */
     @PutMapping(value = "/mcm/check")
     @ResponseBody
-    public ResultInfo mcmCheckIn(String mac, String username, String checkInCode){
-        return authDeviceService.mcmCheckIn(mac, username, checkInCode);
+    public ResultInfo mcmCheckIn(HttpServletRequest request, String mac, String username, String checkInCode){
+        return authDeviceService.mcmCheckIn(request, mac, username, checkInCode);
     }
 
 
@@ -109,8 +110,8 @@ public class AuthDevice {
      * @return  jsp/devices/devices_pcp.jsp
      */
     @GetMapping(value = "/pcp")
-    public String pcpDevices(Model model){
-        List<DevicePCPInfo> devicePCPInfoList = authDeviceService.pcpDevices();
+    public String pcpDevices(Model model, HttpServletRequest request){
+        List<DevicePCPInfo> devicePCPInfoList = authDeviceService.pcpDevices(request);
         model.addAttribute("devicePCPInfoList", devicePCPInfoList);
         return "devices/devices_pcp";
     }
@@ -122,8 +123,8 @@ public class AuthDevice {
      */
     @PostMapping(value = "/pcp/check")
     @ResponseBody
-    public ResultInfo pcpCheckIn(String mac){
-        return authDeviceService.pcpCheckIn(mac);
+    public ResultInfo pcpCheckIn(HttpServletRequest request, String mac){
+        return authDeviceService.pcpCheckIn(request, mac);
     }
 
 

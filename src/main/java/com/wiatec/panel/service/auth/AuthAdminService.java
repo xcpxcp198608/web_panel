@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -37,27 +38,27 @@ public class AuthAdminService {
 
     private Logger logger = LoggerFactory.getLogger(AuthAdminService.class);
 
-    @Autowired
+    @Resource
     private AuthAdminDao authAdminDao;
-    @Autowired
+    @Resource
     private AuthDealerDao authDealerDao;
-    @Autowired
+    @Resource
     private AuthSalesDao authSalesDao;
-    @Autowired
+    @Resource
     private AuthRentUserDao authRentUserDao;
-    @Autowired
+    @Resource
     private CommissionCategoryDao commissionCategoryDao;
-    @Autowired
+    @Resource
     private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
-    @Autowired
+    @Resource
     private AuthorizeTransactionSalesMemberDao authorizeTransactionSalesMemberDao;
-    @Autowired
+    @Resource
     private AuthorizeTransactionSalesDepositDao authorizeTransactionSalesDepositDao;
-    @Autowired
+    @Resource
     private DevicePCPDao devicePCPDao;
-    @Autowired
+    @Resource
     private SalesActivateCategoryDao salesActivateCategoryDao;
-    @Autowired
+    @Resource
     private SalesGoldCategoryDao salesGoldCategoryDao;
 
     public String home(){
@@ -320,7 +321,7 @@ public class AuthAdminService {
         }
         devicePCPInfo.setDealerId(authSalesInfo.getDealerId());
         devicePCPInfo.setAdminId(getAdminInfo(request).getId());
-        devicePCPDao.insertOne(devicePCPInfo.getMac());
+        devicePCPDao.insertOne(devicePCPInfo.getMac(), DeviceAllInfo.DISTRIBUTOR_LDE);
         int salesStoreCount = devicePCPDao.countNoRentedBySalesId(authSalesInfo.getId());
         if(salesStoreCount >= AuthSalesInfo.GOLD_COUNT){
             authSalesDao.updateGoldById(authSalesInfo.getId());

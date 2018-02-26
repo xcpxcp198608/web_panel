@@ -11,6 +11,7 @@ public class DeviceMLMInfo {
 
     private int id;
     private String mac;
+    private String distributor;
     private int status;
     private String username;
     private String checkInUser;
@@ -35,6 +36,14 @@ public class DeviceMLMInfo {
 
     public void setMac(String mac) {
         this.mac = mac;
+    }
+
+    public String getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(String distributor) {
+        this.distributor = distributor;
     }
 
     public int getStatus() {
@@ -90,6 +99,7 @@ public class DeviceMLMInfo {
         return "DeviceMLMInfo{" +
                 "id=" + id +
                 ", mac='" + mac + '\'' +
+                ", distributor='" + distributor + '\'' +
                 ", status=" + status +
                 ", username='" + username + '\'' +
                 ", checkInUser='" + checkInUser + '\'' +

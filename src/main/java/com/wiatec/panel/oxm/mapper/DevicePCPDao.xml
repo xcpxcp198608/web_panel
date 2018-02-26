@@ -20,7 +20,7 @@
     </resultMap>
 
     <sql id="select">
-        SELECT device_rent.id, device_rent.mac, device_rent.sales_id, device_rent.dealer_id,
+        SELECT device_rent.id, device_rent.mac, device_rent.distributor, device_rent.sales_id, device_rent.dealer_id,
             device_rent.admin_id, device_rent.create_time, device_rent.rented,
             device_rent.rent_time, device_rent.sdcn, device_rent.checked,
             device_rent.check_number, device_rent.check_time,
@@ -51,8 +51,14 @@
       AND mac=#{mac}
     </select>
 
-    <select id="selectAll" resultMap="devicePCPInfo" parameterType="com.wiatec.panel.oxm.pojo.DevicePCPInfo">
+    <select id="selectAll" resultMap="devicePCPInfo">
         <include refid="select"/> ORDER BY device_rent.create_time DESC
+    </select>
+
+    <select id="selectAllByDis" resultMap="devicePCPInfo">
+        <include refid="select"/>
+        AND distributor = #{distributor}
+        ORDER BY device_rent.create_time DESC
     </select>
 
     <select id="selectBySalesId" resultMap="devicePCPInfo">
@@ -69,8 +75,8 @@
     </select>
 
     <insert id="insertOne">
-        INSERT IGNORE INTO device_rent (mac)
-                VALUES (#{mac})
+        INSERT IGNORE INTO device_rent (mac, distributor)
+                VALUES (#{mac}, #{distributor})
     </insert>
 
     <update id="updateDeviceToSpecialSales" parameterType="com.wiatec.panel.oxm.pojo.DevicePCPInfo">

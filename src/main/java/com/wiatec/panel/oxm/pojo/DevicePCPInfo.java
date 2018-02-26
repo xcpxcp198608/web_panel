@@ -12,6 +12,7 @@ public class DevicePCPInfo {
 
     private int id;
     private String mac;
+    private String distributor;
     private int salesId;
     private String salesName;
     private int dealerId;
@@ -53,6 +54,14 @@ public class DevicePCPInfo {
 
     public void setMac(String mac) {
         this.mac = mac;
+    }
+
+    public String getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(String distributor) {
+        this.distributor = distributor;
     }
 
     public int getSalesId() {
@@ -168,6 +177,7 @@ public class DevicePCPInfo {
         return "DevicePCPInfo{" +
                 "id=" + id +
                 ", mac='" + mac + '\'' +
+                ", distributor='" + distributor + '\'' +
                 ", salesId=" + salesId +
                 ", salesName='" + salesName + '\'' +
                 ", dealerId=" + dealerId +

@@ -7,6 +7,10 @@
         SELECT * FROM device_all WHERE id > #{start}
     </select>
 
+    <select id="selectAllByDis" resultType="com.wiatec.panel.oxm.pojo.DeviceAllInfo">
+        SELECT * FROM device_all WHERE distributor = #{distributor} AND id > #{start}
+    </select>
+
     <select id="selectOneByMac" resultType="com.wiatec.panel.oxm.pojo.DeviceAllInfo">
         SELECT * FROM device_all WHERE mac = #{mac}
     </select>
@@ -16,15 +20,15 @@
     </select>
 
     <insert id="insertOne">
-        INSERT IGNORE INTO device_all (mac, check_in_time)
-        VALUES (#{mac}, now())
+        INSERT IGNORE INTO device_all (mac, distributor, check_in_time)
+        VALUES (#{mac}, #{distributor}, now())
     </insert>
 
     <insert id="bathInsert">
-        INSERT IGNORE INTO device_all (mac, check_in_time)
+        INSERT IGNORE INTO device_all (mac, distributor, check_in_time)
         VALUES
             <foreach collection="macs" item="mac" separator=",">
-                (#{mac}, now())
+                (#{mac}, #{distributor}, now())
             </foreach>
     </insert>
 

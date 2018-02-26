@@ -41,11 +41,11 @@ public class AuthRegisterUserService {
     private AuthRentUserDao authRentUserDao;
     @Resource
     private AuthUserLogDao authUserLogDao;
-    @Autowired
+    @Resource
     private DevicePCPDao devicePCPDao;
-    @Autowired
+    @Resource
     private LogUserLevelDao logUserLevelDao;
-    @Autowired
+    @Resource
     private DeviceMLMDao deviceMLMDao;
 
     @Transactional(rollbackFor = Exception.class)

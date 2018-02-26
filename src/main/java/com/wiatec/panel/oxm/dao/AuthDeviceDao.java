@@ -9,5 +9,6 @@ public interface AuthDeviceDao {
 
     int countOne(AuthDeviceInfo authDeviceInfo);
     AuthDeviceInfo selectOne(AuthDeviceInfo authDeviceInfo);
+    AuthDeviceInfo selectOneByUsername(String username);
 
 }

@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -35,11 +36,11 @@ import java.util.List;
 @Service
 public class AuthManagerService {
 
-    @Autowired
+    @Resource
     private AuthRegisterUserDao authRegisterUserDao;
-    @Autowired
+    @Resource
     private AuthManagerDao authManagerDao;
-    @Autowired
+    @Resource
     private LogUserLevelDao logUserLevelDao;
 
     public String home(){

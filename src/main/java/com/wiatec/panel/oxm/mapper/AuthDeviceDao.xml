@@ -19,6 +19,10 @@
       SELECT * FROM auth_device WHERE username=#{username} AND password=#{password}
     </select>
 
+    <select id="selectOneByUsername" resultMap="authDeviceInfo">
+      SELECT * FROM auth_device WHERE username=#{username}
+    </select>
+
 
 
 </mapper>

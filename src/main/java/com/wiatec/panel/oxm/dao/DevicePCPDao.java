@@ -1,5 +1,6 @@
 package com.wiatec.panel.oxm.dao;
 
+import com.wiatec.panel.oxm.pojo.DeviceAllInfo;
 import com.wiatec.panel.oxm.pojo.DevicePCPInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -39,6 +40,8 @@ public interface DevicePCPDao {
      */
     List<DevicePCPInfo> selectAll();
 
+    List<DevicePCPInfo> selectAllByDis(@Param("distributor") String distributor);
+
     List<DevicePCPInfo> selectBySalesId(int salesId);
 
     List<DevicePCPInfo> selectRentedBySalesId(int salesId);
@@ -46,7 +49,7 @@ public interface DevicePCPDao {
     /**
      * insert a new device rent info
      */
-    int insertOne(String mac);
+    int insertOne(@Param("mac") String mac, @Param("distributor") String distributor);
 
     int updateDeviceToSpecialSales(DevicePCPInfo devicePCPInfo);
 

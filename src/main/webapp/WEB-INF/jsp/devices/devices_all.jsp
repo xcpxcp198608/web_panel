@@ -38,14 +38,27 @@
                         </div>
                     </div>
 
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-12">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-search fa-lg"></i>
+                            </span>
+                                </div>
+                                <input type="text" class="form-control" id="ipSearch">
+                            </div>
+                        </div>
+                    </div>
+
                     <table class="table table-sm table-hover table-dark" id="tbAllDevices" style="margin-top: 5px">
                         <thead>
                         <tr>
                             <th>Id</th>
                             <th>Mac</th>
-                            <th>CreateTime</th>
                             <th>Status</th>
                             <th>ChangeTime</th>
+                            <th>CreateTime</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -53,8 +66,6 @@
                             <tr>
                                 <td>${deviceAllInfo.id}</td>
                                 <td>${deviceAllInfo.mac}</td>
-                                <td>
-                                    <fmt:formatDate value="${deviceAllInfo.createTime}" pattern="yyyy-MM-dd HH:mm:ss" />
                                 <td>
                                     <c:if test="${deviceAllInfo.status == 0}">
                                         <span class="text-muted">PENDING</span>
@@ -71,6 +82,9 @@
                                 </td>
                                 <td>
                                     <fmt:formatDate value="${deviceAllInfo.checkInTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+                                </td>
+                                <td>
+                                    <fmt:formatDate value="${deviceAllInfo.createTime}" pattern="yyyy-MM-dd HH:mm:ss" />
                                 </td>
                             </tr>
                         </c:forEach>

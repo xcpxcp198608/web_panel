@@ -7,6 +7,10 @@ import javax.validation.constraints.Size;
  */
 public class AuthDeviceInfo {
 
+    public static final int WIATEC = 111;
+    public static final int LDE = 101;
+    public static final int LDM = 102;
+
     private int id;
     @Size(min = 6, max = 20, message = "username input format incorrect")
     private String username;

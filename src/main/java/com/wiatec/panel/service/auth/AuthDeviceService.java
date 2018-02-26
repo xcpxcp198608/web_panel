@@ -6,12 +6,15 @@ import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
 import com.wiatec.panel.common.utils.MacUtil;
 import com.wiatec.panel.common.utils.TextUtil;
+import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -28,15 +31,24 @@ public class AuthDeviceService {
     private DeviceMLMDao deviceMLMDao;
     @Resource
     private DevicePCPDao devicePCPDao;
-
+    @Resource
+    private AuthDeviceDao authDeviceDao;
 
 
     /**
      * get all devices info from special start id
      * @return list of DeviceAllInfo
      */
-    public List<DeviceAllInfo> selectAllDevices(){
-        return deviceAllDao.selectAll(4000);
+    public List<DeviceAllInfo> selectAllDevices(HttpServletRequest request){
+        AuthDeviceInfo authDeviceInfo = getAuthDevice(request);
+        if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDE){
+            return deviceAllDao.selectAllByDis(DeviceAllInfo.DISTRIBUTOR_LDE, 4000);
+        }else if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDM){
+            return deviceAllDao.selectAllByDis(DeviceAllInfo.DISTRIBUTOR_LDM, 4000);
+        }else if(authDeviceInfo.getPermission() == AuthDeviceInfo.WIATEC) {
+            return deviceAllDao.selectAll(4000);
+        }
+        return null;
     }
 
 
@@ -48,12 +60,19 @@ public class AuthDeviceService {
      * @return ResultInfo with DeviceAllInfo if insert successfully
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo insertDeviceIntoAllDevices(String mac){
+    public ResultInfo insertDeviceIntoAllDevices(HttpServletRequest request, String mac){
         String newMac = mac.toUpperCase();
         if(!MacUtil.validateMac(newMac)){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
         }
-        int i = deviceAllDao.insertOne(newMac);
+        AuthDeviceInfo authDeviceInfo = getAuthDevice(request);
+        String distributor = DeviceAllInfo.DISTRIBUTOR_LDE;
+        if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDE){
+            distributor = DeviceAllInfo.DISTRIBUTOR_LDE;
+        }else if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDM){
+            distributor = DeviceAllInfo.DISTRIBUTOR_LDM;
+        }
+        int i = deviceAllDao.insertOne(newMac, distributor);
         if(i != 1){
             throw new XException(1001, "mac address duplicate");
         }
@@ -71,15 +90,22 @@ public class AuthDeviceService {
      * @return ResultInfo
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo bathInsertDevices(String startMac, String endMac){
+    public ResultInfo bathInsertDevices(HttpServletRequest request, String startMac, String endMac){
         if(!MacUtil.validateMac(startMac) || !MacUtil.validateMac(endMac)){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
         }
         if(!MacUtil.compare(startMac, endMac, 5)){
             throw new XException(1001, "start mac great than end mac");
         }
+        AuthDeviceInfo authDeviceInfo = getAuthDevice(request);
+        String distributor = DeviceAllInfo.DISTRIBUTOR_LDE;
+        if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDE){
+            distributor = DeviceAllInfo.DISTRIBUTOR_LDE;
+        }else if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDM){
+            distributor = DeviceAllInfo.DISTRIBUTOR_LDM;
+        }
         String[] macs = MacUtil.createMacs(startMac, endMac, 5);
-        int i = deviceAllDao.bathInsert(macs);
+        int i = deviceAllDao.bathInsert(macs, distributor);
         if(i != macs.length){
             throw new XException(1001, "mac add failure, check duplicate");
         }
@@ -93,8 +119,16 @@ public class AuthDeviceService {
      * select all MCM devices
      * @return all mcm devices information
      */
-    public List<DeviceMLMInfo> selectAllMCMDevices(){
-        return deviceMLMDao.selectAll(0);
+    public List<DeviceMLMInfo> selectAllMCMDevices(HttpServletRequest request){
+        AuthDeviceInfo authDeviceInfo = getAuthDevice(request);
+        if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDE){
+            return deviceMLMDao.selectAllByDis(DeviceAllInfo.DISTRIBUTOR_LDE, 0);
+        }else if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDM){
+            return deviceMLMDao.selectAllByDis(DeviceAllInfo.DISTRIBUTOR_LDM, 0);
+        }else if(authDeviceInfo.getPermission() == AuthDeviceInfo.WIATEC) {
+            return deviceMLMDao.selectAll(0);
+        }
+        return null;
     }
 
     /**
@@ -112,7 +146,7 @@ public class AuthDeviceService {
      * @return ResultInfo with DeviceMLMInfo if check in successfully
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo mcmCheckIn(String mac, String username, String checkInCode){
+    public ResultInfo mcmCheckIn(HttpServletRequest request, String mac, String username, String checkInCode){
         mac = mac.toUpperCase();
         if(!MacUtil.validateMac(mac)){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
@@ -127,10 +161,18 @@ public class AuthDeviceService {
         if(deviceAllDao.countOneByMac(mac) != 1){
             throw new XException(1001, "mac address no check in");
         }
-        if(deviceMLMDao.countOneByMac(mac) == 1){
+        DeviceAllInfo deviceAllInfo = deviceAllDao.selectOneByMac(mac);
+        if(deviceAllInfo.getStatus() != 0){
             throw new XException(1001, "the device already out going");
         }
-        int i = deviceMLMDao.insertOne(mac, username, authEmployeeInfo.getUsername());
+        AuthDeviceInfo authDeviceInfo = getAuthDevice(request);
+        String distributor = DeviceAllInfo.DISTRIBUTOR_LDE;
+        if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDE){
+            distributor = DeviceAllInfo.DISTRIBUTOR_LDE;
+        }else if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDM){
+            distributor = DeviceAllInfo.DISTRIBUTOR_LDM;
+        }
+        int i = deviceMLMDao.insertOne(mac, distributor, username, authEmployeeInfo.getUsername());
         if(i != 1){
             throw new XException(EnumResult.ERROR_OPERATION_FAILURE);
         }
@@ -143,8 +185,17 @@ public class AuthDeviceService {
      * select all PCP devices information
      * @return list of DevicePCPInfo
      */
-    public List<DevicePCPInfo> pcpDevices(){
-        return devicePCPDao.selectAll();
+    public List<DevicePCPInfo> pcpDevices(HttpServletRequest request){
+
+        AuthDeviceInfo authDeviceInfo = getAuthDevice(request);
+        if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDE){
+            return devicePCPDao.selectAllByDis(DeviceAllInfo.DISTRIBUTOR_LDE);
+        }else if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDM){
+            return devicePCPDao.selectAllByDis(DeviceAllInfo.DISTRIBUTOR_LDM);
+        }else if(authDeviceInfo.getPermission() == AuthDeviceInfo.WIATEC) {
+            return devicePCPDao.selectAll();
+        }
+        return null;
     }
 
     /**
@@ -157,15 +208,26 @@ public class AuthDeviceService {
      * @return ResultInfo with DevicePCPInfo if successfully
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo pcpCheckIn(String mac){
+    public ResultInfo pcpCheckIn(HttpServletRequest request, String mac){
         mac = mac.toUpperCase();
         if(!MacUtil.validateMac(mac)){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
         }
-        if(devicePCPDao.countOneByMac(mac) ==1){
-            throw new XException(1100, "this mac address already check in");
+        if(deviceAllDao.countOneByMac(mac) != 1){
+            throw new XException(1001, "mac address no check in");
         }
-        int i = devicePCPDao.insertOne(mac);
+        DeviceAllInfo deviceAllInfo = deviceAllDao.selectOneByMac(mac);
+        if(deviceAllInfo.getStatus() != 0){
+            throw new XException(1001, "the device already out going");
+        }
+        AuthDeviceInfo authDeviceInfo = getAuthDevice(request);
+        String distributor = DeviceAllInfo.DISTRIBUTOR_LDE;
+        if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDE){
+            distributor = DeviceAllInfo.DISTRIBUTOR_LDE;
+        }else if(authDeviceInfo.getPermission() == AuthDeviceInfo.LDM){
+            distributor = DeviceAllInfo.DISTRIBUTOR_LDM;
+        }
+        int i = devicePCPDao.insertOne(mac, distributor);
         if(i != 1) {
             throw new XException(EnumResult.ERROR_OPERATION_FAILURE);
         }
@@ -173,4 +235,12 @@ public class AuthDeviceService {
         return ResultMaster.success(devicePCPDao.selectOneByMac(mac));
     }
 
+
+    private AuthDeviceInfo getAuthDevice(HttpServletRequest request){
+        String username = (String) request.getSession().getAttribute(SessionListener.KEY_AUTH_USER_NAME);
+        if(TextUtil.isEmpty(username)){
+            throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+        }
+        return authDeviceDao.selectOneByUsername(username);
+    }
 }

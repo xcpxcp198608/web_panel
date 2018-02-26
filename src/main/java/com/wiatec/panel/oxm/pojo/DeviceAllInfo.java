@@ -15,8 +15,12 @@ public class DeviceAllInfo {
     public static final int STATUS_PCP = 2;
     public static final int STATUS_CANCEL = -1;
 
+    public static final String DISTRIBUTOR_LDE = "LDE";
+    public static final String DISTRIBUTOR_LDM = "LDM";
+
     private int id;
     private String mac;
+    private String distributor;
     private int status;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date checkInTime;
@@ -39,6 +43,14 @@ public class DeviceAllInfo {
 
     public void setMac(String mac) {
         this.mac = mac;
+    }
+
+    public String getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(String distributor) {
+        this.distributor = distributor;
     }
 
     public int getStatus() {
@@ -78,6 +90,7 @@ public class DeviceAllInfo {
         return "DeviceAllInfo{" +
                 "id=" + id +
                 ", mac='" + mac + '\'' +
+                ", distributor='" + distributor + '\'' +
                 ", status=" + status +
                 ", checkInTime=" + checkInTime +
                 ", createTime=" + createTime +

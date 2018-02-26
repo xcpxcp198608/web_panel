@@ -71,5 +71,34 @@ $(function () {
         tr.append(td4);
         tbPCPDevices.prepend(tr)
     }
-    
+
+
+    $('#ipSearch').keyup(function () {
+        var key = $(this).val().toLowerCase();
+        if(key.length <= 0){
+            showAllRows();
+        }else{
+            var rowsLength = tbPCPDevices.rows.length;
+            for(var k = 0; k < rowsLength; k ++){
+                for(var j = 1; j < 4; j ++){
+                    var content = tbPCPDevices.rows[k].cells[j].innerHTML.toLowerCase();
+                    if(content.search(key) >= 0){
+                        tbPCPDevices.rows[k].style.display = "";
+                        break
+                    }else{
+                        tbPCPDevices.rows[k].style.display = "none";
+                    }
+                }
+            }
+        }
+    });
+
+    function showAllRows() {
+        var rowsLength = tbPCPDevices.rows.length;
+        for(var i =0 ; i < rowsLength; i ++){
+            tbPCPDevices.rows[i].style.display = "";
+        }
+    }
+
+
 });

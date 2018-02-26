@@ -76,4 +76,32 @@ $(function () {
         tbMCMDevices.append(tr);
     }
 
+
+    $('#ipSearch').keyup(function () {
+        var key = $(this).val().toLowerCase();
+        if(key.length <= 0){
+            showAllRows();
+        }else{
+            var rowsLength = tbMCMDevices.rows.length;
+            for(var k = 0; k < rowsLength; k ++){
+                for(var j = 1; j < 5; j ++){
+                    var content = tbMCMDevices.rows[k].cells[j].innerHTML.toLowerCase();
+                    if(content.search(key) >= 0){
+                        tbMCMDevices.rows[k].style.display = "";
+                        break
+                    }else{
+                        tbMCMDevices.rows[k].style.display = "none";
+                    }
+                }
+            }
+        }
+    });
+
+    function showAllRows() {
+        var rowsLength = tbMCMDevices.rows.length;
+        for(var i =0 ; i < rowsLength; i ++){
+            tbMCMDevices.rows[i].style.display = "";
+        }
+    }
+
 });

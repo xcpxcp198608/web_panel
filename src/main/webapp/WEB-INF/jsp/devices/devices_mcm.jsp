@@ -33,6 +33,19 @@
                         </div>
                     </div>
 
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col-12">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-search fa-lg"></i>
+                            </span>
+                                </div>
+                                <input type="text" class="form-control" id="ipSearch">
+                            </div>
+                        </div>
+                    </div>
+
                     <table class="table table-sm table-hover table-striped" id="tbMCMDevices" style="margin-top: 5px">
                         <thead style="background-color: #566778;">
                         <tr>

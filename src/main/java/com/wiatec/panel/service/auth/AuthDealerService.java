@@ -53,11 +53,11 @@ public class AuthDealerService {
     private AuthRentUserDao authRentUserDao;
     @Resource
     private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
-    @Autowired
+    @Resource
     private AuthorizeTransactionSalesMemberDao authorizeTransactionSalesMemberDao;
-    @Autowired
+    @Resource
     private SalesActivateCategoryDao salesActivateCategoryDao;
-    @Autowired
+    @Resource
     private SalesGoldCategoryDao salesGoldCategoryDao;
 
     public String home(HttpServletRequest request, Model model){
