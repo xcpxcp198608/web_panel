@@ -4,20 +4,20 @@
 <mapper namespace="com.wiatec.panel.oxm.dao.CommissionCategoryDao">
 
     <sql id="select">
-        SELECT id, category, deposit, expires, bonus, monthPay, ldCommission,
+        SELECT id, distributor, category, deposit, expires, bonus, monthPay, ldCommission,
             ldeCommission,  dealerCommission, salesCommission, svc_charge,
             activate_pay, ld_activation_comm, lde_activation_comm, dealer_activation_comm,
             sales_activation_comm, description
         FROM commission_category
     </sql>
 
-    <select id="selectAll" resultType="com.wiatec.panel.oxm.pojo.CommissionCategoryInfo">
-        <include refid="select"/>
+    <select id="selectAllByDistributor" resultType="com.wiatec.panel.oxm.pojo.CommissionCategoryInfo">
+        <include refid="select"/> WHERE distributor = #{distributor}
     </select>
 
     <select id="selectOne" resultType="com.wiatec.panel.oxm.pojo.CommissionCategoryInfo" >
         <include refid="select"/>
-        WHERE category=#{category}
+        WHERE category = #{category}
     </select>
 
 </mapper>

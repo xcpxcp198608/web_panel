@@ -20,8 +20,8 @@ public class CommissionCategory {
 
     @GetMapping(value = "/")
     @ResponseBody
-    public List<CommissionCategoryInfo> get(){
-        return commissionCategoryService.selectAll();
+    public List<CommissionCategoryInfo> get(int distributor){
+        return commissionCategoryService.selectAllByDistributor(distributor);
     }
 
     @GetMapping(value = "/{category}")

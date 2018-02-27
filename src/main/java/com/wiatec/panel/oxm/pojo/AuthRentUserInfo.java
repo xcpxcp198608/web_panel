@@ -14,11 +14,16 @@ public class AuthRentUserInfo {
     public static final String PAYMENT_CREDIT_CARD = "credit_card";
     public static final String PAYMENT_PAYPAL = "paypal";
 
+    public static final int DISTRIBUTOR_LDE = 101;
+    public static final int DISTRIBUTOR_LDM = 102;
+
+
     private int id;
     private int salesId;
     private String salesName;
     private int dealerId;
     private String dealerName;
+    private int distributor;
     private String clientKey;
     private String category;
     private String mac;
@@ -109,6 +114,14 @@ public class AuthRentUserInfo {
 
     public void setDealerName(String dealerName) {
         this.dealerName = dealerName;
+    }
+
+    public int getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(int distributor) {
+        this.distributor = distributor;
     }
 
     public String getClientKey() {
@@ -415,6 +428,7 @@ public class AuthRentUserInfo {
                 ", salesName='" + salesName + '\'' +
                 ", dealerId=" + dealerId +
                 ", dealerName='" + dealerName + '\'' +
+                ", distributor='" + distributor + '\'' +
                 ", clientKey='" + clientKey + '\'' +
                 ", category='" + category + '\'' +
                 ", mac='" + mac + '\'' +

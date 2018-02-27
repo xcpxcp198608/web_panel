@@ -13,6 +13,7 @@ import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
 import com.wiatec.panel.oxm.dao.LogUserLevelDao;
 import com.wiatec.panel.oxm.pojo.AuthManagerInfo;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
+import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.LevelDistributionInfo;
@@ -130,18 +131,19 @@ public class AuthManagerService {
     }
 
     public ResultInfo getMonthVolume(int year, int month){
-        List<MonthVolumeInfo> monthVolumeInfoList = authRegisterUserDao.selectVolumeOfMonth(new YearOrMonthInfo(year, month));
+        List<MonthVolumeInfo> monthVolumeInfoList = authRegisterUserDao
+                .selectVolumeOfMonth(new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE));
         return ResultMaster.success(monthVolumeInfoList);
     }
 
     public ResultInfo getYearVolume(int year, int month){
         List<YearVolumeInfo> yearVolumeInfoList = authRegisterUserDao
-                .selectVolumeOfYear(new YearOrMonthInfo(year, month, true));
+                .selectVolumeOfYear(new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE, true));
         return ResultMaster.success(yearVolumeInfoList);
     }
 
     public ResultInfo<Integer> getLevelChart(int level, int year){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, AuthRentUserInfo.DISTRIBUTOR_LDE);
         //sale id replace level
         yearOrMonthInfo.setSalesId(level + "");
         return ResultMaster.success(authRegisterUserDao.selectLevelOfYear(yearOrMonthInfo));

@@ -183,25 +183,25 @@ public class AuthDealerService {
 
 
     public List<SalesVolumeInDayOfMonthInfo> selectDealerVolumeEveryDayInMonth(HttpServletRequest request, int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         yearOrMonthInfo.setDealerId(getDealerInfo(request).getId()+"");
         return authRentUserDao.countDealerVolumeByDayOfMonth(yearOrMonthInfo);
     }
 
     public List<DealerCommissionOfDaysInfo> selectDealerCommissionEveryDayInMonth(HttpServletRequest request, int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         yearOrMonthInfo.setDealerId(getDealerInfo(request).getId()+"");
         return authorizeTransactionRentalDao.getCommissionOfDayByDealer(yearOrMonthInfo);
     }
 
     public List<DealerCommissionOfDaysInfo> selectDealerActivationCommissionEveryDayInMonth(HttpServletRequest request, int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         yearOrMonthInfo.setDealerId(getDealerInfo(request).getId()+"");
         return authorizeTransactionRentalDao.getActivationCommissionOfDayByDealer(yearOrMonthInfo);
     }
 
     public List<DealerCommissionOfMonthInfo> selectDealerCommissionEveryMonthInYear(HttpServletRequest request, int year){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, AuthRentUserInfo.DISTRIBUTOR_LDE);
         yearOrMonthInfo.setDealerId(getDealerInfo(request).getId()+"");
         return authorizeTransactionRentalDao.getCommissionOfMonthByDealer(yearOrMonthInfo);
     }
@@ -221,7 +221,7 @@ public class AuthDealerService {
     }
 
     public List<AllSalesMonthCommissionInfo> getSalesCommissionByMonth(HttpServletRequest request, int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         yearOrMonthInfo.setDealerId(getDealerInfo(request).getId()+"");
         return authorizeTransactionRentalDao.selectSalesCommissionByMonthAndDealer(yearOrMonthInfo);
     }

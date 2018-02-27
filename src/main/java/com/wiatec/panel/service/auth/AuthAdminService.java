@@ -208,7 +208,8 @@ public class AuthAdminService {
                 authRentUserInfo.setOnline(true);
             }
         }
-        List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
+        List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao
+                .selectAllByDistributor(AuthRentUserInfo.DISTRIBUTOR_LDE);
         model.addAttribute("authRentUserInfoList", authRentUserInfoList);
         model.addAttribute("commissionCategoryInfoList", commissionCategoryInfoList);
         return "admin/customers";
@@ -224,14 +225,14 @@ public class AuthAdminService {
         authRentUserInfo.setStatus(status);
         authRentUserInfo.setClientKey(key);
         authRentUserDao.updateUserStatus(authRentUserInfo);
-        if(AuthRentUserInfo.STATUS_ACTIVATE.equals(status)){
-            AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectOneByClientKey(key);
-            devicePCPDao.updateDeviceToRented(authRentUserInfo1.getMac());
-            int sdcnCount = devicePCPDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
-            if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
-                authSalesDao.updateSDCNById(authRentUserInfo1.getSalesId());
-            }
-        }
+//        if(AuthRentUserInfo.STATUS_ACTIVATE.equals(status)){
+//            AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectOneByClientKey(key);
+//            devicePCPDao.updateDeviceToRented(authRentUserInfo1.getMac());
+//            int sdcnCount = devicePCPDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
+//            if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
+//                authSalesDao.updateSDCNById(authRentUserInfo1.getSalesId());
+//            }
+//        }
         return ResultMaster.success();
     }
 
@@ -283,7 +284,8 @@ public class AuthAdminService {
 
 
     public String commission(Model model){
-        List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
+        List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao
+                .selectAllByDistributor(AuthRentUserInfo.DISTRIBUTOR_LDE);
         for(CommissionCategoryInfo commissionCategoryInfo: commissionCategoryInfoList){
             commissionCategoryInfo.setPrice();
         }
@@ -293,7 +295,7 @@ public class AuthAdminService {
 
     public String transactions(Model model){
         List<AuthorizeTransactionRentalInfo> authorizeTransactionRentalInfoList =
-                authorizeTransactionRentalDao.selectAll();
+                authorizeTransactionRentalDao.selectAllLDE();
         model.addAttribute("authorizeTransactionRentalInfoList", authorizeTransactionRentalInfoList);
         return "admin/transactions";
     }
@@ -405,7 +407,7 @@ public class AuthAdminService {
 
 
     public List<SalesVolumeInDayOfMonthInfo> countSaleVolumeEveryDayInMonth(int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         return authRentUserDao.countAllSalesVolumeByDayOfMonth(yearOrMonthInfo);
     }
 
@@ -418,42 +420,42 @@ public class AuthAdminService {
     }
 
     public List<AllDealerMonthCommissionInfo> getAllDealerCommissionByMonth(int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         return authorizeTransactionRentalDao.selectAllDealersCommissionByMonth(yearOrMonthInfo);
     }
 
     public List<AllDealerMonthCommissionInfo> getAllDealerTotalCommissionByMonth(int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         return authorizeTransactionRentalDao.selectAllDealersTotalCommissionByMonth(yearOrMonthInfo);
     }
 
     public List<AllDealerMonthCommissionInfo> getAllDealerActivationCommByMonth(int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         return authorizeTransactionRentalDao.selectAllDealersActivationCommByMonth(yearOrMonthInfo);
     }
 
     public List<AllSalesMonthCommissionInfo> getAllSalesCommissionByMonth(int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         return authorizeTransactionRentalDao.selectAllSalesCommissionByMonth(yearOrMonthInfo);
     }
 
     public List<AllSalesMonthCommissionInfo> getAllSalesTotalCommissionByMonth(int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         return authorizeTransactionRentalDao.selectAllSalesTotalCommissionByMonth(yearOrMonthInfo);
     }
 
     public List<AllSalesMonthCommissionInfo> getAllSalesActivationCommByMonth(int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         return authorizeTransactionRentalDao.selectAllSalesActivationCommByMonth(yearOrMonthInfo);
     }
 
     public List<SalesAmountInfo> selectSaleAmountEveryMonthInYear(int year){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, AuthRentUserInfo.DISTRIBUTOR_LDE);
         return authorizeTransactionRentalDao.selectSaleAmountEveryMonthInYear(yearOrMonthInfo);
     }
 
     public List<SalesAmountInfo> selectSaleAmountEveryDayInMonth(int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         return authorizeTransactionRentalDao.selectSaleAmountEveryDayInMonth(yearOrMonthInfo);
     }
 

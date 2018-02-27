@@ -8,6 +8,7 @@
         <result column="salesName" property="salesName"/>
         <result column="dealerId" property="dealerId"/>
         <result column="dealerName" property="dealerName"/>
+        <result column="distributor" property="distributor"/>
         <result column="clientKey" property="clientKey"/>
         <result column="category" property="category"/>
         <result column="mac" property="mac"/>
@@ -63,7 +64,7 @@
             auth_rent_user.status, auth_rent_user.country, auth_rent_user.region,
             auth_rent_user.city, auth_rent_user.timeZone, auth_rent_user.lastOnLineTime,
             auth_rent_user.device_model, auth_rent_user.rom_version,
-            auth_rent_user.ui_version,
+            auth_rent_user.ui_version, auth_rent_user.distributor,
             auth_sales.username salesName, auth_dealer.username dealerName
         FROM auth_rent_user JOIN auth_sales ON auth_rent_user.salesId = auth_sales.id
             JOIN auth_dealer ON auth_rent_user.dealerId = auth_dealer.id
@@ -105,6 +106,13 @@
         ORDER BY activateTime DESC
     </select>
 
+    <select id="selectAllByDistributor" resultMap="authRentUserInfo">
+        <include refid="select"/>
+        WHERE auth_rent_user.id > 0
+        AND auth_rent_user.distributor = #{distributor}
+        ORDER BY activateTime DESC
+    </select>
+
     <select id="countTotalVolumeByDealerId" resultType="java.lang.Integer">
         SELECT COUNT(*) count FROM auth_rent_user
         WHERE dealerId = #{dealerId}
@@ -118,11 +126,11 @@
 
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
-        INSERT INTO auth_rent_user (salesId, dealerId, clientKey, category, mac, firstName, lastName, email,
+        INSERT INTO auth_rent_user (salesId, dealerId, distributor, clientKey, category, mac, firstName, lastName, email,
                     phone, post_code, post_address, express, paymentType, cardNumber, expirationDate, securityKey,
                     deposit, first_pay, month_pay, svc_charge, ld_commission, lde_commission, dealer_commission,
                     sales_commission, activateTime, expiresTime, status, zip_code, billing_address)
-        VALUES (#{salesId}, #{dealerId}, #{clientKey}, #{category}, #{mac}, #{firstName}, #{lastName},
+        VALUES (#{salesId}, #{dealerId}, #{distributor}, #{clientKey}, #{category}, #{mac}, #{firstName}, #{lastName},
                 #{email}, #{phone}, #{postCode}, #{postAddress}, #{express}, #{paymentType}, #{cardNumber},
                 #{expirationDate}, #{securityKey}, #{deposit}, #{firstPay}, #{monthPay}, #{svcCharge}, #{ldCommission},
                 #{ldeCommission}, #{dealerCommission}, #{salesCommission}, #{activateTime}, #{expiresTime},
@@ -135,7 +143,7 @@
         WHERE mac=#{mac}
     </select>
 
-    <select id="countOneByKeyAndMac" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
+    <select id="countOneByKeyAndMac" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         SELECT COUNT(*) count FROM auth_rent_user
         WHERE clientKey=#{clientKey}
         AND mac=#{mac}
@@ -181,6 +189,7 @@
         FROM auth_rent_user
         WHERE activateTime BETWEEN #{start} AND #{end}
         AND status!='canceled'
+            AND auth_rent_user.distributor = #{distributor}
         GROUP BY  category, day;
     </select>
 
@@ -191,6 +200,7 @@
         WHERE activateTime BETWEEN #{start} AND #{end}
         AND status!='canceled'
               AND auth_rent_user.salesId=#{salesId}
+              AND auth_rent_user.distributor = #{distributor}
         GROUP BY  category, day;
     </select>
 
@@ -201,6 +211,7 @@
         WHERE activateTime BETWEEN #{start} AND #{end}
         AND status != 'canceled'
             AND auth_rent_user.dealerId=#{dealerId}
+              AND auth_rent_user.distributor = #{distributor}
         GROUP BY category, day;
     </select>
 

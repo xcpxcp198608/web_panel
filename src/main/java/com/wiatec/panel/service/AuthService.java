@@ -33,6 +33,8 @@ public class AuthService {
     private AuthSalesDao authSalesDao;
     @Resource
     private AuthDeviceDao authDeviceDao;
+    @Resource
+    private AuthMexicoDao authMexicoDao;
 
     public String signIn(HttpSession session, String username, String password, int type){
         if(TextUtil.isEmpty(username)){
@@ -76,6 +78,17 @@ public class AuthService {
                 }else{
                     throw new XException(EnumResult.ERROR_UNAUTHORIZED);
                 }
+            case 4:
+                if(authMexicoDao.countOne(new AuthMexicoInfo(username, password)) == 1) {
+                    AuthMexicoInfo authMexicoInfo = authMexicoDao.selectOneByUsername(username);
+                    if(authMexicoInfo == null){
+                        throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+                    }
+                    session.setAttribute("permission", authMexicoInfo.getPermission());
+                    return "redirect:/mexico/home";
+                }else{
+                    throw new XException(EnumResult.ERROR_UNAUTHORIZED);
+                }
             default:
                 throw new XException(EnumResult.ERROR_UNAUTHORIZED);
         }
@@ -113,6 +126,11 @@ public class AuthService {
     public String signOut2(HttpServletRequest request){
         releaseSession(request);
         return "redirect:/device/";
+    }
+
+    public String signOut3(HttpServletRequest request){
+        releaseSession(request);
+        return "redirect:/mexico/";
     }
 
     private void releaseSession(HttpServletRequest request){

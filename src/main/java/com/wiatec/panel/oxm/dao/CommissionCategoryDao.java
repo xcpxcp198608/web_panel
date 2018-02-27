@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface CommissionCategoryDao {
 
-    List<CommissionCategoryInfo> selectAll();
+    List<CommissionCategoryInfo> selectAllByDistributor(int distributor);
     CommissionCategoryInfo selectOne(String category);
 }

@@ -26,6 +26,7 @@ public interface AuthRentUserDao {
     List<AuthRentUserInfo> selectBySalesId(int salesId);
     List<AuthRentUserInfo> selectByDealerId(int dealerId);
     List<AuthRentUserInfo> selectAll();
+    List<AuthRentUserInfo> selectAllByDistributor(int distributor);
 
     int countTotalVolumeByDealerId(int dealerId);
     int countTotalVolumeBySalesId(int salesId);

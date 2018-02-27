@@ -19,8 +19,13 @@ import java.util.List;
 @Repository
 public interface AuthorizeTransactionRentalDao {
 
+    /**
+     * insert a new transaction record
+     * @param authorizeTransactionRentalInfo {@link AuthorizeTransactionRentalInfo}
+     */
     void insertOne(AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo);
-    List<AuthorizeTransactionRentalInfo> selectAll();
+    List<AuthorizeTransactionRentalInfo> selectAllLDE();
+    List<AuthorizeTransactionRentalInfo> selectAllLDM();
 
     List<AuthorizeTransactionRentalInfo> selectBySalesId(int salesId);
 

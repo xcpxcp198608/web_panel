@@ -14,6 +14,11 @@ public class  CommissionCategoryInfo {
 
     private int id;
     private String category;
+
+    /**
+     * distributor 101->LDE; 102->LDM
+     */
+    private int distributor;
     private float deposit;
     private int expires;
     private int bonus;
@@ -53,6 +58,14 @@ public class  CommissionCategoryInfo {
     public void setFirstPay() {
         BigDecimal b = new BigDecimal(this.monthPay + this.deposit + this.activatePay);
         this.firstPay = b.setScale(2,  BigDecimal.ROUND_HALF_UP).floatValue();
+    }
+
+    public int getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(int distributor) {
+        this.distributor = distributor;
     }
 
     public float getMonthPay() {
@@ -196,6 +209,7 @@ public class  CommissionCategoryInfo {
         return "CommissionCategoryInfo{" +
                 "id=" + id +
                 ", category='" + category + '\'' +
+                ", distributor=" + distributor +
                 ", deposit=" + deposit +
                 ", expires=" + expires +
                 ", bonus=" + bonus +

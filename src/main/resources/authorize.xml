@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-    <sandbox active="false">
+    <sandbox active="true">
         <environment>0</environment>
         <api_id>7j4kN3XKhjf</api_id>
         <transaction_key>3BkUS926633ndQUW</transaction_key>
     </sandbox>
 
-    <production active="true">
+    <production active="false">
         <environment>1</environment>
         <api_id>9g4fGXhg7e</api_id>
         <transaction_key>2Reu333Lj7CVv788</transaction_key>

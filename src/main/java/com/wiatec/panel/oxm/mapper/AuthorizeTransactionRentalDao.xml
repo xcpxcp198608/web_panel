@@ -4,6 +4,7 @@
 <mapper namespace="com.wiatec.panel.oxm.dao.AuthorizeTransactionRentalDao">
     <resultMap type="com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo" id="authorizeTransactionRentalInfo">
         <id column="id" property="id"/>
+        <id column="distributor" property="distributor"/>
         <id column="client_key" property="clientKey"/>
         <id column="category" property="category"/>
         <result column="sales_id" property="salesId"/>
@@ -30,6 +31,7 @@
 
     <sql id="select">
         SELECT authorize_transaction_rental.id, authorize_transaction_rental.client_key,
+            authorize_transaction_rental.distributor,
             authorize_transaction_rental.category, authorize_transaction_rental.sales_id,
             authorize_transaction_rental.card_number, authorize_transaction_rental.expiration_date,
             authorize_transaction_rental.security_key, authorize_transaction_rental.zip_code,
@@ -44,16 +46,18 @@
             authorize_transaction_rental.lde_activation_comm, authorize_transaction_rental.dealer_activation_comm,
             authorize_transaction_rental.sales_activation_comm, authorize_transaction_rental.create_time,
             auth_sales.username sales_name
-        FROM authorize_transaction_rental JOIN auth_sales ON authorize_transaction_rental.sales_id = auth_sales.id
+        FROM authorize_transaction_rental
+            JOIN auth_sales
+                ON authorize_transaction_rental.sales_id = auth_sales.id
     </sql>
 
     <insert id="insertOne" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo">
-      INSERT INTO authorize_transaction_rental (sales_id, dealer_id, category, client_key, card_number,expiration_date,
+      INSERT INTO authorize_transaction_rental (distributor, sales_id, dealer_id, category, client_key, card_number,expiration_date,
              security_key, zip_code, billing_address, amount, price, deposit, ld_commission, lde_commission,
              dealer_commission, sales_commission,
              tx_fee, transaction_id, status, auth_code, type, svc_charge, activate_pay, ld_activation_comm,
              lde_activation_comm, dealer_activation_comm, sales_activation_comm)
-      VALUES (#{salesId}, #{dealerId}, #{category}, #{clientKey}, #{cardNumber}, #{expirationDate},
+      VALUES (#{distributor}, #{salesId}, #{dealerId}, #{category}, #{clientKey}, #{cardNumber}, #{expirationDate},
               #{securityKey}, #{zipCode}, #{billingAddress}, #{amount}, #{price}, #{deposit}, #{ldCommission}, #{ldeCommission}, #{dealerCommission},
               #{salesCommission}, #{txFee}, #{transactionId}, #{status}, #{authCode}, #{type}, #{svcCharge},
               #{activatePay}, #{ldActivationComm}, #{ldeActivationComm}, #{dealerActivationComm},
@@ -66,8 +70,13 @@
         WHERE client_key=#{clientKey} AND create_time LIKE concat(#{createTime},'%')
     </select>
 
-    <select id="selectAll" resultMap="authorizeTransactionRentalInfo">
-        <include refid="select"/>
+    <select id="selectAllLDE" resultMap="authorizeTransactionRentalInfo">
+        <include refid="select"/> AND authorize_transaction_rental.distributor = 101
+    </select>
+
+    <select id="selectAllLDM" resultMap="authorizeTransactionRentalInfo">
+        SELECT * FROM authorize_transaction_rental
+        WHERE distributor = 102
     </select>
 
     <select id="selectBySalesId" resultMap="authorizeTransactionRentalInfo" parameterType="java.lang.Integer">
@@ -125,6 +134,7 @@
         JOIN auth_sales
         ON authorize_transaction_rental.sales_id=auth_sales.id
         WHERE create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY salesUsername
         ORDER BY volume DESC;
     </select>
@@ -135,6 +145,7 @@
         JOIN auth_sales
         ON authorize_transaction_rental.sales_id=auth_sales.id
         WHERE create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY salesUsername
         ORDER BY volume DESC;
     </select>
@@ -145,6 +156,7 @@
         JOIN auth_sales
         ON authorize_transaction_rental.sales_id=auth_sales.id
         WHERE create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY salesUsername
         ORDER BY volume DESC;
     </select>
@@ -156,6 +168,7 @@
         ON authorize_transaction_rental.sales_id=auth_sales.id
         WHERE create_time BETWEEN #{start} AND #{end}
             AND authorize_transaction_rental.dealer_id=#{dealerId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY salesUsername
         ORDER BY volume DESC;
     </select>
@@ -168,6 +181,7 @@
         JOIN auth_dealer
         ON authorize_transaction_rental.dealer_id = auth_dealer.id
         WHERE authorize_transaction_rental.create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY dealerUsername
         ORDER BY volume DESC;
     </select>
@@ -179,6 +193,7 @@
         JOIN auth_dealer
         ON authorize_transaction_rental.dealer_id = auth_dealer.id
         WHERE authorize_transaction_rental.create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY dealerUsername
         ORDER BY volume DESC;
     </select>
@@ -190,6 +205,7 @@
         JOIN auth_dealer
         ON authorize_transaction_rental.dealer_id = auth_dealer.id
         WHERE authorize_transaction_rental.create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY dealerUsername
         ORDER BY volume DESC;
     </select>
@@ -208,6 +224,7 @@
         MONTH(create_time) date
         FROM authorize_transaction_rental
         WHERE create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY date;
     </select>
 
@@ -222,6 +239,7 @@
         DAYOFMONTH(create_time) date
         FROM authorize_transaction_rental
         WHERE create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY date;
     </select>
 
@@ -233,6 +251,7 @@
         FROM authorize_transaction_rental
         WHERE create_time between #{start} and #{end}
         AND dealer_id=#{dealerId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY day
         ORDER BY day
     </select>
@@ -243,6 +262,7 @@
         FROM authorize_transaction_rental
         WHERE create_time between #{start} and #{end}
         AND dealer_id=#{dealerId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY day
         ORDER BY day
     </select>
@@ -253,6 +273,7 @@
         FROM authorize_transaction_rental
         WHERE create_time between #{start} and #{end}
         AND dealer_id=#{dealerId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY month
         ORDER BY month
     </select>
@@ -267,6 +288,7 @@
         FROM authorize_transaction_rental
         WHERE create_time between #{start} and #{end}
         AND sales_id=#{salesId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY day
         ORDER BY day
     </select>
@@ -277,6 +299,7 @@
         FROM authorize_transaction_rental
         WHERE create_time between #{start} and #{end}
         AND sales_id=#{salesId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY day
         ORDER BY day
     </select>
@@ -287,6 +310,7 @@
         FROM authorize_transaction_rental
         WHERE create_time between #{start} and #{end}
         AND sales_id=#{salesId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY month
         ORDER BY month
     </select>

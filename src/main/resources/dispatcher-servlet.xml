@@ -29,6 +29,7 @@
             <mvc:mapping path="/admin/**"/>
             <mvc:mapping path="/manager/**"/>
             <mvc:mapping path="/device/**"/>
+            <mvc:mapping path="/mexico/**"/>
             <bean class="com.wiatec.panel.inteceptor.AuthInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

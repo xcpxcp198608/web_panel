@@ -57,24 +57,8 @@ public class InvoiceInfoMaker {
         invoiceInfo.setTax(true);
         invoiceInfo.setCurrentMonth(currentMonth);
         invoiceInfo.setTotalMonth(commissionCategoryInfo.getExpires());
-        switch (commissionCategoryInfo.getCategory()){
-            case CommissionCategoryInfo.CATEGORY_B1:
-                invoiceInfo.setItem("BVB1");
-                invoiceInfo.setDescription("BVision Basic 24 months");
-                break;
-            case CommissionCategoryInfo.CATEGORY_P1:
-                invoiceInfo.setItem("BVP1");
-                invoiceInfo.setDescription("BVision VIP 12 months");
-                break;
-            case CommissionCategoryInfo.CATEGORY_P2:
-                invoiceInfo.setItem("BVP2");
-                invoiceInfo.setDescription("BVision VIP 24 months");
-                break;
-            default:
-                invoiceInfo.setItem("");
-                invoiceInfo.setDescription("");
-                break;
-        }
+        invoiceInfo.setItem("BV" + commissionCategoryInfo.getCategory());
+        invoiceInfo.setDescription(commissionCategoryInfo.getDescription());
         invoiceInfoList.add(invoiceInfo);
         return invoiceInfoList;
     }
@@ -88,24 +72,8 @@ public class InvoiceInfoMaker {
         invoiceInfo.setTax(true);
         invoiceInfo.setCurrentMonth(currentMonth);
         invoiceInfo.setTotalMonth(totalMonth);
-        switch (authorizeTransactionRentalInfo.getCategory()){
-            case CommissionCategoryInfo.CATEGORY_B1:
-                invoiceInfo.setItem("BVB1");
-                invoiceInfo.setDescription("BVision Basic 24 months");
-                break;
-            case CommissionCategoryInfo.CATEGORY_P1:
-                invoiceInfo.setItem("BVP1");
-                invoiceInfo.setDescription("BVision VIP 12 months");
-                break;
-            case CommissionCategoryInfo.CATEGORY_P2:
-                invoiceInfo.setItem("BVP2");
-                invoiceInfo.setDescription("BVision VIP 24 months");
-                break;
-            default:
-                invoiceInfo.setItem("");
-                invoiceInfo.setDescription("");
-                break;
-        }
+        invoiceInfo.setItem("BV" + authorizeTransactionRentalInfo.getCategory());
+        invoiceInfo.setDescription("monthly");
         invoiceInfoList.add(invoiceInfo);
         return invoiceInfoList;
     }

@@ -19,6 +19,7 @@ public class AuthorizeTransactionRentalInfo extends AuthorizeTransactionInfo {
     private int dealerId;
     private String salesName;
     private String dealerName;
+    private int distributor;
     private String category;
     private String clientKey;
     private String type;
@@ -67,6 +68,14 @@ public class AuthorizeTransactionRentalInfo extends AuthorizeTransactionInfo {
 
     public void setDealerName(String dealerName) {
         this.dealerName = dealerName;
+    }
+
+    public int getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(int distributor) {
+        this.distributor = distributor;
     }
 
     public String getCategory() {
@@ -204,8 +213,11 @@ public class AuthorizeTransactionRentalInfo extends AuthorizeTransactionInfo {
                 "salesId=" + salesId +
                 ", dealerId=" + dealerId +
                 ", salesName='" + salesName + '\'' +
+                ", dealerName='" + dealerName + '\'' +
+                ", distributor=" + distributor +
                 ", category='" + category + '\'' +
                 ", clientKey='" + clientKey + '\'' +
+                ", type='" + type + '\'' +
                 ", price=" + price +
                 ", txFee=" + txFee +
                 ", deposit=" + deposit +
@@ -213,7 +225,12 @@ public class AuthorizeTransactionRentalInfo extends AuthorizeTransactionInfo {
                 ", ldeCommission=" + ldeCommission +
                 ", dealerCommission=" + dealerCommission +
                 ", salesCommission=" + salesCommission +
-                ", type='" + type + '\'' +
+                ", svcCharge=" + svcCharge +
+                ", activatePay=" + activatePay +
+                ", ldActivationComm=" + ldActivationComm +
+                ", ldeActivationComm=" + ldeActivationComm +
+                ", dealerActivationComm=" + dealerActivationComm +
+                ", salesActivationComm=" + salesActivationComm +
                 '}';
     }
 
@@ -225,6 +242,7 @@ public class AuthorizeTransactionRentalInfo extends AuthorizeTransactionInfo {
         authorizeTransactionRentalInfo.setClientKey(authRentUserInfo.getClientKey());
         authorizeTransactionRentalInfo.setSalesId(authRentUserInfo.getSalesId());
         authorizeTransactionRentalInfo.setDealerId(authRentUserInfo.getDealerId());
+        authorizeTransactionRentalInfo.setDistributor(authRentUserInfo.getDistributor());
         authorizeTransactionRentalInfo.setCategory(authRentUserInfo.getCategory());
         authorizeTransactionRentalInfo.setDeposit(authRentUserInfo.getDeposit());
         authorizeTransactionRentalInfo.setLdCommission(authRentUserInfo.getLdCommission());
@@ -262,6 +280,7 @@ public class AuthorizeTransactionRentalInfo extends AuthorizeTransactionInfo {
         authorizeTransactionRentalInfo.setClientKey(authRentUserInfo.getClientKey());
         authorizeTransactionRentalInfo.setSalesId(authRentUserInfo.getSalesId());
         authorizeTransactionRentalInfo.setDealerId(authRentUserInfo.getDealerId());
+        authorizeTransactionRentalInfo.setDistributor(authRentUserInfo.getDistributor());
         authorizeTransactionRentalInfo.setCategory(authRentUserInfo.getCategory());
         authorizeTransactionRentalInfo.setDeposit(0);
         authorizeTransactionRentalInfo.setLdCommission(authRentUserInfo.getLdCommission());

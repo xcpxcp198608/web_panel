@@ -9,13 +9,15 @@ public class YearOrMonthInfo {
     private String end;
     private String salesId;
     private String dealerId;
+    private int distributor;
 
-    public YearOrMonthInfo(int year) {
+    public YearOrMonthInfo(int year, int distributor) {
         this.start = year + "-01-01";
         this.end = (year + 1) + "-01-01";
+        this.distributor = distributor;
     }
 
-    public YearOrMonthInfo(int year, int month) {
+    public YearOrMonthInfo(int year, int month, int distributor) {
         this.start = year + "-" + month + "-01";
         if(month == 12){
             this.end = (year + 1) + "-01-01";
@@ -27,9 +29,10 @@ public class YearOrMonthInfo {
                 this.end = year + "-" + e + "-01";
             }
         }
+        this.distributor = distributor;
     }
 
-    public YearOrMonthInfo(int year, int month, boolean is) {
+    public YearOrMonthInfo(int year, int month, int distributor, boolean is) {
         month += 1;
         if(month > 12){
             month = 1;
@@ -51,6 +54,7 @@ public class YearOrMonthInfo {
                 this.start = (year-1) + "-" + startMonth + "-01";
             }
         }
+        this.distributor = distributor;
     }
 
     public String getStart() {
@@ -85,6 +89,14 @@ public class YearOrMonthInfo {
         this.dealerId = dealerId;
     }
 
+    public int getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(int distributor) {
+        this.distributor = distributor;
+    }
+
     @Override
     public String toString() {
         return "YearOrMonthInfo{" +
@@ -92,6 +104,7 @@ public class YearOrMonthInfo {
                 ", end='" + end + '\'' +
                 ", salesId='" + salesId + '\'' +
                 ", dealerId='" + dealerId + '\'' +
+                ", distributor=" + distributor +
                 '}';
     }
 }
