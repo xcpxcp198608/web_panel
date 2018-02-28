@@ -25,9 +25,7 @@ $(function () {
             currentYear --;
             currentMonth = 12;
         }
-        setYearAndMont();
-        getDealerVolumeEveryDayInMonth(currentYear, currentMonth);
-        getSalesCommissionEveryDayInMonth(currentYear, currentMonth);
+        updateData();
     });
 
     $('#btNextMonth').click(function () {
@@ -36,10 +34,15 @@ $(function () {
             currentYear ++;
             currentMonth = 1;
         }
+        updateData();
+    });
+
+    function updateData(){
         setYearAndMont();
         getDealerVolumeEveryDayInMonth(currentYear, currentMonth);
         getSalesCommissionEveryDayInMonth(currentYear, currentMonth);
-    });
+        getSalesActivationCommissionEveryDayInMonth(currentYear, currentMonth);
+    }
 
 
     /**
@@ -114,7 +117,7 @@ $(function () {
     }
 
     /**
-     * dealer month commission chart
+     * sales month commission chart
      */
     var chartCommission = echarts.init(document.getElementById('chartCommission'));
     var xCommissionData = [];
@@ -139,7 +142,7 @@ $(function () {
         },
         tooltip: {},
         legend: {
-            data:['commission'],
+            data:['sales commission'],
             textStyle:{
                 color: 'rgba(0, 0, 0, 0.8)'
             }
@@ -154,13 +157,14 @@ $(function () {
         yAxis: {},
         series: [
             {
-                name: 'commission',
+                name: 'sales commission',
                 type: 'bar',
                 data: commissionData,
+                barWidth: 10,
                 itemStyle: {
                     normal: {
                         color: '#f54be2',
-                        shadowBlur: 50,
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 }
@@ -172,7 +176,134 @@ $(function () {
 
 
 
+    /**
+     * init activation commission table data
+     */
+    var tbActivationCommission = $('#tbActivationCommission').get(0).tBodies[0];
+    var thActivationCommission = $('#thActivationCommission').get(0);
+    var rowsLengthA = tbActivationCommission.rows.length;
+    initActivationCommissionMonthData(currentDays);
+    function initActivationCommissionMonthData(days) {
+        for (var j = 0; j < days; j++) {
+            var tdObj = document.createElement("td");
+            tdObj.innerHTML = (j + 1).toString();
+            thActivationCommission.append(tdObj);
+            for(var k = 0; k < rowsLengthA; k ++){
+                var tdObj1 = document.createElement("td");
+                tdObj1.innerHTML = "0";
+                tbActivationCommission.rows[k].append(tdObj1);
+            }
+        }
+    }
 
+    /**
+     * clean commission table
+     */
+    function cleanMonthActivationCommissionTable() {
+        var length = tbActivationCommission.rows[0].cells.length -2;
+        for(var i = 0; i < length ; i ++){
+            thActivationCommission.removeChild(thActivationCommission.lastChild);
+            for(var k = 0; k < rowsLengthA; k ++){
+                tbActivationCommission.rows[k].removeChild(tbActivationCommission.rows[k].lastChild);
+            }
+        }
+    }
+
+    /**
+     * get sales month activation commission
+     */
+    getSalesActivationCommissionEveryDayInMonth(currentYear, currentMonth);
+    function getSalesActivationCommissionEveryDayInMonth(year, month) {
+        var days = getDaysOfYearAndMonth(year, month);
+        var url = baseUrl + "/sales/chart/commission/activation/" + year + "/" + month;
+        $('#btPreviousMonth').attr('disabled', 'disabled');
+        $('#btNextMonth').attr('disabled', 'disabled');
+        $.get(url,{ },function(list, status){
+            var length = list.length;
+            var totalActivationCommission = 0;
+            cleanMonthActivationCommissionTable();
+            for(var i = 0; i < days; i ++){
+                var tdObj = document.createElement("td");
+                tdObj.innerHTML = (i+1).toString();
+                thActivationCommission.append(tdObj);
+                var commission = 0.0;
+                for(var j = 0; j < length; j ++){
+                    var item = list[j];
+                    if(item['day'] === i + 1){
+                        commission = item['commission'];
+                    }
+                }
+                var tdObj1 = document.createElement("td");
+                tdObj1.innerHTML = commission.toString();
+                tbActivationCommission.rows[0].append(tdObj1);
+                totalActivationCommission += commission;
+            }
+            tbActivationCommission.rows[0].cells[1].innerHTML = totalActivationCommission.toString();
+            refreshActivationCommissionData();
+            $('#currentMonthActivationCommission').html(totalActivationCommission);
+            chartActivationCommission.setOption(chartActivationCommissionOption);
+            $('#btPreviousMonth').removeAttr('disabled');
+            $('#btNextMonth').removeAttr('disabled');
+        })
+    }
+
+    /**
+     * sales month commission chart
+     */
+    var chartActivationCommission = echarts.init(document.getElementById('chartActivationCommission'));
+    var xActivationCommissionData = [];
+    var activationCommissionData = [];
+    function refreshActivationCommissionData() {
+        xActivationCommissionData.length = 0;
+        activationCommissionData.length = 0;
+        var items = tbActivationCommission.rows[0].cells.length - 2;
+        for(var i = 0; i < items; i ++){
+            xActivationCommissionData.push(i + 1);
+            var vd = tbActivationCommission.rows[0].cells[i+2].innerHTML;
+            activationCommissionData.push(vd);
+        }
+    }
+
+    var chartActivationCommissionOption = {
+        title: {
+            text: '',
+            textStyle:{
+                color: 'rgba(255, 255, 255, 0.0)'
+            }
+        },
+        tooltip: {},
+        legend: {
+            data:['activation commission'],
+            textStyle:{
+                color: 'rgba(0, 0, 0, 0.8)'
+            }
+        },
+        backgroundColor: '#ffffff',
+        textStyle: {
+            color: 'rgba(0, 0, 0, 0.8)'
+        },
+        xAxis: {
+            data: xActivationCommissionData
+        },
+        yAxis: {},
+        series: [
+            {
+                name: 'activation commission',
+                type: 'bar',
+                data: activationCommissionData,
+                barWidth: 10,
+                itemStyle: {
+                    normal: {
+                        color: '#11b3f5',
+                        shadowBlur: 10,
+                        shadowColor: 'rgba(0, 0, 0, 0.7)'
+                    }
+                }
+            }
+        ]
+    };
+    refreshActivationCommissionData();
+    chartActivationCommission.setOption(chartActivationCommissionOption);
 
 
 
@@ -278,7 +409,6 @@ $(function () {
             tbVolume.rows[1].cells[1].innerHTML = totalB1.toString();
             tbVolume.rows[2].cells[1].innerHTML = totalP1.toString();
             tbVolume.rows[3].cells[1].innerHTML = totalP2.toString();
-            $('#currentMonthVolume').html(totalVolume);
             refreshData();
             chartVolume.setOption(chartVolumeOption);
             $('#btPreviousMonth').removeAttr('disabled');
@@ -342,11 +472,11 @@ $(function () {
                 name: 'volume',
                 type: 'bar',
                 data: volumeData,
-                barWidth: 20,
+                barWidth: 10,
                 itemStyle: {
                     normal: {
-                        color: '#F5C334',
-                        shadowBlur: 50,
+                        color: '#c3f511',
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 }
@@ -358,14 +488,14 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#f56107',
-                        shadowBlur: 50,
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 },
                 lineStyle: {
                     normal: {
                         color: '#fc0a5b',
-                        shadowBlur: 50,
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 }
@@ -377,14 +507,14 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#12f589',
-                        shadowBlur: 50,
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 },
                 lineStyle: {
                     normal: {
                         color: '#9efcaa',
-                        shadowBlur: 50,
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 }
@@ -396,14 +526,14 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#320ef5',
-                        shadowBlur: 50,
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 },
                 lineStyle: {
                     normal: {
                         color: '#1baefc',
-                        shadowBlur: 50,
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.7)'
                     }
                 }

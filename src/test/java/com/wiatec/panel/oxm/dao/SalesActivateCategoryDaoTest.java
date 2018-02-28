@@ -20,13 +20,15 @@ public class SalesActivateCategoryDaoTest {
 
     @Test
     public void selectAll() {
-        List<SalesActivateCategoryInfo> salesActivateCategoryInfoList = salesActivateCategoryDao.selectAll();
+        List<SalesActivateCategoryInfo> salesActivateCategoryInfoList = salesActivateCategoryDao.selectAllWithLimit(1);
         System.out.println(salesActivateCategoryInfoList);
     }
 
     @Test
     public void selectOneByCategory() {
-        SalesActivateCategoryInfo salesActivateCategoryInfo = salesActivateCategoryDao.selectOneByCategory("AM1");
+        SalesActivateCategoryInfo salesActivateCategoryInfo = salesActivateCategoryDao
+                .selectOneByCategory("AM2");
         System.out.println(salesActivateCategoryInfo);
     }
+
 }

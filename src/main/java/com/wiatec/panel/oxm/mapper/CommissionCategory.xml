@@ -2,33 +2,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wiatec.panel.oxm.dao.CommissionCategoryDao">
-    <resultMap type="com.wiatec.panel.oxm.pojo.CommissionCategoryInfo" id="commissionCategoryInfo">
-        <id column="id" property="id"/>
-        <result column="category" property="category"/>
-        <result column="deposit" property="deposit"/>
-        <result column="monthPay" property="monthPay"/>
-        <result column="expires" property="expires"/>
-        <result column="bonus" property="bonus"/>
-        <result column="activate_pay" property="activatePay"/>
-        <result column="ldCommission" property="ldCommission"/>
-        <result column="dealerCommission" property="dealerCommission"/>
-        <result column="salesCommission" property="salesCommission"/>
-        <result column="description" property="description"/>
-    </resultMap>
 
     <sql id="select">
-        SELECT id, category, deposit, monthPay, expires, bonus, activate_pay, ldCommission,
-            ldeCommission,  dealerCommission, salesCommission, description
+        SELECT id, distributor, category, deposit, expires, bonus, monthPay, ldCommission,
+            ldeCommission,  dealerCommission, salesCommission, svc_charge,
+            activate_pay, ld_activation_comm, lde_activation_comm, dealer_activation_comm,
+            sales_activation_comm, description
         FROM commission_category
     </sql>
 
-    <select id="selectAll" resultMap="commissionCategoryInfo">
-        <include refid="select"/>
+    <select id="selectAllByDistributor" resultType="com.wiatec.panel.oxm.pojo.CommissionCategoryInfo">
+        <include refid="select"/> WHERE distributor = #{distributor}
     </select>
 
-    <select id="selectOne" resultMap="commissionCategoryInfo" parameterType="java.lang.String">
+    <select id="selectOne" resultType="com.wiatec.panel.oxm.pojo.CommissionCategoryInfo" >
         <include refid="select"/>
-        WHERE category=#{_parameter}
+        WHERE category = #{category}
     </select>
 
 </mapper>

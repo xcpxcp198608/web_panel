@@ -16,8 +16,9 @@ public class CommissionCategoryService {
     @Resource
     private CommissionCategoryDao commissionCategoryDao;
 
-    public List<CommissionCategoryInfo> selectAll(){
-        List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
+    public List<CommissionCategoryInfo> selectAllByDistributor(int distributor){
+        List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao
+                .selectAllByDistributor(distributor);
         for(CommissionCategoryInfo commissionCategoryInfo: commissionCategoryInfoList){
             commissionCategoryInfo.setPrice();
         }

@@ -133,6 +133,17 @@ public class AuthDealer {
     public List<DealerCommissionOfDaysInfo> getDealerCommissionEveryDayInMonth(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
         return authDealerService.selectDealerCommissionEveryDayInMonth(request, year, month);
     }
+    /**
+     * get every day dealer activation commission in specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        DealerCommissionOfDaysInfo list
+     */
+    @GetMapping(value = "/chart/commission/activation/{year}/{month}")
+    @ResponseBody
+    public List<DealerCommissionOfDaysInfo> getDealerActivationCommissionEveryDayInMonth(HttpServletRequest request, @PathVariable int year, @PathVariable int month){
+        return authDealerService.selectDealerActivationCommissionEveryDayInMonth(request, year, month);
+    }
 
     /**
      * get every month dealer commission in specify year and month

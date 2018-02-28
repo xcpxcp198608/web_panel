@@ -126,36 +126,64 @@ $(function () {
         });
     });
 
-
-
-    var currentMac = '';
-    var currentRow = -1;
-    $('input[name=rdDevice]').each(function(){
-        $(this).click(function(){
-            currentMac = $(this).val();
-            currentRow = parseInt($(this).attr('currentRow'));
-        });
+    var free = false;
+    $('#cbFree').click(function () {
+        if(this.checked){
+            free = true;
+        }else{
+            free = false;
+        }
+        console.log(free)
     });
 
     $('#btUpdate').click(function () {
-        if(currentRow < 0){
+        var currentMacs = [];
+        var currentRows = [];
+        $('input[name=cbDevice]:checked').each(function(index){
+            currentMacs[index] = $(this).val();
+            currentRows[index] = parseInt($(this).attr('currentRow'));
+        });
+        if(currentRows.length <= 0){
             showNotice('have no choose device');
             return;
         }
-        $('#modalUpdate').modal('show');
-    });
-
-    $('#btSubmitUpdate').click(function () {
-        var salesId = $('#ipUpdateSalesId').val();
-        if(salesId <= 0){
-            showNotice('have no choose sales');
+        if(currentMacs.length <= 0){
+            showNotice('have no choose device');
             return;
         }
+        for(var i = 0; i < currentRows.length; i ++){
+            var row = currentRows[i];
+            var sales = tbDevices.rows[row].cells[3].children[0].innerHTML;
+            if(sales !== 'pcp'){
+                showNotice(tbDevices.rows[row].cells[2].innerHTML + ' can not update');
+                return;
+            }
+        }
+
+        $('#spAmount').html(currentMacs.length * 100 + '.00');
+        $('#modalUpdate').modal('show');
+        $('#btSubmitUpdate').click(function () {
+            var salesId = $('#ipUpdateSalesId').val();
+            if(salesId <= 0){
+                showErrorMessage($('#errorUpdate'), 'have no choose sales');
+                return;
+            }
+            var password = $('#ipAdminPassword').val();
+            if(password.length <= 0){
+                showErrorMessage($('#errorUpdate'), 'password input error');
+                return;
+            }
+            $('#errorUpdate').hide();
+            updateSales(currentMacs, currentRows, salesId, password, free)
+        });
+    });
+
+
+    function updateSales(currentMacs, currentRows, salesId, password, free) {
         $.ajax({
             type: "PUT",
             url: baseUrl + "/admin/devices/update",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({"mac": currentMac, "salesId": salesId}),
+            data: {"macs": currentMacs, "salesId": salesId, 'password': password, 'free': free},
             dataType: "json",
             beforeSend: function () {
                 $('#modalUpdate').modal('hide');
@@ -167,7 +195,14 @@ $(function () {
                 if(response.code === 200) {
                     $('#modalUpdate').modal('hide');
                     showNotice("successfully");
-                    tbDevices.rows[parseInt(currentRow)].cells[3].innerHTML = response.data['salesName'];
+                    var salesName = response.data['username'];
+                    var length = currentRows.length;
+                    if(length > 0){
+                        for(var i = 0; i < length; i ++){
+                            var row = currentRows[i];
+                            tbDevices.rows[parseInt(row)].cells[3].innerHTML = '<span class="text-warning">' + salesName + '</span>';
+                        }
+                    }
                 }else{
                     $('#modalUpdate').modal('show');
                     showErrorMessage($('#errorUpdate'), response.message);
@@ -179,7 +214,7 @@ $(function () {
                 showErrorMessage($('#errorUpdate'), 'communication fail, try again later');
             }
         });
-    })
+    }
 
 
 

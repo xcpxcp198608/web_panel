@@ -6,6 +6,7 @@
         <id column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
+        <result column="permission" property="permission"/>
     </resultMap>
 
     <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthDeviceInfo">
@@ -15,6 +16,10 @@
     </select>
 
     <select id="selectOne" resultMap="authDeviceInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthDeviceInfo">
+      SELECT * FROM auth_device WHERE username=#{username} AND password=#{password}
+    </select>
+
+    <select id="selectOneByUsername" resultMap="authDeviceInfo">
       SELECT * FROM auth_device WHERE username=#{username}
     </select>
 

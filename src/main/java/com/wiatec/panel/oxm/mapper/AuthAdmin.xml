@@ -16,7 +16,13 @@
     </select>
 
     <select id="selectOne" resultMap="authAdminInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthAdminInfo">
-      SELECT * FROM auth_admin WHERE username=#{username}
+      SELECT * FROM auth_admin
+      WHERE username=#{username} AND password=#{password}
+    </select>
+
+    <select id="selectOneByUsername" resultMap="authAdminInfo" parameterType="com.wiatec.panel.oxm.pojo.AuthAdminInfo">
+      SELECT * FROM auth_admin
+      WHERE username=#{username}
     </select>
 
 

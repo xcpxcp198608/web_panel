@@ -41,13 +41,33 @@ public class Auth {
 
 
     /**
-     * sign out
+     * sign out manager
      * @param request  HttpServletRequest
      * @return         manager sign in page
      */
     @GetMapping(value = "/signout1")
     public String signOut1(HttpServletRequest request){
         return authService.signOut1(request);
+    }
+
+    /**
+     * sign out device
+     * @param request  HttpServletRequest
+     * @return         manager sign in page
+     */
+    @GetMapping(value = "/signout2")
+    public String signOut2(HttpServletRequest request){
+        return authService.signOut2(request);
+    }
+
+    /**
+     * sign out mexico
+     * @param request  HttpServletRequest
+     * @return         manager sign in page
+     */
+    @GetMapping(value = "/signout3")
+    public String signOut3(HttpServletRequest request){
+        return authService.signOut3(request);
     }
 
 

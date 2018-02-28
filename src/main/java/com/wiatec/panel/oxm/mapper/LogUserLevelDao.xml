@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.LogUserLevelDao">
+
+
+    <sql id="select">
+        SELECT l.id, l.user_id, l.username, l.level, l.expiration, l.executor_id,
+            l.create_time,
+            a.username executorName
+        FROM log_user_level as l
+            JOIN auth_manager as a
+                ON l.executor_id = a.id
+    </sql>
+
+    <select id="selectAll" resultType="com.wiatec.panel.oxm.pojo.log.LogUserLevelInfo">
+        <include refid="select"/>
+        WHERE l.id > 0
+        ORDER BY l.create_time DESC
+    </select>
+
+    <insert id="insertOne">
+        INSERT IGNORE INTO log_user_level (user_id, username, level, expiration, executor_id)
+        VALUES (#{userId}, #{username}, #{level}, #{expiration}, #{executorId})
+    </insert>
+
+</mapper>

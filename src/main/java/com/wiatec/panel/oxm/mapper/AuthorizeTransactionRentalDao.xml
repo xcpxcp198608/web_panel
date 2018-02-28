@@ -4,6 +4,7 @@
 <mapper namespace="com.wiatec.panel.oxm.dao.AuthorizeTransactionRentalDao">
     <resultMap type="com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo" id="authorizeTransactionRentalInfo">
         <id column="id" property="id"/>
+        <id column="distributor" property="distributor"/>
         <id column="client_key" property="clientKey"/>
         <id column="category" property="category"/>
         <result column="sales_id" property="salesId"/>
@@ -20,6 +21,8 @@
         <result column="card_number" property="cardNumber"/>
         <result column="expiration_date" property="expirationDate"/>
         <result column="security_key" property="securityKey"/>
+        <result column="zip_code" property="zipCode"/>
+        <result column="billing_address" property="billingAddress"/>
         <result column="status" property="status"/>
         <result column="auth_code" property="authCode"/>
         <result column="type" property="type"/>
@@ -27,36 +30,53 @@
     </resultMap>
 
     <sql id="select">
-        SELECT authorize_transaction_rental.id, authorize_transaction_rental.client_key, authorize_transaction_rental.category,
-            authorize_transaction_rental.sales_id, authorize_transaction_rental.amount, authorize_transaction_rental.price,
-            authorize_transaction_rental.deposit, authorize_transaction_rental.ld_commission, authorize_transaction_rental.lde_commission,
-            authorize_transaction_rental.dealer_commission,
-            authorize_transaction_rental.sales_commission, authorize_transaction_rental.tx_fee,
+        SELECT authorize_transaction_rental.id, authorize_transaction_rental.client_key,
+            authorize_transaction_rental.distributor,
+            authorize_transaction_rental.category, authorize_transaction_rental.sales_id,
             authorize_transaction_rental.card_number, authorize_transaction_rental.expiration_date,
-            authorize_transaction_rental.security_key, authorize_transaction_rental.transaction_id,
-            authorize_transaction_rental.status, authorize_transaction_rental.auth_code,
-            authorize_transaction_rental.type, authorize_transaction_rental.create_time,
+            authorize_transaction_rental.security_key, authorize_transaction_rental.zip_code,
+            authorize_transaction_rental.billing_address, authorize_transaction_rental.tx_fee,
+            authorize_transaction_rental.transaction_id, authorize_transaction_rental.status,
+            authorize_transaction_rental.auth_code, authorize_transaction_rental.type,
+            authorize_transaction_rental.amount, authorize_transaction_rental.price,
+            authorize_transaction_rental.deposit, authorize_transaction_rental.ld_commission,
+            authorize_transaction_rental.lde_commission, authorize_transaction_rental.dealer_commission,
+            authorize_transaction_rental.sales_commission, authorize_transaction_rental.svc_charge,
+            authorize_transaction_rental.activate_pay, authorize_transaction_rental.ld_activation_comm,
+            authorize_transaction_rental.lde_activation_comm, authorize_transaction_rental.dealer_activation_comm,
+            authorize_transaction_rental.sales_activation_comm, authorize_transaction_rental.create_time,
             auth_sales.username sales_name
-        FROM authorize_transaction_rental JOIN auth_sales ON authorize_transaction_rental.sales_id = auth_sales.id
+        FROM authorize_transaction_rental
+            JOIN auth_sales
+                ON authorize_transaction_rental.sales_id = auth_sales.id
     </sql>
 
     <insert id="insertOne" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo">
-      INSERT INTO authorize_transaction_rental (sales_id, dealer_id, category, client_key, card_number,expiration_date,
-             security_key, amount, price, deposit, ld_commission, lde_commission, dealer_commission, sales_commission,
-             tx_fee, transaction_id, status, auth_code, type)
-      VALUES (#{salesId}, #{dealerId}, #{category}, #{clientKey}, #{cardNumber}, #{expirationDate},
-              #{securityKey}, #{amount}, #{price}, #{deposit}, #{ldCommission}, #{ldeCommission}, #{dealerCommission},
-              #{salesCommission}, #{txFee}, #{transactionId}, #{status}, #{authCode}, #{type})
+      INSERT INTO authorize_transaction_rental (distributor, sales_id, dealer_id, category, client_key, card_number,expiration_date,
+             security_key, zip_code, billing_address, amount, price, deposit, ld_commission, lde_commission,
+             dealer_commission, sales_commission,
+             tx_fee, transaction_id, status, auth_code, type, svc_charge, activate_pay, ld_activation_comm,
+             lde_activation_comm, dealer_activation_comm, sales_activation_comm)
+      VALUES (#{distributor}, #{salesId}, #{dealerId}, #{category}, #{clientKey}, #{cardNumber}, #{expirationDate},
+              #{securityKey}, #{zipCode}, #{billingAddress}, #{amount}, #{price}, #{deposit}, #{ldCommission}, #{ldeCommission}, #{dealerCommission},
+              #{salesCommission}, #{txFee}, #{transactionId}, #{status}, #{authCode}, #{type}, #{svcCharge},
+              #{activatePay}, #{ldActivationComm}, #{ldeActivationComm}, #{dealerActivationComm},
+              #{salesActivationComm})
     </insert>
 
-    <select id="countByKeyAndDate" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo" resultType="int">
+    <select id="countByKeyAndDate" resultType="int">
         SELECT COUNT(*) count
         FROM authorize_transaction_rental
         WHERE client_key=#{clientKey} AND create_time LIKE concat(#{createTime},'%')
     </select>
 
-    <select id="selectAll" resultMap="authorizeTransactionRentalInfo">
-        <include refid="select"/>
+    <select id="selectAllLDE" resultMap="authorizeTransactionRentalInfo">
+        <include refid="select"/> AND authorize_transaction_rental.distributor = 101
+    </select>
+
+    <select id="selectAllLDM" resultMap="authorizeTransactionRentalInfo">
+        SELECT * FROM authorize_transaction_rental
+        WHERE distributor = 102
     </select>
 
     <select id="selectBySalesId" resultMap="authorizeTransactionRentalInfo" parameterType="java.lang.Integer">
@@ -65,12 +85,12 @@
     </select>
 
     <select id="countTotalCommissionByDealerId" resultType="java.lang.Float">
-        SELECT COALESCE (SUM(dealer_commission), 0) FROM authorize_transaction_rental
+        SELECT COALESCE (SUM(dealer_commission + dealer_activation_comm), 0) FROM authorize_transaction_rental
         WHERE dealer_id = #{dealerId}
     </select>
 
     <select id="countTotalCommissionBySalesId" resultType="java.lang.Float">
-        SELECT COALESCE (SUM(sales_commission), 0) FROM authorize_transaction_rental
+        SELECT COALESCE (SUM(sales_commission + sales_activation_comm), 0) FROM authorize_transaction_rental
         WHERE sales_id = #{salesId}
     </select>
 
@@ -107,6 +127,17 @@
         <result column="volume" property="volume"/>
         <result column="commission" property="commission"/>
     </resultMap>
+    <select id="selectAllSalesTotalCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultMap="allSalesMonthCommissionInfo">
+        SELECT sum(sales_commission + sales_activation_comm) commission, auth_sales.username salesUsername, COUNT(*) volume
+        FROM authorize_transaction_rental
+        JOIN auth_sales
+        ON authorize_transaction_rental.sales_id=auth_sales.id
+        WHERE create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
+        GROUP BY salesUsername
+        ORDER BY volume DESC;
+    </select>
     <select id="selectAllSalesCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
             resultMap="allSalesMonthCommissionInfo">
         SELECT sum(sales_commission) commission, auth_sales.username salesUsername, COUNT(*) volume
@@ -114,8 +145,20 @@
         JOIN auth_sales
         ON authorize_transaction_rental.sales_id=auth_sales.id
         WHERE create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY salesUsername
-        ORDER BY volume;
+        ORDER BY volume DESC;
+    </select>
+    <select id="selectAllSalesActivationCommByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultMap="allSalesMonthCommissionInfo">
+        SELECT sum(sales_activation_comm) commission, auth_sales.username salesUsername, COUNT(*) volume
+        FROM authorize_transaction_rental
+        JOIN auth_sales
+        ON authorize_transaction_rental.sales_id=auth_sales.id
+        WHERE create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
+        GROUP BY salesUsername
+        ORDER BY volume DESC;
     </select>
     <select id="selectSalesCommissionByMonthAndDealer" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
             resultMap="allSalesMonthCommissionInfo">
@@ -125,8 +168,9 @@
         ON authorize_transaction_rental.sales_id=auth_sales.id
         WHERE create_time BETWEEN #{start} AND #{end}
             AND authorize_transaction_rental.dealer_id=#{dealerId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY salesUsername
-        ORDER BY volume;
+        ORDER BY volume DESC;
     </select>
 
 
@@ -137,8 +181,33 @@
         JOIN auth_dealer
         ON authorize_transaction_rental.dealer_id = auth_dealer.id
         WHERE authorize_transaction_rental.create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY dealerUsername
-        ORDER BY volume;
+        ORDER BY volume DESC;
+    </select>
+
+    <select id="selectAllDealersTotalCommissionByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultType="com.wiatec.panel.oxm.pojo.chart.admin.AllDealerMonthCommissionInfo">
+        SELECT sum(dealer_commission + dealer_activation_comm) commission, auth_dealer.username dealerUsername, COUNT(*) volume
+        FROM authorize_transaction_rental
+        JOIN auth_dealer
+        ON authorize_transaction_rental.dealer_id = auth_dealer.id
+        WHERE authorize_transaction_rental.create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
+        GROUP BY dealerUsername
+        ORDER BY volume DESC;
+    </select>
+
+    <select id="selectAllDealersActivationCommByMonth" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultType="com.wiatec.panel.oxm.pojo.chart.admin.AllDealerMonthCommissionInfo">
+        SELECT sum(dealer_activation_comm) commission, auth_dealer.username dealerUsername, COUNT(*) volume
+        FROM authorize_transaction_rental
+        JOIN auth_dealer
+        ON authorize_transaction_rental.dealer_id = auth_dealer.id
+        WHERE authorize_transaction_rental.create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
+        GROUP BY dealerUsername
+        ORDER BY volume DESC;
     </select>
 
 
@@ -149,9 +218,13 @@
         SELECT sum(amount) amount, sum(price), sum(tx_fee) txFee, sum(deposit) deposit,
         sum(ld_commission) ldCommission, sum(lde_commission) ldeCommission,
         sum(dealer_commission) dealerCommission, sum(sales_commission) salesCommission,
+            sum(svc_charge) svcCharge, sum(activate_pay) activatePay,
+            sum(ld_activation_comm) ldActivationComm, sum(lde_activation_comm) ldeActivationComm,
+            sum(dealer_activation_comm) dealerActivationComm, sum(sales_activation_comm) salesActivationComm,
         MONTH(create_time) date
         FROM authorize_transaction_rental
         WHERE create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY date;
     </select>
 
@@ -160,13 +233,15 @@
         SELECT sum(amount) amount, sum(price), sum(tx_fee) txFee, sum(deposit) deposit,
         sum(ld_commission) ldCommission, sum(lde_commission) ldeCommission,
         sum(dealer_commission) dealerCommission, sum(sales_commission) salesCommission,
+        sum(svc_charge) svcCharge, sum(activate_pay) activatePay,
+        sum(ld_activation_comm) ldActivationComm, sum(lde_activation_comm) ldeActivationComm,
+        sum(dealer_activation_comm) dealerActivationComm, sum(sales_activation_comm) salesActivationComm,
         DAYOFMONTH(create_time) date
         FROM authorize_transaction_rental
         WHERE create_time BETWEEN #{start} AND #{end}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY date;
     </select>
-
-
 
 
 
@@ -176,6 +251,18 @@
         FROM authorize_transaction_rental
         WHERE create_time between #{start} and #{end}
         AND dealer_id=#{dealerId}
+              AND authorize_transaction_rental.distributor = #{distributor}
+        GROUP BY day
+        ORDER BY day
+    </select>
+
+    <select id="getActivationCommissionOfDayByDealer" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultType="com.wiatec.panel.oxm.pojo.chart.dealer.DealerCommissionOfDaysInfo">
+        SELECT sum(dealer_activation_comm) commission, DAYOFMONTH(create_time) day
+        FROM authorize_transaction_rental
+        WHERE create_time between #{start} and #{end}
+        AND dealer_id=#{dealerId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY day
         ORDER BY day
     </select>
@@ -186,6 +273,7 @@
         FROM authorize_transaction_rental
         WHERE create_time between #{start} and #{end}
         AND dealer_id=#{dealerId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY month
         ORDER BY month
     </select>
@@ -200,6 +288,18 @@
         FROM authorize_transaction_rental
         WHERE create_time between #{start} and #{end}
         AND sales_id=#{salesId}
+              AND authorize_transaction_rental.distributor = #{distributor}
+        GROUP BY day
+        ORDER BY day
+    </select>
+
+    <select id="getActivationCommissionOfDayBySales" parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo"
+            resultType="com.wiatec.panel.oxm.pojo.chart.sales.SalesCommissionOfDaysInfo">
+        SELECT SUM(sales_activation_comm) commission, DAYOFMONTH(create_time) day
+        FROM authorize_transaction_rental
+        WHERE create_time between #{start} and #{end}
+        AND sales_id=#{salesId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY day
         ORDER BY day
     </select>
@@ -210,6 +310,7 @@
         FROM authorize_transaction_rental
         WHERE create_time between #{start} and #{end}
         AND sales_id=#{salesId}
+              AND authorize_transaction_rental.distributor = #{distributor}
         GROUP BY month
         ORDER BY month
     </select>

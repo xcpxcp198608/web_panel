@@ -2,6 +2,7 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <rapid:override name="navigation">
     <div class="sidebar-sticky">
@@ -13,7 +14,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/dealer/sales">
-                    <i class="fa fa-bullhorn fa-lg"></i>&nbsp;Sales
+                    <i class="fa fa-bullhorn fa-lg"></i>&nbsp;Reps
                 </a>
             </li>
             <li class="nav-item">

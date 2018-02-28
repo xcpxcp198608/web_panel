@@ -70,6 +70,7 @@ $(function () {
     var expiresTime = "";
     $('#ipExpiresTime').change(function () {
         expiresTime = $(this).val();
+        expiresTime = expiresTime + ' 00:00:00';
     });
 
     $('#btUpdateLevel').click(function () {
@@ -81,10 +82,11 @@ $(function () {
             showNotice('have no choose level');
             return;
         }
-        if(expiresTime.length <= 0 ){
+        if(expiresTime.length < 19 ){
             showNotice('have no choose expires date');
             return;
         }
+        console.log(expiresTime);
         if(!validateDateFormat(expiresTime)){
             showNotice('expires date format error');
             return;
@@ -97,7 +99,7 @@ $(function () {
             type: "PUT",
             url: baseUrl + "/manager/update/level/" + userId + "/" + level,
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({'expiresTime': expiresTime + ' 00:00:00'}),
+            data: JSON.stringify({'expiresTime': expiresTime}),
             dataType: "json",
             beforeSend: function () {
                 showLoading()
@@ -203,6 +205,7 @@ $(function () {
         for(var i =0 ; i < rowsLength; i ++){
             tbUsers.rows[i].style.display = "";
         }
+        showOnlineAndTotalCount();
     }
 
     var currentSearchIndex = 0;
@@ -214,9 +217,57 @@ $(function () {
 
     $('#ipSearch').keyup(function () {
         var key = $(this).val().toLowerCase();
+        filterSearch(key, currentSearchIndex);
+    });
+
+    $('#ipLevelAll').click(function () {
+        showAllRows();
+    });
+    $('#ipLevelFto').click(function () {
+        filterSearch('fto', 7);
+    });
+    $('#ipLevel4').click(function () {
+        filterSearch('4', 7);
+    });
+    $('#ipLevel3').click(function () {
+        filterSearch('3', 7);
+    });
+    $('#ipLevel2').click(function () {
+        filterSearch('2', 7);
+    });
+    $('#ipLevel1').click(function () {
+        filterSearch('1', 7);
+    });
+    $('#ipLevel0').click(function () {
+        filterSearch('0', 7);
+    });
+
+    $('#ipStatusAll1').click(function () {
+        showAllRows();
+    });
+    $('#ipStatusActivate').click(function () {
+        filterSearch('1', 8);
+    });
+    $('#ipStatusDeactivate').click(function () {
+        filterSearch('0', 8);
+    });
+
+    $('#ipStatusAll').click(function () {
+        showAllRows();
+        showOnlineAndTotalCount();
+    });
+    $('#ipStatusOnline').click(function () {
+        filterSearch('true', 9);
+    });
+    $('#ipStatusOffline').click(function () {
+        filterSearch('false', 9);
+    });
+    
+    function filterSearch(key, currentSearchIndex) {
         if(key.length <= 0){
             showAllRows();
         }else{
+            console.log(key);
             if(currentSearchIndex > 0) {
                 for (var m = 0; m < rowsLength; m ++) {
                     var content = tbUsers.rows[m].cells[currentSearchIndex].innerHTML.toLowerCase();
@@ -241,7 +292,7 @@ $(function () {
             }
         }
         showOnlineAndTotalCount();
-    });
+    }
 
 
     /**
@@ -277,11 +328,14 @@ $(function () {
                 tbUserDetails.rows[9].cells[1].innerHTML = response['level'];
                 tbUserDetails.rows[10].cells[1].innerHTML = response['expiresTime'];
                 tbUserDetails.rows[11].cells[1].innerHTML = response['status'];
-                tbUserDetails.rows[12].cells[1].innerHTML = response['country'];
-                tbUserDetails.rows[13].cells[1].innerHTML = response['region'];
-                tbUserDetails.rows[14].cells[1].innerHTML = response['city'];
-                tbUserDetails.rows[15].cells[1].innerHTML = response['timeZone'];
-                tbUserDetails.rows[16].cells[1].innerHTML = response['lastOnLineTime'];
+                tbUserDetails.rows[12].cells[1].innerHTML = response['deviceModel'];
+                tbUserDetails.rows[13].cells[1].innerHTML = response['romVersion'];
+                tbUserDetails.rows[14].cells[1].innerHTML = response['uiVersion'];
+                tbUserDetails.rows[15].cells[1].innerHTML = response['country'];
+                tbUserDetails.rows[16].cells[1].innerHTML = response['region'];
+                tbUserDetails.rows[17].cells[1].innerHTML = response['city'];
+                tbUserDetails.rows[18].cells[1].innerHTML = response['timeZone'];
+                tbUserDetails.rows[19].cells[1].innerHTML = response['lastOnLineTime'];
                 $('#modalDetail').modal('show');
             }else{
                 showNotice('communication error')

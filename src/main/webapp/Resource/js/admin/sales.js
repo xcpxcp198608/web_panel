@@ -4,8 +4,6 @@ $(function () {
     var currentYear = now.getFullYear();
     var currentMonth = now.getMonth() + 1;
     var tbSales = $('#tbSales').get(0).tBodies[0];
-    var errorMessage = $('#errorMessage');
-    var topLimit = 5;
 
     setYearAndMonth();
     function setYearAndMonth() {
@@ -151,6 +149,55 @@ $(function () {
 
 
     /**
+     * get all sales total commission by month
+     */
+    var tbTotalCommissionByMonth = $('#tbTotalCommissionByMonth').get(0).tBodies[0];
+    getAllSalesTotalCommissionByMonth(currentYear, currentMonth);
+    function getAllSalesTotalCommissionByMonth(year, month) {
+        $('#btPreviousMonth').attr('disabled', 'disabled');
+        $('#btNextMonth').attr('disabled', 'disabled');
+        clearTableTotalCommissionByMonth();
+        var url = baseUrl + '/admin/chart/sales/commission/total/' + year + "/" + month;
+        $.get(url, function (list) {
+            $('#btPreviousMonth').removeAttr('disabled');
+            $('#btNextMonth').removeAttr('disabled');
+            var length = list.length;
+            var totalCommission = 0;
+            for(var i = 0; i < length; i ++){
+                var commissionInfo = list[i];
+                var trObj = document.createElement('tr');
+
+                var tdObj1 = document.createElement('td');
+                tdObj1.innerHTML = (i + 1).toString();
+                trObj.append(tdObj1);
+
+                var tdObj2 = document.createElement('td');
+                tdObj2.innerHTML = commissionInfo['salesUsername'];
+                trObj.append(tdObj2);
+
+                var tdObj3 = document.createElement('td');
+                tdObj3.innerHTML = commissionInfo['volume'];
+                trObj.append(tdObj3);
+                var tdObj4 = document.createElement('td');
+                tdObj4.innerHTML = commissionInfo['commission'];
+                trObj.append(tdObj4);
+                totalCommission += parseFloat(commissionInfo['commission']);
+                tbTotalCommissionByMonth.append(trObj);
+            }
+            $('#totalCommission').html(totalCommission);
+        })
+    }
+    
+    function clearTableTotalCommissionByMonth() {
+        var length = tbTotalCommissionByMonth.rows.length;
+        for(var i = 0; i < length; i ++){
+            tbTotalCommissionByMonth.removeChild(tbTotalCommissionByMonth.lastChild);
+        }
+    }
+
+
+
+    /**
      * get all sales commission by month
      */
     var tbCommissionByMonth = $('#tbCommissionByMonth').get(0).tBodies[0];
@@ -192,20 +239,72 @@ $(function () {
                 var tdObj4 = document.createElement('td');
                 tdObj4.innerHTML = commissionInfo['commission'];
                 trObj.append(tdObj4);
-                totalCommission += parseInt(commissionInfo['commission']);
+                totalCommission += parseFloat(commissionInfo['commission']);
 
                 tbCommissionByMonth.append(trObj);
             }
-            $('#totalCommission').html(totalCommission);
         })
     }
-    
+
     function clearTableCommissionByMonth() {
         var length = tbCommissionByMonth.rows.length;
         for(var i = 0; i < length; i ++){
-            tbCommissionByMonth.removeChild(tbCommissionByMonth.rows[i]);
+            tbCommissionByMonth.removeChild(tbCommissionByMonth.lastChild);
         }
     }
+
+
+
+
+
+    /**
+     * get all sales activation commission by month
+     */
+    var tbActivationCommByMonth = $('#tbActivationCommByMonth').get(0).tBodies[0];
+    getAllActivationCommByMonth(currentYear, currentMonth);
+    function getAllActivationCommByMonth(year, month) {
+        $('#btPreviousMonth').attr('disabled', 'disabled');
+        $('#btNextMonth').attr('disabled', 'disabled');
+        clearTableActivationCommByMonth();
+        var url = baseUrl + '/admin/chart/sales/commission/activation/' + year + "/" + month;
+        $.get(url, function (list) {
+            $('#btPreviousMonth').removeAttr('disabled');
+            $('#btNextMonth').removeAttr('disabled');
+            var length = list.length;
+            var totalActivationComm = 0;
+            for(var i = 0; i < length; i ++){
+                var commissionInfo = list[i];
+                var trObj = document.createElement('tr');
+
+                var tdObj1 = document.createElement('td');
+                tdObj1.innerHTML = (i + 1).toString();
+                trObj.append(tdObj1);
+
+                var tdObj2 = document.createElement('td');
+                tdObj2.innerHTML = commissionInfo['salesUsername'];
+                trObj.append(tdObj2);
+
+                var tdObj3 = document.createElement('td');
+                tdObj3.innerHTML = commissionInfo['volume'];
+                trObj.append(tdObj3);
+
+                var tdObj4 = document.createElement('td');
+                tdObj4.innerHTML = commissionInfo['commission'];
+                trObj.append(tdObj4);
+
+                tbActivationCommByMonth.append(trObj);
+                totalActivationComm += parseFloat(commissionInfo['commission']);
+            }
+        })
+    }
+
+    function clearTableActivationCommByMonth() {
+        var length = tbActivationCommByMonth.rows.length;
+        for(var i = 0; i < length; i ++){
+            tbActivationCommByMonth.removeChild(tbActivationCommByMonth.lastChild);
+        }
+    }
+
 
     /**
      * set button event
@@ -218,6 +317,8 @@ $(function () {
         }
         setYearAndMonth();
         getAllSalesCommissionByMonth(currentYear, currentMonth);
+        getAllActivationCommByMonth(currentYear, currentMonth);
+        getAllSalesTotalCommissionByMonth(currentYear, currentMonth);
     });
     $('#btNextMonth').click(function () {
         currentMonth ++;
@@ -227,6 +328,8 @@ $(function () {
         }
         setYearAndMonth();
         getAllSalesCommissionByMonth(currentYear, currentMonth);
+        getAllActivationCommByMonth(currentYear, currentMonth);
+        getAllSalesTotalCommissionByMonth(currentYear, currentMonth);
     });
 
     /**
@@ -252,9 +355,10 @@ $(function () {
         var cardNumber = $('#ipCreditCard').val();
         var expirationDate = $('#ipExpirationDate').val();
         var securityKey = $('#ipSecurityKey').val();
+        var zipCode = $('#ipZipCode').val();
+        var billingAddress = $('#ipBillingAddress').val();
         var dealerId = $('#ipDealerId').val();
         var activateCategory = $('#ipActivateCategory').val();
-        var goldCategory = $('#ipGoldCategory').val();
         if(username.length <= 0){
             showErrorMessage($('#errorCreate'), 'username type in error');
             return;
@@ -299,6 +403,14 @@ $(function () {
             showErrorMessage($('#errorCreate'), 'security key type in error');
             return;
         }
+        if(zipCode.length <= 0){
+            showErrorMessage($('#errorCreate'), 'zip code type in error');
+            return;
+        }
+        if(billingAddress.length <= 0){
+            showErrorMessage($('#errorCreate'), 'billing address type in error');
+            return;
+        }
         if(password.length < 6){
             showErrorMessage($('#errorCreate'), 'password type in error');
             return;
@@ -326,8 +438,8 @@ $(function () {
             data: {"username": username, "password": password, "firstName": firstName,
                 'lastName': lastName, 'ssn': ssn, 'email': email, 'bankInfo': bank,
                 'phone': phone, 'cardNumber': cardNumber, 'expirationDate': expirationDate,
-                'securityKey': securityKey, 'dealerId': dealerId, 'activateCategory': activateCategory,
-                'goldCategory': goldCategory},
+                'securityKey': securityKey, 'zipCode': zipCode, 'billingAddress': billingAddress,
+                'dealerId': dealerId, 'activateCategory': activateCategory},
             dataType: "json",
             beforeSend: function () {
                 $('#modalCreate').modal('hide');
@@ -402,7 +514,7 @@ $(function () {
                     tdObj.innerHTML = authSalesInfo.createTime;
                     break;
                 case 10:
-                    tdObj.innerHTML = '<span class="text-muted"><i class="fa fa-star"></i></span>';
+                    tdObj.innerHTML = '<span class="text-muted"><i class="fa fa-star-o"></i></span>';
                     break;
                 case 11:
                     tdObj.innerHTML = '<span class="text-muted"><i class="fa fa-fire"></i></span>';

@@ -1,5 +1,6 @@
 package com.wiatec.panel.invoice;
 
+import com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo;
 import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 import com.wiatec.panel.oxm.pojo.SalesActivateCategoryInfo;
 import com.wiatec.panel.oxm.pojo.SalesGoldCategoryInfo;
@@ -19,15 +20,12 @@ public class InvoiceInfoMaker {
         return realCreate(commissionCategoryInfo, true, 1);
     }
 
-    public static List<InvoiceInfo> rentalMonthly(CommissionCategoryInfo commissionCategoryInfo, int currentMonth){
-        return realCreate(commissionCategoryInfo, false, currentMonth);
-    }
-
     private static InvoiceInfo createDeposit(CommissionCategoryInfo commissionCategoryInfo){
         InvoiceInfo invoiceInfo = new InvoiceInfo();
         invoiceInfo.setItem("SD001");
         invoiceInfo.setDescription("Security Deposit");
         invoiceInfo.setQty(1);
+        invoiceInfo.setTax(true);
         invoiceInfo.setPrice(commissionCategoryInfo.getDeposit());
         invoiceInfo.setAmount(commissionCategoryInfo.getDeposit());
         return invoiceInfo;
@@ -38,6 +36,7 @@ public class InvoiceInfoMaker {
         invoiceInfo.setItem("Activate");
         invoiceInfo.setDescription("Activate device");
         invoiceInfo.setQty(1);
+        invoiceInfo.setTax(true);
         invoiceInfo.setPrice(commissionCategoryInfo.getActivatePay());
         invoiceInfo.setAmount(commissionCategoryInfo.getActivatePay());
         return invoiceInfo;
@@ -58,24 +57,23 @@ public class InvoiceInfoMaker {
         invoiceInfo.setTax(true);
         invoiceInfo.setCurrentMonth(currentMonth);
         invoiceInfo.setTotalMonth(commissionCategoryInfo.getExpires());
-        switch (commissionCategoryInfo.getCategory()){
-            case CommissionCategoryInfo.CATEGORY_B1:
-                invoiceInfo.setItem("BVB1");
-                invoiceInfo.setDescription("BVision Basic 24 months");
-                break;
-            case CommissionCategoryInfo.CATEGORY_P1:
-                invoiceInfo.setItem("BVP1");
-                invoiceInfo.setDescription("BVision VIP 12 months");
-                break;
-            case CommissionCategoryInfo.CATEGORY_P2:
-                invoiceInfo.setItem("BVP2");
-                invoiceInfo.setDescription("BVision VIP 24 months");
-                break;
-            default:
-                invoiceInfo.setItem("");
-                invoiceInfo.setDescription("");
-                break;
-        }
+        invoiceInfo.setItem("BV" + commissionCategoryInfo.getCategory());
+        invoiceInfo.setDescription(commissionCategoryInfo.getDescription());
+        invoiceInfoList.add(invoiceInfo);
+        return invoiceInfoList;
+    }
+
+    public static List<InvoiceInfo> rentalMonthly(AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo, int currentMonth, int totalMonth){
+        List<InvoiceInfo> invoiceInfoList = new ArrayList<>();
+        InvoiceInfo invoiceInfo = new InvoiceInfo();
+        invoiceInfo.setQty(1);
+        invoiceInfo.setPrice(authorizeTransactionRentalInfo.getPrice());
+        invoiceInfo.setAmount(authorizeTransactionRentalInfo.getPrice());
+        invoiceInfo.setTax(true);
+        invoiceInfo.setCurrentMonth(currentMonth);
+        invoiceInfo.setTotalMonth(totalMonth);
+        invoiceInfo.setItem("BV" + authorizeTransactionRentalInfo.getCategory());
+        invoiceInfo.setDescription("monthly");
         invoiceInfoList.add(invoiceInfo);
         return invoiceInfoList;
     }
@@ -86,31 +84,16 @@ public class InvoiceInfoMaker {
         return invoiceInfoList;
     }
 
-    public static List<InvoiceInfo> salesActivateGold(SalesActivateCategoryInfo salesActivateCategoryInfo, SalesGoldCategoryInfo salesGoldCategoryInfo){
-        List<InvoiceInfo> invoiceInfoList = new ArrayList<>();
-        invoiceInfoList.add(createSalesActivate(salesActivateCategoryInfo));
-        invoiceInfoList.add(createSalesGold(salesGoldCategoryInfo));
-        return invoiceInfoList;
-    }
-
     private static InvoiceInfo createSalesActivate(SalesActivateCategoryInfo salesActivateCategoryInfo){
         InvoiceInfo invoiceInfo = new InvoiceInfo();
         invoiceInfo.setItem(salesActivateCategoryInfo.getCategory());
         invoiceInfo.setDescription(salesActivateCategoryInfo.getDescription());
         invoiceInfo.setQty(1);
+        invoiceInfo.setTax(true);
         invoiceInfo.setPrice(salesActivateCategoryInfo.getPrice());
         invoiceInfo.setAmount(salesActivateCategoryInfo.getPrice());
         return invoiceInfo;
     }
 
-    private static InvoiceInfo createSalesGold(SalesGoldCategoryInfo salesGoldCategoryInfo){
-        InvoiceInfo invoiceInfo = new InvoiceInfo();
-        invoiceInfo.setItem(salesGoldCategoryInfo.getCategory());
-        invoiceInfo.setDescription(salesGoldCategoryInfo.getDescription());
-        invoiceInfo.setQty(salesGoldCategoryInfo.getQty());
-        invoiceInfo.setPrice(salesGoldCategoryInfo.getPrice());
-        invoiceInfo.setAmount(salesGoldCategoryInfo.getAmount());
-        return invoiceInfo;
-    }
 
 }

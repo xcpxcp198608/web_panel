@@ -25,7 +25,9 @@ public class AuthInterceptor implements HandlerInterceptor {
         logger.info("= ");
         String ref = request.getHeader("Referer");
         logger.info("= ref = {}", ref);
-        if(request.getRequestURI().equals("/panel/manager/")){
+        if(request.getRequestURI().equals("/panel/manager/") ||
+                request.getRequestURI().equals("/panel/device/") ||
+                request.getRequestURI().equals("/panel/mexico/")){
             return true;
         }
         if(ref == null || !ref.contains("/panel")){
@@ -42,15 +44,19 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        if(request.getRequestURI().equals("/panel/manager/")){
+        if(request.getRequestURI().equals("/panel/manager/") ||
+                request.getRequestURI().equals("/panel/device/") ||
+                request.getRequestURI().equals("/panel/mexico/")){
             return;
         }
         String username = (String) request.getSession().getAttribute(SessionListener.KEY_AUTH_USER_NAME);
         if(TextUtil.isEmpty(username)){
             throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
+        int permission = (Integer) request.getSession().getAttribute("permission");
         if(modelAndView != null) {
             modelAndView.getModel().put("username", username);
+            modelAndView.getModel().put("permission", permission);
         }
     }
 

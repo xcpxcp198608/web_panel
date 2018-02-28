@@ -1,5 +1,10 @@
 package com.wiatec.panel.oxm.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.wiatec.panel.common.utils.TimeUtil;
+
+import java.util.Date;
+
 /**
  * @author patrick
  */
@@ -20,12 +25,22 @@ public class AuthRegisterUserInfo {
     private String city;
     private String timeZone;
     private String token;
-    private String activeTime;
-    private String expiresTime;
-    private String lastOnLineTime;
-    private String createTime;
-    private String modifyTime;
     private String status;
+    private String deviceModel;
+    private String romVersion;
+    private String uiVersion;
+
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date activeTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date expiresTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date lastOnLineTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date modifyTime;
 
     private boolean experience;
     private boolean online;
@@ -158,42 +173,46 @@ public class AuthRegisterUserInfo {
     }
 
     public String getActiveTime() {
-        return activeTime;
+        return TimeUtil.FORMATTER.format(activeTime);
     }
 
-    public void setActiveTime(String activeTime) {
+    public void setActiveTime(Date activeTime) {
         this.activeTime = activeTime;
     }
 
     public String getExpiresTime() {
+        return TimeUtil.FORMATTER.format(expiresTime);
+    }
+
+    public Date getExpiration(){
         return expiresTime;
     }
 
-    public void setExpiresTime(String expiresTime) {
+    public void setExpiresTime(Date expiresTime) {
         this.expiresTime = expiresTime;
     }
 
     public String getLastOnLineTime() {
-        return lastOnLineTime;
+        return TimeUtil.FORMATTER.format(lastOnLineTime);
     }
 
-    public void setLastOnLineTime(String lastOnLineTime) {
+    public void setLastOnLineTime(Date lastOnLineTime) {
         this.lastOnLineTime = lastOnLineTime;
     }
 
     public String getCreateTime() {
-        return createTime;
+        return TimeUtil.FORMATTER.format(createTime);
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     public String getModifyTime() {
-        return modifyTime;
+        return TimeUtil.FORMATTER.format(modifyTime);
     }
 
-    public void setModifyTime(String modifyTime) {
+    public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
     }
 
@@ -203,6 +222,30 @@ public class AuthRegisterUserInfo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDeviceModel() {
+        return deviceModel;
+    }
+
+    public void setDeviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
+    }
+
+    public String getRomVersion() {
+        return romVersion;
+    }
+
+    public void setRomVersion(String romVersion) {
+        this.romVersion = romVersion;
+    }
+
+    public String getUiVersion() {
+        return uiVersion;
+    }
+
+    public void setUiVersion(String uiVersion) {
+        this.uiVersion = uiVersion;
     }
 
     public boolean isExperience() {
@@ -245,6 +288,9 @@ public class AuthRegisterUserInfo {
                 ", createTime='" + createTime + '\'' +
                 ", modifyTime='" + modifyTime + '\'' +
                 ", status='" + status + '\'' +
+                ", deviceModel='" + deviceModel + '\'' +
+                ", romVersion='" + romVersion + '\'' +
+                ", uiVersion='" + uiVersion + '\'' +
                 ", experience=" + experience +
                 ", online=" + online +
                 '}';

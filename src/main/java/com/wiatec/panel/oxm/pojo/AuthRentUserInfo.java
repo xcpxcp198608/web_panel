@@ -1,5 +1,8 @@
 package com.wiatec.panel.oxm.pojo;
 
+/**
+ * @author patrick
+ */
 public class AuthRentUserInfo {
 
     public static final String STATUS_ACTIVATE = "activate";
@@ -11,11 +14,16 @@ public class AuthRentUserInfo {
     public static final String PAYMENT_CREDIT_CARD = "credit_card";
     public static final String PAYMENT_PAYPAL = "paypal";
 
+    public static final int DISTRIBUTOR_LDE = 101;
+    public static final int DISTRIBUTOR_LDM = 102;
+
+
     private int id;
     private int salesId;
     private String salesName;
     private int dealerId;
     private String dealerName;
+    private int distributor;
     private String clientKey;
     private String category;
     private String mac;
@@ -29,10 +37,14 @@ public class AuthRentUserInfo {
     private String cardNumber;
     private String expirationDate;
     private String securityKey;
+    private String zipCode;
+    private String billingAddress;
+
     private String paymentType;
     private float deposit;
     private float firstPay;
     private float monthPay;
+    private float svcCharge;
     private float ldCommission;
     private float ldeCommission;
     private float dealerCommission;
@@ -45,6 +57,9 @@ public class AuthRentUserInfo {
     private String region;
     private String city;
     private String timeZone;
+    private String deviceModel;
+    private String romVersion;
+    private String uiVersion;
     private String lastOnLineTime;
 
     private boolean online;
@@ -99,6 +114,14 @@ public class AuthRentUserInfo {
 
     public void setDealerName(String dealerName) {
         this.dealerName = dealerName;
+    }
+
+    public int getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(int distributor) {
+        this.distributor = distributor;
     }
 
     public String getClientKey() {
@@ -205,6 +228,22 @@ public class AuthRentUserInfo {
         this.securityKey = securityKey;
     }
 
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(String billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
     public String getPaymentType() {
         return paymentType;
     }
@@ -235,6 +274,14 @@ public class AuthRentUserInfo {
 
     public void setMonthPay(float monthPay) {
         this.monthPay = monthPay;
+    }
+
+    public float getSvcCharge() {
+        return svcCharge;
+    }
+
+    public void setSvcCharge(float svcCharge) {
+        this.svcCharge = svcCharge;
     }
 
     public float getLdCommission() {
@@ -333,6 +380,30 @@ public class AuthRentUserInfo {
         this.timeZone = timeZone;
     }
 
+    public String getDeviceModel() {
+        return deviceModel;
+    }
+
+    public void setDeviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
+    }
+
+    public String getRomVersion() {
+        return romVersion;
+    }
+
+    public void setRomVersion(String romVersion) {
+        this.romVersion = romVersion;
+    }
+
+    public String getUiVersion() {
+        return uiVersion;
+    }
+
+    public void setUiVersion(String uiVersion) {
+        this.uiVersion = uiVersion;
+    }
+
     public String getLastOnLineTime() {
         return lastOnLineTime;
     }
@@ -357,6 +428,7 @@ public class AuthRentUserInfo {
                 ", salesName='" + salesName + '\'' +
                 ", dealerId=" + dealerId +
                 ", dealerName='" + dealerName + '\'' +
+                ", distributor='" + distributor + '\'' +
                 ", clientKey='" + clientKey + '\'' +
                 ", category='" + category + '\'' +
                 ", mac='" + mac + '\'' +
@@ -370,10 +442,13 @@ public class AuthRentUserInfo {
                 ", cardNumber='" + cardNumber + '\'' +
                 ", expirationDate='" + expirationDate + '\'' +
                 ", securityKey='" + securityKey + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", billingAddress='" + billingAddress + '\'' +
                 ", paymentType='" + paymentType + '\'' +
                 ", deposit=" + deposit +
                 ", firstPay=" + firstPay +
                 ", monthPay=" + monthPay +
+                ", svcCharge=" + svcCharge +
                 ", ldCommission=" + ldCommission +
                 ", ldeCommission=" + ldeCommission +
                 ", dealerCommission=" + dealerCommission +
@@ -386,6 +461,9 @@ public class AuthRentUserInfo {
                 ", region='" + region + '\'' +
                 ", city='" + city + '\'' +
                 ", timeZone='" + timeZone + '\'' +
+                ", deviceModel='" + deviceModel + '\'' +
+                ", romVersion='" + romVersion + '\'' +
+                ", uiVersion='" + uiVersion + '\'' +
                 ", lastOnLineTime='" + lastOnLineTime + '\'' +
                 ", online=" + online +
                 '}';

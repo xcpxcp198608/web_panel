@@ -60,7 +60,7 @@ $(function () {
 
     var chartLevel5Option = {
         title: {
-            text: 'Level5',
+            text: 'FTO',
             textStyle:{
                 color: 'rgba(0, 0, 0, 0.9)'
             }

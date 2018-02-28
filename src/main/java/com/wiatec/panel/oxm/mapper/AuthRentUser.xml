@@ -8,6 +8,7 @@
         <result column="salesName" property="salesName"/>
         <result column="dealerId" property="dealerId"/>
         <result column="dealerName" property="dealerName"/>
+        <result column="distributor" property="distributor"/>
         <result column="clientKey" property="clientKey"/>
         <result column="category" property="category"/>
         <result column="mac" property="mac"/>
@@ -22,9 +23,13 @@
         <result column="cardNumber" property="cardNumber"/>
         <result column="expirationDate" property="expirationDate"/>
         <result column="securityKey" property="securityKey"/>
+        <result column="zip_code" property="zipCode"/>
+        <result column="billing_address" property="billingAddress"/>
+        <result column="securityKey" property="securityKey"/>
         <result column="deposit" property="deposit"/>
         <result column="first_pay" property="firstPay"/>
         <result column="month_pay" property="monthPay"/>
+        <result column="svc_charge" property="svcCharge"/>
         <result column="ld_commission" property="ldCommission"/>
         <result column="dealer_commission" property="dealerCommission"/>
         <result column="sales_commission" property="salesCommission"/>
@@ -36,22 +41,30 @@
         <result column="region" property="region"/>
         <result column="city" property="city"/>
         <result column="timeZone" property="timeZone"/>
+        <result column="device_model" property="deviceModel"/>
+        <result column="rom_version" property="romVersion"/>
+        <result column="ui_version" property="uiVersion"/>
         <result column="lastOnLineTime" property="lastOnLineTime"/>
 
     </resultMap>
 
     <sql id="select">
-        SELECT auth_rent_user.id , auth_rent_user.salesId, auth_rent_user.dealerId, auth_rent_user.clientKey,
-            auth_rent_user.category, auth_rent_user.mac, auth_rent_user.firstName,
-            auth_rent_user.lastName, auth_rent_user.email, auth_rent_user.phone, auth_rent_user.post_code,
-            auth_rent_user.post_address, auth_rent_user.express, auth_rent_user.paymentType, auth_rent_user.cardNumber,
+        SELECT auth_rent_user.id , auth_rent_user.salesId, auth_rent_user.dealerId,
+            auth_rent_user.clientKey, auth_rent_user.category, auth_rent_user.mac,
+            auth_rent_user.firstName, auth_rent_user.lastName, auth_rent_user.email,
+            auth_rent_user.phone, auth_rent_user.post_code, auth_rent_user.post_address,
+            auth_rent_user.express, auth_rent_user.paymentType, auth_rent_user.cardNumber,
             auth_rent_user.expirationDate, auth_rent_user.securityKey, auth_rent_user.deposit,
-            auth_rent_user.first_pay, auth_rent_user.month_pay, auth_rent_user.ld_commission,
+            auth_rent_user.zip_code, auth_rent_user.billing_address,
+            auth_rent_user.first_pay, auth_rent_user.month_pay, auth_rent_user.svc_charge,
+            auth_rent_user.ld_commission,
             auth_rent_user.lde_commission, auth_rent_user.dealer_commission,
             auth_rent_user.sales_commission, auth_rent_user.createTime,
             auth_rent_user.activateTime, auth_rent_user.expiresTime,
             auth_rent_user.status, auth_rent_user.country, auth_rent_user.region,
             auth_rent_user.city, auth_rent_user.timeZone, auth_rent_user.lastOnLineTime,
+            auth_rent_user.device_model, auth_rent_user.rom_version,
+            auth_rent_user.ui_version, auth_rent_user.distributor,
             auth_sales.username salesName, auth_dealer.username dealerName
         FROM auth_rent_user JOIN auth_sales ON auth_rent_user.salesId = auth_sales.id
             JOIN auth_dealer ON auth_rent_user.dealerId = auth_dealer.id
@@ -93,6 +106,13 @@
         ORDER BY activateTime DESC
     </select>
 
+    <select id="selectAllByDistributor" resultMap="authRentUserInfo">
+        <include refid="select"/>
+        WHERE auth_rent_user.id > 0
+        AND auth_rent_user.distributor = #{distributor}
+        ORDER BY activateTime DESC
+    </select>
+
     <select id="countTotalVolumeByDealerId" resultType="java.lang.Integer">
         SELECT COUNT(*) count FROM auth_rent_user
         WHERE dealerId = #{dealerId}
@@ -106,15 +126,15 @@
 
 
     <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
-        INSERT INTO auth_rent_user (salesId, dealerId, clientKey, category, mac, firstName, lastName, email,
+        INSERT INTO auth_rent_user (salesId, dealerId, distributor, clientKey, category, mac, firstName, lastName, email,
                     phone, post_code, post_address, express, paymentType, cardNumber, expirationDate, securityKey,
-                    deposit, first_pay, month_pay, ld_commission, lde_commission, dealer_commission,
-                    sales_commission, activateTime, expiresTime, status)
-        VALUES (#{salesId}, #{dealerId}, #{clientKey}, #{category}, #{mac}, #{firstName}, #{lastName},
+                    deposit, first_pay, month_pay, svc_charge, ld_commission, lde_commission, dealer_commission,
+                    sales_commission, activateTime, expiresTime, status, zip_code, billing_address)
+        VALUES (#{salesId}, #{dealerId}, #{distributor}, #{clientKey}, #{category}, #{mac}, #{firstName}, #{lastName},
                 #{email}, #{phone}, #{postCode}, #{postAddress}, #{express}, #{paymentType}, #{cardNumber},
-                #{expirationDate}, #{securityKey}, #{deposit}, #{firstPay}, #{monthPay}, #{ldCommission},
+                #{expirationDate}, #{securityKey}, #{deposit}, #{firstPay}, #{monthPay}, #{svcCharge}, #{ldCommission},
                 #{ldeCommission}, #{dealerCommission}, #{salesCommission}, #{activateTime}, #{expiresTime},
-                #{status})
+                #{status}, #{zipCode}, #{billingAddress})
     </insert>
 
     <select id="selectOneByMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo"
@@ -123,7 +143,7 @@
         WHERE mac=#{mac}
     </select>
 
-    <select id="countOneByKeyAndMac" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
+    <select id="countOneByKeyAndMac" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         SELECT COUNT(*) count FROM auth_rent_user
         WHERE clientKey=#{clientKey}
         AND mac=#{mac}
@@ -142,7 +162,7 @@
 
     <update id="updateUserCategory"  parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         UPDATE auth_rent_user
-        SET category=#{category}, deposit=#{deposit}, first_pay=#{firstPay}, month_pay=#{monthPay},
+        SET category=#{category}, deposit=#{deposit}, first_pay=#{firstPay}, month_pay=#{monthPay}, svc_charge=#{svcCharge},
             ld_commission=#{ldCommission}, lde_commission=#{ldeCommission}, dealer_commission=#{dealerCommission},
             sales_commission=#{salesCommission}
         WHERE auth_rent_user.clientKey=#{clientKey}
@@ -150,7 +170,9 @@
 
     <update id="updateLocation" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
         UPDATE auth_rent_user
-        SET country=#{country}, region=#{region}, city=#{city}, timeZone=#{timeZone}, lastOnLineTime=now()
+        SET country=#{country}, region=#{region}, city=#{city}, timeZone=#{timeZone},
+            lastOnLineTime=now(), device_model = #{deviceModel}, rom_version= #{romVersion},
+            ui_version = #{uiVersion}
         WHERE clientKey=#{clientKey}
     </update>
 
@@ -167,6 +189,7 @@
         FROM auth_rent_user
         WHERE activateTime BETWEEN #{start} AND #{end}
         AND status!='canceled'
+            AND auth_rent_user.distributor = #{distributor}
         GROUP BY  category, day;
     </select>
 
@@ -177,6 +200,7 @@
         WHERE activateTime BETWEEN #{start} AND #{end}
         AND status!='canceled'
               AND auth_rent_user.salesId=#{salesId}
+              AND auth_rent_user.distributor = #{distributor}
         GROUP BY  category, day;
     </select>
 
@@ -187,6 +211,7 @@
         WHERE activateTime BETWEEN #{start} AND #{end}
         AND status != 'canceled'
             AND auth_rent_user.dealerId=#{dealerId}
+              AND auth_rent_user.distributor = #{distributor}
         GROUP BY category, day;
     </select>
 

@@ -1,5 +1,6 @@
 package com.wiatec.panel.oxm.dao;
 
+import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.LevelDistributionInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -114,5 +115,19 @@ public class AuthRegisterUserDaoTest {
 
     @Test
     public void selectVolumeOfMonth() {
+    }
+
+    @Test
+    public void selectAllExpiresUsers() {
+        List<AuthRegisterUserInfo> authRegisterUserInfos = authRegisterUserDao.selectAllExpiresUsers(0);
+        System.out.println(authRegisterUserInfos);
+    }
+
+    @Test
+    public void selectOneByUsername1() {
+        AuthRegisterUserInfo authRegisterUserInfo1 = new AuthRegisterUserInfo();
+        authRegisterUserInfo1.setUsername("SUPERFUN");
+        AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByUsername(authRegisterUserInfo1);
+        System.out.println(authRegisterUserInfo);
     }
 }

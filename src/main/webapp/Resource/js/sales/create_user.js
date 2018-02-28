@@ -8,37 +8,8 @@ $(function () {
         });
     });
 
-   $('#ipMac').keyup(function (e) {
-       var code = e.keyCode;
-       if(code === 8){
-           return true;
-       }
-       if(code === 32){
-           return;
-       }
-       var mac = $(this).val();
-       if(mac.length === 2){
-           $(this).val(mac + ':');
-           return;
-       }
-       if(mac.length === 5){
-           $(this).val(mac + ':');
-           return;
-       }
-       if(mac.length === 8){
-           $(this).val(mac + ':');
-           return;
-       }
-       if(mac.length === 11){
-           $(this).val(mac + ':');
-           return;
-       }
-       if(mac.length === 14){
-           $(this).val(mac + ':');
-       }
-   });
 
-    var currentPaymentMethod = 0;
+    var currentPaymentMethod = '1';
     $('input[name=payMethod]').each(function(){
         $(this).click(function(){
             currentPaymentMethod = $(this).val();
@@ -73,6 +44,8 @@ $(function () {
        var cardNumber = $('#ipCardNumber').val();
        var expirationDate = $('#ipExpirationDate').val();
        var securityKey = $('#ipSecurityKey').val();
+       var zipCode = $('#ipZipCode').val();
+       var billingAddress = $('#ipBillingAddress').val();
        if(currentCategory.length <= 0){
            showErrorMessage($('#errorCreate'), 'No Plan chosen');
            return;
@@ -122,6 +95,14 @@ $(function () {
                showErrorMessage($('#errorCreate'), 'security key input error');
                return;
            }
+           if (zipCode.length <= 0) {
+               showErrorMessage($('#errorCreate'), 'zip code input error');
+               return;
+           }
+           if (billingAddress.length <= 0) {
+               showErrorMessage($('#errorCreate'), 'billing address input error');
+               return;
+           }
        }
        $('#errorCreate').hide();
        var url = baseUrl + '/sales/create/' + currentPaymentMethod;
@@ -131,7 +112,8 @@ $(function () {
            data: {'category': currentCategory, 'mac': mac, 'firstName': firstName,
                'lastName': lastName, 'email': email, 'phone': phone, 'postCode': postCode,
                'postAddress': postAddress, 'express': express, 'cardNumber': cardNumber,
-               'expirationDate': expirationDate, 'securityKey': securityKey},
+               'expirationDate': expirationDate, 'securityKey': securityKey,
+               'zipCode': zipCode, 'billingAddress': billingAddress},
            dataType: 'json',
            beforeSend:function(){
                 showLoading()

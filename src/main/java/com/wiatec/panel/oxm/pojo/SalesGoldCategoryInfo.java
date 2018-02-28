@@ -6,6 +6,10 @@ package com.wiatec.panel.oxm.pojo;
  */
 public class SalesGoldCategoryInfo {
 
+
+    public static final String CATEGORY_NORMAL = "normal";
+    public static final String CATEGORY_S1 = "S1";
+
     private int id;
     private String category;
     private float price;

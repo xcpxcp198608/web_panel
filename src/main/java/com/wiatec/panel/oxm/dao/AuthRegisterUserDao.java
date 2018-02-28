@@ -32,6 +32,7 @@ public interface AuthRegisterUserDao {
 
 
     List<AuthRegisterUserInfo> selectAll(int start);
+    List<AuthRegisterUserInfo> selectAllExpiresUsers(int start);
     void updateEmailStatusById(AuthRegisterUserInfo authRegisterUserInfo);
     void updateStatusById(AuthRegisterUserInfo authRegisterUserInfo);
     int deleteOneById(AuthRegisterUserInfo authRegisterUserInfo);

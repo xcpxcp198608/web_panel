@@ -2,7 +2,7 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -13,7 +13,7 @@
 <head>
     <base href="<%=basePath%>">
 
-    <title><rapid:block name="title"/>--Preferred customer program</title>
+    <title><rapid:block name="title"/>--BTVi Control Panel</title>
 
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">

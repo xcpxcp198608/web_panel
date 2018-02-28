@@ -1,0 +1,35 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.AuthorizeTransactionSalesMemberDao">
+
+    <sql id="select">
+        SELECT authorize_transaction_sales_member.id, authorize_transaction_sales_member.sales_id,
+            authorize_transaction_sales_member.card_number, authorize_transaction_sales_member.expiration_date,
+            authorize_transaction_sales_member.security_key, authorize_transaction_sales_member.zip_code,
+            authorize_transaction_sales_member.billing_address, authorize_transaction_sales_member.amount,
+            authorize_transaction_sales_member.transaction_id, authorize_transaction_sales_member.status,
+            authorize_transaction_sales_member.auth_code, authorize_transaction_sales_member.create_time,
+            authorize_transaction_sales_member.activate_category, authorize_transaction_sales_member.activate_pay,
+            auth_sales.username salesName
+        FROM authorize_transaction_sales_member
+            JOIN auth_sales
+                ON authorize_transaction_sales_member.sales_id = auth_sales.id
+    </sql>
+
+    <insert id="insertOne" parameterType="com.wiatec.panel.authorize.AuthorizeTransactionSalesMemberInfo">
+      INSERT INTO authorize_transaction_sales_member (sales_id, card_number,expiration_date,
+             security_key, zip_code, billing_address, amount, transaction_id, status,
+             auth_code, activate_category, activate_pay)
+      VALUES (#{salesId}, #{cardNumber}, #{expirationDate}, #{securityKey}, #{zipCode},
+              #{billingAddress}, #{amount}, #{transactionId}, #{status}, #{authCode},
+              #{activateCategory}, #{activatePay})
+    </insert>
+
+
+    <select id="selectAll" resultType="com.wiatec.panel.authorize.AuthorizeTransactionSalesMemberInfo">
+        <include refid="select"/>
+    </select>
+
+
+</mapper>

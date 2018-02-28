@@ -18,6 +18,36 @@ $(function () {
     noticeMessage = $('#notice_message');
 
     loading = $('#loading');
+
+    $('input[name=mac]').keyup(function (e) {
+        var code = e.keyCode;
+        if(code === 8){
+            return true;
+        }
+        if(code === 32){
+            return;
+        }
+        var mac = $(this).val();
+        if(mac.length === 2){
+            $(this).val(mac + ':');
+            return;
+        }
+        if(mac.length === 5){
+            $(this).val(mac + ':');
+            return;
+        }
+        if(mac.length === 8){
+            $(this).val(mac + ':');
+            return;
+        }
+        if(mac.length === 11){
+            $(this).val(mac + ':');
+            return;
+        }
+        if(mac.length === 14){
+            $(this).val(mac + ':');
+        }
+    });
 });
 
 function showErrorMessage(node, message) {
@@ -62,6 +92,6 @@ function validateEmail(email) {
 
 
 function validateDateFormat(date) {
-    var regExp = /^2\d\d\d-\d\d-\d\d$/gi;
+    var regExp = /^2\d\d\d-\d\d-\d\d 00:00:00$/gi;
     return regExp.test(date);
 }

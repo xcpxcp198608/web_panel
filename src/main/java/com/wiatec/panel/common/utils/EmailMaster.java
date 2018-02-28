@@ -22,9 +22,16 @@ public class EmailMaster {
 
 	private static final Logger logger = LoggerFactory.getLogger(EmailMaster.class);
 
-	private static final String SEND_ADDRESS = "bactivation@legacy.direct";
-	private static final String USERNAME = "bactivation@legacy.direct";
-	private static final String PASSWORD ="Ihatespam123#";
+	private static final String LD_SEND_ADDRESS = "bactivation@legacy.direct";
+	private static final String LD_USERNAME = "bactivation@legacy.direct";
+	private static final String LD_PASSWORD ="Ihatespam123#";
+
+	private static final String LDE_SEND_ADDRESS = "activation@ldeufonico.com";
+	private static final String LDE_USERNAME = "activation@ldeufonico.com";
+	private static final String LDE_PASSWORD ="Wangwang777#";
+
+	public static final int SEND_FROM_LD = 101;
+	public static final int SEND_FROM_LDE = 102;
 
 	private String emailSubject = "WELCOME TO LD";
 	private String emailContent = "";
@@ -37,7 +44,9 @@ public class EmailMaster {
 	private MimeMultipart msgMultipart = null;
 	private MimeBodyPart attachmentPart = null;
 
-	public EmailMaster() {
+	private int sender = 101;
+
+	public EmailMaster(int sender) {
 		properties = new Properties();
 		properties.setProperty("mail.smtp.host","smtp.office365.com") ;
 		properties.setProperty("mail.smtp.port","587") ;
@@ -47,6 +56,7 @@ public class EmailMaster {
 		session = Session.getDefaultInstance(properties, null);
 		message = new MimeMessage(session);
 		msgMultipart = new MimeMultipart("mixed");
+		this.sender = sender;
 	}
 
 	public void setEmailSubject(String subject){
@@ -181,7 +191,17 @@ public class EmailMaster {
 		}
 		try {
 			message.setRecipient(Message.RecipientType.TO, new InternetAddress(receiverAddress));
-			message.setFrom(new InternetAddress(SEND_ADDRESS));
+			switch (sender){
+				case SEND_FROM_LD:
+					message.setFrom(new InternetAddress(LD_SEND_ADDRESS));
+					break;
+				case SEND_FROM_LDE:
+					message.setFrom(new InternetAddress(LDE_SEND_ADDRESS));
+					break;
+				default:
+					message.setFrom(new InternetAddress(LD_SEND_ADDRESS));
+					break;
+			}
 			message.setSubject(emailSubject);
 			message.setContent(msgMultipart);
 
@@ -194,7 +214,17 @@ public class EmailMaster {
 			message.setSentDate(new Date());
 			message.saveChanges();
 			transport = session.getTransport("smtp");
-			transport.connect((String)properties.get("mail.smtp.host"), USERNAME ,PASSWORD);
+			switch (sender){
+				case SEND_FROM_LD:
+					transport.connect((String)properties.get("mail.smtp.host"), LD_USERNAME ,LD_PASSWORD);
+					break;
+				case SEND_FROM_LDE:
+					transport.connect((String)properties.get("mail.smtp.host"), LDE_USERNAME ,LDE_PASSWORD);
+					break;
+				default:
+					transport.connect((String)properties.get("mail.smtp.host"), LD_USERNAME ,LD_PASSWORD);
+					break;
+			}
 			transport.sendMessage(message , message.getRecipients(MimeMessage.RecipientType.TO));
 			return true;
 		} catch (MessagingException e) {
@@ -225,7 +255,7 @@ public class EmailMaster {
 	}
 
 	public static void main (String [] args){
-		EmailMaster emailMaster = new EmailMaster();
+		EmailMaster emailMaster = new EmailMaster(SEND_FROM_LDE);
 		emailMaster.setEmailContent("sf", "sdfsf", "sdfsdf", "sdfsd");
 		emailMaster.sendMessage("patrickxu@wiatec.com");
 	}

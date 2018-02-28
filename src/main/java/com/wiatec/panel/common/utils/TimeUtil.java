@@ -4,13 +4,35 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author patrick
  */
 public class TimeUtil {
 
-    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+    public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+    public static final long DEFAULT_TIME = 1483200000000L;
+
+    public static void main (String [] args){
+        long unixFromStr = getUnixFromStr("2018-02-06 00:00:00");
+        System.out.println(unixFromStr);
+
+        boolean outExpires = isOutExpires("2018-02-08 00:00:00");
+        System.out.println(outExpires);
+
+        String strTime = getStrTime(DEFAULT_TIME);
+        System.out.println(strTime);
+
+//        Date date = new Date(1519200000000L);
+        Date date = new Date(1519200000000L);
+        boolean b = date.after(new Date());
+        System.out.println(b);
+
+        Date d = new Date("2018-02-28 00:00:00");
+        System.out.println(d);
+    }
 
 
     public static long getUnixFromStr(String time){
@@ -44,7 +66,7 @@ public class TimeUtil {
 
     public static String getStrDate(long time){
         try {
-            return FORMATTER.format(new Date(time));
+            return DATE_FORMATTER.format(new Date(time));
         } catch (Exception e) {
             return "";
         }
@@ -94,8 +116,13 @@ public class TimeUtil {
         return System.currentTimeMillis() > date.getTime();
     }
 
-    public static boolean isOutExpires(String expiresTime){
-        return System.currentTimeMillis() > TimeUtil.getUnixFromStr(expiresTime);
+    public static boolean isOutExpires(String expiresTime) {
+        System.out.println(expiresTime);
+        long uTime = TimeUtil.getUnixFromStr(expiresTime);
+        long sys = System.currentTimeMillis();
+        System.out.println("ex: " + uTime);
+        System.out.println("sys: " + sys);
+        return uTime > 0 && sys > uTime;
     }
 
 }

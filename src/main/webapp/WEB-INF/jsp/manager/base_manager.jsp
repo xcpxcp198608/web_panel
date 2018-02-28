@@ -2,6 +2,7 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <rapid:override name="navigation">
     <div class="sidebar-sticky">
@@ -26,6 +27,13 @@
                     <i class="fa fa-globe fa-lg"></i>&nbsp;Geographic
                 </a>
             </li>
+            <c:if test="${permission > 100}">
+                <li class="nav-item">
+                    <a class="nav-link" href="/panel/manager/logs">
+                        <i class="fa fa-building fa-lg"></i>&nbsp;Logs
+                    </a>
+                </li>
+            </c:if>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/signout1">
                     <i class="fa fa-sign-out fa-lg"></i>&nbsp;Sign out

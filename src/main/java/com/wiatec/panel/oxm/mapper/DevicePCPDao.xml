@@ -1,0 +1,130 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.DevicePCPDao">
+    <resultMap type="com.wiatec.panel.oxm.pojo.DevicePCPInfo" id="devicePCPInfo">
+        <id column="id" property="id"/>
+        <result column="mac" property="mac"/>
+        <result column="salesId" property="salesId"/>
+        <result column="salesName" property="salesName"/>
+        <result column="dealerId" property="dealerId"/>
+        <result column="dealerName" property="dealerName"/>
+        <result column="adminId" property="adminId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_rented" property="rented"/>
+        <result column="rent_time" property="rentTime"/>
+        <result column="sdcn" property="sdcn"/>
+        <result column="checked" property="checked"/>
+        <result column="check_number" property="checkNumber"/>
+        <result column="check_time" property="checkTime"/>
+    </resultMap>
+
+    <sql id="select">
+        SELECT device_rent.id, device_rent.mac, device_rent.distributor, device_rent.sales_id, device_rent.dealer_id,
+            device_rent.admin_id, device_rent.create_time, device_rent.rented,
+            device_rent.rent_time, device_rent.sdcn, device_rent.checked,
+            device_rent.check_number, device_rent.check_time,
+            auth_sales.username salesName
+        FROM device_rent, auth_sales
+        WHERE device_rent.sales_id = auth_sales.id
+    </sql>
+
+    <select id="countOne" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.DevicePCPInfo">
+        SELECT COUNT(*) count
+        FROM device_rent
+        WHERE mac=#{mac}
+    </select>
+
+    <select id="countOneByMac" resultType="java.lang.Integer">
+        SELECT COUNT(*) count
+        FROM device_rent
+        WHERE mac=#{mac}
+    </select>
+
+    <select id="selectSalesIdByMac" resultType="java.lang.Integer">
+      SELECT sales_id FROM device_rent
+      WHERE mac=#{mac}
+    </select>
+
+    <select id="selectOneByMac" resultType="com.wiatec.panel.oxm.pojo.DevicePCPInfo">
+      <include refid="select"/>
+      AND mac=#{mac}
+    </select>
+
+    <select id="selectAll" resultMap="devicePCPInfo">
+        <include refid="select"/> ORDER BY device_rent.create_time DESC
+    </select>
+
+    <select id="selectAllByDis" resultMap="devicePCPInfo">
+        <include refid="select"/>
+        AND distributor = #{distributor}
+        ORDER BY device_rent.create_time DESC
+    </select>
+
+    <select id="selectBySalesId" resultMap="devicePCPInfo">
+        <include refid="select"/>
+        AND device_rent.sales_id= #{salesId}
+        ORDER BY device_rent.create_time DESC
+    </select>
+
+    <select id="selectRentedBySalesId" resultMap="devicePCPInfo">
+        <include refid="select"/>
+        AND device_rent.sales_id = #{salesId}
+        AND device_rent.rented = 1
+        ORDER BY device_rent.create_time DESC
+    </select>
+
+    <insert id="insertOne">
+        INSERT IGNORE INTO device_rent (mac, distributor)
+                VALUES (#{mac}, #{distributor})
+    </insert>
+
+    <update id="updateDeviceToSpecialSales" parameterType="com.wiatec.panel.oxm.pojo.DevicePCPInfo">
+      UPDATE device_rent SET sales_id = #{salesId}, dealer_id = #{dealerId}, admin_id = #{adminId}
+      WHERE mac = #{mac}
+    </update>
+
+    <update id="bathUpdateDeviceToSpecialSales">
+      UPDATE device_rent
+      SET sales_id = #{salesId}, dealer_id = #{dealerId}, admin_id = #{adminId}
+      WHERE mac IN
+        <foreach collection="macs" item="mac" separator="," open="(" close=")">
+            #{mac}
+        </foreach>
+    </update>
+
+    <update id="bathUpdateDeviceToChecked">
+      UPDATE device_rent
+      SET checked = 1, sdcn = 0, check_number= #{checkNumber}, check_time=now()
+      WHERE sales_id = #{salesId}
+      AND mac IN
+        <foreach collection="macs" item="mac" separator="," open="(" close=")">
+            #{mac}
+        </foreach>
+    </update>
+
+    <update id="updateDeviceToChecked" parameterType="com.wiatec.panel.oxm.pojo.DevicePCPInfo">
+      UPDATE device_rent SET  checked= 1, sdcn = 0, check_number= #{checkNumber}, check_time=now()
+      WHERE mac = #{mac}
+    </update>
+
+    <update id="updateDeviceToRented">
+        UPDATE device_rent SET rented = 1, sdcn = 1, rent_time=now()
+        WHERE mac=#{mac}
+    </update>
+
+    <select id="countNoRentedBySalesId" resultType="java.lang.Integer">
+        SELECT COUNT(*) count
+        FROM device_rent
+        WHERE rented=0
+        AND sales_id=#{salesId}
+    </select>
+
+    <select id="countSDCNBySalesId" resultType="java.lang.Integer">
+        SELECT COUNT(*) count
+        FROM device_rent
+        WHERE sdcn = 1
+        AND sales_id=#{salesId}
+    </select>
+
+</mapper>

@@ -4,7 +4,7 @@ import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.pojo.AuthDealerInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
-import com.wiatec.panel.oxm.pojo.DeviceRentInfo;
+import com.wiatec.panel.oxm.pojo.DevicePCPInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
 import com.wiatec.panel.service.auth.AuthAdminService;
 import com.wiatec.panel.common.result.ResultInfo;
@@ -81,8 +81,8 @@ public class AuthAdmin {
      * @return        sales page
      */
     @GetMapping(value = "/sales")
-    public String getSales(Model model){
-        return authAdminService.sales(model);
+    public String getSales(HttpServletRequest request, Model model){
+        return authAdminService.sales(request, model);
     }
 
     /**
@@ -96,7 +96,7 @@ public class AuthAdmin {
     @PostMapping(value = "/sale/create")
     @ResponseBody
     public ResultInfo createSales(HttpServletRequest request, @Valid AuthSalesInfo authSalesInfo,
-                                  BindingResult bindingResult) throws Exception {
+                                  BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             throw new XException(3001, bindingResult.getFieldError().getDefaultMessage());
         }
@@ -158,7 +158,7 @@ public class AuthAdmin {
     }
 
     /**
-     * update rental user status [active, limited, canceled]
+     * update rental user status [activate, limited, canceled]
      * @param status   target status
      * @param key      client key
      * @return         {@link AuthRentUserInfo}
@@ -167,6 +167,18 @@ public class AuthAdmin {
     @ResponseBody
     public ResultInfo updateUserStatus(@PathVariable String status, @PathVariable String key){
         return authAdminService.updateUserStatus(status, key);
+    }
+
+    /**
+     * update rental user status to activate after admin got cash
+     * @param password   admin password
+     * @param key      client key
+     * @return         {@link AuthRentUserInfo}
+     */
+    @PutMapping(value = "/user/cash_activate")
+    @ResponseBody
+    public ResultInfo updateUserActivateWithCash(HttpServletRequest request, String key, String password){
+        return authAdminService.updateUserActivateWithCash(request, key, password);
     }
 
     @PutMapping(value = "/user/category/{key}/{category}")
@@ -215,36 +227,37 @@ public class AuthAdmin {
     /**
      * save a device rent info
      * @param request  HttpServletRequest
-     * @param deviceRentInfo  DeviceRentInfo required: mac, dealerId
+     * @param devicePCPInfo  DevicePCPInfo required: mac, dealerId
      * @return         ResultInfo
      */
     @PostMapping(value = "/devices/save")
     @ResponseBody
-    public ResultInfo saveDevice(HttpServletRequest request, DeviceRentInfo deviceRentInfo){
-        return authAdminService.saveDevice(request, deviceRentInfo);
+    public ResultInfo saveDevice(HttpServletRequest request, DevicePCPInfo devicePCPInfo){
+        return authAdminService.saveDevice(request, devicePCPInfo);
     }
 
     /**
      * update a device to special sales
-     * @param request  HttpServletRequest
-     * @param deviceRentInfo  DeviceRentInfo required: mac, sales id
      * @return         ResultInfo
      */
     @PutMapping(value = "/devices/update")
     @ResponseBody
-    public ResultInfo updateDeviceToSpecialSales(HttpServletRequest request, @RequestBody DeviceRentInfo deviceRentInfo){
-        return authAdminService.updateDeviceToSpecialSales(request, deviceRentInfo);
+    public ResultInfo updateDeviceToSpecialSales(HttpServletRequest request,
+                                                 @RequestParam(value = "macs[]") String [] macs,
+                                                 int salesId, String password, boolean free){
+        return authAdminService.bathUpdateDeviceToSpecialSales(request, macs, salesId, password, free);
     }
 
     /**
      * check device when returned the sales deposit
-     * @param deviceRentInfo  DeviceRentInfo required: mac
      * @return         ResultInfo
      */
     @PutMapping(value = "/devices/check")
     @ResponseBody
-    public ResultInfo checkReturned(@RequestBody DeviceRentInfo deviceRentInfo){
-        return authAdminService.checkReturned(deviceRentInfo);
+    public ResultInfo checkReturned(HttpServletRequest request,
+                                    @RequestParam(value = "macs[]") String [] macs,
+                                    int salesId, String checkNumber){
+        return authAdminService.checkReturned(request, macs, salesId, checkNumber);
     }
 
     /**
@@ -320,6 +333,30 @@ public class AuthAdmin {
     }
 
     /**
+     * get all dealer total commission by specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        AllDealerMonthCommissionInfo list
+     */
+    @GetMapping(value = "/chart/dealer/commission/total/{year}/{month}")
+    @ResponseBody
+    public List<AllDealerMonthCommissionInfo> getDealerTotalCommissionByMonth(@PathVariable int year, @PathVariable int month){
+        return authAdminService.getAllDealerTotalCommissionByMonth(year, month);
+    }
+
+    /**
+     * get all dealer activation commission by specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        AllDealerMonthCommissionInfo list
+     */
+    @GetMapping(value = "/chart/dealer/commission/activation/{year}/{month}")
+    @ResponseBody
+    public List<AllDealerMonthCommissionInfo> getDealerActivationCommByMonth(@PathVariable int year, @PathVariable int month){
+        return authAdminService.getAllDealerActivationCommByMonth(year, month);
+    }
+
+    /**
      * get all sales commission by specify year and month
      * @param year    specify year
      * @param month   specify month
@@ -329,6 +366,31 @@ public class AuthAdmin {
     @ResponseBody
     public List<AllSalesMonthCommissionInfo> getSalesCommissionByMonth(@PathVariable int year, @PathVariable int month){
         return authAdminService.getAllSalesCommissionByMonth(year, month);
+    }
+
+    /**
+     * get all sales total commission by specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        AllSalesMonthCommissionInfo list
+     */
+    @GetMapping(value = "/chart/sales/commission/total/{year}/{month}")
+    @ResponseBody
+    public List<AllSalesMonthCommissionInfo> getSalesTotalCommissionByMonth(@PathVariable int year, @PathVariable int month){
+        return authAdminService.getAllSalesTotalCommissionByMonth(year, month);
+    }
+
+
+    /**
+     * get all sales activation commission by specify year and month
+     * @param year    specify year
+     * @param month   specify month
+     * @return        AllSalesMonthCommissionInfo list
+     */
+    @GetMapping(value = "/chart/sales/commission/activation/{year}/{month}")
+    @ResponseBody
+    public List<AllSalesMonthCommissionInfo> getSalesActivationCommByMonth(@PathVariable int year, @PathVariable int month){
+        return authAdminService.getAllSalesActivationCommByMonth(year, month);
     }
 
     /**

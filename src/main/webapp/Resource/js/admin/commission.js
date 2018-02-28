@@ -17,9 +17,10 @@ $(function () {
                 type: 'pie',
                 radius: '60%',
                 data:[
-                    {value:tbCategory.rows[0].cells[5].innerHTML, name:'LD'},
-                    {value:tbCategory.rows[0].cells[6].innerHTML, name:'Dealer'},
-                    {value:tbCategory.rows[0].cells[7].innerHTML, name:'Sales'}
+                    {value:tbCategory.rows[0].cells[7].innerHTML, name:'LD'},
+                    {value:tbCategory.rows[0].cells[8].innerHTML, name:'LDE'},
+                    {value:tbCategory.rows[0].cells[9].innerHTML, name:'Dealer'},
+                    {value:tbCategory.rows[0].cells[10].innerHTML, name:'Sales'}
                 ]
             }
         ]
@@ -34,9 +35,10 @@ $(function () {
                 type: 'pie',
                 radius: '60%',
                 data:[
-                    {value:tbCategory.rows[1].cells[5].innerHTML, name:'LD'},
-                    {value:tbCategory.rows[1].cells[6].innerHTML, name:'Dealer'},
-                    {value:tbCategory.rows[1].cells[7].innerHTML, name:'Sales'}
+                    {value:tbCategory.rows[1].cells[7].innerHTML, name:'LD'},
+                    {value:tbCategory.rows[1].cells[8].innerHTML, name:'LDE'},
+                    {value:tbCategory.rows[1].cells[9].innerHTML, name:'Dealer'},
+                    {value:tbCategory.rows[1].cells[10].innerHTML, name:'Sales'}
                 ]
             }
         ]
@@ -51,9 +53,10 @@ $(function () {
                 type: 'pie',
                 radius: '60%',
                 data:[
-                    {value:tbCategory.rows[2].cells[5].innerHTML, name:'LD'},
-                    {value:tbCategory.rows[2].cells[6].innerHTML, name:'Dealer'},
-                    {value:tbCategory.rows[2].cells[7].innerHTML, name:'Sales'}
+                    {value:tbCategory.rows[2].cells[7].innerHTML, name:'LD'},
+                    {value:tbCategory.rows[2].cells[8].innerHTML, name:'LDE'},
+                    {value:tbCategory.rows[2].cells[9].innerHTML, name:'Dealer'},
+                    {value:tbCategory.rows[2].cells[10].innerHTML, name:'Sales'}
                 ]
             }
         ]
@@ -106,14 +109,14 @@ $(function () {
                 itemStyle: {
                     normal: {
                         color: '#fc0a5b',
-                        shadowBlur: 50,
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 },
                 lineStyle: {
                     normal: {
                         color: '#f5d482',
-                        shadowBlur: 50,
+                        shadowBlur: 10,
                         shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
                 }
@@ -132,49 +135,79 @@ $(function () {
         $.get(url, {}, function (dataList, status) {
             yearIncomeData.length = 0;
             var yearTotalIncome = 0;
-            var yearTotalTxFee = 0;
             var yearTotalDeposit = 0;
             var yearTotalLdCommission = 0;
             var yearTotalLdeCommission = 0;
             var yearTotalDealerCommission = 0;
             var yearTotalSalesCommission = 0;
+            var yearTotalSvcCharge = 0;
+            var yearTotalTxFee = 0;
+            var yearTotalActivation = 0;
+            var yearTotalLdActivationComm = 0;
+            var yearTotalLdeActivationComm = 0;
+            var yearTotalDealerActivationComm = 0;
+            var yearTotalSalesActivationComm = 0;
             var length = dataList.length;
             for(var i = 0; i < 12; i ++){
                 var monthAmount = 0;
-                var monthTxFee = 0;
                 var monthDeposit = 0;
                 var monthLdCommission = 0;
                 var monthLdeCommission = 0;
                 var monthDealerCommission = 0;
                 var monthSalesCommission = 0;
+                var monthSvcCharge = 0;
+                var monthTxFee = 0;
+                var monthActivation = 0;
+                var monthLdActivationComm = 0;
+                var monthLdeActivationComm = 0;
+                var monthDealerActivationComm = 0;
+                var monthSalesActivationComm = 0;
                 for(var j = 0; j < length; j ++){
                     var data = dataList[j];
                     if(data['date'] === i+1){
                         monthAmount = data['amount'];
-                        monthTxFee = data['txFee'];
                         monthDeposit = data['deposit'];
                         monthLdCommission = data['ldCommission'];
                         monthLdeCommission = data['ldeCommission'];
                         monthDealerCommission = data['dealerCommission'];
                         monthSalesCommission = data['salesCommission'];
+                        monthSvcCharge = data['svcCharge'];
+                        monthTxFee = data['txFee'];
+                        monthActivation = data['activatePay'];
+                        monthLdActivationComm = data['ldActivationComm'];
+                        monthLdeActivationComm = data['ldeActivationComm'];
+                        monthDealerActivationComm = data['dealerActivationComm'];
+                        monthSalesActivationComm = data['salesActivationComm'];
                     }
                 }
                 yearIncomeData.push(monthAmount);
                 yearTotalIncome += monthAmount;
-                yearTotalTxFee += monthTxFee;
                 yearTotalDeposit += monthDeposit;
                 yearTotalLdCommission += monthLdCommission;
                 yearTotalLdeCommission += monthLdeCommission;
                 yearTotalDealerCommission += monthDealerCommission;
                 yearTotalSalesCommission += monthSalesCommission;
+                yearTotalSvcCharge += monthSvcCharge;
+                yearTotalTxFee += monthTxFee;
+                yearTotalActivation += monthActivation;
+                yearTotalLdActivationComm += monthLdActivationComm;
+                yearTotalLdeActivationComm += monthLdeActivationComm;
+                yearTotalDealerActivationComm += monthDealerActivationComm;
+                yearTotalSalesActivationComm += monthSalesActivationComm;
             }
             tbYearIncome.rows[0].cells[1].innerHTML = yearTotalIncome.toFixed(2);
-            tbYearIncome.rows[1].cells[1].innerHTML = yearTotalTxFee.toFixed(2);
-            tbYearIncome.rows[2].cells[1].innerHTML = yearTotalDeposit.toFixed(2);
-            tbYearIncome.rows[3].cells[1].innerHTML = yearTotalLdCommission.toFixed(2);
-            tbYearIncome.rows[4].cells[1].innerHTML = yearTotalLdeCommission.toFixed(2);
-            tbYearIncome.rows[5].cells[1].innerHTML = yearTotalDealerCommission.toFixed(2);
-            tbYearIncome.rows[6].cells[1].innerHTML = yearTotalSalesCommission.toFixed(2);
+            tbYearIncome.rows[1].cells[1].innerHTML = yearTotalDeposit.toFixed(2);
+            tbYearIncome.rows[2].cells[1].innerHTML = yearTotalLdCommission.toFixed(2);
+            tbYearIncome.rows[3].cells[1].innerHTML = yearTotalLdeCommission.toFixed(2);
+            tbYearIncome.rows[4].cells[1].innerHTML = yearTotalDealerCommission.toFixed(2);
+            tbYearIncome.rows[5].cells[1].innerHTML = yearTotalSalesCommission.toFixed(2);
+            tbYearIncome.rows[6].cells[1].innerHTML = yearTotalSvcCharge.toFixed(2);
+            tbYearIncome.rows[7].cells[1].innerHTML = yearTotalTxFee.toFixed(2);
+            tbYearIncome.rows[8].cells[1].innerHTML = yearTotalActivation.toFixed(2);
+            tbYearIncome.rows[9].cells[1].innerHTML = yearTotalLdActivationComm.toFixed(2);
+            tbYearIncome.rows[10].cells[1].innerHTML = yearTotalLdeActivationComm.toFixed(2);
+            tbYearIncome.rows[11].cells[1].innerHTML = yearTotalDealerActivationComm.toFixed(2);
+            tbYearIncome.rows[12].cells[1].innerHTML = yearTotalSalesActivationComm.toFixed(2);
             yearIncomeChart.setOption(yearIncomeChartOption);
         })
     }
@@ -212,7 +245,7 @@ $(function () {
      * init month income table data
      */
     var tbIncome = $('#tbMonthIncome').get(0).tBodies[0];
-    var trIncome = $('#trIncome').get(0);
+    var trIncome = $('#trMonthIncome').get(0);
     var incomeRowsLength = tbIncome.rows.length;
     var currentDays = getDaysOfCurrentMonth();
     initIncomeData(currentDays);
@@ -224,7 +257,6 @@ $(function () {
             for(var k = 0; k < incomeRowsLength; k ++){
                 var tdObj1 = document.createElement("td");
                 tdObj1.innerHTML = '0';
-                tdObj1.setAttribute("class","tdRows10");
                 tbIncome.rows[k].append(tdObj1);
             }
         }
@@ -242,6 +274,13 @@ $(function () {
     var ldeData = [];
     var dealerData = [];
     var salesData = [];
+    var svcData = [];
+    var txData = [];
+    var activationData = [];
+    var ldAData = [];
+    var ldeAData = [];
+    var dealerAData = [];
+    var salesAData = [];
     function refreshData() {
         xData.length = 0;
         incomeData.length = 0;
@@ -265,6 +304,20 @@ $(function () {
             dealerData.push(dealer);
             var sales = tbIncome.rows[5].cells[i+2].innerHTML;
             salesData.push(sales);
+            var svc = tbIncome.rows[6].cells[i+2].innerHTML;
+            svcData.push(svc);
+            var tx = tbIncome.rows[7].cells[i+2].innerHTML;
+            txData.push(tx);
+            var activation = tbIncome.rows[8].cells[i+2].innerHTML;
+            activationData.push(activation);
+            var ldA = tbIncome.rows[9].cells[i+2].innerHTML;
+            ldAData.push(ldA);
+            var ldeA = tbIncome.rows[10].cells[i+2].innerHTML;
+            ldeAData.push(ldeA);
+            var dealerA = tbIncome.rows[11].cells[i+2].innerHTML;
+            dealerAData.push(dealerA);
+            var salesA = tbIncome.rows[12].cells[i+2].innerHTML;
+            salesAData.push(salesA);
         }
     }
 
@@ -295,7 +348,7 @@ $(function () {
                 name: 'income',
                 type: 'bar',
                 data: incomeData,
-                barWidth: 5,
+                barWidth: 3,
                 itemStyle: {
                     normal: {
                         color: '#f90c0c',
@@ -308,7 +361,7 @@ $(function () {
                 name: 'deposit',
                 type: 'bar',
                 data: depositData,
-                barWidth: 5,
+                barWidth: 3,
                 itemStyle: {
                     normal: {
                         color: '#f614da',
@@ -321,7 +374,7 @@ $(function () {
                 name: 'ld',
                 type: 'bar',
                 data: ldData,
-                barWidth: 5,
+                barWidth: 3,
                 itemStyle: {
                     normal: {
                         color: '#f6f30d',
@@ -334,7 +387,7 @@ $(function () {
                 name: 'dealer',
                 type: 'bar',
                 data: dealerData,
-                barWidth: 5,
+                barWidth: 3,
                 itemStyle: {
                     normal: {
                         color: '#8fffe7',
@@ -347,7 +400,7 @@ $(function () {
                 name: 'sales',
                 type: 'bar',
                 data: salesData,
-                barWidth: 5,
+                barWidth: 3,
                 itemStyle: {
                     normal: {
                         color: '#00ff00',
@@ -381,9 +434,16 @@ $(function () {
             var totalMonthLdeCommission = 0;
             var totalMonthDealerCommission = 0;
             var totalMonthSalesCommission = 0;
+            var totalMonthSvcCharge = 0;
+            var totalMonthTxFee = 0;
+            var totalMonthActivatePay = 0;
+            var totalMonthLdActivationComm = 0;
+            var totalMonthLdeActivationComm = 0;
+            var totalMonthDealerActivationComm = 0;
+            var totalMonthSalesActivationComm  = 0;
             for(var i = 0; i < days; i ++){
                 var tdObj = document.createElement("td");
-                tdObj.innerHTML = i+1;
+                tdObj.innerHTML = (i+1).toString();
                 trIncome.append(tdObj);
                 var income = 0;
                 var deposit = 0;
@@ -391,6 +451,13 @@ $(function () {
                 var ldeCommission = 0 ;
                 var dealerCommission = 0;
                 var salesCommission = 0;
+                var svcCharge = 0;
+                var txFee = 0;
+                var activatePay = 0;
+                var ldActivationComm = 0;
+                var ldeActivationComm = 0;
+                var dealerActivationComm = 0;
+                var salesActivationComm = 0;
                 for(var j = 0; j < length; j ++){
                     var data = dataList[j];
                     if(data['date'] === i + 1){
@@ -400,6 +467,13 @@ $(function () {
                         ldeCommission = data['ldeCommission'];
                         dealerCommission = data['dealerCommission'];
                         salesCommission = data['salesCommission'];
+                        svcCharge = data['svcCharge'];
+                        txFee = data['txFee'];
+                        activatePay = data['activatePay'];
+                        ldActivationComm = data['ldActivationComm'];
+                        ldeActivationComm = data['ldeActivationComm'];
+                        dealerActivationComm = data['dealerActivationComm'];
+                        salesActivationComm = data['salesActivationComm'];
                     }
                 }
                 for(var k = 0; k < rowLength; k ++){
@@ -424,11 +498,31 @@ $(function () {
                         case 5:
                             n = salesCommission;
                             break;
+                        case 6:
+                            n = svcCharge;
+                            break;
+                        case 7:
+                            n = txFee;
+                            break;
+                        case 8:
+                            n = activatePay;
+                            break;
+                        case 9:
+                            n = ldActivationComm;
+                            break;
+                        case 10:
+                            n = ldeActivationComm;
+                            break;
+                        case 11:
+                            n = dealerActivationComm;
+                            break;
+                        case 12:
+                            n = salesActivationComm;
+                            break;
                         default:
                             break;
                     }
-                    tdObj2.innerHTML = n;
-                    tdObj2.setAttribute('class', 'tdRows12');
+                    tdObj2.innerHTML = n.toString();
                     tbIncome.rows[k].append(tdObj2);
                 }
                 totalMonthIncome += income;
@@ -437,6 +531,13 @@ $(function () {
                 totalMonthLdeCommission += ldeCommission;
                 totalMonthDealerCommission += dealerCommission;
                 totalMonthSalesCommission += salesCommission;
+                totalMonthSvcCharge += svcCharge;
+                totalMonthTxFee += txFee;
+                totalMonthActivatePay += activatePay;
+                totalMonthLdActivationComm += ldActivationComm;
+                totalMonthLdeActivationComm += ldeActivationComm;
+                totalMonthDealerActivationComm += dealerActivationComm;
+                totalMonthSalesActivationComm += salesActivationComm;
             }
             tbIncome.rows[0].cells[1].innerHTML = totalMonthIncome.toFixed(2);
             tbIncome.rows[1].cells[1].innerHTML = totalMonthDeposit.toFixed(2);
@@ -444,6 +545,13 @@ $(function () {
             tbIncome.rows[3].cells[1].innerHTML = totalMonthLdeCommission.toFixed(2);
             tbIncome.rows[4].cells[1].innerHTML = totalMonthDealerCommission.toFixed(2);
             tbIncome.rows[5].cells[1].innerHTML = totalMonthSalesCommission.toFixed(2);
+            tbIncome.rows[6].cells[1].innerHTML = totalMonthSvcCharge.toFixed(2);
+            tbIncome.rows[7].cells[1].innerHTML = totalMonthTxFee.toFixed(2);
+            tbIncome.rows[8].cells[1].innerHTML = totalMonthActivatePay.toFixed(2);
+            tbIncome.rows[9].cells[1].innerHTML = totalMonthLdActivationComm.toFixed(2);
+            tbIncome.rows[10].cells[1].innerHTML = totalMonthLdeActivationComm.toFixed(2);
+            tbIncome.rows[11].cells[1].innerHTML = totalMonthDealerActivationComm.toFixed(2);
+            tbIncome.rows[12].cells[1].innerHTML = totalMonthSalesActivationComm.toFixed(2);
             refreshData();
             monthIncomeChart.setOption(monthIncomeChartOption);
             $('#btPreviousMonth').removeAttr('disabled');

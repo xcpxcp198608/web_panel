@@ -2,7 +2,7 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <rapid:override name="title">
     Transactions
@@ -138,15 +138,15 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <a id="btResendInvoice" data-toggle="tooltip" title="resend the invoice to customer">
-                        <span class="badge badge-warning text-center" style="padding: 3px">
-                            <i class="fa fa-send fa-lg"></i>&nbsp;Resend Invoice
-                        </span>
-                    </a>
-                </div>
-            </div>
+            <%--<div class="row">--%>
+                <%--<div class="col-6">--%>
+                    <%--<a id="btResendInvoice" data-toggle="tooltip" title="resend the invoice to customer">--%>
+                        <%--<span class="badge badge-warning text-center" style="padding: 3px">--%>
+                            <%--<i class="fa fa-send fa-lg"></i>&nbsp;Resend Invoice--%>
+                        <%--</span>--%>
+                    <%--</a>--%>
+                <%--</div>--%>
+            <%--</div>--%>
         </div>
 
         <div style="width: 100%; padding: 10px; background-color: white; overflow: scroll">

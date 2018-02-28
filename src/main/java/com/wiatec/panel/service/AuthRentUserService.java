@@ -76,7 +76,7 @@ public class AuthRentUserService {
             session = request.getSession();
             session.setAttribute(SessionListener.KEY ,clientKey);
         }
-        return  ResultMaster.success(authRentUserInfo1);
+        return ResultMaster.success(authRentUserInfo1);
     }
 
 }

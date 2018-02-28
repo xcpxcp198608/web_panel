@@ -1,6 +1,7 @@
 package com.wiatec.panel.service.auth;
 
-import com.wiatec.panel.authorize.AuthorizeTransactionRental;
+import com.wiatec.panel.authorize.AuthorizeTransaction;
+import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
 import com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo;
 import com.wiatec.panel.common.utils.*;
 import com.wiatec.panel.invoice.InvoiceInfo;
@@ -51,7 +52,7 @@ public class AuthSalesService {
     @Resource
     private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
     @Resource
-    private DeviceRentDao deviceRentDao;
+    private DevicePCPDao devicePCPDao;
 
     public String home(HttpServletRequest request, Model model){
         int salesId = getSalesInfo(request).getId();
@@ -80,7 +81,8 @@ public class AuthSalesService {
      * @return  create_user jsp page
      */
     public String createUsers(Model model){
-        List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao.selectAll();
+        List<CommissionCategoryInfo> commissionCategoryInfoList = commissionCategoryDao
+                .selectAllByDistributor(AuthRentUserInfo.DISTRIBUTOR_LDE);
         for(CommissionCategoryInfo commissionCategoryInfo: commissionCategoryInfoList){
             commissionCategoryInfo.setFirstPay();
             commissionCategoryInfo.setPrice();
@@ -117,17 +119,14 @@ public class AuthSalesService {
                 throw new XException(EnumResult.ERROR_DEVICE_USING);
             }
         }
-        if(authRentUserDao.countOneByEmail(authRentUserInfo) == 1){
-            throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
+        if(devicePCPDao.countOne(new DevicePCPInfo(authRentUserInfo.getMac())) != 1){
+            throw new XException(EnumResult.ERROR_DEVICE_NO_CHECK_IN);
+        }
+        if(devicePCPDao.selectSalesIdByMac(authRentUserInfo.getMac()) != authSalesInfo.getId()){
+            throw new XException(6000, "the device belongs to other sales");
         }
         if(authRegisterUserDao.countByMac(new AuthRegisterUserInfo(authRentUserInfo.getMac())) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
-        }
-        if(deviceRentDao.countOne(new DeviceRentInfo(authRentUserInfo.getMac())) != 1){
-            throw new XException(EnumResult.ERROR_DEVICE_NO_CHECK_IN);
-        }
-        if(deviceRentDao.selectSalesIdByMac(authRentUserInfo.getMac()) != authSalesInfo.getId()){
-            throw new XException(6000, "the device belongs to other sales");
         }
         CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne(authRentUserInfo.getCategory());
         commissionCategoryInfo.setPrice();
@@ -137,6 +136,7 @@ public class AuthSalesService {
         authRentUserInfo.setSalesName(authSalesInfo.getUsername());
         authRentUserInfo.setDealerName(authSalesInfo.getDealerName());
         authRentUserInfo.setDealerId(authSalesInfo.getDealerId());
+        authRentUserInfo.setDistributor(AuthRentUserInfo.DISTRIBUTOR_LDE);
         authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
         String activateTime = TimeUtil.getStrTime();
         authRentUserInfo.setActivateTime(activateTime);
@@ -145,13 +145,15 @@ public class AuthSalesService {
         authRentUserInfo.setDeposit(commissionCategoryInfo.getDeposit());
         authRentUserInfo.setFirstPay(commissionCategoryInfo.getFirstPay());
         authRentUserInfo.setMonthPay(commissionCategoryInfo.getMonthPay());
-        authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
         authRentUserInfo.setLdeCommission(commissionCategoryInfo.getLdeCommission());
         authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
+        authRentUserInfo.setSvcCharge(commissionCategoryInfo.getSvcCharge());
         if(authSalesInfo.isGold()) {
             authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission() + 1);
+            authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission() -1);
         }else{
             authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
+            authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
         }
         if (paymentMethod == PAYMENT_METHOD_CASH) {
             authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CASH);
@@ -161,23 +163,26 @@ public class AuthSalesService {
             authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
             authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
             authRentUserDao.insertOne(authRentUserInfo);
-            AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRental().charge(AuthorizeTransactionRentalInfo
-                    .contractedFromAuthRentInfo(authRentUserInfo), request);
-            if (authorizeTransactionRentalInfo == null) {
-                throw new XException(EnumResult.ERROR_AUTHORIZE);
+            AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
+                    .createFromAuthRentUser(authRentUserInfo, authRentUserInfo.getFirstPay() +
+                            authRentUserInfo.getFirstPay() * AuthorizeTransactionInfo.TAX);
+            AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request);
+            if (charge == null) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
-            authorizeTransactionRentalDao.insertOne(authorizeTransactionRentalInfo);
+            authorizeTransactionRentalDao.insertOne(AuthorizeTransactionRentalInfo
+                    .contractedFromAuthRentInfo(authRentUserInfo, commissionCategoryInfo, charge));
             RentalInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
             List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalContracted(commissionCategoryInfo);
             String invoicePath = RentalInvoiceUtil.createInvoice(authRentUserInfo,
-                    authorizeTransactionRentalInfo.getTransactionId(), invoiceInfoList);
+                    charge.getTransactionId(), invoiceInfoList);
             RentalInvoiceUtil.copyInvoice(invoicePath);
             logger.debug("invoicePath: {}", invoicePath);
-            EmailMaster emailMaster = new EmailMaster();
+            EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LDE);
             emailMaster.setInvoiceContent(authRentUserInfo.getFirstName());
             emailMaster.addAttachment(invoicePath);
             emailMaster.sendMessage(authRentUserInfo.getEmail());
-            deviceRentDao.updateDeviceToRented(authRentUserInfo.getMac());
+            devicePCPDao.updateDeviceToRented(authRentUserInfo.getMac());
             return ResultMaster.success(authRentUserInfo.getClientKey());
         }else if (paymentMethod == PAYMENT_METHOD_PAYPAL) {
             authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_PAYPAL);
@@ -186,11 +191,11 @@ public class AuthSalesService {
         }else{
             throw new XException(ResultMaster.error(5001, "payment method error"));
         }
-        int salesStoreCount = deviceRentDao.countNoRentedBySalesId(authSalesInfo.getId());
+        int salesStoreCount = devicePCPDao.countNoRentedBySalesId(authSalesInfo.getId());
         if(salesStoreCount <= 0){
             authSalesDao.updateNoGoldById(authSalesInfo.getId());
         }
-        int sdcnCount = deviceRentDao.countSDCNBySalesId(authSalesInfo.getId());
+        int sdcnCount = devicePCPDao.countSDCNBySalesId(authSalesInfo.getId());
         if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
             authSalesDao.updateSDCNById(authSalesInfo.getId());
         }
@@ -202,19 +207,25 @@ public class AuthSalesService {
     ////////////////////////////////////////////////////////// chart ///////////////////////////////////////////////////
 
     public List<SalesVolumeInDayOfMonthInfo> selectSalesVolumeEveryDayInMonth(HttpServletRequest request, int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
         return authRentUserDao.countSalesVolumeByDayOfMonth(yearOrMonthInfo);
     }
 
     public List<SalesCommissionOfDaysInfo> selectSalesCommissionEveryDayInMonth(HttpServletRequest request, int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
         return authorizeTransactionRentalDao.getCommissionOfDayBySales(yearOrMonthInfo);
     }
 
+    public List<SalesCommissionOfDaysInfo> selectSalesActivationCommissionEveryDayInMonth(HttpServletRequest request, int year, int month){
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
+        yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
+        return authorizeTransactionRentalDao.getActivationCommissionOfDayBySales(yearOrMonthInfo);
+    }
+
     public List<SalesCommissionOfMonthInfo> selectSalesCommissionEveryMonthInYear(HttpServletRequest request, int year){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, AuthRentUserInfo.DISTRIBUTOR_LDE);
         yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
         return authorizeTransactionRentalDao.getCommissionOfMonthBySales(yearOrMonthInfo);
     }
@@ -222,7 +233,7 @@ public class AuthSalesService {
 
 
     public ResultInfo getCommissionByYear(HttpServletRequest request, int year){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, AuthRentUserInfo.DISTRIBUTOR_LDE);
         yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
         try {
             List<SalesCommissionOfMonthInfo> salesCommissionOfMonthInfoList = authorizeTransactionRentalDao.getCommissionOfMonthBySales(yearOrMonthInfo);
@@ -234,7 +245,7 @@ public class AuthSalesService {
     }
 
     public ResultInfo getCommissionByMonth(HttpServletRequest request, int year, int month){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
         yearOrMonthInfo.setSalesId(getSalesInfo(request).getId()+"");
         try {
             List<SalesCommissionOfDaysInfo> salesCommissionOfDaysInfoList = authorizeTransactionRentalDao.getCommissionOfDayBySales(yearOrMonthInfo);

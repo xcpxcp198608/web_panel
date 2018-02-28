@@ -9,7 +9,7 @@
 <head>
   <base href="<%=basePath%>">
 
-  <title>SignIn--Preferred customer program</title>
+  <title>SignIn -- Devices</title>
 
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="cache-control" content="no-cache">

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class XExceptionHandler {
 
     private Logger logger = LoggerFactory.getLogger(XExceptionHandler.class);
-
+    
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ResultInfo handleException(Exception e){
@@ -22,7 +22,7 @@ public class XExceptionHandler {
             logger.error("= [XException]= {}", e);
             return ResultMaster.error(xException.getCode(), xException.getMessage());
         }else {
-            logger.error("= [System Exception]= {}", e);
+            logger.error("= [Server exception]= {}", e);
             return ResultMaster.error(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }

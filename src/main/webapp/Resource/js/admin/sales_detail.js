@@ -14,37 +14,42 @@ $(function () {
         }
     }
 
-    var currentRow = -1;
-    var currentSalesId = 0;
-    var currentMac = '';
-    var currentSDCN = false;
-    $('input[name=rdDevice]').each(function () {
-        $(this).click(function () {
-            currentRow = $(this).attr('currentRow');
-            currentSDCN = $(this).attr('currentSDCN');
-            currentSalesId = $(this).val();
-            currentMac = tbDevices.rows[currentRow].cells[2].innerHTML;
-        });
-    });
+
 
     $('#btCheck').click(function () {
-        if(currentRow < 0){
+        var currentRows = [];
+        var currentMacs = [];
+        var currentSalesId = $('#ipCurrentSalesId').val();
+        $('input[name=cbDevice]:checked').each(function (index) {
+            currentRows[index] = parseInt($(this).attr('currentRow'));
+            currentMacs[index] = tbDevices.rows[parseInt($(this).attr('currentRow'))].cells[2].innerHTML;
+        });
+        if(currentRows.length <= 0){
             showNotice('have no choose device');
             return;
         }
-        if(currentSDCN !== 'true'){
-            showNotice('this device can not check');
+        if(currentMacs.length <= 0){
+            showNotice('have no choose device');
             return;
         }
+
         $('#modalCheck').modal('show');
+        $('#btSubmitCheck').click(function () {
+            var checkNumber = $('#ipCheckNumber').val();
+            if(checkNumber.length <= 0){
+                showErrorMessage($('#errorCheck'), 'check number error');
+                return;
+            }
+            checkDevice(currentMacs, currentSalesId, checkNumber, currentRows);
+        });
     });
+
     
-    $('#btSubmitCheck').click(function () {
+    function checkDevice(currentMacs, currentSalesId, checkNumber, currentRows) {
         $.ajax({
             type: "PUT",
             url: baseUrl + "/admin/devices/check",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({"mac": currentMac, 'salesId': currentSalesId}),
+            data: {"macs": currentMacs, 'salesId': currentSalesId, 'checkNumber': checkNumber},
             dataType: "json",
             beforeSend: function () {
                 $('#modalCheck').modal('hide');
@@ -55,8 +60,12 @@ $(function () {
                 hideLoading();
                 if(response.code === 200) {
                     $('#modalCheck').modal('hide');
-                    tbDevices.rows[parseInt(currentRow)].cells[6].innerHTML = '<span class="text-secondary"><i class="fa fa-times-circle"></i></span>';
-                    tbDevices.rows[parseInt(currentRow)].cells[7].innerHTML = '<span class="text-success"><i class="fa fa-check-circle"></i></span>';
+                    for(var i = 0; i < currentRows.length; i ++) {
+                        var row = currentRows[i];
+                        tbDevices.rows[parseInt(row)].cells[6].innerHTML = '<span class="text-secondary"><i class="fa fa-times-circle"></i></span>';
+                        tbDevices.rows[parseInt(row)].cells[7].innerHTML = '<span class="text-success"><i class="fa fa-check-circle"></i></span>';
+                    }
+                    $('#ipCheckNumber').val('');
                 }else{
                     $('#modalCheck').modal('show');
                     showErrorMessage($('#errorCheck'), response.message);
@@ -68,6 +77,6 @@ $(function () {
                 showErrorMessage($('#errorCheck'), 'communication fail, try again later');
             }
         });
-    });
+    }
 
 });

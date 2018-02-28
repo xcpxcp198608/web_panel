@@ -1,0 +1,40 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.DeviceAllDao">
+
+    <select id="selectAll" resultType="com.wiatec.panel.oxm.pojo.DeviceAllInfo">
+        SELECT * FROM device_all WHERE id > #{start}
+    </select>
+
+    <select id="selectAllByDis" resultType="com.wiatec.panel.oxm.pojo.DeviceAllInfo">
+        SELECT * FROM device_all WHERE distributor = #{distributor} AND id > #{start}
+    </select>
+
+    <select id="selectOneByMac" resultType="com.wiatec.panel.oxm.pojo.DeviceAllInfo">
+        SELECT * FROM device_all WHERE mac = #{mac}
+    </select>
+
+    <select id="countOneByMac" resultType="java.lang.Integer">
+        SELECT COUNT(*) count FROM device_all WHERE mac = #{mac}
+    </select>
+
+    <insert id="insertOne">
+        INSERT IGNORE INTO device_all (mac, distributor, check_in_time)
+        VALUES (#{mac}, #{distributor}, now())
+    </insert>
+
+    <insert id="bathInsert">
+        INSERT IGNORE INTO device_all (mac, distributor, check_in_time)
+        VALUES
+            <foreach collection="macs" item="mac" separator=",">
+                (#{mac}, #{distributor}, now())
+            </foreach>
+    </insert>
+
+    <update id="updateStatusByMac">
+        UPDATE IGNORE device_all SET status = #{status}, check_in_time = now()
+        WHERE mac = #{mac}
+    </update>
+
+</mapper>

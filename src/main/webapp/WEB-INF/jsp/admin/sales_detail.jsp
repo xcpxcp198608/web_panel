@@ -2,7 +2,7 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <rapid:override name="title">
     Sales Detail
@@ -14,69 +14,29 @@
 
 <rapid:override name="content">
 
-    <%--<div class="row">--%>
-        <%--<div class="col-4" style="padding: 0 0 0 10px">--%>
-            <%--<div style="width: 100%; background-color: #0815a8; height: 3px"></div>--%>
-            <%--<div style="background-color: #ffffff; padding: 10px">--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="badge badge-warning ba-strong">--%>
-                        <%--0--%>
-                    <%--</span>--%>
-                <%--</div>--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="text-muted " ></span>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="col-4" style="padding: 0 10px 0 10px">--%>
-            <%--<div style="width: 100%; background-color: #0815a8; height: 3px"></div>--%>
-            <%--<div style="background-color: #ffffff; padding: 10px">--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="badge badge-warning ba-strong" id="maxVolumeSales">--%>
-                            <%--xxx--%>
-                    <%--</span>--%>
-                    <%--<span class="badge badge-success ba-strong" id="maxVolume">--%>
-                            <%--0--%>
-                    <%--</span>--%>
-                <%--</div>--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="text-muted " ></span>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="col-4" style="padding: 0 10px 0 0">--%>
-            <%--<div style="width: 100%; background-color: #0815a8; height: 3px"></div>--%>
-            <%--<div style="background-color: #ffffff; padding: 10px">--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="badge badge-danger ba-strong" id="totalCommission">--%>
-                            <%--0--%>
-                    <%--</span>--%>
-                <%--</div>--%>
-                <%--<div class="text-center" style="width: 100%">--%>
-                    <%--<span class="text-muted " ></span>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-
-    <div class="row" style="padding: 0 10px;">
-        <div style="width: 100%; background-color: #c11021; height: 3px;"></div>
-        <div style="width: 100%; background-color: #ffffff;">
-            <span class="text-center text-muted" style="padding: 10px">
-                <abbr>Security deposit credit note:</abbr>
-            </span>
-        </div>
-    </div>
-
     <div class="row" style="padding: 0 10px">
-        <div class="col-12" style="background-color: #ffffff">
-            <a id="btCheck" data-toggle="tooltip" title=" Click “Check” to confirm security deposit has been returned">
-                <span class="badge badge-primary text-center">
-                    <i class="fa fa-check fa-lg"></i>&nbsp;Check
-                </span>
-            </a>
+        <div style="width: 100%; background-color: #c11021; height: 3px;"></div>
+        <div style="width: 100%; background-color: #ffffff; padding-bottom: 5px">
+            <span class="text-center text-muted" style="padding: 10px">
+                <abbr>security deposit credit note: </abbr>
+            </span>
+            <span class="text-danger">
+                ${authSalesInfo.username}
+            </span>
+            <input type="hidden" id="ipCurrentSalesId" value="${authSalesInfo.id}">
         </div>
     </div>
+    <c:if test="${permission >= 100}">
+        <div class="row" style="padding: 0 10px;">
+            <div class="col-12" style="background-color: #ffffff">
+                <a id="btCheck" data-toggle="tooltip" title=" Click “Check” to confirm security deposit has been returned">
+                    <span class="badge badge-primary text-center">
+                        <i class="fa fa-check fa-lg"></i>&nbsp;Check
+                    </span>
+                </a>
+            </div>
+        </div>
+    </c:if>
     <div class="row" style="padding: 0 10px 0 10px">
         <div style="background-color: white; width: 100%; padding: 10px;">
             <table class="table table-sm table-hover" id="tbDevices">
@@ -89,39 +49,39 @@
                         <th>RentedTime</th>
                         <th>Rented</th>
                         <th data-toggle="tooltip" title="Security Deposit Credit Note">SD CN</th>
-                        <th data-toggle="tooltip" title="security deposit is returned">Returned</th>
+                        <th data-toggle="tooltip" title="security deposit is returned">Checked</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${rentedDeviceRentInfoList}" var="deviceRentInfo" varStatus="status">
+                    <c:forEach items="${rentedDevicePCPInfoList}" var="devicePCPInfo" varStatus="status">
                         <tr>
-                            <td><input type="radio" name="rdDevice" value="${deviceRentInfo.salesId}"
-                                       currentRow="${status.index}" currentSDCN="${deviceRentInfo.sdcn}"></td>
+                            <td><input type="checkbox" name="cbDevice" value="${devicePCPInfo.salesId}"
+                                       currentRow="${status.index}" currentSDCN="${devicePCPInfo.sdcn}"></td>
                             <td>${status.index+1}</td>
-                            <td>${deviceRentInfo.mac}</td>
-                            <td>${deviceRentInfo.createTime}</td>
-                            <td>${deviceRentInfo.rentTime}</td>
+                            <td>${devicePCPInfo.mac}</td>
+                            <td>${devicePCPInfo.createTime}</td>
+                            <td>${devicePCPInfo.rentTime}</td>
                             <td>
-                                <c:if test="${deviceRentInfo.rented == true}">
+                                <c:if test="${devicePCPInfo.rented == true}">
                                     <span class="text-success"><i class="fa fa-check-circle"></i></span>
                                 </c:if>
-                                <c:if test="${deviceRentInfo.rented == false}">
+                                <c:if test="${devicePCPInfo.rented == false}">
                                     <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
                                 </c:if>
                             </td>
                             <td>
-                                <c:if test="${deviceRentInfo.sdcn == true}">
+                                <c:if test="${devicePCPInfo.sdcn == true}">
                                     <span class="text-danger"><i class="fa fa-check-circle"></i></span>
                                 </c:if>
-                                <c:if test="${deviceRentInfo.sdcn == false}">
+                                <c:if test="${devicePCPInfo.sdcn == false}">
                                     <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
                                 </c:if>
                             </td>
                             <td>
-                                <c:if test="${deviceRentInfo.checked == true}">
+                                <c:if test="${devicePCPInfo.checked == true}">
                                     <span class="text-success"><i class="fa fa-check-circle"></i></span>
                                 </c:if>
-                                <c:if test="${deviceRentInfo.checked == false}">
+                                <c:if test="${devicePCPInfo.checked == false}">
                                     <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
                                 </c:if>
                             </td>
@@ -147,11 +107,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Confirm to return the security deposit to Rep.
+                    Confirm to return the security deposit to Rep.<br/><br/>
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon234">
-                                <i class="fa fa-lock fa-lg"></i>
+                                <i class="fa fa-star"></i>
                             </span>
                         </div>
                         <input type="password" class="form-control" placeholder="Input bank check number for record" id="ipCheckNumber"

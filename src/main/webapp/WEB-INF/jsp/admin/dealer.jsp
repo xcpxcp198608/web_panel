@@ -2,7 +2,7 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <rapid:override name="title">
     Dealer
@@ -59,12 +59,12 @@
         </div>
     </div>
 
-    <div class="row" style="padding: 20px 10px 0 10px;">
+    <div class="row" style="padding: 10px 10px 0 10px;">
         <div style="width: 100%; background-color: #c11021; height: 3px;"></div>
     </div>
     <div class="row" style="padding: 0 10px 0 10px">
         <div class="col-5" style=" background-color: white">
-            <span class="text-muted" style="padding: 0 0 10px 0">Total dealers' commission in a month:</span>
+            <span class="text-muted" style="padding: 0 0 10px 0"> </span>
         </div>
         <div class="col-4 text-left text-darks" style="background-color: white">
             <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
@@ -80,25 +80,58 @@
     </div>
 
     <div class="row" style="padding: 0 10px 0 10px">
-        <div style="background-color: white; width: 100%; padding: 10px; overflow: scroll">
-            <table class="table table-sm table-hover" id="tbDealerCommission">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Username</th>
-                        <th>Volume</th>
-                        <th>Commission</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-12" style="background-color: white">
+            <nav>
+                <div class="nav nav-tabs nav-dark" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Total Commission</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Sales Commission</a>
+                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Activation Commission</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent" style="margin-top: 10px">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <table class="table table-sm table-hover table-dark" id="tbDealerTotalCommission">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Username</th>
+                            <th>Volume</th>
+                            <th>TotalCommission</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <table class="table table-sm table-hover table-dark" id="tbDealerCommission">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Username</th>
+                            <th>Volume</th>
+                            <th>Commission</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <table class="table table-sm table-hover table-dark" id="tbActivationCommByMonth">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Username</th>
+                            <th>Volume</th>
+                            <th>ActivationComm</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -126,7 +159,7 @@
                 </div>
             </div>
             <div class="row">
-                <c:if test="${'wiatec' eq username}">
+                <c:if test="${permission > 100}">
                     <div class="col-1">
                         <a id="btCreate" data-toggle="tooltip" title="create new dealer">
                             <span class="badge badge-primary text-center">

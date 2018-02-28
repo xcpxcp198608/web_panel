@@ -8,8 +8,8 @@
         FROM sales_activate_category
     </sql>
 
-    <select id="selectAll" resultType="com.wiatec.panel.oxm.pojo.SalesActivateCategoryInfo">
-        <include refid="select"/>
+    <select id="selectAllWithLimit" resultType="com.wiatec.panel.oxm.pojo.SalesActivateCategoryInfo">
+        <include refid="select"/> WHERE id >= #{limit}
     </select>
 
     <select id="selectOneByCategory" resultType="com.wiatec.panel.oxm.pojo.SalesActivateCategoryInfo">

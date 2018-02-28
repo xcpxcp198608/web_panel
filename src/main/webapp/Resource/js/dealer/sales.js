@@ -39,8 +39,9 @@ $(function () {
         var cardNumber = $('#ipCreditCard').val();
         var expirationDate = $('#ipExpirationDate').val();
         var securityKey = $('#ipSecurityKey').val();
+        var zipCode = $('#ipZipCode').val();
+        var billingAddress = $('#ipBillingAddress').val();
         var activateCategory = $('#ipActivateCategory').val();
-        var goldCategory = $('#ipGoldCategory').val();
         if(username.length <= 0){
             showErrorMessage($('#errorCreate'), 'username type in error');
             return;
@@ -85,6 +86,14 @@ $(function () {
             showErrorMessage($('#errorCreate'), 'security key type in error');
             return;
         }
+        if(zipCode.length <= 0){
+            showErrorMessage($('#errorCreate'), 'zip code type in error');
+            return;
+        }
+        if(billingAddress.length <= 0){
+            showErrorMessage($('#errorCreate'), 'billing address type in error');
+            return;
+        }
         if(password.length < 6){
             showErrorMessage($('#errorCreate'), 'password type in error');
             return;
@@ -108,8 +117,8 @@ $(function () {
             data: {"username": username, "password": password, "firstName": firstName,
                 'lastName': lastName, 'ssn': ssn, 'email': email, 'bankInfo': bank,
                 'phone': phone, 'cardNumber': cardNumber, 'expirationDate': expirationDate,
-                'securityKey': securityKey, 'activateCategory': activateCategory,
-                'goldCategory': goldCategory},
+                'securityKey': securityKey, 'zipCode': zipCode, 'billingAddress': billingAddress,
+                'activateCategory': activateCategory},
             dataType: "json",
             beforeSend: function () {
                 $('#modalCreate').modal('hide');
@@ -166,29 +175,26 @@ $(function () {
                     tdObj.innerHTML = authSalesInfo.password;
                     break;
                 case 4:
-                    tdObj.innerHTML = authSalesInfo.dealerName;
-                    break;
-                case 5:
                     var ssn = authSalesInfo.ssn.toString();
                     tdObj.innerHTML = ssn.substring(0, 3) + '-' + ssn.substring(3, 5) + '-'+ ssn.substring(5, 9);
                     break;
-                case 6:
+                case 5:
                     tdObj.innerHTML = authSalesInfo.email;
                     break;
-                case 7:
+                case 6:
                     tdObj.innerHTML = authSalesInfo.bankInfo;
                     break;
-                case 8:
+                case 7:
                     tdObj.innerHTML = authSalesInfo.phone;
                     break;
-                case 9:
+                case 8:
                     tdObj.innerHTML = authSalesInfo.createTime;
                     break;
-                case 10:
-                    tdObj.innerHTML = '<span class="text-inverse"><i class="fa fa-exchange"></i></span>';
+                case 9:
+                    tdObj.innerHTML = '<span class="text-muted"><i class="fa fa-star-o"></i></span>';
                     break;
-                case 11:
-                    tdObj.innerHTML = '<a href="/panel/dealer/users/2/'+ authSalesInfo.id+'" target="_blank">\n' +
+                case 10:
+                    tdObj.innerHTML = '<a href="/panel/dealer/users/2/' + authSalesInfo.id + '">\n' +
                         '                 <i class="fa fa-eye"></i>\n' +
                         '              </a>';
                     break;

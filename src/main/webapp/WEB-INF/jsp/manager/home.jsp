@@ -2,6 +2,7 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <rapid:override name="title">
     Home
@@ -31,6 +32,11 @@
         </div>
     </div>
 
+
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div id="chartMonthVolume" style="width: 100%; height: 250px; background-color: white"></div>
+    </div>
+
     <div class="row" style="padding: 0 10px 0 10px">
         <div style="background-color: #ffffff; padding: 10px 20px 0 20px; width: 100%; overflow: scroll">
             <table class="table table-sm table-hover table-striped table-dark" id="tbMonthVolume" style="overflow: scroll">
@@ -44,9 +50,6 @@
         </div>
     </div>
 
-    <div class="row" style="padding: 0 10px 0 10px">
-        <div id="chartMonthVolume" style="width: 100%; height: 250px; background-color: white"></div>
-    </div>
 
 
     <div class="row" style="padding: 10px 10px 0 10px">
@@ -56,11 +59,17 @@
         </div>
     </div>
 
+
+
+    <div class="row" style="padding: 0 10px 0 10px">
+        <div id="chartYearVolume" style="width: 100%; height: 250px; background-color: white"></div>
+    </div>
+
     <div class="row" style="padding: 0 10px 0 10px">
         <div style="background-color: #ffffff; padding: 10px 20px 0 20px; width: 100%; overflow: scroll">
             <table class="table table-sm table-hover table-striped table-dark" id="tbYearVolume" style="overflow: scroll">
                 <thead>
-                <tr>
+                <tr id="thYearVolume">
                     <th>YEAR</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
                     <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
                 </tr>
@@ -73,10 +82,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-
-    <div class="row" style="padding: 0 10px 0 10px">
-        <div id="chartYearVolume" style="width: 100%; height: 250px; background-color: white"></div>
     </div>
 
 </rapid:override>

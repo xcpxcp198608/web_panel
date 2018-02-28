@@ -3,10 +3,7 @@ package com.wiatec.panel.service;
 import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.listener.SessionListener;
-import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
-import com.wiatec.panel.oxm.dao.AuthRentUserDao;
-import com.wiatec.panel.oxm.dao.AuthUserLogDao;
-import com.wiatec.panel.oxm.dao.DeviceRentDao;
+import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.common.utils.EmailMaster;
 import com.wiatec.panel.common.utils.TokenUtil;
@@ -16,7 +13,8 @@ import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthUserLogInfo;
-import com.wiatec.panel.oxm.pojo.DeviceRentInfo;
+import com.wiatec.panel.oxm.pojo.DevicePCPInfo;
+import com.wiatec.panel.oxm.pojo.log.LogUserLevelInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,7 @@ import org.springframework.ui.Model;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 /**
  * @author patrick
@@ -42,16 +41,23 @@ public class AuthRegisterUserService {
     private AuthRentUserDao authRentUserDao;
     @Resource
     private AuthUserLogDao authUserLogDao;
-    @Autowired
-    private DeviceRentDao deviceRentDao;
+    @Resource
+    private DevicePCPDao devicePCPDao;
+    @Resource
+    private LogUserLevelDao logUserLevelDao;
+    @Resource
+    private DeviceMLMDao deviceMLMDao;
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo register(HttpServletRequest request, AuthRegisterUserInfo authRegisterUserInfo, String language){
         if(TextUtil.isEmpty(authRegisterUserInfo.getMac())){
             throw new XException(ResultMaster.error("device s/n error"));
         }
-        if(deviceRentDao.countOne(new DeviceRentInfo(authRegisterUserInfo.getMac())) >= 1){
-            throw new XException(1001, "the device only for rental");
+        if(devicePCPDao.countOne(new DevicePCPInfo(authRegisterUserInfo.getMac())) >= 1){
+            throw new XException(1001, "the device only for PCP");
+        }
+        if(deviceMLMDao.countOneByMac(authRegisterUserInfo.getMac()) != 1){
+            throw new XException(1001, "Please contact support for registation with reference code BMT.");
         }
         if(authRegisterUserDao.countByMac(authRegisterUserInfo) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
@@ -68,7 +74,7 @@ public class AuthRegisterUserService {
         String token = TokenUtil.create32(authRegisterUserInfo.getUsername(), authRegisterUserInfo.getEmail());
         authRegisterUserInfo.setToken(token);
         authRegisterUserDao.saveOneUser(authRegisterUserInfo);
-        EmailMaster emailMaster = new EmailMaster();
+        EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LD);
         String url = request.getRequestURL().toString();
         String path = url.substring(0, url.lastIndexOf("/"));
         emailMaster.setEmailContent(path, authRegisterUserInfo.getUsername(), token, language);
@@ -87,7 +93,7 @@ public class AuthRegisterUserService {
         String newToken = TokenUtil.create32(token, System.currentTimeMillis()+"");
         authRegisterUserInfo.setToken(newToken);
         authRegisterUserDao.updateEmailStatus(authRegisterUserInfo);
-        return ResultMaster.success("Activation successfully");
+        return ResultMaster.success("Activation successful");
     }
 
     public ResultInfo login(AuthRegisterUserInfo authRegisterUserInfo){
@@ -120,9 +126,12 @@ public class AuthRegisterUserService {
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo validate(HttpSession session, AuthRegisterUserInfo userInfo){
+        if(authRegisterUserDao.countByUsername(userInfo) != 1){
+            throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
+        }
         AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByUsername(userInfo);
         if (authRegisterUserInfo == null) {
-            throw new XException(EnumResult.ERROR_USERNAME_NOT_EXISTS);
+            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
         }
         session.setAttribute(SessionListener.KEY_USER_NAME, authRegisterUserInfo.getUsername());
         authRegisterUserDao.updateLocation(userInfo);
@@ -131,16 +140,26 @@ public class AuthRegisterUserService {
         }
         String activateTime = authRegisterUserInfo.getActiveTime();
         if(TextUtil.isEmpty(activateTime)){
-            activateTime = "2017-01-01 00:00:00";
+            activateTime = TimeUtil.getStrTime(TimeUtil.DEFAULT_TIME);
         }
+        if(authRegisterUserInfo.getLevel() > 1) {
+            Date expiration = authRegisterUserInfo.getExpiration();
+            if(expiration != null && expiration.before(new Date())) {
+                logger.error("id: " + authRegisterUserInfo.getId() +
+                        " level: " + authRegisterUserInfo.getLevel() +
+                        " expiration: " + expiration +
+                        " expires time: " + authRegisterUserInfo.getExpiresTime());
+                authRegisterUserInfo.setLevel(1);
+                authRegisterUserInfo.setExpiresTime(new Date(TimeUtil.DEFAULT_TIME));
+                authRegisterUserDao.updateLevelById(authRegisterUserInfo);
+                LogUserLevelInfo logUserLevelInfo = LogUserLevelInfo.createFromRegisterUser(authRegisterUserInfo);
+                logUserLevelDao.insertOne(logUserLevelInfo);
+            }
+        }
+        authRegisterUserInfo = authRegisterUserDao.selectOneByUsername(userInfo);
         String e = TimeUtil.getExpiresTimeByDay(activateTime, 7);
         if (!TimeUtil.isOutExpires(e)) {
             authRegisterUserInfo.setExperience(true);
-        }
-        if(authRegisterUserInfo.getLevel() > 1 && TimeUtil.isOutExpires(authRegisterUserInfo.getExpiresTime())) {
-            authRegisterUserInfo.setLevel(1);
-            authRegisterUserInfo.setExpiresTime("");
-            authRegisterUserDao.updateLevelById(authRegisterUserInfo);
         }
         return ResultMaster.success(authRegisterUserInfo);
     }
@@ -160,7 +179,7 @@ public class AuthRegisterUserService {
             throw new XException(EnumResult.ERROR_EMAIL_NOT_MATCH);
         }
         try{
-            EmailMaster emailMaster = new EmailMaster();
+            EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LD);
             String url = request.getRequestURL().toString();
             String path = url.substring(0, url.lastIndexOf("/"));
             emailMaster.setResetPasswordContent(path, authRegisterUserInfo.getUsername(), authRegisterUserInfo.getToken());

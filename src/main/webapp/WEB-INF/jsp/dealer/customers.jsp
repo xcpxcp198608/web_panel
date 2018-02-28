@@ -2,7 +2,7 @@
 <%@taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
 <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <rapid:override name="title">
     Customers
@@ -72,7 +72,6 @@
                         <th>Item</th>
                         <th>ClientKey</th>
                         <th>Sales</th>
-                        <th>Dealer</th>
                         <th>Mac</th>
                         <th>Name</th>
                         <th>ActivateTime</th>
@@ -90,7 +89,6 @@
                         <td>${status.index+1}</td>
                         <td>${authRentUserInfo.clientKey}</td>
                         <td>${authRentUserInfo.salesName}</td>
-                        <td>${authRentUserInfo.dealerName}</td>
                         <td>${authRentUserInfo.mac}</td>
                         <td>${authRentUserInfo.firstName}&nbsp;${authRentUserInfo.lastName}</td>
                         <td>${fn:substring(authRentUserInfo.activateTime, 0, 19)}</td>
