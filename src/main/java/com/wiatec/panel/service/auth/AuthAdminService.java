@@ -191,7 +191,7 @@ public class AuthAdminService {
         List<AuthRentUserInfo> authRentUserInfoList;
         switch (key){
             case 0:
-                authRentUserInfoList = authRentUserDao.selectAll();
+                authRentUserInfoList = authRentUserDao.selectAllByDistributor(AuthRentUserInfo.DISTRIBUTOR_LDE);
                 break;
             case 1:
                 authRentUserInfoList = authRentUserDao.selectByDealerId(value);
@@ -301,7 +301,7 @@ public class AuthAdminService {
     }
 
     public String devices(Model model){
-        List<DevicePCPInfo> devicePCPInfoList = devicePCPDao.selectAll();
+        List<DevicePCPInfo> devicePCPInfoList = devicePCPDao.selectAllByDis(DeviceAllInfo.DISTRIBUTOR_LDE);
         List<AuthSalesInfo> authSalesInfoList = authSalesDao.selectAll();
         model.addAttribute("devicePCPInfoList", devicePCPInfoList);
         model.addAttribute("authSalesInfoList", authSalesInfoList);

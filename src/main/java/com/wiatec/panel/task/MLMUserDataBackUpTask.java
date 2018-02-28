@@ -3,6 +3,7 @@ package com.wiatec.panel.task;
 import com.wiatec.panel.common.utils.ApplicationContextHelper;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
 import com.wiatec.panel.oxm.dao.AuthRentUserDao;
+import com.wiatec.panel.oxm.dao.LogMlmUserDailyDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -16,30 +17,28 @@ import java.util.List;
 /**
  * @author patrick
  */
-public class UserDataBackUpTask {
+@Component
+public class MLMUserDataBackUpTask extends BackgroundTask {
 
-    private final Logger logger = LoggerFactory.getLogger(UserDataBackUpTask.class);
+    private final Logger logger = LoggerFactory.getLogger(MLMUserDataBackUpTask.class);
     private final String path = "/home/java_app/data_backup/panel/";
 
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
     @Resource
-    private AuthRentUserDao authRentUserDao;
+    private LogMlmUserDailyDao logMlmUserDailyDao;
 
-    private static SqlSession sqlSession;
-
-    static {
-        sqlSession = (SqlSession) ApplicationContextHelper.getApplicationContext().getBean("sqlSessionTemplate");
-    }
-
+    @Scheduled(cron = "0 10 1 1-31 1-12 1-7")
     public void executeBackUpTask() {
-        logger.debug("user data backup start ...");
+        logger.debug("MLM user data backup start ...");
         execute();
     }
 
     private void execute(){
         authRegisterUserDao = sqlSession.getMapper(AuthRegisterUserDao.class);
+        logMlmUserDailyDao = sqlSession.getMapper(LogMlmUserDailyDao.class);
         List<AuthRegisterUserInfo> authRegisterUserInfoList = authRegisterUserDao.selectAll(0);
+        logMlmUserDailyDao.batchInsert(authRegisterUserInfoList);
     }
 
 }

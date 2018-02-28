@@ -1,6 +1,5 @@
 package com.wiatec.panel.task;
 
-import com.wiatec.panel.authorize.RentalMonthAuthorizeTask;
 import com.wiatec.panel.common.utils.ApplicationContextHelper;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -22,24 +20,24 @@ import java.util.List;
  * @author patrick
  */
 @Component
-public class RegisterUserLevelTask {
+public class MLMUserLevelCheckTask extends BackgroundTask {
 
-    private static final Logger logger = LoggerFactory.getLogger(RegisterUserLevelTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(MLMUserLevelCheckTask.class);
 
     @Autowired
     private AuthRegisterUserDao authRegisterUserDao;
     @Autowired
     private LogUserLevelDao logUserLevelDao;
 
-    private static SqlSession sqlSession;
-
-    static {
-        sqlSession = (SqlSession) ApplicationContextHelper.getApplicationContext().getBean("sqlSessionTemplate");
-    }
+//    private static SqlSession sqlSession;
+//
+//    static {
+//        sqlSession = (SqlSession) ApplicationContextHelper.getApplicationContext().getBean("sqlSessionTemplate");
+//    }
 
     @Scheduled(cron="0 0 3 1-31 1-12 1-7")
     public void executeLevelTask() {
-        logger.debug("Register user level check start ...");
+        logger.debug("MLM user level check start ...");
         execute();
     }
 

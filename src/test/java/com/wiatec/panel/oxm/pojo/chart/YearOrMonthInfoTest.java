@@ -8,7 +8,7 @@ public class YearOrMonthInfoTest {
 
     @Test
     public void test(){
-        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(2017, 12, true);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(2017, 12, 101, true);
         System.out.println(yearOrMonthInfo.getStart());
         System.out.println(yearOrMonthInfo.getEnd());
     }

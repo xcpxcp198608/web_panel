@@ -1,0 +1,60 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.LogPcpUserMonthlyMexicoDao">
+
+    <insert id="insertOne" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
+        INSERT IGNORE INTO
+            log_pcp_user_monthly_mexico (salesId, dealerId, distributor, clientKey, category, mac, firstName,
+            lastName, email, phone, post_code, post_address, paymentType, cardNumber, expirationDate,
+            securityKey, zip_code, billing_address, deposit, first_pay, month_pay, svc_charge, ld_commission,
+            lde_commission, dealer_commission, sales_commission, createTime, activateTime, expiresTime,
+            status, country, region, city, timeZone, lastOnLineTime, express, device_model, rom_version,
+            ui_version)
+        VALUES (#{salesId}, #{dealerId}, #{distributor}, #{clientKey}, #{category}, #{mac}, #{firstName},
+                #{lastName}, #{email}, #{phone}, #{postCode}, #{postAddress}, #{paymentType}, #{cardNumber}, #{expirationDate},
+                #{securityKey}, #{zipCode}, #{billingAddress}, #{deposit}, #{firstPay}, #{monthPay}, #{svcCharge}, #{ldCommission},
+                #{ldeCommission}, #{dealerCommission}, #{salesCommission}, #{createTime}, #{activateTime}, #{expiresTime},
+                #{status}, #{country}, #{region}, #{city}, #{timeZone}, #{lastOnLineTime}, #{express}, #{deviceModel}, #{romVersion},
+                #{uiVersion})
+    </insert>
+
+    <insert id="batchInsert">
+        INSERT IGNORE INTO
+            log_pcp_user_monthly_mexico (salesId, dealerId, distributor, clientKey, category, mac, firstName,
+            lastName, email, phone, post_code, post_address, paymentType, cardNumber, expirationDate,
+            securityKey, zip_code, billing_address, deposit, first_pay, month_pay, svc_charge, ld_commission,
+            lde_commission, dealer_commission, sales_commission, createTime, activateTime, expiresTime,
+            status, country, region, city, timeZone, lastOnLineTime, express, device_model, rom_version,
+            ui_version)
+        VALUES
+        <foreach collection="authRentUserInfoList" item="authRentUserInfo" separator=",">
+            (#{authRentUserInfo.salesId}, #{authRentUserInfo.dealerId}, #{authRentUserInfo.distributor},
+            #{authRentUserInfo.clientKey}, #{authRentUserInfo.category}, #{authRentUserInfo.mac},
+            #{authRentUserInfo.firstName}, #{authRentUserInfo.lastName}, #{authRentUserInfo.email},
+            #{authRentUserInfo.phone}, #{authRentUserInfo.postCode}, #{authRentUserInfo.postAddress},
+            #{authRentUserInfo.paymentType}, #{authRentUserInfo.cardNumber}, #{authRentUserInfo.expirationDate},
+            #{authRentUserInfo.securityKey}, #{authRentUserInfo.zipCode}, #{authRentUserInfo.billingAddress},
+            #{authRentUserInfo.deposit}, #{authRentUserInfo.firstPay}, #{authRentUserInfo.monthPay},
+            #{authRentUserInfo.svcCharge}, #{authRentUserInfo.ldCommission}, #{authRentUserInfo.ldeCommission},
+            #{authRentUserInfo.dealerCommission}, #{authRentUserInfo.salesCommission}, #{authRentUserInfo.createTime},
+            #{authRentUserInfo.activateTime}, #{authRentUserInfo.expiresTime}, #{authRentUserInfo.status},
+            #{authRentUserInfo.country}, #{authRentUserInfo.region}, #{authRentUserInfo.city},
+            #{authRentUserInfo.timeZone}, #{authRentUserInfo.lastOnLineTime}, #{authRentUserInfo.express},
+            #{authRentUserInfo.deviceModel}, #{authRentUserInfo.romVersion}, #{authRentUserInfo.uiVersion})
+        </foreach>
+    </insert>
+
+    <select id="countOneByMac" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
+        SELECT COUNT(*) count FROM log_pcp_user_monthly_mexico WHERE mac=#{mac}
+    </select>
+
+    <select id="selectByMonth" resultType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo"
+        parameterType="com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo">
+        SELECT * FROM log_pcp_user_monthly_mexico
+        WHERE id > 0
+            AND log_time BETWEEN #{start} AND #{end}
+        ORDER BY activateTime DESC
+    </select>
+
+</mapper>
