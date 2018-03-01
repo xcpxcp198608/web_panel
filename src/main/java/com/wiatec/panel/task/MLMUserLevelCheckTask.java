@@ -1,6 +1,5 @@
 package com.wiatec.panel.task;
 
-import com.wiatec.panel.common.utils.ApplicationContextHelper;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
 import com.wiatec.panel.oxm.dao.LogUserLevelDao;

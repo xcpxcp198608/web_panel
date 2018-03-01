@@ -14,20 +14,69 @@
 
 <rapid:override name="content">
 
-    <%--<div class="row" style="padding: 0 10px 10px 10px">--%>
-        <%--<div style="width: 100%; background-color: #0815a8; height: 3px"></div>--%>
-        <%--<div style="background-color: #ffffff; width: 100%">--%>
-            <%--<span class="text-center text-success" style="padding: 10px"><i class="fa fa-eye fa-lg"></i>--%>
-                <%--<span class="badge badge-success text-center" id="sOnline"></span>--%>
-            <%--</span>--%>
-            <%--<div id="chart_online" class="d-flex" style="width: 100%; height: 200px"></div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
+    <input type="hidden" id="ldC" value="${commissionCategoryInfo.ldCommission}">
+    <input type="hidden" id="ldmC" value="${commissionCategoryInfo.ldeCommission}">
+    <input type="hidden" id="dealerC" value="${commissionCategoryInfo.dealerCommission}">
+    <div class="row">
+        <div class="col-3" style="padding: 0 0 0 10px">
+            <div style="width: 100%; background-color: #1b740a; height: 3px"></div>
+            <div style="background-color: #ffffff; padding: 10px">
+                <div class="text-center" style="width: 100%">
+                    <span class="badge badge-danger ba-strong" id="totalCount">
+                            0
+                    </span>
+                </div>
+                <div class="text-center" style="width: 100%">
+                    <span class="text-muted " >TOTAL COUNT</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-3" style="padding: 0 5px 0 10px">
+            <div style="width: 100%; background-color: #1b740a; height: 3px"></div>
+            <div style="background-color: #ffffff; padding: 10px">
+                <div class="text-center" style="width: 100%">
+                    <span class="badge badge-warning ba-strong" id="totalLdCommission">
+                            0
+                    </span>
+                </div>
+                <div class="text-center" style="width: 100%">
+                    <span class="text-muted " >LD</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-3" style="padding: 0 10px 0 5px">
+            <div style="width: 100%; background-color: #1b740a; height: 3px"></div>
+            <div style="background-color: #ffffff; padding: 10px">
+                <div class="text-center" style="width: 100%">
+                    <span class="badge badge-warning ba-strong" id="totalLdmCommission">
+                            0
+                    </span>
+                </div>
+                <div class="text-center" style="width: 100%">
+                    <span class="text-muted " >LDM</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-3" style="padding: 0 10px 0 0">
+            <div style="width: 100%; background-color: #1b740a; height: 3px"></div>
+            <div style="background-color: #ffffff; padding: 10px">
+                <div class="text-center" style="width: 100%">
+                    <span class="badge badge-warning ba-strong" id="totalDealersCommission">
+                            0
+                    </span>
+                </div>
+                <div class="text-center" style="width: 100%">
+                    <span class="text-muted " >DEALER</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="row" style="padding: 10px 10px 0 10px">
         <div style="width: 100%; background-color: #0815a8; height: 3px"></div>
         <div class="col-5" style="padding: 10px; background-color: white">
-            <span class="text-center text-muted" style="padding: 10px">The detail of sales volume:</span>
+            <span class="text-center text-muted" style="padding: 10px">All active customers in current month:</span>
         </div>
         <div class="col-4 text-left text-darks" style="background-color: white; padding: 10px">
             <span><span id="aYear">2018</span>-<span id="aMonth">01</span></span>
@@ -42,21 +91,30 @@
         </div>
     </div>
 
-    <div class="row" style="padding: 0 10px 0 10px">
-        <div id="chart_month" style="width: 100%; height: 250px; background-color: white"></div>
-    </div>
-
-    <div class="row" style="padding: 0 10px 0 10px">
-        <div style="background-color: #ffffff; padding: 10px 20px 0 20px; width: 100%; overflow: scroll">
-            <table class="table table-sm table-hover table-striped table-dark" id="tb_month" style="overflow: scroll">
-            <thead>
-                <tr id="trHead"><td>Item</td><td>Total</td></tr>
-            </thead>
-            <tbody>
-                <tr><td>volume</td><td>0</td></tr>
-                <tr><td>M2</td><td>0</td></tr>
-            </tbody>
-        </table>
+    <div class="row" style="padding: 0 10px">
+        <div style="width: 100%; padding: 10px; background-color: white; overflow: scroll">
+            <table class="table table-sm table-hover table-striped" id="tbUsers">
+                <thead style="background-color: #769abb;">
+                <tr>
+                    <th>Item</th>
+                    <th>ClientKey</th>
+                    <th>Mac</th>
+                    <th>Name</th>
+                    <th>ActivateTime</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${authRentUserInfoList}" var="authRentUserInfo" varStatus="status">
+                    <tr>
+                        <td>${status.index+1}</td>
+                        <td>${authRentUserInfo.clientKey}</td>
+                        <td>${authRentUserInfo.mac}</td>
+                        <td>${authRentUserInfo.firstName}&nbsp;${authRentUserInfo.lastName}</td>
+                        <td>${fn:substring(authRentUserInfo.activateTime, 0, 19)}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </div>
     </div>
 

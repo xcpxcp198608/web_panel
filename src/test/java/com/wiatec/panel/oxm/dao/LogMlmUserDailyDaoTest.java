@@ -23,7 +23,7 @@ public class LogMlmUserDailyDaoTest {
 
     @Test
     public void batchInsert() {
-        List<AuthRegisterUserInfo> authRegisterUserInfoList = authRegisterUserDao.selectAll(5850);
+        List<AuthRegisterUserInfo> authRegisterUserInfoList = authRegisterUserDao.selectAll(0);
         System.out.println(authRegisterUserInfoList);
         int i = logMlmUserDailyDao.batchInsert(authRegisterUserInfoList);
         System.out.println(i);

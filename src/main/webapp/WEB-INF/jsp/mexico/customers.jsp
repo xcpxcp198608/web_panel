@@ -50,6 +50,11 @@
             </div>
             <div class="row">
                 <div class="col-6">
+                    <a id="btCreate" data-toggle="tooltip" title="activate the device">
+                        <span class="badge badge-primary text-center" style="padding: 3px">
+                            <i class="fa fa-plus-square fa-lg"></i>&nbsp;Create
+                        </span>
+                    </a>
                     <a id="btActivate" data-toggle="tooltip" title="activate the device">
                         <span class="badge badge-success text-center" style="padding: 3px">
                             <i class="fa fa-check fa-lg"></i>&nbsp;Activate
@@ -60,6 +65,7 @@
                             <i class="fa fa-lock fa-lg"></i>&nbsp;Block
                         </span>
                     </a>
+                    <div style="display: none">
                     <a id="btCanceled" data-toggle="tooltip" title="Reset the device">
                         <span class="badge badge-danger text-center" style="padding: 3px">
                             <i class="fa fa-close fa-lg"></i>&nbsp;Cancel
@@ -70,6 +76,7 @@
                             <i class="fa fa-money fa-lg"></i>&nbsp;Cash Activation
                         </span>
                     </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,15 +88,11 @@
                         <th>#</th>
                         <th>Item</th>
                         <th>ClientKey</th>
-                        <th>Sales</th>
-                        <th>Dealer</th>
                         <th>Mac</th>
                         <th>Name</th>
                         <th>ActivateTime</th>
-                        <th>Plan</th>
                         <th>Status</th>
                         <th>Online</th>
-                        <th>More</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,12 +102,9 @@
                                    currentRow="${status.index}" currentStatus="${authRentUserInfo.status}"></td>
                         <td>${status.index+1}</td>
                         <td>${authRentUserInfo.clientKey}</td>
-                        <td>${authRentUserInfo.salesName}</td>
-                        <td>${authRentUserInfo.dealerName}</td>
                         <td>${authRentUserInfo.mac}</td>
                         <td>${authRentUserInfo.firstName}&nbsp;${authRentUserInfo.lastName}</td>
                         <td>${fn:substring(authRentUserInfo.activateTime, 0, 19)}</td>
-                        <td>${authRentUserInfo.category}</td>
                         <td>
                             <c:if test="${authRentUserInfo.status == 'activate'}">
                                 <span class="text-success">${authRentUserInfo.status}</span>
@@ -131,13 +131,6 @@
                                 </span>
                             </c:if>
                         </td>
-                        <td>
-                            <a title="show user's details">
-                                 <span class="text-info">
-                                    <i class="fa fa-external-link-square"></i>
-                                </span>
-                            </a>
-                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -148,47 +141,67 @@
 </rapid:override>
 
 <rapid:override name="modal">
-    <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog"
+
+    <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLongTitle">Customer detail</h6>
+                    <h6 class="modal-title" id="exampleModalLongTitle3">Create User</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-sm table-hover" id="tbUserDetails">
-                        <tbody>
-                        <tr><td>ClientKey</td><td></td></tr>
-                        <tr><td>Mac</td><td></td></tr>
-                        <tr><td>Plan</td><td></td></tr>
-                        <tr><td>FirstName</td><td></td></tr>
-                        <tr><td>LastName</td><td></td></tr>
-                        <tr><td>Email</td><td></td></tr>
-                        <tr><td>Phone</td><td></td></tr>
-                        <tr><td>CardNumber</td><td></td></tr>
-                        <tr><td>Deposit</td><td></td></tr>
-                        <tr><td>FirstPay</td><td></td></tr>
-                        <tr><td>MonthPay</td><td></td></tr>
-                        <tr><td>CreateTime</td><td></td></tr>
-                        <tr><td>ActivateTime</td><td></td></tr>
-                        <tr><td>ExpiresTime</td><td></td></tr>
-                        <tr><td>Status</td><td></td></tr>
-                        <tr><td>Country</td><td></td></tr>
-                        <tr><td>Region</td><td></td></tr>
-                        <tr><td>City</td><td></td></tr>
-                        <tr><td>TimeZone</td><td></td></tr>
-                        <tr><td>LastOnLineTime</td><td></td></tr>
-                        <tr><td>Postal</td><td></td></tr>
-                        <tr><td>ShippingAddress</td><td></td></tr>
-                        <tr><td>Express</td><td></td></tr>
-                        </tbody>
-                    </table>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fa fa-user fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="mac" id="ipMac"
+                               aria-label="mac" name="mac" aria-describedby="basic-addon1" maxlength="17">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">
+                                <i class="fa fa-child fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="FirstName" id="ipFirstName"
+                               aria-label="Username" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon4">
+                                <i class="fa fa-flag fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="LastName" id="ipLastName"
+                               aria-label="Username" aria-describedby="basic-addon4">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon5">
+                                <i class="fa fa-envelope-o fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="email" class="form-control" placeholder="Email" id="ipEmail"
+                               aria-label="Username" aria-describedby="basic-addon5">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon6">
+                                <i class="fa fa-phone fa-lg"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" placeholder="Phone" id="ipPhone"
+                               aria-label="Username" aria-describedby="basic-addon6">
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <span id="errorDetail" class="badge badge-danger"></span>
+                    <span id="errorCreate" class="badge badge-danger"></span>
+                    <button type="button" class="btn btn-sm btn-primary" id="btSubmitCreate">Create</button>
                 </div>
             </div>
         </div>
@@ -226,7 +239,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" id="modalCancel" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

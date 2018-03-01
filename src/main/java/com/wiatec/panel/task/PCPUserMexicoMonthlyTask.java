@@ -30,7 +30,7 @@ public class PCPUserMexicoMonthlyTask extends BackgroundTask {
         logPcpUserMonthlyMexicoDao = sqlSession.getMapper(LogPcpUserMonthlyMexicoDao.class);
         authRentUserDao = sqlSession.getMapper(AuthRentUserDao.class);
         List<AuthRentUserInfo> authRentUserInfoList = authRentUserDao
-                .selectAllByDistributor(AuthRentUserInfo.DISTRIBUTOR_LDM);
+                .selectAllActiveByDistributor(AuthRentUserInfo.DISTRIBUTOR_LDM);
         logPcpUserMonthlyMexicoDao.batchInsert(authRentUserInfoList);
     }
 }

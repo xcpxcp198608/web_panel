@@ -183,7 +183,7 @@ public class AuthAdminService {
         AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(salesId);
         model.addAttribute("authSalesInfo", authSalesInfo);
         List<DevicePCPInfo> rentedDevicePCPInfoList = devicePCPDao.selectRentedBySalesId(salesId);
-        model.addAttribute("rentedDeviceRentInfoList", rentedDevicePCPInfoList);
+        model.addAttribute("rentedDevicePCPInfoList", rentedDevicePCPInfoList);
         return "admin/sales_detail";
     }
 

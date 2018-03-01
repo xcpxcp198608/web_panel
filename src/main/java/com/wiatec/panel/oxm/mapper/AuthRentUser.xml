@@ -113,6 +113,14 @@
         ORDER BY activateTime DESC
     </select>
 
+    <select id="selectAllActiveByDistributor" resultMap="authRentUserInfo">
+        <include refid="select"/>
+        WHERE auth_rent_user.id > 0
+        AND auth_rent_user.distributor = #{distributor}
+        AND auth_rent_user.status = 'activate'
+        ORDER BY activateTime DESC
+    </select>
+
     <select id="countTotalVolumeByDealerId" resultType="java.lang.Integer">
         SELECT COUNT(*) count FROM auth_rent_user
         WHERE dealerId = #{dealerId}

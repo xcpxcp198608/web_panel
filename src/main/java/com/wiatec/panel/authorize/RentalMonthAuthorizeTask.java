@@ -54,7 +54,7 @@ public class RentalMonthAuthorizeTask {
         CommissionCategoryInfo p1 = commissionCategoryDao.selectOne("P1");
         CommissionCategoryInfo p2 = commissionCategoryDao.selectOne("P2");
 
-        List<AuthRentUserInfo> authRentUserInfoList = authRentUserDao.selectAll();
+        List<AuthRentUserInfo> authRentUserInfoList = authRentUserDao.selectAllByDistributor(AuthRentUserInfo.DISTRIBUTOR_LDE);
         for(AuthRentUserInfo authRentUserInfo: authRentUserInfoList){
             if("canceled".equals(authRentUserInfo.getStatus()) || "limited".equals(authRentUserInfo.getStatus())){
                 continue;

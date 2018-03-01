@@ -9,10 +9,7 @@ import com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo;
 import com.wiatec.panel.service.auth.AuthMexicoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +39,9 @@ public class AuthMexico {
      * @return jsp -> mexico -> home.jsp
      */
     @RequestMapping(value = "/home")
-    public String home(){
+    public String home(Model model){
+        CommissionCategoryInfo commissionCategoryInfo = authMexicoService.getCommissionCategory().get(0);
+        model.addAttribute("commissionCategoryInfo", commissionCategoryInfo);
         return "mexico/home";
     }
 
@@ -111,16 +110,33 @@ public class AuthMexico {
      * create a new rental customer
      * @param request HttpServletRequest
      * @param authRentUserInfo AuthRentUserInfo
+     * @return ResultInfo
+     */
+    @RequestMapping(value = "/customer/create")
+    @ResponseBody
+    public ResultInfo createCustomer(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
+        return authMexicoService.createCustomer(request, authRentUserInfo);
+    }
+
+    /**
+     * create a new rental customer
+     * @param request HttpServletRequest
+     * @param authRentUserInfo AuthRentUserInfo
      * @param paymentMethod paymentMethod
      * @return ResultInfo
      */
     @RequestMapping(value = "/customer/create/{paymentMethod}")
     @ResponseBody
-    public ResultInfo createCustomer(HttpServletRequest request, AuthRentUserInfo authRentUserInfo,
+    public ResultInfo createPayCustomer(HttpServletRequest request, AuthRentUserInfo authRentUserInfo,
                                      @PathVariable("paymentMethod") int paymentMethod){
-        return authMexicoService.createCustomer(request, authRentUserInfo, paymentMethod);
+        return authMexicoService.createPayCustomer(request, authRentUserInfo, paymentMethod);
     }
 
+    /**
+     * show commission page
+     * @param model model
+     * @return jsp -> mexico -> commission.jsp
+     */
     @RequestMapping(value = "/commission")
     public String commission(Model model){
         List<CommissionCategoryInfo> commissionCategoryInfoList = authMexicoService.getCommissionCategory();
@@ -128,6 +144,11 @@ public class AuthMexico {
         return "mexico/commission";
     }
 
+    /**
+     * show transactions page
+     * @param model model
+     * @return jsp -> mexico -> transactions.jsp
+     */
     @RequestMapping(value = "/transactions")
     public String transactions(Model model){
         List<AuthorizeTransactionRentalInfo> authorizeTransactionRentalInfoList = authMexicoService.getTransactions();
@@ -140,6 +161,12 @@ public class AuthMexico {
 
 
 
+    @RequestMapping(value = "/customers/{year}/{month}")
+    @ResponseBody
+    public List<AuthRentUserInfo> getMonthlyActivateUser(@PathVariable int year, @PathVariable int month){
+        return authMexicoService.getMonthlyActivateUser(year, month);
+    }
+
 
     /**
      * get every day sales volume in specify year and month
@@ -147,7 +174,7 @@ public class AuthMexico {
      * @param month   specify month
      * @return        SalesVolumeInDayOfMonthInfo list
      */
-    @GetMapping(value = "/chart/volume/{year}/{month}")
+    @PostMapping(value = "/chart/volume/{year}/{month}")
     @ResponseBody
     public List<SalesVolumeInDayOfMonthInfo> getSaleVolumeEveryDayInMonth(@PathVariable int year, @PathVariable int month){
         return authMexicoService.countSaleVolumeEveryDayInMonth(year, month);

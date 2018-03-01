@@ -95,14 +95,14 @@ $(function () {
                 hideLoading();
                 if(response.code === 200) {
                     if('activate' === status){
-                        tbUsers.rows[currentRow].cells[9].children[0].innerHTML =
+                        tbUsers.rows[currentRow].cells[6].children[0].innerHTML =
                             '<span class="text-success">' +status+ '</span>';
                     }else if('canceled' === status){
-                        tbUsers.rows[currentRow].cells[9].children[0].innerHTML =
+                        tbUsers.rows[currentRow].cells[6].children[0].innerHTML =
                             '<span class="text-secondary">' +status+ '</span>';
                     }else{
 
-                        tbUsers.rows[currentRow].cells[9].children[0].innerHTML =
+                        tbUsers.rows[currentRow].cells[6].children[0].innerHTML =
                             '<span class="text-danger">' +status+ '</span>';
                     }
                     currentStatus = status;
@@ -158,7 +158,7 @@ $(function () {
                 hideLoading();
                 if(response.code === 200) {
                     $('#modalCashActivate').modal('hide');
-                    tbUsers.rows[currentRow].cells[9].children[0].innerHTML =
+                    tbUsers.rows[currentRow].cells[6].children[0].innerHTML =
                         '<span class="text-success">activate</span>';
                     currentStatus = status;
                 }else{
@@ -193,7 +193,7 @@ $(function () {
             showAllRows();
         }else{
             for(var k = 0; k < rowsLength; k ++){
-                for(var j = 2; j < 8; j ++){
+                for(var j = 2; j < 7; j ++){
                     var content = tbUsers.rows[k].cells[j].innerHTML.toLowerCase();
                     if(content.search(key) >= 0){
                         tbUsers.rows[k].style.display = "";
@@ -215,7 +215,7 @@ $(function () {
         var onlineCount = 0;
         for(var x =0 ; x < rowsLength; x ++){
             var status = tbUsers.rows[x].style.display;
-            var online = tbUsers.rows[x].cells[10].childNodes[1].getAttribute("online");
+            var online = tbUsers.rows[x].cells[7].childNodes[1].getAttribute("online");
             if(status !== 'none'){
                 count ++;
                 if(online === "true"){
@@ -228,58 +228,69 @@ $(function () {
     }
 
 
+    
+    $('#btCreate').click(function () {
+        $('#modalCreate').modal('show');
+    });
 
-
-
-    /**
-     * set more click event to show user details for every rows
-     */
-    for(var i = 0; i < rowsLength; i ++){
-        tbUsers.rows[i].cells[11].onclick = function(){
-            var key = this.parentNode.cells[2].innerHTML;
-            getUserDetailInfoByKey(key)
+    $('#btSubmitCreate').click(function () {
+        var mac = $('#ipMac').val();
+        var firstName = $('#ipFirstName').val();
+        var lastName = $('#ipLastName').val();
+        var email = $('#ipEmail').val();
+        var phone = $('#ipPhone').val();
+        if(mac.length !== 17){
+            showErrorMessage($('#errorCreate'), 'mac input error');
+            return;
         }
-    }
-
-    var tbUserDetails = $('#tbUserDetails').get(0).tBodies[0];
-    /**
-     * show user details
-     * @param key
-     */
-    function getUserDetailInfoByKey(key) {
-        var url = baseUrl + "/mexico/customer/" + key;
-        showLoading();
-        $.get(url,{}, function (response, status) {
-            hideLoading();
-            if(status === "success") {
-                tbUserDetails.rows[0].cells[1].innerHTML = response['clientKey'];
-                tbUserDetails.rows[1].cells[1].innerHTML = response['mac'];
-                tbUserDetails.rows[2].cells[1].innerHTML = response['category'];
-                tbUserDetails.rows[3].cells[1].innerHTML = response['firstName'];
-                tbUserDetails.rows[4].cells[1].innerHTML = response['lastName'];
-                tbUserDetails.rows[5].cells[1].innerHTML = response['email'];
-                tbUserDetails.rows[6].cells[1].innerHTML = response['phone'];
-                tbUserDetails.rows[7].cells[1].innerHTML = response['cardNumber'];
-                tbUserDetails.rows[8].cells[1].innerHTML = response['deposit'];
-                tbUserDetails.rows[9].cells[1].innerHTML = response['firstPay'];
-                tbUserDetails.rows[10].cells[1].innerHTML = response['monthPay'];
-                tbUserDetails.rows[11].cells[1].innerHTML = response['createTime'];
-                tbUserDetails.rows[12].cells[1].innerHTML = response['activateTime'];
-                tbUserDetails.rows[13].cells[1].innerHTML = response['expiresTime'];
-                tbUserDetails.rows[14].cells[1].innerHTML = response['status'];
-                tbUserDetails.rows[15].cells[1].innerHTML = response['country'];
-                tbUserDetails.rows[16].cells[1].innerHTML = response['region'];
-                tbUserDetails.rows[17].cells[1].innerHTML = response['city'];
-                tbUserDetails.rows[18].cells[1].innerHTML = response['timeZone'];
-                tbUserDetails.rows[19].cells[1].innerHTML = response['lastOnLineTime'];
-                tbUserDetails.rows[20].cells[1].innerHTML = response['postCode'];
-                tbUserDetails.rows[21].cells[1].innerHTML = response['postAddress'];
-                tbUserDetails.rows[22].cells[1].innerHTML = response['express'];
-                $('#modalDetail').modal('show');
-            }else{
-                showNotice('communication error')
+        if(firstName.length <= 0){
+            showErrorMessage($('#errorCreate'), 'first name input error');
+            return;
+        }
+        if(lastName.length <= 0){
+            showErrorMessage($('#errorCreate'), 'last name input error');
+            return;
+        }
+        if(email.length <= 0){
+            showErrorMessage($('#errorCreate'), 'email input error');
+            return;
+        }
+        if(!validateEmail(email)){
+            showErrorMessage($('#errorCreate'), 'email format error');
+            return;
+        }
+        if(phone.length <= 0){
+            showErrorMessage($('#errorCreate'), 'phone input error');
+            return;
+        }
+        $('#errorCreate').hide();
+        var url = baseUrl + '/mexico/customer/create';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {'mac': mac, 'firstName': firstName, 'lastName': lastName,
+                'email': email, 'phone': phone},
+            dataType: 'json',
+            beforeSend:function(){
+                showLoading();
+                $('#modalCreate').modal('hide');
+            },
+            success:function(response){
+                hideLoading();
+                if(response.code === 200) {
+                    $('#modalCreate').modal('hide');
+                    window.open(baseUrl + "/mexico/customers", "_self")
+                }else{
+                    $('#modalCreate').modal('show');
+                    showErrorMessage($('#errorCreate'), response.message);
+                }
+            },
+            error:function(){
+                hideLoading();
+                $('#modalCreate').modal('show');
+                showErrorMessage($('#errorCreate'), 'communication error');
             }
-        })
-    }
+        });
+    });
 
 });
