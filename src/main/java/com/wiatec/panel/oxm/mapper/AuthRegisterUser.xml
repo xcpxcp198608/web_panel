@@ -35,19 +35,22 @@
         FROM auth_register_user
     </sql>
 
-    <select id="countByUsername" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo" resultType="int">
+    <select id="countByUsername" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo"
+            resultType="java.lang.Integer">
         SELECT COUNT(*) count
         FROM auth_register_user
         WHERE username=#{username}
     </select>
 
-    <select id="countByMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo" resultType="int">
+    <select id="countByMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo"
+            resultType="java.lang.Integer">
         SELECT COUNT(*) count
         FROM auth_register_user
         WHERE mac=#{mac}
     </select>
 
-    <select id="countByEmail" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo" resultType="int">
+    <select id="countByEmail" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo"
+            resultType="java.lang.Integer">
         SELECT COUNT(*) count
         FROM auth_register_user
         WHERE email=#{email}
@@ -78,7 +81,8 @@
         WHERE id=#{id}
     </update>
 
-    <select id="countByUsernameAndPassword" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo" resultType="int">
+    <select id="countByUsernameAndPassword" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo"
+            resultType="java.lang.Integer">
         SELECT COUNT(*) count
         FROM auth_register_user
         WHERE username=#{username} AND password=#{password}
@@ -153,6 +157,16 @@
         WHERE id > #{start}
         AND level > 1
         AND expires_time <![CDATA[ < ]]> now();
+    </select>
+
+    <select id="selectExportUsers" resultMap="authRegisterUserInfo">
+        <include refid="select"/>
+        WHERE id > 11000
+        AND mac in
+            <foreach collection="macs" item="mac" open="(" close=")" separator=",">
+              #{mac}
+            </foreach>
+        ORDER BY id
     </select>
 
     <update id="updateLevelById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">

@@ -6,6 +6,7 @@ import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.LevelDistributionInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.MonthVolumeInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.YearVolumeInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,6 +34,8 @@ public interface AuthRegisterUserDao {
 
     List<AuthRegisterUserInfo> selectAll(int start);
     List<AuthRegisterUserInfo> selectAllExpiresUsers(int start);
+    List<AuthRegisterUserInfo> selectExportUsers(@Param("macs") String[] macs);
+
     void updateEmailStatusById(AuthRegisterUserInfo authRegisterUserInfo);
     void updateStatusById(AuthRegisterUserInfo authRegisterUserInfo);
     int deleteOneById(AuthRegisterUserInfo authRegisterUserInfo);
@@ -42,6 +45,7 @@ public interface AuthRegisterUserDao {
 
     LevelDistributionInfo selectAllLevelDistribution();
     List<VolumeDistributionInfo> getDistributionData();
+
 
     //chart
 

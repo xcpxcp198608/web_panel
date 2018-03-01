@@ -1,5 +1,6 @@
 package com.wiatec.panel.oxm.dao;
 
+import com.wiatec.panel.common.utils.ExcelExporter;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.LevelDistributionInfo;
 import org.junit.Test;
@@ -8,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -129,5 +134,24 @@ public class AuthRegisterUserDaoTest {
         authRegisterUserInfo1.setUsername("SUPERFUN");
         AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByUsername(authRegisterUserInfo1);
         System.out.println(authRegisterUserInfo);
+    }
+
+    @Test
+    public void selectExportUsers() {
+        String [] macs = {"5C:41:E7:00:8E:36", "5C:41:E7:00:8C:DB", "5C:41:E7:00:8B:69", "5C:41:E7:00:81:7A"};
+        List<AuthRegisterUserInfo> authRegisterUserInfoList = authRegisterUserDao.selectExportUsers(macs);
+        List<String> list = new ArrayList<>();
+        try {
+            Class clasz = Class.forName("com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo");
+            Field[] fields = clasz.getDeclaredFields();
+            for(Field field: fields){
+                String fieldName = field.getName();
+                list.add(fieldName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String path = ExcelExporter.export(authRegisterUserInfoList, list, "register user information");
+        System.out.println(path);
     }
 }

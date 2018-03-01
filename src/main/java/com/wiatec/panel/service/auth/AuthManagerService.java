@@ -4,9 +4,7 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
-import com.wiatec.panel.common.utils.TextUtil;
-import com.wiatec.panel.common.utils.TimeUtil;
-import com.wiatec.panel.common.utils.TokenUtil;
+import com.wiatec.panel.common.utils.*;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthManagerDao;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
@@ -28,6 +26,8 @@ import org.springframework.ui.Model;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -109,6 +109,25 @@ public class AuthManagerService {
         logUserLevelInfo.setExecutorId(getManager(request).getId());
         logUserLevelDao.insertOne(logUserLevelInfo);
         return ResultMaster.success(authRegisterUserInfo);
+    }
+
+    public ResultInfo export(HttpServletRequest request, String[] macs){
+        List<AuthRegisterUserInfo> authRegisterUserInfoList = authRegisterUserDao.selectExportUsers(macs);
+        List<String> list = new ArrayList<>();
+        try {
+            Class clasz = Class.forName("com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo");
+            Field[] fields = clasz.getDeclaredFields();
+            for(Field field: fields){
+                String fieldName = field.getName();
+                list.add(fieldName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String path = ExcelExporter.export(request, authRegisterUserInfoList, list, "register user information");
+        String fileName = ExcelExporter.copyFile(path);
+        String url = "http://www.ldlegacy.com:8899/static/panel/export/" + fileName;
+        return ResultMaster.success(url);
     }
 
     public String level(Model model){

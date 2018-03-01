@@ -158,6 +158,13 @@
                             <i class="fa fa-print"></i>&nbsp;Print&PDF
                         </span>
                     </a>
+                    <c:if test="${permission > 100}">
+                        <a id="btExport" data-toggle="tooltip" title="export customer information to excel file">
+                        <span class="badge badge-warning text-center" style="padding: 3px">
+                            <i class="fa fa-share-square"></i>&nbsp;Export
+                        </span>
+                        </a>
+                    </c:if>
                 </div>
             </div>
 

@@ -346,5 +346,45 @@ $(function () {
     $('#btPrint').click(function () {
         $('#dTable').printThis();
     });
+    
+    
+    $('#btExport').click(function () {
+        var macs = [];
+        var length = tbUsers.rows.length;
+        for(var i = 0; i < length; i ++){
+            var tr = tbUsers.rows[i];
+            if(tr.style.display !== "none"){
+                var mac = tr.cells[3].innerHTML;
+                macs.push(mac);
+            }
+        }
+        if(macs.length <= 0){
+            showNotice('no user data');
+            return;
+        }
+        $.ajax({
+            type: "PUT",
+            url: baseUrl + "/manager/users/export",
+            data: {"macs": macs},
+            dataType: "json",
+            beforeSend: function () {
+                showLoading();
+            },
+            success: function (response) {
+                hideLoading();
+                if(response.code === 200) {
+                    var url = response['message'];
+                    window.open(url, '_blank')
+                }else{
+                    showNotice(response.message);
+                }
+            },
+            error: function () {
+                hideLoading();
+                showNotice('communication fail, try again later');
+            }
+        });
+    });
+
 
 });

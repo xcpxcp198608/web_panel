@@ -91,6 +91,21 @@ public class AuthManager {
                 new Date(TimeUtil.getUnixFromStr(authRegisterUserInfo.getExpiresTime())));
     }
 
+    /**
+     * export user information to excel file
+     * @return
+     */
+    @PutMapping(value = "/users/export")
+    @ResponseBody
+    public ResultInfo export(HttpServletRequest request, @RequestParam(value = "macs[]") String[] macs){
+        return authManagerService.export(request, macs);
+    }
+
+
+
+
+
+
     @GetMapping(value = "/chart/volume/{year}/{month}")
     @ResponseBody
     public ResultInfo getMonthVolume(@PathVariable int year, @PathVariable int month){

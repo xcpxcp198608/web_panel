@@ -248,7 +248,7 @@ public class AuthRegisterUserInfo {
         this.uiVersion = uiVersion;
     }
 
-    public boolean isExperience() {
+    public boolean getExperience() {
         return experience;
     }
 
@@ -256,7 +256,7 @@ public class AuthRegisterUserInfo {
         this.experience = experience;
     }
 
-    public boolean isOnline() {
+    public boolean getOnline() {
         return online;
     }
 
