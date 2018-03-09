@@ -17,6 +17,7 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.oxm.pojo.log.LogPcpCashActivateInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,8 @@ public class AuthAdminService {
     @Resource
     private AuthRentUserDao authRentUserDao;
     @Resource
+    private AuthEmployeeDao authEmployeeDao;
+    @Resource
     private CommissionCategoryDao commissionCategoryDao;
     @Resource
     private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
@@ -60,6 +63,10 @@ public class AuthAdminService {
     private SalesActivateCategoryDao salesActivateCategoryDao;
     @Resource
     private SalesGoldCategoryDao salesGoldCategoryDao;
+    @Resource
+    private LogPcpDeviceCheckDao logPcpDeviceCheckDao;
+    @Resource
+    private LogPcpCashActivateDao logPcpCashActivateDao;
 
     public String home(){
         return "admin/home";
@@ -146,8 +153,13 @@ public class AuthAdminService {
                     .createFromAuthSales(authSalesInfo1, amount);
 
             //2. process transaction and save transaction info
-            AuthorizeTransactionInfo charge = new AuthorizeTransaction()
-                    .charge(authorizeTransactionInfo);
+            AuthorizeTransactionInfo charge = null;
+            try {
+                charge = new AuthorizeTransaction()
+                        .charge(authorizeTransactionInfo, request, authSalesInfo1.getUsername());
+            } catch (Exception e) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+            }
             if (charge == null) {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
@@ -240,20 +252,27 @@ public class AuthAdminService {
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo updateUserActivateWithCash(HttpServletRequest request,
                                                  String key, String password){
-        AuthAdminInfo authAdminInfo = getAdminInfo(request);
-        if(!password.equals(authAdminInfo.getPassword())){
-            throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
+        AuthEmployeeInfo authEmployeeInfo = authEmployeeDao.selectOneByCode(password);
+        if(authEmployeeInfo == null){
+            throw new XException(1001, "authorization code error");
         }
+
         AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo();
         authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
         authRentUserInfo.setClientKey(key);
         authRentUserDao.updateUserStatus(authRentUserInfo);
+
         AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectOneByClientKey(key);
         devicePCPDao.updateDeviceToRented(authRentUserInfo1.getMac());
         int sdcnCount = devicePCPDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
         if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
             authSalesDao.updateSDCNById(authRentUserInfo1.getSalesId());
         }
+
+        LogPcpCashActivateInfo logPcpCashActivateInfo = new LogPcpCashActivateInfo();
+        logPcpCashActivateInfo.setMac(authRentUserInfo1.getMac());
+        logPcpCashActivateInfo.setExecutor(authEmployeeInfo.getUsername());
+        logPcpCashActivateDao.insertOne(logPcpCashActivateInfo);
         return ResultMaster.success();
     }
 
@@ -335,8 +354,9 @@ public class AuthAdminService {
     public ResultInfo bathUpdateDeviceToSpecialSales(HttpServletRequest request, String [] macs,
                                                      int salesId, String password, boolean free){
         AuthAdminInfo authAdminInfo = getAdminInfo(request);
-        if(!authAdminInfo.getPassword().equals(password)){
-            throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
+        AuthEmployeeInfo authEmployeeInfo = authEmployeeDao.selectOneByCode(password);
+        if(authEmployeeInfo == null){
+            throw new XException(1001, "authorization code error");
         }
         if(macs.length <= 0 ){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
@@ -357,13 +377,20 @@ public class AuthAdminService {
         if(!free) {
             AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
                     .createFromAuthSales(authSalesInfo, CommissionCategoryInfo.DEPOSIT * macs.length);
-            AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request);
+            AuthorizeTransactionInfo charge = null;
+            try {
+                charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request, authSalesInfo.getUsername());
+            } catch (Exception e) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+            }
             if (charge == null) {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
             authorizeTransactionSalesDepositDao.insertOne(AuthorizeTransactionSalesDepositInfo
                     .createDepositForRepStore(authSalesInfo, charge));
         }
+
+        logPcpDeviceCheckDao.batchInsert(macs, authEmployeeInfo.getUsername());
         return ResultMaster.success(authSalesInfo);
     }
 

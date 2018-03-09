@@ -115,7 +115,12 @@ public class RentalMonthAuthorizeTask {
                 AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
                         .createFromAuthRentUser(authRentUserInfo, authRentUserInfo.getMonthPay() +
                                 authRentUserInfo.getMonthPay() * AuthorizeTransactionInfo.TAX);
-                AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo);
+                AuthorizeTransactionInfo charge = null;
+                try {
+                    charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, authRentUserInfo.getClientKey());
+                } catch (Exception e) {
+                    logger.error("Authorize Transaction error", e);
+                }
                 if(charge != null && "approved".equals(charge.getStatus())){
                     logger.debug("= {} check out month successfully", authRentUserInfo.getClientKey());
                     logger.debug("====================================================================");

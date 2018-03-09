@@ -13,13 +13,13 @@ public class AuthorizeTransactionTest {
 
     
     @Test
-    public void charge() {
+    public void charge() throws Exception {
         AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
-        authorizeTransactionInfo.setCardNumber("4111111111111111");
-        authorizeTransactionInfo.setExpirationDate("1223");
-        authorizeTransactionInfo.setSecurityKey("123");
-        authorizeTransactionInfo.setAmount(100F);
-        AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo);
+        authorizeTransactionInfo.setCardNumber("411111111111111111111");
+        authorizeTransactionInfo.setExpirationDate("0319");
+        authorizeTransactionInfo.setSecurityKey("167");
+        authorizeTransactionInfo.setAmount(32.39F);
+        AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, "91ec5551fcf0727f");
         System.out.println(charge);
     }
 

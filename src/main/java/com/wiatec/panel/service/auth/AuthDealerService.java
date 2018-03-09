@@ -105,8 +105,13 @@ public class AuthDealerService {
                             salesActivateCategoryInfo.getPrice() +
                                     salesActivateCategoryInfo.getPrice() * AuthorizeTransactionInfo.TAX);
             //2. process transaction and save transaction info
-            AuthorizeTransactionInfo charge = new AuthorizeTransaction()
-                    .charge(authorizeTransactionInfo);
+            AuthorizeTransactionInfo charge = null;
+            try {
+                charge = new AuthorizeTransaction()
+                        .charge(authorizeTransactionInfo, request, authSalesInfo1.getUsername());
+            } catch (Exception e) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+            }
             if (charge == null) {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }

@@ -185,7 +185,12 @@ public class AuthMexicoService {
             AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
                     .createFromAuthRentUser(authRentUserInfo, authRentUserInfo.getFirstPay() +
                             authRentUserInfo.getFirstPay() * AuthorizeTransactionInfo.TAX);
-            AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request);
+            AuthorizeTransactionInfo charge = null;
+            try {
+                charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request, authRentUserInfo.getClientKey());
+            } catch (Exception e) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+            }
             if (charge == null) {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }

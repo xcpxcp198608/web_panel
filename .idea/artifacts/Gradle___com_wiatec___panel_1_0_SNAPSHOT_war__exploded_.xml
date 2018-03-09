@@ -46,12 +46,9 @@
           <element id="library" level="project" name="Gradle: org.mybatis:mybatis:3.3.0" />
           <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.6" />
           <element id="library" level="project" name="Gradle: commons-io:commons-io:2.4" />
-          <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.10" />
           <element id="library" level="project" name="Gradle: commons-collections:commons-collections:3.2.2" />
           <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3.3" />
           <element id="library" level="project" name="Gradle: org.json:json:20160810" />
-          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.1" />
-          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.1" />
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.1" />
           <element id="library" level="project" name="Gradle: ch.qos.logback:logback-classic:1.2.3" />
           <element id="library" level="project" name="Gradle: ch.qos.logback:logback-core:1.2.3" />
@@ -64,6 +61,8 @@
           <element id="library" level="project" name="Gradle: redis.clients:jedis:2.9.0" />
           <element id="library" level="project" name="Gradle: com.dyuproject.protostuff:protostuff-core:1.1.3" />
           <element id="library" level="project" name="Gradle: com.dyuproject.protostuff:protostuff-runtime:1.1.3" />
+          <element id="library" level="project" name="Gradle: org.apache.poi:poi:3.17" />
+          <element id="library" level="project" name="Gradle: com.auth0:java-jwt:3.3.0" />
           <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.5.0" />
           <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.13.0" />
           <element id="library" level="project" name="Gradle: javax.activation:activation:1.1.1" />
@@ -78,6 +77,7 @@
           <element id="library" level="project" name="Gradle: org.apache.commons:commons-pool2:2.4.2" />
           <element id="library" level="project" name="Gradle: com.dyuproject.protostuff:protostuff-api:1.1.3" />
           <element id="library" level="project" name="Gradle: com.dyuproject.protostuff:protostuff-collectionschema:1.1.3" />
+          <element id="library" level="project" name="Gradle: org.apache.commons:commons-collections4:4.1" />
           <element id="library" level="project" name="Gradle: xml-resolver:xml-resolver:1.2" />
           <element id="library" level="project" name="Gradle: asm:asm:3.3" />
           <element id="library" level="project" name="Gradle: org.apache.cxf:cxf-api:2.3.1" />
@@ -111,8 +111,9 @@
           <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
           <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.3" />
           <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpcore:4.4.6" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.poi/poi/3.17/ae92292a2043888b40d418da97dc0b669fde326/poi-3.17.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-collections4/4.1/a4cf4688fe1c7e3a63aa636cc96d013af537768e/commons-collections4-4.1.jar" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.2" />
+          <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.11" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.2" />
         </element>
       </element>
     </root>
