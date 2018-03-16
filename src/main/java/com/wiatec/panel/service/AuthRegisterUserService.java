@@ -84,6 +84,28 @@ public class AuthRegisterUserService {
                 "the email, please contact customer service.");
     }
 
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo signUp(HttpServletRequest request, AuthRegisterUserInfo authRegisterUserInfo){
+        if(authRegisterUserDao.countByUsername(authRegisterUserInfo) == 1){
+            throw new XException(EnumResult.ERROR_USERNAME_EXISTS);
+        }
+        if(authRegisterUserDao.countByEmail(authRegisterUserInfo) == 1){
+            throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
+        }
+        String token = TokenUtil.create64(authRegisterUserInfo.getUsername(), authRegisterUserInfo.getEmail());
+        authRegisterUserInfo.setToken(token);
+        authRegisterUserDao.saveOneUser(authRegisterUserInfo);
+        EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LD);
+        String url = request.getRequestURL().toString();
+        String path = url.substring(0, url.lastIndexOf("/"));
+        emailMaster.setEmailContent(path, authRegisterUserInfo.getUsername(), token, "en");
+        emailMaster.sendMessage(authRegisterUserInfo.getEmail());
+        return ResultMaster.success(" Please check your email to confirm and activate the account. " +
+                "The activation email may take up to 60 minutes to arrive, if you didn't get " +
+                "the email, please contact customer service.");
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo activate(String token){
         AuthRegisterUserInfo authRegisterUserInfo = authRegisterUserDao.selectOneByToken(token);

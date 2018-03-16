@@ -9,20 +9,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * @author patrick
  */
-@ControllerAdvice(basePackages = {"com.wiatec.panel.api"})
-public class XExceptionHandler {
+@ControllerAdvice(basePackages = {"com.wiatec.panel.web"})
+public class XExceptionWebHandler {
 
-    private Logger logger = LoggerFactory.getLogger(XExceptionHandler.class);
+    private Logger logger = LoggerFactory.getLogger(XExceptionWebHandler.class);
     
     @ExceptionHandler(value = Exception.class)
-    @ResponseBody
     public ResultInfo handleException(Exception e){
         if(e instanceof XException){
             XException xException = (XException) e;
-            logger.error("= [XException]= {}", e);
+            logger.error("= XException= {}", e);
             return ResultMaster.error(xException.getCode(), xException.getMessage());
         }else {
-            logger.error("= [Server exception]= {}", e);
+            logger.error("= Server exception= {}", e);
             return ResultMaster.error(EnumResult.ERROR_SERVER_EXCEPTION);
         }
     }

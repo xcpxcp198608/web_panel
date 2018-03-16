@@ -121,7 +121,7 @@ public class AuthMexicoService {
         authRentUserInfo.setMac(authRentUserInfo.getMac().toUpperCase());
         authRentUserInfo.setDistributor(AuthRentUserInfo.DISTRIBUTOR_LDM);
         authRentUserInfo.setCategory(commissionCategoryInfo.getCategory());
-        authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
+        authRentUserInfo.setClientKey(TokenUtil.create16(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
         String activateTime = TimeUtil.getStrTime();
         authRentUserInfo.setActivateTime(activateTime);
         authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime,
@@ -161,7 +161,7 @@ public class AuthMexicoService {
         commissionCategoryInfo.setFirstPay();
         authRentUserInfo.setMac(authRentUserInfo.getMac().toUpperCase());
         authRentUserInfo.setDistributor(AuthRentUserInfo.DISTRIBUTOR_LDM);
-        authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
+        authRentUserInfo.setClientKey(TokenUtil.create16(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
         String activateTime = TimeUtil.getStrTime();
         authRentUserInfo.setActivateTime(activateTime);
         authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime,

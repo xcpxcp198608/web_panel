@@ -23,7 +23,7 @@ public class AuthRegisterUser {
     private AuthRegisterUserService authRegisterUserService;
 
     /**
-     * register
+     * btv user register
      * @param request   {@link HttpServletRequest}
      * @param authRegisterUserInfo  {@link AuthRegisterUserInfo}
      *        required:  username, password, mac ,email, phone, firstName, lastName
@@ -33,6 +33,19 @@ public class AuthRegisterUser {
     @ResponseBody
     public ResultInfo register(HttpServletRequest request, AuthRegisterUserInfo authRegisterUserInfo, String language){
         return authRegisterUserService.register(request, authRegisterUserInfo, language);
+    }
+
+    /**
+     * mobile app sign up
+     * @param request   {@link HttpServletRequest}
+     * @param authRegisterUserInfo  {@link AuthRegisterUserInfo}
+     *        required:  username, password, mac ,email, phone, firstName, lastName
+     * @return  {@link ResultInfo}
+     */
+    @PostMapping(value = "/signup")
+    @ResponseBody
+    public ResultInfo signUp(HttpServletRequest request, AuthRegisterUserInfo authRegisterUserInfo){
+        return authRegisterUserService.signUp(request, authRegisterUserInfo);
     }
 
     /**

@@ -5,17 +5,17 @@
 
     <select id="countOne" resultType="int" parameterType="com.wiatec.panel.oxm.pojo.AuthMexicoInfo">
         SELECT COUNT(*) count
-        FROM auth_manager
+        FROM auth_mexico
         WHERE username=#{username} AND password=#{password}
     </select>
 
     <select id="selectOne" resultType="com.wiatec.panel.oxm.pojo.AuthMexicoInfo">
-        SELECT * FROM auth_manager
+        SELECT * FROM auth_mexico
         WHERE username=#{username} AND password=#{password}
     </select>
 
     <select id="selectOneByUsername" resultType="com.wiatec.panel.oxm.pojo.AuthMexicoInfo">
-        SELECT * FROM auth_manager
+        SELECT * FROM auth_mexico
         WHERE username=#{username}
     </select>
 

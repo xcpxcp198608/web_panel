@@ -63,6 +63,16 @@ public class EmailMaster {
 		this.emailSubject = subject;
 	}
 
+	public void setMobileEmailContent(String basePath, String userName ,String token) {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Dear "+userName+":<br/>");
+		stringBuilder.append("<br/>");
+		stringBuilder.append("Legacy Direct"+"<br/>");
+		stringBuilder.append("<a href='" + basePath + "/activate/"+token+"'>" +
+				"ACTIVATE MY ACCOUNT</a>"+"<br/><br/>");
+		this.emailContent = stringBuilder.toString();
+	}
+
 	public void setEmailContent(String basePath, String userName ,String token, String language){
 		StringBuilder stringBuilder = new StringBuilder();
 		if("Spanish".equals(language)){
