@@ -137,7 +137,7 @@ public class AuthSalesService {
         authRentUserInfo.setDealerName(authSalesInfo.getDealerName());
         authRentUserInfo.setDealerId(authSalesInfo.getDealerId());
         authRentUserInfo.setDistributor(AuthRentUserInfo.DISTRIBUTOR_LDE);
-        authRentUserInfo.setClientKey(TokenUtil.create16(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
+        authRentUserInfo.setClientKey(TokenUtil.create16(authRentUserInfo.getMac()));
         String activateTime = TimeUtil.getStrTime();
         authRentUserInfo.setActivateTime(activateTime);
         authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime,

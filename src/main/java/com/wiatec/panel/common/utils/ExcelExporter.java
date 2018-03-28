@@ -70,7 +70,7 @@ public class ExcelExporter {
             return outPath;
         }
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("System exception: ", e);
         }
         return "";
     }

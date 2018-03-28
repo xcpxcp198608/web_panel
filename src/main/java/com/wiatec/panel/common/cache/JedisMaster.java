@@ -76,7 +76,7 @@ public class JedisMaster {
             throw new XException(e.getCode(), e.getMessage());
         }catch (Exception e){
             logger.error("Exception: ", e);
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER);
         }finally {
             if(jedis != null) {
                 jedis.close();
@@ -102,7 +102,7 @@ public class JedisMaster {
             throw new XException(e.getCode(), e.getMessage());
         }catch (Exception e){
             logger.error("Exception: ", e);
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER);
         }finally {
             if(jedis != null) {
                 jedis.close();
@@ -131,7 +131,7 @@ public class JedisMaster {
             throw new XException(e.getCode(), e.getMessage());
         }catch (Exception e){
             logger.error("Exception: ", e);
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER);
         }finally {
             if(jedis != null) {
                 jedis.close();
@@ -157,7 +157,7 @@ public class JedisMaster {
             throw new XException(e.getCode(), e.getMessage());
         }catch (Exception e){
             logger.error("Exception: ", e);
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER);
         }finally {
             if(jedis != null) {
                 jedis.close();

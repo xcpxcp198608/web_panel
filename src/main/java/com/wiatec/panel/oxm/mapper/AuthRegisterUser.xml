@@ -57,7 +57,7 @@
     </select>
 
     <insert id="saveOneUser" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
-        INSERT INTO auth_register_user (username, password, email, phone, first_name, last_name, mac,
+        INSERT IGNORE INTO auth_register_user (username, password, email, phone, first_name, last_name, mac,
                                token)
                 VALUES (#{username}, #{password}, #{email}, #{phone}, #{firstName}, #{lastName},
                 #{mac}, #{token})
@@ -70,13 +70,13 @@
     </select>
 
     <update id="updateEmailStatus" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
-        UPDATE auth_register_user
+        UPDATE IGNORE auth_register_user
         SET email_status=1, token=#{token}, active_time=current_timestamp
         WHERE username=#{username}
     </update>
 
     <update id="updateEmailStatusById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
-        UPDATE auth_register_user
+        UPDATE IGNORE auth_register_user
         SET email_status=1, token=#{token}, active_time=current_timestamp
         WHERE id=#{id}
     </update>
@@ -117,7 +117,7 @@
     </select>
 
     <update id="updateLocation" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
-        UPDATE auth_register_user
+        UPDATE IGNORE auth_register_user
         SET country=#{country}, region=#{region}, city=#{city}, time_zone=#{timeZone},
             device_model = #{deviceModel}, rom_version=#{romVersion}, ui_version=#{uiVersion},
             last_online_time=current_timestamp
@@ -125,31 +125,37 @@
     </update>
 
     <update id="updateToken" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
-        UPDATE auth_register_user
+        UPDATE IGNORE auth_register_user
         SET token=#{token}
         WHERE username=#{username}
     </update>
 
     <update id="updatePassword" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
-        UPDATE auth_register_user
+        UPDATE IGNORE auth_register_user
         SET password=#{password}
         WHERE username=#{username}
     </update>
 
+    <update id="updateTokenAndMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
+        UPDATE IGNORE auth_register_user
+        SET token=#{token}, mac=#{mac}, btv=1
+        WHERE username=#{username}
+    </update>
+
     <update id="updateStatusById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
-        UPDATE auth_register_user
+        UPDATE IGNORE auth_register_user
         SET status=#{status}
         WHERE id=#{id}
     </update>
 
     <delete id="deleteOneById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
-        DELETE FROM auth_register_user
+        DELETE IGNORE FROM auth_register_user
         WHERE id=#{id}
     </delete>
 
     <select id="selectAll" resultMap="authRegisterUserInfo">
         <include refid="select"/>
-        WHERE id > #{start}
+        WHERE id > #{start} AND btv = 1
     </select>
 
     <select id="selectAllExpiresUsers" resultMap="authRegisterUserInfo">
@@ -170,7 +176,7 @@
     </select>
 
     <update id="updateLevelById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
-        UPDATE auth_register_user
+        UPDATE IGNORE auth_register_user
         SET level=#{level}, expires_time=#{expiresTime}
         WHERE id=#{id}
     </update>

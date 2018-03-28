@@ -77,7 +77,7 @@ public class AuthManagerService {
     public ResultInfo activate(int id){
         AuthRegisterUserInfo authRegisterUserInfo = new AuthRegisterUserInfo();
         authRegisterUserInfo.setId(id);
-        authRegisterUserInfo.setToken(TokenUtil.create64(id+"", System.currentTimeMillis()+""));
+        authRegisterUserInfo.setToken(TokenUtil.create64(id+""));
         authRegisterUserDao.updateEmailStatusById(authRegisterUserInfo);
         return ResultMaster.success();
     }

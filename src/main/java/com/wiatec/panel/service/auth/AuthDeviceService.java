@@ -174,7 +174,7 @@ public class AuthDeviceService {
         }
         int i = deviceMLMDao.insertOne(mac, distributor, username, authEmployeeInfo.getUsername());
         if(i != 1){
-            throw new XException(EnumResult.ERROR_OPERATION_FAILURE);
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
         deviceAllDao.updateStatusByMac(mac, DeviceAllInfo.STATUS_MLM);
         return ResultMaster.success(deviceMLMDao.selectOneByMac(mac));
@@ -229,7 +229,7 @@ public class AuthDeviceService {
         }
         int i = devicePCPDao.insertOne(mac, distributor);
         if(i != 1) {
-            throw new XException(EnumResult.ERROR_OPERATION_FAILURE);
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
         deviceAllDao.updateStatusByMac(mac, DeviceAllInfo.STATUS_PCP);
         return ResultMaster.success(devicePCPDao.selectOneByMac(mac));

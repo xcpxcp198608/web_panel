@@ -40,7 +40,7 @@
                     </span>
                 </div>
                 <div class="text-center" style="width: 100%">
-                    <span class="text-muted " >LD</span>
+                    <span class="text-muted " >LDG</span>
                 </div>
             </div>
         </div>

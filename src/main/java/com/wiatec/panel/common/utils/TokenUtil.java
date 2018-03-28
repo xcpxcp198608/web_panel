@@ -1,5 +1,7 @@
 package com.wiatec.panel.common.utils;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -10,32 +12,31 @@ import java.security.NoSuchAlgorithmException;
  */
 public class TokenUtil {
 
-    public static String create16(String s1, String s2){
-        return create32(s1, s2).substring(8,24);
+    public static String create16(String s1){
+        return DigestUtils.md5Hex(s1 + System.currentTimeMillis()).substring(8,24);
     }
 
-    public static String create32(String s1, String s2){
-        try {
-            long time = System.currentTimeMillis();
-            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.update((s1 + s2 + time).getBytes());
-            BigInteger bigInteger = new BigInteger(1,messageDigest.digest());
-            return bigInteger.toString(16);
-        } catch (NoSuchAlgorithmException e) {
-            return "";
-        }
+    public static String create32(String s1){
+        return DigestUtils.md5Hex(s1 + System.currentTimeMillis());
     }
 
-    public static String create64(String s1, String s2){
-        return create32(s1, s2) + create32(s2, s1);
+    public static String create64(String s1){
+        return DigestUtils.md5Hex(s1 + System.currentTimeMillis()) +
+                DigestUtils.md5Hex(s1 + System.currentTimeMillis() + System.currentTimeMillis()) ;
     }
 
-    public static boolean tokenValidate(String token){
-        String tokenAfterDecrypt = AESUtil.decrypt(token,AESUtil.KEY);
+    public static boolean macValidate(String token){
+        String tokenAfterDecrypt = AESUtil.decrypt(token, AESUtil.KEY);
         return tokenAfterDecrypt.startsWith("5c:41:e7");
     }
 
     public static String createKey(int i){
-        return TokenUtil.create16(i+"", "www.wiatec.com345876^8w654b2hbj23b4r5yftf7Tub");
+        return TokenUtil.create16("www.wiatec.com");
     }
+
+    public static void main (String [] args){
+        String t = create64("dsfdss");
+        System.out.println(t);
+    }
+
 }

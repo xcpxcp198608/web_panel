@@ -30,7 +30,7 @@ public class JWTInterceptor implements HandlerInterceptor {
             throw new XException(EnumResult.ERROR_UNAUTHORIZED);
         }
         if(!JWTUtil.validate(token.substring(6))){
-            throw new XException(EnumResult.ERROR_AUTHORIZED_EXPIRES);
+            throw new XException(EnumResult.ERROR_ACCESS_TOKEN_EXPIRES);
         }
         return true;
     }

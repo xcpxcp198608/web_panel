@@ -95,7 +95,7 @@ public class AuthAdminService {
             return ResultMaster.success(authDealerDao.selectOne(authDealerInfo));
         }catch (Exception e){
             logger.error("Exception:", e);
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
     }
 
@@ -106,7 +106,7 @@ public class AuthAdminService {
             return ResultMaster.success();
         }catch (Exception e){
             logger.error("Exception:", e);
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
     }
 
@@ -293,7 +293,7 @@ public class AuthAdminService {
             return ResultMaster.success(authRentUserInfo);
         }catch (Exception e){
             logger.error("Exception:", e);
-            return ResultMaster.error(EnumResult.ERROR_SERVER_EXCEPTION);
+            return ResultMaster.error(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
     }
 

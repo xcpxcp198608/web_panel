@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * @author patrick
  */
-@ControllerAdvice(basePackages = {"com.wiatec.panel.api"})
+@ControllerAdvice
 public class XExceptionHandler {
 
     private Logger logger = LoggerFactory.getLogger(XExceptionHandler.class);
@@ -23,7 +23,7 @@ public class XExceptionHandler {
             return ResultMaster.error(xException.getCode(), xException.getMessage());
         }else {
             logger.error("= [Server exception]= {}", e);
-            return ResultMaster.error(EnumResult.ERROR_SERVER_EXCEPTION);
+            return ResultMaster.error(EnumResult.ERROR_INTERNAL_SERVER);
         }
     }
 }

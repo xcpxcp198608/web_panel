@@ -29,6 +29,10 @@ public class AuthRegisterUserInfo {
     private String deviceModel;
     private String romVersion;
     private String uiVersion;
+    private String icon;
+    private int gender;
+    private boolean bvision;
+    private boolean btv;
 
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -181,6 +185,9 @@ public class AuthRegisterUserInfo {
     }
 
     public String getExpiresTime() {
+        if(expiresTime == null){
+            return "";
+        }
         return TimeUtil.FORMATTER.format(expiresTime);
     }
 
@@ -264,6 +271,38 @@ public class AuthRegisterUserInfo {
         this.online = online;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public boolean getBvision() {
+        return bvision;
+    }
+
+    public void setBvision(boolean bvision) {
+        this.bvision = bvision;
+    }
+
+    public boolean getBtv() {
+        return btv;
+    }
+
+    public void setBtv(boolean btv) {
+        this.btv = btv;
+    }
+
     @Override
     public String toString() {
         return "AuthRegisterUserInfo{" +
@@ -282,15 +321,19 @@ public class AuthRegisterUserInfo {
                 ", city='" + city + '\'' +
                 ", timeZone='" + timeZone + '\'' +
                 ", token='" + token + '\'' +
-                ", activeTime='" + activeTime + '\'' +
-                ", expiresTime='" + expiresTime + '\'' +
-                ", lastOnLineTime='" + lastOnLineTime + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", modifyTime='" + modifyTime + '\'' +
                 ", status='" + status + '\'' +
                 ", deviceModel='" + deviceModel + '\'' +
                 ", romVersion='" + romVersion + '\'' +
                 ", uiVersion='" + uiVersion + '\'' +
+                ", icon='" + icon + '\'' +
+                ", gender=" + gender +
+                ", bvision=" + bvision +
+                ", btv=" + btv +
+                ", activeTime=" + activeTime +
+                ", expiresTime=" + expiresTime +
+                ", lastOnLineTime=" + lastOnLineTime +
+                ", createTime=" + createTime +
+                ", modifyTime=" + modifyTime +
                 ", experience=" + experience +
                 ", online=" + online +
                 '}';

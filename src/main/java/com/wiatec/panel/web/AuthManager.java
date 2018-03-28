@@ -1,6 +1,7 @@
 package com.wiatec.panel.web;
 
 import com.wiatec.panel.common.result.ResultInfo;
+import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
@@ -87,6 +88,9 @@ public class AuthManager {
     @ResponseBody
     public ResultInfo updateLevel(HttpServletRequest request, @PathVariable int id, @PathVariable int level,
                                   @RequestBody AuthRegisterUserInfo authRegisterUserInfo){
+        if(TextUtil.isEmpty(authRegisterUserInfo.getExpiresTime())){
+            authRegisterUserInfo.setExpiresTime(new Date());
+        }
         return authManagerService.updateLevel(request, id, level,
                 new Date(TimeUtil.getUnixFromStr(authRegisterUserInfo.getExpiresTime())));
     }
