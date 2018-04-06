@@ -48,7 +48,7 @@
                 <br/>
                 <div class="text-center">
                     <div class="col-12" style="padding: 0 35%">
-                        <img src="Resource/img/lde.png" alt="logo" style="width: 100%">
+                        <img src="Resource/img/ldmexico.png" alt="logo" style="width: 100%">
                     </div>
                 </div>
                 <div class="text-center">

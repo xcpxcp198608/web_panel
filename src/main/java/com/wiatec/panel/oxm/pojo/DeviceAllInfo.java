@@ -29,6 +29,11 @@ public class DeviceAllInfo {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modifyTime;
 
+    /**
+     * 特别标志， 默认0， 等于1时表示是墨西哥的76台前11个月无需付费
+     */
+    private int flag;
+
     public int getId() {
         return id;
     }
@@ -85,6 +90,14 @@ public class DeviceAllInfo {
         this.modifyTime = modifyTime;
     }
 
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
     @Override
     public String toString() {
         return "DeviceAllInfo{" +
@@ -95,6 +108,7 @@ public class DeviceAllInfo {
                 ", checkInTime=" + checkInTime +
                 ", createTime=" + createTime +
                 ", modifyTime=" + modifyTime +
+                ", flag=" + flag +
                 '}';
     }
 }
