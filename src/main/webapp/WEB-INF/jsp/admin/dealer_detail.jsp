@@ -9,7 +9,7 @@
 </rapid:override>
 
 <rapid:override name="css_js">
-    <script type="text/javascript" src="Resource/js/admin/sales_detail.js"></script>
+    <script type="text/javascript" src="Resource/js/admin/dealer_detail.js"></script>
 </rapid:override>
 
 <rapid:override name="content">
@@ -21,9 +21,9 @@
                 <abbr>security deposit credit note: </abbr>
             </span>
             <span class="text-danger">
-                ${authSalesInfo.username}
+                ${authDealerInfo.username}
             </span>
-            <input type="hidden" id="ipCurrentSalesId" value="${authSalesInfo.id}">
+            <input type="hidden" id="ipCurrentDealerId" value="${authDealerInfo.id}">
         </div>
     </div>
     <c:if test="${permission >= 100}">
@@ -53,24 +53,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${commissionMonthlySalesInfoList}" var="commissionMonthlySalesInfo" varStatus="status">
+                    <c:forEach items="${commissionMonthlyDealerInfoList}" var="commissionMonthlyDealerInfo" varStatus="status">
                         <tr>
-                            <td><input type="checkbox" name="cbDevice" value="${commissionMonthlySalesInfo.salesId}"
+                            <td><input type="checkbox" name="cbDevice" value="${commissionMonthlyDealerInfo.dealerId}"
                                        currentRow="${status.index}"></td>
-                            <td>${commissionMonthlySalesInfo.id}</td>
-                            <td>${commissionMonthlySalesInfo.mac}</td>
-                            <td>${commissionMonthlySalesInfo.commission}</td>
-                            <td>${commissionMonthlySalesInfo.createTime}</td>
+                            <td>${commissionMonthlyDealerInfo.id}</td>
+                            <td>${commissionMonthlyDealerInfo.mac}</td>
+                            <td>${commissionMonthlyDealerInfo.commission}</td>
+                            <td>${commissionMonthlyDealerInfo.createTime}</td>
                             <td>
-                                <c:if test="${commissionMonthlySalesInfo.checked == true}">
+                                <c:if test="${commissionMonthlyDealerInfo.checked == true}">
                                     <span class="text-success"><i class="fa fa-check-circle"></i></span>
                                 </c:if>
-                                <c:if test="${commissionMonthlySalesInfo.checked == false}">
+                                <c:if test="${commissionMonthlyDealerInfo.checked == false}">
                                     <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
                                 </c:if>
                             </td>
-                            <td>${commissionMonthlySalesInfo.checkNumber}</td>
-                            <td>${commissionMonthlySalesInfo.checkedTime}</td>
+                            <td>${commissionMonthlyDealerInfo.checkNumber}</td>
+                            <td>${commissionMonthlyDealerInfo.checkedTime}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

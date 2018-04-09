@@ -1,4 +1,4 @@
-package com.wiatec.panel.oxm.pojo;
+package com.wiatec.panel.oxm.pojo.commission;
 
 import java.math.BigDecimal;
 

@@ -84,8 +84,8 @@
             <nav>
                 <div class="nav nav-tabs nav-dark" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Total Commission</a>
-                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Sales Commission</a>
-                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Activation Commission</a>
+                    <%--<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Sales Commission</a>--%>
+                    <%--<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Activation Commission</a>--%>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent" style="margin-top: 10px">
@@ -97,6 +97,7 @@
                             <th>Username</th>
                             <th>Volume</th>
                             <th>TotalCommission</th>
+                            <th>Check</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -193,7 +194,6 @@
                         <th>Gold</th>
                         <th data-toggle="tooltip" title="Security Deposit Credit Note" >SDCN</th>
                         <th data-toggle="tooltip" title="show all users under this sales" >Users</th>
-                        <th data-toggle="tooltip" title="show sales detail information" >More</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -230,11 +230,6 @@
                             <td>
                                 <a href="/panel/admin/users/2/${authSalesInfo.id}">
                                     <i class="fa fa-eye"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="/panel/admin/sales/detail/${authSalesInfo.id}">
-                                    <i class="fa fa-share"></i>
                                 </a>
                             </td>
                         </tr>

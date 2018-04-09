@@ -18,6 +18,9 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.oxm.pojo.commission.CommissionCategoryInfo;
+import com.wiatec.panel.oxm.pojo.commission.CommissionMonthlyDealerInfo;
+import com.wiatec.panel.oxm.pojo.commission.CommissionMonthlySalesInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -53,6 +56,10 @@ public class AuthSalesService {
     private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
     @Resource
     private DevicePCPDao devicePCPDao;
+    @Resource
+    private CommissionMonthlySalesDao commissionMonthlySalesDao;
+    @Resource
+    private CommissionMonthlyDealerDao commissionMonthlyDealerDao;
 
     public String home(HttpServletRequest request, Model model){
         int salesId = getSalesInfo(request).getId();
@@ -162,7 +169,9 @@ public class AuthSalesService {
         } else if (paymentMethod == PAYMENT_METHOD_CREDIT_CARD) {
             authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CREDIT_CARD);
             authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
+            //插入用户信息
             authRentUserDao.insertOne(authRentUserInfo);
+            //通过authorized进行信用卡扣款
             AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
                     .createFromAuthRentUser(authRentUserInfo, authRentUserInfo.getFirstPay() +
                             authRentUserInfo.getFirstPay() * AuthorizeTransactionInfo.TAX);
@@ -175,8 +184,10 @@ public class AuthSalesService {
             if (charge == null) {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
+            //扣款成功后将交易信息存储
             authorizeTransactionRentalDao.insertOne(AuthorizeTransactionRentalInfo
                     .contractedFromAuthRentInfo(authRentUserInfo, commissionCategoryInfo, charge));
+            //创建Invoice并用邮件发送给用户
             RentalInvoiceUtil.setPath(PathUtil.getRealPath(request) + "invoice/");
             List<InvoiceInfo> invoiceInfoList = InvoiceInfoMaker.rentalContracted(commissionCategoryInfo);
             String invoicePath = RentalInvoiceUtil.createInvoice(authRentUserInfo,
@@ -188,6 +199,19 @@ public class AuthSalesService {
             emailMaster.addAttachment(invoicePath);
             emailMaster.sendMessage(authRentUserInfo.getEmail());
             devicePCPDao.updateDeviceToRented(authRentUserInfo.getMac());
+            //存储销售的佣金信息
+            CommissionMonthlySalesInfo commissionMonthlySalesInfo = new CommissionMonthlySalesInfo();
+            commissionMonthlySalesInfo.setSalesId(authRentUserInfo.getSalesId());
+            commissionMonthlySalesInfo.setMac(authRentUserInfo.getMac().toUpperCase());
+            commissionMonthlySalesInfo.setCommission(authRentUserInfo.getSalesCommission() + commissionCategoryInfo.getSalesActivationComm());
+            commissionMonthlySalesDao.insertOne(commissionMonthlySalesInfo);
+            //存储Dealer的佣金信息
+            CommissionMonthlyDealerInfo commissionMonthlyDealerInfo = new CommissionMonthlyDealerInfo();
+            commissionMonthlyDealerInfo.setDealerId(authRentUserInfo.getDealerId());
+            commissionMonthlyDealerInfo.setMac(authRentUserInfo.getMac().toUpperCase());
+            commissionMonthlyDealerInfo.setCommission(authRentUserInfo.getDealerCommission() + commissionCategoryInfo.getDealerActivationComm());
+            commissionMonthlyDealerDao.insertOne(commissionMonthlyDealerInfo);
+
             return ResultMaster.success(authRentUserInfo.getClientKey());
         }else if (paymentMethod == PAYMENT_METHOD_PAYPAL) {
             authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_PAYPAL);

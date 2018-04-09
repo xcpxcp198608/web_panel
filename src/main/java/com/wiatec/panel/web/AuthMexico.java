@@ -3,7 +3,7 @@ package com.wiatec.panel.web;
 import com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
-import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
+import com.wiatec.panel.oxm.pojo.commission.CommissionCategoryInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.SalesAmountInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo;
 import com.wiatec.panel.service.auth.AuthMexicoService;

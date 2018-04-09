@@ -18,7 +18,7 @@ $(function () {
     $('#btCheck').click(function () {
         var currentRows = [];
         var currentIds = [];
-        var currentSalesId = $('#ipCurrentSalesId').val();
+        var currentDealerId = $('#ipCurrentDealerId').val();
         $('input[name=cbDevice]:checked').each(function (index) {
             currentRows[index] = parseInt($(this).attr('currentRow'));
             currentIds[index] = tbDevices.rows[parseInt($(this).attr('currentRow'))].cells[1].innerHTML;
@@ -39,16 +39,16 @@ $(function () {
                 showErrorMessage($('#errorCheck'), 'check number error');
                 return;
             }
-            checkDevice(currentIds, currentSalesId, checkNumber, currentRows);
+            checkDevice(currentIds, currentDealerId, checkNumber, currentRows);
         });
     });
 
     
-    function checkDevice(currentIds, currentSalesId, checkNumber, currentRows) {
+    function checkDevice(currentIds, currentDealerId, checkNumber, currentRows) {
         $.ajax({
             type: "PUT",
-            url: baseUrl + "/admin/sales/commission/check",
-            data: {"ids": currentIds, 'salesId': currentSalesId, 'checkNumber': checkNumber},
+            url: baseUrl + "/admin/dealer/commission/check",
+            data: {"ids": currentIds, 'dealerId': currentDealerId, 'checkNumber': checkNumber},
             dataType: "json",
             beforeSend: function () {
                 $('#modalCheck').modal('hide');
@@ -63,6 +63,7 @@ $(function () {
                         var row = currentRows[i];
                         tbDevices.rows[parseInt(row)].cells[5].innerHTML = '<span class="text-success"><i class="fa fa-check-circle"></i></span>';
                         tbDevices.rows[parseInt(row)].cells[6].innerHTML = '<span>'+ checkNumber +'</span>';
+                        tbDevices.rows[parseInt(row)].cells[0].firstChild.checked = false;
                         tbDevices.rows[parseInt(row)].cells[0].firstChild.setAttribute('disabled', 'disabled');
                     }
                     $('#ipCheckNumber').val('');

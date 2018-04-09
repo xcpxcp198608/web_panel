@@ -1,7 +1,6 @@
 package com.wiatec.panel.authorize;
 
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
-import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
 import com.wiatec.panel.oxm.pojo.SalesActivateCategoryInfo;
 
 /**

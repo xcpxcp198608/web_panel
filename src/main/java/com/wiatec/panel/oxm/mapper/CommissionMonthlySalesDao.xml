@@ -1,0 +1,48 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.CommissionMonthlySalesDao">
+
+    <insert id="insertOne">
+        INSERT IGNORE INTO commission_monthly_sales (sales_id, mac, commission)
+                values (#{salesId}, #{mac}, #{commission})
+    </insert>
+
+    <update id="batchUpdateToCheckedByIds">
+        UPDATE IGNORE commission_monthly_sales
+        SET checked = 1, check_number = #{checkNumber}, checked_time = now()
+        WHERE id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+
+    <sql id="select">
+        SELECT commission_monthly_sales.id, commission_monthly_sales.mac,
+            commission_monthly_sales.commission, commission_monthly_sales.checked,
+            commission_monthly_sales.check_number, commission_monthly_sales.create_time,
+            commission_monthly_sales.checked_time,
+            auth_sales.username salesName
+        FROM commission_monthly_sales, auth_sales
+        WHERE commission_monthly_sales.sales_id = auth_sales.id
+    </sql>
+
+
+    <select id="selectAllSalesCommissionByYearAndMonth" resultType="com.wiatec.panel.oxm.pojo.commission.SalesMonthlyCommission">
+    SELECT sum(commission) commission, auth_sales.username salesName, COUNT(*) volume, commission_monthly_sales.sales_id salesId
+    FROM commission_monthly_sales
+    JOIN auth_sales
+    ON commission_monthly_sales.sales_id=auth_sales.id
+    WHERE commission_monthly_sales.create_time BETWEEN #{start} AND #{end}
+    GROUP BY salesName
+    ORDER BY volume DESC;
+    </select>
+
+    <select id="selectBySalesIdAndYearMonth" resultType="com.wiatec.panel.oxm.pojo.commission.CommissionMonthlySalesInfo">
+        <include refid="select"/>
+        AND commission_monthly_sales.sales_id = #{salesId}
+        AND commission_monthly_sales.create_time BETWEEN #{start} AND #{end}
+    </select>
+
+</mapper>

@@ -1,0 +1,51 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.CommissionMonthlyDealerDao">
+
+    <insert id="insertOne">
+        INSERT IGNORE INTO commission_monthly_dealer (dealer_id, mac, commission)
+                values (#{dealerId}, #{mac}, #{commission})
+    </insert>
+
+    <update id="batchUpdateToCheckedByIds">
+        UPDATE IGNORE commission_monthly_dealer
+        SET checked = 1, check_number = #{checkNumber}, checked_time = now()
+        WHERE id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+
+    <sql id="select">
+        SELECT commission_monthly_dealer.id, commission_monthly_dealer.mac,
+            commission_monthly_dealer.commission, commission_monthly_dealer.checked,
+            commission_monthly_dealer.check_number, commission_monthly_dealer.create_time,
+            commission_monthly_dealer.checked_time,
+            auth_dealer.username dealerName
+        FROM commission_monthly_dealer, auth_dealer
+        WHERE commission_monthly_dealer.dealer_id = auth_dealer.id
+    </sql>
+
+
+    <select id="selectAllDealerCommissionByYearAndMonth" resultType="com.wiatec.panel.oxm.pojo.commission.DealerMonthlyCommission">
+        SELECT sum(commission) commission, auth_dealer.username dealerName,
+            COUNT(*) volume, commission_monthly_dealer.dealer_id dealerId
+        FROM commission_monthly_dealer
+            JOIN auth_dealer
+                ON commission_monthly_dealer.dealer_id=auth_dealer.id
+        WHERE commission_monthly_dealer.create_time BETWEEN #{start} AND #{end}
+        GROUP BY dealerName
+        ORDER BY volume DESC;
+    </select>
+
+
+
+    <select id="selectByDealerIdAndYearMonth" resultType="com.wiatec.panel.oxm.pojo.commission.CommissionMonthlyDealerInfo">
+        <include refid="select"/>
+        AND commission_monthly_dealer.dealer_id = #{dealerId}
+        AND commission_monthly_dealer.create_time BETWEEN #{start} AND #{end}
+    </select>
+
+</mapper>

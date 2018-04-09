@@ -6,11 +6,11 @@ import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
 import com.wiatec.panel.invoice.RentalInvoiceUtil;
-import com.wiatec.panel.oxm.dao.AuthRentUserDao;
-import com.wiatec.panel.oxm.dao.AuthorizeTransactionRentalDao;
-import com.wiatec.panel.oxm.dao.CommissionCategoryDao;
+import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
-import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
+import com.wiatec.panel.oxm.pojo.commission.CommissionCategoryInfo;
+import com.wiatec.panel.oxm.pojo.commission.CommissionMonthlyDealerInfo;
+import com.wiatec.panel.oxm.pojo.commission.CommissionMonthlySalesInfo;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +29,8 @@ public class RentalMonthAuthorizeTask {
 
     private AuthRentUserDao authRentUserDao;
     private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
+    private CommissionMonthlyDealerDao commissionMonthlyDealerDao;
+    private CommissionMonthlySalesDao commissionMonthlySalesDao;
 
     private static SqlSession sqlSession;
 
@@ -50,6 +52,8 @@ public class RentalMonthAuthorizeTask {
         CommissionCategoryDao commissionCategoryDao = sqlSession.getMapper(CommissionCategoryDao.class);
         authRentUserDao = sqlSession.getMapper(AuthRentUserDao.class);
         authorizeTransactionRentalDao = sqlSession.getMapper(AuthorizeTransactionRentalDao.class);
+        commissionMonthlyDealerDao = sqlSession.getMapper(CommissionMonthlyDealerDao.class);
+        commissionMonthlySalesDao = sqlSession.getMapper(CommissionMonthlySalesDao.class);
         CommissionCategoryInfo b1 = commissionCategoryDao.selectOne("B1");
         CommissionCategoryInfo p1 = commissionCategoryDao.selectOne("P1");
         CommissionCategoryInfo p2 = commissionCategoryDao.selectOne("P2");
@@ -127,7 +131,20 @@ public class RentalMonthAuthorizeTask {
                     AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = AuthorizeTransactionRentalInfo
                             .monthlyFromAuthRentInfo(authRentUserInfo, charge);
                     authorizeTransactionRentalDao.insertOne(authorizeTransactionRentalInfo);
+                    //存储销售的佣金信息
+                    CommissionMonthlySalesInfo commissionMonthlySalesInfo = new CommissionMonthlySalesInfo();
+                    commissionMonthlySalesInfo.setSalesId(authRentUserInfo.getSalesId());
+                    commissionMonthlySalesInfo.setMac(authRentUserInfo.getMac().toUpperCase());
+                    commissionMonthlySalesInfo.setCommission(authRentUserInfo.getSalesCommission());
+                    commissionMonthlySalesDao.insertOne(commissionMonthlySalesInfo);
+                    //存储Dealer的佣金信息
+                    CommissionMonthlyDealerInfo commissionMonthlyDealerInfo = new CommissionMonthlyDealerInfo();
+                    commissionMonthlyDealerInfo.setDealerId(authRentUserInfo.getDealerId());
+                    commissionMonthlyDealerInfo.setMac(authRentUserInfo.getMac().toUpperCase());
+                    commissionMonthlyDealerInfo.setCommission(authRentUserInfo.getDealerCommission());
+                    commissionMonthlyDealerDao.insertOne(commissionMonthlyDealerInfo);
                     handleInvoice(authRentUserInfo, authorizeTransactionRentalInfo, i+1, commissionCategoryInfo.getExpires());
+
                 }else{
                     logger.debug("= check out month failure, deactivate = {}", authRentUserInfo.getClientKey());
                     authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_DEACTIVATE);

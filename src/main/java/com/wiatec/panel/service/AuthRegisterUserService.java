@@ -143,10 +143,6 @@ public class AuthRegisterUserService {
                 throw new XException(EnumResult.ERROR_DEVICE_NO_REGISTER);
             }
         }
-        authRegisterUserInfo.setToken(token);
-        if(authRegisterUserDao.updateToken(authRegisterUserInfo) != 1){
-            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
-        }
         AuthRegisterUserInfo authRegisterUserInfo1;
         try {
             authRegisterUserInfo1 = authRegisterUserDao.selectOneByUsernameAndMac(authRegisterUserInfo);
@@ -161,6 +157,10 @@ public class AuthRegisterUserService {
         }
         if(authRegisterUserInfo1.getLevel() <= 0){
             throw new XException(EnumResult.ERROR_DEVICE_LIMITED);
+        }
+        authRegisterUserInfo.setToken(token);
+        if(authRegisterUserDao.updateToken(authRegisterUserInfo) != 1){
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
         return ResultMaster.success(authRegisterUserInfo1);
     }

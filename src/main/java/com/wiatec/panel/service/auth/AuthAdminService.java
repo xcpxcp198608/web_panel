@@ -17,10 +17,10 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.oxm.pojo.commission.*;
 import com.wiatec.panel.oxm.pojo.log.LogPcpCashActivateInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -67,6 +67,10 @@ public class AuthAdminService {
     private LogPcpDeviceCheckDao logPcpDeviceCheckDao;
     @Resource
     private LogPcpCashActivateDao logPcpCashActivateDao;
+    @Resource
+    private CommissionMonthlyDealerDao commissionMonthlyDealerDao;
+    @Resource
+    private CommissionMonthlySalesDao commissionMonthlySalesDao;
 
     public String home(){
         return "admin/home";
@@ -191,11 +195,27 @@ public class AuthAdminService {
         return ResultMaster.success();
     }
 
-    public String showSalesDetail(int salesId, Model model){
+    public String showDealerDetail(int dealerId, int year, int month, Model model){
+        AuthDealerInfo authDealerInfo = authDealerDao.selectOneById(dealerId);
+        model.addAttribute("authDealerInfo", authDealerInfo);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, 0);
+        List<CommissionMonthlyDealerInfo> commissionMonthlyDealerInfoList = commissionMonthlyDealerDao
+                .selectByDealerIdAndYearMonth(authDealerInfo.getId(),
+                        yearOrMonthInfo.getStart(),
+                        yearOrMonthInfo.getEnd());
+        model.addAttribute("commissionMonthlyDealerInfoList", commissionMonthlyDealerInfoList);
+        return "admin/dealer_detail";
+    }
+
+    public String showSalesDetail(int salesId, int year, int month, Model model){
         AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(salesId);
         model.addAttribute("authSalesInfo", authSalesInfo);
-        List<DevicePCPInfo> rentedDevicePCPInfoList = devicePCPDao.selectRentedBySalesId(salesId);
-        model.addAttribute("rentedDevicePCPInfoList", rentedDevicePCPInfoList);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, 0);
+        List<CommissionMonthlySalesInfo> commissionMonthlySalesInfoList = commissionMonthlySalesDao
+                .selectBySalesIdAndYearMonth(authSalesInfo.getId(),
+                        yearOrMonthInfo.getStart(),
+                        yearOrMonthInfo.getEnd());
+        model.addAttribute("commissionMonthlySalesInfoList", commissionMonthlySalesInfoList);
         return "admin/sales_detail";
     }
 
@@ -395,6 +415,41 @@ public class AuthAdminService {
     }
 
     @Transactional(rollbackFor = Exception.class)
+    public ResultInfo salesCommissionChecked(HttpServletRequest request, String[] ids, int salesId, String checkNumber){
+        if(ids.length <= 0 ){
+            throw new XException(EnumResult.ERROR_MAC_FORMAT);
+        }
+        if(TextUtil.isEmpty(checkNumber)){
+            throw new XException(1001, "check number error");
+        }
+        AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(salesId);
+        if(authSalesInfo == null){
+            throw new XException(1100, "rep not exists");
+        }
+        if(authSalesInfo.isGold() && !authSalesInfo.isSdcn()){
+            throw new XException(1100, "sales volume less than 5");
+        }
+        commissionMonthlySalesDao.batchUpdateToCheckedByIds(ids, checkNumber);
+        return ResultMaster.success();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo dealerCommissionChecked(HttpServletRequest request, String[] ids, int dealerId, String checkNumber){
+        if(ids.length <= 0 ){
+            throw new XException(EnumResult.ERROR_MAC_FORMAT);
+        }
+        if(TextUtil.isEmpty(checkNumber)){
+            throw new XException(1001, "check number error");
+        }
+        AuthDealerInfo authDealerInfo = authDealerDao.selectOneById(dealerId);
+        if(authDealerInfo == null){
+            throw new XException(1100, "dealer not exists");
+        }
+        commissionMonthlyDealerDao.batchUpdateToCheckedByIds(ids, checkNumber);
+        return ResultMaster.success();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
     public ResultInfo checkReturned(HttpServletRequest request, String[] macs, int salesId, String checkNumber){
         if(macs.length <= 0 ){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
@@ -451,9 +506,9 @@ public class AuthAdminService {
         return authorizeTransactionRentalDao.selectAllDealersCommissionByMonth(yearOrMonthInfo);
     }
 
-    public List<AllDealerMonthCommissionInfo> getAllDealerTotalCommissionByMonth(int year, int month){
+    public List<DealerMonthlyCommission> getAllDealerTotalCommissionByMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
-        return authorizeTransactionRentalDao.selectAllDealersTotalCommissionByMonth(yearOrMonthInfo);
+        return commissionMonthlyDealerDao.selectAllDealerCommissionByYearAndMonth(yearOrMonthInfo);
     }
 
     public List<AllDealerMonthCommissionInfo> getAllDealerActivationCommByMonth(int year, int month){
@@ -466,9 +521,9 @@ public class AuthAdminService {
         return authorizeTransactionRentalDao.selectAllSalesCommissionByMonth(yearOrMonthInfo);
     }
 
-    public List<AllSalesMonthCommissionInfo> getAllSalesTotalCommissionByMonth(int year, int month){
+    public List<SalesMonthlyCommission> getAllSalesTotalCommissionByMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
-        return authorizeTransactionRentalDao.selectAllSalesTotalCommissionByMonth(yearOrMonthInfo);
+        return commissionMonthlySalesDao.selectAllSalesCommissionByYearAndMonth(yearOrMonthInfo);
     }
 
     public List<AllSalesMonthCommissionInfo> getAllSalesActivationCommByMonth(int year, int month){

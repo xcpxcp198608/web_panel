@@ -6,6 +6,8 @@ import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthSalesInfo;
 import com.wiatec.panel.oxm.pojo.DevicePCPInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.*;
+import com.wiatec.panel.oxm.pojo.commission.DealerMonthlyCommission;
+import com.wiatec.panel.oxm.pojo.commission.SalesMonthlyCommission;
 import com.wiatec.panel.service.auth.AuthAdminService;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.XException;
@@ -75,6 +77,31 @@ public class AuthAdmin {
         return authAdminService.updateDealerPassword(authDealerInfo);
     }
 
+
+    /**
+     * show dealer detail page
+     * @param dealerId dealerId
+     * @return dealer detail page
+     */
+    @GetMapping(value = "/dealer/detail/{dealerId}/{year}/{month}")
+    public String dealerDetail(@PathVariable int dealerId, @PathVariable int year, @PathVariable int month, Model model){
+        return authAdminService.showDealerDetail(dealerId, year, month, model);
+    }
+
+
+    /**
+     * check device when returned the sales deposit
+     * @return         ResultInfo
+     */
+    @PutMapping(value = "/dealer/commission/check")
+    @ResponseBody
+    public ResultInfo dealerCommissionChecked(HttpServletRequest request,
+                                        @RequestParam(value = "ids[]") String [] ids,
+                                        int dealerId, String checkNumber){
+        return authAdminService.dealerCommissionChecked(request, ids, dealerId, checkNumber);
+    }
+
+
     /**
      * sales page
      * @param model   mvc Model
@@ -119,9 +146,23 @@ public class AuthAdmin {
      * @param salesId salesId
      * @return sales detail page
      */
-    @GetMapping(value = "/sales/detail/{salesId}")
-    public String salesDetail(@PathVariable int salesId, Model model){
-        return authAdminService.showSalesDetail(salesId, model);
+    @GetMapping(value = "/sales/detail/{salesId}/{year}/{month}")
+    public String salesDetail(@PathVariable int salesId, @PathVariable int year, @PathVariable int month, Model model){
+        return authAdminService.showSalesDetail(salesId, year, month, model);
+    }
+
+
+
+    /**
+     * check device when returned the sales deposit
+     * @return         ResultInfo
+     */
+    @PutMapping(value = "/sales/commission/check")
+    @ResponseBody
+    public ResultInfo salesCommissionChecked(HttpServletRequest request,
+                                        @RequestParam(value = "ids[]") String [] ids,
+                                        int salesId, String checkNumber){
+        return authAdminService.salesCommissionChecked(request, ids, salesId, checkNumber);
     }
 
     /**
@@ -213,6 +254,7 @@ public class AuthAdmin {
     public String getCommission(Model model){
         return authAdminService.commission(model);
     }
+
 
     /**
      * device page
@@ -340,7 +382,8 @@ public class AuthAdmin {
      */
     @GetMapping(value = "/chart/dealer/commission/total/{year}/{month}")
     @ResponseBody
-    public List<AllDealerMonthCommissionInfo> getDealerTotalCommissionByMonth(@PathVariable int year, @PathVariable int month){
+    public List<DealerMonthlyCommission> getDealerTotalCommissionByMonth(@PathVariable int year, @PathVariable int month){
+        System.out.println("dfdf");
         return authAdminService.getAllDealerTotalCommissionByMonth(year, month);
     }
 
@@ -376,7 +419,7 @@ public class AuthAdmin {
      */
     @GetMapping(value = "/chart/sales/commission/total/{year}/{month}")
     @ResponseBody
-    public List<AllSalesMonthCommissionInfo> getSalesTotalCommissionByMonth(@PathVariable int year, @PathVariable int month){
+    public List<SalesMonthlyCommission> getSalesTotalCommissionByMonth(@PathVariable int year, @PathVariable int month){
         return authAdminService.getAllSalesTotalCommissionByMonth(year, month);
     }
 
