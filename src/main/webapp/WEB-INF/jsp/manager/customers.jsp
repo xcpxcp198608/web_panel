@@ -194,9 +194,9 @@
 
 
             <div class="row" style="margin-top: 5px; height: 30px; font-size: 12px">
-                <div class="col-12 text-right">
-                    <nav aria-label="page" class="text-right">
-                        <ul class="pagination">
+                <div class="col-12">
+                    <nav aria-label="page" >
+                        <ul class="pagination justify-content-end">
                             <li class="page-item"><a class="page-link" href="/panel/manager/users/${currentPage - 1}">Previous</a></li>
                             <c:forEach begin="1" end="${totalPage}" varStatus="status">
                                 <li class="page-item"><a class="page-link" href="/panel/manager/users/${status.index}">${status.index}</a></li>
