@@ -34,6 +34,10 @@ public interface AuthRegisterUserDao {
 
 
     List<AuthRegisterUserInfo> selectAll(int start);
+
+    int countAll(int start);
+    List<AuthRegisterUserInfo> selectByPage(@Param("start") int start, @Param("from")int from,
+                                            @Param("to")int to);
     List<AuthRegisterUserInfo> selectAllExpiresUsers(int start);
     List<AuthRegisterUserInfo> selectExportUsers(@Param("macs") String[] macs);
 

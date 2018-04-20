@@ -191,6 +191,23 @@
                     </div>
                 </div>
             </c:if>
+
+
+            <div class="row" style="margin-top: 5px; height: 30px; font-size: 12px">
+                <div class="col-12 text-right">
+                    <nav aria-label="page" class="text-right">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="/panel/manager/users/${currentPage - 1}">Previous</a></li>
+                            <c:forEach begin="1" end="${totalPage}" varStatus="status">
+                                <li class="page-item"><a class="page-link" href="/panel/manager/users/${status.index}">${status.index}</a></li>
+                            </c:forEach>
+                            <li class="page-item"><a class="page-link" href="/panel/manager/users/${currentPage + 1}">Next</a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+
         </div>
 
         <div style="width: 100%; padding: 10px; background-color: white; overflow: scroll" >

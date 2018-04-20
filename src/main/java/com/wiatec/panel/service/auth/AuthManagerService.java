@@ -37,6 +37,8 @@ import java.util.List;
 @Service
 public class AuthManagerService {
 
+    private final int LIMIT = 500;
+
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
     @Resource
@@ -48,23 +50,47 @@ public class AuthManagerService {
         return "manager/home";
     }
 
-    public String users(HttpSession session, Model model){
+    public String users(HttpSession session, Model model, int page){
+        if(page <= 0){
+            page = 1;
+        }
         String username = (String) session.getAttribute(SessionListener.KEY_AUTH_USER_NAME);
         if(username == null){
             throw new XException(EnumResult.ERROR_RE_LOGIN);
         }
         AuthManagerInfo authManagerInfo = authManagerDao.selectOneByUsername(username);
         List<AuthRegisterUserInfo> authRegisterUserInfoList;
+        int totalCount = 0;
+        int totalPage = 1;
         if(authManagerInfo.getPermission() >= AuthManagerInfo.LEVEL_HIGHEST ) {
-            authRegisterUserInfoList = authRegisterUserDao.selectAll(0);
+            totalCount = authRegisterUserDao.countAll(0);
+            totalPage = totalCount / LIMIT;
+            if(totalCount % LIMIT != 0){
+                totalPage ++;
+            }
+            if(page > totalPage){
+                page = totalPage;
+            }
+            authRegisterUserInfoList = authRegisterUserDao.selectByPage(0, (page -1) * LIMIT, LIMIT);
         }else{
-            authRegisterUserInfoList = authRegisterUserDao.selectAll(100);
+            totalCount = authRegisterUserDao.countAll(100);
+            totalPage = totalCount / LIMIT;
+            if(totalCount % LIMIT != 0){
+                totalPage ++;
+            }
+            if(page > totalPage){
+                page = totalPage;
+            }
+            authRegisterUserInfoList = authRegisterUserDao.selectByPage(100, (page -1) * LIMIT, LIMIT);
         }
         for(AuthRegisterUserInfo authRegisterUserInfo: authRegisterUserInfoList){
             if(SessionListener.userSessionMap.containsKey(authRegisterUserInfo.getUsername())){
                 authRegisterUserInfo.setOnline(true);
             }
         }
+
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("currentPage", page);
         model.addAttribute("authRegisterUserInfoList", authRegisterUserInfoList);
         return "manager/customers";
     }

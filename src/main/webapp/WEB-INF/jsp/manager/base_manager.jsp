@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/panel/manager/users">
+                <a class="nav-link" href="/panel/manager/users/1">
                     <i class="fa fa-users fa-lg"></i>&nbsp;Customers
                 </a>
             </li>

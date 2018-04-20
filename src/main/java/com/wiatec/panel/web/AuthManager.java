@@ -61,9 +61,9 @@ public class AuthManager {
         return "manager/logs";
     }
 
-    @GetMapping(value = "/users")
-    public String users(HttpSession session, Model model){
-        return authManagerService.users(session, model);
+    @GetMapping(value = "/users/{page}")
+    public String users(HttpSession session, Model model, @PathVariable int page){
+        return authManagerService.users(session, model, page);
     }
 
     @GetMapping(value = "/user/{id}")

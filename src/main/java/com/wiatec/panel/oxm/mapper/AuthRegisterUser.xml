@@ -158,6 +158,16 @@
         WHERE id > #{start} AND btv = 1
     </select>
 
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT COUNT(*) count FROM auth_register_user WHERE id > #{start} AND btv = 1
+    </select>
+
+    <select id="selectByPage" resultMap="authRegisterUserInfo">
+        <include refid="select"/>
+        WHERE id > #{start} AND btv = 1
+        LIMIT #{from}, #{to}
+    </select>
+
     <select id="selectAllExpiresUsers" resultMap="authRegisterUserInfo">
         <include refid="select"/>
         WHERE id > #{start}
