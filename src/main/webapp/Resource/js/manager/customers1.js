@@ -15,6 +15,23 @@ $(function () {
         })
     }
 
+    function createTableContent(start){
+        if(userList.length <= 0){
+            return;
+        }
+        for(var i = start ; i < start + 50; i ++){
+            var userInfo = userList[i];
+            var tr = document.createElement("tr");
+            var td1 = document.createElement("td");
+            td1.innerHTML = '<input type="radio" name="rdUser" value="'+userInfo['id']+'"\n' +
+                ' currentRow="'+ (i+1) +'" currentStatus="'+userInfo['emailStatus']+'">';
+            tr.appendChild(td1)
+
+
+
+        }
+    }
+
 
     showOnlineAndTotalCount();
 

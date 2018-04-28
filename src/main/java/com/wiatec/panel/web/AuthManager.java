@@ -63,7 +63,14 @@ public class AuthManager {
 
     @GetMapping(value = "/users/{page}")
     public String users(HttpSession session, Model model, @PathVariable int page){
-        return authManagerService.users(session, model, page);
+//        return authManagerService.users(session, model, page);
+        return authManagerService.users1(session, model);
+    }
+
+    @GetMapping(value = "/users/list")
+    @ResponseBody
+    public ResultInfo listUsers(HttpSession session){
+        return authManagerService.listUsers(session);
     }
 
     @GetMapping(value = "/user/{id}")

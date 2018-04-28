@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.LdGroupMemberDao">
+
+    <insert id="insertOne">
+        INSERT IGNORE INTO ld_relation_group_member (group_id, member_id, modify_time)
+        VALUES (#{groupId}, #{memberId}, now())
+    </insert>
+
+
+    <delete id="deleteAllByGroupId">
+        DELETE IGNORE FROM ld_relation_group_member WHERE group_id = #{groupId}
+    </delete>
+
+    <select id="selectAllMembersById" resultType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
+        SELECT auth_register_user.id, username, email, phone, first_name, last_name, level,
+            active_time, last_online_time, auth_register_user.create_time, device_model,
+            rom_version, ui_version, gender, icon, profile, bvision, btv
+        FROM ld_relation_group_member, auth_register_user
+        WHERE ld_relation_group_member.group_id = #{groupId}
+              AND ld_relation_group_member.member_id = auth_register_user.id
+        ORDER BY auth_register_user.username
+    </select>
+
+</mapper>

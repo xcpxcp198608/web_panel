@@ -215,8 +215,8 @@ public class AuthRegisterUserInfo {
         this.createTime = createTime;
     }
 
-    public String getModifyTime() {
-        return TimeUtil.FORMATTER.format(modifyTime);
+    public Date getModifyTime() {
+        return this.modifyTime;
     }
 
     public void setModifyTime(Date modifyTime) {

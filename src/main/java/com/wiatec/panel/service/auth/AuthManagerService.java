@@ -18,7 +18,6 @@ import com.wiatec.panel.oxm.pojo.chart.manager.LevelDistributionInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.MonthVolumeInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.YearVolumeInfo;
 import com.wiatec.panel.oxm.pojo.log.LogUserLevelInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -37,7 +36,7 @@ import java.util.List;
 @Service
 public class AuthManagerService {
 
-    private final int LIMIT = 500;
+    private final int LIMIT = 1000;
 
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
@@ -93,6 +92,48 @@ public class AuthManagerService {
         model.addAttribute("currentPage", page);
         model.addAttribute("authRegisterUserInfoList", authRegisterUserInfoList);
         return "manager/customers";
+    }
+
+    public String users1(HttpSession session, Model model){
+        String username = (String) session.getAttribute(SessionListener.KEY_AUTH_USER_NAME);
+        if(username == null){
+            throw new XException(EnumResult.ERROR_RE_LOGIN);
+        }
+        AuthManagerInfo authManagerInfo = authManagerDao.selectOneByUsername(username);
+        List<AuthRegisterUserInfo> authRegisterUserInfoList;
+        if(authManagerInfo.getPermission() >= AuthManagerInfo.LEVEL_HIGHEST ) {
+            authRegisterUserInfoList = authRegisterUserDao.selectAll(0);
+        }else{
+            authRegisterUserInfoList = authRegisterUserDao.selectAll(100);
+        }
+        for(AuthRegisterUserInfo authRegisterUserInfo: authRegisterUserInfoList){
+            if(SessionListener.userSessionMap.containsKey(authRegisterUserInfo.getUsername())){
+                authRegisterUserInfo.setOnline(true);
+            }
+        }
+        model.addAttribute("authRegisterUserInfoList", authRegisterUserInfoList);
+        return "manager/customers";
+    }
+
+
+    public ResultInfo listUsers(HttpSession session){
+        String username = (String) session.getAttribute(SessionListener.KEY_AUTH_USER_NAME);
+        if(username == null){
+            throw new XException(EnumResult.ERROR_RE_LOGIN);
+        }
+        AuthManagerInfo authManagerInfo = authManagerDao.selectOneByUsername(username);
+        List<AuthRegisterUserInfo> authRegisterUserInfoList;
+        if(authManagerInfo.getPermission() >= AuthManagerInfo.LEVEL_HIGHEST ) {
+            authRegisterUserInfoList = authRegisterUserDao.selectAll(0);
+        }else{
+            authRegisterUserInfoList = authRegisterUserDao.selectAll(100);
+        }
+        for(AuthRegisterUserInfo authRegisterUserInfo: authRegisterUserInfoList){
+            if(SessionListener.userSessionMap.containsKey(authRegisterUserInfo.getUsername())){
+                authRegisterUserInfo.setOnline(true);
+            }
+        }
+        return ResultMaster.success(authRegisterUserInfoList);
     }
 
     public AuthRegisterUserInfo userDetails(int id){

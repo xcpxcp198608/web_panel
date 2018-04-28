@@ -9,7 +9,7 @@
 </rapid:override>
 
 <rapid:override name="css_js">
-    <script type="text/javascript" src="Resource/js/manager/customers.js"></script>
+    <script type="text/javascript" src="Resource/js/manager/customers1.js"></script>
     <script type="text/javascript" src="https://cdn.bootcss.com/printThis/1.12.2/printThis.min.js"></script>
 </rapid:override>
 
@@ -193,20 +193,20 @@
             </c:if>
 
 
-            <%--<div class="row" style="margin-top: 5px; height: 30px; font-size: 12px">--%>
-                <%--<div class="col-12">--%>
-                    <%--<nav aria-label="page" >--%>
-                        <%--<ul class="pagination justify-content-end">--%>
-                            <%--<li class="page-item"><a class="page-link" href="/panel/manager/users/${currentPage - 1}">Previous</a></li>--%>
-                            <%--<c:forEach begin="1" end="${totalPage}" varStatus="status">--%>
-                                <%--<li class="page-item"><a class="page-link" href="/panel/manager/users/${status.index}">${status.index}</a></li>--%>
-                            <%--</c:forEach>--%>
-                            <%--<li class="page-item"><a class="page-link" href="/panel/manager/users/${currentPage + 1}">Next</a></li>--%>
-                        <%--</ul>--%>
-                    <%--</nav>--%>
+            <div class="row" style="margin-top: 5px; height: 30px; font-size: 12px">
+                <div class="col-12">
+                    <nav aria-label="page" >
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item"><a class="page-link" href="/panel/manager/users/${currentPage - 1}">Previous</a></li>
+                            <c:forEach begin="1" end="${totalPage}" varStatus="status">
+                                <li class="page-item"><a class="page-link" href="/panel/manager/users/${status.index}">${status.index}</a></li>
+                            </c:forEach>
+                            <li class="page-item"><a class="page-link" href="/panel/manager/users/${currentPage + 1}">Next</a></li>
+                        </ul>
+                    </nav>
 
-                <%--</div>--%>
-            <%--</div>--%>
+                </div>
+            </div>
 
         </div>
 

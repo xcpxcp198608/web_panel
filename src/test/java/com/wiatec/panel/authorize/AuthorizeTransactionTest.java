@@ -11,13 +11,17 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:applicationContext.xml"})
 public class AuthorizeTransactionTest {
 
-    
+    /**
+     * PS: change environment (/Users/xuchengpeng/IdeaProjects/panel/out/test/classes/authorize.xml)
+     *     to product and change xml path to local
+     * @throws Exception
+     */
     @Test
     public void charge() throws Exception {
         AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
-        authorizeTransactionInfo.setCardNumber("411111111111111111111");
-        authorizeTransactionInfo.setExpirationDate("0319");
-        authorizeTransactionInfo.setSecurityKey("167");
+//        authorizeTransactionInfo.setCardNumber("411111111111111111111");
+//        authorizeTransactionInfo.setExpirationDate("0319");
+//        authorizeTransactionInfo.setSecurityKey("167");
         authorizeTransactionInfo.setAmount(32.39F);
         AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, "91ec5551fcf0727f");
         System.out.println(charge);

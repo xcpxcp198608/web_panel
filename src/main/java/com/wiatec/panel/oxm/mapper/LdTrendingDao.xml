@@ -1,0 +1,35 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.LdTrendingDao">
+
+    <select id="selectByUserId" resultType="com.wiatec.panel.oxm.pojo.LdTrendingInfo">
+      SELECT id, user_id, username, content, img_count, img_url, link, create_time, modify_time
+      FROM ld_relation_trending
+      WHERE user_id = #{userId}
+      LIMIT #{start}, 50
+    </select>
+
+    <select id="selectByFriendIds" resultType="com.wiatec.panel.oxm.pojo.LdTrendingInfo">
+      SELECT id, user_id, username, content, img_count, img_url, link, create_time, modify_time
+      FROM ld_relation_trending
+      WHERE user_id IN
+        <foreach collection="userIds" open="(" close=")" separator="," item="userId">
+            #{userId}
+        </foreach>
+      LIMIT #{start}, 50
+    </select>
+
+
+    <delete id="deleteTrending">
+        DELETE IGNORE FROM ld_relation_trending
+        WHERE user_id = #{userId} AND id = #{trendingId}
+    </delete>
+
+    <insert id="insertOne">
+        INSERT IGNORE INTO ld_relation_trending (user_id, username, img_count, content,
+                                                 img_url, link, modify_time)
+        VALUES (#{userId}, #{username}, #{imgCount}, #{content}, #{imgUrl}, #{link}, now())
+    </insert>
+
+</mapper>
