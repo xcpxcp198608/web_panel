@@ -6,6 +6,7 @@
     <select id="getGroupsById" resultType="com.wiatec.panel.oxm.pojo.LdGroupInfo">
       SELECT group_id, owner_id, numbers, name, description, icon, create_time, modify_time
       FROM ld_relation_group WHERE owner_id = #{ownerId}
+      ORDER BY name
     </select>
 
     <insert id="insetOne">

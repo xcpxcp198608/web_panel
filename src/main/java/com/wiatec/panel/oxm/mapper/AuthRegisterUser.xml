@@ -31,7 +31,7 @@
     <sql id="select">
         SELECT id, username, password, email, phone, first_name, last_name, level, email_status,
             mac, country, region, city, time_zone, token, active_time, expires_time, last_online_time,
-            create_time, modify_time, status, device_model, rom_version, ui_version
+            create_time, modify_time, status, device_model, rom_version, ui_version, icon, gender, bvision, btv
         FROM auth_register_user
     </sql>
 

@@ -37,8 +37,8 @@ public class LdTrendingService {
         if(friendsIds == null || friendsIds.size() <= 0){
             throw new XException(EnumResult.ERROR_NO_FOUND);
         }
-        friendsIds.add(userId);
         friendsIds.add(0);
+        friendsIds.add(userId);
         List<LdTrendingInfo> ldTrendingInfoList = ldTrendingDao.selectByFriendIds(friendsIds, start);
         if(ldTrendingInfoList == null || ldTrendingInfoList.size() <= 0){
             throw new XException(EnumResult.ERROR_NO_FOUND);
@@ -71,6 +71,7 @@ public class LdTrendingService {
         LdTrendingInfo ldTrendingInfo = new LdTrendingInfo();
         ldTrendingInfo.setUserId(userId);
         ldTrendingInfo.setUsername(userInfo.getUsername());
+        ldTrendingInfo.setIcon(userInfo.getIcon());
         ldTrendingInfo.setContent(content);
         ldTrendingInfo.setImgCount(imgCount);
         ldTrendingInfo.setImgUrl(imgUrl);

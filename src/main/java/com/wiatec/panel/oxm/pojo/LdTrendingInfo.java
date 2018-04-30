@@ -9,6 +9,7 @@ public class LdTrendingInfo extends BaseInfo {
 
     private int userId;
     private String username;
+    private String icon;
     private String content;
     private int imgCount;
     private String imgUrl;
@@ -28,6 +29,14 @@ public class LdTrendingInfo extends BaseInfo {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getContent() {
@@ -67,6 +76,7 @@ public class LdTrendingInfo extends BaseInfo {
         return "LdTrendingInfo{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
+                ", icon='" + icon + '\'' +
                 ", content='" + content + '\'' +
                 ", imgCount=" + imgCount +
                 ", imgUrl='" + imgUrl + '\'' +
