@@ -11,11 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fcbb8162-7201-4f40-a409-92e2db470717" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRegisterUser.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/AuthRegisterUser.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/LdGroupDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/LdGroupDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/LdTrendingDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/mapper/LdTrendingDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/LdTrendingInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/oxm/pojo/LdTrendingInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/LdTrendingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/LdTrendingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/api/LdTrending.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wiatec/panel/api/LdTrending.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -42,24 +38,6 @@
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="panel@www.ldlegacy.com" type="feb32156:DbDataSourceImpl" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="panel@www.ldlegacy.com" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="panel@www.ldlegacy.com" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="panel: schema" type="c314c289:MysqlImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="panel@www.ldlegacy.com" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="panel: schema" type="c314c289:MysqlImplModel$Schema" />
-        <item name="auth_register_user: table" type="98d5ac3d:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -499,8 +477,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -682,7 +658,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1189,14 +1167,8 @@
       <workItem from="1524930860047" duration="1730000" />
       <workItem from="1524969421455" duration="691000" />
       <workItem from="1525006745818" duration="1201000" />
-      <workItem from="1525060175508" duration="338000" />
-    </task>
-    <task id="LOCAL-00051" summary="201801231150">
-      <created>1516679524625</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1516679524632</updated>
+      <workItem from="1525060175508" duration="672000" />
+      <workItem from="1525061109992" duration="1630000" />
     </task>
     <task id="LOCAL-00052" summary="201801231630">
       <created>1516696220850</created>
@@ -1534,7 +1506,14 @@
       <option name="project" value="LOCAL" />
       <updated>1524929083448</updated>
     </task>
-    <option name="localTasksCounter" value="100" />
+    <task id="LOCAL-00100" summary="201804301158">
+      <created>1525060723784</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1525060723785</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1570,7 +1549,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1321890000" />
+    <option name="totallyTimeSpent" value="1323854000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1606,11 +1585,11 @@
       <window_info id="Image Layers" order="5" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" sideWeight="0.49712643" weight="0.32903227" />
       <window_info anchor="right" id="Capture Analysis" order="9" />
-      <window_info active="true" anchor="bottom" x="0" y="0" width="1440" height="900" id="Run" order="5" sideWeight="0.49137932" visible="true" weight="0.36617842" />
+      <window_info anchor="bottom" x="0" y="0" width="1440" height="900" id="Run" order="5" sideWeight="0.49137932" visible="true" weight="0.36617842" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49712643" weight="0.31341302" />
       <window_info anchor="bottom" id="Spring" order="10" sideWeight="0.4928161" weight="0.32903227" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32802126" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18893678" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19181034" />
       <window_info anchor="right" id="Bean Validation" order="10" show_stripe_button="false" />
       <window_info id="Web" order="6" side_tool="true" />
       <window_info anchor="right" id="Gradle" order="11" />
@@ -1627,10 +1606,8 @@
       <window_info anchor="bottom" id="File Transfer" order="16" weight="0.28950864" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="bottom" id="Application Servers" order="12" weight="0.32536522" />
-      <window_info id="Designer" order="3" />
       <window_info anchor="bottom" id="Build" order="14" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32802126" />
+      <window_info id="Designer" order="3" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Remote Host" order="5" weight="0.1954023" />
       <window_info anchor="bottom" id="Spring" order="10" sideWeight="0.4928161" weight="0.32903227" />
@@ -1640,6 +1617,7 @@
       <window_info anchor="right" id="Ant Build" order="1" show_stripe_button="false" weight="0.25" />
       <window_info anchor="right" id="JSF" order="7" show_stripe_button="false" weight="0.3299712" />
       <window_info id="UI Designer" order="4" />
+      <window_info id="Web" order="6" side_tool="true" />
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32802126" />
       <window_info id="Capture Tool" order="2" />
@@ -1649,22 +1627,23 @@
       <window_info anchor="bottom" id="Messages" order="13" sideWeight="0.49135447" weight="0.32138115" />
       <window_info anchor="bottom" id="File Transfer" order="16" weight="0.28950864" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Tail" order="15" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32270917" />
       <window_info id="Image Layers" order="5" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" sideWeight="0.49712643" weight="0.32903227" />
+      <window_info anchor="bottom" id="Application Servers" order="12" weight="0.32536522" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49712643" weight="0.31341302" />
       <window_info anchor="right" id="Maven Projects" order="13" />
       <window_info anchor="right" id="Gradle" order="11" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1716954" />
       <window_info anchor="right" id="Database" order="6" visible="true" weight="0.19683908" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info id="Web" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32802126" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="12" />
       <window_info id="Structure" order="1" weight="0.17816092" />
       <window_info anchor="right" id="CDI" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32270917" />
+      <window_info anchor="bottom" id="Tail" order="15" />
       <window_info anchor="right" id="Bean Validation" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Debug" order="2" weight="0.4" />
     </layout-to-restore>
@@ -1703,7 +1682,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="201802031800" />
     <MESSAGE value="201802051440" />
     <MESSAGE value="201802051710" />
     <MESSAGE value="201802051725" />
@@ -1728,7 +1706,8 @@
     <MESSAGE value="201804091700" />
     <MESSAGE value="201804201200" />
     <MESSAGE value="201804282323" />
-    <option name="LAST_COMMIT_MESSAGE" value="201804282323" />
+    <MESSAGE value="201804301158" />
+    <option name="LAST_COMMIT_MESSAGE" value="201804301158" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2062,15 +2041,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/service/LdTrendingService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="66" column="66" lean-forward="true" selection-start-line="66" selection-start-column="66" selection-end-line="66" selection-end-column="66" />
+        <state relative-caret-position="137">
+          <caret line="69" column="9" lean-forward="true" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wiatec/panel/api/LdTrending.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="83" column="43" selection-start-line="83" selection-start-column="43" selection-end-line="83" selection-end-column="43" />
+        <state relative-caret-position="44">
+          <caret line="87" column="36" lean-forward="true" selection-start-line="87" selection-start-column="36" selection-end-line="87" selection-end-column="36" />
         </state>
       </provider>
     </entry>

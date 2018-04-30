@@ -73,9 +73,6 @@ public class LdTrending {
                              @RequestParam(required = false) MultipartFile[] files,
                              @RequestParam(required = false) String content,
                              @RequestParam(required = false) String link) throws IOException {
-        if(TextUtil.isEmpty(content)){
-            throw new XException(EnumResult.ERROR_BAD_REQUEST);
-        }
         int imgCount = 0;
         String imgUrl = "";
         StringBuilder stringBuilder = new StringBuilder();
