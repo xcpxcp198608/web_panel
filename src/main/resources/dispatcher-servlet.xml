@@ -32,6 +32,10 @@
             <mvc:mapping path="/mexico/**"/>
             <bean class="com.wiatec.panel.inteceptor.AuthInterceptor"/>
         </mvc:interceptor>
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/"/>-->
+            <!--<bean class="com.wiatec.panel.inteceptor.AccessTokenInterceptor"/>-->
+        <!--</mvc:interceptor>-->
     </mvc:interceptors>
 
     <mvc:resources mapping="/Resource/**" location="/Resource/"/>

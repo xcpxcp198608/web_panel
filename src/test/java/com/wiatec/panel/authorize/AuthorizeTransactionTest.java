@@ -14,16 +14,16 @@ public class AuthorizeTransactionTest {
     /**
      * PS: change environment (/Users/xuchengpeng/IdeaProjects/panel/out/test/classes/authorize.xml)
      *     to product and change xml path to local
-     * @throws Exception
      */
     @Test
     public void charge() throws Exception {
         AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
-//        authorizeTransactionInfo.setCardNumber("411111111111111111111");
-//        authorizeTransactionInfo.setExpirationDate("0319");
-//        authorizeTransactionInfo.setSecurityKey("167");
-        authorizeTransactionInfo.setAmount(32.39F);
-        AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, "91ec5551fcf0727f");
+//        authorizeTransactionInfo.setCardNumber("4168340001318104");
+//        authorizeTransactionInfo.setExpirationDate("1121");
+//        authorizeTransactionInfo.setSecurityKey("606");
+        authorizeTransactionInfo.setAmount(172.79F);
+        AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo,
+                "c6b707c73a75dd21");
         System.out.println(charge);
     }
 

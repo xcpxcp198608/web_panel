@@ -1,6 +1,7 @@
 package com.wiatec.panel.service;
 
 import com.wiatec.panel.common.result.*;
+import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
 import com.wiatec.panel.oxm.dao.LdFriendDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.LdFriendInfo;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,11 +24,17 @@ public class LdFriendService {
 
     @Resource
     private LdFriendDao ldFriendDao;
+    @Resource
+    private AuthRegisterUserDao authRegisterUserDao;
 
     public ResultInfo<AuthRegisterUserInfo> getAllFriends(int userId){
-        List<AuthRegisterUserInfo> userInfoList = ldFriendDao.selectAllFriendsByUserId(userId);
-        if(userInfoList == null || userInfoList.size() <= 0){
-            throw new XException(EnumResult.ERROR_NO_FOUND);
+        List<AuthRegisterUserInfo> userInfoList = new ArrayList<>();
+        AuthRegisterUserInfo userInfo = authRegisterUserDao.selectOneById(41);
+        userInfo.setPassword("");
+        userInfoList.add(userInfo);
+        List<AuthRegisterUserInfo> userInfoList1 = ldFriendDao.selectAllFriendsByUserId(userId);
+        if(userInfoList1 != null){
+            userInfoList.addAll(userInfoList1);
         }
         return ResultMaster.success(userInfoList);
     }

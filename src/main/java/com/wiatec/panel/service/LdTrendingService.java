@@ -34,9 +34,6 @@ public class LdTrendingService {
 
     public ResultInfo<LdTrendingInfo> getFriendsTrending(int userId, int start){
         List<Integer> friendsIds = ldFriendDao.selectAllFriendsId(userId);
-        if(friendsIds == null || friendsIds.size() <= 0){
-            throw new XException(EnumResult.ERROR_NO_FOUND);
-        }
         friendsIds.add(0);
         friendsIds.add(userId);
         List<LdTrendingInfo> ldTrendingInfoList = ldTrendingDao.selectByFriendIds(friendsIds, start);

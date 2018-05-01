@@ -1,16 +1,27 @@
 package com.wiatec.panel.common.result;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
 /**
  * the result that return to user after user's request
+ * @author patrick
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultInfo<T> {
 
     private int code;
     private String message;
     private T data;
     private List<T> dataList;
+
+
+    @JsonIgnore
+    public boolean isSuccess(){
+        return this.code == EnumResult.SUCCESS.getCode();
+    }
 
     public int getCode() {
         return code;
