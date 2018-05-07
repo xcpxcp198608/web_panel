@@ -28,6 +28,41 @@ public class LdFriend {
         return ldFriendService.getAllFriends(userId);
     }
 
+    /**
+     * get ask be friend request
+     * @param userId user id
+     * @return ResultInfo
+     */
+    @GetMapping("/ask/{userId}")
+    public ResultInfo getAskFriends(@PathVariable int userId){
+        return ldFriendService.getAskFriends(userId);
+    }
+
+
+
+    /**
+     * search user by keyword in username
+     * @param userId user id
+     * @param keyword keyword
+     * @return ResultInfo
+     */
+    @GetMapping("/{userId}/{keyword}")
+    public ResultInfo searchFriend(@PathVariable int userId, @PathVariable String keyword){
+        return ldFriendService.searchUsers(userId, keyword);
+    }
+
+
+    /**
+     * check friend relation by id
+     * @param userId user id
+     * @param friendId friend id
+     * @return ResultInfo
+     */
+    @GetMapping("/check/{userId}/{friendId}")
+    public ResultInfo checkFriend(@PathVariable int userId, @PathVariable int friendId){
+        return ldFriendService.checkFriend(userId, friendId);
+    }
+
 
     /**
      * add or delete friend

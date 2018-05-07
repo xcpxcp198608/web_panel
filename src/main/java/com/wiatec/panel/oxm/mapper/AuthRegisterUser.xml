@@ -185,6 +185,18 @@
         ORDER BY id
     </select>
 
+
+    <select id="selectByKeywordInUsername" resultMap="authRegisterUserInfo">
+        SELECT id, username, email, phone, first_name, last_name, level,
+            country, region, city, time_zone, device_model, rom_version, ui_version,
+            active_time, last_online_time, create_time, device_model,
+            rom_version, ui_version, gender, icon, profile, bvision, btv
+        FROM auth_register_user
+        WHERE id > 10000
+        AND username like #{keyword}
+        ORDER BY username
+    </select>
+
     <update id="updateLevelById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
         UPDATE IGNORE auth_register_user
         SET level=#{level}, expires_time=#{expiresTime}

@@ -3,6 +3,7 @@ package com.wiatec.panel.service.auth;
 import com.wiatec.panel.authorize.AuthorizeTransaction;
 import com.wiatec.panel.authorize.AuthorizeTransactionInfo;
 import com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo;
+import com.wiatec.panel.common.security.MD5Util;
 import com.wiatec.panel.common.utils.*;
 import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
@@ -144,7 +145,7 @@ public class AuthSalesService {
         authRentUserInfo.setDealerName(authSalesInfo.getDealerName());
         authRentUserInfo.setDealerId(authSalesInfo.getDealerId());
         authRentUserInfo.setDistributor(AuthRentUserInfo.DISTRIBUTOR_LDE);
-        authRentUserInfo.setClientKey(TokenUtil.create16(authRentUserInfo.getMac()));
+        authRentUserInfo.setClientKey(MD5Util.create16(authRentUserInfo.getMac()));
         String activateTime = TimeUtil.getStrTime();
         authRentUserInfo.setActivateTime(activateTime);
         authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime,

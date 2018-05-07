@@ -20,7 +20,7 @@ public class AccessToken {
     public static String encrypt(String value){
         String uuid = UUID.randomUUID().toString();
         System.out.println(uuid);
-        String time = System.currentTimeMillis() / 1000 + "";
+        String time = System.currentTimeMillis() + "";
         System.out.println(time);
         return DigestUtils.md5Hex(value + uuid + time + SALT);
     }

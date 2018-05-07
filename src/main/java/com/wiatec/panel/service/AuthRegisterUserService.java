@@ -6,7 +6,7 @@ import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.*;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.common.utils.EmailMaster;
-import com.wiatec.panel.common.utils.TokenUtil;
+import com.wiatec.panel.common.security.MD5Util;
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
@@ -17,7 +17,6 @@ import com.wiatec.panel.oxm.pojo.DevicePCPInfo;
 import com.wiatec.panel.oxm.pojo.log.LogUserLevelInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -71,7 +70,7 @@ public class AuthRegisterUserService {
         if(authRegisterUserDao.countByEmail(authRegisterUserInfo) == 1){
             throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
         }
-        String token = TokenUtil.create64(authRegisterUserInfo.getUsername());
+        String token = MD5Util.create64(authRegisterUserInfo.getUsername());
         authRegisterUserInfo.setToken(token);
         authRegisterUserDao.saveOneUser(authRegisterUserInfo);
         EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LD);
@@ -93,7 +92,7 @@ public class AuthRegisterUserService {
         if(authRegisterUserDao.countByEmail(authRegisterUserInfo) == 1){
             throw new XException(EnumResult.ERROR_EMAIL_EXISTS);
         }
-        String token = TokenUtil.create64(authRegisterUserInfo.getUsername());
+        String token = MD5Util.create64(authRegisterUserInfo.getUsername());
         authRegisterUserInfo.setToken(token);
         authRegisterUserDao.saveOneUser(authRegisterUserInfo);
         EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LD);
@@ -111,7 +110,7 @@ public class AuthRegisterUserService {
         if(authRegisterUserInfo == null){
             throw new XException(EnumResult.ERROR_ACCESS_TOKEN);
         }
-        String newToken = TokenUtil.create64(token);
+        String newToken = MD5Util.create64(token);
         authRegisterUserInfo.setToken(newToken);
         authRegisterUserDao.updateEmailStatus(authRegisterUserInfo);
         return ResultMaster.success("Activation successful");
@@ -124,7 +123,7 @@ public class AuthRegisterUserService {
         if(authRegisterUserDao.countByUsernameAndPassword(authRegisterUserInfo) != 1){
             throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
         }
-        String token = TokenUtil.create64(authRegisterUserInfo.getUsername());
+        String token = MD5Util.create64(authRegisterUserInfo.getUsername());
         if(authRegisterUserDao.countByMac(authRegisterUserInfo) != 1){
             AuthRegisterUserInfo userInfo = authRegisterUserDao.selectOneByUsername(authRegisterUserInfo);
             if(userInfo.getEmailStatus() != 1){
@@ -240,7 +239,7 @@ public class AuthRegisterUserService {
         if(authRegisterUserInfo == null){
             throw new XException(EnumResult.ERROR_ACCESS_TOKEN);
         }
-        String newToken = TokenUtil.create64(token);
+        String newToken = MD5Util.create64(token);
         authRegisterUserInfo.setToken(newToken);
         authRegisterUserDao.updateToken(authRegisterUserInfo);
         model.addAttribute("authRegisterUserInfo", authRegisterUserInfo);

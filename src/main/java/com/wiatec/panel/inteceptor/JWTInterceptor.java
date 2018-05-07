@@ -2,7 +2,7 @@ package com.wiatec.panel.inteceptor;
 
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.XException;
-import com.wiatec.panel.common.utils.JWTUtil;
+import com.wiatec.panel.common.security.JWTUtil;
 import com.wiatec.panel.common.utils.TextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.wiatec.panel.common.utils;
+package com.wiatec.panel.common.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

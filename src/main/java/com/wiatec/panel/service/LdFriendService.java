@@ -39,8 +39,41 @@ public class LdFriendService {
         return ResultMaster.success(userInfoList);
     }
 
+
+    public ResultInfo<AuthRegisterUserInfo> getAskFriends(int userId){
+        List<AuthRegisterUserInfo> userInfoList = ldFriendDao.selectAskFriendsByUserId(userId);
+        if(userInfoList == null || userInfoList.size() <= 0){
+            throw new XException(EnumResult.ERROR_NO_FOUND);
+        }
+        return ResultMaster.success(userInfoList);
+    }
+
+
+    public ResultInfo<AuthRegisterUserInfo> searchUsers(int userId, String keyword){
+        List<AuthRegisterUserInfo> userInfoList = authRegisterUserDao.selectByKeywordInUsername("%" + keyword + "%");
+        if(userInfoList == null || userInfoList.size() <= 0){
+            throw new XException(EnumResult.ERROR_NO_FOUND);
+        }
+        return ResultMaster.success(userInfoList);
+    }
+
+
+    public ResultInfo checkFriend(int userId, int friendId){
+        LdFriendInfo ldFriendInfo = ldFriendDao.selectOne(userId, friendId);
+        if(ldFriendInfo == null){
+            throw new XException(9001, "has no add yet");
+        }
+        if(!ldFriendInfo.isApproved()){
+            throw new XException(9002, "friend has no approve your request");
+        }
+        return ResultMaster.success();
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo friendOperation(int action, int userId, int friendId){
+        if (userId == friendId){
+            throw new XException("this operation can not do in yourself");
+        }
         LdFriendInfo ldFriendInfo = ldFriendDao.selectOne(userId, friendId);
         switch (action){
             case 0:
@@ -56,7 +89,11 @@ public class LdFriendService {
                 break;
             case 1:
                 if(ldFriendInfo != null){
-                    throw new XException("your are already be friend");
+                    if(ldFriendInfo.isApproved()) {
+                        throw new XException("your are already be friend");
+                    }else{
+                        throw new XException("your are already request with friend, waiting for approve");
+                    }
                 }
                 if(ldFriendDao.insertOne(userId, friendId, 0) != 1){
                     throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
@@ -73,8 +110,15 @@ public class LdFriendService {
                 if(ldFriendDao.updateApproved(friendId, userId) != 1){
                     throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
                 }
-                if(ldFriendDao.insertOne(userId, friendId, 1) != 1){
-                    throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+                LdFriendInfo ldFriendInfo1 = ldFriendDao.selectOne(userId, friendId);
+                if(ldFriendInfo1 == null) {
+                    if (ldFriendDao.insertOne(userId, friendId, 1) != 1) {
+                        throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+                    }
+                }else{
+                    if(ldFriendDao.updateApproved(userId, friendId) != 1){
+                        throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+                    }
                 }
                 break;
             default:

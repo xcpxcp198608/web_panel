@@ -40,6 +40,7 @@ public interface AuthRegisterUserDao {
                                             @Param("to")int to);
     List<AuthRegisterUserInfo> selectAllExpiresUsers(int start);
     List<AuthRegisterUserInfo> selectExportUsers(@Param("macs") String[] macs);
+    List<AuthRegisterUserInfo> selectByKeywordInUsername(String keyword);
 
     int updateEmailStatusById(AuthRegisterUserInfo authRegisterUserInfo);
     int updateStatusById(AuthRegisterUserInfo authRegisterUserInfo);

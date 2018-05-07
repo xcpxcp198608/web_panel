@@ -7,6 +7,7 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.common.security.MD5Util;
 import com.wiatec.panel.common.utils.*;
 import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
@@ -122,7 +123,7 @@ public class AuthMexicoService {
         authRentUserInfo.setMac(authRentUserInfo.getMac().toUpperCase());
         authRentUserInfo.setDistributor(AuthRentUserInfo.DISTRIBUTOR_LDM);
         authRentUserInfo.setCategory(commissionCategoryInfo.getCategory());
-        authRentUserInfo.setClientKey(TokenUtil.create16(authRentUserInfo.getMac()));
+        authRentUserInfo.setClientKey(MD5Util.create16(authRentUserInfo.getMac()));
         String activateTime = TimeUtil.getStrTime();
         authRentUserInfo.setActivateTime(activateTime);
         authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime,
@@ -162,7 +163,7 @@ public class AuthMexicoService {
         commissionCategoryInfo.setFirstPay();
         authRentUserInfo.setMac(authRentUserInfo.getMac().toUpperCase());
         authRentUserInfo.setDistributor(AuthRentUserInfo.DISTRIBUTOR_LDM);
-        authRentUserInfo.setClientKey(TokenUtil.create16(authRentUserInfo.getMac()));
+        authRentUserInfo.setClientKey(MD5Util.create16(authRentUserInfo.getMac()));
         String activateTime = TimeUtil.getStrTime();
         authRentUserInfo.setActivateTime(activateTime);
         authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime,

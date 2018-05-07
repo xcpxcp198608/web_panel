@@ -32,15 +32,18 @@ public class LdTrending {
      * @return ResultInfo
      */
     @GetMapping("/{userId}/{start}")
-    public ResultInfo getAllFriendTrending(@PathVariable int userId, @PathVariable int start){
-        return ldTrendingService.getFriendsTrending(userId, start);
+    public ResultInfo getAllFriendTrending(@PathVariable int userId, @PathVariable int start,
+                                           @RequestParam(required = false, defaultValue = "1") int pageNum,
+                                           @RequestParam(required = false, defaultValue = "50") int pageSize,
+                                           @RequestParam(required = false, defaultValue = "id") String order){
+        return ldTrendingService.getFriendsTrending(userId, start, pageNum, pageSize, order);
     }
 
 
     /**
      * delete a trending info by user id and trending id
      * @param userId user id
-     * @param trendingId trending id
+     * @param trendingId trending ids
      * @return ResultInfo
      */
     @DeleteMapping("/{userId}/{trendingId}")

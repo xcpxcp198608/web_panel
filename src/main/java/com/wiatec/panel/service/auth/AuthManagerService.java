@@ -4,6 +4,7 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.common.security.MD5Util;
 import com.wiatec.panel.common.utils.*;
 import com.wiatec.panel.listener.SessionListener;
 import com.wiatec.panel.oxm.dao.AuthManagerDao;
@@ -144,7 +145,7 @@ public class AuthManagerService {
     public ResultInfo activate(int id){
         AuthRegisterUserInfo authRegisterUserInfo = new AuthRegisterUserInfo();
         authRegisterUserInfo.setId(id);
-        authRegisterUserInfo.setToken(TokenUtil.create64(id+""));
+        authRegisterUserInfo.setToken(MD5Util.create64(id+""));
         authRegisterUserDao.updateEmailStatusById(authRegisterUserInfo);
         return ResultMaster.success();
     }

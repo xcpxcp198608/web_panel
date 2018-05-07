@@ -14,6 +14,7 @@ import java.util.List;
 public interface LdFriendDao {
 
     List<AuthRegisterUserInfo> selectAllFriendsByUserId(int userId);
+    List<AuthRegisterUserInfo> selectAskFriendsByUserId(int userId);
     List<Integer> selectAllFriendsId(int userId);
     LdFriendInfo selectOne(@Param("userId") int userId, @Param("friendId") int friendId);
     int insertOne(@Param("userId") int userId, @Param("friendId") int friendId, @Param("approved") int approved);

@@ -30,7 +30,8 @@
 
 
     <select id="selectAllSalesCommissionByYearAndMonth" resultType="com.wiatec.panel.oxm.pojo.commission.SalesMonthlyCommission">
-    SELECT sum(commission) commission, auth_sales.username salesName, COUNT(*) volume, commission_monthly_sales.sales_id salesId
+    SELECT sum(commission) commission, auth_sales.username salesName,
+           COUNT(*) volume, commission_monthly_sales.sales_id salesId
     FROM commission_monthly_sales
     JOIN auth_sales
     ON commission_monthly_sales.sales_id=auth_sales.id

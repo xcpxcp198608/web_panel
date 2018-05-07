@@ -1,6 +1,7 @@
 package com.wiatec.panel.service;
 
-import com.wiatec.panel.api.AuthRegisterUser;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
@@ -32,14 +33,23 @@ public class LdTrendingService {
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
 
-    public ResultInfo<LdTrendingInfo> getFriendsTrending(int userId, int start){
+    public ResultInfo getFriendsTrending(int userId, int start, int pageNum, int pageSize, String order){
+        //start page
+//        PageHelper.startPage(pageNum, pageSize);
+
+
         List<Integer> friendsIds = ldFriendDao.selectAllFriendsId(userId);
         friendsIds.add(0);
         friendsIds.add(userId);
+
         List<LdTrendingInfo> ldTrendingInfoList = ldTrendingDao.selectByFriendIds(friendsIds, start);
         if(ldTrendingInfoList == null || ldTrendingInfoList.size() <= 0){
             throw new XException(EnumResult.ERROR_NO_FOUND);
         }
+
+
+        //end page
+//        PageInfo pageInfo = new PageInfo(ldTrendingInfoList);
         return ResultMaster.success(ldTrendingInfoList);
     }
 

@@ -15,6 +15,17 @@
       ORDER BY auth_register_user.username
     </select>
 
+    <select id="selectAskFriendsByUserId" resultType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
+      SELECT auth_register_user.id, username, email, phone, first_name, last_name, level,
+          active_time, last_online_time, auth_register_user.create_time, device_model,
+          rom_version, ui_version, gender, icon, profile, bvision, btv
+      FROM ld_relation_friends, auth_register_user
+      WHERE ld_relation_friends.friend_id = #{userId}
+        AND ld_relation_friends.user_id = auth_register_user.id
+          AND ld_relation_friends.approved = 0
+      ORDER BY auth_register_user.username
+    </select>
+
     <select id="selectAllFriendsId" resultType="java.lang.Integer">
         SELECT friend_id
         FROM ld_relation_friends

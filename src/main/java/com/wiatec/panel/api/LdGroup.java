@@ -48,7 +48,10 @@ public class LdGroup {
     public ResultInfo createGroup(@PathVariable int ownerId, String name, String description,
                                   @RequestParam(required = false) MultipartFile file,
                                   HttpSession session) throws IOException {
-        String icon = uploadFile(ownerId, file, session);
+        String icon = "";
+        if(file != null) {
+            icon = uploadFile(ownerId, file, session);
+        }
         return ldGroupService.createGroup(ownerId, name, description, icon);
     }
 
