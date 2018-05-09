@@ -86,20 +86,6 @@ public class LdGroup {
 
 
 
-
-
-    /**
-     * get all member user info in group by group id
-     * @param groupId group id
-     * @return ResultInfo
-     */
-    @GetMapping("/{groupId}/members")
-    public ResultInfo getGroupMembers(@PathVariable int groupId){
-        return ldGroupService.getGroupMembers(groupId);
-    }
-
-
-
     private String uploadFile(int ownerId, MultipartFile file, HttpSession session) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         if(file != null){
@@ -117,6 +103,43 @@ public class LdGroup {
             Runtime.getRuntime().exec("chmod -R 777 " + path);
         }
         return stringBuilder.toString();
+    }
+
+
+
+
+
+    /**
+     * get all member user info in group by group id
+     * @param groupId group id
+     * @return ResultInfo
+     */
+    @GetMapping("/{groupId}/members")
+    public ResultInfo getGroupMembers(@PathVariable int groupId){
+        return ldGroupService.getGroupMembers(groupId);
+    }
+
+
+
+    /**
+     * add a member to special group
+     * @param groupId group id
+     * @return ResultInfo
+     */
+    @PostMapping("/{groupId}/members")
+    public ResultInfo addMember(@PathVariable int groupId, @RequestParam(required = false, defaultValue = "0") int userId,
+                                @RequestParam(required = false, defaultValue = "") String username){
+        return ldGroupService.addMember(groupId, userId, username);
+    }
+
+    /**
+     * delete a member from special group
+     * @param groupId group id
+     * @return ResultInfo
+     */
+    @DeleteMapping("/{groupId}/members/{memberId}")
+    public ResultInfo deleteMember(@PathVariable int groupId, @PathVariable int memberId){
+        return ldGroupService.deleteMember(groupId, memberId);
     }
 
 }

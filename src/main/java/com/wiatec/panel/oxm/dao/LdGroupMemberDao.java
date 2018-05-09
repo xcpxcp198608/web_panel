@@ -19,4 +19,8 @@ public interface LdGroupMemberDao {
     List<AuthRegisterUserInfo> selectAllMembersById(int groupId);
 
     List<Integer> selectGroupIdByMemberId(int memberId);
+
+    int countByGroupIdAndMemberId(@Param("groupId") int groupId, @Param("memberId") int memberId);
+
+    int deleteOne(@Param("groupId") int groupId, @Param("memberId") int memberId);
 }

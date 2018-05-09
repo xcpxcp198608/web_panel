@@ -29,4 +29,15 @@
         WHERE member_id = #{memberId}
     </select>
 
+    <select id="countByGroupIdAndMemberId" resultType="java.lang.Integer">
+        SELECT COUNT(1) count FROM ld_relation_group_member
+        WHERE group_id = #{groupId} AND member_id = #{memberId}
+    </select>
+
+
+    <delete id="deleteOne">
+        DELETE IGNORE FROM ld_relation_group_member
+        WHERE group_id = #{groupId} AND member_id = #{memberId}
+    </delete>
+
 </mapper>

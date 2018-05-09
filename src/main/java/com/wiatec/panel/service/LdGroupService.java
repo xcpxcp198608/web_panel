@@ -101,4 +101,41 @@ public class LdGroupService {
         return ResultMaster.success(userInfoList);
     }
 
+
+    public ResultInfo addMember(int groupId, int userId, String username){
+        if(TextUtil.isEmpty(username)){
+            if(userId <= 0){
+                throw new XException("user does not exists");
+            }
+            if(ldGroupMemberDao.countByGroupIdAndMemberId(groupId, userId) == 1){
+                throw new XException("this user already in group");
+            }
+            if(ldGroupMemberDao.insertOne(groupId, userId) !=1){
+                throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+            }
+        }else{
+            AuthRegisterUserInfo userInfo = new AuthRegisterUserInfo();
+            userInfo.setUsername(username.trim());
+            AuthRegisterUserInfo userInfo1 = authRegisterUserDao.selectOneByUsername(userInfo);
+            if(userInfo1 == null){
+                throw new XException("user does not exists");
+            }
+            if(ldGroupMemberDao.countByGroupIdAndMemberId(groupId, userId) == 1){
+                throw new XException("this user already in group");
+            }
+            if(ldGroupMemberDao.insertOne(groupId, userInfo1.getId()) != 1){
+                throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+            }
+        }
+        return ResultMaster.success();
+    }
+
+
+    public ResultInfo deleteMember(int groupId, int memberId){
+        if(ldGroupMemberDao.deleteOne(groupId, memberId) != 1){
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+        }
+        return ResultMaster.success();
+    }
+
 }
