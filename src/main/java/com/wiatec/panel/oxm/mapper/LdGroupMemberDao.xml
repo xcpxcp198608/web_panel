@@ -23,4 +23,10 @@
         ORDER BY auth_register_user.username
     </select>
 
+    <select id="selectGroupIdByMemberId" resultType="java.lang.Integer">
+        SELECT group_id
+        FROM ld_relation_group_member
+        WHERE member_id = #{memberId}
+    </select>
+
 </mapper>

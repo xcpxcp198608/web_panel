@@ -1,6 +1,5 @@
 package com.wiatec.panel.oxm.dao;
 
-import com.wiatec.panel.api.AuthRegisterUser;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -18,4 +17,6 @@ public interface LdGroupMemberDao {
     int deleteAllByGroupId(int groupId);
 
     List<AuthRegisterUserInfo> selectAllMembersById(int groupId);
+
+    List<Integer> selectGroupIdByMemberId(int memberId);
 }

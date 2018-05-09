@@ -3,9 +3,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wiatec.panel.oxm.dao.LdGroupDao">
 
-    <select id="getGroupsById" resultType="com.wiatec.panel.oxm.pojo.LdGroupInfo">
+    <select id="getGroupsByOwnerId" resultType="com.wiatec.panel.oxm.pojo.LdGroupInfo">
       SELECT group_id, owner_id, numbers, name, description, icon, create_time, modify_time
       FROM ld_relation_group WHERE owner_id = #{ownerId}
+      ORDER BY name
+    </select>
+
+    <select id="getGroupsByOwnerIds" resultType="com.wiatec.panel.oxm.pojo.LdGroupInfo">
+      SELECT group_id, owner_id, numbers, name, description, icon, create_time, modify_time
+      FROM ld_relation_group WHERE owner_id IN
+      <foreach collection="#{ownerIds}" item="ownerId" separator="," open="(" close=")">
+        #{ownerId}
+      </foreach>
       ORDER BY name
     </select>
 
@@ -19,20 +28,16 @@
         WHERE group_id = #{groupId} AND owner_id = #{ownerId}
     </delete>
 
-    <update id="updateNameByGroupId">
-        UPDATE IGNORE ld_relation_group SET name = #{name}, modify_time = now()
+    <update id="updateByGroupId">
+        UPDATE IGNORE ld_relation_group
+        SET name = #{name}, description = #{description},
+            <if test="icon != null">
+                icon = #{icon},
+            </if>
+            modify_time = now()
         WHERE group_id = #{groupId}
     </update>
 
-    <update id="updateDescriptionByGroupId">
-        UPDATE IGNORE ld_relation_group SET description = #{description}, modify_time = now()
-        WHERE group_id = #{groupId}
-    </update>
-
-    <update id="updateIconByGroupId">
-        UPDATE IGNORE ld_relation_group SET icon = #{icon}, modify_time = now()
-        WHERE group_id = #{groupId}
-    </update>
 
     <update id="updateNumbersByGroupId">
         UPDATE IGNORE ld_relation_group SET numbers = numbers + 1, modify_time = now()

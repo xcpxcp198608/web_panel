@@ -12,12 +12,14 @@ import java.util.List;
 @Repository
 public interface LdGroupDao {
 
-    List<LdGroupInfo> getGroupsById(int ownerId);
+    List<LdGroupInfo> getGroupsByOwnerId(int ownerId);
+    List<LdGroupInfo> getGroupsByOwnerIds(@Param("ownerIds") List<Integer> ownerIds);
     int insetOne(LdGroupInfo ldGroupInfo);
     int deleteOne(@Param("ownerId") int ownerId, @Param("groupId") int groupId);
-    int updateNameByGroupId(@Param("groupId")int groupId, @Param("name")String name);
-    int updateDescriptionByGroupId(@Param("groupId")int groupId, @Param("description")String description);
-    int updateIconByGroupId(@Param("groupId")int groupId, @Param("icon")String icon);
+
+    int updateByGroupId(@Param("groupId")int groupId, @Param("name")String name,
+                        @Param("description")String description, @Param("icon")String icon);
+
     int updateNumbersByGroupId(@Param("groupId")int groupId);
 
 }

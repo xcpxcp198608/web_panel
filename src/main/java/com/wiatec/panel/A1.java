@@ -33,6 +33,7 @@ public class A1 {
 
         Double d1 = 0.67;
         Double d2 = 0.617;
+        //使用String构造器，构造会丢失精度
         BigDecimal b1 = new BigDecimal(d1.toString());
         BigDecimal b2 = new BigDecimal(d2.toString());
         BigDecimal result = b1.add(b2);

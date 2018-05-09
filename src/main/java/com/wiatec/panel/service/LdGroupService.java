@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,8 +34,14 @@ public class LdGroupService {
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
 
-    public ResultInfo<LdGroupInfo> getGroupsById(int ownerId){
-        List<LdGroupInfo> groupList = ldGroupDao.getGroupsById(ownerId);
+    public ResultInfo<LdGroupInfo> getGroupsById(int ownerId, int type){
+        List<LdGroupInfo> groupList = new ArrayList<>();
+        if(type == 1) {
+            groupList = ldGroupDao.getGroupsByOwnerId(ownerId);
+        }else if(type == 0) {
+            List<Integer> memberIds = ldGroupMemberDao.selectGroupIdByMemberId(ownerId);
+            groupList = ldGroupDao.getGroupsByOwnerIds(memberIds);
+        }
         if(groupList == null || groupList.size() <= 0){
             throw new XException(EnumResult.ERROR_NO_FOUND);
         }
@@ -43,7 +50,7 @@ public class LdGroupService {
 
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo createGroup(int ownerId, String name, String description, String icon){
-        List<LdGroupInfo> groupList = ldGroupDao.getGroupsById(ownerId);
+        List<LdGroupInfo> groupList = ldGroupDao.getGroupsByOwnerId(ownerId);
         int i = 1;
         if(groupList != null){
             if (groupList.size() >= 5){
@@ -67,22 +74,8 @@ public class LdGroupService {
         return ResultMaster.success();
     }
 
-    public ResultInfo updateNameByOwnerId(int groupId, String name){
-        if(ldGroupDao.updateNameByGroupId(groupId, name) != 1){
-            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
-        }
-        return ResultMaster.success();
-    }
-
-    public ResultInfo updateDescriptionByOwnerId(int groupId, String description){
-        if(ldGroupDao.updateDescriptionByGroupId(groupId, description) != 1){
-            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
-        }
-        return ResultMaster.success();
-    }
-
-    public ResultInfo updateIconByOwnerId(int groupId, String icon){
-        if(ldGroupDao.updateIconByGroupId(groupId, icon) != 1){
+    public ResultInfo updateByGroupId(int groupId, String name, String description, String icon){
+        if(ldGroupDao.updateByGroupId(groupId, name, description, icon) != 1){
             throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
         return ResultMaster.success();

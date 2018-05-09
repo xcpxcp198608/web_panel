@@ -9,5 +9,5 @@ import org.slf4j.LoggerFactory;
 public class Constant {
 
     public static final String TRENDING_IMG_URL = "http://www.ldlegacy.com:8899/static/panel/image/trending/user_";
-    public static final String GROUP_IMG_URL = "http://www.ldlegacy.com:8899/static/panel/image/group/user_";
+    public static final String GROUP_IMG_URL = "http://www.ldlegacy.com:8899/static/panel/image/groups/user_";
 }

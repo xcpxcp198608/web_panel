@@ -30,11 +30,12 @@ public class LdGroup {
     /**
      * get groups by id
      * @param ownerId owner id
+     * @param type 1->this group belong to owner, 0->this owner in this group
      * @return ResultInfo
      */
-    @GetMapping("/{ownerId}")
-    public ResultInfo getGroupsById(@PathVariable int ownerId){
-        return ldGroupService.getGroupsById(ownerId);
+    @GetMapping("/{ownerId}/{type}")
+    public ResultInfo getGroupsById(@PathVariable int ownerId, @PathVariable int type){
+        return ldGroupService.getGroupsById(ownerId, type);
     }
 
     /**
@@ -56,6 +57,25 @@ public class LdGroup {
     }
 
     /**
+     * update group information
+     * @param groupId  groupId
+     * @param name name
+     * @param description description
+     * @return ResultInfo
+     */
+    @PostMapping("/{ownerId}/{groupId}")
+    public ResultInfo updateGroupInfo(@PathVariable int ownerId, @PathVariable int groupId,
+                                      String name, String description,
+                                      @RequestParam(required = false) MultipartFile file,
+                                      HttpSession session) throws IOException {
+        String icon = null;
+        if(file != null) {
+            icon = uploadFile(ownerId, file, session);
+        }
+        return ldGroupService.updateByGroupId(groupId, name, description, icon);
+    }
+
+    /**
      * delete group
      * @return ResultInfo
      */
@@ -65,41 +85,7 @@ public class LdGroup {
     }
 
 
-    /**
-     * update group information
-     * @param groupId  groupId
-     * @param action 1-> update name, 2-> update description
-     * @param name name
-     * @param description description
-     * @return ResultInfo
-     */
-    @PutMapping("/{groupId}/{action}")
-    public ResultInfo updateGroupInfo(@PathVariable int groupId, @PathVariable int action,
-                                      @RequestParam(required = false) String name,
-                                      @RequestParam(required = false) String description){
-        switch (action){
-            case 1:
-                return ldGroupService.updateNameByOwnerId(groupId, name);
-            case 2:
-                return ldGroupService.updateDescriptionByOwnerId(groupId, description);
-            default:
-                throw new XException(EnumResult.ERROR_NO_FOUND);
-        }
-    }
 
-
-    /**
-     * update group icon
-     * @param groupId groupId
-     * @param file file
-     * @return ResultInfo
-     */
-    @PostMapping("/icon/{ownerId}/{groupId}")
-    public ResultInfo updateIcon(@PathVariable int ownerId, @PathVariable int groupId,
-                                      MultipartFile file, HttpSession session) throws IOException {
-        String icon = uploadFile(ownerId, file, session);
-        return ldGroupService.updateIconByOwnerId(groupId, icon);
-    }
 
 
     /**
@@ -117,7 +103,7 @@ public class LdGroup {
     private String uploadFile(int ownerId, MultipartFile file, HttpSession session) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         if(file != null){
-            //String path = session.getServletContext().getRealPath("/Resource/groups/user_" + ownerId);
+//            String path = session.getServletContext().getRealPath("/Resource/groups/user_" + ownerId);
             String path = "/home/static/panel/image/groups/user_" + ownerId;
             File file1 = new File(path);
             if(!file1.exists()){
@@ -128,6 +114,7 @@ public class LdGroup {
             stringBuilder.append(ownerId);
             stringBuilder.append("/");
             stringBuilder.append(file.getOriginalFilename());
+            Runtime.getRuntime().exec("chmod -R 777 " + path);
         }
         return stringBuilder.toString();
     }
