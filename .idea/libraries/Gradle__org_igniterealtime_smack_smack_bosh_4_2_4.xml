@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.igniterealtime.smack:smack-bosh:4.2.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.igniterealtime.smack/smack-bosh/4.2.4/2b97578da94cb628bc73a1533c1c754b1b6ae49f/smack-bosh-4.2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.igniterealtime.smack/smack-bosh/4.2.4/11ffd931c68354724c0b0783d0d55998616891da/smack-bosh-4.2.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

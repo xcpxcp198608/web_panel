@@ -15,6 +15,7 @@ import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
 import com.wiatec.panel.oxm.pojo.AuthUserLogInfo;
 import com.wiatec.panel.oxm.pojo.DevicePCPInfo;
 import com.wiatec.panel.oxm.pojo.log.LogUserLevelInfo;
+import com.wiatec.panel.rongc.RCManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -137,7 +138,11 @@ public class AuthRegisterUserService {
                 if(authRegisterUserDao.updateTokenAndMac(authRegisterUserInfo) != 1){
                     throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
                 }
-                return ResultMaster.success(authRegisterUserDao.selectOneByUsername(userInfo));
+                userInfo = authRegisterUserDao.selectOneByUsername(authRegisterUserInfo);
+                if(userInfo == null){
+                    throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+                }
+                return ResultMaster.success(userInfo);
             }else {
                 throw new XException(EnumResult.ERROR_DEVICE_NO_REGISTER);
             }
@@ -157,8 +162,13 @@ public class AuthRegisterUserService {
         if(authRegisterUserInfo1.getLevel() <= 0){
             throw new XException(EnumResult.ERROR_DEVICE_LIMITED);
         }
+
         authRegisterUserInfo.setToken(token);
         if(authRegisterUserDao.updateToken(authRegisterUserInfo) != 1){
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+        }
+        authRegisterUserInfo1 = authRegisterUserDao.selectOneByUsername(authRegisterUserInfo);
+        if(authRegisterUserInfo1 == null){
             throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
         return ResultMaster.success(authRegisterUserInfo1);

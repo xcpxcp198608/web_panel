@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @author patrick
  */
-public class BaseInfo {
+public abstract class BaseInfo {
 
     protected int id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")

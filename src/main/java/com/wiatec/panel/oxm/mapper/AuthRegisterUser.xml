@@ -120,31 +120,37 @@
         UPDATE IGNORE auth_register_user
         SET country=#{country}, region=#{region}, city=#{city}, time_zone=#{timeZone},
             device_model = #{deviceModel}, rom_version=#{romVersion}, ui_version=#{uiVersion},
-            last_online_time=current_timestamp
+            last_online_time=current_timestamp, modify_time = now()
         WHERE username=#{username}
     </update>
 
     <update id="updateToken" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
         UPDATE IGNORE auth_register_user
-        SET token=#{token}
+        SET token=#{token}, modify_time = now()
         WHERE username=#{username}
     </update>
 
     <update id="updatePassword" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
         UPDATE IGNORE auth_register_user
-        SET password=#{password}
+        SET password=#{password}, modify_time = now()
         WHERE username=#{username}
     </update>
 
     <update id="updateTokenAndMac" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
         UPDATE IGNORE auth_register_user
-        SET token=#{token}, mac=#{mac}, btv=1
+        SET token=#{token}, mac=#{mac}, btv=1, modify_time = now()
         WHERE username=#{username}
+    </update>
+
+    <update id="updateRCTokenById">
+        UPDATE IGNORE auth_register_user
+        SET rc_token = #{rcToken}, modify_time = now()
+        WHERE id=#{userId}
     </update>
 
     <update id="updateStatusById" parameterType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
         UPDATE IGNORE auth_register_user
-        SET status=#{status}
+        SET status=#{status}, modify_time = now()
         WHERE id=#{id}
     </update>
 
@@ -194,6 +200,22 @@
         FROM auth_register_user
         WHERE id > 10000
         AND username like #{keyword}
+        ORDER BY username
+    </select>
+
+    <select id="selectMultiByUserId" resultType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
+        SELECT auth_register_user.id, username, email, phone, first_name, last_name, level, email_status,
+        mac, country, region, city, time_zone, token, active_time, expires_time,
+        last_online_time, auth_register_user.create_time, auth_register_user.modify_time,
+        status, device_model, rom_version,
+        ui_version, icon, gender, bvision, btv, profile,
+        bvision_channel_live.available channelActive
+        FROM auth_register_user, bvision_channel_live
+        WHERE auth_register_user.id IN
+        <foreach collection="userIds" item="userId" separator="," open="(" close=")">
+            #{userId}
+        </foreach>
+        AND auth_register_user.id = bvision_channel_live.userId
         ORDER BY username
     </select>
 

@@ -24,7 +24,7 @@ public class EmailMaster {
 
 	private static final String LD_SEND_ADDRESS = "bactivation@legacy.direct";
 	private static final String LD_USERNAME = "bactivation@legacy.direct";
-	private static final String LD_PASSWORD ="Ihatespam123#";
+	private static final String LD_PASSWORD ="Wangwang123#";
 
 	private static final String LDE_SEND_ADDRESS = "activation@ldeufonico.com";
 	private static final String LDE_USERNAME = "activation@ldeufonico.com";

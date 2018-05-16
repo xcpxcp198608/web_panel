@@ -2,6 +2,7 @@ package com.wiatec.panel.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wiatec.panel.apns.APNsMaster;
 import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
@@ -85,6 +86,10 @@ public class LdTrendingService {
         ldTrendingInfo.setLink(link);
         if(ldTrendingDao.insertOne(ldTrendingInfo) != 1){
             throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+        }
+        List<Integer> allFriendsId = ldFriendDao.selectAllFriendsId(userId);
+        if(allFriendsId != null && allFriendsId.size() > 0) {
+            APNsMaster.batchSend(userId, allFriendsId, APNsMaster.ACTION_TRENDING, "");
         }
         return ResultMaster.success();
     }

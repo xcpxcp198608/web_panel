@@ -7,6 +7,11 @@ import com.wiatec.panel.common.base.BaseInfo;
  */
 public class LogUserOperationInfo extends BaseInfo {
 
+    public static final int TYPE_INSERT = 1;
+    public static final int TYPE_DELETE = 2;
+    public static final int TYPE_SELECT = 3;
+    public static final int TYPE_UPDATE = 4;
+
     private int userId;
     private int action;
     private String description;

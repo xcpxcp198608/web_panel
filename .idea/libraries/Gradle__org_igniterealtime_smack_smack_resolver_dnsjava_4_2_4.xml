@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.igniterealtime.smack:smack-resolver-dnsjava:4.2.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.igniterealtime.smack/smack-resolver-dnsjava/4.2.4/8f86dcf7c45a9968fabc5b8f3f2b804b40b47efb/smack-resolver-dnsjava-4.2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.igniterealtime.smack/smack-resolver-dnsjava/4.2.4/dfa2ee88dabd2d3c5ccd9670180afb904b677877/smack-resolver-dnsjava-4.2.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

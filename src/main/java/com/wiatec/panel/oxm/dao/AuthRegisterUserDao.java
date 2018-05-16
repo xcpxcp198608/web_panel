@@ -31,6 +31,7 @@ public interface AuthRegisterUserDao {
     int updateToken(AuthRegisterUserInfo authRegisterUserInfo);
     int updatePassword(AuthRegisterUserInfo authRegisterUserInfo);
     int updateTokenAndMac(AuthRegisterUserInfo authRegisterUserInfo);
+    int updateRCTokenById(@Param("userId") int userId, @Param("rcToken") String rcToken);
 
 
     List<AuthRegisterUserInfo> selectAll(int start);
@@ -41,6 +42,7 @@ public interface AuthRegisterUserDao {
     List<AuthRegisterUserInfo> selectAllExpiresUsers(int start);
     List<AuthRegisterUserInfo> selectExportUsers(@Param("macs") String[] macs);
     List<AuthRegisterUserInfo> selectByKeywordInUsername(String keyword);
+    List<AuthRegisterUserInfo> selectMultiByUserId(@Param("userIds") List<Integer> userIds);
 
     int updateEmailStatusById(AuthRegisterUserInfo authRegisterUserInfo);
     int updateStatusById(AuthRegisterUserInfo authRegisterUserInfo);

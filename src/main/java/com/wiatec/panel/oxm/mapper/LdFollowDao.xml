@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.LdFollowDao">
+
+    <select id="selectFollowIdsByFollowerId" resultType="java.lang.Integer">
+        SELECT follow_id
+        FROM ld_relation_follow
+        WHERE follower_id = #{followerId}
+    </select>
+
+    <select id="selectFollowerIdsByFollowId" resultType="java.lang.Integer">
+        SELECT follower_id
+        FROM ld_relation_follow
+        WHERE follow_id = #{followId}
+    </select>
+
+    <select id="selectOne" resultType="java.lang.Integer">
+        SELECT COUNT(1) count From ld_relation_follow
+        WHERE follower_id = #{followerId} AND follow_id = #{followId}
+    </select>
+
+    <insert id="insertOne">
+        INSERT IGNORE INTO ld_relation_follow (follower_id, follow_id)
+          VALUES (#{followerId}, #{followId})
+    </insert>
+
+    <delete id="deleteOne">
+        DELETE IGNORE FROM ld_relation_follow WHERE follower_id = #{followerId} AND follow_id = #{followId}
+    </delete>
+
+</mapper>

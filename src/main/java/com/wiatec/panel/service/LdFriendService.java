@@ -1,7 +1,9 @@
 package com.wiatec.panel.service;
 
+import com.wiatec.panel.apns.APNsMaster;
 import com.wiatec.panel.common.result.*;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
+import com.wiatec.panel.oxm.dao.LdFollowDao;
 import com.wiatec.panel.oxm.dao.LdFriendDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.LdFriendInfo;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,6 +27,8 @@ public class LdFriendService {
 
     @Resource
     private LdFriendDao ldFriendDao;
+    @Resource
+    private LdFollowDao ldFollowDao;
     @Resource
     private AuthRegisterUserDao authRegisterUserDao;
 
@@ -98,6 +103,9 @@ public class LdFriendService {
                 if(ldFriendDao.insertOne(userId, friendId, 0) != 1){
                     throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
                 }
+                setFollow(userId, friendId);
+                APNsMaster.batchSend(userId, Arrays.asList(friendId), APNsMaster.ACTION_NEW_FRIEND_REQUEST,
+                        "");
                 break;
             case 2:
                 ldFriendInfo = ldFriendDao.selectOne(friendId, userId);
@@ -120,11 +128,21 @@ public class LdFriendService {
                         throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
                     }
                 }
+                setFollow(userId, friendId);
                 break;
             default:
                 throw new XException(EnumResult.ERROR_BAD_REQUEST);
         }
 
         return ResultMaster.success();
+    }
+
+    private void setFollow(int followerId, int followId){
+        if(ldFollowDao.selectOne(followerId, followId) >= 1){
+            return;
+        }
+        if(ldFollowDao.insertOne(followerId, followId) != 1){
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+        }
     }
 }

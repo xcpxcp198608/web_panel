@@ -25,6 +25,7 @@ public class AuthRegisterUserInfo {
     private String city;
     private String timeZone;
     private String token;
+    private String rcToken;
     private String status;
     private String deviceModel;
     private String romVersion;
@@ -303,6 +304,14 @@ public class AuthRegisterUserInfo {
         this.btv = btv;
     }
 
+    public String getRcToken() {
+        return rcToken;
+    }
+
+    public void setRcToken(String rcToken) {
+        this.rcToken = rcToken;
+    }
+
     @Override
     public String toString() {
         return "AuthRegisterUserInfo{" +
@@ -321,6 +330,7 @@ public class AuthRegisterUserInfo {
                 ", city='" + city + '\'' +
                 ", timeZone='" + timeZone + '\'' +
                 ", token='" + token + '\'' +
+                ", rcToken='" + rcToken + '\'' +
                 ", status='" + status + '\'' +
                 ", deviceModel='" + deviceModel + '\'' +
                 ", romVersion='" + romVersion + '\'' +
