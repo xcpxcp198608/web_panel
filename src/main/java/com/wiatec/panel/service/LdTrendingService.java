@@ -7,9 +7,11 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.dto.LdTrendingVoteCountInfo;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
 import com.wiatec.panel.oxm.dao.LdFriendDao;
 import com.wiatec.panel.oxm.dao.LdTrendingDao;
+import com.wiatec.panel.oxm.dao.LdTrendingVoteDao;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.LdTrendingInfo;
 import org.slf4j.Logger;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author patrick
@@ -32,26 +36,36 @@ public class LdTrendingService {
     @Resource
     private LdTrendingDao ldTrendingDao;
     @Resource
+    private LdTrendingVoteDao ldTrendingVoteDao;
+    @Resource
     private AuthRegisterUserDao authRegisterUserDao;
 
-    public ResultInfo getFriendsTrending(int userId, int start, int pageNum, int pageSize, String order){
-        //start page
-//        PageHelper.startPage(pageNum, pageSize);
-
+    public ResultInfo getFriendsTrending(int userId, int pageNum, int pageSize){
 
         List<Integer> friendsIds = ldFriendDao.selectAllFriendsId(userId);
         friendsIds.add(0);
         friendsIds.add(userId);
 
-        List<LdTrendingInfo> ldTrendingInfoList = ldTrendingDao.selectByFriendIds(friendsIds, start);
+        //start page
+        PageHelper.startPage(pageNum, pageSize);
+        List<LdTrendingInfo> ldTrendingInfoList = ldTrendingDao.selectByFriendIds(friendsIds);
         if(ldTrendingInfoList == null || ldTrendingInfoList.size() <= 0){
             throw new XException(EnumResult.ERROR_NO_FOUND);
         }
-
+        List<LdTrendingVoteCountInfo> upVotes = ldTrendingVoteDao.countByTrendingIds(ldTrendingInfoList.stream()
+                .map(LdTrendingInfo::getId)
+                .collect(Collectors.toList()));
+        for(LdTrendingInfo ldTrendingInfo: ldTrendingInfoList){
+            for(LdTrendingVoteCountInfo countInfo: upVotes){
+                if(ldTrendingInfo.getId() == countInfo.getTrendingId()){
+                    ldTrendingInfo.setVoteCount(countInfo.getCount());
+                }
+            }
+        }
 
         //end page
-//        PageInfo pageInfo = new PageInfo(ldTrendingInfoList);
-        return ResultMaster.success(ldTrendingInfoList);
+        PageInfo pageInfo = new PageInfo(ldTrendingInfoList);
+        return ResultMaster.success(pageInfo);
     }
 
 
@@ -90,6 +104,18 @@ public class LdTrendingService {
         List<Integer> allFriendsId = ldFriendDao.selectAllFriendsId(userId);
         if(allFriendsId != null && allFriendsId.size() > 0) {
             APNsMaster.batchSend(userId, allFriendsId, APNsMaster.ACTION_TRENDING, "");
+        }
+        return ResultMaster.success();
+    }
+
+
+
+    public ResultInfo upVote(int userId, int trendingId){
+        if(ldTrendingVoteDao.countOne(trendingId, userId) == 1){
+            throw new XException("already upvote");
+        }
+        if(ldTrendingVoteDao.insertOne(trendingId, userId) != 1){
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
         return ResultMaster.success();
     }

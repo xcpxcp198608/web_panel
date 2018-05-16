@@ -12,14 +12,14 @@
     </select>
 
     <select id="selectByFriendIds" resultType="com.wiatec.panel.oxm.pojo.LdTrendingInfo">
-      SELECT id, user_id, username, icon, content, img_count, img_url, link, create_time, modify_time
+      SELECT ld_relation_trending.id, ld_relation_trending.user_id, username, icon, content,
+        img_count, img_url, link, ld_relation_trending.create_time, ld_relation_trending.modify_time
       FROM ld_relation_trending
-      WHERE user_id IN
+      WHERE ld_relation_trending.user_id IN
         <foreach collection="userIds" open="(" close=")" separator="," item="userId">
             #{userId}
         </foreach>
       ORDER BY create_time DESC
-      LIMIT #{start}, 50
     </select>
 
 

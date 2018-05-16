@@ -31,12 +31,11 @@ public class LdTrending {
      * @param userId user id
      * @return ResultInfo
      */
-    @GetMapping("/{userId}/{start}")
-    public ResultInfo getAllFriendTrending(@PathVariable int userId, @PathVariable int start,
+    @GetMapping("/{userId}")
+    public ResultInfo getAllFriendTrending(@PathVariable int userId,
                                            @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                           @RequestParam(required = false, defaultValue = "50") int pageSize,
-                                           @RequestParam(required = false, defaultValue = "id") String order){
-        return ldTrendingService.getFriendsTrending(userId, start, pageNum, pageSize, order);
+                                           @RequestParam(required = false, defaultValue = "20") int pageSize){
+        return ldTrendingService.getFriendsTrending(userId, pageNum, pageSize);
     }
 
 
@@ -83,9 +82,10 @@ public class LdTrending {
 //        String path = session.getServletContext().getRealPath("/Resource/trending/user_" + userId);
         String path = "/home/static/panel/image/trending/user_" + userId;
         if (files != null && files.length > 0) {
-            for (MultipartFile file : files) {
+            for (int i = 0; i < files.length; i ++) {
+                MultipartFile file = files[i];
                 String [] ms = file.getOriginalFilename().split("\\.");
-                String fileName = userId + "_" + System.currentTimeMillis() + "." + ms[ms.length - 1];
+                String fileName = userId + "_" + System.currentTimeMillis() + "" + i + "." + ms[ms.length - 1];
 
                 File file1 = new File(path);
                 if(!file1.exists()){
@@ -104,6 +104,12 @@ public class LdTrending {
             imgUrl = imgUrl.substring(0, imgUrl.length() - 1);
         }
         return ldTrendingService.publishTrending(userId, content, imgCount, imgUrl, link);
+    }
+
+
+    @PostMapping("/vote/{userId}/{trendingId}")
+    public void upVote(@PathVariable int userId, @PathVariable int trendingId){
+        ldTrendingService.upVote(userId, trendingId);
     }
 
 }

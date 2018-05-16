@@ -83,6 +83,7 @@
           <element id="library" level="project" name="Gradle: org.igniterealtime.smack:smack-debug:4.2.4" />
           <element id="library" level="project" name="Gradle: org.jxmpp:jxmpp-core:0.6.2" />
           <element id="library" level="project" name="Gradle: org.jxmpp:jxmpp-util-cache:0.6.2" />
+          <element id="library" level="project" name="Gradle: org.projectlombok:lombok:1.16.20" />
           <element id="library" level="project" name="Gradle: com.notnoop.apns:apns:1.0.0.Beta6" />
           <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.5.0" />
           <element id="library" level="project" name="Gradle: com.squareup.okio:okio:1.13.0" />
@@ -150,7 +151,6 @@
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.2" />
           <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.11" />
           <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.2" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.16.20/ac76d9b956045631d1561a09289cbf472e077c01/lombok-1.16.20.jar" />
         </element>
       </element>
     </root>

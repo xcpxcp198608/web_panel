@@ -13,7 +13,7 @@ import java.util.List;
 public interface LdTrendingDao {
 
     List<LdTrendingInfo> selectByUserId(@Param("userId") int userId, @Param("start") int start);
-    List<LdTrendingInfo> selectByFriendIds(@Param("userIds") List<Integer> userIds, @Param("start") int start);
+    List<LdTrendingInfo> selectByFriendIds(@Param("userIds") List<Integer> userIds);
     int deleteTrending(@Param("userId") int userId, @Param("trendingId") int trendingId);
     int insertOne(LdTrendingInfo ldTrendingInfo);
 }

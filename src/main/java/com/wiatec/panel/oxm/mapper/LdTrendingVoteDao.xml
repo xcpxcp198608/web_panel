@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.LdTrendingVoteDao">
+
+    <insert id="insertOne">
+        INSERT IGNORE INTO ld_relation_trending_vote
+        (trending_id, user_id, modify_time)
+        VALUES (#{trendingId}, #{userId}, now())
+    </insert>
+
+    <delete id="deleteOne">
+        DELETE IGNORE FROM ld_relation_trending_vote
+        WHERE trending_id = #{trendingId} AND user_id = #{userId}
+    </delete>
+
+    <select id="countOne" resultType="java.lang.Integer">
+        SELECT COUNT(1) count FROM ld_relation_trending_vote
+        WHERE trending_id = #{trendingId} AND user_id = #{userId}
+    </select>
+
+
+    <select id="countByTrendingId" resultType="java.lang.Integer">
+        SELECT COUNT(1) count FROM ld_relation_trending_vote
+        WHERE trending_id = #{trendingId}
+    </select>
+
+    <select id="countByTrendingIds" resultType="com.wiatec.panel.dto.LdTrendingVoteCountInfo">
+        SELECT trending_id, COUNT(1) count FROM ld_relation_trending_vote
+        WHERE trending_id IN
+        <foreach collection="trendingIds" item="trendingId" separator="," open="(" close=")">
+            #{trendingId}
+        </foreach>
+        GROUP BY trending_id
+    </select>
+
+    <delete id="deleteByTrendingId">
+        DELETE IGNORE FROM ld_relation_trending_vote
+        WHERE trending_id = #{trendingId}
+    </delete>
+
+</mapper>
