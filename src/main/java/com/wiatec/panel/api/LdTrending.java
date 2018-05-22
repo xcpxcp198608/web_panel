@@ -2,10 +2,7 @@ package com.wiatec.panel.api;
 
 
 import com.wiatec.panel.common.Constant;
-import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
-import com.wiatec.panel.common.result.XException;
-import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.service.LdTrendingService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.*;
@@ -106,10 +103,25 @@ public class LdTrending {
         return ldTrendingService.publishTrending(userId, content, imgCount, imgUrl, link);
     }
 
-
+    /**
+     * user up vote one trending by id
+     * @param userId user id
+     * @param trendingId trending id
+     */
     @PostMapping("/vote/{userId}/{trendingId}")
-    public void upVote(@PathVariable int userId, @PathVariable int trendingId){
-        ldTrendingService.upVote(userId, trendingId);
+    public ResultInfo upVote(@PathVariable int userId, @PathVariable int trendingId){
+        return ldTrendingService.upVote(userId, trendingId);
+    }
+
+    /**
+     * 检查用户是否有新的未看的trending
+     * @param userId user id
+     * @param lastId 用户看过的最后一条trending的id
+     * @return ResultInfos
+     */
+    @GetMapping("/check/{userId}/{lastId}")
+    public ResultInfo checkNew(@PathVariable int userId, @PathVariable int lastId){
+        return ldTrendingService.checkNew(userId, lastId);
     }
 
 }

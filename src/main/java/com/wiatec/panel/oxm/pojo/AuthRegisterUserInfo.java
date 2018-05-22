@@ -34,6 +34,7 @@ public class AuthRegisterUserInfo {
     private int gender;
     private boolean bvision;
     private boolean btv;
+    private String profile;
 
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -312,6 +313,14 @@ public class AuthRegisterUserInfo {
         this.rcToken = rcToken;
     }
 
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
     @Override
     public String toString() {
         return "AuthRegisterUserInfo{" +
@@ -339,6 +348,7 @@ public class AuthRegisterUserInfo {
                 ", gender=" + gender +
                 ", bvision=" + bvision +
                 ", btv=" + btv +
+                ", profile='" + profile + '\'' +
                 ", activeTime=" + activeTime +
                 ", expiresTime=" + expiresTime +
                 ", lastOnLineTime=" + lastOnLineTime +

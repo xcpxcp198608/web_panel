@@ -34,6 +34,11 @@
         GROUP BY trending_id
     </select>
 
+    <select id="selectTrendingByUserId" resultType="com.wiatec.panel.oxm.pojo.LdTrendingVoteInfo">
+        SELECT id, trending_id, user_id FROM ld_relation_trending_vote
+        WHERE user_id = #{userId}
+    </select>
+
     <delete id="deleteByTrendingId">
         DELETE IGNORE FROM ld_relation_trending_vote
         WHERE trending_id = #{trendingId}

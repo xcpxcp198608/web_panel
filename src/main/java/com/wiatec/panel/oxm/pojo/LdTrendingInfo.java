@@ -15,6 +15,7 @@ public class LdTrendingInfo extends BaseInfo {
     private String imgUrl;
     private String link;
     private int voteCount;
+    private boolean voted;
 
     public int getUserId() {
         return userId;
@@ -80,6 +81,14 @@ public class LdTrendingInfo extends BaseInfo {
         this.voteCount = voteCount;
     }
 
+    public boolean isVoted() {
+        return voted;
+    }
+
+    public void setVoted(boolean voted) {
+        this.voted = voted;
+    }
+
     @Override
     public String toString() {
         return "LdTrendingInfo{" +
@@ -91,6 +100,7 @@ public class LdTrendingInfo extends BaseInfo {
                 ", imgUrl='" + imgUrl + '\'' +
                 ", link='" + link + '\'' +
                 ", voteCount=" + voteCount +
+                ", voted=" + voted +
                 ", id=" + id +
                 ", createTime=" + createTime +
                 ", modifyTime=" + modifyTime +

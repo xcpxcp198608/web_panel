@@ -1,6 +1,7 @@
 package com.wiatec.panel.oxm.dao;
 
 import com.wiatec.panel.dto.LdTrendingVoteCountInfo;
+import com.wiatec.panel.oxm.pojo.LdTrendingVoteInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +24,7 @@ public interface LdTrendingVoteDao {
     int countByTrendingId(int trendingId);
 
     List<LdTrendingVoteCountInfo> countByTrendingIds(@Param("trendingIds")List<Integer> trendingIds);
+    List<LdTrendingVoteInfo> selectTrendingByUserId(int userId);
 
     int deleteByTrendingId(int trendingId);
 

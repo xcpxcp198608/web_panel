@@ -46,27 +46,7 @@ public class APNsMaster {
         }
     }
 
-    public static void send(int playerId, int userId, String action, String content){
-        String token = deviceTokenDao.selectOne(userId);
-        if(TextUtil.isEmpty(token)){
-            return;
-        }
-        String payload = APNS.newPayload()
-                .badge(1)
-                .alertAction(action)
-                .alertBody(content)
-                .customField("sendUserId", playerId)
-                .sound("default")
-                .build();
-        service.push(token, payload);
-    }
-
-
-    public static void batchSend(int playerId, List<Integer> userIds, String action, String content){
-        List<DeviceTokenInfo> deviceTokenInfos = deviceTokenDao.batchSelect(userIds);
-        if(deviceTokenInfos == null || deviceTokenInfos.size() <= 0){
-            return;
-        }
+    private static String getTitile(String action){
         String title = "";
         if(ACTION_LIVE_START.equals(action)){
             title = "Live start";
@@ -75,17 +55,50 @@ public class APNsMaster {
         }else if(ACTION_TRENDING.equals(action)){
             title = "New friend request";
         }
+        return title;
+    }
 
+    public static void send(int playerId, int userId, String action, String content){
+        String token = deviceTokenDao.selectOne(userId);
+        if(TextUtil.isEmpty(token)){
+            return;
+        }
+        String payload = APNS.newPayload()
+                .badge(1)
+                .sound("default")
+                .alertAction(action)
+                .alertTitle(getTitile(action))
+                .alertBody(content)
+                .actionKey(playerId+"")
+                .customField("content-available", 1)
+                .build();
+        if(service != null) {
+            service.push(token, payload);
+        }
+    }
+
+
+    public static void batchSend(int playerId, List<Integer> userIds, String action, String content){
+        List<DeviceTokenInfo> deviceTokenInfos = deviceTokenDao.batchSelect(userIds);
+        if(deviceTokenInfos == null || deviceTokenInfos.size() <= 0){
+            return;
+        }
         for (DeviceTokenInfo deviceTokenInfo: deviceTokenInfos){
+            if(TextUtil.isEmpty(deviceTokenInfo.getDeviceToken())){
+                continue;
+            }
             String payload = APNS.newPayload()
                     .badge(1)
                     .sound("default")
                     .alertAction(action)
-                    .alertTitle(title)
+                    .alertTitle(getTitile(action))
                     .alertBody(content)
                     .actionKey(playerId+"")
+                    .customField("content-available", 1)
                     .build();
-            service.push(deviceTokenInfo.getDeviceToken(), payload);
+            if(service != null) {
+                service.push(deviceTokenInfo.getDeviceToken(), payload);
+            }
         }
     }
 

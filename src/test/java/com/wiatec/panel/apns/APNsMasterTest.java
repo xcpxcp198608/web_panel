@@ -20,6 +20,6 @@ public class APNsMasterTest {
 
     @Test
     public void batchSend() {
-        APNsMaster.batchSend(41, Arrays.asList(41), APNsMaster.ACTION_LIVE_START, "sf");
+        APNsMaster.batchSend(0, Arrays.asList(41), APNsMaster.ACTION_TRENDING, "sf");
     }
 }
