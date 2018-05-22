@@ -158,6 +158,13 @@
                             <i class="fa fa-print"></i>&nbsp;Print&PDF
                         </span>
                     </a>
+                    <c:if test="${permission > 100}">
+                        <a id="btExport" data-toggle="tooltip" title="export customer information to excel file">
+                        <span class="badge badge-warning text-center" style="padding: 3px">
+                            <i class="fa fa-share-square"></i>&nbsp;Export
+                        </span>
+                        </a>
+                    </c:if>
                 </div>
             </div>
 
@@ -184,6 +191,23 @@
                     </div>
                 </div>
             </c:if>
+
+
+            <%--<div class="row" style="margin-top: 5px; height: 30px; font-size: 12px">--%>
+                <%--<div class="col-12">--%>
+                    <%--<nav aria-label="page" >--%>
+                        <%--<ul class="pagination justify-content-end">--%>
+                            <%--<li class="page-item"><a class="page-link" href="/panel/manager/users/${currentPage - 1}">Previous</a></li>--%>
+                            <%--<c:forEach begin="1" end="${totalPage}" varStatus="status">--%>
+                                <%--<li class="page-item"><a class="page-link" href="/panel/manager/users/${status.index}">${status.index}</a></li>--%>
+                            <%--</c:forEach>--%>
+                            <%--<li class="page-item"><a class="page-link" href="/panel/manager/users/${currentPage + 1}">Next</a></li>--%>
+                        <%--</ul>--%>
+                    <%--</nav>--%>
+
+                <%--</div>--%>
+            <%--</div>--%>
+
         </div>
 
         <div style="width: 100%; padding: 10px; background-color: white; overflow: scroll" >

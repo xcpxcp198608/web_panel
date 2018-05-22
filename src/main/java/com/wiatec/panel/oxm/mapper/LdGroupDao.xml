@@ -1,0 +1,67 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wiatec.panel.oxm.dao.LdGroupDao">
+
+    <select id="getGroupsByOwnerId" resultType="com.wiatec.panel.oxm.pojo.LdGroupInfo">
+      SELECT group_id, owner_id, numbers, name, description, icon, create_time, modify_time
+      FROM ld_relation_group
+      WHERE owner_id = #{ownerId}
+      ORDER BY name
+    </select>
+
+    <select id="getGroupsByOwnerIds" resultType="com.wiatec.panel.oxm.pojo.LdGroupInfo">
+      SELECT group_id, owner_id, numbers, name, description, icon, create_time, modify_time
+      FROM ld_relation_group WHERE owner_id IN
+      <foreach collection="#{ownerIds}" item="ownerId" separator="," open="(" close=")">
+        #{ownerId}
+      </foreach>
+      ORDER BY name
+    </select>
+
+    <select id="getGroupsByGroupIds" resultType="com.wiatec.panel.oxm.pojo.LdGroupInfo">
+      SELECT group_id, owner_id, numbers, name, description, icon, create_time, modify_time
+      FROM ld_relation_group WHERE group_id IN
+      <foreach collection="groupIds" item="groupId" separator="," open="(" close=")">
+        #{groupId}
+      </foreach>
+      ORDER BY name
+    </select>
+
+    <insert id="insetOne">
+        INSERT IGNORE INTO ld_relation_group (group_id, owner_id, name, description, icon, modify_time)
+        VALUES (#{groupId}, #{ownerId}, #{name}, #{description}, #{icon}, now())
+    </insert>
+
+    <delete id="deleteOne">
+        DELETE IGNORE FROM ld_relation_group
+        WHERE group_id = #{groupId} AND owner_id = #{ownerId}
+    </delete>
+
+    <select id="countName" resultType="java.lang.Integer">
+        SELECT COUNT(1) count FROM ld_relation_group WHERE name = #{name}
+    </select>
+
+    <update id="updateByGroupId">
+        UPDATE IGNORE ld_relation_group
+        SET name = #{name}, description = #{description},
+            <if test="icon != null">
+                icon = #{icon},
+            </if>
+            modify_time = now()
+        WHERE group_id = #{groupId}
+    </update>
+
+
+    <update id="updateNumbersByGroupId">
+        UPDATE IGNORE ld_relation_group SET numbers = numbers + 1, modify_time = now()
+        WHERE group_id = #{groupId}
+    </update>
+
+    <select id="selectOneByGroupId" resultType="com.wiatec.panel.oxm.pojo.LdGroupInfo">
+        SELECT group_id, owner_id, numbers, name, description, icon, create_time, modify_time
+        FROM ld_relation_group
+        WHERE group_id = #{groupId}
+    </select>
+
+</mapper>

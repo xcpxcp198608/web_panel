@@ -11,11 +11,11 @@
         FROM commission_category
     </sql>
 
-    <select id="selectAllByDistributor" resultType="com.wiatec.panel.oxm.pojo.CommissionCategoryInfo">
+    <select id="selectAllByDistributor" resultType="com.wiatec.panel.oxm.pojo.commission.CommissionCategoryInfo">
         <include refid="select"/> WHERE distributor = #{distributor}
     </select>
 
-    <select id="selectOne" resultType="com.wiatec.panel.oxm.pojo.CommissionCategoryInfo" >
+    <select id="selectOne" resultType="com.wiatec.panel.oxm.pojo.commission.CommissionCategoryInfo" >
         <include refid="select"/>
         WHERE category = #{category}
     </select>

@@ -94,7 +94,7 @@ table {
 
 
 #p-content {
-    height: 760px;
+    height: 100%;
     overflow: scroll;
     position: relative;
     z-index: 1000

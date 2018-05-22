@@ -2,7 +2,7 @@ package com.wiatec.panel.authorize;
 
 import com.wiatec.panel.common.utils.UnitUtil;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
-import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
+import com.wiatec.panel.oxm.pojo.commission.CommissionCategoryInfo;
 
 /**
  * @author patrick

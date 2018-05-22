@@ -6,6 +6,7 @@ import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.LevelDistributionInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.MonthVolumeInfo;
 import com.wiatec.panel.oxm.pojo.chart.manager.YearVolumeInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,29 +20,40 @@ public interface AuthRegisterUserDao {
     int countByUsername(AuthRegisterUserInfo authRegisterUserInfo);
     int countByEmail(AuthRegisterUserInfo authRegisterUserInfo);
     int countByMac(AuthRegisterUserInfo authRegisterUserInfo);
-    void saveOneUser(AuthRegisterUserInfo authRegisterUserInfo);
-    void updateEmailStatus(AuthRegisterUserInfo authRegisterUserInfo);
+    int saveOneUser(AuthRegisterUserInfo authRegisterUserInfo);
+    int updateEmailStatus(AuthRegisterUserInfo authRegisterUserInfo);
     int countByUsernameAndPassword(AuthRegisterUserInfo authRegisterUserInfo);
     AuthRegisterUserInfo selectOneByToken(String token);
     AuthRegisterUserInfo selectOneByUsername(AuthRegisterUserInfo authRegisterUserInfo);
     AuthRegisterUserInfo selectOneByUsernameAndMac(AuthRegisterUserInfo authRegisterUserInfo);
     AuthRegisterUserInfo selectOneByUsernameAndEmail(AuthRegisterUserInfo authRegisterUserInfo);
-    void updateLocation(AuthRegisterUserInfo authRegisterUserInfo);
-    void updateToken(AuthRegisterUserInfo authRegisterUserInfo);
-    void updatePassword(AuthRegisterUserInfo authRegisterUserInfo);
+    int updateLocation(AuthRegisterUserInfo authRegisterUserInfo);
+    int updateToken(AuthRegisterUserInfo authRegisterUserInfo);
+    int updatePassword(AuthRegisterUserInfo authRegisterUserInfo);
+    int updateTokenAndMac(AuthRegisterUserInfo authRegisterUserInfo);
+    int updateRCTokenById(@Param("userId") int userId, @Param("rcToken") String rcToken);
 
 
     List<AuthRegisterUserInfo> selectAll(int start);
+
+    int countAll(int start);
+    List<AuthRegisterUserInfo> selectByPage(@Param("start") int start, @Param("from")int from,
+                                            @Param("to")int to);
     List<AuthRegisterUserInfo> selectAllExpiresUsers(int start);
-    void updateEmailStatusById(AuthRegisterUserInfo authRegisterUserInfo);
-    void updateStatusById(AuthRegisterUserInfo authRegisterUserInfo);
+    List<AuthRegisterUserInfo> selectExportUsers(@Param("macs") String[] macs);
+    List<AuthRegisterUserInfo> selectByKeywordInUsername(String keyword);
+    List<AuthRegisterUserInfo> selectMultiByUserId(@Param("userIds") List<Integer> userIds);
+
+    int updateEmailStatusById(AuthRegisterUserInfo authRegisterUserInfo);
+    int updateStatusById(AuthRegisterUserInfo authRegisterUserInfo);
     int deleteOneById(AuthRegisterUserInfo authRegisterUserInfo);
     String selectExpiresTimeById(int id);
     AuthRegisterUserInfo selectOneById(int id);
-    void updateLevelById(AuthRegisterUserInfo authRegisterUserInfo);
+    int updateLevelById(AuthRegisterUserInfo authRegisterUserInfo);
 
     LevelDistributionInfo selectAllLevelDistribution();
     List<VolumeDistributionInfo> getDistributionData();
+
 
     //chart
 

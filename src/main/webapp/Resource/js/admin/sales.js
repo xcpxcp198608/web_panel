@@ -172,15 +172,23 @@ $(function () {
                 trObj.append(tdObj1);
 
                 var tdObj2 = document.createElement('td');
-                tdObj2.innerHTML = commissionInfo['salesUsername'];
+                tdObj2.innerHTML = commissionInfo['salesName'];
                 trObj.append(tdObj2);
 
                 var tdObj3 = document.createElement('td');
                 tdObj3.innerHTML = commissionInfo['volume'];
                 trObj.append(tdObj3);
+
                 var tdObj4 = document.createElement('td');
                 tdObj4.innerHTML = commissionInfo['commission'];
                 trObj.append(tdObj4);
+
+                var tdObj5 = document.createElement('td');
+                tdObj5.innerHTML = '<a href="/panel/admin/sales/detail/'+commissionInfo['salesId']+'/'+currentYear+'/'+currentMonth+'">\n' +
+                    '                                    <i class="fa fa-share"></i>\n' +
+                    '                                </a>\n' +
+                    '                            ';
+                trObj.append(tdObj5);
                 totalCommission += parseFloat(commissionInfo['commission']);
                 tbTotalCommissionByMonth.append(trObj);
             }
@@ -197,113 +205,7 @@ $(function () {
 
 
 
-    /**
-     * get all sales commission by month
-     */
-    var tbCommissionByMonth = $('#tbCommissionByMonth').get(0).tBodies[0];
-    getAllSalesCommissionByMonth(currentYear, currentMonth);
-    function getAllSalesCommissionByMonth(year, month) {
-        $('#btPreviousMonth').attr('disabled', 'disabled');
-        $('#btNextMonth').attr('disabled', 'disabled');
-        clearTableCommissionByMonth();
-        var url = baseUrl + '/admin/chart/sales/commission/' + year + "/" + month;
-        $.get(url, function (list, status) {
-            $('#btPreviousMonth').removeAttr('disabled');
-            $('#btNextMonth').removeAttr('disabled');
-            $('#maxVolumeSales').html('xxx');
-            $('#maxVolume').html(0);
-            var length = list.length;
-            var totalCommission = 0;
-            for(var i = 0; i < length; i ++){
-                var commissionInfo = list[i];
-                var trObj = document.createElement('tr');
 
-                var tdObj1 = document.createElement('td');
-                tdObj1.innerHTML = (i + 1).toString();
-                trObj.append(tdObj1);
-
-                var tdObj2 = document.createElement('td');
-                tdObj2.innerHTML = commissionInfo['salesUsername'];
-                trObj.append(tdObj2);
-                if(i === 0){
-                    $('#maxVolumeSales').html(commissionInfo['salesUsername'])
-                }
-
-                var tdObj3 = document.createElement('td');
-                tdObj3.innerHTML = commissionInfo['volume'];
-                trObj.append(tdObj3);
-                if(i === 0){
-                    $('#maxVolume').html(commissionInfo['volume'])
-                }
-
-                var tdObj4 = document.createElement('td');
-                tdObj4.innerHTML = commissionInfo['commission'];
-                trObj.append(tdObj4);
-                totalCommission += parseFloat(commissionInfo['commission']);
-
-                tbCommissionByMonth.append(trObj);
-            }
-        })
-    }
-
-    function clearTableCommissionByMonth() {
-        var length = tbCommissionByMonth.rows.length;
-        for(var i = 0; i < length; i ++){
-            tbCommissionByMonth.removeChild(tbCommissionByMonth.lastChild);
-        }
-    }
-
-
-
-
-
-    /**
-     * get all sales activation commission by month
-     */
-    var tbActivationCommByMonth = $('#tbActivationCommByMonth').get(0).tBodies[0];
-    getAllActivationCommByMonth(currentYear, currentMonth);
-    function getAllActivationCommByMonth(year, month) {
-        $('#btPreviousMonth').attr('disabled', 'disabled');
-        $('#btNextMonth').attr('disabled', 'disabled');
-        clearTableActivationCommByMonth();
-        var url = baseUrl + '/admin/chart/sales/commission/activation/' + year + "/" + month;
-        $.get(url, function (list) {
-            $('#btPreviousMonth').removeAttr('disabled');
-            $('#btNextMonth').removeAttr('disabled');
-            var length = list.length;
-            var totalActivationComm = 0;
-            for(var i = 0; i < length; i ++){
-                var commissionInfo = list[i];
-                var trObj = document.createElement('tr');
-
-                var tdObj1 = document.createElement('td');
-                tdObj1.innerHTML = (i + 1).toString();
-                trObj.append(tdObj1);
-
-                var tdObj2 = document.createElement('td');
-                tdObj2.innerHTML = commissionInfo['salesUsername'];
-                trObj.append(tdObj2);
-
-                var tdObj3 = document.createElement('td');
-                tdObj3.innerHTML = commissionInfo['volume'];
-                trObj.append(tdObj3);
-
-                var tdObj4 = document.createElement('td');
-                tdObj4.innerHTML = commissionInfo['commission'];
-                trObj.append(tdObj4);
-
-                tbActivationCommByMonth.append(trObj);
-                totalActivationComm += parseFloat(commissionInfo['commission']);
-            }
-        })
-    }
-
-    function clearTableActivationCommByMonth() {
-        var length = tbActivationCommByMonth.rows.length;
-        for(var i = 0; i < length; i ++){
-            tbActivationCommByMonth.removeChild(tbActivationCommByMonth.lastChild);
-        }
-    }
 
 
     /**
@@ -316,8 +218,6 @@ $(function () {
             currentMonth = 12;
         }
         setYearAndMonth();
-        getAllSalesCommissionByMonth(currentYear, currentMonth);
-        getAllActivationCommByMonth(currentYear, currentMonth);
         getAllSalesTotalCommissionByMonth(currentYear, currentMonth);
     });
     $('#btNextMonth').click(function () {
@@ -327,8 +227,6 @@ $(function () {
             currentMonth = 1;
         }
         setYearAndMonth();
-        getAllSalesCommissionByMonth(currentYear, currentMonth);
-        getAllActivationCommByMonth(currentYear, currentMonth);
         getAllSalesTotalCommissionByMonth(currentYear, currentMonth);
     });
 

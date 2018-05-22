@@ -45,46 +45,32 @@
                         <th>#</th>
                         <th>Item</th>
                         <th>Mac</th>
+                        <th>Commission</th>
                         <th>CreateTime</th>
-                        <th>RentedTime</th>
-                        <th>Rented</th>
-                        <th data-toggle="tooltip" title="Security Deposit Credit Note">SD CN</th>
                         <th data-toggle="tooltip" title="security deposit is returned">Checked</th>
+                        <th>CheckNumber</th>
+                        <th>CheckTime</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${rentedDevicePCPInfoList}" var="devicePCPInfo" varStatus="status">
+                    <c:forEach items="${commissionMonthlySalesInfoList}" var="commissionMonthlySalesInfo" varStatus="status">
                         <tr>
-                            <td><input type="checkbox" name="cbDevice" value="${devicePCPInfo.salesId}"
-                                       currentRow="${status.index}" currentSDCN="${devicePCPInfo.sdcn}"></td>
-                            <td>${status.index+1}</td>
-                            <td>${devicePCPInfo.mac}</td>
-                            <td>${devicePCPInfo.createTime}</td>
-                            <td>${devicePCPInfo.rentTime}</td>
+                            <td><input type="checkbox" name="cbDevice" value="${commissionMonthlySalesInfo.salesId}"
+                                       currentRow="${status.index}"></td>
+                            <td>${commissionMonthlySalesInfo.id}</td>
+                            <td>${commissionMonthlySalesInfo.mac}</td>
+                            <td>${commissionMonthlySalesInfo.commission}</td>
+                            <td>${commissionMonthlySalesInfo.createTime}</td>
                             <td>
-                                <c:if test="${devicePCPInfo.rented == true}">
+                                <c:if test="${commissionMonthlySalesInfo.checked == true}">
                                     <span class="text-success"><i class="fa fa-check-circle"></i></span>
                                 </c:if>
-                                <c:if test="${devicePCPInfo.rented == false}">
+                                <c:if test="${commissionMonthlySalesInfo.checked == false}">
                                     <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
                                 </c:if>
                             </td>
-                            <td>
-                                <c:if test="${devicePCPInfo.sdcn == true}">
-                                    <span class="text-danger"><i class="fa fa-check-circle"></i></span>
-                                </c:if>
-                                <c:if test="${devicePCPInfo.sdcn == false}">
-                                    <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
-                                </c:if>
-                            </td>
-                            <td>
-                                <c:if test="${devicePCPInfo.checked == true}">
-                                    <span class="text-success"><i class="fa fa-check-circle"></i></span>
-                                </c:if>
-                                <c:if test="${devicePCPInfo.checked == false}">
-                                    <span class="text-secondary"><i class="fa fa-times-circle"></i></span>
-                                </c:if>
-                            </td>
+                            <td>${commissionMonthlySalesInfo.checkNumber}</td>
+                            <td>${commissionMonthlySalesInfo.checkedTime}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

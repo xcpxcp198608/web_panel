@@ -46,7 +46,7 @@
     </insert>
 
     <select id="countOneByMac" resultType="java.lang.Integer" parameterType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo">
-        SELECT COUNT(*) count FROM log_pcp_user_monthly_mexico WHERE mac=#{mac}
+        SELECT COUNT(*) count FROM log_pcp_user_monthly_mexico WHERE mac = #{mac}
     </select>
 
     <select id="selectByMonth" resultType="com.wiatec.panel.oxm.pojo.AuthRentUserInfo"
@@ -54,6 +54,7 @@
         SELECT * FROM log_pcp_user_monthly_mexico
         WHERE id > 0
             AND log_time BETWEEN #{start} AND #{end}
+            AND flag = 0
         ORDER BY activateTime DESC
     </select>
 

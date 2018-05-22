@@ -18,11 +18,13 @@ import java.math.RoundingMode;
 public class AuthorizeTransaction {
 
     private static Logger logger = LoggerFactory.getLogger(AuthorizeTransaction.class);
+    //本地测试
 //    private String path = this.getClass().getResource("/").getPath() + "authorize.xml";
+    // 服务器
     private String path = this.getClass().getClassLoader().getResource("/").getPath() + "authorize.xml";
 
-    public AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo){
-        return charge(authorizeTransactionInfo, null);
+    public AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo, String clientKey) throws Exception{
+        return charge(authorizeTransactionInfo, null, clientKey);
     }
 
     /**
@@ -30,7 +32,8 @@ public class AuthorizeTransaction {
      * @param authorizeTransactionInfo {@link AuthorizeTransactionInfo}
      * @return {@link AuthorizeTransactionInfo} include all transaction information
      */
-    public AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo, HttpServletRequest request){
+    public AuthorizeTransactionInfo charge(AuthorizeTransactionInfo authorizeTransactionInfo, HttpServletRequest request,
+                                           String clientKey) throws Exception{
         if(request == null){
             AuthorizeConfig.init(path);
         }else {
@@ -45,6 +48,7 @@ public class AuthorizeTransaction {
         TransactionRequestType requestType = new TransactionRequestType();
         requestType.setTransactionType(TransactionTypeEnum.AUTH_CAPTURE_TRANSACTION.value());
         requestType.setPayment(paymentType);
+        requestType.setPoNumber(clientKey);
         requestType.setAmount(new BigDecimal(authorizeTransactionInfo.getAmount()).setScale(2, RoundingMode.CEILING));
 
         CreateTransactionRequest apiRequest = new CreateTransactionRequest();

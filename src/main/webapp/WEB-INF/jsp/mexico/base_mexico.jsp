@@ -17,6 +17,7 @@
                     <i class="fa fa-users fa-lg"></i>&nbsp;Customers
                 </a>
             </li>
+            <c:if test="false">
             <li class="nav-item">
                 <a class="nav-link" href="/panel/mexico/customers/create">
                     <i class="fa fa-plus-square fa-lg"></i>&nbsp;Create
@@ -32,6 +33,7 @@
                     <i class="fa fa-building-o fa-lg"></i>&nbsp;Transactions
                 </a>
             </li>
+            </c:if>
             <li class="nav-item">
                 <a class="nav-link" href="/panel/signout3">
                     <i class="fa fa-sign-out fa-lg"></i>&nbsp;Sign out

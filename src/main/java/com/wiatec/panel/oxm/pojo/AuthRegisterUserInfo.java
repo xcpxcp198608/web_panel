@@ -25,10 +25,16 @@ public class AuthRegisterUserInfo {
     private String city;
     private String timeZone;
     private String token;
+    private String rcToken;
     private String status;
     private String deviceModel;
     private String romVersion;
     private String uiVersion;
+    private String icon;
+    private int gender;
+    private boolean bvision;
+    private boolean btv;
+    private String profile;
 
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -181,6 +187,9 @@ public class AuthRegisterUserInfo {
     }
 
     public String getExpiresTime() {
+        if(expiresTime == null){
+            return "";
+        }
         return TimeUtil.FORMATTER.format(expiresTime);
     }
 
@@ -208,8 +217,8 @@ public class AuthRegisterUserInfo {
         this.createTime = createTime;
     }
 
-    public String getModifyTime() {
-        return TimeUtil.FORMATTER.format(modifyTime);
+    public Date getModifyTime() {
+        return this.modifyTime;
     }
 
     public void setModifyTime(Date modifyTime) {
@@ -248,7 +257,7 @@ public class AuthRegisterUserInfo {
         this.uiVersion = uiVersion;
     }
 
-    public boolean isExperience() {
+    public boolean getExperience() {
         return experience;
     }
 
@@ -256,12 +265,60 @@ public class AuthRegisterUserInfo {
         this.experience = experience;
     }
 
-    public boolean isOnline() {
+    public boolean getOnline() {
         return online;
     }
 
     public void setOnline(boolean online) {
         this.online = online;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public boolean getBvision() {
+        return bvision;
+    }
+
+    public void setBvision(boolean bvision) {
+        this.bvision = bvision;
+    }
+
+    public boolean getBtv() {
+        return btv;
+    }
+
+    public void setBtv(boolean btv) {
+        this.btv = btv;
+    }
+
+    public String getRcToken() {
+        return rcToken;
+    }
+
+    public void setRcToken(String rcToken) {
+        this.rcToken = rcToken;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     @Override
@@ -282,15 +339,21 @@ public class AuthRegisterUserInfo {
                 ", city='" + city + '\'' +
                 ", timeZone='" + timeZone + '\'' +
                 ", token='" + token + '\'' +
-                ", activeTime='" + activeTime + '\'' +
-                ", expiresTime='" + expiresTime + '\'' +
-                ", lastOnLineTime='" + lastOnLineTime + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", modifyTime='" + modifyTime + '\'' +
+                ", rcToken='" + rcToken + '\'' +
                 ", status='" + status + '\'' +
                 ", deviceModel='" + deviceModel + '\'' +
                 ", romVersion='" + romVersion + '\'' +
                 ", uiVersion='" + uiVersion + '\'' +
+                ", icon='" + icon + '\'' +
+                ", gender=" + gender +
+                ", bvision=" + bvision +
+                ", btv=" + btv +
+                ", profile='" + profile + '\'' +
+                ", activeTime=" + activeTime +
+                ", expiresTime=" + expiresTime +
+                ", lastOnLineTime=" + lastOnLineTime +
+                ", createTime=" + createTime +
+                ", modifyTime=" + modifyTime +
                 ", experience=" + experience +
                 ", online=" + online +
                 '}';

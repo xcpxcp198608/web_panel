@@ -7,6 +7,7 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.common.security.MD5Util;
 import com.wiatec.panel.common.utils.*;
 import com.wiatec.panel.invoice.InvoiceInfo;
 import com.wiatec.panel.invoice.InvoiceInfoMaker;
@@ -17,6 +18,7 @@ import com.wiatec.panel.oxm.pojo.*;
 import com.wiatec.panel.oxm.pojo.chart.YearOrMonthInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.SalesAmountInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.SalesVolumeInDayOfMonthInfo;
+import com.wiatec.panel.oxm.pojo.commission.CommissionCategoryInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author patrick
@@ -49,11 +53,19 @@ public class AuthMexicoService {
     private DevicePCPDao devicePCPDao;
     @Resource
     private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
+    @Resource
+    private LogPcpUserMonthlyMexicoDao logPcpUserMonthlyMexicoDao;
 
 
     public List<AuthRentUserInfo> getCustomers(){
         List<AuthRentUserInfo> authRentUserInfoList = authRentUserDao
                 .selectAllByDistributor(AuthRentUserInfo.DISTRIBUTOR_LDM);
+        Map<String, HttpSession> sessionMap = SessionListener.sessionMap;
+        for(AuthRentUserInfo authRentUserInfo: authRentUserInfoList){
+            if(sessionMap.containsKey(authRentUserInfo.getClientKey())){
+                authRentUserInfo.setOnline(true);
+            }
+        }
         return authRentUserInfoList;
     }
 
@@ -94,8 +106,47 @@ public class AuthMexicoService {
         return commissionCategoryInfoList;
     }
 
+
+    public ResultInfo<AuthRentUserInfo> createCustomer(HttpServletRequest request, AuthRentUserInfo authRentUserInfo){
+        if (authRentUserDao.countOneByMac(authRentUserInfo) == 1) {
+            throw new XException(EnumResult.ERROR_DEVICE_USING);
+        }
+        if(devicePCPDao.countOne(new DevicePCPInfo(authRentUserInfo.getMac())) != 1){
+            throw new XException(EnumResult.ERROR_DEVICE_NO_CHECK_IN);
+        }
+        if(authRegisterUserDao.countByMac(new AuthRegisterUserInfo(authRentUserInfo.getMac())) == 1){
+            throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
+        }
+        CommissionCategoryInfo commissionCategoryInfo = commissionCategoryDao.selectOne("M2");
+        commissionCategoryInfo.setPrice();
+        commissionCategoryInfo.setFirstPay();
+        authRentUserInfo.setMac(authRentUserInfo.getMac().toUpperCase());
+        authRentUserInfo.setDistributor(AuthRentUserInfo.DISTRIBUTOR_LDM);
+        authRentUserInfo.setCategory(commissionCategoryInfo.getCategory());
+        authRentUserInfo.setClientKey(MD5Util.create16(authRentUserInfo.getMac()));
+        String activateTime = TimeUtil.getStrTime();
+        authRentUserInfo.setActivateTime(activateTime);
+        authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime,
+                commissionCategoryInfo.getExpires() + commissionCategoryInfo.getBonus()));
+        authRentUserInfo.setCardNumber("ldm");
+        authRentUserInfo.setExpirationDate("ldm");
+        authRentUserInfo.setSecurityKey("ldm");
+        authRentUserInfo.setDeposit(commissionCategoryInfo.getDeposit());
+        authRentUserInfo.setFirstPay(commissionCategoryInfo.getFirstPay());
+        authRentUserInfo.setMonthPay(commissionCategoryInfo.getMonthPay());
+        authRentUserInfo.setLdCommission(commissionCategoryInfo.getLdCommission());
+        authRentUserInfo.setLdeCommission(commissionCategoryInfo.getLdeCommission());
+        authRentUserInfo.setDealerCommission(commissionCategoryInfo.getDealerCommission());
+        authRentUserInfo.setSalesCommission(commissionCategoryInfo.getSalesCommission());
+        authRentUserInfo.setSvcCharge(commissionCategoryInfo.getSvcCharge());
+        authRentUserInfo.setPaymentType(AuthRentUserInfo.PAYMENT_CASH);
+        authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
+        authRentUserDao.insertOne(authRentUserInfo);
+        return ResultMaster.success(authRentUserInfo);
+    }
+
     @Transactional(rollbackFor = Exception.class)
-    public ResultInfo createCustomer(HttpServletRequest request, AuthRentUserInfo authRentUserInfo, int paymentMethod){
+    public ResultInfo createPayCustomer(HttpServletRequest request, AuthRentUserInfo authRentUserInfo, int paymentMethod){
         if (authRentUserDao.countOneByMac(authRentUserInfo) == 1) {
             if (!AuthRentUserInfo.STATUS_CANCELED.equals(authRentUserDao.selectStatusByMac(authRentUserInfo))) {
                 throw new XException(EnumResult.ERROR_DEVICE_USING);
@@ -112,7 +163,7 @@ public class AuthMexicoService {
         commissionCategoryInfo.setFirstPay();
         authRentUserInfo.setMac(authRentUserInfo.getMac().toUpperCase());
         authRentUserInfo.setDistributor(AuthRentUserInfo.DISTRIBUTOR_LDM);
-        authRentUserInfo.setClientKey(TokenUtil.create(authRentUserInfo.getMac(), System.currentTimeMillis() + ""));
+        authRentUserInfo.setClientKey(MD5Util.create16(authRentUserInfo.getMac()));
         String activateTime = TimeUtil.getStrTime();
         authRentUserInfo.setActivateTime(activateTime);
         authRentUserInfo.setExpiresTime(TimeUtil.getExpiresTime(activateTime,
@@ -136,7 +187,12 @@ public class AuthMexicoService {
             AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
                     .createFromAuthRentUser(authRentUserInfo, authRentUserInfo.getFirstPay() +
                             authRentUserInfo.getFirstPay() * AuthorizeTransactionInfo.TAX);
-            AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request);
+            AuthorizeTransactionInfo charge = null;
+            try {
+                charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request, authRentUserInfo.getClientKey());
+            } catch (Exception e) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+            }
             if (charge == null) {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
@@ -172,7 +228,9 @@ public class AuthMexicoService {
 
 
 
-
+    public List<AuthRentUserInfo> getMonthlyActivateUser(int year, int month){
+        return logPcpUserMonthlyMexicoDao.selectByMonth(YearOrMonthInfo.createNextMonthly(year, month, AuthRentUserInfo.DISTRIBUTOR_LDM));
+    }
 
     public List<SalesVolumeInDayOfMonthInfo> countSaleVolumeEveryDayInMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDM);

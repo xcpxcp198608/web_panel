@@ -6,14 +6,11 @@ import com.lowagie.text.Font;
 import com.lowagie.text.Image;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.*;
-import com.wiatec.panel.common.utils.EmailMaster;
-import com.wiatec.panel.common.utils.TextUtil;
+import com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.common.utils.UnitUtil;
 import com.wiatec.panel.oxm.pojo.AuthRentUserInfo;
-import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
-import com.wiatec.panel.oxm.pojo.SalesActivateCategoryInfo;
-import com.wiatec.panel.oxm.pojo.SalesGoldCategoryInfo;
+import com.wiatec.panel.oxm.pojo.commission.CommissionCategoryInfo;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +19,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.List;
 
 
@@ -37,29 +33,49 @@ public class RentalInvoiceUtil {
     private static final float SPACE = 8;
 
     public static void main(String[] args) throws Exception {
-        CommissionCategoryInfo commissionCategoryInfo = new CommissionCategoryInfo();
-        commissionCategoryInfo.setCategory(CommissionCategoryInfo.CATEGORY_P1);
-        commissionCategoryInfo.setDeposit(100F);
-        commissionCategoryInfo.setMonthPay(14.99F);
-        commissionCategoryInfo.setExpires(24);
-        commissionCategoryInfo.setActivatePay(30);
+        //contracted
+//        CommissionCategoryInfo commissionCategoryInfo = new CommissionCategoryInfo();
+//        commissionCategoryInfo.setCategory(CommissionCategoryInfo.CATEGORY_P1);
+//        commissionCategoryInfo.setDeposit(0F);
+//        commissionCategoryInfo.setMonthPay(29.99F);
+//        commissionCategoryInfo.setExpires(24);
+//        commissionCategoryInfo.setActivatePay(0);
+//        AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo();
+//        authRentUserInfo.setFirstName("Clotilde");
+//        authRentUserInfo.setLastName("Zamora");
+//        authRentUserInfo.setSalesName("LaLeona");
+//        authRentUserInfo.setDealerName("LDE");
+//        authRentUserInfo.setCardNumber("4815880007897392");
+//        authRentUserInfo.setEmail("ummami3181@yahoo.com");
+//        authRentUserInfo.setExpress(false);
+//        authRentUserInfo.setPostAddress("1214 W Cubbon St Santa Ana CA 92703");
+//        String pdf = createInvoice(authRentUserInfo,"40585089966",
+//                InvoiceInfoMaker.rentalContracted(commissionCategoryInfo));
+//        copyInvoice(pdf);
+//        System.out.println(pdf);
+
+        //monthly
+        AuthorizeTransactionRentalInfo authorizeTransactionRentalInfo = new AuthorizeTransactionRentalInfo();
+        authorizeTransactionRentalInfo.setCategory(CommissionCategoryInfo.CATEGORY_P2);
+        authorizeTransactionRentalInfo.setPrice(29.99F);
         AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo();
-        authRentUserInfo.setFirstName("Leo");
-        authRentUserInfo.setLastName("Ruiz");
-        authRentUserInfo.setSalesName("sales1");
-        authRentUserInfo.setDealerName("dealer1");
-        authRentUserInfo.setCardNumber("4111111111111111");
-        authRentUserInfo.setEmail("patrickxu@wiatec.com");
+        authRentUserInfo.setFirstName("Clotilde");
+        authRentUserInfo.setLastName("Zamora");
+        authRentUserInfo.setSalesName("LaLeona");
+        authRentUserInfo.setDealerName("LDE");
+        authRentUserInfo.setCardNumber("4815880007897392");
+        authRentUserInfo.setEmail("ummami3181@yahoo.com");
         authRentUserInfo.setExpress(false);
-        authRentUserInfo.setPostAddress("12522 Adler Dr Unit E whittier, CA 90606");
-        String pdf = createInvoice(authRentUserInfo,"3243243243dd2432",
-                InvoiceInfoMaker.rentalContracted(commissionCategoryInfo));
+        authRentUserInfo.setPostAddress("1214 W Cubbon St Santa Ana CA 92703");
+        String pdf = createInvoice(authRentUserInfo,"40585089966",
+                InvoiceInfoMaker.rentalMonthly(authorizeTransactionRentalInfo, 2, 24));
         copyInvoice(pdf);
         System.out.println(pdf);
-//        EmailMaster emailMaster = new EmailMaster();
-//        emailMaster.setInvoiceContent("sdf");
+//
+//        EmailMaster emailMaster = new EmailMaster(EmailMaster.SEND_FROM_LDE);
+//        emailMaster.setInvoiceContent("Clotilde");
 //        emailMaster.addAttachment(pdf);
-//        emailMaster.sendMessage("patrickxu@wiatec.com");
+//        emailMaster.sendMessage("ummami3181@yahoo.com");
     }
 
     //本地测试用

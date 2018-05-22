@@ -1,9 +1,8 @@
 package com.wiatec.panel.invoice;
 
 import com.wiatec.panel.authorize.AuthorizeTransactionRentalInfo;
-import com.wiatec.panel.oxm.pojo.CommissionCategoryInfo;
+import com.wiatec.panel.oxm.pojo.commission.CommissionCategoryInfo;
 import com.wiatec.panel.oxm.pojo.SalesActivateCategoryInfo;
-import com.wiatec.panel.oxm.pojo.SalesGoldCategoryInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;

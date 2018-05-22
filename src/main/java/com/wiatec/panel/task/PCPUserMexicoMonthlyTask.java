@@ -24,13 +24,13 @@ public class PCPUserMexicoMonthlyTask extends BackgroundTask {
     @Resource
     private AuthRentUserDao authRentUserDao;
 
-    @Scheduled(cron = "0 0 1 1-31 1-12 1-7")
+    @Scheduled(cron = "0 0 0 1 1-12 1-7")
     public void createMonthlyRecord(){
         logger.debug("PCP mexico user monthly record start ...");
         logPcpUserMonthlyMexicoDao = sqlSession.getMapper(LogPcpUserMonthlyMexicoDao.class);
         authRentUserDao = sqlSession.getMapper(AuthRentUserDao.class);
         List<AuthRentUserInfo> authRentUserInfoList = authRentUserDao
-                .selectAllByDistributor(AuthRentUserInfo.DISTRIBUTOR_LDM);
+                .selectAllActiveByDistributor(AuthRentUserInfo.DISTRIBUTOR_LDM);
         logPcpUserMonthlyMexicoDao.batchInsert(authRentUserInfoList);
     }
 }

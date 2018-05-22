@@ -1,6 +1,7 @@
 package com.wiatec.panel.web;
 
 import com.wiatec.panel.common.result.ResultInfo;
+import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.common.utils.TimeUtil;
 import com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo;
 import com.wiatec.panel.oxm.pojo.chart.admin.VolumeDistributionInfo;
@@ -60,9 +61,16 @@ public class AuthManager {
         return "manager/logs";
     }
 
-    @GetMapping(value = "/users")
-    public String users(HttpSession session, Model model){
-        return authManagerService.users(session, model);
+    @GetMapping(value = "/users/{page}")
+    public String users(HttpSession session, Model model, @PathVariable int page){
+//        return authManagerService.users(session, model, page);
+        return authManagerService.users1(session, model);
+    }
+
+    @GetMapping(value = "/users/list")
+    @ResponseBody
+    public ResultInfo listUsers(HttpSession session){
+        return authManagerService.listUsers(session);
     }
 
     @GetMapping(value = "/user/{id}")
@@ -87,9 +95,27 @@ public class AuthManager {
     @ResponseBody
     public ResultInfo updateLevel(HttpServletRequest request, @PathVariable int id, @PathVariable int level,
                                   @RequestBody AuthRegisterUserInfo authRegisterUserInfo){
+        if(TextUtil.isEmpty(authRegisterUserInfo.getExpiresTime())){
+            authRegisterUserInfo.setExpiresTime(new Date());
+        }
         return authManagerService.updateLevel(request, id, level,
                 new Date(TimeUtil.getUnixFromStr(authRegisterUserInfo.getExpiresTime())));
     }
+
+    /**
+     * export user information to excel file
+     * @return
+     */
+    @PutMapping(value = "/users/export")
+    @ResponseBody
+    public ResultInfo export(HttpServletRequest request, @RequestParam(value = "macs[]") String[] macs){
+        return authManagerService.export(request, macs);
+    }
+
+
+
+
+
 
     @GetMapping(value = "/chart/volume/{year}/{month}")
     @ResponseBody

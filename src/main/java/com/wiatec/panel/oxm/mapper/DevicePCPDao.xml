@@ -15,6 +15,7 @@
         <result column="rent_time" property="rentTime"/>
         <result column="sdcn" property="sdcn"/>
         <result column="checked" property="checked"/>
+        <result column="flag" property="flag"/>
         <result column="check_number" property="checkNumber"/>
         <result column="check_time" property="checkTime"/>
     </resultMap>
@@ -23,7 +24,7 @@
         SELECT device_rent.id, device_rent.mac, device_rent.distributor, device_rent.sales_id, device_rent.dealer_id,
             device_rent.admin_id, device_rent.create_time, device_rent.rented,
             device_rent.rent_time, device_rent.sdcn, device_rent.checked,
-            device_rent.check_number, device_rent.check_time,
+            device_rent.check_number, device_rent.check_time, device_rent.flag,
             auth_sales.username salesName
         FROM device_rent, auth_sales
         WHERE device_rent.sales_id = auth_sales.id

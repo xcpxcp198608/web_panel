@@ -13,6 +13,7 @@ public interface AuthDealerDao {
     List<AuthDealerInfo> selectAll();
     int countOne(AuthDealerInfo authDealerInfo);
     AuthDealerInfo selectOne(AuthDealerInfo authDealerInfo);
+    AuthDealerInfo selectOneById(int dealerId);
     int countUsername(AuthDealerInfo authDealerInfo);
     int countSSN(AuthDealerInfo authDealerInfo);
     int countEmail(AuthDealerInfo authDealerInfo);

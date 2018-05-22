@@ -51,9 +51,9 @@ $(function () {
         var td2 = document.createElement('td');
         td2.innerHTML = deviceInfo['mac'];
         var td3 = document.createElement('td');
-        td3.innerHTML = deviceInfo['createTime'];
+        td3.innerHTML = '<span class="text-muted">PENDING</span>';
         var td4 = document.createElement('td');
-        td4.innerHTML = '<span class="text-muted">PENDING</span>';
+        td4.innerHTML = deviceInfo['createTime'];
         var td5 = document.createElement('td');
         td5.innerHTML = deviceInfo['checkInTime'];
         tr.append(td1);

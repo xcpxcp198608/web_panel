@@ -33,6 +33,11 @@ public class DevicePCPInfo {
     private String checkNumber;
     private Date checkTime;
 
+    /**
+     * 特别标志， 默认0， 等于1时表示是墨西哥的76台前11个月无需付费
+     */
+    private int flag;
+
     public DevicePCPInfo() {
     }
 
@@ -170,6 +175,14 @@ public class DevicePCPInfo {
 
     public void setCheckTime(Date checkTime) {
         this.checkTime = checkTime;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 
     @Override

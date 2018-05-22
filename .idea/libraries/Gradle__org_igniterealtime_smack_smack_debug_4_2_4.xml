@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.igniterealtime.smack:smack-debug:4.2.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.igniterealtime.smack/smack-debug/4.2.4/9dc7002364bf3727cdbfc7a3e1a7806fce76cf98/smack-debug-4.2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.igniterealtime.smack/smack-debug/4.2.4/9ceb5a757e45c4c9255806cef73bc8a871bbeadb/smack-debug-4.2.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

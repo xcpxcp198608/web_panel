@@ -206,7 +206,7 @@
                         </div>
                         <input style="display:none" type="text" name="fakeusernameremembered"/>
                         <input style="display:none" type="password" name="fakepasswordremembered"/>
-                        <input type="password" class="form-control" placeholder="Double confirm with your password"
+                        <input type="password" class="form-control" placeholder="Double confirm with your authorization code"
                                id="ipAdminPassword" value="">
                     </div>
 

@@ -17,9 +17,10 @@ import com.wiatec.panel.common.result.EnumResult;
 import com.wiatec.panel.common.result.ResultInfo;
 import com.wiatec.panel.common.result.ResultMaster;
 import com.wiatec.panel.common.result.XException;
+import com.wiatec.panel.oxm.pojo.commission.*;
+import com.wiatec.panel.oxm.pojo.log.LogPcpCashActivateInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -47,6 +48,8 @@ public class AuthAdminService {
     @Resource
     private AuthRentUserDao authRentUserDao;
     @Resource
+    private AuthEmployeeDao authEmployeeDao;
+    @Resource
     private CommissionCategoryDao commissionCategoryDao;
     @Resource
     private AuthorizeTransactionRentalDao authorizeTransactionRentalDao;
@@ -60,6 +63,14 @@ public class AuthAdminService {
     private SalesActivateCategoryDao salesActivateCategoryDao;
     @Resource
     private SalesGoldCategoryDao salesGoldCategoryDao;
+    @Resource
+    private LogPcpDeviceCheckDao logPcpDeviceCheckDao;
+    @Resource
+    private LogPcpCashActivateDao logPcpCashActivateDao;
+    @Resource
+    private CommissionMonthlyDealerDao commissionMonthlyDealerDao;
+    @Resource
+    private CommissionMonthlySalesDao commissionMonthlySalesDao;
 
     public String home(){
         return "admin/home";
@@ -88,7 +99,7 @@ public class AuthAdminService {
             return ResultMaster.success(authDealerDao.selectOne(authDealerInfo));
         }catch (Exception e){
             logger.error("Exception:", e);
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
     }
 
@@ -99,7 +110,7 @@ public class AuthAdminService {
             return ResultMaster.success();
         }catch (Exception e){
             logger.error("Exception:", e);
-            throw new XException(EnumResult.ERROR_SERVER_EXCEPTION);
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
     }
 
@@ -146,8 +157,13 @@ public class AuthAdminService {
                     .createFromAuthSales(authSalesInfo1, amount);
 
             //2. process transaction and save transaction info
-            AuthorizeTransactionInfo charge = new AuthorizeTransaction()
-                    .charge(authorizeTransactionInfo);
+            AuthorizeTransactionInfo charge = null;
+            try {
+                charge = new AuthorizeTransaction()
+                        .charge(authorizeTransactionInfo, request, authSalesInfo1.getUsername());
+            } catch (Exception e) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+            }
             if (charge == null) {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
@@ -179,11 +195,27 @@ public class AuthAdminService {
         return ResultMaster.success();
     }
 
-    public String showSalesDetail(int salesId, Model model){
+    public String showDealerDetail(int dealerId, int year, int month, Model model){
+        AuthDealerInfo authDealerInfo = authDealerDao.selectOneById(dealerId);
+        model.addAttribute("authDealerInfo", authDealerInfo);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, 0);
+        List<CommissionMonthlyDealerInfo> commissionMonthlyDealerInfoList = commissionMonthlyDealerDao
+                .selectByDealerIdAndYearMonth(authDealerInfo.getId(),
+                        yearOrMonthInfo.getStart(),
+                        yearOrMonthInfo.getEnd());
+        model.addAttribute("commissionMonthlyDealerInfoList", commissionMonthlyDealerInfoList);
+        return "admin/dealer_detail";
+    }
+
+    public String showSalesDetail(int salesId, int year, int month, Model model){
         AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(salesId);
         model.addAttribute("authSalesInfo", authSalesInfo);
-        List<DevicePCPInfo> rentedDevicePCPInfoList = devicePCPDao.selectRentedBySalesId(salesId);
-        model.addAttribute("rentedDeviceRentInfoList", rentedDevicePCPInfoList);
+        YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, 0);
+        List<CommissionMonthlySalesInfo> commissionMonthlySalesInfoList = commissionMonthlySalesDao
+                .selectBySalesIdAndYearMonth(authSalesInfo.getId(),
+                        yearOrMonthInfo.getStart(),
+                        yearOrMonthInfo.getEnd());
+        model.addAttribute("commissionMonthlySalesInfoList", commissionMonthlySalesInfoList);
         return "admin/sales_detail";
     }
 
@@ -240,20 +272,27 @@ public class AuthAdminService {
     @Transactional(rollbackFor = Exception.class)
     public ResultInfo updateUserActivateWithCash(HttpServletRequest request,
                                                  String key, String password){
-        AuthAdminInfo authAdminInfo = getAdminInfo(request);
-        if(!password.equals(authAdminInfo.getPassword())){
-            throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
+        AuthEmployeeInfo authEmployeeInfo = authEmployeeDao.selectOneByCode(password);
+        if(authEmployeeInfo == null){
+            throw new XException(1001, "authorization code error");
         }
+
         AuthRentUserInfo authRentUserInfo = new AuthRentUserInfo();
         authRentUserInfo.setStatus(AuthRentUserInfo.STATUS_ACTIVATE);
         authRentUserInfo.setClientKey(key);
         authRentUserDao.updateUserStatus(authRentUserInfo);
+
         AuthRentUserInfo authRentUserInfo1 = authRentUserDao.selectOneByClientKey(key);
         devicePCPDao.updateDeviceToRented(authRentUserInfo1.getMac());
         int sdcnCount = devicePCPDao.countSDCNBySalesId(authRentUserInfo1.getSalesId());
         if(sdcnCount >= AuthSalesInfo.SDCN_NOTICE_COUNT){
             authSalesDao.updateSDCNById(authRentUserInfo1.getSalesId());
         }
+
+        LogPcpCashActivateInfo logPcpCashActivateInfo = new LogPcpCashActivateInfo();
+        logPcpCashActivateInfo.setMac(authRentUserInfo1.getMac());
+        logPcpCashActivateInfo.setExecutor(authEmployeeInfo.getUsername());
+        logPcpCashActivateDao.insertOne(logPcpCashActivateInfo);
         return ResultMaster.success();
     }
 
@@ -274,7 +313,7 @@ public class AuthAdminService {
             return ResultMaster.success(authRentUserInfo);
         }catch (Exception e){
             logger.error("Exception:", e);
-            return ResultMaster.error(EnumResult.ERROR_SERVER_EXCEPTION);
+            return ResultMaster.error(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
     }
 
@@ -335,8 +374,9 @@ public class AuthAdminService {
     public ResultInfo bathUpdateDeviceToSpecialSales(HttpServletRequest request, String [] macs,
                                                      int salesId, String password, boolean free){
         AuthAdminInfo authAdminInfo = getAdminInfo(request);
-        if(!authAdminInfo.getPassword().equals(password)){
-            throw new XException(EnumResult.ERROR_USERNAME_PASSWORD_NO_MATCH);
+        AuthEmployeeInfo authEmployeeInfo = authEmployeeDao.selectOneByCode(password);
+        if(authEmployeeInfo == null){
+            throw new XException(1001, "authorization code error");
         }
         if(macs.length <= 0 ){
             throw new XException(EnumResult.ERROR_MAC_FORMAT);
@@ -357,14 +397,56 @@ public class AuthAdminService {
         if(!free) {
             AuthorizeTransactionInfo authorizeTransactionInfo = AuthorizeTransactionInfo
                     .createFromAuthSales(authSalesInfo, CommissionCategoryInfo.DEPOSIT * macs.length);
-            AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request);
+            AuthorizeTransactionInfo charge = null;
+            try {
+                charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request, authSalesInfo.getUsername());
+            } catch (Exception e) {
+                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+            }
             if (charge == null) {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
             }
             authorizeTransactionSalesDepositDao.insertOne(AuthorizeTransactionSalesDepositInfo
                     .createDepositForRepStore(authSalesInfo, charge));
         }
+
+        logPcpDeviceCheckDao.batchInsert(macs, authEmployeeInfo.getUsername());
         return ResultMaster.success(authSalesInfo);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo salesCommissionChecked(HttpServletRequest request, String[] ids, int salesId, String checkNumber){
+        if(ids.length <= 0 ){
+            throw new XException(EnumResult.ERROR_MAC_FORMAT);
+        }
+        if(TextUtil.isEmpty(checkNumber)){
+            throw new XException(1001, "check number error");
+        }
+        AuthSalesInfo authSalesInfo = authSalesDao.selectOneById(salesId);
+        if(authSalesInfo == null){
+            throw new XException(1100, "rep not exists");
+        }
+        if(authSalesInfo.isGold() && !authSalesInfo.isSdcn()){
+            throw new XException(1100, "sales volume less than 5");
+        }
+        commissionMonthlySalesDao.batchUpdateToCheckedByIds(ids, checkNumber);
+        return ResultMaster.success();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ResultInfo dealerCommissionChecked(HttpServletRequest request, String[] ids, int dealerId, String checkNumber){
+        if(ids.length <= 0 ){
+            throw new XException(EnumResult.ERROR_MAC_FORMAT);
+        }
+        if(TextUtil.isEmpty(checkNumber)){
+            throw new XException(1001, "check number error");
+        }
+        AuthDealerInfo authDealerInfo = authDealerDao.selectOneById(dealerId);
+        if(authDealerInfo == null){
+            throw new XException(1100, "dealer not exists");
+        }
+        commissionMonthlyDealerDao.batchUpdateToCheckedByIds(ids, checkNumber);
+        return ResultMaster.success();
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -424,9 +506,9 @@ public class AuthAdminService {
         return authorizeTransactionRentalDao.selectAllDealersCommissionByMonth(yearOrMonthInfo);
     }
 
-    public List<AllDealerMonthCommissionInfo> getAllDealerTotalCommissionByMonth(int year, int month){
+    public List<DealerMonthlyCommission> getAllDealerTotalCommissionByMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
-        return authorizeTransactionRentalDao.selectAllDealersTotalCommissionByMonth(yearOrMonthInfo);
+        return commissionMonthlyDealerDao.selectAllDealerCommissionByYearAndMonth(yearOrMonthInfo);
     }
 
     public List<AllDealerMonthCommissionInfo> getAllDealerActivationCommByMonth(int year, int month){
@@ -439,9 +521,9 @@ public class AuthAdminService {
         return authorizeTransactionRentalDao.selectAllSalesCommissionByMonth(yearOrMonthInfo);
     }
 
-    public List<AllSalesMonthCommissionInfo> getAllSalesTotalCommissionByMonth(int year, int month){
+    public List<SalesMonthlyCommission> getAllSalesTotalCommissionByMonth(int year, int month){
         YearOrMonthInfo yearOrMonthInfo = new YearOrMonthInfo(year, month, AuthRentUserInfo.DISTRIBUTOR_LDE);
-        return authorizeTransactionRentalDao.selectAllSalesTotalCommissionByMonth(yearOrMonthInfo);
+        return commissionMonthlySalesDao.selectAllSalesCommissionByYearAndMonth(yearOrMonthInfo);
     }
 
     public List<AllSalesMonthCommissionInfo> getAllSalesActivationCommByMonth(int year, int month){

@@ -24,7 +24,7 @@ public class EmailMaster {
 
 	private static final String LD_SEND_ADDRESS = "bactivation@legacy.direct";
 	private static final String LD_USERNAME = "bactivation@legacy.direct";
-	private static final String LD_PASSWORD ="Ihatespam123#";
+	private static final String LD_PASSWORD ="Wangwang123#";
 
 	private static final String LDE_SEND_ADDRESS = "activation@ldeufonico.com";
 	private static final String LDE_USERNAME = "activation@ldeufonico.com";
@@ -61,6 +61,16 @@ public class EmailMaster {
 
 	public void setEmailSubject(String subject){
 		this.emailSubject = subject;
+	}
+
+	public void setMobileEmailContent(String basePath, String userName ,String token) {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Dear "+userName+":<br/>");
+		stringBuilder.append("<br/>");
+		stringBuilder.append("Legacy Direct"+"<br/>");
+		stringBuilder.append("<a href='" + basePath + "/activate/"+token+"'>" +
+				"ACTIVATE MY ACCOUNT</a>"+"<br/><br/>");
+		this.emailContent = stringBuilder.toString();
 	}
 
 	public void setEmailContent(String basePath, String userName ,String token, String language){
