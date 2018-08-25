@@ -20,4 +20,6 @@ public interface LdFriendDao {
     int insertOne(@Param("userId") int userId, @Param("friendId") int friendId, @Param("approved") int approved);
     int updateApproved(@Param("userId") int userId, @Param("friendId") int friendId);
     int deleteOne(@Param("userId") int userId, @Param("friendId") int friendId);
+
+    int updateAlias(@Param("userId") int userId, @Param("friendId") int friendId, @Param("alias") String alias);
 }

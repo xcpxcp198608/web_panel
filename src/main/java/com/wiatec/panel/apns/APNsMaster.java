@@ -28,8 +28,8 @@ public class APNsMaster {
     public static final String ACTION_TRENDING = "ACTION_TRENDING";
     public static final String ACTION_NEW_FRIEND_REQUEST = "ACTION_NEW_FRIEND_REQUEST";
 
-//    private static final String PATH = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/aps_development.com.legacy.bvision.p12";
-    private static final String PATH = "/home/java_app/panel/csr/aps_development.com.legacy.bvision.p12";
+    private static final String PATH = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/aps_development.com.legacy.bvision.p12";
+//    private static final String PATH = "/home/java_app/panel/csr/aps_development.com.legacy.bvision.p12";
     private static ApnsService service;
     private static DeviceTokenDao deviceTokenDao;
 

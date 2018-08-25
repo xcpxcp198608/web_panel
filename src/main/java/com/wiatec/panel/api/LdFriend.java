@@ -77,4 +77,17 @@ public class LdFriend {
         return ldFriendService.friendOperation(action, userId, friendId);
     }
 
+    /**
+     * set friend alias
+     * @param userId user id
+     * @param friendId friend id
+     * @param alias alias
+     * @return ResultInfo
+     */
+    @PostMapping("/alias/{userId}/{friendId}")
+    public ResultInfo setFriendAlias(@PathVariable int userId, @PathVariable int friendId,
+                                     String alias){
+        return ldFriendService.setFriendAlias(userId, friendId, alias);
+    }
+
 }

@@ -2,6 +2,7 @@ package com.wiatec.panel.service;
 
 import com.wiatec.panel.apns.APNsMaster;
 import com.wiatec.panel.common.result.*;
+import com.wiatec.panel.common.utils.TextUtil;
 import com.wiatec.panel.oxm.dao.AuthRegisterUserDao;
 import com.wiatec.panel.oxm.dao.LdFollowDao;
 import com.wiatec.panel.oxm.dao.LdFriendDao;
@@ -33,14 +34,12 @@ public class LdFriendService {
     private AuthRegisterUserDao authRegisterUserDao;
 
     public ResultInfo<AuthRegisterUserInfo> getAllFriends(int userId){
-        List<AuthRegisterUserInfo> userInfoList = new ArrayList<>();
-        AuthRegisterUserInfo userInfo = authRegisterUserDao.selectOneById(41);
-        userInfo.setPassword("");
-        userInfoList.add(userInfo);
-        List<AuthRegisterUserInfo> userInfoList1 = ldFriendDao.selectAllFriendsByUserId(userId);
-        if(userInfoList1 != null){
-            userInfoList.addAll(userInfoList1);
+        List<AuthRegisterUserInfo> userInfoList = ldFriendDao.selectAllFriendsByUserId(userId);
+        if(userInfoList == null || userInfoList.size() <= 0){
+            throw new XException(EnumResult.ERROR_NO_FOUND);
         }
+
+
         return ResultMaster.success(userInfoList);
     }
 
@@ -144,5 +143,18 @@ public class LdFriendService {
         if(ldFollowDao.insertOne(followerId, followId) != 1){
             throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
         }
+    }
+
+    public ResultInfo setFriendAlias(int userId, int friendId, String alias){
+        if(TextUtil.isEmpty(alias)){
+            throw new XException(500, "alias is empty");
+        }
+        if(alias.length() > 20){
+            throw new XException(500, "alias length too long");
+        }
+        if(ldFriendDao.updateAlias(userId,friendId, alias) != 1){
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+        }
+        return ResultMaster.success();
     }
 }

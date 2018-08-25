@@ -35,6 +35,7 @@ public class AuthRegisterUserInfo {
     private boolean bvision;
     private boolean btv;
     private String profile;
+    private String alias;
 
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -50,6 +51,8 @@ public class AuthRegisterUserInfo {
 
     private boolean experience;
     private boolean online;
+    private boolean channelActive;
+
 
     public AuthRegisterUserInfo() {
     }
@@ -321,6 +324,22 @@ public class AuthRegisterUserInfo {
         this.profile = profile;
     }
 
+    public boolean getChannelActive() {
+        return channelActive;
+    }
+
+    public void setChannelActive(boolean channelActive) {
+        this.channelActive = channelActive;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
     @Override
     public String toString() {
         return "AuthRegisterUserInfo{" +
@@ -356,6 +375,8 @@ public class AuthRegisterUserInfo {
                 ", modifyTime=" + modifyTime +
                 ", experience=" + experience +
                 ", online=" + online +
+                ", channelActive=" + channelActive +
+                ", alias=" + alias +
                 '}';
     }
 }

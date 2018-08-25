@@ -192,9 +192,9 @@ public class AuthManagerService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String path = ExcelExporter.export(request, authRegisterUserInfoList, list, "register user information");
-        String fileName = ExcelExporter.copyFile(path);
-        String url = "http://www.ldlegacy.com:8899/static/panel/export/" + fileName;
+        String fileName = ExcelExporter.export(request, authRegisterUserInfoList, list, "register user information");
+//        String fileName = ExcelExporter.copyFile(path);
+        String url = "http://export.ldlegacy.com:8033/panel/export/" + fileName;
         return ResultMaster.success(url);
     }
 

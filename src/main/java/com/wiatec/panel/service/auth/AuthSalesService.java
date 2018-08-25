@@ -180,7 +180,11 @@ public class AuthSalesService {
             try {
                 charge = new AuthorizeTransaction().charge(authorizeTransactionInfo, request, authRentUserInfo.getClientKey());
             } catch (Exception e) {
-                throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+                if(e != null && e.getMessage() != null){
+                    throw new XException(e.getMessage());
+                }else {
+                    throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);
+                }
             }
             if (charge == null) {
                 throw new XException(EnumResult.ERROR_TRANSACTION_FAILURE);

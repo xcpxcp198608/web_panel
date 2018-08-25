@@ -14,16 +14,28 @@ public class AuthorizeTransactionTest {
     /**
      * PS: change environment (/Users/xuchengpeng/IdeaProjects/panel/out/test/classes/authorize.xml)
      *     to product and change xml path to local
+     *
+     *     /Users/xuchengpeng/IdeaProjects/panel/src/main/java/com/wiatec/panel/authorize/AuthorizeTransaction.java
+     *     change path to local
      */
     @Test
     public void charge() throws Exception {
+//        AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
+//        authorizeTransactionInfo.setCardNumber("4789620302122803");
+//        authorizeTransactionInfo.setExpirationDate("0321");
+//        authorizeTransactionInfo.setSecurityKey("927");
+//        authorizeTransactionInfo.setAmount(172.79F);
+//        AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo,
+//                "123131313");
+//        System.out.println(charge);
+
         AuthorizeTransactionInfo authorizeTransactionInfo = new AuthorizeTransactionInfo();
-//        authorizeTransactionInfo.setCardNumber("4168340001318104");
-//        authorizeTransactionInfo.setExpirationDate("1121");
-//        authorizeTransactionInfo.setSecurityKey("606");
-        authorizeTransactionInfo.setAmount(172.79F);
+//        authorizeTransactionInfo.setCardNumber("4254215852683852");
+//        authorizeTransactionInfo.setExpirationDate("0719");
+//        authorizeTransactionInfo.setSecurityKey("665");
+//        authorizeTransactionInfo.setAmount(32.39F);
         AuthorizeTransactionInfo charge = new AuthorizeTransaction().charge(authorizeTransactionInfo,
-                "c6b707c73a75dd21");
+                "123131313");
         System.out.println(charge);
     }
 

@@ -3,7 +3,7 @@ package com.wiatec.panel.common.service.impl;
 import com.google.common.collect.Lists;
 import com.wiatec.panel.common.result.XException;
 import com.wiatec.panel.common.service.IFileService;
-import com.wiatec.panel.common.utils.FTPUtil;
+import com.wiatec.panel.common.utils.FtpUtils;
 import com.wiatec.panel.common.utils.TextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,7 @@ public class FileServiceImpl implements IFileService {
         try {
             file.transferTo(uploadFile);
             if(!TextUtil.isEmpty(ftpPath)) {
-                FTPUtil.upload(Lists.newArrayList(uploadFile), ftpPath);
+                FtpUtils.upload(Lists.newArrayList(uploadFile), ftpPath);
                 uploadFile.delete();
             }
         } catch (IOException e) {

@@ -58,16 +58,14 @@ public class ExcelExporter {
             //如果web项目，1、设置下载框的弹出（设置response相关参数)；2、通过httpservletresponse.getOutputStream()获取
             // 本地测试路径
 //            String outPath = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/export/" + fileName;
-            String outPath;
-            if(request == null){
-                outPath = "/home/java_app/panel/web/export/" + fileName;
-            }else{
-                outPath = PathUtil.getRealPath(request) + "export/" + fileName;
-            }
+            String outPath = "/home/static/panel/export/" + fileName;
+//            }else{
+//                outPath = PathUtil.getRealPath(request) + "export/" + fileName;
+//            }
             OutputStream out = new FileOutputStream(outPath);
             workbook.write(out);
             out.close();
-            return outPath;
+            return fileName;
         }
         catch (Exception e) {
             logger.error("System exception: ", e);

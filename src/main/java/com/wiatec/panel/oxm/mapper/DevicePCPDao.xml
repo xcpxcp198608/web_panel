@@ -57,9 +57,9 @@
     </select>
 
     <select id="selectAllByDis" resultMap="devicePCPInfo">
-        <include refid="select"/>
-        AND distributor = #{distributor}
-        ORDER BY device_rent.create_time DESC
+        SELECT * FROM device_rent
+        WHERE distributor = #{distributor}
+        ORDER BY create_time DESC
     </select>
 
     <select id="selectBySalesId" resultMap="devicePCPInfo">

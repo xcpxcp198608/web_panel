@@ -56,9 +56,9 @@ public class AuthRegisterUserService {
         if(devicePCPDao.countOne(new DevicePCPInfo(authRegisterUserInfo.getMac())) >= 1){
             throw new XException(1001, "the device only for PCP");
         }
-        if(deviceMLMDao.countOneByMac(authRegisterUserInfo.getMac()) != 1){
-            throw new XException(1001, "Please contact support for registation with reference code BMT.");
-        }
+//        if(deviceMLMDao.countOneByMac(authRegisterUserInfo.getMac()) != 1){
+//            throw new XException(1001, "Please contact support for registation with reference code BMT.");
+//        }
         if(authRegisterUserDao.countByMac(authRegisterUserInfo) == 1){
             throw new XException(EnumResult.ERROR_DEVICE_ALREADY_REGISTER);
         }

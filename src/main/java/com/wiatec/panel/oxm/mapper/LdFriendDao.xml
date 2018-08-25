@@ -4,7 +4,7 @@
 <mapper namespace="com.wiatec.panel.oxm.dao.LdFriendDao">
 
     <select id="selectAllFriendsByUserId" resultType="com.wiatec.panel.oxm.pojo.AuthRegisterUserInfo">
-      SELECT friend_id,
+      SELECT friend_id, alias,
           auth_register_user.id, username, email, phone, first_name, last_name, level,
           active_time, last_online_time, auth_register_user.create_time, device_model,
           rom_version, ui_version, gender, icon, profile, bvision, btv
@@ -45,7 +45,12 @@
     </insert>
 
     <update id="updateApproved">
-      UPDATE IGNORE ld_relation_friends SET approved = 1
+      UPDATE IGNORE ld_relation_friends SET approved = 1, modify_time = now()
+      WHERE user_id = #{userId} AND friend_id = #{friendId}
+    </update>
+
+    <update id="updateAlias">
+      UPDATE IGNORE ld_relation_friends SET alias = #{alias}, modify_time = now()
       WHERE user_id = #{userId} AND friend_id = #{friendId}
     </update>
 

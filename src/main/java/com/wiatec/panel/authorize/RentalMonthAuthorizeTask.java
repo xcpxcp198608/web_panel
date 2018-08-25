@@ -110,7 +110,7 @@ public class RentalMonthAuthorizeTask {
                 logger.debug("= payment method is credit card");
                 logger.debug("= checking check out on this month");
                 //check is already check out on this month
-                if(authorizeTransactionRentalDao.countByKeyAndDate(authRentUserInfo.getClientKey(), today) == 1){
+                if(authorizeTransactionRentalDao.countByKeyAndDate(authRentUserInfo.getClientKey(), today) >= 1){
                     logger.debug("= {} already check out on this month", authRentUserInfo.getClientKey());
                     logger.debug("====================================================================");
                     return;

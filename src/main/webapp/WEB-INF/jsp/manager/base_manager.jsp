@@ -27,7 +27,7 @@
                     <i class="fa fa-globe fa-lg"></i>&nbsp;Geographic
                 </a>
             </li>
-            <c:if test="${permission > 100}">
+            <c:if test="${permission > 101}">
                 <li class="nav-item">
                     <a class="nav-link" href="/panel/manager/logs">
                         <i class="fa fa-building fa-lg"></i>&nbsp;Logs

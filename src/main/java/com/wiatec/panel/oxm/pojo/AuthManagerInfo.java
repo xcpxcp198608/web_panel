@@ -7,8 +7,8 @@ import javax.validation.constraints.Size;
  */
 public class AuthManagerInfo {
 
-    public static final int LEVEL_HIGHEST = 102;
-    public static final int LEVEL_HIGH = 101;
+    public static final int LEVEL_HIGHEST = 110;
+    public static final int LEVEL_HIGH = 105;
     public static final int LEVEL_NORMAL = 0;
 
     private int id;

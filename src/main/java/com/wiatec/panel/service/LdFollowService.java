@@ -68,16 +68,20 @@ public class LdFollowService {
         if(userId == friendId){
             throw new XException("can not follow yourself");
         }
+        AuthRegisterUserInfo friendInfo = authRegisterUserDao.selectOneById(friendId);
+        if(friendInfo == null){
+            throw new XException(EnumResult.ERROR_INTERNAL_SERVER_SQL);
+        }
         if(action == 0){
             i = ldFollowDao.deleteOne(userId, friendId);
-            logUserOperationDao.insertOne(userId, LogUserOperationInfo.TYPE_DELETE, "cancel follow " + friendId);
+            logUserOperationDao.insertOne(userId, LogUserOperationInfo.TYPE_DELETE, "cancel follow " + friendInfo.getUsername());
 
         }else if(action == 1){
             if(ldFollowDao.selectOne(userId, friendId) >= 1){
                 throw new XException("relation already exists");
             }
             i = ldFollowDao.insertOne(userId, friendId);
-            logUserOperationDao.insertOne(userId, LogUserOperationInfo.TYPE_INSERT, "create follow " + friendId);
+            logUserOperationDao.insertOne(userId, LogUserOperationInfo.TYPE_INSERT, "create follow " + friendInfo.getUsername());
         }else{
             throw new XException("action error");
         }

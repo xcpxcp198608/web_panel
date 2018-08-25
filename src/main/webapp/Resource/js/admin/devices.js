@@ -151,14 +151,14 @@ $(function () {
             showNotice('have no choose device');
             return;
         }
-        for(var i = 0; i < currentRows.length; i ++){
-            var row = currentRows[i];
-            var sales = tbDevices.rows[row].cells[3].children[0].innerHTML;
-            if(sales !== 'pcp'){
-                showNotice(tbDevices.rows[row].cells[2].innerHTML + ' can not update');
-                return;
-            }
-        }
+        // for(var i = 0; i < currentRows.length; i ++){
+        //     var row = currentRows[i];
+        //     var sales = tbDevices.rows[row].cells[3].children[0].innerHTML;
+        //     if(sales !== 'pcp'){
+        //         showNotice(tbDevices.rows[row].cells[2].innerHTML + ' can not update');
+        //         return;
+        //     }
+        // }
 
         $('#spAmount').html(currentMacs.length * 100 + '.00');
         $('#modalUpdate').modal('show');

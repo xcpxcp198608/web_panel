@@ -47,9 +47,9 @@ public class AuthorizeConfig {
             merchantAuthenticationType.setName(apiId);
             merchantAuthenticationType.setTransactionKey(transactionKey);
             ApiOperationBase.setMerchantAuthentication(merchantAuthenticationType);
-            logger.debug("Authorize environment: sandbox");
-            logger.debug("api id: {}", apiId);
-            logger.debug("transaction key: {}", transactionKey);
+            logger.info("Authorize environment: sandbox");
+            logger.info("api id: {}", apiId);
+            logger.info("transaction key: {}", transactionKey);
             return;
         }
         Element production = root.element("production");
@@ -62,9 +62,9 @@ public class AuthorizeConfig {
             merchantAuthenticationType.setName(apiId);
             merchantAuthenticationType.setTransactionKey(transactionKey);
             ApiOperationBase.setMerchantAuthentication(merchantAuthenticationType);
-            logger.debug("Authorize environment: production");
-            logger.debug("api id: {}", apiId);
-            logger.debug("transaction key: {}", transactionKey);
+            logger.info("Authorize environment: production");
+            logger.info("api id: {}", apiId);
+            logger.info("transaction key: {}", transactionKey);
         }
     }
 }

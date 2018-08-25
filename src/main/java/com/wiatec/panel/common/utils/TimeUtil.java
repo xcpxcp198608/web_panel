@@ -15,25 +15,6 @@ public class TimeUtil {
     public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
     public static final long DEFAULT_TIME = 1483200000000L;
 
-    public static void main (String [] args){
-        long unixFromStr = getUnixFromStr("2018-02-06 00:00:00");
-        System.out.println(unixFromStr);
-
-        boolean outExpires = isOutExpires("2018-02-08 00:00:00");
-        System.out.println(outExpires);
-
-        String strTime = getStrTime(DEFAULT_TIME);
-        System.out.println(strTime);
-
-//        Date date = new Date(1519200000000L);
-        Date date = new Date(1519200000000L);
-        boolean b = date.after(new Date());
-        System.out.println(b);
-
-        Date d = new Date("2018-02-28 00:00:00");
-        System.out.println(d);
-    }
-
 
     public static long getUnixFromStr(String time){
         if(TextUtil.isEmpty(time)){
@@ -117,12 +98,112 @@ public class TimeUtil {
     }
 
     public static boolean isOutExpires(String expiresTime) {
-        System.out.println(expiresTime);
         long uTime = TimeUtil.getUnixFromStr(expiresTime);
         long sys = System.currentTimeMillis();
-        System.out.println("ex: " + uTime);
-        System.out.println("sys: " + sys);
         return uTime > 0 && sys > uTime;
+    }
+
+    /**
+     * 获取当前时间的字符串格式
+     * @return yyyy-MM-dd HH:mm:ss
+     */
+    public static String toStr(){
+        return toStr(new Date(System.currentTimeMillis()));
+    }
+
+    /**
+     * 获取指定unix毫秒数对应的时间字符串
+     * @param milliseconds  milliseconds
+     * @return yyyy-MM-dd HH:mm:ss
+     */
+    public static String toStr(long milliseconds){
+        return toStr(new Date(milliseconds));
+    }
+
+    /**
+     * 获取指定date对应的时间字符串
+     * @param date date
+     * @return milliseconds
+     */
+    public static String toStr(Date date){
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(date);
+    }
+
+    /**
+     * 判断指定日期是否已过期
+     * @param expiresDate expiresDate
+     * @return boolean
+     */
+    public static boolean isExpires(Date expiresDate){
+        return expiresDate.before(new Date());
+    }
+
+    /**
+     * 获取从现在起指定month后的结束date
+     * @param month month
+     * @return end date
+     */
+    public static Date getExpires(int month){
+        return getExpires(new Date(), month);
+    }
+
+    /**
+     * 获取指定起始date在指定month后的结束date
+     * @param date start date
+     * @param month month
+     * @return end date
+     */
+    public static Date getExpires(Date date, int month){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, month);
+        return calendar.getTime();
+    }
+
+    /**
+     * 获取字符串格式时间对应的unix时间戳
+     * @param date 字符串时间 yyyy-MM-dd or yyyy-MM-dd HH:mm:ss
+     * @return unix时间戳
+     */
+    public static long toUnix(String date){
+        if(TextUtil.isEmpty(date)){
+            return 0;
+        }
+        date = date.trim();
+        try {
+            Date d;
+            if(date.length() == 10){
+                d = new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(date);
+            }else{
+                d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).parse(date);
+            }
+            return toUnix(d);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    /**
+     * 获取指定date对应的unix时间戳
+     * @param date date
+     * @return unix时间戳
+     */
+    public static long toUnix(Date date){
+        return date.getTime();
+    }
+
+
+    public static void main (String [] args){
+        System.out.println(toStr());
+        System.out.println(toStr(new Date()));
+        System.out.println(toStr(1523912301000L));
+        System.out.println(isExpires(new Date(1523912301000L)));
+        System.out.println(getExpires(5));
+        System.out.println(getExpires(new Date(1523912301000L), 5));
+        System.out.println(toUnix(new Date()));
+        System.out.println(toUnix("2018-01-01  "));
+        System.out.println(toUnix("2018-01-01 00:00:00"));
+        System.out.println(getStrDate());
     }
 
 }
