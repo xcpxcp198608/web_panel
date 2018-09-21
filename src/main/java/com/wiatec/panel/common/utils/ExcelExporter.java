@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -52,23 +53,41 @@ public class ExcelExporter {
         createHeadRow(titleList);
         createContentRow(dataList, titleList);
         //autoSizeColumn(titleMap.size());
+        OutputStream out = null;
         try {
             UUID uuid = UUID.randomUUID();
             String fileName = uuid + ".xls";
-            //如果web项目，1、设置下载框的弹出（设置response相关参数)；2、通过httpservletresponse.getOutputStream()获取
-            // 本地测试路径
-//            String outPath = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/export/" + fileName;
-            String outPath = "/home/static/panel/export/" + fileName;
-//            }else{
-//                outPath = PathUtil.getRealPath(request) + "export/" + fileName;
-//            }
-            OutputStream out = new FileOutputStream(outPath);
+//            //如果web项目，1、设置下载框的弹出（设置response相关参数)；2、通过httpservletresponse.getOutputStream()获取
+//            // 本地测试路径
+////            String outPath = "/Users/xuchengpeng/IdeaProjects/panel/src/main/resources/export/" + fileName;
+//            String outPath = "/home/static/panel/export/" + fileName;
+////            }else{
+////                outPath = PathUtil.getRealPath(request) + "export/" + fileName;
+////            }
+//            OutputStream out = new FileOutputStream(outPath);
+//            workbook.write(out);
+//            out.close();
+
+            String path = System.getProperty("java.class.path");
+            int firstIndex = path.lastIndexOf(System.getProperty("path.separator")) + 1;
+            int lastIndex = path.lastIndexOf(File.separator) + 1;
+            path = path.substring(firstIndex, lastIndex);
+            String outPath = path + "/" + fileName;
+            out = new FileOutputStream(outPath);
             workbook.write(out);
-            out.close();
+            copyFile(outPath);
             return fileName;
         }
         catch (Exception e) {
             logger.error("System exception: ", e);
+        }finally {
+            if(out != null){
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return "";
     }
